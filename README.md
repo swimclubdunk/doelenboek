@@ -11,6 +11,7 @@ No account, no install, no server. It's one HTML file that runs in your browser.
 
 - **Children:** each child gets a card with an animal avatar and a progress bar per subject.
 - **Activities:** log a lesson, outing or project, choose who took part, and tag the minimum goals it covered.
+- **Photos:** attach up to 24 photos per activity. They show as thumbnails on the activity; hover to preview, click to view full size. Photos are resized in your browser before they're saved.
 - **Coverage:** calculated from your activities, so it's always correct. Delete an activity and only the goals nothing else covers reopen.
 - **32 built-in goals:** kindergarten goals for Nederlands and Muzische vorming. You can add your own goals or import more from Excel or CSV.
 - **Report:** a CSV per child (goal, covered or open, and the activities that covered it). Handy as evidence for the exam board.
@@ -18,14 +19,14 @@ No account, no install, no server. It's one HTML file that runs in your browser.
 
 ## ⚠️ Your data lives in your browser
 
-Everything is stored in your browser's local storage on **this device only**. Nothing is uploaded anywhere.
+Everything (photos included) is stored in your browser on **this device only**. Nothing is uploaded anywhere.
 
 That also means:
 
 - Clearing your browser data, using private browsing, or switching browser or device = **an empty app**.
 - There is no sync between devices or people.
 
-**Download a backup every now and then** via **Gegevens → Back-up downloaden**. The app reminds you when your last backup is more than 14 days old. **Back-up terugzetten** restores it on any device.
+**Download a backup every now and then** via **Gegevens → Back-up downloaden**. The backup includes your photos. The app reminds you when your last backup is more than 14 days old. **Back-up terugzetten** restores it on any device.
 
 ## Run it locally
 

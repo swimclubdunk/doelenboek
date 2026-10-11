@@ -290,9 +290,38 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast.bad { background: var(--danger); color: var(--surface); }
 .loading { color: var(--muted); padding: 40px 0; text-align: center; }
+/* photos: thumbnail strip on activity cards, hover preview, lightbox, editor */
+.thumbs { display: flex; flex-wrap: wrap; gap: 6px; }
+.thumb { position: relative; width: 64px; height: 64px; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface-2); cursor: zoom-in; flex: none; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .2s ease; }
+.thumb:hover img { transform: scale(1.06); }
+.thumb.missing { cursor: default; }
+.thumb .more { position: absolute; inset: 0; display: grid; place-items: center; background: rgb(0 0 0 / .5); color: #fff; font-weight: 700; font-size: .95rem; }
+.peek { position: fixed; z-index: 60; pointer-events: none; border-radius: 12px; overflow: hidden; border: 3px solid var(--surface); box-shadow: 0 18px 50px rgb(0 0 0 / .35); background: var(--surface-2); opacity: 0; transform: scale(.94); transition: opacity .15s ease, transform .15s ease; }
+.peek.show { opacity: 1; transform: none; }
+.peek img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.lightbox { width: min(1100px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; background: var(--surface); }
+.lightbox::backdrop { background: rgb(5 10 8 / .8); }
+.lightbox figure { margin: 0; display: grid; gap: 0; }
+.lightbox img { display: block; max-width: 100%; max-height: calc(100vh - 110px); margin: 0 auto; object-fit: contain; min-height: 120px; }
+.lightbox figcaption { padding: 10px 16px; color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); padding-right: 110px; overflow-wrap: anywhere; }
+.lb-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgb(0 0 0 / .45); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer; }
+.lb-btn:hover { background: rgb(0 0 0 / .65); }
+.lb-prev { left: 10px; } .lb-next { right: 10px; }
+.lb-close { position: absolute; right: 10px; bottom: 6px; }
+.photo-edit { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.pe { position: relative; width: 76px; height: 76px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--surface-2); }
+.pe img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pe-x { position: absolute; top: 3px; right: 3px; width: 22px; height: 22px; border-radius: 50%; border: 0; background: rgb(0 0 0 / .6); color: #fff; cursor: pointer; font-size: .9rem; line-height: 1; }
+.photo-add { position: relative; display: grid; place-items: center; width: 76px; height: 76px; border: 1.5px dashed var(--line); border-radius: 8px; color: var(--muted); font-size: .76rem; font-weight: 700; text-align: center; padding: 6px; cursor: pointer; }
+.photo-add:hover { border-color: var(--accent); color: var(--accent); }
+.photo-add input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.photo-add:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hint { color: var(--muted); font-size: .8rem; }
+.dlg-body.drop { outline: 2px dashed var(--accent); outline-offset: -8px; }
 .site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; }
 
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } .thumb:hover img { transform: none; } }
 </style>
 </head>
 <body>
@@ -318,6 +347,13 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 <footer class="site-foot" id="site-foot"></footer>
 <dialog id="dlg"></dialog>
 <dialog id="dlg2"></dialog>
+<dialog id="lightbox" class="lightbox">
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+  <button type="button" class="lb-btn lb-prev" data-lb="prev">‹</button>
+  <button type="button" class="lb-btn lb-next" data-lb="next">›</button>
+  <button type="button" class="btn small lb-close" data-lb="close">Sluiten</button>
+</dialog>
+<div class="peek" id="peek" hidden><img alt=""></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -342,6 +378,8 @@ const LS_KEY = 'doelenboek.v1';
 const LANG_KEY = 'doelenboek.lang';
 const BACKUP_KEY = 'doelenboek.lastBackup';
 const BACKUP_EVERY_DAYS = 14;
+const MAX_PHOTOS = 24;              // per activity
+const PHOTO_MAX_B64 = 240000;       // keeps one photo under the 256 KiB document limit of the shared store
 const ID_RE = /^[A-Za-z0-9_\-~:@+.]{1,120}$/;
 
 /* Built-in minimumdoelen, taken from the Unity project's doelen/*.asset files.
@@ -511,7 +549,7 @@ const T = {
     data_h: 'Gegevens', where_db: 'Je gegevens worden automatisch bewaard bij deze pagina en zijn zichtbaar voor wie je de pagina deelt.',
     where_local: 'Je gegevens staan alleen in deze browser. Maak regelmatig een back-up.',
     report_h: 'Rapport per kind', report_p: 'CSV voor Excel: per kind elk minimumdoel, behaald of open, met de activiteiten als bewijs.', report_btn: 'Rapport downloaden',
-    backup_h: 'Back-up', backup_p: 'Alle kinderen, eigen doelen en activiteiten als JSON-bestand. De ingebouwde doelen zitten al in de app.', backup_btn: 'Back-up downloaden',
+    backup_h: 'Back-up', backup_p: "Alle kinderen, eigen doelen, activiteiten en foto's als JSON-bestand. De ingebouwde doelen zitten al in de app.", backup_btn: 'Back-up downloaden',
     restore_h: 'Back-up terugzetten', restore_p: 'Voegt de items uit een back-up toe. Items met dezelfde sleutel worden overschreven, de rest blijft staan.',
     examples_h: 'Voorbeeldgegevens', examples_p: 'Verwijdert het voorbeeldkind en de voorbeeldactiviteit.', restoring: 'Bezig met terugzetten…',
     file_saved: 'Bestand opgeslagen.', dl_open: 'Er staat al een downloadvenster open.',
@@ -535,6 +573,12 @@ const T = {
     bk_now: 'Back-up downloaden', bk_last: d => `Laatste back-up: ${d}.`, bk_none: 'Nog geen back-up gemaakt.',
     foot_local: 'Je gegevens blijven in deze browser en worden nergens anders opgeslagen. Download regelmatig een back-up via Gegevens.',
     foot_db: 'Download regelmatig een back-up via Gegevens.',
+    photos: "Foto's", add_photos: "Foto's toevoegen", photo_remove: 'Foto verwijderen',
+    photo_hint: "Kies foto's, sleep ze hierheen of plak ze. Ze worden verkleind bewaard.",
+    photo_processing: "Foto's verwerken…", photo_wait: "Wacht tot de foto's verwerkt zijn.",
+    photo_fail: n => `${nlN(n, 'foto kon', "foto's konden")} niet gelezen worden. Gebruik JPG, PNG of WebP.`,
+    photo_max: n => `Maximaal ${n} foto's per activiteit.`,
+    photo_alt: (title, i) => `Foto ${i} van ${title}`, lb_prev: 'Vorige foto', lb_next: 'Volgende foto',
   },
   en: {
     tab_overzicht: 'Overview', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals',
@@ -599,7 +643,7 @@ const T = {
     data_h: 'Data', where_db: 'Your data is saved automatically with this page and is visible to anyone you share the page with.',
     where_local: 'Your data is stored in this browser only. Make a backup regularly.',
     report_h: 'Report per child', report_p: 'CSV for Excel: every minimum goal per child, covered or open, with the activities as evidence.', report_btn: 'Download report',
-    backup_h: 'Backup', backup_p: 'All children, your own goals and activities as a JSON file. The built-in goals are already part of the app.', backup_btn: 'Download backup',
+    backup_h: 'Backup', backup_p: 'All children, your own goals, activities and photos as a JSON file. The built-in goals are already part of the app.', backup_btn: 'Download backup',
     restore_h: 'Restore backup', restore_p: 'Adds the items from a backup. Items with the same key are overwritten; everything else stays.',
     examples_h: 'Example data', examples_p: 'Removes the example child and the example activity.', restoring: 'Restoring…',
     file_saved: 'File saved.', dl_open: 'A download prompt is already open.',
@@ -623,6 +667,12 @@ const T = {
     bk_now: 'Download backup', bk_last: d => `Last backup: ${d}.`, bk_none: 'No backup made yet.',
     foot_local: 'Your data stays in this browser and is not stored anywhere else. Download a backup regularly via Data.',
     foot_db: 'Download a backup regularly via Data.',
+    photos: 'Photos', add_photos: 'Add photos', photo_remove: 'Remove photo',
+    photo_hint: 'Choose photos, drag them here or paste them. They are stored at a reduced size.',
+    photo_processing: 'Processing photos…', photo_wait: 'Wait until the photos have been processed.',
+    photo_fail: n => `${nlN(n, 'photo', 'photos')} could not be read. Use JPG, PNG or WebP.`,
+    photo_max: n => `At most ${n} photos per activity.`,
+    photo_alt: (title, i) => `Photo ${i} of ${title}`, lb_prev: 'Previous photo', lb_next: 'Next photo',
   },
 };
 let lang = 'nl';
@@ -674,7 +724,7 @@ function clean(col, b) {
   if (col === 'activities') {
     const title = str(b.title, 200).trim();
     if (!title) return null;
-    return { ...base, title, date: validDate(b.date) ? b.date : todayIso(), notes: str(b.notes, 4000), childIds: [...new Set(strArr(b.childIds))], goalIds: [...new Set(strArr(b.goalIds))] };
+    return { ...base, title, date: validDate(b.date) ? b.date : todayIso(), notes: str(b.notes, 4000), childIds: [...new Set(strArr(b.childIds))], goalIds: [...new Set(strArr(b.goalIds))], photoIds: [...new Set(strArr(b.photoIds))].slice(0, MAX_PHOTOS) };
   }
   return null;
 }
@@ -761,12 +811,119 @@ async function runPool(items, fn, n = 4, onProgress) {
 }
 function errMsg(e) {
   const c = e && e.code;
-  if (c === 'quota_exceeded') return t('err_quota');
+  if (c === 'quota_exceeded' || (e && e.name === 'QuotaExceededError')) return t('err_quota');
   if (c === 'invalid_argument') return t('err_rights');
   if (c === 'resource_exhausted') return t('err_busy');
   if (c === 'revoked') return t('err_revoked');
   if (c === 'local_invalid') return t('err_invalid');
   return t('err_generic');
+}
+
+/* ---------- photos ----------
+   A photo is {mime, w, h, data (base64 JPEG), createdAt}. Activities hold only photo ids.
+   Shared store: one document per photo in "photos", fetched on demand (never subscribed).
+   Browser-only: IndexedDB, because localStorage is far too small for images. */
+function cleanPhoto(r) {
+  if (!r || typeof r !== 'object') return null;
+  const mime = ['image/jpeg', 'image/png', 'image/webp'].includes(r.mime) ? r.mime : null;
+  const ok = typeof r.data === 'string' && r.data.length <= 400000 && /^[A-Za-z0-9+/]+=*$/.test(r.data);
+  if (!mime || !ok) return null;
+  return { mime, w: Number(r.w) || 0, h: Number(r.h) || 0, data: r.data, createdAt: typeof r.createdAt === 'number' ? r.createdAt : 0 };
+}
+let idbPromise = null;
+function idb() {
+  if (!idbPromise) idbPromise = new Promise((res, rej) => {
+    if (!window.indexedDB) { rej(new Error('no indexedDB')); return; }
+    const r = indexedDB.open('doelenboek', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('photos');
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+  });
+  return idbPromise;
+}
+async function idbRun(mode, fn) {
+  const d = await idb();
+  return new Promise((res, rej) => {
+    const tx = d.transaction('photos', mode), out = fn(tx.objectStore('photos'));
+    tx.oncomplete = () => res(typeof out === 'function' ? out() : out && 'result' in out ? out.result : undefined);
+    tx.onerror = () => rej(tx.error); tx.onabort = () => rej(tx.error);
+  });
+}
+const photoStore = {
+  async get(id) {
+    if (mode === 'db') { const s = await retry(() => db.doc('photos/' + id).get()); return s.exists ? cleanPhoto(s.data()) : null; }
+    return cleanPhoto(await idbRun('readonly', st => st.get(id)));
+  },
+  async put(id, rec) {
+    if (mode === 'db') return retry(() => db.collection('photos').doc(id).set(rec));
+    return idbRun('readwrite', st => st.put(rec, id));
+  },
+  async del(id) {
+    if (mode === 'db') return retry(() => db.collection('photos').doc(id).delete());
+    return idbRun('readwrite', st => st.delete(id));
+  },
+  async all() {
+    if (mode === 'db') {
+      const snap = await retry(() => db.collection('photos').limit(1000).get());
+      return snap.docs.filter(d => d.exists).map(d => ({ id: d.id, rec: cleanPhoto(d.data()) })).filter(p => p.rec);
+    }
+    return idbRun('readonly', st => {
+      const keys = st.getAllKeys(), vals = st.getAll();
+      return () => keys.result.map((id, i) => ({ id: String(id), rec: cleanPhoto(vals.result[i]) })).filter(p => p.rec);
+    });
+  },
+};
+function b64ToUrl(rec) {
+  const bin = atob(rec.data), arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return URL.createObjectURL(new Blob([arr], { type: rec.mime }));
+}
+const photoUrl = new Map(), photoPending = new Map();   // id -> object URL (or null when missing)
+function loadPhoto(id) {
+  if (photoUrl.has(id)) return Promise.resolve(photoUrl.get(id));
+  if (!photoPending.has(id)) {
+    photoPending.set(id, photoStore.get(id)
+      .then(rec => { const u = rec ? b64ToUrl(rec) : null; photoUrl.set(id, u); return u; })
+      .catch(() => null)
+      .finally(() => photoPending.delete(id)));
+  }
+  return photoPending.get(id);
+}
+function photoImg(id) { const u = photoUrl.get(id); return u ? `<img src="${esc(u)}" alt="">` : `<img data-photo="${esc(id)}" alt="">`; }
+function hydratePhotos(root) {
+  for (const img of root.querySelectorAll('img[data-photo]')) {
+    const id = img.dataset.photo; img.removeAttribute('data-photo');
+    loadPhoto(id).then(u => { if (u) img.src = u; else img.closest('.thumb, .pe')?.classList.add('missing'); });
+  }
+}
+async function deletePhoto(id) {
+  await photoStore.del(id);
+  const u = photoUrl.get(id); if (u) URL.revokeObjectURL(u);
+  photoUrl.delete(id);
+}
+/* Decode, downscale and JPEG-encode in the browser; steps down until it fits PHOTO_MAX_B64. */
+async function processImage(file) {
+  let src, cleanup = () => {};
+  try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); cleanup = () => src.close && src.close(); }
+  catch (e) {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.src = url;
+    try { await img.decode(); } catch (er) { URL.revokeObjectURL(url); throw er; }
+    src = img; cleanup = () => URL.revokeObjectURL(url);
+  }
+  try {
+    const W = src.naturalWidth || src.width, H = src.naturalHeight || src.height;
+    if (!W || !H) throw new Error('empty image');
+    const steps = [[1600, .82], [1280, .78], [1024, .74], [800, .7], [640, .65]];
+    for (let i = 0; i < steps.length; i++) {
+      const [max, q] = steps[i], s = Math.min(1, max / Math.max(W, H));
+      const w = Math.max(1, Math.round(W * s)), h = Math.max(1, Math.round(H * s));
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); g.drawImage(src, 0, 0, w, h);
+      const url = c.toDataURL('image/jpeg', q), data = url.slice(url.indexOf(',') + 1);
+      if (data.length <= PHOTO_MAX_B64 || i === steps.length - 1) return { mime: 'image/jpeg', w, h, data };
+    }
+  } finally { cleanup(); }
 }
 
 /* ---------- derived data ---------- */
@@ -827,7 +984,9 @@ function render() {
   else if (ui.view === 'activiteiten') html = viewActivities();
   else if (ui.view === 'doelen') html = viewGoals(cov);
   else html = viewOverview(cov);
+  hidePeek();
   main.innerHTML = html;
+  hydratePhotos(main);
 
   if (fid) { const el = document.getElementById(fid); if (el) { el.focus({ preventScroll: true }); try { if (s0 != null) el.setSelectionRange(s0, s1); } catch (e) {} } }
 }
@@ -850,7 +1009,9 @@ function backupNotice() {
   return `<div class="notice"><p>${esc(msg)}</p><button class="btn small" data-action="backup">${esc(t('bk_now'))}</button></div>`;
 }
 async function downloadBackup() {
-  if (await offerFile(`doelenboek-backup-${todayIso()}.json`, backupJson())) markBackup();
+  let json;
+  try { json = await backupJson(); } catch (e) { toast(errMsg(e), true); return; }
+  if (await offerFile(`doelenboek-backup-${todayIso()}.json`, json)) markBackup();
 }
 function noGoalsNotice() {
   if (data.goals.size) return '';
@@ -918,6 +1079,12 @@ function viewChild(cov) {
 
 function goalChip(g) { return `<li class="code" style="--c:${sv(g.subject)}" title="${esc(sName(g.subject) + ': ' + gDesc(g))}"><span class="dot"></span>${esc(g.code || sName(g.subject))}</li>`; }
 
+/* Up to six thumbnails; the sixth carries a "+n" overlay when there are more. */
+function photoStrip(a) {
+  const ids = a.photoIds, SHOW = 6;
+  if (!ids.length) return '';
+  return `<div class="thumbs">${ids.slice(0, SHOW).map((id, i) => `<button type="button" class="thumb" data-action="photo" data-id="${esc(a.id)}" data-i="${i}" aria-label="${esc(t('photo_alt', a.title, i + 1))}">${photoImg(id)}${i === SHOW - 1 && ids.length > SHOW ? `<span class="more">+${ids.length - SHOW}</span>` : ''}</button>`).join('')}</div>`;
+}
 function activityCard(a) {
   const d = dateObj(a.date);
   const kids = a.childIds.map(id => data.children.get(id)).filter(Boolean);
@@ -928,6 +1095,7 @@ function activityCard(a) {
     <div class="act-body"><h3>${esc(a.title)}</h3>
       ${kids.length ? `<p class="act-kids">${kids.map(k => `<span><span class="avatar sm" aria-hidden="true">${esc(k.animal)}</span>${esc(k.name)}</span>`).join('')}</p>` : ''}
       ${goals.length ? `<ul class="goal-chips" aria-label="${esc(t('goals_aria'))}">${goals.slice(0, maxChips).map(goalChip).join('')}${goals.length > maxChips ? `<li class="code">+${goals.length - maxChips}</li>` : ''}</ul>` : `<p class="meta">${esc(t('no_goals_linked'))}</p>`}
+      ${photoStrip(a)}
       ${a.notes ? `<p class="notes">${esc(a.notes)}</p>` : ''}
     </div>
     <div class="row-actions w"><button class="icon-btn" data-action="edit-activity" data-id="${esc(a.id)}">${esc(t('edit'))}</button><button class="icon-btn del" data-action="delete-activity" data-id="${esc(a.id)}">${esc(t('delete'))}</button></div>
@@ -1105,6 +1273,10 @@ function activityDialog(act, presetChild) {
     <div class="field"><span class="field-label">${esc(t('goals_field'))} <span class="muted" id="a-count"></span></span>
       <div class="goal-field"><div class="sel-chips" id="a-sel"></div>${data.goals.size ? `<button type="button" class="btn small" id="a-pick">${esc(t('pick_btn'))}</button>` : `<p class="muted">${esc(t('picker_empty'))}</p>`}</div>
     </div>
+    <div class="field"><span class="field-label">${esc(t('photos'))} <span class="muted" id="a-pcount"></span></span>
+      <div class="photo-edit" id="a-photos"></div>
+      <p class="hint" id="a-phint">${esc(t('photo_hint'))}</p>
+    </div>
     <label class="field"><span>${esc(t('notes'))}</span><textarea id="a-notes" name="notes" rows="3" maxlength="4000" placeholder="${esc(t('notes_ph'))}">${esc(act?.notes || '')}</textarea></label>`;
   openDialog(shell('f-act', act ? t('act_edit_h') : t('act_add_h'), body), d => {
     const selBox = d.querySelector('#a-sel'), count = d.querySelector('#a-count');
@@ -1121,13 +1293,59 @@ function activityDialog(act, presetChild) {
       selGoals.clear(); for (const id of picked) selGoals.add(id); drawSel();
     }));
     drawSel();
+
+    /* photos: new ones live in memory until the activity is saved */
+    const photos = (act ? act.photoIds : []).map(id => ({ id, existing: true }));
+    const pbox = d.querySelector('#a-photos'), pcount = d.querySelector('#a-pcount'), phint = d.querySelector('#a-phint');
+    let processing = 0;
+    function drawPhotos() {
+      pcount.textContent = photos.length ? `· ${photos.length}` : '';
+      pbox.innerHTML = photos.map((p, i) => `<span class="pe">${p.url ? `<img src="${esc(p.url)}" alt="">` : photoImg(p.id)}<button type="button" class="pe-x" data-pi="${i}" aria-label="${esc(t('photo_remove'))}">×</button></span>`).join('')
+        + (photos.length < MAX_PHOTOS ? `<label class="photo-add">+ ${esc(t('add_photos'))}<input type="file" id="a-file" accept="image/*" multiple></label>` : '');
+      hydratePhotos(pbox);
+    }
+    async function addFiles(list) {
+      const files = [...list].filter(f => f.type.startsWith('image/') || /\.(jpe?g|png|webp|gif|heic|heif)$/i.test(f.name));
+      const room = MAX_PHOTOS - photos.length;
+      if (files.length > room) toast(t('photo_max', MAX_PHOTOS), true);
+      let failed = 0;
+      processing++; phint.textContent = t('photo_processing');
+      for (const f of files.slice(0, Math.max(0, room))) {
+        try { const rec = await processImage(f); if (!dlg.contains(pbox)) return; photos.push({ id: newId(), rec, url: b64ToUrl(rec), existing: false }); drawPhotos(); }
+        catch (e) { failed++; }
+      }
+      processing--; if (!processing) phint.textContent = t('photo_hint');
+      if (failed) toast(t('photo_fail', failed), true);
+    }
+    pbox.addEventListener('change', e => { if (e.target.id === 'a-file' && e.target.files.length) addFiles(e.target.files); });
+    pbox.addEventListener('click', e => {
+      const x = e.target.closest('[data-pi]'); if (!x) return;
+      const [p] = photos.splice(Number(x.dataset.pi), 1);
+      if (p && !p.existing && p.url) URL.revokeObjectURL(p.url);
+      drawPhotos();
+    });
+    const dz = d.querySelector('.dlg-body');
+    dz.addEventListener('dragover', e => { if ([...(e.dataTransfer?.types || [])].includes('Files')) { e.preventDefault(); dz.classList.add('drop'); } });
+    dz.addEventListener('dragleave', e => { if (!dz.contains(e.relatedTarget)) dz.classList.remove('drop'); });
+    dz.addEventListener('drop', e => { if (!e.dataTransfer?.files.length) return; e.preventDefault(); dz.classList.remove('drop'); addFiles(e.dataTransfer.files); });
+    d.querySelector('form').addEventListener('paste', e => { const fs = [...(e.clipboardData?.files || [])].filter(f => f.type.startsWith('image/')); if (fs.length) { e.preventDefault(); addFiles(fs); } });
+    drawPhotos();
+
     bindSubmit(d, async form => {
       const title = form.title.value.trim(), date = form.date.value, childIds = chosenKids();
       if (!title) return t('err_title');
       if (!validDate(date)) return t('err_date');
       if (!childIds.length) return t('err_kids');
+      if (processing) return t('photo_wait');
       const now = Date.now();
-      await put('activities', act?.id || newId(), { ...(act ? bodyOf(act) : { createdAt: now }), title, date, notes: form.notes.value, childIds, goalIds: [...selGoals], updatedAt: now, example: false });
+      const fresh = photos.filter(p => !p.existing);
+      const errors = await runPool(fresh, p => photoStore.put(p.id, { ...p.rec, createdAt: now }), 3);
+      if (errors.length) throw errors[0];
+      for (const p of fresh) { photoUrl.set(p.id, p.url); p.existing = true; }
+      await put('activities', act?.id || newId(), { ...(act ? bodyOf(act) : { createdAt: now }), title, date, notes: form.notes.value, childIds, goalIds: [...selGoals], photoIds: photos.map(p => p.id), updatedAt: now, example: false });
+      const removed = (act ? act.photoIds : []).filter(id => !photos.some(p => p.id === id));
+      await runPool(removed, deletePhoto, 3);
+      if (fresh.length && mode === 'local') navigator.storage?.persist?.().catch(() => {});
       toast(act ? t('act_updated') : t('act_saved'));
     });
   });
@@ -1175,7 +1393,9 @@ function goalPicker(initial, kidIds, onDone) {
 function deleteActivity(id) {
   const a = data.activities.get(id); if (!a) return;
   confirmDialog(t('act_del_h'), `<p>${t('act_del_q', esc(a.title), esc(fmtDate(a.date)))}</p><p class="muted">${esc(t('act_del_note'))}</p>`, t('delete'), async () => {
-    await remove('activities', id); toast(t('act_deleted'));
+    await remove('activities', id);
+    await runPool(a.photoIds, deletePhoto, 3);
+    toast(t('act_deleted'));
   });
 }
 
@@ -1282,10 +1502,13 @@ function importDialog() {
 }
 
 /* ---------- data menu: backup, report, restore ---------- */
-function backupJson() {
-  const o = { app: 'doelenboek', version: 1, exportedAt: new Date().toISOString(), goals: [...customGoals.values()] };
+/* Version 2 adds the photos (base64) that activities refer to. */
+async function backupJson() {
+  const o = { app: 'doelenboek', version: 2, exportedAt: new Date().toISOString(), goals: [...customGoals.values()] };
   for (const c of ['children', 'activities']) o[c] = [...data[c].values()];
-  return JSON.stringify(o, null, 2);
+  const used = new Set([...data.activities.values()].flatMap(a => a.photoIds));
+  o.photos = used.size ? (await photoStore.all()).filter(p => used.has(p.id)).map(p => ({ id: p.id, ...p.rec })) : [];
+  return JSON.stringify(o, null, 1);
 }
 const csvCell = v => { const s = String(v ?? ''); return /[";\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
 function reportCsv() {
@@ -1332,10 +1555,20 @@ async function restoreBackup(text, progress) {
     if (c === 'goals' && BUILTIN.has(item.id)) continue;
     const body = clean(c, item); if (body) tasks.push({ c, id: item.id, body });
   }
-  if (!tasks.length) return t('r_empty');
-  const errors = await runPool(tasks, tk => put(tk.c, tk.id, tk.body), 4, (n, tot) => progress(t('progress', n, tot)));
-  if (errors.length) return t('r_partial', errors.length, tasks.length, errMsg(errors[0]));
-  toast(t('r_done', tasks.length));
+  const photoTasks = [];
+  for (const p of (Array.isArray(o.photos) ? o.photos : [])) {
+    if (!p || typeof p.id !== 'string' || !ID_RE.test(p.id)) continue;
+    const rec = cleanPhoto(p); if (rec) photoTasks.push({ c: 'photos', id: p.id, body: rec });
+  }
+  if (!tasks.length && !photoTasks.length) return t('r_empty');
+  // photos first, so restored activities can show them straight away
+  const total = photoTasks.length + tasks.length;
+  const errors = await runPool(photoTasks, tk => photoStore.put(tk.id, tk.body), 3, n => progress(t('progress', n, total)));
+  for (const p of photoTasks) { const u = photoUrl.get(p.id); if (u) URL.revokeObjectURL(u); photoUrl.delete(p.id); }
+  errors.push(...await runPool(tasks, tk => put(tk.c, tk.id, tk.body), 4, n => progress(t('progress', photoTasks.length + n, total))));
+  scheduleRender();
+  if (errors.length) return t('r_partial', errors.length, total, errMsg(errors[0]));
+  toast(t('r_done', total));
 }
 function dataDialog() {
   const ex = exampleItems().length > 0;
@@ -1367,6 +1600,63 @@ function removeExamples() {
   });
 }
 
+/* ---------- photo preview on hover, lightbox on click ---------- */
+const peek = $('#peek'), peekImg = peek.querySelector('img');
+let peekFor = null;
+function showPeek(th) {
+  const img = th.querySelector('img');
+  if (!img || !img.complete || !img.naturalWidth) return;
+  peekFor = th;
+  const vw = window.innerWidth, vh = window.innerHeight, r = th.getBoundingClientRect();
+  const s = Math.min(Math.min(440, vw - 32) / img.naturalWidth, Math.min(440, vh - 32) / img.naturalHeight);
+  const w = Math.round(img.naturalWidth * s), h = Math.round(img.naturalHeight * s);
+  let left = r.right + 12;
+  if (left + w > vw - 16) left = r.left - 12 - w;
+  if (left < 16) left = Math.max(16, (vw - w) / 2);
+  const top = Math.min(Math.max(16, r.top + r.height / 2 - h / 2), vh - 16 - h);
+  peekImg.src = img.src;
+  Object.assign(peek.style, { left: left + 'px', top: top + 'px', width: w + 'px', height: h + 'px' });
+  peek.hidden = false;
+  requestAnimationFrame(() => { if (peekFor === th) peek.classList.add('show'); });
+}
+function hidePeek() { peekFor = null; peek.classList.remove('show'); peek.hidden = true; }
+window.addEventListener('scroll', hidePeek, { passive: true });
+
+const lb = $('#lightbox'), lbImg = $('#lb-img'), lbCap = $('#lb-cap');
+let lbState = null;
+function openLightbox(actId, i) {
+  const a = data.activities.get(actId);
+  if (!a || !a.photoIds.length) return;
+  hidePeek();
+  lbState = { id: actId, i: Math.min(i, a.photoIds.length - 1) };
+  lb.querySelector('[data-lb=prev]').setAttribute('aria-label', t('lb_prev'));
+  lb.querySelector('[data-lb=next]').setAttribute('aria-label', t('lb_next'));
+  lb.querySelector('[data-lb=close]').textContent = t('close');
+  drawLightbox();
+  if (!lb.open) { if (typeof lb.showModal === 'function') lb.showModal(); else lb.setAttribute('open', ''); }
+}
+function drawLightbox() {
+  const a = lbState && data.activities.get(lbState.id);
+  if (!a || !a.photoIds.length) { if (lb.open) lb.close(); return; }
+  const n = a.photoIds.length, i = lbState.i = ((lbState.i % n) + n) % n, id = a.photoIds[i];
+  lbImg.removeAttribute('src');
+  lbImg.alt = t('photo_alt', a.title, i + 1);
+  lbCap.textContent = `${a.title} · ${fmtDate(a.date)} · ${i + 1}/${n}`;
+  for (const b of lb.querySelectorAll('.lb-btn')) b.hidden = n < 2;
+  loadPhoto(id).then(u => { if (u && lbState && lbState.id === a.id && lbState.i === i) lbImg.src = u; });
+}
+lb.addEventListener('click', e => {
+  const b = e.target.closest('[data-lb]');
+  if (e.target === lb || (b && b.dataset.lb === 'close')) { lb.close(); return; }
+  if (b && lbState) { lbState.i += b.dataset.lb === 'next' ? 1 : -1; drawLightbox(); }
+});
+lb.addEventListener('keydown', e => {
+  if (!lbState) return;
+  if (e.key === 'ArrowRight') { lbState.i++; drawLightbox(); }
+  if (e.key === 'ArrowLeft') { lbState.i--; drawLightbox(); }
+});
+lb.addEventListener('close', () => { lbState = null; lbImg.removeAttribute('src'); });
+
 /* ---------- toast ---------- */
 let toastT;
 function toast(msg, bad) {
@@ -1394,10 +1684,15 @@ main.addEventListener('click', e => {
     case 'import-goals': return importDialog();
     case 'remove-examples': return removeExamples();
     case 'backup': return downloadBackup();
+    case 'photo': return openLightbox(id, Number(b.dataset.i) || 0);
     case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
     case 'goal-filter-all': ui.goalSubj = ui.goalSubj.size === SUBJECTS.length ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
   }
 });
+main.addEventListener('pointerover', e => { if (e.pointerType !== 'mouse') return; const th = e.target.closest('.thumb'); if (th && th !== peekFor) showPeek(th); });
+main.addEventListener('pointerout', e => { const th = e.target.closest('.thumb'); if (th && !th.contains(e.relatedTarget)) hidePeek(); });
+main.addEventListener('focusin', e => { const th = e.target.closest('.thumb'); if (th && th.matches(':focus-visible')) showPeek(th); });
+main.addEventListener('focusout', e => { if (e.target.closest('.thumb')) hidePeek(); });
 main.addEventListener('input', e => {
   if (e.target.id === 'goal-search') { ui.goalSearch = e.target.value; scheduleRender(); }
   if (e.target.id === 'act-search') { ui.actSearch = e.target.value; scheduleRender(); }
