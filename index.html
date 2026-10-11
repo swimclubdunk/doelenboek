@@ -202,7 +202,15 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .act-kids { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .86rem; color: var(--muted); }
 .act-kids span { display: inline-flex; align-items: center; gap: 5px; }
 .goal-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 5px; }
-.goal-chips .code { cursor: default; }
+.goal-chips .code { cursor: help; }
+.goal-chips .goal-chip:hover, .goal-chips .goal-chip:focus-visible { background: color-mix(in srgb, var(--c, var(--muted)) 30%, transparent); }
+/* goal preview card, shown while hovering a goal code */
+.gpeek { position: fixed; z-index: 60; pointer-events: none; width: min(380px, calc(100vw - 32px)); background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 18px 50px rgb(0 0 0 / .25); padding: 12px 14px; display: grid; gap: 6px; opacity: 0; transform: translateY(4px); transition: opacity .15s ease, transform .15s ease; }
+.gpeek.show { opacity: 1; transform: none; }
+.gpeek-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: .82rem; font-weight: 700; }
+.gpeek-head .code { font-weight: 500; }
+.gpeek .g-meta { margin: 0; }
+.gpeek .g-desc { font-size: .92rem; line-height: 1.45; }
 .notes { color: var(--muted); font-size: .9rem; white-space: pre-line; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 @media (max-width: 560px) {
   .act { grid-template-columns: 3rem minmax(0, 1fr); }
@@ -354,6 +362,7 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
   <button type="button" class="btn small lb-close" data-lb="close">Sluiten</button>
 </dialog>
 <div class="peek" id="peek" hidden><img alt=""></div>
+<div class="gpeek" id="gpeek" role="tooltip" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -1077,7 +1086,7 @@ function viewChild(cov) {
   return h;
 }
 
-function goalChip(g) { return `<li class="code" style="--c:${sv(g.subject)}" title="${esc(sName(g.subject) + ': ' + gDesc(g))}"><span class="dot"></span>${esc(g.code || sName(g.subject))}</li>`; }
+function goalChip(g) { return `<li class="code goal-chip" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" tabindex="0" aria-label="${esc(`${g.code} ${sName(g.subject)}: ${gDesc(g)}`)}"><span class="dot"></span>${esc(g.code || sName(g.subject))}</li>`; }
 
 /* Up to six thumbnails; the sixth carries a "+n" overlay when there are more. */
 function photoStrip(a) {
@@ -1619,7 +1628,27 @@ function showPeek(th) {
   peek.hidden = false;
   requestAnimationFrame(() => { if (peekFor === th) peek.classList.add('show'); });
 }
-function hidePeek() { peekFor = null; peek.classList.remove('show'); peek.hidden = true; }
+function hidePeek() { peekFor = null; peek.classList.remove('show'); peek.hidden = true; hideGoalPeek(); }
+
+/* Goal preview: below the code when it fits, otherwise above; kept inside the window. */
+const gpeek = $('#gpeek');
+let gpeekFor = null;
+function showGoalPeek(chip) {
+  const g = data.goals.get(chip.dataset.gid);
+  if (!g) return;
+  gpeekFor = chip;
+  gpeek.innerHTML = `<div class="gpeek-head"><span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(g.code || '—')}</span><span>${esc(sName(g.subject))}</span></div>
+    ${gCat(g) ? `<p class="g-meta">${esc(gCat(g))}</p>` : ''}<p class="g-desc">${esc(gDesc(g))}</p>`;
+  gpeek.classList.remove('show');
+  gpeek.hidden = false;
+  const vw = window.innerWidth, vh = window.innerHeight, r = chip.getBoundingClientRect(), b = gpeek.getBoundingClientRect();
+  let top = r.bottom + 8;
+  if (top + b.height > vh - 16) top = Math.max(16, r.top - 8 - b.height);
+  const left = Math.min(Math.max(16, r.left), vw - 16 - b.width);
+  Object.assign(gpeek.style, { left: left + 'px', top: top + 'px' });
+  requestAnimationFrame(() => { if (gpeekFor === chip) gpeek.classList.add('show'); });
+}
+function hideGoalPeek() { gpeekFor = null; gpeek.classList.remove('show'); gpeek.hidden = true; }
 window.addEventListener('scroll', hidePeek, { passive: true });
 
 const lb = $('#lightbox'), lbImg = $('#lb-img'), lbCap = $('#lb-cap');
@@ -1689,10 +1718,21 @@ main.addEventListener('click', e => {
     case 'goal-filter-all': ui.goalSubj = ui.goalSubj.size === SUBJECTS.length ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
   }
 });
-main.addEventListener('pointerover', e => { if (e.pointerType !== 'mouse') return; const th = e.target.closest('.thumb'); if (th && th !== peekFor) showPeek(th); });
-main.addEventListener('pointerout', e => { const th = e.target.closest('.thumb'); if (th && !th.contains(e.relatedTarget)) hidePeek(); });
-main.addEventListener('focusin', e => { const th = e.target.closest('.thumb'); if (th && th.matches(':focus-visible')) showPeek(th); });
-main.addEventListener('focusout', e => { if (e.target.closest('.thumb')) hidePeek(); });
+/* Hover previews for photo thumbnails and goal codes; any mouse move off the element closes them. */
+main.addEventListener('pointerover', e => {
+  if (e.pointerType !== 'mouse') return;
+  const th = e.target.closest('.thumb'); if (th && th !== peekFor) showPeek(th);
+  const gc = e.target.closest('.goal-chip'); if (gc && gc !== gpeekFor) showGoalPeek(gc);
+});
+main.addEventListener('pointerout', e => {
+  const th = e.target.closest('.thumb'); if (th && !th.contains(e.relatedTarget)) hidePeek();
+  const gc = e.target.closest('.goal-chip'); if (gc && !gc.contains(e.relatedTarget)) hideGoalPeek();
+});
+main.addEventListener('focusin', e => {
+  const th = e.target.closest('.thumb'); if (th && th.matches(':focus-visible')) showPeek(th);
+  const gc = e.target.closest('.goal-chip'); if (gc) showGoalPeek(gc);
+});
+main.addEventListener('focusout', e => { if (e.target.closest('.thumb, .goal-chip')) hidePeek(); });
 main.addEventListener('input', e => {
   if (e.target.id === 'goal-search') { ui.goalSearch = e.target.value; scheduleRender(); }
   if (e.target.id === 'act-search') { ui.actSearch = e.target.value; scheduleRender(); }
