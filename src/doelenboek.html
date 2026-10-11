@@ -1,0 +1,2068 @@
+<title>Doelenboek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky header with three tabs over one working column; child cards in a responsive grid, goals and activities as dense lists. */
+:root {
+  --bg: #F4F6F1;
+  --surface: #FFFFFF;
+  --surface-2: #E9EDE5;
+  --fg: #1B2420;
+  --muted: #5A6862;
+  --line: #D6DCD3;
+  --accent: #1F6F78;
+  --accent-fg: #FFFFFF;
+  --danger: #B3261E;
+  --ok: #2E7D4F;
+  --warn-bg: #FBF0D2;
+  --warn-fg: #5A4200;
+
+  /* subject colours, from the original Unity palette */
+  --s-nl: #2A9D8F;
+  --s-wk: #264653;
+  --s-wt: #B56576;
+  --s-ge: #E08A47;
+  --s-ak: #E76F51;
+  --s-mv: #D4A93E;
+  --s-lo: #7FA872;
+  --s-at: #6D597A;
+
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --r: 10px;
+  --shadow: 0 1px 2px rgb(20 30 25 / .06), 0 6px 20px rgb(20 30 25 / .05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111613; --surface: #192019; --surface-2: #242C27; --fg: #E5EBE7; --muted: #9AA8A1; --line: #2F3934;
+    --accent: #62BAC2; --accent-fg: #0B1E20; --danger: #F08A82; --ok: #74C795; --warn-bg: #3A3016; --warn-fg: #F2DE9F;
+    --s-wk: #7EA8BB; --s-at: #A88FBB; --s-wt: #D0899A;
+    --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 6px 20px rgb(0 0 0 / .25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111613; --surface: #192019; --surface-2: #242C27; --fg: #E5EBE7; --muted: #9AA8A1; --line: #2F3934;
+  --accent: #62BAC2; --accent-fg: #0B1E20; --danger: #F08A82; --ok: #74C795; --warn-bg: #3A3016; --warn-fg: #F2DE9F;
+  --s-wk: #7EA8BB; --s-at: #A88FBB; --s-wt: #D0899A;
+  --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 6px 20px rgb(0 0 0 / .25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+[hidden] { display: none !important; }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h1 { font-size: 1.9rem; }
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1.05rem; }
+p { margin: 0; }
+a { color: var(--accent); }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.muted { color: var(--muted); }
+
+/* header */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.top-inner { max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; }
+/* the empty space after the name keeps it visually apart from the tabs */
+.brand { display: flex; align-items: baseline; min-width: 0; margin-right: clamp(8px, 9vw, 140px); }
+.brand b { font-family: var(--f-display); font-size: 1.3rem; letter-spacing: -0.02em; }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.tabs a {
+  text-decoration: none; color: var(--muted); padding: 7px 12px; border-radius: 999px; font-weight: 700; font-size: .92rem;
+}
+.tabs a:hover { color: var(--fg); background: var(--surface-2); }
+.tabs a[aria-current="page"] { color: var(--accent-fg); background: var(--accent); }
+.top-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.status { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; color: var(--muted); white-space: nowrap; }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.status.ok::before { background: var(--ok); }
+.status.warn::before { background: #D99A1E; }
+.lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.lang-switch button { border: 0; background: transparent; padding: 4px 10px; font-size: .78rem; font-weight: 700; color: var(--muted); cursor: pointer; letter-spacing: .04em; }
+.lang-switch button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+
+main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; display: grid; gap: 20px; }
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: .9rem; white-space: nowrap;
+}
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.btn.primary:hover { filter: brightness(1.07); }
+.btn.ghost { background: transparent; }
+.btn.danger { background: var(--danger); border-color: var(--danger); color: var(--surface); }
+.btn.small { padding: 5px 10px; font-size: .82rem; }
+.btn:disabled { opacity: .55; cursor: default; }
+.icon-btn { border: 0; background: transparent; color: var(--muted); padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: .82rem; font-weight: 700; }
+.icon-btn:hover { background: var(--surface-2); color: var(--fg); }
+.icon-btn.del:hover { color: var(--danger); }
+.readonly .w { display: none !important; }
+
+/* page head */
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
+.page-head > div:first-child { min-width: 0; }
+.lede { color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; max-width: 70ch; }
+.head-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.notice { background: var(--warn-bg); color: var(--warn-fg); border-radius: var(--r); padding: 12px 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.notice p { min-width: 0; flex: 1 1 280px; }
+.notice .btn { background: transparent; border-color: currentColor; color: inherit; }
+
+.empty { border: 1.5px dashed var(--line); border-radius: var(--r); padding: 36px 20px; text-align: center; display: grid; gap: 10px; justify-items: center; color: var(--muted); }
+.empty h2 { color: var(--fg); }
+.empty pre { text-align: left; background: var(--surface-2); color: var(--fg); padding: 10px 14px; border-radius: 8px; font-family: var(--f-mono); font-size: .8rem; max-width: 100%; overflow-x: auto; margin: 4px 0; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); }
+
+/* avatars */
+.avatar { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--surface-2); font-size: 17px; line-height: 1; flex: none; }
+.avatar.lg { width: 52px; height: 52px; font-size: 30px; }
+.avatar.sm { width: 24px; height: 24px; font-size: 13px; }
+.avatar.off { opacity: .28; filter: grayscale(1); }
+
+/* child cards */
+.child-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
+.child-card { display: grid; gap: 14px; padding: 16px; }
+.cc-head { display: flex; gap: 12px; align-items: center; }
+.cc-id { min-width: 0; flex: 1; }
+.cc-id h2 { overflow-wrap: anywhere; }
+.meta { color: var(--muted); font-size: .84rem; }
+.cc-pct { text-align: right; display: grid; font-variant-numeric: tabular-nums; }
+.cc-pct strong { font-family: var(--f-display); font-size: 1.7rem; line-height: 1; }
+.cc-pct small { font-size: .9rem; color: var(--muted); }
+.cc-pct span { color: var(--muted); font-size: .76rem; }
+.bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.bars li { display: grid; grid-template-columns: minmax(0, 9.5rem) 1fr 3.6rem; gap: 10px; align-items: center; font-size: .84rem; }
+.bars li.none { color: var(--muted); }
+.b-lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar { height: 8px; border-radius: 99px; background: var(--surface-2); overflow: hidden; display: block; }
+.bar i { display: block; height: 100%; border-radius: 99px; min-width: 0; transition: width .4s ease; }
+.b-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); font-family: var(--f-mono); font-size: .76rem; }
+.cc-foot { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 12px; }
+
+/* toolbar */
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.search { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 12px; }
+.select { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 10px; max-width: 100%; }
+.chips-filter { display: flex; flex-wrap: wrap; gap: 6px; }
+.fchip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 10px 4px 8px; cursor: pointer; font-size: .82rem; font-weight: 700; color: var(--muted); }
+.fchip .dot { opacity: .35; }
+.fchip[aria-pressed="true"] { color: var(--fg); border-color: color-mix(in srgb, var(--c, var(--fg)) 55%, var(--line)); background: color-mix(in srgb, var(--c, var(--fg)) 12%, var(--surface)); }
+.fchip[aria-pressed="true"] .dot { opacity: 1; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--muted)); flex: none; display: inline-block; }
+.count-line { color: var(--muted); font-size: .84rem; font-variant-numeric: tabular-nums; }
+
+/* goal list */
+.goal-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.goal-row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto; gap: 6px 14px; align-items: start; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.goal-row:last-child { border-bottom: 0; }
+.code { font-family: var(--f-mono); font-size: .78rem; display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 6px; background: color-mix(in srgb, var(--c, var(--muted)) 16%, transparent); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; justify-self: start; }
+.g-body { min-width: 0; display: grid; gap: 2px; }
+.g-meta { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+.g-desc { overflow-wrap: anywhere; white-space: pre-line; }
+.g-side { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.kids-row { display: flex; gap: 3px; }
+.row-actions { display: flex; gap: 2px; }
+.tag { font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+@media (max-width: 640px) {
+  .goal-row { grid-template-columns: minmax(0, 1fr); }
+  .g-side { justify-content: flex-start; }
+}
+
+/* activities */
+.month { font-family: var(--f-display); font-size: 1rem; color: var(--muted); text-transform: capitalize; margin-top: 8px; }
+.act-list { display: grid; gap: 10px; }
+.act { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) auto; gap: 14px; padding: 14px; align-items: start; }
+.act-date { text-align: center; border-right: 1px solid var(--line); padding-right: 12px; display: grid; }
+.act-date .d { font-family: var(--f-display); font-size: 1.6rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.act-date .m { font-size: .74rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+.act-body { min-width: 0; display: grid; gap: 8px; }
+.act-body h3 { overflow-wrap: anywhere; }
+.act-kids { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .86rem; color: var(--muted); }
+.act-kids span { display: inline-flex; align-items: center; gap: 5px; }
+.goal-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 5px; }
+.goal-chips .code { cursor: help; }
+.goal-chips .goal-chip:hover, .goal-chips .goal-chip:focus-visible { background: color-mix(in srgb, var(--c, var(--muted)) 30%, transparent); }
+/* goal preview card, shown while hovering a goal code */
+.gpeek { position: fixed; z-index: 60; pointer-events: none; width: min(380px, calc(100vw - 32px)); background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 18px 50px rgb(0 0 0 / .25); padding: 12px 14px; display: grid; gap: 6px; opacity: 0; transform: translateY(4px); transition: opacity .15s ease, transform .15s ease; }
+.gpeek.show { opacity: 1; transform: none; }
+.gpeek-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: .82rem; font-weight: 700; }
+.gpeek-head .code { font-weight: 500; }
+.gpeek .g-meta { margin: 0; }
+.gpeek .g-desc { font-size: .92rem; line-height: 1.45; }
+.notes { color: var(--muted); font-size: .9rem; white-space: pre-line; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+@media (max-width: 560px) {
+  .act { grid-template-columns: 3rem minmax(0, 1fr); }
+  .act .row-actions { grid-column: 2; }
+}
+
+/* child detail */
+.back { justify-self: start; }
+.kid-head { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.kid-head .kid-name { flex: 1 1 200px; min-width: 0; }
+.kid-head h1 { overflow-wrap: anywhere; }
+.subj { padding: 0; overflow: hidden; }
+.subj summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(80px, 200px) 3.6rem; gap: 12px; align-items: center; padding: 12px 16px; }
+.subj summary::-webkit-details-marker { display: none; }
+.subj summary h2 { font-size: 1.05rem; }
+.subj[open] summary { border-bottom: 1px solid var(--line); }
+.status-list { list-style: none; margin: 0; padding: 0; }
+.status-list li { display: grid; grid-template-columns: 18px 7.5rem minmax(0, 1fr); gap: 12px; align-items: start; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.status-list li:last-child { border-bottom: 0; }
+.mark { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line); margin-top: 3px; }
+.done .mark { border-color: var(--ok); background: var(--ok); box-shadow: inset 0 0 0 2px var(--surface); }
+.via { font-size: .82rem; color: var(--ok); margin-top: 2px; }
+@media (max-width: 560px) {
+  .subj summary { grid-template-columns: auto minmax(0, 1fr) 3.6rem; }
+  .subj summary .bar { grid-column: 1 / -1; grid-row: 2; }
+  .status-list li { grid-template-columns: 18px minmax(0, 1fr); }
+  .status-list li .code { grid-column: 2; }
+  .status-list li > div { grid-column: 2; }
+}
+.check { display: inline-flex; gap: 8px; align-items: center; cursor: pointer; font-size: .9rem; }
+
+/* dialog */
+dialog { border: 1px solid var(--line); border-radius: 14px; padding: 0; width: min(760px, calc(100vw - 24px)); max-height: min(92vh, 900px); background: var(--surface); color: var(--fg); box-shadow: 0 20px 60px rgb(0 0 0 / .3); }
+dialog::backdrop { background: rgb(10 20 15 / .45); }
+.dlg-form { display: flex; flex-direction: column; max-height: min(92vh, 900px); }
+.dlg-form > header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.dlg-body { padding: 16px 18px; overflow-y: auto; display: grid; gap: 14px; min-height: 0; }
+.dlg-form > footer { display: flex; gap: 8px; align-items: center; justify-content: flex-end; padding: 12px 18px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.form-error { color: var(--danger); font-size: .88rem; margin-right: auto; flex: 1 1 200px; min-width: 0; }
+.field { display: grid; gap: 5px; }
+.field > span, .field-label { font-weight: 700; font-size: .86rem; }
+.field input, .field textarea, .field select { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 9px 11px; width: 100%; }
+.field textarea { resize: vertical; min-height: 80px; }
+.row2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; }
+.kid-picks { display: flex; flex-wrap: wrap; gap: 6px; }
+.kid-pick { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px 3px 4px; cursor: pointer; position: relative; }
+.kid-pick:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.kid-pick input { position: absolute; opacity: 0; pointer-events: none; }
+.kid-pick:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.animal-grid { display: grid; grid-template-columns: repeat(auto-fill, 46px); gap: 6px; }
+.animal-grid label { display: grid; place-items: center; height: 46px; border-radius: 10px; border: 1px solid var(--line); font-size: 24px; cursor: pointer; position: relative; }
+.animal-grid input { position: absolute; opacity: 0; pointer-events: none; }
+.animal-grid label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: 0 0 0 1px var(--accent); }
+.animal-grid label:has(input:disabled) { opacity: .25; cursor: not-allowed; }
+.animal-grid label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* goal picker: a second dialog stacked on top of the activity form */
+#dlg2 { width: min(880px, calc(100vw - 24px)); }
+.picker-dlg { height: min(92vh, 900px); }
+.picker-bar { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 18px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.picker-bar .search { flex-basis: 180px; }
+.picker-scroll { flex: 1; min-height: 0; overflow-y: auto; }
+.pick-group { position: sticky; top: 0; z-index: 1; display: flex; gap: 8px; align-items: center; padding: 8px 18px 6px; background: var(--surface); border-bottom: 1px solid var(--line); color: var(--muted); font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.pick-count { margin-right: auto; flex: 1 1 160px; min-width: 0; color: var(--muted); font-size: .88rem; font-variant-numeric: tabular-nums; }
+.goal-field { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.pick { display: grid; grid-template-columns: 20px 7rem minmax(0, 1fr); gap: 10px; align-items: start; padding: 9px 18px; border-bottom: 1px solid var(--line); cursor: pointer; font-size: .9rem; }
+.pick:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.pick input { margin-top: 4px; }
+.pick-more { padding: 10px; color: var(--muted); font-size: .84rem; text-align: center; }
+.sel-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.sel-chips button { border: 0; cursor: pointer; }
+.sel-chips button::after { content: "×"; margin-left: 2px; opacity: .6; }
+.import-preview { background: var(--surface-2); border-radius: 8px; padding: 10px 12px; font-size: .88rem; display: grid; gap: 4px; }
+.import-preview ul { margin: 0; padding-left: 18px; color: var(--danger); max-height: 140px; overflow-y: auto; }
+.data-actions { display: grid; gap: 12px; }
+.data-actions > div { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.data-actions > div:last-child { border-bottom: 0; padding-bottom: 0; }
+.data-actions p { flex: 1 1 260px; min-width: 0; }
+.data-actions p b { display: block; }
+.data-actions p span { color: var(--muted); font-size: .86rem; }
+.copy-area { width: 100%; min-height: 240px; font-family: var(--f-mono); font-size: .76rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); padding: 10px; }
+.file-label { position: relative; overflow: hidden; }
+.file-label input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: .9rem; transition: opacity .2s, transform .2s; max-width: calc(100vw - 32px); z-index: 50; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast.bad { background: var(--danger); color: var(--surface); }
+.loading { color: var(--muted); padding: 40px 0; text-align: center; }
+/* photos: thumbnail strip on activity cards, hover preview, lightbox, editor */
+.thumbs { display: flex; flex-wrap: wrap; gap: 6px; }
+.thumb { position: relative; width: 64px; height: 64px; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface-2); cursor: zoom-in; flex: none; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .2s ease; }
+.thumb:hover img { transform: scale(1.06); }
+.thumb.missing { cursor: default; }
+.thumb .more { position: absolute; inset: 0; display: grid; place-items: center; background: rgb(0 0 0 / .5); color: #fff; font-weight: 700; font-size: .95rem; }
+.peek { position: fixed; z-index: 60; pointer-events: none; border-radius: 12px; overflow: hidden; border: 3px solid var(--surface); box-shadow: 0 18px 50px rgb(0 0 0 / .35); background: var(--surface-2); opacity: 0; transform: scale(.94); transition: opacity .15s ease, transform .15s ease; }
+.peek.show { opacity: 1; transform: none; }
+.peek img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.lightbox { width: min(1100px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; background: var(--surface); }
+.lightbox::backdrop { background: rgb(5 10 8 / .8); }
+.lightbox figure { margin: 0; display: grid; gap: 0; }
+.lightbox img { display: block; max-width: 100%; max-height: calc(100vh - 110px); margin: 0 auto; object-fit: contain; min-height: 120px; }
+.lightbox figcaption { padding: 10px 16px; color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); padding-right: 110px; overflow-wrap: anywhere; }
+.lb-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgb(0 0 0 / .45); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer; }
+.lb-btn:hover { background: rgb(0 0 0 / .65); }
+.lb-prev { left: 10px; } .lb-next { right: 10px; }
+.lb-close { position: absolute; right: 10px; bottom: 6px; }
+.photo-edit { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.pe { position: relative; width: 76px; height: 76px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--surface-2); }
+.pe img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pe-x { position: absolute; top: 3px; right: 3px; width: 22px; height: 22px; border-radius: 50%; border: 0; background: rgb(0 0 0 / .6); color: #fff; cursor: pointer; font-size: .9rem; line-height: 1; }
+.photo-add { position: relative; display: grid; place-items: center; width: 76px; height: 76px; border: 1.5px dashed var(--line); border-radius: 8px; color: var(--muted); font-size: .76rem; font-weight: 700; text-align: center; padding: 6px; cursor: pointer; }
+.photo-add:hover { border-color: var(--accent); color: var(--accent); }
+.photo-add input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.photo-add:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hint { color: var(--muted); font-size: .8rem; }
+.dlg-body.drop { outline: 2px dashed var(--accent); outline-offset: -8px; }
+/* login / sign-up screen */
+.auth { width: min(100%, 440px); margin: 5vh auto 0; padding: 28px; display: grid; gap: 16px; }
+.auth form { display: grid; gap: 14px; }
+.auth .field input { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 10px 12px; width: 100%; }
+.auth .btn.primary { padding-block: 11px; }
+.auth .form-error:empty { display: none; }
+.auth .info { color: var(--ok); font-size: .9rem; }
+.auth-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
+.linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
+.chrome-off .tabs, .chrome-off #data-btn, .chrome-off .status { display: none; }
+.site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } .thumb:hover img { transform: none; } }
+</style>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand"><b>Doelenboek</b></div>
+    <nav class="tabs" aria-label="Doelenboek">
+      <a href="#overzicht" data-tab="overzicht">Overzicht</a>
+      <a href="#activiteiten" data-tab="activiteiten">Activiteiten</a>
+      <a href="#doelen" data-tab="doelen">Minimumdoelen</a>
+    </nav>
+    <div class="top-right">
+      <span class="status" id="status">Verbinden…</span>
+      <div class="lang-switch" role="group" id="lang-switch" aria-label="Taal / Language">
+        <button type="button" data-lang="nl" aria-pressed="true" lang="nl" title="Nederlands">NL</button>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
+      </div>
+      <button class="btn small ghost" id="data-btn" type="button">Gegevens</button>
+    </div>
+  </div>
+</header>
+<main id="main"><p class="loading">Gegevens laden…</p></main>
+<footer class="site-foot" id="site-foot"></footer>
+<dialog id="dlg"></dialog>
+<dialog id="dlg2"></dialog>
+<dialog id="lightbox" class="lightbox">
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+  <button type="button" class="lb-btn lb-prev" data-lb="prev">‹</button>
+  <button type="button" class="lb-btn lb-next" data-lb="next">›</button>
+  <button type="button" class="btn small lb-close" data-lb="close">Sluiten</button>
+</dialog>
+<div class="peek" id="peek" hidden><img alt=""></div>
+<div class="gpeek" id="gpeek" role="tooltip" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* ---------- constants ---------- */
+const SUBJECTS = [
+  { key: 'NL', name: { nl: 'Nederlands', en: 'Dutch' }, aliases: ['nederlands', 'nl', 'taal', 'dutch'] },
+  { key: 'WK', name: { nl: 'Wiskunde', en: 'Mathematics' }, aliases: ['wiskunde', 'wk', 'rekenen', 'math', 'maths', 'mathematics'] },
+  { key: 'WT', name: { nl: 'Wetenschappen & techniek', en: 'Science & technology' }, aliases: ['wetenschappen en techniek', 'wetenschappen & techniek', 'wetenschappen', 'techniek', 'wt', 'wo', 'science', 'science and technology'] },
+  { key: 'GE', name: { nl: 'Geschiedenis', en: 'History' }, aliases: ['geschiedenis', 'ge', 'history'] },
+  { key: 'AK', name: { nl: 'Aardrijkskunde', en: 'Geography' }, aliases: ['aardrijkskunde', 'ak', 'geography'] },
+  { key: 'MV', name: { nl: 'Muzische vorming', en: 'Arts education' }, aliases: ['muzische vorming', 'muzisch', 'mv', 'muvo', 'arts', 'arts education'] },
+  { key: 'LO', name: { nl: 'Lichamelijke opvoeding', en: 'Physical education' }, aliases: ['lichamelijke opvoeding', 'bewegingsopvoeding', 'lo', 'pe', 'physical education'] },
+  { key: 'AT', name: { nl: 'Attitudes', en: 'Attitudes' }, aliases: ['attitudes', 'attitude', 'at'] },
+];
+const SUBJ = Object.fromEntries(SUBJECTS.map((s, i) => [s.key, { ...s, i }]));
+const ANIMALS = ['🦊','🐻','🐼','🐨','🐯','🦁','🐸','🐵','🐰','🦉','🐧','🐢','🐙','🦔','🦒','🐘','🦓','🐝','🦋','🐞','🐳','🦜','🐿️','🦩'];
+const COLS = ['goals', 'children', 'activities'];
+const LS_KEY = 'doelenboek.v1';
+const LANG_KEY = 'doelenboek.lang';
+const BACKUP_KEY = 'doelenboek.lastBackup';
+const BACKUP_EVERY_DAYS = 14;
+/* Firebase accounts (email + password). The standalone build fills this in; left null, the page
+   uses the Claude-hosted store or, outside Claude, this browser only. */
+const FIREBASE_CONFIG = null;
+const FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/10.14.1/';
+const MIGRATED_KEY = 'doelenboek.migrated.';
+const MAX_PHOTOS = 24;              // per activity
+const PHOTO_MAX_B64 = 240000;       // keeps one photo under the 256 KiB document limit of the shared store
+const ID_RE = /^[A-Za-z0-9_\-~:@+.]{1,120}$/;
+
+/* Built-in minimumdoelen, taken from the Unity project's doelen/*.asset files.
+   The Dutch text is kept exactly as written there; the English is a translation. */
+const BUILTIN_GOALS = [
+  { id: 'b-NL-1.1.1', code: '1.1.1', subject: 'NL', category: 'Lezen', categoryEn: 'Reading',
+    description: 'De kleuters kunnen rijm herkennen, rijmwoorden bedenken en woorden in klankgroepen verdelen (fonologisch bewustzijn).',
+    descriptionEn: 'Preschoolers can recognise rhyme, come up with rhyming words and split words into sound groups (phonological awareness).' },
+  { id: 'b-NL-1.1.2', code: '1.1.2', subject: 'NL', category: 'Lezen', categoryEn: 'Reading',
+    description: 'De kleuters kunnen een bepaalde klank in gesproken woorden op verschillende posities herkennen (fonemisch bewustzijn).',
+    descriptionEn: 'Preschoolers can recognise a given sound at different positions in spoken words (phonemic awareness).' },
+  { id: 'b-NL-1.1.3', code: '1.1.3', subject: 'NL', category: 'Lezen', categoryEn: 'Reading',
+    description: 'De kleuters kunnen een variatie aan klanken in mk-, km-, en mkm-woorden onderscheiden (fonemisch bewustzijn).',
+    descriptionEn: 'Preschoolers can distinguish a variety of sounds in CV, VC and CVC words (phonemic awareness).' },
+  { id: 'b-NL-1.1.4', code: '1.1.4', subject: 'NL', category: 'Lezen', categoryEn: 'Reading',
+    description: 'De kleuters kunnen minimum 15 letters (korte, lange, tweetekenklinkers en medeklinkers) herkennen door de bijbehorende klank uit te spreken (klank-tekenkoppeling).',
+    descriptionEn: 'Preschoolers can recognise at least 15 letters (short vowels, long vowels, two-letter vowels and consonants) by saying the matching sound (letter-sound correspondence).' },
+  { id: 'b-NL-1.1.5', code: '1.1.5', subject: 'NL', category: 'Tekstbegrip', categoryEn: 'Reading comprehension',
+    description: 'De kleuters kunnen de betekenis van eenvoudige visuele boodschappen begrijpen.',
+    descriptionEn: 'Preschoolers can understand the meaning of simple visual messages.' },
+  { id: 'b-NL-1.1.6', code: '1.1.6', subject: 'NL', category: 'Tekstbegrip', categoryEn: 'Reading comprehension',
+    description: 'De kleuters kunnen expliciete informatie over de situatie, de gevoelens, de personages en perspectiefname uit voorgelezen teksten halen.',
+    descriptionEn: 'Preschoolers can take explicit information about the situation, feelings, characters and perspective from texts read aloud to them.' },
+  { id: 'b-NL-1.1.7', code: '1.1.7', subject: 'NL', category: 'Tekstbegrip', categoryEn: 'Reading comprehension',
+    description: 'De kleuters kunnen expliciete verbanden binnen een tekst verwoorden: oorzaak, gevolg, probleem en oplossing.',
+    descriptionEn: 'Preschoolers can put explicit connections within a text into words: cause, effect, problem and solution.' },
+  { id: 'b-NL-1.1.8', code: '1.1.8', subject: 'NL', category: 'Tekstbegrip', categoryEn: 'Reading comprehension',
+    description: 'De kleuters kunnen verbanden leggen tussen voorgelezen teksten en hun vakspecifieke kennis en voorkennis.',
+    descriptionEn: 'Preschoolers can connect texts read aloud to them with their subject knowledge and prior knowledge.' },
+  { id: 'b-NL-1.1.9', code: '1.1.9', subject: 'NL', category: 'Tekstbegrip', categoryEn: 'Reading comprehension',
+    description: 'De kleuters kunnen de belangrijkste gebeurtenissen uit een verhaallijn in eigen woorden navertellen.',
+    descriptionEn: 'Preschoolers can retell the main events of a storyline in their own words.' },
+  { id: 'b-NL-1.1.10', code: '1.1.10', subject: 'NL', category: 'Tekstsoorten en tekstconventies', categoryEn: 'Text types and conventions',
+    description: 'De kleuters kunnen tonen dat ze de volgende tekstconventies begrijpen: inzicht in leesrichting, onderscheid tekst en beeld, congruentie tussen tekst en beeld.',
+    descriptionEn: 'Preschoolers can show that they understand these text conventions: reading direction, the difference between text and image, and how text and image match.' },
+  { id: 'b-NL-1.1.11', code: '1.1.11', subject: 'NL', category: 'Tekstsoorten en tekstconventies', categoryEn: 'Text types and conventions',
+    description: 'De kleuters kunnen tonen dat teksten een doel hebben: iets onthouden, iets doen, genieten.',
+    descriptionEn: 'Preschoolers can show that texts have a purpose: remembering something, doing something, enjoyment.' },
+  { id: 'b-NL-1.2.1', code: '1.2.1', subject: 'NL', category: 'Schrijven', categoryEn: 'Writing',
+    description: 'De kleuters kunnen een dynamische pengreep hanteren.',
+    descriptionEn: 'Preschoolers can use a dynamic pencil grip.' },
+  { id: 'b-NL-1.2.2', code: '1.2.2', subject: 'NL', category: 'Schrijven', categoryEn: 'Writing',
+    description: 'De kleuters kunnen in een correcte schrijfhouding zitten.',
+    descriptionEn: 'Preschoolers can sit in a correct writing posture.' },
+  { id: 'b-NL-1.2.3', code: '1.2.3', subject: 'NL', category: 'Schrijven', categoryEn: 'Writing',
+    description: 'De kleuters kunnen rechte en gebogen lijnen maken binnen liniatuur.',
+    descriptionEn: 'Preschoolers can draw straight and curved lines within ruled lines.' },
+  { id: 'b-NL-1.2.4', code: '1.2.4', subject: 'NL', category: 'Schrijven', categoryEn: 'Writing',
+    description: 'De kleuters kunnen schrijfpatronen maken binnen liniatuur.',
+    descriptionEn: 'Preschoolers can make writing patterns within ruled lines.' },
+  { id: 'b-NL-1.2.5', code: '1.2.5', subject: 'NL', category: 'Schrijven', categoryEn: 'Writing',
+    description: 'De kleuters kunnen egaal binnen de lijntjes kleuren.',
+    descriptionEn: 'Preschoolers can colour evenly within the lines.' },
+  { id: 'b-NL-1.2.6', code: '1.2.6', subject: 'NL', category: 'Schrijven', categoryEn: 'Writing',
+    description: 'De kleuters kunnen arceren met rechte lijnen.',
+    descriptionEn: 'Preschoolers can shade with straight lines.' },
+  { id: 'b-NL-1.2.7', code: '1.2.7', subject: 'NL', category: 'Schrijven', categoryEn: 'Writing',
+    description: 'De kleuters kunnen de schrijfrichting hanteren.',
+    descriptionEn: 'Preschoolers can follow the writing direction.' },
+  { id: 'b-NL-1.2.8', code: '1.2.8', subject: 'NL', category: 'Schrijven om te leren', categoryEn: 'Writing to learn',
+    description: 'De kleuters kunnen door middel van tekenen, krabbels, symbolen, letter- of cijfervormen ideeën of gebeurtenissen vastleggen.',
+    descriptionEn: 'Preschoolers can record ideas or events through drawings, scribbles, symbols, or letter and number shapes.' },
+  { id: 'b-NL-1.2.9', code: '1.2.9', subject: 'NL', category: 'Schrijven om te delen', categoryEn: 'Writing to share',
+    description: 'De kleuters kennen de functie van schriftelijke taal om te informeren of te communiceren.',
+    descriptionEn: 'Preschoolers know that written language is used to inform or communicate.' },
+  { id: 'b-NL-1.2.10', code: '1.2.10', subject: 'NL', category: 'Schrijven om te delen', categoryEn: 'Writing to share',
+    description: 'De kleuters kunnen ideeën aanbrengen voor een tekst vanuit aangeboden inhouden, eigen ervaringen of creatieve ideeën.',
+    descriptionEn: 'Preschoolers can suggest ideas for a text based on given content, their own experiences or creative ideas.' },
+  { id: 'b-NL-1.3.5', code: '1.3.5', subject: 'NL', category: 'Mondeling taalgebruik', categoryEn: 'Spoken language',
+    description: 'De kleuters kunnen verstaanbaar spreken met aandacht voor uitspraak van klanken, klankcombinaties en volume.',
+    descriptionEn: 'Preschoolers can speak intelligibly, paying attention to the pronunciation of sounds, sound combinations and volume.' },
+  { id: 'b-NL-1.3.6', code: '1.3.6', subject: 'NL', category: 'Mondeling taalgebruik', categoryEn: 'Spoken language',
+    description: 'De kleuters kunnen bij het spreken mededelende, vragende en samengestelde zinnen hanteren.',
+    descriptionEn: 'Preschoolers can use statements, questions and compound sentences when speaking.' },
+  { id: 'b-NL-1.3.7', code: '1.3.7', subject: 'NL', category: 'Mondeling taalgebruik', categoryEn: 'Spoken language',
+    description: 'De kleuters kunnen gedachten en gebeurtenissen formuleren met een aanzet tot volgorde en tonen hierbij een aanzet tot het gebruik van structuuraanduiders (verwijs-, verbindings- en signaalwoorden).',
+    descriptionEn: 'Preschoolers can put thoughts and events into words with a beginning sense of order, and show early use of structure markers (reference, linking and signal words).' },
+  { id: 'b-NL-1.3.8', code: '1.3.8', subject: 'NL', category: 'Mondeling taalgebruik', categoryEn: 'Spoken language',
+    description: 'De kleuters kunnen in een vertrouwde omgeving over een zelfgekozen onderwerp vertellen.',
+    descriptionEn: 'Preschoolers can talk about a topic of their own choice in a familiar setting.' },
+  { id: 'b-NL-1.3.9', code: '1.3.9', subject: 'NL', category: 'Mondeling taalgebruik', categoryEn: 'Spoken language',
+    description: 'De kleuters kunnen actief deelnemen aan mondelinge interactievormen zoals kringgesprekken, samen spelen, gesprekken met gekende volwassenen en hierbij de volgende interactiestrategieën toepassen: \n- Op een gepaste manier het woord nemen en vragen.\n- Elkaar laten uitspreken.\n- Inspelen op wat anderen zeggen.\n- Standaardformules gebruiken bij het groeten, aanspreken, bedanken en vragen.',
+    descriptionEn: 'Preschoolers can take an active part in spoken interaction such as circle time, playing together and conversations with familiar adults, using these interaction strategies:\n- Taking a turn to speak and asking questions in an appropriate way.\n- Letting each other finish.\n- Responding to what others say.\n- Using standard phrases for greeting, addressing someone, thanking and asking.' },
+  { id: 'b-MV-6.1.1', code: '6.1.1', subject: 'MV', category: 'Domeinoverschrijdend', categoryEn: 'Across domains',
+    description: 'De kleuters kunnen technieken/vaardigheden van de vijf muzische domeinen verkennen.',
+    descriptionEn: 'Preschoolers can explore techniques and skills from the five arts domains.' },
+  { id: 'b-MV-6.1.2', code: '6.1.2', subject: 'MV', category: 'Domeinoverschrijdend', categoryEn: 'Across domains',
+    description: 'De kleuters kunnen vormgevingsmiddelen van de vijf muzische domeinen verkennen: Muziek: de stem, het lied, de handtrom, de triangel, de tamboerijn, de fluit. Beeld: het potlood, het penseel, de verf, de stempel, het tekenpapier. Drama: de handpop, het toneel, de verkleedkleren, het masker. Dans: de dans, de beweging, de kring, de rij. Media: de (video)camera.',
+    descriptionEn: 'Preschoolers can explore the materials of the five arts domains. Music: the voice, the song, the hand drum, the triangle, the tambourine, the flute. Visual art: the pencil, the brush, paint, the stamp, drawing paper. Drama: the hand puppet, the stage, dress-up clothes, the mask. Dance: the dance, movement, the circle, the line. Media: the (video) camera.' },
+  { id: 'b-MV-6.2.1', code: '6.2.1', subject: 'MV', category: 'Muziek', categoryEn: 'Music',
+    description: 'De kleuters kennen de volgende begrippen: kort, lang, hoog, laag, snel, langzaam, hard, zacht, klank, toon, de zanger(es), de muzikant, het instrument.',
+    descriptionEn: 'Preschoolers know these concepts: short, long, high, low, fast, slow, loud, soft, sound, tone, the singer, the musician, the instrument.' },
+  { id: 'b-MV-6.2.2', code: '6.2.2', subject: 'MV', category: 'Muziek', categoryEn: 'Music',
+    description: 'De kleuters kunnen patronen van lange en korte geluiden onderscheiden.',
+    descriptionEn: 'Preschoolers can tell apart patterns of long and short sounds.' },
+  { id: 'b-MV-6.2.3', code: '6.2.3', subject: 'MV', category: 'Muziek', categoryEn: 'Music',
+    description: 'De kleuters kunnen snelle en langzame ritmische en melodische patronen onderscheiden.',
+    descriptionEn: 'Preschoolers can tell apart fast and slow rhythmic and melodic patterns.' },
+  { id: 'b-MV-6.2.4', code: '6.2.4', subject: 'MV', category: 'Muziek', categoryEn: 'Music',
+    description: 'De kleuters kunnen hoge en lage tonen herkennen en eenvoudige melodieën aangepast aan het stembereik zingen.',
+    descriptionEn: 'Preschoolers can recognise high and low notes and sing simple melodies suited to their vocal range.' },
+];
+const BUILTIN = new Map(BUILTIN_GOALS.map(g => [g.id, { ...g, builtin: true, createdAt: 0, updatedAt: 0 }]));
+
+/* ---------- language ---------- */
+const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+const T = {
+  nl: {
+    tab_overzicht: 'Overzicht', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen',
+    st_connecting: 'Verbinden…', st_saved: 'Automatisch opgeslagen', st_readonly: 'Alleen lezen', st_local: 'Alleen in deze browser',
+    data_btn: 'Gegevens', loading: 'Gegevens laden…', locale: 'nl-BE',
+    example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
+    remove_examples: 'Voorbeelden verwijderen',
+    no_goals_notice: 'Er zijn nog geen minimumdoelen ingeladen. Plak of laad ze in als lijst, dan berekent Doelenboek de voortgang per vak.',
+    import_goals: 'Doelen importeren',
+    h_overview: 'Overzicht',
+    n_children: n => nlN(n, 'kind', 'kinderen'), n_goals: n => nlN(n, 'minimumdoel', 'minimumdoelen'), n_acts: n => nlN(n, 'activiteit', 'activiteiten'),
+    n_goals_short: n => nlN(n, 'doel', 'doelen'),
+    add_child: 'Kind toevoegen', add_activity: 'Activiteit toevoegen',
+    empty_kids_h: 'Nog geen kinderen', empty_kids_p: 'Voeg een kind toe. Daarna registreer je activiteiten en zie je per vak welke minimumdoelen al aan bod kwamen.',
+    last: d => `laatst ${d}`, x_of_y_goals: (a, b) => `${a}/${b} doelen`, goals_per_subject: 'Doelen per vak',
+    back: '← Overzicht', reached: (m, t, p) => `${m} van ${t} minimumdoelen behaald (${p}%)`,
+    edit: 'Wijzigen', delete: 'Verwijderen', open_only: 'Toon alleen doelen die nog open staan',
+    all_done: 'Alle doelen van dit vak zijn behaald.', achieved: 'Behaald', open: 'Open', via: 'Via', child_acts: name => `Activiteiten van ${name}`,
+    h_acts: 'Activiteiten', acts_lede: 'Lessen, uitstappen en projecten, met de minimumdoelen die erin aan bod kwamen.',
+    empty_acts_h: 'Nog geen activiteiten', empty_acts_p: 'Registreer wat je samen deed en vink aan welke minimumdoelen erbij horen.',
+    empty_acts_nokids: 'Voeg eerst een kind toe op het overzicht.', to_overview: 'Naar overzicht',
+    search_acts: 'Zoek op titel, notitie of doelcode', all_children: 'Alle kinderen', filter_child: 'Filter op kind',
+    no_acts_found: 'Geen activiteiten gevonden met deze filters.', no_goals_linked: 'Geen minimumdoelen gekoppeld.', goals_aria: 'Minimumdoelen',
+    h_goals: 'Minimumdoelen', goals_lede: 'De doelen waartegen je de voortgang meet. Officiële lijsten vind je op',
+    import: 'Importeren', add_goal: 'Doel toevoegen',
+    empty_goals_h: 'Nog geen minimumdoelen', empty_goals_p: 'Plak een lijst uit Excel of een CSV-bestand met deze kolommen:',
+    search_goals: 'Zoek op code, categorie of tekst', all_subjects: 'Alle vakken', filter_subject: 'Filter op vak',
+    count_line: (n, t, kids) => `${n} van ${t} doelen${kids ? ' · de diertjes tonen welke kinderen het doel behaalden' : ''}`,
+    first_n: n => `De eerste ${n} worden getoond. Verfijn je zoekopdracht om de rest te zien.`,
+    no_goals_found: 'Geen doelen gevonden met deze filters.', builtin: 'Standaard', builtin_title: 'Ingebouwd doel, kan niet gewijzigd worden',
+    kid_done: n => `${n}: behaald`, kid_open: n => `${n}: nog open`, ex_desc: 'Omschrijving van het doel',
+    close: 'Sluiten', cancel: 'Annuleren', save: 'Opslaan', busy: 'Bezig…', progress: (a, b) => `Bezig… ${a}/${b}`,
+    child_edit_h: 'Kind wijzigen', child_add_h: 'Kind toevoegen', name: 'Naam', animal: 'Diertje', animal_taken: 'Al gekozen voor een ander kind',
+    err_name: 'Vul een naam in.', err_dup_name: n => `Er is al een kind met de naam ${n}.`, saved_changes: 'Wijzigingen opgeslagen.', child_added: n => `${n} is toegevoegd.`,
+    child_del_h: 'Kind verwijderen', child_del_q: n => `Weet je zeker dat je <b>${n}</b> wilt verwijderen?`,
+    child_del_acts: (n, c) => `${n} wordt uit ${nlN(c, 'activiteit', 'activiteiten')} gehaald. De activiteiten zelf blijven bewaard.`,
+    child_del_none: 'Er zijn geen activiteiten gekoppeld.', child_deleted: n => `${n} is verwijderd.`,
+    goal_edit_h: 'Doel wijzigen', goal_add_h: 'Doel toevoegen', code: 'Code', code_ph: 'bv. 1.2.3', subject: 'Vak', category: 'Categorie', description: 'Omschrijving',
+    err_desc: 'Vul een omschrijving in.', err_dup_code: c => `Er bestaat al een doel met code ${c} voor dit vak.`, goal_updated: 'Doel bijgewerkt.', goal_added: 'Doel toegevoegd.',
+    goal_del_h: 'Doel verwijderen', goal_del_q: l => `Weet je zeker dat je doel <b>${l}</b> wilt verwijderen?`,
+    goal_del_acts: c => `Het wordt losgekoppeld van ${nlN(c, 'activiteit', 'activiteiten')}.`, goal_del_none: 'Het is aan geen enkele activiteit gekoppeld.', goal_deleted: 'Doel verwijderd.',
+    act_edit_h: 'Activiteit wijzigen', act_add_h: 'Activiteit toevoegen', title: 'Titel', title_ph: 'bv. Bezoek aan het natuurpunt', date: 'Datum', who: 'Wie deed mee?',
+    goals_field: 'Minimumdoelen', n_chosen: n => `· ${n} gekozen`, search_goal: 'Zoek doel', show: 'Toon',
+    show_all: 'Alle doelen', show_open: 'Nog open voor deze kinderen', show_sel: 'Alleen gekozen',
+    n_more: n => `${n} meer. Verfijn je zoekopdracht.`, picker_none: 'Geen doelen gevonden.', picker_empty: 'Er zijn nog geen minimumdoelen. Je kunt ze later koppelen.',
+    notes: 'Notities', notes_ph: 'Wat deden jullie, wat viel op?', remove_x: l => `Verwijder ${l}`,
+    err_title: 'Geef de activiteit een titel.', err_date: 'Kies een geldige datum.', err_kids: 'Kies minstens één kind dat meedeed.',
+    act_updated: 'Activiteit bijgewerkt.', act_saved: 'Activiteit opgeslagen.', add_child_first: 'Voeg eerst een kind toe.',
+    act_del_h: 'Activiteit verwijderen', act_del_q: (t, d) => `Weet je zeker dat je <b>${t}</b> (${d}) wilt verwijderen?`,
+    act_del_note: 'Doelen die alleen via deze activiteit behaald waren, staan daarna weer open.', act_deleted: 'Activiteit verwijderd.',
+    import_h: 'Minimumdoelen importeren',
+    import_p: 'Plak een lijst uit Excel, of kies een CSV- of tekstbestand. Kolommen: <b>code, vak, categorie, omschrijving</b>. Een kopregel met die namen mag, de volgorde kiest Doelenboek dan zelf.',
+    import_p2: s => `Vakken: ${s}. Doelen met dezelfde code als een bestaand doel worden bijgewerkt in plaats van dubbel toegevoegd.`,
+    list: 'Lijst', choose_file: 'Bestand kiezen', nothing_read: 'Nog niets ingelezen.',
+    n_recognised: n => `${nlN(n, 'doel', 'doelen')} herkend`, new_upd: (a, b, c) => `${a} nieuw, ${b} bijgewerkt${c ? `, ${c} al ingebouwd (overgeslagen)` : ''}`,
+    n_skipped: n => `${nlN(n, 'regel', 'regels')} overgeslagen:`, err_no_items: 'Er zijn geen nieuwe doelen herkend om te importeren.',
+    import_partial: (ok, fail, m) => `${ok} doelen geïmporteerd, ${fail} mislukt. ${m}`, imported: n => `${nlN(n, 'doel', 'doelen')} geïmporteerd.`,
+    file_unreadable: 'Dit bestand kon niet gelezen worden.',
+    e_json: 'Dit is geen geldige JSON.', e_cols: 'Elke regel heeft minstens drie kolommen nodig: code, vak en omschrijving.',
+    e_subject: (l, r) => `Regel ${l}: vak "${r}" niet herkend.`, e_desc: l => `Regel ${l}: omschrijving ontbreekt.`,
+    data_h: 'Gegevens', where_db: 'Je gegevens worden automatisch bewaard bij deze pagina en zijn zichtbaar voor wie je de pagina deelt.',
+    where_local: 'Je gegevens staan alleen in deze browser. Maak regelmatig een back-up.',
+    report_h: 'Rapport per kind', report_p: 'CSV voor Excel: per kind elk minimumdoel, behaald of open, met de activiteiten als bewijs.', report_btn: 'Rapport downloaden',
+    backup_h: 'Back-up', backup_p: "Alle kinderen, eigen doelen, activiteiten en foto's als JSON-bestand. De ingebouwde doelen zitten al in de app.", backup_btn: 'Back-up downloaden',
+    restore_h: 'Back-up terugzetten', restore_p: 'Voegt de items uit een back-up toe. Items met dezelfde sleutel worden overschreven, de rest blijft staan.',
+    examples_h: 'Voorbeeldgegevens', examples_p: 'Verwijdert het voorbeeldkind en de voorbeeldactiviteit.', restoring: 'Bezig met terugzetten…',
+    file_saved: 'Bestand opgeslagen.', dl_open: 'Er staat al een downloadvenster open.',
+    copy_p: f => `Downloaden lukt hier niet. Kopieer de inhoud en bewaar die als <b>${f}</b>.`, copy_btn: 'Kopiëren', copied: 'Gekopieerd.',
+    copy_fail: 'Kopiëren lukte niet automatisch. De tekst is geselecteerd: gebruik Ctrl+C.',
+    r_invalid: 'Dit bestand is geen geldige back-up.', r_not_backup: 'Dit bestand is geen Doelenboek-back-up.', r_empty: 'De back-up bevat geen bruikbare gegevens.',
+    r_partial: (f, t, m) => `${f} van ${t} items konden niet hersteld worden. ${m}`, r_done: n => `${nlN(n, 'item', 'items')} hersteld.`,
+    ex_h: 'Voorbeelden verwijderen', ex_q: n => `Dit verwijdert ${nlN(n, 'voorbeelditem', 'voorbeelditems')}. Je eigen gegevens blijven staan.`, ex_done: 'Voorbeelden verwijderd.',
+    err_quota: 'De opslag is vol. Verwijder oude activiteiten of doelen en probeer opnieuw.',
+    err_rights: 'Je hebt geen rechten om hier iets te wijzigen. Vraag de eigenaar om je als bijdrager toe te voegen.',
+    err_busy: 'Te veel wijzigingen tegelijk. Wacht even en probeer opnieuw.', err_revoked: 'De toegang tot de opslag is gewijzigd. Herlaad de pagina.',
+    err_invalid: 'Deze gegevens zijn onvolledig.', err_generic: 'Opslaan lukte niet. Controleer je verbinding en probeer opnieuw.',
+    err_local_save: 'Opslaan in deze browser lukte niet. Maak een back-up via Gegevens.',
+    err_no_shared: 'Gedeelde opslag is niet beschikbaar. Gegevens worden in deze browser bewaard.',
+    err_conn: 'De verbinding met de opslag is verbroken. Herlaad de pagina.',
+    rep_head: ['Kind', 'Vak', 'Code', 'Categorie', 'Omschrijving', 'Status', 'Activiteiten'], rep_file: 'rapport',
+    pick_btn: 'Doelen kiezen…', pick_h: 'Minimumdoelen kiezen', done: 'Klaar', none_chosen: 'Nog geen doelen gekozen.', n_selected: n => `${n} gekozen`,
+    bk_never_local: 'Je gegevens staan alleen in deze browser. Download af en toe een back-up: worden de browsergegevens gewist, dan ben je anders alles kwijt.',
+    bk_never: 'Je hebt nog geen back-up gemaakt. Download af en toe een back-up, zodat je niets kwijtraakt als er iets misgaat.',
+    bk_old: d => `Je laatste back-up is ${d} dagen oud. Download een nieuwe, zodat je recente activiteiten niet kwijtraakt.`,
+    bk_now: 'Back-up downloaden', bk_last: d => `Laatste back-up: ${d}.`, bk_none: 'Nog geen back-up gemaakt.',
+    foot_local: 'Je gegevens blijven in deze browser en worden nergens anders opgeslagen. Download regelmatig een back-up via Gegevens.',
+    foot_db: 'Download regelmatig een back-up via Gegevens.',
+    photos: "Foto's", add_photos: "Foto's toevoegen", photo_remove: 'Foto verwijderen',
+    photo_hint: "Kies foto's, sleep ze hierheen of plak ze. Ze worden verkleind bewaard.",
+    photo_processing: "Foto's verwerken…", photo_wait: "Wacht tot de foto's verwerkt zijn.",
+    photo_fail: n => `${nlN(n, 'foto kon', "foto's konden")} niet gelezen worden. Gebruik JPG, PNG of WebP.`,
+    photo_max: n => `Maximaal ${n} foto's per activiteit.`,
+    photo_alt: (title, i) => `Foto ${i} van ${title}`, lb_prev: 'Vorige foto', lb_next: 'Volgende foto',
+    auth_h: 'Welkom bij Doelenboek', auth_p: 'Log in om je gegevens op al je toestellen te gebruiken.',
+    signup_h: 'Account aanmaken', signup_p: 'Je e-mailadres is je gebruikersnaam. Er wordt geen code of bevestiging gemaild.',
+    reset_h: 'Wachtwoord opnieuw instellen', reset_p: 'Vul je e-mailadres in. Je krijgt een e-mail met een link om een nieuw wachtwoord te kiezen.',
+    email: 'E-mailadres', password: 'Wachtwoord', password2: 'Herhaal wachtwoord', pw_hint: 'Minstens 8 tekens.',
+    login: 'Inloggen', signup: 'Account aanmaken', reset_btn: 'Link versturen',
+    to_signup: 'Nog geen account? Maak er een aan', to_login: 'Al een account? Inloggen', forgot: 'Wachtwoord vergeten?', back_login: 'Terug naar inloggen',
+    reset_sent: 'Als er een account bestaat voor dit adres, is er een e-mail onderweg. Kijk ook bij je spam.',
+    err_pw_match: 'De wachtwoorden zijn niet gelijk.', err_pw_short: 'Kies een wachtwoord van minstens 8 tekens.', err_email_empty: 'Vul je e-mailadres in.',
+    ae_invalid: 'E-mailadres of wachtwoord klopt niet.', ae_inuse: 'Er bestaat al een account met dit e-mailadres. Log in, of kies "Wachtwoord vergeten?".',
+    ae_email: 'Dit is geen geldig e-mailadres.', ae_weak: 'Dit wachtwoord is te zwak. Kies minstens 8 tekens.',
+    ae_many: 'Te veel pogingen. Wacht even en probeer opnieuw.', ae_net: 'Geen verbinding. Controleer je internet en probeer opnieuw.',
+    ae_generic: 'Dat lukte niet. Probeer het opnieuw.',
+    sdk_fail: 'De inlogdienst kon niet geladen worden. Controleer je internetverbinding en herlaad de pagina.',
+    privacy: "Je gegevens (kinderen, activiteiten, foto's) worden bewaard in Google Firebase in de EU en zijn alleen bereikbaar met jouw e-mailadres en wachtwoord. Je kunt je account en al je gegevens altijd verwijderen via Gegevens.",
+    account_h: 'Account', signed_in_as: e => `Ingelogd als ${e}.`, logout: 'Uitloggen',
+    del_acc: 'Account verwijderen', del_acc_p: "Verwijdert je account en al je gegevens (kinderen, activiteiten, eigen doelen, foto's) definitief. Download eerst een back-up als je iets wilt bewaren.",
+    del_acc_confirm: 'Vul je wachtwoord in om te bevestigen.', del_acc_btn: 'Account en gegevens verwijderen', del_done: 'Je account is verwijderd.',
+    where_fb: 'Je gegevens staan in je account en zijn beschikbaar op elk toestel waar je inlogt. Alleen jij hebt er toegang toe.',
+    foot_fb: 'Je gegevens worden met je account gesynchroniseerd. Download af en toe een back-up via Gegevens.',
+    mig_p: (k, a) => `In deze browser staan nog gegevens van vóór je account (${nlN(k, 'kind', 'kinderen')}, ${nlN(a, 'activiteit', 'activiteiten')}). Wil je ze naar je account overnemen?`,
+    mig_btn: 'Overnemen', mig_skip: 'Niet overnemen', mig_done: n => `${nlN(n, 'item', 'items')} naar je account overgenomen.`,
+    late_write_fail: 'Een wijziging kon niet in je account opgeslagen worden. Herlaad de pagina en controleer je gegevens.',
+  },
+  en: {
+    tab_overzicht: 'Overview', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals',
+    st_connecting: 'Connecting…', st_saved: 'Saved automatically', st_readonly: 'Read only', st_local: 'This browser only',
+    data_btn: 'Data', loading: 'Loading data…', locale: 'en-GB',
+    example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
+    remove_examples: 'Remove examples',
+    no_goals_notice: 'No minimum goals have been loaded yet. Paste or load them as a list and Doelenboek will work out progress per subject.',
+    import_goals: 'Import goals',
+    h_overview: 'Overview',
+    n_children: n => nlN(n, 'child', 'children'), n_goals: n => nlN(n, 'minimum goal', 'minimum goals'), n_acts: n => nlN(n, 'activity', 'activities'),
+    n_goals_short: n => nlN(n, 'goal', 'goals'),
+    add_child: 'Add child', add_activity: 'Add activity',
+    empty_kids_h: 'No children yet', empty_kids_p: 'Add a child. Then log activities and see, per subject, which minimum goals have been covered.',
+    last: d => `last ${d}`, x_of_y_goals: (a, b) => `${a}/${b} goals`, goals_per_subject: 'Goals per subject',
+    back: '← Overview', reached: (m, t, p) => `${m} of ${t} minimum goals covered (${p}%)`,
+    edit: 'Edit', delete: 'Delete', open_only: 'Show only goals that are still open',
+    all_done: 'Every goal in this subject is covered.', achieved: 'Covered', open: 'Open', via: 'Via', child_acts: name => `${name}'s activities`,
+    h_acts: 'Activities', acts_lede: 'Lessons, outings and projects, with the minimum goals they covered.',
+    empty_acts_h: 'No activities yet', empty_acts_p: 'Log what you did together and tick the minimum goals it covered.',
+    empty_acts_nokids: 'Add a child on the overview first.', to_overview: 'Go to overview',
+    search_acts: 'Search by title, notes or goal code', all_children: 'All children', filter_child: 'Filter by child',
+    no_acts_found: 'No activities match these filters.', no_goals_linked: 'No minimum goals linked.', goals_aria: 'Minimum goals',
+    h_goals: 'Minimum goals', goals_lede: 'The goals progress is measured against. Official lists are published on',
+    import: 'Import', add_goal: 'Add goal',
+    empty_goals_h: 'No minimum goals yet', empty_goals_p: 'Paste a list from Excel or a CSV file with these columns:',
+    search_goals: 'Search by code, category or text', all_subjects: 'All subjects', filter_subject: 'Filter by subject',
+    count_line: (n, t, kids) => `${n} of ${t} goals${kids ? ' · the animals show which children covered each goal' : ''}`,
+    first_n: n => `Showing the first ${n}. Narrow your search to see the rest.`,
+    no_goals_found: 'No goals match these filters.', builtin: 'Built in', builtin_title: 'Built-in goal, cannot be changed',
+    kid_done: n => `${n}: covered`, kid_open: n => `${n}: still open`, ex_desc: 'Description of the goal',
+    translated: 'Built-in goal texts are English translations of the official Dutch wording.',
+    close: 'Close', cancel: 'Cancel', save: 'Save', busy: 'Working…', progress: (a, b) => `Working… ${a}/${b}`,
+    child_edit_h: 'Edit child', child_add_h: 'Add child', name: 'Name', animal: 'Animal', animal_taken: 'Already used for another child',
+    err_name: 'Enter a name.', err_dup_name: n => `There is already a child called ${n}.`, saved_changes: 'Changes saved.', child_added: n => `${n} has been added.`,
+    child_del_h: 'Delete child', child_del_q: n => `Are you sure you want to delete <b>${n}</b>?`,
+    child_del_acts: (n, c) => `${n} will be removed from ${nlN(c, 'activity', 'activities')}. The activities themselves are kept.`,
+    child_del_none: 'No activities are linked.', child_deleted: n => `${n} has been deleted.`,
+    goal_edit_h: 'Edit goal', goal_add_h: 'Add goal', code: 'Code', code_ph: 'e.g. 1.2.3', subject: 'Subject', category: 'Category', description: 'Description',
+    err_desc: 'Enter a description.', err_dup_code: c => `A goal with code ${c} already exists for this subject.`, goal_updated: 'Goal updated.', goal_added: 'Goal added.',
+    goal_del_h: 'Delete goal', goal_del_q: l => `Are you sure you want to delete goal <b>${l}</b>?`,
+    goal_del_acts: c => `It will be unlinked from ${nlN(c, 'activity', 'activities')}.`, goal_del_none: 'It is not linked to any activity.', goal_deleted: 'Goal deleted.',
+    act_edit_h: 'Edit activity', act_add_h: 'Add activity', title: 'Title', title_ph: 'e.g. Visit to the nature reserve', date: 'Date', who: 'Who took part?',
+    goals_field: 'Minimum goals', n_chosen: n => `· ${n} selected`, search_goal: 'Search goals', show: 'Show',
+    show_all: 'All goals', show_open: 'Still open for these children', show_sel: 'Selected only',
+    n_more: n => `${n} more. Narrow your search.`, picker_none: 'No goals found.', picker_empty: 'There are no minimum goals yet. You can link them later.',
+    notes: 'Notes', notes_ph: 'What did you do, what stood out?', remove_x: l => `Remove ${l}`,
+    err_title: 'Give the activity a title.', err_date: 'Choose a valid date.', err_kids: 'Choose at least one child who took part.',
+    act_updated: 'Activity updated.', act_saved: 'Activity saved.', add_child_first: 'Add a child first.',
+    act_del_h: 'Delete activity', act_del_q: (t, d) => `Are you sure you want to delete <b>${t}</b> (${d})?`,
+    act_del_note: 'Goals that were only covered by this activity will be open again.', act_deleted: 'Activity deleted.',
+    import_h: 'Import minimum goals',
+    import_p: 'Paste a list from Excel, or choose a CSV or text file. Columns: <b>code, subject, category, description</b>. A header row with those names is fine; Doelenboek then works out the order itself.',
+    import_p2: s => `Subjects: ${s}. Goals with the same code as an existing goal are updated instead of added twice.`,
+    list: 'List', choose_file: 'Choose file', nothing_read: 'Nothing read yet.',
+    n_recognised: n => `${nlN(n, 'goal', 'goals')} recognised`, new_upd: (a, b, c) => `${a} new, ${b} updated${c ? `, ${c} already built in (skipped)` : ''}`,
+    n_skipped: n => `${nlN(n, 'line', 'lines')} skipped:`, err_no_items: 'No new goals were recognised to import.',
+    import_partial: (ok, fail, m) => `${ok} goals imported, ${fail} failed. ${m}`, imported: n => `${nlN(n, 'goal', 'goals')} imported.`,
+    file_unreadable: 'This file could not be read.',
+    e_json: 'This is not valid JSON.', e_cols: 'Each line needs at least three columns: code, subject and description.',
+    e_subject: (l, r) => `Line ${l}: subject "${r}" not recognised.`, e_desc: l => `Line ${l}: description is missing.`,
+    data_h: 'Data', where_db: 'Your data is saved automatically with this page and is visible to anyone you share the page with.',
+    where_local: 'Your data is stored in this browser only. Make a backup regularly.',
+    report_h: 'Report per child', report_p: 'CSV for Excel: every minimum goal per child, covered or open, with the activities as evidence.', report_btn: 'Download report',
+    backup_h: 'Backup', backup_p: 'All children, your own goals, activities and photos as a JSON file. The built-in goals are already part of the app.', backup_btn: 'Download backup',
+    restore_h: 'Restore backup', restore_p: 'Adds the items from a backup. Items with the same key are overwritten; everything else stays.',
+    examples_h: 'Example data', examples_p: 'Removes the example child and the example activity.', restoring: 'Restoring…',
+    file_saved: 'File saved.', dl_open: 'A download prompt is already open.',
+    copy_p: f => `Downloading does not work here. Copy the contents and save them as <b>${f}</b>.`, copy_btn: 'Copy', copied: 'Copied.',
+    copy_fail: 'Copying did not work automatically. The text is selected: press Ctrl+C.',
+    r_invalid: 'This file is not a valid backup.', r_not_backup: 'This file is not a Doelenboek backup.', r_empty: 'The backup contains no usable data.',
+    r_partial: (f, t, m) => `${f} of ${t} items could not be restored. ${m}`, r_done: n => `${nlN(n, 'item', 'items')} restored.`,
+    ex_h: 'Remove examples', ex_q: n => `This removes ${nlN(n, 'example item', 'example items')}. Your own data stays.`, ex_done: 'Examples removed.',
+    err_quota: 'Storage is full. Delete old activities or goals and try again.',
+    err_rights: 'You do not have permission to change anything here. Ask the owner to add you as a contributor.',
+    err_busy: 'Too many changes at once. Wait a moment and try again.', err_revoked: 'Access to the storage has changed. Reload the page.',
+    err_invalid: 'This data is incomplete.', err_generic: 'Saving failed. Check your connection and try again.',
+    err_local_save: 'Saving in this browser failed. Make a backup via Data.',
+    err_no_shared: 'Shared storage is not available. Data is kept in this browser.',
+    err_conn: 'The connection to storage was lost. Reload the page.',
+    rep_head: ['Child', 'Subject', 'Code', 'Category', 'Description', 'Status', 'Activities'], rep_file: 'report',
+    pick_btn: 'Choose goals…', pick_h: 'Choose minimum goals', done: 'Done', none_chosen: 'No goals selected yet.', n_selected: n => `${n} selected`,
+    bk_never_local: 'Your data lives only in this browser. Download a backup now and then: if the browser data is cleared, everything is gone otherwise.',
+    bk_never: 'You have not made a backup yet. Download one now and then so nothing is lost if something goes wrong.',
+    bk_old: d => `Your last backup is ${d} days old. Download a new one so you don't lose recent activities.`,
+    bk_now: 'Download backup', bk_last: d => `Last backup: ${d}.`, bk_none: 'No backup made yet.',
+    foot_local: 'Your data stays in this browser and is not stored anywhere else. Download a backup regularly via Data.',
+    foot_db: 'Download a backup regularly via Data.',
+    photos: 'Photos', add_photos: 'Add photos', photo_remove: 'Remove photo',
+    photo_hint: 'Choose photos, drag them here or paste them. They are stored at a reduced size.',
+    photo_processing: 'Processing photos…', photo_wait: 'Wait until the photos have been processed.',
+    photo_fail: n => `${nlN(n, 'photo', 'photos')} could not be read. Use JPG, PNG or WebP.`,
+    photo_max: n => `At most ${n} photos per activity.`,
+    photo_alt: (title, i) => `Photo ${i} of ${title}`, lb_prev: 'Previous photo', lb_next: 'Next photo',
+    auth_h: 'Welcome to Doelenboek', auth_p: 'Log in to use your data on all your devices.',
+    signup_h: 'Create account', signup_p: 'Your email address is your username. No code or confirmation is emailed.',
+    reset_h: 'Reset password', reset_p: "Enter your email address. You'll get an email with a link to choose a new password.",
+    email: 'Email address', password: 'Password', password2: 'Repeat password', pw_hint: 'At least 8 characters.',
+    login: 'Log in', signup: 'Create account', reset_btn: 'Send link',
+    to_signup: 'No account yet? Create one', to_login: 'Already have an account? Log in', forgot: 'Forgot password?', back_login: 'Back to log in',
+    reset_sent: 'If an account exists for this address, an email is on its way. Check your spam folder too.',
+    err_pw_match: 'The passwords do not match.', err_pw_short: 'Choose a password of at least 8 characters.', err_email_empty: 'Enter your email address.',
+    ae_invalid: 'Email address or password is incorrect.', ae_inuse: 'An account with this email address already exists. Log in, or choose "Forgot password?".',
+    ae_email: 'This is not a valid email address.', ae_weak: 'This password is too weak. Choose at least 8 characters.',
+    ae_many: 'Too many attempts. Wait a moment and try again.', ae_net: 'No connection. Check your internet and try again.',
+    ae_generic: 'That did not work. Try again.',
+    sdk_fail: 'The login service could not be loaded. Check your internet connection and reload the page.',
+    privacy: 'Your data (children, activities, photos) is stored in Google Firebase in the EU and can only be reached with your email address and password. You can delete your account and all your data at any time via Data.',
+    account_h: 'Account', signed_in_as: e => `Logged in as ${e}.`, logout: 'Log out',
+    del_acc: 'Delete account', del_acc_p: 'Permanently deletes your account and all your data (children, activities, your own goals, photos). Download a backup first if you want to keep anything.',
+    del_acc_confirm: 'Enter your password to confirm.', del_acc_btn: 'Delete account and data', del_done: 'Your account has been deleted.',
+    where_fb: 'Your data lives in your account and is available on every device where you log in. Only you can access it.',
+    foot_fb: 'Your data syncs with your account. Download a backup now and then via Data.',
+    mig_p: (k, a) => `This browser still holds data from before your account (${nlN(k, 'child', 'children')}, ${nlN(a, 'activity', 'activities')}). Move it into your account?`,
+    mig_btn: 'Move to account', mig_skip: "Don't move", mig_done: n => `${nlN(n, 'item', 'items')} moved to your account.`,
+    late_write_fail: 'A change could not be saved to your account. Reload the page and check your data.',
+  },
+};
+let lang = 'nl';
+try { const saved = localStorage.getItem(LANG_KEY); if (saved === 'en' || saved === 'nl') lang = saved; } catch (e) {}
+const t = (k, ...a) => { const v = T[lang][k] ?? T.nl[k]; return typeof v === 'function' ? v(...a) : (v ?? k); };
+const sName = k => SUBJ[k] ? SUBJ[k].name[lang] : k;
+const gDesc = g => (lang === 'en' && g.descriptionEn) || g.description;
+const gCat = g => (lang === 'en' && g.categoryEn) || g.category;
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const norm = s => String(s ?? '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const flat = s => norm(s).replace(/[^a-z0-9]/g, '');
+const sv = k => `var(--s-${String(k).toLowerCase()})`;
+const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
+const todayIso = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); };
+const validDate = s => /^\d{4}-\d{2}-\d{2}$/.test(s) && !isNaN(new Date(s + 'T12:00:00'));
+const dateObj = s => new Date((validDate(s) ? s : todayIso()) + 'T12:00:00');
+const fmtDate = s => new Intl.DateTimeFormat(t('locale'), { day: 'numeric', month: 'short', year: 'numeric' }).format(dateObj(s));
+const str = (v, max = 4000) => typeof v === 'string' ? v.slice(0, max) : '';
+const strArr = v => Array.isArray(v) ? v.filter(x => typeof x === 'string' && ID_RE.test(x)) : [];
+const searchText = g => `${g.code} ${g.category} ${g.categoryEn || ''} ${g.description} ${g.descriptionEn || ''}`;
+
+function matchSubject(raw) {
+  const f = flat(raw);
+  if (!f) return null;
+  for (const s of SUBJECTS) if (flat(s.key) === f || flat(s.name.nl) === f || flat(s.name.en) === f || s.aliases.some(a => flat(a) === f)) return s.key;
+  for (const s of SUBJECTS) for (const n of [flat(s.name.nl), flat(s.name.en)]) { if ((f.length >= 4 && n.startsWith(f)) || f.startsWith(n)) return s.key; }
+  return null;
+}
+
+/* Every document is cleaned on the way in and out, so malformed rows can't break rendering. */
+function clean(col, b) {
+  if (!b || typeof b !== 'object') return null;
+  const base = { createdAt: typeof b.createdAt === 'number' ? b.createdAt : 0, updatedAt: typeof b.updatedAt === 'number' ? b.updatedAt : 0 };
+  if (b.example === true) base.example = true;
+  if (col === 'goals') {
+    const subject = SUBJ[b.subject] ? b.subject : matchSubject(b.subject);
+    const description = str(b.description).trim();
+    if (!subject || !description) return null;
+    return { ...base, code: str(b.code, 40).trim(), subject, category: str(b.category, 200).trim(), description };
+  }
+  if (col === 'children') {
+    const name = str(b.name, 80).trim();
+    if (!name) return null;
+    return { ...base, name, animal: str(b.animal, 16) || ANIMALS[0] };
+  }
+  if (col === 'activities') {
+    const title = str(b.title, 200).trim();
+    if (!title) return null;
+    return { ...base, title, date: validDate(b.date) ? b.date : todayIso(), notes: str(b.notes, 4000), childIds: [...new Set(strArr(b.childIds))], goalIds: [...new Set(strArr(b.goalIds))], photoIds: [...new Set(strArr(b.photoIds))].slice(0, MAX_PHOTOS) };
+  }
+  return null;
+}
+const bodyOf = doc => { const { id, builtin, ...rest } = doc; return rest; };
+
+/* ---------- state ---------- */
+const data = { goals: new Map(BUILTIN), children: new Map(), activities: new Map() };
+let customGoals = new Map();     // goals stored in the database; merged over nothing, built-ins always win
+let mode = 'loading';            // loading | db | local
+let db = null, downloads = null;
+let canWrite = true, canWriteKnown = false;
+const loaded = { goals: false, children: false, activities: false };
+const ui = {
+  view: 'overzicht', childId: null,
+  goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)),
+  actSearch: '', actChild: '', openOnly: false, closed: new Set(),
+};
+function setGoals(custom) {
+  customGoals = custom;
+  const m = new Map(BUILTIN);
+  for (const [id, g] of custom) if (!BUILTIN.has(id)) m.set(id, g);
+  data.goals = m;
+}
+
+/* ---------- storage ---------- */
+function loadLocal() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return;
+    const o = JSON.parse(raw);
+    for (const c of COLS) {
+      const m = new Map();
+      for (const [id, v] of Object.entries(o[c] || {})) { const d = clean(c, v); if (d && ID_RE.test(id)) m.set(id, { ...d, id }); }
+      if (c === 'goals') setGoals(m); else data[c] = m;
+    }
+  } catch (e) { /* unreadable storage: start empty */ }
+}
+function saveLocal() {
+  try {
+    const o = {};
+    for (const c of COLS) { o[c] = {}; for (const [id, v] of (c === 'goals' ? customGoals : data[c])) o[c][id] = bodyOf(v); }
+    localStorage.setItem(LS_KEY, JSON.stringify(o));
+  } catch (e) { toast(t('err_local_save'), true); }
+}
+async function retry(fn) {
+  try { return await fn(); }
+  catch (e) {
+    const code = e && e.code;
+    if (!code || code === 'unavailable' || !['invalid_argument', 'resource_exhausted', 'quota_exceeded', 'revoked', 'not_granted', 'transform_error'].includes(code)) {
+      await new Promise(r => setTimeout(r, 300 + Math.random() * 700));
+      return fn();
+    }
+    if (code === 'invalid_argument' && !canWriteKnown) { canWrite = false; scheduleRender(); }
+    throw e;
+  }
+}
+async function put(col, id, body) {
+  if (col === 'goals' && BUILTIN.has(id)) return;   // built-ins are fixed
+  const doc = clean(col, body);
+  if (!doc) throw { code: 'local_invalid' };
+  if (mode === 'db') return retry(() => db.collection(col).doc(id).set(doc));
+  if (col === 'goals') { const m = new Map(customGoals); m.set(id, { ...doc, id }); setGoals(m); }
+  else data[col].set(id, { ...doc, id });
+  saveLocal(); scheduleRender();
+}
+async function remove(col, id) {
+  if (col === 'goals' && BUILTIN.has(id)) return;
+  if (mode === 'db') return retry(() => db.collection(col).doc(id).delete());
+  if (col === 'goals') { const m = new Map(customGoals); m.delete(id); setGoals(m); }
+  else data[col].delete(id);
+  saveLocal(); scheduleRender();
+}
+async function runPool(items, fn, n = 4, onProgress) {
+  let i = 0, done = 0; const errors = [];
+  async function worker() {
+    while (i < items.length) {
+      const it = items[i++];
+      try { await fn(it); } catch (e) { errors.push(e); }
+      done++; onProgress && onProgress(done, items.length);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(n, items.length) }, worker));
+  return errors;
+}
+function errMsg(e) {
+  const c = e && e.code;
+  if (c === 'quota_exceeded' || (e && e.name === 'QuotaExceededError')) return t('err_quota');
+  if (c === 'invalid_argument') return t('err_rights');
+  if (c === 'resource_exhausted') return t('err_busy');
+  if (c === 'revoked') return t('err_revoked');
+  if (c === 'local_invalid') return t('err_invalid');
+  return t('err_generic');
+}
+
+/* ---------- photos ----------
+   A photo is {mime, w, h, data (base64 JPEG), createdAt}. Activities hold only photo ids.
+   Shared store: one document per photo in "photos", fetched on demand (never subscribed).
+   Browser-only: IndexedDB, because localStorage is far too small for images. */
+function cleanPhoto(r) {
+  if (!r || typeof r !== 'object') return null;
+  const mime = ['image/jpeg', 'image/png', 'image/webp'].includes(r.mime) ? r.mime : null;
+  const ok = typeof r.data === 'string' && r.data.length <= 400000 && /^[A-Za-z0-9+/]+=*$/.test(r.data);
+  if (!mime || !ok) return null;
+  return { mime, w: Number(r.w) || 0, h: Number(r.h) || 0, data: r.data, createdAt: typeof r.createdAt === 'number' ? r.createdAt : 0 };
+}
+let idbPromise = null;
+function idb() {
+  if (!idbPromise) idbPromise = new Promise((res, rej) => {
+    if (!window.indexedDB) { rej(new Error('no indexedDB')); return; }
+    const r = indexedDB.open('doelenboek', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('photos');
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+  });
+  return idbPromise;
+}
+async function idbRun(mode, fn) {
+  const d = await idb();
+  return new Promise((res, rej) => {
+    const tx = d.transaction('photos', mode), out = fn(tx.objectStore('photos'));
+    tx.oncomplete = () => res(typeof out === 'function' ? out() : out && 'result' in out ? out.result : undefined);
+    tx.onerror = () => rej(tx.error); tx.onabort = () => rej(tx.error);
+  });
+}
+const photoStore = {
+  async get(id) {
+    if (mode === 'db') { const s = await retry(() => db.doc('photos/' + id).get()); return s.exists ? cleanPhoto(s.data()) : null; }
+    return cleanPhoto(await idbRun('readonly', st => st.get(id)));
+  },
+  async put(id, rec) {
+    if (mode === 'db') return retry(() => db.collection('photos').doc(id).set(rec));
+    return idbRun('readwrite', st => st.put(rec, id));
+  },
+  async del(id) {
+    if (mode === 'db') return retry(() => db.collection('photos').doc(id).delete());
+    return idbRun('readwrite', st => st.delete(id));
+  },
+  async all() {
+    if (mode === 'db') {
+      const snap = await retry(() => db.collection('photos').limit(1000).get());
+      return snap.docs.filter(d => d.exists).map(d => ({ id: d.id, rec: cleanPhoto(d.data()) })).filter(p => p.rec);
+    }
+    return localPhotosAll();
+  },
+};
+/* Photos kept in this browser (IndexedDB), whatever mode the app runs in; used for migration too. */
+function localPhotosAll() {
+  return idbRun('readonly', st => {
+    const keys = st.getAllKeys(), vals = st.getAll();
+    return () => keys.result.map((id, i) => ({ id: String(id), rec: cleanPhoto(vals.result[i]) })).filter(p => p.rec);
+  });
+}
+function b64ToUrl(rec) {
+  const bin = atob(rec.data), arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return URL.createObjectURL(new Blob([arr], { type: rec.mime }));
+}
+const photoUrl = new Map(), photoPending = new Map();   // id -> object URL (or null when missing)
+function loadPhoto(id) {
+  if (photoUrl.has(id)) return Promise.resolve(photoUrl.get(id));
+  if (!photoPending.has(id)) {
+    photoPending.set(id, photoStore.get(id)
+      .then(rec => { const u = rec ? b64ToUrl(rec) : null; photoUrl.set(id, u); return u; })
+      .catch(() => null)
+      .finally(() => photoPending.delete(id)));
+  }
+  return photoPending.get(id);
+}
+function photoImg(id) { const u = photoUrl.get(id); return u ? `<img src="${esc(u)}" alt="">` : `<img data-photo="${esc(id)}" alt="">`; }
+function hydratePhotos(root) {
+  for (const img of root.querySelectorAll('img[data-photo]')) {
+    const id = img.dataset.photo; img.removeAttribute('data-photo');
+    loadPhoto(id).then(u => { if (u) img.src = u; else img.closest('.thumb, .pe')?.classList.add('missing'); });
+  }
+}
+async function deletePhoto(id) {
+  await photoStore.del(id);
+  const u = photoUrl.get(id); if (u) URL.revokeObjectURL(u);
+  photoUrl.delete(id);
+}
+/* Decode, downscale and JPEG-encode in the browser; steps down until it fits PHOTO_MAX_B64. */
+async function processImage(file) {
+  let src, cleanup = () => {};
+  try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); cleanup = () => src.close && src.close(); }
+  catch (e) {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.src = url;
+    try { await img.decode(); } catch (er) { URL.revokeObjectURL(url); throw er; }
+    src = img; cleanup = () => URL.revokeObjectURL(url);
+  }
+  try {
+    const W = src.naturalWidth || src.width, H = src.naturalHeight || src.height;
+    if (!W || !H) throw new Error('empty image');
+    const steps = [[1600, .82], [1280, .78], [1024, .74], [800, .7], [640, .65]];
+    for (let i = 0; i < steps.length; i++) {
+      const [max, q] = steps[i], s = Math.min(1, max / Math.max(W, H));
+      const w = Math.max(1, Math.round(W * s)), h = Math.max(1, Math.round(H * s));
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); g.drawImage(src, 0, 0, w, h);
+      const url = c.toDataURL('image/jpeg', q), data = url.slice(url.indexOf(',') + 1);
+      if (data.length <= PHOTO_MAX_B64 || i === steps.length - 1) return { mime: 'image/jpeg', w, h, data };
+    }
+  } finally { cleanup(); }
+}
+
+/* ---------- derived data ---------- */
+const byGoalOrder = (a, b) => (SUBJ[a.subject].i - SUBJ[b.subject].i) || a.code.localeCompare(b.code, 'nl', { numeric: true }) || a.description.localeCompare(b.description, 'nl');
+const sortedGoals = () => [...data.goals.values()].sort(byGoalOrder);
+const sortedChildren = () => [...data.children.values()].sort((a, b) => a.name.localeCompare(b.name, 'nl'));
+const byDateDesc = (a, b) => b.date.localeCompare(a.date) || (b.createdAt - a.createdAt);
+const activitiesFor = cid => [...data.activities.values()].filter(a => a.childIds.includes(cid)).sort(byDateDesc);
+function subjectTotals() { const tt = {}; for (const g of data.goals.values()) tt[g.subject] = (tt[g.subject] || 0) + 1; return tt; }
+/* childId -> Map(goalId -> [activities, oldest first]) */
+function buildCoverage() {
+  const cov = new Map();
+  for (const id of data.children.keys()) cov.set(id, new Map());
+  const acts = [...data.activities.values()].sort((a, b) => a.date.localeCompare(b.date));
+  for (const a of acts) for (const cid of a.childIds) {
+    const m = cov.get(cid); if (!m) continue;
+    for (const gid of a.goalIds) { if (!data.goals.has(gid)) continue; if (!m.has(gid)) m.set(gid, []); m.get(gid).push(a); }
+  }
+  return cov;
+}
+function countBySubject(m) { const c = {}; if (m) for (const gid of m.keys()) { const g = data.goals.get(gid); if (g) c[g.subject] = (c[g.subject] || 0) + 1; } return c; }
+const exampleItems = () => COLS.flatMap(c => [...(c === 'goals' ? customGoals : data[c]).values()].filter(d => d.example).map(d => ({ c, id: d.id })));
+
+/* ---------- rendering ---------- */
+let rq = 0;
+function scheduleRender() { if (rq) return; rq = requestAnimationFrame(() => { rq = 0; render(); }); }
+
+function renderChrome() {
+  document.documentElement.lang = lang;
+  $('#data-btn').textContent = t('data_btn');
+  for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+  document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
+  const foot = $('#site-foot');
+  foot.hidden = mode === 'loading' || mode === 'auth';
+  foot.textContent = `${mode === 'local' ? t('foot_local') : fbUser ? t('foot_fb') : t('foot_db')} ${lastBackup() ? t('bk_last', fmtDate(lastBackup())) : t('bk_none')}`;
+  const st = $('#status');
+  st.removeAttribute('title');
+  if (mode === 'loading') { st.textContent = t('st_connecting'); st.className = 'status'; }
+  else if (mode === 'db' && fbUser) { st.textContent = fbUser.email; st.title = t('signed_in_as', fbUser.email); st.className = 'status ok'; }
+  else if (mode === 'db') { st.textContent = canWrite ? t('st_saved') : t('st_readonly'); st.className = 'status ok'; }
+  else { st.textContent = t('st_local'); st.className = 'status warn'; }
+  for (const a of document.querySelectorAll('[data-tab]')) {
+    a.textContent = t('tab_' + a.dataset.tab);
+    const active = a.dataset.tab === ui.view || (ui.view === 'kind' && a.dataset.tab === 'overzicht');
+    if (active) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  }
+}
+
+function render() {
+  document.body.classList.toggle('readonly', !canWrite);
+  renderChrome();
+  const main = $('#main');
+  const ae = document.activeElement;
+  const fid = ae && main.contains(ae) && ae.id ? ae.id : null;
+  let s0 = null, s1 = null; try { s0 = ae.selectionStart; s1 = ae.selectionEnd; } catch (e) {}
+
+  if (mode === 'auth') {
+    main.innerHTML = authView();
+    const el = fid && document.getElementById(fid); if (el) el.focus({ preventScroll: true });
+    return;
+  }
+  if (mode === 'loading' || (mode === 'db' && !COLS.every(c => loaded[c]))) { main.innerHTML = `<p class="loading">${esc(t('loading'))}</p>`; return; }
+  const cov = buildCoverage();
+  let html;
+  if (ui.view === 'kind') html = viewChild(cov);
+  else if (ui.view === 'activiteiten') html = viewActivities();
+  else if (ui.view === 'doelen') html = viewGoals(cov);
+  else html = viewOverview(cov);
+  hidePeek();
+  main.innerHTML = html;
+  hydratePhotos(main);
+
+  if (fid) { const el = document.getElementById(fid); if (el) { el.focus({ preventScroll: true }); try { if (s0 != null) el.setSelectionRange(s0, s1); } catch (e) {} } }
+}
+
+/* Banners shown at the top of every main view. */
+function exampleBanner() {
+  if (!exampleItems().length) return migrationNotice() + backupNotice();
+  return `<div class="notice"><p>${t('example_banner')}</p><button class="btn small w" data-action="remove-examples">${esc(t('remove_examples'))}</button></div>`;
+}
+/* The last backup date is remembered per browser; it only drives the reminder. */
+function lastBackup() { try { const v = localStorage.getItem(BACKUP_KEY); return validDate(v) ? v : null; } catch (e) { return null; } }
+function markBackup() { try { localStorage.setItem(BACKUP_KEY, todayIso()); } catch (e) {} scheduleRender(); }
+function backupNotice() {
+  const hasData = data.children.size || data.activities.size || customGoals.size;
+  if (!hasData || !canWrite) return '';
+  const last = lastBackup();
+  const days = last ? Math.floor((dateObj(todayIso()) - dateObj(last)) / 86400000) : null;
+  if (last && days < BACKUP_EVERY_DAYS) return '';
+  const msg = last ? t('bk_old', days) : (mode === 'local' ? t('bk_never_local') : t('bk_never'));
+  return `<div class="notice"><p>${esc(msg)}</p><button class="btn small" data-action="backup">${esc(t('bk_now'))}</button></div>`;
+}
+async function downloadBackup() {
+  let json;
+  try { json = await backupJson(); } catch (e) { toast(errMsg(e), true); return; }
+  if (await offerFile(`doelenboek-backup-${todayIso()}.json`, json)) markBackup();
+}
+function noGoalsNotice() {
+  if (data.goals.size) return '';
+  return `<div class="notice"><p>${esc(t('no_goals_notice'))}</p><button class="btn small w" data-action="import-goals">${esc(t('import_goals'))}</button></div>`;
+}
+
+function barRow(label, key, n, tot) {
+  const p = tot ? Math.round(100 * n / tot) : 0;
+  return `<li class="${tot ? '' : 'none'}"><span class="b-lbl">${esc(label)}</span><span class="bar" role="img" aria-label="${esc(label)}: ${n} / ${tot}"><i style="width:${p}%;background:${sv(key)}"></i></span><span class="b-num">${tot ? `${n}/${tot}` : '—'}</span></li>`;
+}
+
+function viewOverview(cov) {
+  const kids = sortedChildren(), totals = subjectTotals(), total = data.goals.size;
+  let h = exampleBanner();
+  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))} · ${esc(t('n_goals', total))} · ${esc(t('n_acts', data.activities.size))}</p></div>
+    <div class="head-actions w"><button class="btn" data-action="add-child">${esc(t('add_child'))}</button><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${esc(t('add_activity'))}</button></div></section>`;
+  h += noGoalsNotice();
+  if (!kids.length) {
+    return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${esc(t('add_child'))}</button></div>`;
+  }
+  h += `<div class="child-grid">${kids.map(c => {
+    const m = cov.get(c.id), acts = activitiesFor(c.id), covered = m ? m.size : 0;
+    const pct = total ? Math.round(100 * covered / total) : 0, per = countBySubject(m);
+    return `<article class="card child-card">
+      <header class="cc-head"><span class="avatar lg" aria-hidden="true">${esc(c.animal)}</span>
+        <div class="cc-id"><h2>${esc(c.name)}</h2><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? ' · ' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
+        <div class="cc-pct"><strong>${pct}<small>%</small></strong><span>${esc(t('x_of_y_goals', covered, total))}</span></div></header>
+      <ul class="bars">${SUBJECTS.map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key] || 0)).join('')}</ul>
+      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${esc(t('goals_per_subject'))}</button><button class="btn small ghost w" data-action="new-activity" data-child="${esc(c.id)}">${esc(t('add_activity'))}</button></footer>
+    </article>`;
+  }).join('')}</div>`;
+  return h;
+}
+
+function viewChild(cov) {
+  const c = data.children.get(ui.childId);
+  if (!c) { ui.view = 'overzicht'; return viewOverview(cov); }
+  const m = cov.get(c.id) || new Map(), totals = subjectTotals(), total = data.goals.size;
+  const pct = total ? Math.round(100 * m.size / total) : 0;
+  const goals = sortedGoals(), acts = activitiesFor(c.id);
+  let h = `<button class="btn small ghost back" data-action="back">${esc(t('back'))}</button>
+    <section class="kid-head"><span class="avatar lg" aria-hidden="true">${esc(c.animal)}</span>
+      <div class="kid-name"><h1>${esc(c.name)}</h1><p class="lede">${esc(t('reached', m.size, total, pct))} · ${esc(t('n_acts', acts.length))}</p></div>
+      <div class="head-actions"><button class="btn primary w" data-action="new-activity" data-child="${esc(c.id)}">${esc(t('add_activity'))}</button><button class="btn w" data-action="edit-child" data-id="${esc(c.id)}">${esc(t('edit'))}</button><button class="btn ghost w" data-action="delete-child" data-id="${esc(c.id)}">${esc(t('delete'))}</button></div>
+    </section>`;
+  h += noGoalsNotice();
+  if (total) h += `<label class="check"><input type="checkbox" id="open-only" ${ui.openOnly ? 'checked' : ''}> ${esc(t('open_only'))}</label>`;
+  for (const s of SUBJECTS) {
+    const sg = goals.filter(g => g.subject === s.key);
+    if (!sg.length) continue;
+    const n = sg.filter(g => m.has(g.id)).length, tot = totals[s.key] || 0;
+    const shown = ui.openOnly ? sg.filter(g => !m.has(g.id)) : sg;
+    h += `<details class="card subj" data-subj="${s.key}" ${ui.closed.has(s.key) ? '' : 'open'}>
+      <summary><span class="dot" style="--c:${sv(s.key)}"></span><h2>${esc(sName(s.key))}</h2><span class="bar"><i style="width:${tot ? Math.round(100 * n / tot) : 0}%;background:${sv(s.key)}"></i></span><span class="b-num">${n}/${tot}</span></summary>
+      <ul class="status-list">${shown.length ? shown.map(g => {
+        const via = m.get(g.id);
+        return `<li class="${via ? 'done' : ''}"><span class="mark" role="img" aria-label="${esc(via ? t('achieved') : t('open'))}"></span><span class="code" style="--c:${sv(g.subject)}">${esc(g.code || '—')}</span>
+          <div class="g-body">${gCat(g) ? `<p class="g-meta">${esc(gCat(g))}</p>` : ''}<p class="g-desc">${esc(gDesc(g))}</p>${via ? `<p class="via">${esc(t('via'))} ${via.map(a => `${esc(a.title)} (${esc(fmtDate(a.date))})`).join(', ')}</p>` : ''}</div></li>`;
+      }).join('') : `<li><span></span><span></span><p class="muted">${esc(t('all_done'))}</p></li>`}</ul>
+    </details>`;
+  }
+  if (acts.length) h += `<h2>${esc(t('child_acts', c.name))}</h2><div class="act-list">${acts.map(activityCard).join('')}</div>`;
+  return h;
+}
+
+function goalChip(g) { return `<li class="code goal-chip" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" tabindex="0" aria-label="${esc(`${g.code} ${sName(g.subject)}: ${gDesc(g)}`)}"><span class="dot"></span>${esc(g.code || sName(g.subject))}</li>`; }
+
+/* Up to six thumbnails; the sixth carries a "+n" overlay when there are more. */
+function photoStrip(a) {
+  const ids = a.photoIds, SHOW = 6;
+  if (!ids.length) return '';
+  return `<div class="thumbs">${ids.slice(0, SHOW).map((id, i) => `<button type="button" class="thumb" data-action="photo" data-id="${esc(a.id)}" data-i="${i}" aria-label="${esc(t('photo_alt', a.title, i + 1))}">${photoImg(id)}${i === SHOW - 1 && ids.length > SHOW ? `<span class="more">+${ids.length - SHOW}</span>` : ''}</button>`).join('')}</div>`;
+}
+function activityCard(a) {
+  const d = dateObj(a.date);
+  const kids = a.childIds.map(id => data.children.get(id)).filter(Boolean);
+  const goals = a.goalIds.map(id => data.goals.get(id)).filter(Boolean).sort(byGoalOrder);
+  const maxChips = 14;
+  return `<article class="card act">
+    <div class="act-date"><span class="d">${d.getDate()}</span><span class="m">${esc(new Intl.DateTimeFormat(t('locale'), { month: 'short' }).format(d).replace('.', ''))}</span></div>
+    <div class="act-body"><h3>${esc(a.title)}</h3>
+      ${kids.length ? `<p class="act-kids">${kids.map(k => `<span><span class="avatar sm" aria-hidden="true">${esc(k.animal)}</span>${esc(k.name)}</span>`).join('')}</p>` : ''}
+      ${goals.length ? `<ul class="goal-chips" aria-label="${esc(t('goals_aria'))}">${goals.slice(0, maxChips).map(goalChip).join('')}${goals.length > maxChips ? `<li class="code">+${goals.length - maxChips}</li>` : ''}</ul>` : `<p class="meta">${esc(t('no_goals_linked'))}</p>`}
+      ${photoStrip(a)}
+      ${a.notes ? `<p class="notes">${esc(a.notes)}</p>` : ''}
+    </div>
+    <div class="row-actions w"><button class="icon-btn" data-action="edit-activity" data-id="${esc(a.id)}">${esc(t('edit'))}</button><button class="icon-btn del" data-action="delete-activity" data-id="${esc(a.id)}">${esc(t('delete'))}</button></div>
+  </article>`;
+}
+
+function viewActivities() {
+  const kids = sortedChildren(), q = norm(ui.actSearch);
+  if (ui.actChild && !data.children.has(ui.actChild)) ui.actChild = '';
+  const acts = [...data.activities.values()].filter(a =>
+    (!ui.actChild || a.childIds.includes(ui.actChild)) &&
+    (!q || norm(a.title + ' ' + a.notes + ' ' + a.goalIds.map(id => data.goals.get(id)?.code || '').join(' ')).includes(q))
+  ).sort(byDateDesc);
+  let h = exampleBanner();
+  h += `<section class="page-head"><div><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(t('acts_lede'))}</p></div>
+    <div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${esc(t('add_activity'))}</button></div></section>`;
+  if (!data.activities.size) {
+    return h + `<div class="empty"><h2>${esc(t('empty_acts_h'))}</h2><p>${esc(kids.length ? t('empty_acts_p') : t('empty_acts_nokids'))}</p>${kids.length ? `<button class="btn primary w" data-action="new-activity">${esc(t('add_activity'))}</button>` : `<a class="btn" href="#overzicht">${esc(t('to_overview'))}</a>`}</div>`;
+  }
+  h += `<div class="toolbar"><input class="search" id="act-search" type="search" placeholder="${esc(t('search_acts'))}" value="${esc(ui.actSearch)}" aria-label="${esc(t('search_acts'))}">
+    <select class="select" id="act-child" aria-label="${esc(t('filter_child'))}"><option value="">${esc(t('all_children'))}</option>${kids.map(k => `<option value="${esc(k.id)}" ${ui.actChild === k.id ? 'selected' : ''}>${esc(k.name)}</option>`).join('')}</select></div>`;
+  if (!acts.length) return h + `<p class="muted">${esc(t('no_acts_found'))}</p>`;
+  let month = '';
+  const parts = [];
+  for (const a of acts) {
+    const mLabel = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' }).format(dateObj(a.date));
+    if (mLabel !== month) { if (month) parts.push('</div>'); parts.push(`<h2 class="month">${esc(mLabel)}</h2><div class="act-list">`); month = mLabel; }
+    parts.push(activityCard(a));
+  }
+  parts.push('</div>');
+  return h + parts.join('');
+}
+
+function viewGoals(cov) {
+  const all = sortedGoals(), q = norm(ui.goalSearch), kids = sortedChildren();
+  const list = all.filter(g => ui.goalSubj.has(g.subject) && (!q || norm(searchText(g)).includes(q)));
+  const allOn = ui.goalSubj.size === SUBJECTS.length;
+  let h = exampleBanner();
+  h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.${lang === 'en' ? ' ' + esc(t('translated')) : ''}</p></div>
+    <div class="head-actions w"><button class="btn" data-action="import-goals">${esc(t('import'))}</button><button class="btn primary" data-action="new-goal">${esc(t('add_goal'))}</button></div></section>`;
+  if (!all.length) {
+    return h + `<div class="empty"><h2>${esc(t('empty_goals_h'))}</h2><p>${esc(t('empty_goals_p'))}</p><pre>code;vak;categorie;omschrijving
+1.1.1;Nederlands;Lezen;${esc(t('ex_desc'))}</pre><button class="btn primary w" data-action="import-goals">${esc(t('import_goals'))}</button></div>`;
+  }
+  h += `<div class="toolbar"><input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
+    <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
+      <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${esc(t('all_subjects'))}</button>
+      ${SUBJECTS.map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${esc(sName(s.key))}</button>`).join('')}
+    </div>
+    <p class="count-line">${esc(t('count_line', list.length, all.length, kids.length))}</p>`;
+  const MAX = 400;
+  h += `<ul class="card goal-list">${list.slice(0, MAX).map(g => `<li class="goal-row">
+      <span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(g.code || '—')}</span>
+      <div class="g-body"><p class="g-meta">${esc(sName(g.subject))}${gCat(g) ? ' · ' + esc(gCat(g)) : ''}</p><p class="g-desc">${esc(gDesc(g))}</p></div>
+      <div class="g-side">${kids.length ? `<span class="kids-row">${kids.map(k => { const done = cov.get(k.id)?.has(g.id); return `<span class="avatar sm ${done ? '' : 'off'}" title="${esc(done ? t('kid_done', k.name) : t('kid_open', k.name))}">${esc(k.animal)}</span>`; }).join('')}</span>` : ''}
+        ${g.builtin ? `<span class="tag" title="${esc(t('builtin_title'))}">${esc(t('builtin'))}</span>` : `<span class="row-actions w"><button class="icon-btn" data-action="edit-goal" data-id="${esc(g.id)}">${esc(t('edit'))}</button><button class="icon-btn del" data-action="delete-goal" data-id="${esc(g.id)}">${esc(t('delete'))}</button></span>`}</div>
+    </li>`).join('') || `<li class="goal-row"><p class="muted">${esc(t('no_goals_found'))}</p></li>`}</ul>`;
+  if (list.length > MAX) h += `<p class="count-line">${esc(t('first_n', MAX))}</p>`;
+  return h;
+}
+
+/* ---------- dialogs ---------- */
+const dlg = $('#dlg');
+function openDialog(html, mount) {
+  dlg.innerHTML = html;
+  if (typeof dlg.showModal === 'function') { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', '');
+  mount && mount(dlg);
+  const first = dlg.querySelector('[autofocus]'); if (first) first.focus();
+}
+function closeDialog() { if (dlg2.open) dlg2.close(); if (dlg.open) dlg.close(); }
+dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[data-close]')) closeDialog(); });
+dlg.addEventListener('close', () => { dlg.innerHTML = ''; });
+const dlg2 = $('#dlg2');
+dlg2.addEventListener('click', e => { if (e.target === dlg2 || e.target.closest('[data-close]')) dlg2.close(); });
+dlg2.addEventListener('close', () => { dlg2.innerHTML = ''; });
+
+function shell(id, title, body, submitLabel = t('save'), extraClass = '') {
+  return `<form class="dlg-form" id="${id}" novalidate>
+    <header><h2>${esc(title)}</h2><button type="button" class="icon-btn" data-close>${esc(t('close'))}</button></header>
+    <div class="dlg-body">${body}</div>
+    <footer><p class="form-error" role="alert"></p><button type="button" class="btn ghost" data-close>${esc(t('cancel'))}</button>${submitLabel ? `<button type="submit" class="btn ${extraClass || 'primary'}">${esc(submitLabel)}</button>` : ''}</footer>
+  </form>`;
+}
+function bindSubmit(d, handler) {
+  const form = d.querySelector('form'), err = d.querySelector('.form-error'), btn = form.querySelector('[type=submit]');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    err.textContent = '';
+    const label = btn.textContent;
+    btn.disabled = true; btn.textContent = t('busy');
+    try {
+      const msg = await handler(form, (txt) => { btn.textContent = txt; });
+      if (typeof msg === 'string') { err.textContent = msg; return; }
+      closeDialog();
+    } catch (ex) { err.textContent = errMsg(ex); }
+    finally { if (btn.isConnected) { btn.disabled = false; btn.textContent = label; } }
+  });
+}
+function confirmDialog(title, bodyHtml, confirmLabel, onConfirm) {
+  openDialog(shell('f-confirm', title, bodyHtml, confirmLabel, 'danger'), d => bindSubmit(d, async () => { await onConfirm(); }));
+}
+
+/* child */
+function childDialog(child) {
+  const used = new Set([...data.children.values()].filter(c => !child || c.id !== child.id).map(c => c.animal));
+  const free = ANIMALS.filter(a => !used.has(a));
+  const current = child ? child.animal : (free.length ? free[Math.floor(Math.random() * free.length)] : ANIMALS[0]);
+  const body = `<label class="field"><span>${esc(t('name'))}</span><input id="c-name" name="name" maxlength="80" autocomplete="off" required autofocus value="${esc(child?.name || '')}"></label>
+    <div class="field"><span class="field-label">${esc(t('animal'))}</span><div class="animal-grid" role="radiogroup" aria-label="${esc(t('animal'))}">
+      ${ANIMALS.map((a, i) => `<label title="${used.has(a) ? esc(t('animal_taken')) : ''}"><input type="radio" name="animal" id="c-an-${i}" value="${esc(a)}" ${a === current ? 'checked' : ''} ${used.has(a) && free.length ? 'disabled' : ''}>${esc(a)}</label>`).join('')}
+    </div></div>`;
+  openDialog(shell('f-child', child ? t('child_edit_h') : t('child_add_h'), body), d => {
+    bindSubmit(d, async form => {
+      const name = form.name.value.trim();
+      if (!name) return t('err_name');
+      const dup = [...data.children.values()].some(c => (!child || c.id !== child.id) && c.name.localeCompare(name, 'nl', { sensitivity: 'accent' }) === 0);
+      if (dup) return t('err_dup_name', name);
+      const animal = form.querySelector('input[name=animal]:checked')?.value || current;
+      const now = Date.now();
+      await put('children', child?.id || newId(), { ...(child ? bodyOf(child) : { createdAt: now }), name, animal, updatedAt: now, example: false });
+      toast(child ? t('saved_changes') : t('child_added', name));
+    });
+  });
+}
+function deleteChild(id) {
+  const c = data.children.get(id); if (!c) return;
+  const affected = [...data.activities.values()].filter(a => a.childIds.includes(id));
+  confirmDialog(t('child_del_h'), `<p>${t('child_del_q', esc(c.name))}</p><p class="muted">${esc(affected.length ? t('child_del_acts', c.name, affected.length) : t('child_del_none'))}</p>`, t('delete'), async () => {
+    const errors = await runPool(affected, a => put('activities', a.id, { ...bodyOf(a), childIds: a.childIds.filter(x => x !== id), updatedAt: Date.now() }));
+    if (errors.length) throw errors[0];
+    await remove('children', id);
+    if (ui.childId === id) { ui.view = 'overzicht'; ui.childId = null; }
+    toast(t('child_deleted', c.name));
+  });
+}
+
+/* goal */
+function goalDialog(goal) {
+  if (goal && goal.builtin) return;
+  const cats = [...new Set([...data.goals.values()].map(g => gCat(g)).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'nl'));
+  const body = `<div class="row2"><label class="field"><span>${esc(t('code'))}</span><input id="g-code" name="code" maxlength="40" autocomplete="off" placeholder="${esc(t('code_ph'))}" autofocus value="${esc(goal?.code || '')}"></label>
+      <label class="field"><span>${esc(t('subject'))}</span><select id="g-subject" name="subject">${SUBJECTS.map(s => `<option value="${s.key}" ${(goal?.subject || ui.lastSubject || 'NL') === s.key ? 'selected' : ''}>${esc(sName(s.key))}</option>`).join('')}</select></label></div>
+    <label class="field"><span>${esc(t('category'))}</span><input id="g-cat" name="category" maxlength="200" list="g-cats" autocomplete="off" value="${esc(goal?.category || '')}"><datalist id="g-cats">${cats.map(c => `<option value="${esc(c)}"></option>`).join('')}</datalist></label>
+    <label class="field"><span>${esc(t('description'))}</span><textarea id="g-desc" name="description" rows="4" maxlength="4000">${esc(goal?.description || '')}</textarea></label>`;
+  openDialog(shell('f-goal', goal ? t('goal_edit_h') : t('goal_add_h'), body), d => bindSubmit(d, async form => {
+    const code = form.code.value.trim(), description = form.description.value.trim(), subject = form.subject.value;
+    if (!description) return t('err_desc');
+    if (code && [...data.goals.values()].some(g => (!goal || g.id !== goal.id) && g.code.toLowerCase() === code.toLowerCase() && g.subject === subject)) return t('err_dup_code', code);
+    ui.lastSubject = subject;
+    const now = Date.now();
+    await put('goals', goal?.id || newId(), { ...(goal ? bodyOf(goal) : { createdAt: now }), code, subject, category: form.category.value.trim(), description, updatedAt: now, example: false });
+    toast(goal ? t('goal_updated') : t('goal_added'));
+  }));
+}
+function deleteGoal(id) {
+  const g = data.goals.get(id); if (!g || g.builtin) return;
+  const affected = [...data.activities.values()].filter(a => a.goalIds.includes(id));
+  confirmDialog(t('goal_del_h'), `<p>${t('goal_del_q', esc(g.code || g.description.slice(0, 60)))}</p><p class="muted">${esc(affected.length ? t('goal_del_acts', affected.length) : t('goal_del_none'))}</p>`, t('delete'), async () => {
+    const errors = await runPool(affected, a => put('activities', a.id, { ...bodyOf(a), goalIds: a.goalIds.filter(x => x !== id), updatedAt: Date.now() }));
+    if (errors.length) throw errors[0];
+    await remove('goals', id);
+    toast(t('goal_deleted'));
+  });
+}
+
+/* activity */
+function activityDialog(act, presetChild) {
+  const kids = sortedChildren();
+  if (!kids.length) { toast(t('add_child_first'), true); return; }
+  const selGoals = new Set(act ? act.goalIds.filter(id => data.goals.has(id)) : []);
+  const preKids = new Set(act ? act.childIds : (presetChild ? [presetChild] : (kids.length === 1 ? [kids[0].id] : [])));
+  const body = `<label class="field"><span>${esc(t('title'))}</span><input id="a-title" name="title" maxlength="200" autocomplete="off" placeholder="${esc(t('title_ph'))}" autofocus value="${esc(act?.title || '')}"></label>
+    <label class="field"><span>${esc(t('date'))}</span><input id="a-date" name="date" type="date" value="${esc(act?.date || todayIso())}"></label>
+    <div class="field"><span class="field-label">${esc(t('who'))}</span><div class="kid-picks">${kids.map(k => `<label class="kid-pick"><input type="checkbox" name="kids" value="${esc(k.id)}" ${preKids.has(k.id) ? 'checked' : ''}><span class="avatar sm" aria-hidden="true">${esc(k.animal)}</span>${esc(k.name)}</label>`).join('')}</div></div>
+    <div class="field"><span class="field-label">${esc(t('goals_field'))} <span class="muted" id="a-count"></span></span>
+      <div class="goal-field"><div class="sel-chips" id="a-sel"></div>${data.goals.size ? `<button type="button" class="btn small" id="a-pick">${esc(t('pick_btn'))}</button>` : `<p class="muted">${esc(t('picker_empty'))}</p>`}</div>
+    </div>
+    <div class="field"><span class="field-label">${esc(t('photos'))} <span class="muted" id="a-pcount"></span></span>
+      <div class="photo-edit" id="a-photos"></div>
+      <p class="hint" id="a-phint">${esc(t('photo_hint'))}</p>
+    </div>
+    <label class="field"><span>${esc(t('notes'))}</span><textarea id="a-notes" name="notes" rows="3" maxlength="4000" placeholder="${esc(t('notes_ph'))}">${esc(act?.notes || '')}</textarea></label>`;
+  openDialog(shell('f-act', act ? t('act_edit_h') : t('act_add_h'), body), d => {
+    const selBox = d.querySelector('#a-sel'), count = d.querySelector('#a-count');
+    const chosenKids = () => [...d.querySelectorAll('input[name=kids]:checked')].map(i => i.value);
+    function drawSel() {
+      count.textContent = selGoals.size ? t('n_chosen', selGoals.size) : '';
+      const chosen = [...selGoals].map(id => data.goals.get(id)).filter(Boolean).sort(byGoalOrder);
+      selBox.innerHTML = chosen.length
+        ? chosen.map(g => `<button type="button" class="code" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" title="${esc(t('remove_x', g.code || gDesc(g).slice(0, 40)))}">${esc(g.code || gDesc(g).slice(0, 24))}</button>`).join('')
+        : `<span class="muted">${esc(t('none_chosen'))}</span>`;
+    }
+    selBox.addEventListener('click', e => { const b = e.target.closest('[data-gid]'); if (!b) return; selGoals.delete(b.dataset.gid); drawSel(); });
+    d.querySelector('#a-pick')?.addEventListener('click', () => goalPicker(selGoals, chosenKids(), picked => {
+      selGoals.clear(); for (const id of picked) selGoals.add(id); drawSel();
+    }));
+    drawSel();
+
+    /* photos: new ones live in memory until the activity is saved */
+    const photos = (act ? act.photoIds : []).map(id => ({ id, existing: true }));
+    const pbox = d.querySelector('#a-photos'), pcount = d.querySelector('#a-pcount'), phint = d.querySelector('#a-phint');
+    let processing = 0;
+    function drawPhotos() {
+      pcount.textContent = photos.length ? `· ${photos.length}` : '';
+      pbox.innerHTML = photos.map((p, i) => `<span class="pe">${p.url ? `<img src="${esc(p.url)}" alt="">` : photoImg(p.id)}<button type="button" class="pe-x" data-pi="${i}" aria-label="${esc(t('photo_remove'))}">×</button></span>`).join('')
+        + (photos.length < MAX_PHOTOS ? `<label class="photo-add">+ ${esc(t('add_photos'))}<input type="file" id="a-file" accept="image/*" multiple></label>` : '');
+      hydratePhotos(pbox);
+    }
+    async function addFiles(list) {
+      const files = [...list].filter(f => f.type.startsWith('image/') || /\.(jpe?g|png|webp|gif|heic|heif)$/i.test(f.name));
+      const room = MAX_PHOTOS - photos.length;
+      if (files.length > room) toast(t('photo_max', MAX_PHOTOS), true);
+      let failed = 0;
+      processing++; phint.textContent = t('photo_processing');
+      for (const f of files.slice(0, Math.max(0, room))) {
+        try { const rec = await processImage(f); if (!dlg.contains(pbox)) return; photos.push({ id: newId(), rec, url: b64ToUrl(rec), existing: false }); drawPhotos(); }
+        catch (e) { failed++; }
+      }
+      processing--; if (!processing) phint.textContent = t('photo_hint');
+      if (failed) toast(t('photo_fail', failed), true);
+    }
+    pbox.addEventListener('change', e => { if (e.target.id === 'a-file' && e.target.files.length) addFiles(e.target.files); });
+    pbox.addEventListener('click', e => {
+      const x = e.target.closest('[data-pi]'); if (!x) return;
+      const [p] = photos.splice(Number(x.dataset.pi), 1);
+      if (p && !p.existing && p.url) URL.revokeObjectURL(p.url);
+      drawPhotos();
+    });
+    const dz = d.querySelector('.dlg-body');
+    dz.addEventListener('dragover', e => { if ([...(e.dataTransfer?.types || [])].includes('Files')) { e.preventDefault(); dz.classList.add('drop'); } });
+    dz.addEventListener('dragleave', e => { if (!dz.contains(e.relatedTarget)) dz.classList.remove('drop'); });
+    dz.addEventListener('drop', e => { if (!e.dataTransfer?.files.length) return; e.preventDefault(); dz.classList.remove('drop'); addFiles(e.dataTransfer.files); });
+    d.querySelector('form').addEventListener('paste', e => { const fs = [...(e.clipboardData?.files || [])].filter(f => f.type.startsWith('image/')); if (fs.length) { e.preventDefault(); addFiles(fs); } });
+    drawPhotos();
+
+    bindSubmit(d, async form => {
+      const title = form.title.value.trim(), date = form.date.value, childIds = chosenKids();
+      if (!title) return t('err_title');
+      if (!validDate(date)) return t('err_date');
+      if (!childIds.length) return t('err_kids');
+      if (processing) return t('photo_wait');
+      const now = Date.now();
+      const fresh = photos.filter(p => !p.existing);
+      const errors = await runPool(fresh, p => photoStore.put(p.id, { ...p.rec, createdAt: now }), 3);
+      if (errors.length) throw errors[0];
+      for (const p of fresh) { photoUrl.set(p.id, p.url); p.existing = true; }
+      await put('activities', act?.id || newId(), { ...(act ? bodyOf(act) : { createdAt: now }), title, date, notes: form.notes.value, childIds, goalIds: [...selGoals], photoIds: photos.map(p => p.id), updatedAt: now, example: false });
+      const removed = (act ? act.photoIds : []).filter(id => !photos.some(p => p.id === id));
+      await runPool(removed, deletePhoto, 3);
+      if (fresh.length && mode === 'local') navigator.storage?.persist?.().catch(() => {});
+      toast(act ? t('act_updated') : t('act_saved'));
+    });
+  });
+}
+/* Goal picker: its own window on top of the activity form. Works on a copy of the
+   selection, so Cancel (or Esc) leaves the activity untouched. */
+function goalPicker(initial, kidIds, onDone) {
+  const sel = new Set(initial), cov = buildCoverage(), goals = sortedGoals();
+  dlg2.innerHTML = `<form class="dlg-form picker-dlg" novalidate>
+    <header><h2>${esc(t('pick_h'))}</h2><button type="button" class="icon-btn" data-close>${esc(t('close'))}</button></header>
+    <div class="picker-bar">
+      <input class="search" id="p-q" type="search" placeholder="${esc(t('search_goal'))}" aria-label="${esc(t('search_goal'))}" autofocus>
+      <select class="select" id="p-subj" aria-label="${esc(t('subject'))}"><option value="">${esc(t('all_subjects'))}</option>${SUBJECTS.filter(s => goals.some(g => g.subject === s.key)).map(s => `<option value="${s.key}">${esc(sName(s.key))}</option>`).join('')}</select>
+      <select class="select" id="p-show" aria-label="${esc(t('show'))}"><option value="all">${esc(t('show_all'))}</option>${kidIds.length ? `<option value="open">${esc(t('show_open'))}</option>` : ''}<option value="sel">${esc(t('show_sel'))}</option></select>
+    </div>
+    <div class="picker-scroll" id="p-list"></div>
+    <footer><p class="pick-count" id="p-count" aria-live="polite"></p><button type="button" class="btn ghost" data-close>${esc(t('cancel'))}</button><button type="submit" class="btn primary">${esc(t('done'))}</button></footer>
+  </form>`;
+  const list = dlg2.querySelector('#p-list'), q = dlg2.querySelector('#p-q'), subj = dlg2.querySelector('#p-subj'), show = dlg2.querySelector('#p-show'), count = dlg2.querySelector('#p-count');
+  const drawCount = () => { count.textContent = t('n_selected', sel.size); };
+  function drawList() {
+    const qq = norm(q.value), sk = subj.value, m2 = show.value;
+    const items = goals.filter(g =>
+      (!sk || g.subject === sk) &&
+      (!qq || norm(searchText(g)).includes(qq)) &&
+      (m2 !== 'sel' || sel.has(g.id)) &&
+      (m2 !== 'open' || kidIds.some(cid => !cov.get(cid)?.has(g.id))));
+    const MAX = 300;
+    let html = '', group = '';
+    for (const g of items.slice(0, MAX)) {
+      if (g.subject !== group) { group = g.subject; html += `<div class="pick-group"><span class="dot" style="--c:${sv(g.subject)}"></span>${esc(sName(g.subject))}</div>`; }
+      html += `<label class="pick"><input type="checkbox" value="${esc(g.id)}" ${sel.has(g.id) ? 'checked' : ''}><span class="code" style="--c:${sv(g.subject)}">${esc(g.code || '—')}</span><span class="g-desc">${gCat(g) ? `<span class="g-meta">${esc(gCat(g))}</span>\n` : ''}${esc(gDesc(g))}</span></label>`;
+    }
+    if (items.length > MAX) html += `<p class="pick-more">${esc(t('n_more', items.length - MAX))}</p>`;
+    if (!items.length) html += `<p class="pick-more">${esc(t('picker_none'))}</p>`;
+    list.innerHTML = html;
+  }
+  list.addEventListener('change', e => { const el = e.target; if (el.type !== 'checkbox') return; el.checked ? sel.add(el.value) : sel.delete(el.value); drawCount(); });
+  q.addEventListener('input', drawList); subj.addEventListener('change', drawList); show.addEventListener('change', drawList);
+  dlg2.querySelector('form').addEventListener('submit', e => { e.preventDefault(); onDone(sel); dlg2.close(); });
+  drawCount(); drawList();
+  if (typeof dlg2.showModal === 'function') dlg2.showModal(); else dlg2.setAttribute('open', '');
+  q.focus();
+}
+function deleteActivity(id) {
+  const a = data.activities.get(id); if (!a) return;
+  confirmDialog(t('act_del_h'), `<p>${t('act_del_q', esc(a.title), esc(fmtDate(a.date)))}</p><p class="muted">${esc(t('act_del_note'))}</p>`, t('delete'), async () => {
+    await remove('activities', id);
+    await runPool(a.photoIds, deletePhoto, 3);
+    toast(t('act_deleted'));
+  });
+}
+
+/* ---------- import ---------- */
+function detectDelim(text) {
+  const line = text.split(/\r?\n/).find(l => l.trim()) || '';
+  let best = ',', n = -1;
+  for (const d of ['\t', ';', ',']) { const c = line.split(d).length - 1; if (c > n) { n = c; best = d; } }
+  return best;
+}
+function parseRows(text, delim) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += ch; }
+    else if (ch === '"' && cell.trim() === '') { q = true; cell = ''; }
+    else if (ch === delim) { row.push(cell); cell = ''; }
+    else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; }
+    else cell += ch;
+  }
+  if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(c => c.trim()));
+}
+function parseGoalImport(text) {
+  const tx = text.replace(/^﻿/, '').trim();
+  const out = { items: [], errors: [] };
+  if (!tx) return out;
+  let records = [];
+  if (tx[0] === '[' || tx[0] === '{') {
+    try {
+      let arr = JSON.parse(tx);
+      if (!Array.isArray(arr)) arr = Array.isArray(arr.goals) ? arr.goals : [];
+      records = arr.map((o, i) => ({ line: i + 1, code: o?.code ?? o?.enumeration ?? '', subject: o?.subject ?? o?.vak ?? '', category: o?.category ?? o?.categorie ?? '', description: o?.description ?? o?.omschrijving ?? '' }));
+    } catch (e) { out.errors.push(t('e_json')); return out; }
+  } else {
+    const rows = parseRows(tx, detectDelim(tx));
+    const head = rows[0].map(c => flat(c));
+    const find = names => head.findIndex(x => names.includes(x));
+    const hc = { code: find(['code', 'nummer', 'nr', 'enumeration', 'doelcode', 'id']), subject: find(['vak', 'subject', 'leergebied', 'domein', 'vakgebied', 'leerdomein']), category: find(['categorie', 'category', 'rubriek', 'subdomein', 'cluster', 'thema']), description: find(['omschrijving', 'description', 'doel', 'tekst', 'beschrijving', 'minimumdoel']) };
+    let map, start = 0, headed = false;
+    if (hc.subject >= 0 && hc.description >= 0) { map = hc; start = 1; headed = true; }
+    else if (rows[0].length >= 4) map = { code: 0, subject: 1, category: 2, description: 3 };
+    else if (rows[0].length === 3) map = { code: 0, subject: 1, category: -1, description: 2 };
+    else { out.errors.push(t('e_cols')); return out; }
+    for (let i = start; i < rows.length; i++) {
+      const r = rows[i], g = k => map[k] >= 0 ? (r[map[k]] || '').trim() : '';
+      // without a header, an unquoted description containing the delimiter spills into extra columns: glue them back
+      const description = headed ? g('description') : r.slice(map.description).join(', ').trim();
+      records.push({ line: i + 1, code: g('code'), subject: g('subject'), category: g('category'), description });
+    }
+  }
+  const seen = new Map();
+  for (const r of records) {
+    const subject = matchSubject(r.subject);
+    if (!subject) { out.errors.push(t('e_subject', r.line, String(r.subject).slice(0, 40))); continue; }
+    const description = String(r.description || '').trim();
+    if (!description) { out.errors.push(t('e_desc', r.line)); continue; }
+    const item = { code: String(r.code || '').trim().slice(0, 40), subject, category: String(r.category || '').trim().slice(0, 200), description: description.slice(0, 4000) };
+    seen.set(goalKey(item), item);
+  }
+  out.items = [...seen.values()];
+  return out;
+}
+const goalKey = g => g.code ? `${g.subject}|c|${g.code.toLowerCase()}` : `${g.subject}|d|${flat(g.description)}`;
+
+function importDialog() {
+  const body = `<p>${t('import_p')}</p>
+    <p class="muted">${esc(t('import_p2', SUBJECTS.map(s => sName(s.key)).join(', ')))}</p>
+    <label class="field"><span>${esc(t('list'))}</span><textarea id="i-text" rows="8" placeholder="code;vak;categorie;omschrijving&#10;1.1.1;Nederlands;Lezen;…" style="font-family:var(--f-mono);font-size:.8rem"></textarea></label>
+    <div><span class="btn small file-label">${esc(t('choose_file'))}<input type="file" id="i-file" accept=".csv,.tsv,.txt,.json,text/csv,text/plain,application/json" aria-label="${esc(t('choose_file'))}"></span></div>
+    <div class="import-preview" id="i-prev"><span class="muted">${esc(t('nothing_read'))}</span></div>`;
+  openDialog(shell('f-import', t('import_h'), body, t('import')), d => {
+    const ta = d.querySelector('#i-text'), prev = d.querySelector('#i-prev');
+    let parsed = { items: [], errors: [] };
+    const existing = new Map([...data.goals.values()].map(g => [goalKey(g), g]));
+    function update() {
+      parsed = parseGoalImport(ta.value);
+      if (!ta.value.trim()) { prev.innerHTML = `<span class="muted">${esc(t('nothing_read'))}</span>`; return; }
+      const builtinHits = parsed.items.filter(i => existing.get(goalKey(i))?.builtin).length;
+      const upd = parsed.items.filter(i => { const ex = existing.get(goalKey(i)); return ex && !ex.builtin; }).length;
+      prev.innerHTML = `<b>${esc(t('n_recognised', parsed.items.length))}</b><span>${esc(t('new_upd', parsed.items.length - upd - builtinHits, upd, builtinHits))}</span>${parsed.errors.length ? `<span>${esc(t('n_skipped', parsed.errors.length))}</span><ul>${parsed.errors.slice(0, 50).map(e => `<li>${esc(e)}</li>`).join('')}</ul>` : ''}`;
+    }
+    ta.addEventListener('input', update);
+    d.querySelector('#i-file').addEventListener('change', e => {
+      const f = e.target.files[0]; if (!f) return;
+      const rd = new FileReader();
+      rd.onload = () => { ta.value = String(rd.result || ''); update(); };
+      rd.onerror = () => toast(t('file_unreadable'), true);
+      rd.readAsText(f);
+    });
+    bindSubmit(d, async (form, progress) => {
+      update();
+      const now = Date.now();
+      const tasks = parsed.items.filter(i => !existing.get(goalKey(i))?.builtin).map(i => {
+        const ex = existing.get(goalKey(i));
+        return { id: ex?.id || newId(), body: { ...(ex ? bodyOf(ex) : { createdAt: now }), ...i, updatedAt: now, example: false } };
+      });
+      if (!tasks.length) return t('err_no_items');
+      const errors = await runPool(tasks, tk => put('goals', tk.id, tk.body), 4, (n, tot) => progress(t('progress', n, tot)));
+      if (errors.length) { toast(t('import_partial', tasks.length - errors.length, errors.length, errMsg(errors[0])), true); return; }
+      toast(t('imported', tasks.length));
+    });
+  });
+}
+
+/* ---------- data menu: backup, report, restore ---------- */
+/* Version 2 adds the photos (base64) that activities refer to. */
+async function backupJson() {
+  const o = { app: 'doelenboek', version: 2, exportedAt: new Date().toISOString(), goals: [...customGoals.values()] };
+  for (const c of ['children', 'activities']) o[c] = [...data[c].values()];
+  const used = new Set([...data.activities.values()].flatMap(a => a.photoIds));
+  o.photos = used.size ? (await photoStore.all()).filter(p => used.has(p.id)).map(p => ({ id: p.id, ...p.rec })) : [];
+  return JSON.stringify(o, null, 1);
+}
+const csvCell = v => { const s = String(v ?? ''); return /[";\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+function reportCsv() {
+  const cov = buildCoverage(), goals = sortedGoals();
+  const rows = [t('rep_head')];
+  for (const c of sortedChildren()) for (const g of goals) {
+    const acts = cov.get(c.id)?.get(g.id) || [];
+    rows.push([c.name, sName(g.subject), g.code, gCat(g), gDesc(g), acts.length ? t('achieved') : t('open'), acts.map(a => `${a.title} (${a.date})`).join(' | ')]);
+  }
+  return '﻿' + rows.map(r => r.map(csvCell).join(';')).join('\r\n');
+}
+/* Resolves true once the file was handed over (saved, downloaded or copied). */
+async function offerFile(filename, text) {
+  if (downloads) {
+    try { await downloads.save({ filename, data: text }); toast(t('file_saved')); return true; }
+    catch (e) { if (e && e.code === 'declined') return false; if (e && e.code === 'rate_limited') { toast(t('dl_open'), true); return false; } }
+  }
+  if (!window.claude) {
+    try {
+      const url = URL.createObjectURL(new Blob([text], { type: filename.endsWith('.json') ? 'application/json' : 'text/csv' }));
+      const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000); return true;
+    } catch (e) {}
+  }
+  return new Promise(resolve => {
+    let copied = false;
+    openDialog(shell('f-copy', filename, `<p>${t('copy_p', esc(filename))}</p><textarea class="copy-area" id="copy-area" readonly>${esc(text)}</textarea>`, t('copy_btn')), d => {
+      d.addEventListener('close', () => resolve(copied), { once: true });
+      bindSubmit(d, async () => {
+        const ta = d.querySelector('#copy-area');
+        try { await navigator.clipboard.writeText(text); copied = true; toast(t('copied')); }
+        catch (e) { ta.focus(); ta.select(); return t('copy_fail'); }
+      });
+    });
+  });
+}
+async function restoreBackup(text, progress) {
+  let o;
+  try { o = JSON.parse(text); } catch (e) { return t('r_invalid'); }
+  if (!o || typeof o !== 'object' || !COLS.some(c => Array.isArray(o[c]))) return t('r_not_backup');
+  const tasks = [];
+  for (const c of COLS) for (const item of (Array.isArray(o[c]) ? o[c] : [])) {
+    if (!item || typeof item.id !== 'string' || !ID_RE.test(item.id)) continue;
+    if (c === 'goals' && BUILTIN.has(item.id)) continue;
+    const body = clean(c, item); if (body) tasks.push({ c, id: item.id, body });
+  }
+  const photoTasks = [];
+  for (const p of (Array.isArray(o.photos) ? o.photos : [])) {
+    if (!p || typeof p.id !== 'string' || !ID_RE.test(p.id)) continue;
+    const rec = cleanPhoto(p); if (rec) photoTasks.push({ c: 'photos', id: p.id, body: rec });
+  }
+  if (!tasks.length && !photoTasks.length) return t('r_empty');
+  // photos first, so restored activities can show them straight away
+  const total = photoTasks.length + tasks.length;
+  const errors = await runPool(photoTasks, tk => photoStore.put(tk.id, tk.body), 3, n => progress(t('progress', n, total)));
+  for (const p of photoTasks) { const u = photoUrl.get(p.id); if (u) URL.revokeObjectURL(u); photoUrl.delete(p.id); }
+  errors.push(...await runPool(tasks, tk => put(tk.c, tk.id, tk.body), 4, n => progress(t('progress', photoTasks.length + n, total))));
+  scheduleRender();
+  if (errors.length) return t('r_partial', errors.length, total, errMsg(errors[0]));
+  toast(t('r_done', total));
+}
+function dataDialog() {
+  const ex = exampleItems().length > 0;
+  const body = `<p class="muted">${esc(fbUser ? t('where_fb') : mode === 'db' ? t('where_db') : t('where_local'))}</p><div class="data-actions">
+    ${fbUser ? `<div><p><b>${esc(t('account_h'))}</b><span>${esc(t('signed_in_as', fbUser.email))}</span></p><button type="button" class="btn small" id="d-logout">${esc(t('logout'))}</button></div>` : ''}
+    <div><p><b>${esc(t('report_h'))}</b><span>${esc(t('report_p'))}</span></p><button type="button" class="btn small" id="d-report">${esc(t('report_btn'))}</button></div>
+    <div><p><b>${esc(t('backup_h'))}</b><span>${esc(t('backup_p'))} ${esc(lastBackup() ? t('bk_last', fmtDate(lastBackup())) : t('bk_none'))}</span></p><button type="button" class="btn small" id="d-backup">${esc(t('backup_btn'))}</button></div>
+    <div class="w"><p><b>${esc(t('restore_h'))}</b><span>${esc(t('restore_p'))}</span></p><span class="btn small file-label">${esc(t('choose_file'))}<input type="file" id="d-restore" accept=".json,application/json" aria-label="${esc(t('restore_h'))}"></span></div>
+    ${ex ? `<div class="w"><p><b>${esc(t('examples_h'))}</b><span>${esc(t('examples_p'))}</span></p><button type="button" class="btn small" id="d-ex">${esc(t('remove_examples'))}</button></div>` : ''}
+    ${fbUser ? `<div><p><b>${esc(t('del_acc'))}</b><span>${esc(t('del_acc_p'))}</span></p><button type="button" class="btn small" id="d-delacc">${esc(t('del_acc'))}</button></div>` : ''}
+  </div>`;
+  openDialog(shell('f-data', t('data_h'), body, ''), d => {
+    const err = d.querySelector('.form-error');
+    d.querySelector('#d-report').addEventListener('click', () => offerFile(`doelenboek-${t('rep_file')}-${todayIso()}.csv`, reportCsv()));
+    d.querySelector('#d-backup').addEventListener('click', downloadBackup);
+    d.querySelector('#d-restore').addEventListener('change', e => {
+      const f = e.target.files[0]; if (!f) return;
+      const rd = new FileReader();
+      rd.onload = async () => { err.textContent = t('restoring'); const msg = await restoreBackup(String(rd.result || ''), txt => { err.textContent = txt; }); err.textContent = msg || ''; if (!msg) closeDialog(); };
+      rd.readAsText(f);
+    });
+    d.querySelector('#d-ex')?.addEventListener('click', () => removeExamples());
+    d.querySelector('#d-logout')?.addEventListener('click', logout);
+    d.querySelector('#d-delacc')?.addEventListener('click', deleteAccountDialog);
+  });
+}
+function removeExamples() {
+  const items = exampleItems();
+  confirmDialog(t('ex_h'), `<p>${esc(t('ex_q', items.length))}</p>`, t('delete'), async () => {
+    const errors = await runPool(items, tk => remove(tk.c, tk.id));
+    if (errors.length) throw errors[0];
+    toast(t('ex_done'));
+  });
+}
+
+/* ---------- photo preview on hover, lightbox on click ---------- */
+const peek = $('#peek'), peekImg = peek.querySelector('img');
+let peekFor = null;
+function showPeek(th) {
+  const img = th.querySelector('img');
+  if (!img || !img.complete || !img.naturalWidth) return;
+  peekFor = th;
+  const vw = window.innerWidth, vh = window.innerHeight, r = th.getBoundingClientRect();
+  const s = Math.min(Math.min(440, vw - 32) / img.naturalWidth, Math.min(440, vh - 32) / img.naturalHeight);
+  const w = Math.round(img.naturalWidth * s), h = Math.round(img.naturalHeight * s);
+  let left = r.right + 12;
+  if (left + w > vw - 16) left = r.left - 12 - w;
+  if (left < 16) left = Math.max(16, (vw - w) / 2);
+  const top = Math.min(Math.max(16, r.top + r.height / 2 - h / 2), vh - 16 - h);
+  peekImg.src = img.src;
+  Object.assign(peek.style, { left: left + 'px', top: top + 'px', width: w + 'px', height: h + 'px' });
+  peek.hidden = false;
+  requestAnimationFrame(() => { if (peekFor === th) peek.classList.add('show'); });
+}
+function hidePeek() { peekFor = null; peek.classList.remove('show'); peek.hidden = true; hideGoalPeek(); }
+
+/* Goal preview: below the code when it fits, otherwise above; kept inside the window. */
+const gpeek = $('#gpeek');
+let gpeekFor = null;
+function showGoalPeek(chip) {
+  const g = data.goals.get(chip.dataset.gid);
+  if (!g) return;
+  gpeekFor = chip;
+  gpeek.innerHTML = `<div class="gpeek-head"><span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(g.code || '—')}</span><span>${esc(sName(g.subject))}</span></div>
+    ${gCat(g) ? `<p class="g-meta">${esc(gCat(g))}</p>` : ''}<p class="g-desc">${esc(gDesc(g))}</p>`;
+  gpeek.classList.remove('show');
+  gpeek.hidden = false;
+  const vw = window.innerWidth, vh = window.innerHeight, r = chip.getBoundingClientRect(), b = gpeek.getBoundingClientRect();
+  let top = r.bottom + 8;
+  if (top + b.height > vh - 16) top = Math.max(16, r.top - 8 - b.height);
+  const left = Math.min(Math.max(16, r.left), vw - 16 - b.width);
+  Object.assign(gpeek.style, { left: left + 'px', top: top + 'px' });
+  requestAnimationFrame(() => { if (gpeekFor === chip) gpeek.classList.add('show'); });
+}
+function hideGoalPeek() { gpeekFor = null; gpeek.classList.remove('show'); gpeek.hidden = true; }
+window.addEventListener('scroll', hidePeek, { passive: true });
+
+const lb = $('#lightbox'), lbImg = $('#lb-img'), lbCap = $('#lb-cap');
+let lbState = null;
+function openLightbox(actId, i) {
+  const a = data.activities.get(actId);
+  if (!a || !a.photoIds.length) return;
+  hidePeek();
+  lbState = { id: actId, i: Math.min(i, a.photoIds.length - 1) };
+  lb.querySelector('[data-lb=prev]').setAttribute('aria-label', t('lb_prev'));
+  lb.querySelector('[data-lb=next]').setAttribute('aria-label', t('lb_next'));
+  lb.querySelector('[data-lb=close]').textContent = t('close');
+  drawLightbox();
+  if (!lb.open) { if (typeof lb.showModal === 'function') lb.showModal(); else lb.setAttribute('open', ''); }
+}
+function drawLightbox() {
+  const a = lbState && data.activities.get(lbState.id);
+  if (!a || !a.photoIds.length) { if (lb.open) lb.close(); return; }
+  const n = a.photoIds.length, i = lbState.i = ((lbState.i % n) + n) % n, id = a.photoIds[i];
+  lbImg.removeAttribute('src');
+  lbImg.alt = t('photo_alt', a.title, i + 1);
+  lbCap.textContent = `${a.title} · ${fmtDate(a.date)} · ${i + 1}/${n}`;
+  for (const b of lb.querySelectorAll('.lb-btn')) b.hidden = n < 2;
+  loadPhoto(id).then(u => { if (u && lbState && lbState.id === a.id && lbState.i === i) lbImg.src = u; });
+}
+lb.addEventListener('click', e => {
+  const b = e.target.closest('[data-lb]');
+  if (e.target === lb || (b && b.dataset.lb === 'close')) { lb.close(); return; }
+  if (b && lbState) { lbState.i += b.dataset.lb === 'next' ? 1 : -1; drawLightbox(); }
+});
+lb.addEventListener('keydown', e => {
+  if (!lbState) return;
+  if (e.key === 'ArrowRight') { lbState.i++; drawLightbox(); }
+  if (e.key === 'ArrowLeft') { lbState.i--; drawLightbox(); }
+});
+lb.addEventListener('close', () => { lbState = null; lbImg.removeAttribute('src'); });
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg, bad) {
+  const el = $('#toast'); el.textContent = msg; el.className = 'toast show' + (bad ? ' bad' : '');
+  clearTimeout(toastT); toastT = setTimeout(() => { el.className = 'toast'; }, bad ? 6500 : 2800);
+}
+
+/* ---------- events ---------- */
+const main = $('#main');
+main.addEventListener('click', e => {
+  const b = e.target.closest('[data-action]'); if (!b || b.disabled) return;
+  const id = b.dataset.id, act = b.dataset.action;
+  switch (act) {
+    case 'add-child': return childDialog(null);
+    case 'edit-child': return childDialog(data.children.get(id));
+    case 'delete-child': return deleteChild(id);
+    case 'open-child': ui.view = 'kind'; ui.childId = id; render(); window.scrollTo(0, 0); return;
+    case 'back': ui.view = 'overzicht'; render(); return;
+    case 'new-activity': return activityDialog(null, b.dataset.child);
+    case 'edit-activity': return activityDialog(data.activities.get(id));
+    case 'delete-activity': return deleteActivity(id);
+    case 'new-goal': return goalDialog(null);
+    case 'edit-goal': return goalDialog(data.goals.get(id));
+    case 'delete-goal': return deleteGoal(id);
+    case 'import-goals': return importDialog();
+    case 'remove-examples': return removeExamples();
+    case 'backup': return downloadBackup();
+    case 'photo': return openLightbox(id, Number(b.dataset.i) || 0);
+    case 'auth-view': ui_auth.view = b.dataset.v; ui_auth.err = ''; ui_auth.msg = ''; render(); $('#au-email')?.focus(); return;
+    case 'migrate': return migrateLocal(b);
+    case 'migrate-skip': return markMigrated();
+    case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
+    case 'goal-filter-all': ui.goalSubj = ui.goalSubj.size === SUBJECTS.length ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
+  }
+});
+/* Hover previews for photo thumbnails and goal codes; any mouse move off the element closes them. */
+main.addEventListener('pointerover', e => {
+  if (e.pointerType !== 'mouse') return;
+  const th = e.target.closest('.thumb'); if (th && th !== peekFor) showPeek(th);
+  const gc = e.target.closest('.goal-chip'); if (gc && gc !== gpeekFor) showGoalPeek(gc);
+});
+main.addEventListener('pointerout', e => {
+  const th = e.target.closest('.thumb'); if (th && !th.contains(e.relatedTarget)) hidePeek();
+  const gc = e.target.closest('.goal-chip'); if (gc && !gc.contains(e.relatedTarget)) hideGoalPeek();
+});
+main.addEventListener('focusin', e => {
+  const th = e.target.closest('.thumb'); if (th && th.matches(':focus-visible')) showPeek(th);
+  const gc = e.target.closest('.goal-chip'); if (gc) showGoalPeek(gc);
+});
+main.addEventListener('focusout', e => { if (e.target.closest('.thumb, .goal-chip')) hidePeek(); });
+main.addEventListener('submit', e => { if (e.target.id === 'auth-form') { e.preventDefault(); submitAuth(e.target); } });
+main.addEventListener('input', e => {
+  if (e.target.id === 'au-email') ui_auth.email = e.target.value;
+  if (e.target.id === 'goal-search') { ui.goalSearch = e.target.value; scheduleRender(); }
+  if (e.target.id === 'act-search') { ui.actSearch = e.target.value; scheduleRender(); }
+});
+main.addEventListener('change', e => {
+  if (e.target.id === 'act-child') { ui.actChild = e.target.value; render(); }
+  if (e.target.id === 'open-only') { ui.openOnly = e.target.checked; render(); }
+});
+main.addEventListener('toggle', e => {
+  const el = e.target; if (!el.matches || !el.matches('details[data-subj]')) return;
+  el.open ? ui.closed.delete(el.dataset.subj) : ui.closed.add(el.dataset.subj);
+}, true);
+$('#data-btn').addEventListener('click', dataDialog);
+$('#lang-switch').addEventListener('click', e => {
+  const b = e.target.closest('[data-lang]'); if (!b || b.dataset.lang === lang) return;
+  lang = b.dataset.lang;
+  try { localStorage.setItem(LANG_KEY, lang); } catch (err) {}
+  closeDialog();
+  render();
+});
+function fromHash() {
+  const h = location.hash.replace('#', '');
+  if (['overzicht', 'activiteiten', 'doelen'].includes(h)) ui.view = h;
+  else if (!h) ui.view = 'overzicht';
+  render();
+}
+window.addEventListener('hashchange', fromHash);
+$('.tabs').addEventListener('click', e => {
+  const a = e.target.closest('[data-tab]');
+  if (a && location.hash === '#' + a.dataset.tab) { e.preventDefault(); ui.view = a.dataset.tab; render(); }
+});
+
+/* ---------- Firebase accounts ----------
+   Each account's data lives under users/{uid}/{children|activities|goals|photos}/{id}; the
+   Firestore rules only let that account read or write it. firestoreStore() exposes the same small
+   interface as the Claude-hosted store, so the rest of the app runs unchanged in mode 'db'. */
+let fb = null, fbUser = null, unsubs = [];
+const ui_auth = { view: 'login', email: '', msg: '', err: '' };
+
+async function startFirebase() {
+  try {
+    const [appM, authM, fsM] = await Promise.all(['firebase-app.js', 'firebase-auth.js', 'firebase-firestore.js'].map(f => import(FIREBASE_SDK + f)));
+    const cfg = { ...FIREBASE_CONFIG }, emu = cfg.emulator; delete cfg.emulator;
+    const app = appM.initializeApp(cfg);
+    const auth = authM.getAuth(app);
+    let fs;
+    try { fs = fsM.initializeFirestore(app, { localCache: fsM.persistentLocalCache({ tabManager: fsM.persistentMultipleTabManager() }) }); }
+    catch (e) { fs = fsM.getFirestore(app); }
+    if (emu) { authM.connectAuthEmulator(auth, emu.auth, { disableWarnings: true }); fsM.connectFirestoreEmulator(fs, emu.host, emu.port); }
+    fb = { auth, fs, A: authM, F: fsM };
+    authM.onAuthStateChanged(auth, user => { if (user) enterAccount(user); else leaveAccount(); });
+  } catch (e) {
+    mode = 'auth'; ui_auth.err = t('sdk_fail'); render();
+  }
+}
+function fbErr(e) {
+  const map = { 'permission-denied': 'invalid_argument', 'resource-exhausted': 'quota_exceeded', 'unauthenticated': 'revoked', 'invalid-argument': 'invalid_argument' };
+  const err = new Error(e && e.message); err.code = map[e && e.code] || 'unavailable'; err.fbCode = e && e.code;
+  return err;
+}
+function firestoreStore(uid) {
+  const { F, fs } = fb;
+  const col = c => F.collection(fs, 'users', uid, c);
+  const ref = (c, id) => F.doc(fs, 'users', uid, c, id);
+  const snap = d => ({ id: d.id, exists: d.exists(), data: () => d.data() });
+  /* Writes apply locally at once and sync in the background; offline they would never resolve,
+     so stop waiting after a moment and report a later rejection as a toast. */
+  const settle = p => new Promise((resolve, reject) => {
+    let waiting = true;
+    const timer = setTimeout(() => { waiting = false; resolve(); }, 2500);
+    p.then(() => { if (waiting) { clearTimeout(timer); resolve(); } },
+      e => { if (waiting) { clearTimeout(timer); reject(fbErr(e)); } else toast(t('late_write_fail'), true); });
+  });
+  const docApi = (c, id) => ({
+    set: d => settle(F.setDoc(ref(c, id), d)),
+    delete: () => settle(F.deleteDoc(ref(c, id))),
+    get: () => F.getDoc(ref(c, id)).then(snap, e => { throw fbErr(e); }),
+  });
+  return {
+    collection: c => ({
+      doc: id => docApi(c, id),
+      onSnapshot: (next, error) => F.onSnapshot(col(c), s => next({ docs: s.docs.map(snap) }), e => error && error(fbErr(e))),
+      limit: n => ({ get: () => F.getDocs(F.query(col(c), F.limit(n))).then(s => ({ docs: s.docs.map(snap) }), e => { throw fbErr(e); }) }),
+    }),
+    doc: path => { const [c, id] = path.split('/'); return docApi(c, id); },
+  };
+}
+function resetData() {
+  setGoals(new Map()); data.children = new Map(); data.activities = new Map();
+  for (const c of COLS) loaded[c] = false;
+}
+function subscribeAll() {
+  for (const u of unsubs) u();
+  unsubs = COLS.map(c => db.collection(c).onSnapshot(s => {
+    const m = new Map();
+    for (const doc of s.docs) { if (!doc.exists) continue; const b = clean(c, doc.data()); if (b) m.set(doc.id, { ...b, id: doc.id }); }
+    if (c === 'goals') setGoals(m); else data[c] = m;
+    loaded[c] = true; scheduleRender();
+  }, err => {
+    loaded[c] = true; scheduleRender();
+    toast(err && err.code === 'revoked' ? t('err_revoked') : t('err_conn'), true);
+  }));
+}
+function enterAccount(user) {
+  if (fbUser && fbUser.uid === user.uid) return;
+  fbUser = user; db = firestoreStore(user.uid);
+  mode = 'db'; canWrite = true; canWriteKnown = true;
+  resetData(); closeDialog(); render(); subscribeAll();
+  readLocalSummary();
+}
+function leaveAccount() {
+  for (const u of unsubs) u();
+  unsubs = []; fbUser = null; db = null;
+  resetData(); closeDialog();
+  mode = 'auth'; render();
+}
+
+/* login / sign-up / reset screen */
+function authView() {
+  const v = ui_auth.view;
+  const head = { login: ['auth_h', 'auth_p'], signup: ['signup_h', 'signup_p'], reset: ['reset_h', 'reset_p'] }[v];
+  const pw = v === 'reset' ? '' : `<label class="field"><span>${esc(t('password'))}</span><input id="au-pw" name="password" type="password" autocomplete="${v === 'signup' ? 'new-password' : 'current-password'}" required></label>`;
+  const pw2 = v === 'signup' ? `<label class="field"><span>${esc(t('password2'))}</span><input id="au-pw2" name="password2" type="password" autocomplete="new-password" required><span class="hint">${esc(t('pw_hint'))}</span></label>` : '';
+  const submit = { login: 'login', signup: 'signup', reset: 'reset_btn' }[v];
+  const links = v === 'login'
+    ? `<button type="button" class="linkish" data-action="auth-view" data-v="signup">${esc(t('to_signup'))}</button><button type="button" class="linkish" data-action="auth-view" data-v="reset">${esc(t('forgot'))}</button>`
+    : `<button type="button" class="linkish" data-action="auth-view" data-v="login">${esc(v === 'signup' ? t('to_login') : t('back_login'))}</button>`;
+  return `<section class="card auth">
+    <div><h1>${esc(t(head[0]))}</h1><p class="lede">${esc(t(head[1]))}</p></div>
+    <form id="auth-form" novalidate>
+      <label class="field"><span>${esc(t('email'))}</span><input id="au-email" name="email" type="email" autocomplete="email" inputmode="email" required value="${esc(ui_auth.email)}"></label>
+      ${pw}${pw2}
+      <p class="form-error" id="au-err" role="alert">${esc(ui_auth.err)}</p>
+      ${ui_auth.msg ? `<p class="info" role="status">${esc(ui_auth.msg)}</p>` : ''}
+      <button class="btn primary" type="submit" ${fb ? '' : 'disabled'}>${esc(t(submit))}</button>
+    </form>
+    <div class="auth-links">${links}</div>
+    <p class="privacy">${esc(t('privacy'))}</p>
+  </section>`;
+}
+function authErr(e) {
+  const c = (e && e.code) || '';
+  if (/invalid-credential|wrong-password|user-not-found|invalid-login-credentials|missing-password/.test(c)) return t('ae_invalid');
+  if (c.includes('email-already-in-use')) return t('ae_inuse');
+  if (/invalid-email|missing-email/.test(c)) return t('ae_email');
+  if (c.includes('weak-password')) return t('ae_weak');
+  if (c.includes('too-many-requests')) return t('ae_many');
+  if (c.includes('network-request-failed')) return t('ae_net');
+  return t('ae_generic');
+}
+async function submitAuth(form) {
+  if (!fb) return;
+  const { A, auth } = fb, v = ui_auth.view;
+  const email = form.email.value.trim(), err = form.querySelector('#au-err'), btn = form.querySelector('[type=submit]');
+  ui_auth.email = email; ui_auth.err = ''; ui_auth.msg = '';
+  err.textContent = '';
+  form.querySelector('.info')?.remove();
+  if (!email) { err.textContent = t('err_email_empty'); return; }
+  if (v === 'signup') {
+    if (form.password.value.length < 8) { err.textContent = t('err_pw_short'); return; }
+    if (form.password.value !== form.password2.value) { err.textContent = t('err_pw_match'); return; }
+  }
+  const label = btn.textContent; btn.disabled = true; btn.textContent = t('busy');
+  try {
+    if (v === 'login') await A.signInWithEmailAndPassword(auth, email, form.password.value);
+    else if (v === 'signup') await A.createUserWithEmailAndPassword(auth, email, form.password.value);
+    else {
+      auth.languageCode = lang;
+      await A.sendPasswordResetEmail(auth, email);
+      ui_auth.msg = t('reset_sent'); render();
+    }
+  } catch (e) {
+    if (btn.isConnected) { err.textContent = authErr(e); btn.disabled = false; btn.textContent = label; }
+    return;
+  }
+  if (btn.isConnected) { btn.disabled = false; btn.textContent = label; }
+}
+/* Signing out also wipes this browser's offline copy of the account, so the next person on a
+   shared computer finds nothing. */
+async function logout() {
+  if (!fb) return;
+  try { await fb.A.signOut(fb.auth); } catch (e) {}
+  try { await fb.F.terminate(fb.fs); await fb.F.clearIndexedDbPersistence(fb.fs); } catch (e) { console.warn('doelenboek: could not clear offline copy', e && e.code, e && e.message); }
+  location.reload();
+}
+function deleteAccountDialog() {
+  const body = `<p>${esc(t('del_acc_p'))}</p><label class="field"><span>${esc(t('del_acc_confirm'))}</span><input id="da-pw" name="password" type="password" autocomplete="current-password" autofocus></label>`;
+  openDialog(shell('f-delacc', t('del_acc'), body, t('del_acc_btn'), 'danger'), d => bindSubmit(d, async form => {
+    const { A, F, auth, fs } = fb, user = auth.currentUser;
+    if (!user) return t('ae_generic');
+    try { await A.reauthenticateWithCredential(user, A.EmailAuthProvider.credential(user.email, form.password.value)); }
+    catch (e) { return authErr(e); }
+    for (const c of [...COLS, 'photos']) {
+      const s = await F.getDocs(F.collection(fs, 'users', user.uid, c));
+      const errors = await runPool(s.docs, docSnap => F.deleteDoc(docSnap.ref), 6);
+      if (errors.length) throw fbErr(errors[0]);
+    }
+    try { await A.deleteUser(user); } catch (e) { return authErr(e); }
+    try { localStorage.removeItem(MIGRATED_KEY + user.uid); } catch (e) {}
+    try { await F.terminate(fs); await F.clearIndexedDbPersistence(fs); } catch (e) {}
+    toast(t('del_done'));
+    setTimeout(() => location.reload(), 600);
+  }));
+}
+
+/* One-time offer to move data saved in this browser (before accounts existed) into the account. */
+let localSummary = null;
+function readLocalSummary() {
+  localSummary = null;
+  try {
+    const o = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
+    if (!o) return;
+    const n = c => Object.keys(o[c] || {}).length;
+    if (n('children') + n('activities') + n('goals')) localSummary = { o, children: n('children'), activities: n('activities') };
+  } catch (e) {}
+}
+function migrationNotice() {
+  if (!fbUser || !localSummary) return '';
+  try { if (localStorage.getItem(MIGRATED_KEY + fbUser.uid)) return ''; } catch (e) { return ''; }
+  if (data.children.size || data.activities.size || customGoals.size) return '';
+  return `<div class="notice"><p>${esc(t('mig_p', localSummary.children, localSummary.activities))}</p><span class="head-actions"><button class="btn small" data-action="migrate">${esc(t('mig_btn'))}</button><button class="btn small" data-action="migrate-skip">${esc(t('mig_skip'))}</button></span></div>`;
+}
+function markMigrated() { try { localStorage.setItem(MIGRATED_KEY + fbUser.uid, todayIso()); } catch (e) {} scheduleRender(); }
+async function migrateLocal(btn) {
+  const o = localSummary && localSummary.o; if (!o || !fbUser) return;
+  btn.disabled = true;
+  const docs = [];
+  for (const c of COLS) for (const [id, v] of Object.entries(o[c] || {})) { if (!ID_RE.test(id) || (c === 'goals' && BUILTIN.has(id))) continue; const b = clean(c, v); if (b) docs.push({ c, id, b }); }
+  const used = new Set(docs.filter(x => x.c === 'activities').flatMap(x => x.b.photoIds));
+  let photos = [];
+  try { photos = used.size ? (await localPhotosAll()).filter(p => used.has(p.id)) : []; } catch (e) {}
+  const total = docs.length + photos.length;
+  let n = 0;
+  const step = () => { btn.textContent = t('progress', ++n, total); };
+  const errors = await runPool(photos, async p => { await photoStore.put(p.id, p.rec); step(); }, 3);
+  errors.push(...await runPool(docs, async x => { await put(x.c, x.id, x.b); step(); }, 4));
+  if (errors.length) { toast(t('r_partial', errors.length, total, errMsg(errors[0])), true); btn.disabled = false; btn.textContent = t('mig_btn'); return; }
+  markMigrated();
+  toast(t('mig_done', total));
+}
+
+/* ---------- start ---------- */
+function startLocal() {
+  mode = 'local'; loadLocal(); render();
+}
+async function init() {
+  fromHash();
+  if (FIREBASE_CONFIG) { render(); startFirebase(); return; }
+  if (!window.claude || typeof window.claude.use !== 'function') { startLocal(); return; }
+  let d = null, u = null;
+  try { [d, u, downloads] = await Promise.all([window.claude.use('db'), window.claude.use('user'), window.claude.use('downloads')]); }
+  catch (e) { d = null; }
+  if (!d) { startLocal(); toast(t('err_no_shared'), true); return; }
+  db = d; mode = 'db';
+  if (u) { try { const c = await u.can('data.write'); if (c === true || c === false) { canWrite = c; canWriteKnown = true; } } catch (e) {} }
+  render();
+  subscribeAll();
+}
+init();
+})();
+</script>

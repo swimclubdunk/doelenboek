@@ -1,0 +1,24 @@
+rules_version = '2';
+
+// Doelenboek: every account can only read and write its own data under users/{uid}/...
+// Paste this into Firebase console → Firestore Database → Rules, then Publish.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /users/{uid}/{collection}/{docId} {
+      allow read, delete: if isOwner(uid)
+        && collection in ['children', 'activities', 'goals', 'photos'];
+
+      allow create, update: if isOwner(uid)
+        && collection in ['children', 'activities', 'goals', 'photos']
+        && request.resource.data.size() <= 20
+        && (collection != 'photos' || request.resource.data.data.size() <= 400000);
+    }
+
+    // Everything else is closed.
+  }
+}

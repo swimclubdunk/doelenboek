@@ -327,6 +327,17 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 .photo-add:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 .hint { color: var(--muted); font-size: .8rem; }
 .dlg-body.drop { outline: 2px dashed var(--accent); outline-offset: -8px; }
+/* login / sign-up screen */
+.auth { width: min(100%, 440px); margin: 5vh auto 0; padding: 28px; display: grid; gap: 16px; }
+.auth form { display: grid; gap: 14px; }
+.auth .field input { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 10px 12px; width: 100%; }
+.auth .btn.primary { padding-block: 11px; }
+.auth .form-error:empty { display: none; }
+.auth .info { color: var(--ok); font-size: .9rem; }
+.auth-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
+.linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
+.chrome-off .tabs, .chrome-off #data-btn, .chrome-off .status { display: none; }
 .site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .thumb:hover img { transform: none; } }
@@ -387,6 +398,11 @@ const LS_KEY = 'doelenboek.v1';
 const LANG_KEY = 'doelenboek.lang';
 const BACKUP_KEY = 'doelenboek.lastBackup';
 const BACKUP_EVERY_DAYS = 14;
+/* Firebase accounts (email + password). The standalone build fills this in; left null, the page
+   uses the Claude-hosted store or, outside Claude, this browser only. */
+const FIREBASE_CONFIG = {"apiKey": "AIzaSyBBxji4-yKxG1ZZHvdxNV1vtG9JAD46gMA", "authDomain": "doelenboek-e78ca.firebaseapp.com", "projectId": "doelenboek-e78ca", "storageBucket": "doelenboek-e78ca.firebasestorage.app", "messagingSenderId": "224430377433", "appId": "1:224430377433:web:c2eedf518737fab6ce31c8"};
+const FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/10.14.1/';
+const MIGRATED_KEY = 'doelenboek.migrated.';
 const MAX_PHOTOS = 24;              // per activity
 const PHOTO_MAX_B64 = 240000;       // keeps one photo under the 256 KiB document limit of the shared store
 const ID_RE = /^[A-Za-z0-9_\-~:@+.]{1,120}$/;
@@ -588,6 +604,28 @@ const T = {
     photo_fail: n => `${nlN(n, 'foto kon', "foto's konden")} niet gelezen worden. Gebruik JPG, PNG of WebP.`,
     photo_max: n => `Maximaal ${n} foto's per activiteit.`,
     photo_alt: (title, i) => `Foto ${i} van ${title}`, lb_prev: 'Vorige foto', lb_next: 'Volgende foto',
+    auth_h: 'Welkom bij Doelenboek', auth_p: 'Log in om je gegevens op al je toestellen te gebruiken.',
+    signup_h: 'Account aanmaken', signup_p: 'Je e-mailadres is je gebruikersnaam. Er wordt geen code of bevestiging gemaild.',
+    reset_h: 'Wachtwoord opnieuw instellen', reset_p: 'Vul je e-mailadres in. Je krijgt een e-mail met een link om een nieuw wachtwoord te kiezen.',
+    email: 'E-mailadres', password: 'Wachtwoord', password2: 'Herhaal wachtwoord', pw_hint: 'Minstens 8 tekens.',
+    login: 'Inloggen', signup: 'Account aanmaken', reset_btn: 'Link versturen',
+    to_signup: 'Nog geen account? Maak er een aan', to_login: 'Al een account? Inloggen', forgot: 'Wachtwoord vergeten?', back_login: 'Terug naar inloggen',
+    reset_sent: 'Als er een account bestaat voor dit adres, is er een e-mail onderweg. Kijk ook bij je spam.',
+    err_pw_match: 'De wachtwoorden zijn niet gelijk.', err_pw_short: 'Kies een wachtwoord van minstens 8 tekens.', err_email_empty: 'Vul je e-mailadres in.',
+    ae_invalid: 'E-mailadres of wachtwoord klopt niet.', ae_inuse: 'Er bestaat al een account met dit e-mailadres. Log in, of kies "Wachtwoord vergeten?".',
+    ae_email: 'Dit is geen geldig e-mailadres.', ae_weak: 'Dit wachtwoord is te zwak. Kies minstens 8 tekens.',
+    ae_many: 'Te veel pogingen. Wacht even en probeer opnieuw.', ae_net: 'Geen verbinding. Controleer je internet en probeer opnieuw.',
+    ae_generic: 'Dat lukte niet. Probeer het opnieuw.',
+    sdk_fail: 'De inlogdienst kon niet geladen worden. Controleer je internetverbinding en herlaad de pagina.',
+    privacy: "Je gegevens (kinderen, activiteiten, foto's) worden bewaard in Google Firebase in de EU en zijn alleen bereikbaar met jouw e-mailadres en wachtwoord. Je kunt je account en al je gegevens altijd verwijderen via Gegevens.",
+    account_h: 'Account', signed_in_as: e => `Ingelogd als ${e}.`, logout: 'Uitloggen',
+    del_acc: 'Account verwijderen', del_acc_p: "Verwijdert je account en al je gegevens (kinderen, activiteiten, eigen doelen, foto's) definitief. Download eerst een back-up als je iets wilt bewaren.",
+    del_acc_confirm: 'Vul je wachtwoord in om te bevestigen.', del_acc_btn: 'Account en gegevens verwijderen', del_done: 'Je account is verwijderd.',
+    where_fb: 'Je gegevens staan in je account en zijn beschikbaar op elk toestel waar je inlogt. Alleen jij hebt er toegang toe.',
+    foot_fb: 'Je gegevens worden met je account gesynchroniseerd. Download af en toe een back-up via Gegevens.',
+    mig_p: (k, a) => `In deze browser staan nog gegevens van vóór je account (${nlN(k, 'kind', 'kinderen')}, ${nlN(a, 'activiteit', 'activiteiten')}). Wil je ze naar je account overnemen?`,
+    mig_btn: 'Overnemen', mig_skip: 'Niet overnemen', mig_done: n => `${nlN(n, 'item', 'items')} naar je account overgenomen.`,
+    late_write_fail: 'Een wijziging kon niet in je account opgeslagen worden. Herlaad de pagina en controleer je gegevens.',
   },
   en: {
     tab_overzicht: 'Overview', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals',
@@ -682,6 +720,28 @@ const T = {
     photo_fail: n => `${nlN(n, 'photo', 'photos')} could not be read. Use JPG, PNG or WebP.`,
     photo_max: n => `At most ${n} photos per activity.`,
     photo_alt: (title, i) => `Photo ${i} of ${title}`, lb_prev: 'Previous photo', lb_next: 'Next photo',
+    auth_h: 'Welcome to Doelenboek', auth_p: 'Log in to use your data on all your devices.',
+    signup_h: 'Create account', signup_p: 'Your email address is your username. No code or confirmation is emailed.',
+    reset_h: 'Reset password', reset_p: "Enter your email address. You'll get an email with a link to choose a new password.",
+    email: 'Email address', password: 'Password', password2: 'Repeat password', pw_hint: 'At least 8 characters.',
+    login: 'Log in', signup: 'Create account', reset_btn: 'Send link',
+    to_signup: 'No account yet? Create one', to_login: 'Already have an account? Log in', forgot: 'Forgot password?', back_login: 'Back to log in',
+    reset_sent: 'If an account exists for this address, an email is on its way. Check your spam folder too.',
+    err_pw_match: 'The passwords do not match.', err_pw_short: 'Choose a password of at least 8 characters.', err_email_empty: 'Enter your email address.',
+    ae_invalid: 'Email address or password is incorrect.', ae_inuse: 'An account with this email address already exists. Log in, or choose "Forgot password?".',
+    ae_email: 'This is not a valid email address.', ae_weak: 'This password is too weak. Choose at least 8 characters.',
+    ae_many: 'Too many attempts. Wait a moment and try again.', ae_net: 'No connection. Check your internet and try again.',
+    ae_generic: 'That did not work. Try again.',
+    sdk_fail: 'The login service could not be loaded. Check your internet connection and reload the page.',
+    privacy: 'Your data (children, activities, photos) is stored in Google Firebase in the EU and can only be reached with your email address and password. You can delete your account and all your data at any time via Data.',
+    account_h: 'Account', signed_in_as: e => `Logged in as ${e}.`, logout: 'Log out',
+    del_acc: 'Delete account', del_acc_p: 'Permanently deletes your account and all your data (children, activities, your own goals, photos). Download a backup first if you want to keep anything.',
+    del_acc_confirm: 'Enter your password to confirm.', del_acc_btn: 'Delete account and data', del_done: 'Your account has been deleted.',
+    where_fb: 'Your data lives in your account and is available on every device where you log in. Only you can access it.',
+    foot_fb: 'Your data syncs with your account. Download a backup now and then via Data.',
+    mig_p: (k, a) => `This browser still holds data from before your account (${nlN(k, 'child', 'children')}, ${nlN(a, 'activity', 'activities')}). Move it into your account?`,
+    mig_btn: 'Move to account', mig_skip: "Don't move", mig_done: n => `${nlN(n, 'item', 'items')} moved to your account.`,
+    late_write_fail: 'A change could not be saved to your account. Reload the page and check your data.',
   },
 };
 let lang = 'nl';
@@ -876,12 +936,16 @@ const photoStore = {
       const snap = await retry(() => db.collection('photos').limit(1000).get());
       return snap.docs.filter(d => d.exists).map(d => ({ id: d.id, rec: cleanPhoto(d.data()) })).filter(p => p.rec);
     }
-    return idbRun('readonly', st => {
-      const keys = st.getAllKeys(), vals = st.getAll();
-      return () => keys.result.map((id, i) => ({ id: String(id), rec: cleanPhoto(vals.result[i]) })).filter(p => p.rec);
-    });
+    return localPhotosAll();
   },
 };
+/* Photos kept in this browser (IndexedDB), whatever mode the app runs in; used for migration too. */
+function localPhotosAll() {
+  return idbRun('readonly', st => {
+    const keys = st.getAllKeys(), vals = st.getAll();
+    return () => keys.result.map((id, i) => ({ id: String(id), rec: cleanPhoto(vals.result[i]) })).filter(p => p.rec);
+  });
+}
 function b64ToUrl(rec) {
   const bin = atob(rec.data), arr = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
@@ -964,11 +1028,14 @@ function renderChrome() {
   document.documentElement.lang = lang;
   $('#data-btn').textContent = t('data_btn');
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+  document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
   const foot = $('#site-foot');
-  foot.hidden = mode === 'loading';
-  foot.textContent = `${mode === 'local' ? t('foot_local') : t('foot_db')} ${lastBackup() ? t('bk_last', fmtDate(lastBackup())) : t('bk_none')}`;
+  foot.hidden = mode === 'loading' || mode === 'auth';
+  foot.textContent = `${mode === 'local' ? t('foot_local') : fbUser ? t('foot_fb') : t('foot_db')} ${lastBackup() ? t('bk_last', fmtDate(lastBackup())) : t('bk_none')}`;
   const st = $('#status');
+  st.removeAttribute('title');
   if (mode === 'loading') { st.textContent = t('st_connecting'); st.className = 'status'; }
+  else if (mode === 'db' && fbUser) { st.textContent = fbUser.email; st.title = t('signed_in_as', fbUser.email); st.className = 'status ok'; }
   else if (mode === 'db') { st.textContent = canWrite ? t('st_saved') : t('st_readonly'); st.className = 'status ok'; }
   else { st.textContent = t('st_local'); st.className = 'status warn'; }
   for (const a of document.querySelectorAll('[data-tab]')) {
@@ -986,6 +1053,11 @@ function render() {
   const fid = ae && main.contains(ae) && ae.id ? ae.id : null;
   let s0 = null, s1 = null; try { s0 = ae.selectionStart; s1 = ae.selectionEnd; } catch (e) {}
 
+  if (mode === 'auth') {
+    main.innerHTML = authView();
+    const el = fid && document.getElementById(fid); if (el) el.focus({ preventScroll: true });
+    return;
+  }
   if (mode === 'loading' || (mode === 'db' && !COLS.every(c => loaded[c]))) { main.innerHTML = `<p class="loading">${esc(t('loading'))}</p>`; return; }
   const cov = buildCoverage();
   let html;
@@ -1002,7 +1074,7 @@ function render() {
 
 /* Banners shown at the top of every main view. */
 function exampleBanner() {
-  if (!exampleItems().length) return backupNotice();
+  if (!exampleItems().length) return migrationNotice() + backupNotice();
   return `<div class="notice"><p>${t('example_banner')}</p><button class="btn small w" data-action="remove-examples">${esc(t('remove_examples'))}</button></div>`;
 }
 /* The last backup date is remembered per browser; it only drives the reminder. */
@@ -1581,11 +1653,13 @@ async function restoreBackup(text, progress) {
 }
 function dataDialog() {
   const ex = exampleItems().length > 0;
-  const body = `<p class="muted">${esc(mode === 'db' ? t('where_db') : t('where_local'))}</p><div class="data-actions">
+  const body = `<p class="muted">${esc(fbUser ? t('where_fb') : mode === 'db' ? t('where_db') : t('where_local'))}</p><div class="data-actions">
+    ${fbUser ? `<div><p><b>${esc(t('account_h'))}</b><span>${esc(t('signed_in_as', fbUser.email))}</span></p><button type="button" class="btn small" id="d-logout">${esc(t('logout'))}</button></div>` : ''}
     <div><p><b>${esc(t('report_h'))}</b><span>${esc(t('report_p'))}</span></p><button type="button" class="btn small" id="d-report">${esc(t('report_btn'))}</button></div>
     <div><p><b>${esc(t('backup_h'))}</b><span>${esc(t('backup_p'))} ${esc(lastBackup() ? t('bk_last', fmtDate(lastBackup())) : t('bk_none'))}</span></p><button type="button" class="btn small" id="d-backup">${esc(t('backup_btn'))}</button></div>
     <div class="w"><p><b>${esc(t('restore_h'))}</b><span>${esc(t('restore_p'))}</span></p><span class="btn small file-label">${esc(t('choose_file'))}<input type="file" id="d-restore" accept=".json,application/json" aria-label="${esc(t('restore_h'))}"></span></div>
     ${ex ? `<div class="w"><p><b>${esc(t('examples_h'))}</b><span>${esc(t('examples_p'))}</span></p><button type="button" class="btn small" id="d-ex">${esc(t('remove_examples'))}</button></div>` : ''}
+    ${fbUser ? `<div><p><b>${esc(t('del_acc'))}</b><span>${esc(t('del_acc_p'))}</span></p><button type="button" class="btn small" id="d-delacc">${esc(t('del_acc'))}</button></div>` : ''}
   </div>`;
   openDialog(shell('f-data', t('data_h'), body, ''), d => {
     const err = d.querySelector('.form-error');
@@ -1598,6 +1672,8 @@ function dataDialog() {
       rd.readAsText(f);
     });
     d.querySelector('#d-ex')?.addEventListener('click', () => removeExamples());
+    d.querySelector('#d-logout')?.addEventListener('click', logout);
+    d.querySelector('#d-delacc')?.addEventListener('click', deleteAccountDialog);
   });
 }
 function removeExamples() {
@@ -1714,6 +1790,9 @@ main.addEventListener('click', e => {
     case 'remove-examples': return removeExamples();
     case 'backup': return downloadBackup();
     case 'photo': return openLightbox(id, Number(b.dataset.i) || 0);
+    case 'auth-view': ui_auth.view = b.dataset.v; ui_auth.err = ''; ui_auth.msg = ''; render(); $('#au-email')?.focus(); return;
+    case 'migrate': return migrateLocal(b);
+    case 'migrate-skip': return markMigrated();
     case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
     case 'goal-filter-all': ui.goalSubj = ui.goalSubj.size === SUBJECTS.length ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
   }
@@ -1733,7 +1812,9 @@ main.addEventListener('focusin', e => {
   const gc = e.target.closest('.goal-chip'); if (gc) showGoalPeek(gc);
 });
 main.addEventListener('focusout', e => { if (e.target.closest('.thumb, .goal-chip')) hidePeek(); });
+main.addEventListener('submit', e => { if (e.target.id === 'auth-form') { e.preventDefault(); submitAuth(e.target); } });
 main.addEventListener('input', e => {
+  if (e.target.id === 'au-email') ui_auth.email = e.target.value;
   if (e.target.id === 'goal-search') { ui.goalSearch = e.target.value; scheduleRender(); }
   if (e.target.id === 'act-search') { ui.actSearch = e.target.value; scheduleRender(); }
 });
@@ -1765,12 +1846,222 @@ $('.tabs').addEventListener('click', e => {
   if (a && location.hash === '#' + a.dataset.tab) { e.preventDefault(); ui.view = a.dataset.tab; render(); }
 });
 
+/* ---------- Firebase accounts ----------
+   Each account's data lives under users/{uid}/{children|activities|goals|photos}/{id}; the
+   Firestore rules only let that account read or write it. firestoreStore() exposes the same small
+   interface as the Claude-hosted store, so the rest of the app runs unchanged in mode 'db'. */
+let fb = null, fbUser = null, unsubs = [];
+const ui_auth = { view: 'login', email: '', msg: '', err: '' };
+
+async function startFirebase() {
+  try {
+    const [appM, authM, fsM] = await Promise.all(['firebase-app.js', 'firebase-auth.js', 'firebase-firestore.js'].map(f => import(FIREBASE_SDK + f)));
+    const cfg = { ...FIREBASE_CONFIG }, emu = cfg.emulator; delete cfg.emulator;
+    const app = appM.initializeApp(cfg);
+    const auth = authM.getAuth(app);
+    let fs;
+    try { fs = fsM.initializeFirestore(app, { localCache: fsM.persistentLocalCache({ tabManager: fsM.persistentMultipleTabManager() }) }); }
+    catch (e) { fs = fsM.getFirestore(app); }
+    if (emu) { authM.connectAuthEmulator(auth, emu.auth, { disableWarnings: true }); fsM.connectFirestoreEmulator(fs, emu.host, emu.port); }
+    fb = { auth, fs, A: authM, F: fsM };
+    authM.onAuthStateChanged(auth, user => { if (user) enterAccount(user); else leaveAccount(); });
+  } catch (e) {
+    mode = 'auth'; ui_auth.err = t('sdk_fail'); render();
+  }
+}
+function fbErr(e) {
+  const map = { 'permission-denied': 'invalid_argument', 'resource-exhausted': 'quota_exceeded', 'unauthenticated': 'revoked', 'invalid-argument': 'invalid_argument' };
+  const err = new Error(e && e.message); err.code = map[e && e.code] || 'unavailable'; err.fbCode = e && e.code;
+  return err;
+}
+function firestoreStore(uid) {
+  const { F, fs } = fb;
+  const col = c => F.collection(fs, 'users', uid, c);
+  const ref = (c, id) => F.doc(fs, 'users', uid, c, id);
+  const snap = d => ({ id: d.id, exists: d.exists(), data: () => d.data() });
+  /* Writes apply locally at once and sync in the background; offline they would never resolve,
+     so stop waiting after a moment and report a later rejection as a toast. */
+  const settle = p => new Promise((resolve, reject) => {
+    let waiting = true;
+    const timer = setTimeout(() => { waiting = false; resolve(); }, 2500);
+    p.then(() => { if (waiting) { clearTimeout(timer); resolve(); } },
+      e => { if (waiting) { clearTimeout(timer); reject(fbErr(e)); } else toast(t('late_write_fail'), true); });
+  });
+  const docApi = (c, id) => ({
+    set: d => settle(F.setDoc(ref(c, id), d)),
+    delete: () => settle(F.deleteDoc(ref(c, id))),
+    get: () => F.getDoc(ref(c, id)).then(snap, e => { throw fbErr(e); }),
+  });
+  return {
+    collection: c => ({
+      doc: id => docApi(c, id),
+      onSnapshot: (next, error) => F.onSnapshot(col(c), s => next({ docs: s.docs.map(snap) }), e => error && error(fbErr(e))),
+      limit: n => ({ get: () => F.getDocs(F.query(col(c), F.limit(n))).then(s => ({ docs: s.docs.map(snap) }), e => { throw fbErr(e); }) }),
+    }),
+    doc: path => { const [c, id] = path.split('/'); return docApi(c, id); },
+  };
+}
+function resetData() {
+  setGoals(new Map()); data.children = new Map(); data.activities = new Map();
+  for (const c of COLS) loaded[c] = false;
+}
+function subscribeAll() {
+  for (const u of unsubs) u();
+  unsubs = COLS.map(c => db.collection(c).onSnapshot(s => {
+    const m = new Map();
+    for (const doc of s.docs) { if (!doc.exists) continue; const b = clean(c, doc.data()); if (b) m.set(doc.id, { ...b, id: doc.id }); }
+    if (c === 'goals') setGoals(m); else data[c] = m;
+    loaded[c] = true; scheduleRender();
+  }, err => {
+    loaded[c] = true; scheduleRender();
+    toast(err && err.code === 'revoked' ? t('err_revoked') : t('err_conn'), true);
+  }));
+}
+function enterAccount(user) {
+  if (fbUser && fbUser.uid === user.uid) return;
+  fbUser = user; db = firestoreStore(user.uid);
+  mode = 'db'; canWrite = true; canWriteKnown = true;
+  resetData(); closeDialog(); render(); subscribeAll();
+  readLocalSummary();
+}
+function leaveAccount() {
+  for (const u of unsubs) u();
+  unsubs = []; fbUser = null; db = null;
+  resetData(); closeDialog();
+  mode = 'auth'; render();
+}
+
+/* login / sign-up / reset screen */
+function authView() {
+  const v = ui_auth.view;
+  const head = { login: ['auth_h', 'auth_p'], signup: ['signup_h', 'signup_p'], reset: ['reset_h', 'reset_p'] }[v];
+  const pw = v === 'reset' ? '' : `<label class="field"><span>${esc(t('password'))}</span><input id="au-pw" name="password" type="password" autocomplete="${v === 'signup' ? 'new-password' : 'current-password'}" required></label>`;
+  const pw2 = v === 'signup' ? `<label class="field"><span>${esc(t('password2'))}</span><input id="au-pw2" name="password2" type="password" autocomplete="new-password" required><span class="hint">${esc(t('pw_hint'))}</span></label>` : '';
+  const submit = { login: 'login', signup: 'signup', reset: 'reset_btn' }[v];
+  const links = v === 'login'
+    ? `<button type="button" class="linkish" data-action="auth-view" data-v="signup">${esc(t('to_signup'))}</button><button type="button" class="linkish" data-action="auth-view" data-v="reset">${esc(t('forgot'))}</button>`
+    : `<button type="button" class="linkish" data-action="auth-view" data-v="login">${esc(v === 'signup' ? t('to_login') : t('back_login'))}</button>`;
+  return `<section class="card auth">
+    <div><h1>${esc(t(head[0]))}</h1><p class="lede">${esc(t(head[1]))}</p></div>
+    <form id="auth-form" novalidate>
+      <label class="field"><span>${esc(t('email'))}</span><input id="au-email" name="email" type="email" autocomplete="email" inputmode="email" required value="${esc(ui_auth.email)}"></label>
+      ${pw}${pw2}
+      <p class="form-error" id="au-err" role="alert">${esc(ui_auth.err)}</p>
+      ${ui_auth.msg ? `<p class="info" role="status">${esc(ui_auth.msg)}</p>` : ''}
+      <button class="btn primary" type="submit" ${fb ? '' : 'disabled'}>${esc(t(submit))}</button>
+    </form>
+    <div class="auth-links">${links}</div>
+    <p class="privacy">${esc(t('privacy'))}</p>
+  </section>`;
+}
+function authErr(e) {
+  const c = (e && e.code) || '';
+  if (/invalid-credential|wrong-password|user-not-found|invalid-login-credentials|missing-password/.test(c)) return t('ae_invalid');
+  if (c.includes('email-already-in-use')) return t('ae_inuse');
+  if (/invalid-email|missing-email/.test(c)) return t('ae_email');
+  if (c.includes('weak-password')) return t('ae_weak');
+  if (c.includes('too-many-requests')) return t('ae_many');
+  if (c.includes('network-request-failed')) return t('ae_net');
+  return t('ae_generic');
+}
+async function submitAuth(form) {
+  if (!fb) return;
+  const { A, auth } = fb, v = ui_auth.view;
+  const email = form.email.value.trim(), err = form.querySelector('#au-err'), btn = form.querySelector('[type=submit]');
+  ui_auth.email = email; ui_auth.err = ''; ui_auth.msg = '';
+  err.textContent = '';
+  form.querySelector('.info')?.remove();
+  if (!email) { err.textContent = t('err_email_empty'); return; }
+  if (v === 'signup') {
+    if (form.password.value.length < 8) { err.textContent = t('err_pw_short'); return; }
+    if (form.password.value !== form.password2.value) { err.textContent = t('err_pw_match'); return; }
+  }
+  const label = btn.textContent; btn.disabled = true; btn.textContent = t('busy');
+  try {
+    if (v === 'login') await A.signInWithEmailAndPassword(auth, email, form.password.value);
+    else if (v === 'signup') await A.createUserWithEmailAndPassword(auth, email, form.password.value);
+    else {
+      auth.languageCode = lang;
+      await A.sendPasswordResetEmail(auth, email);
+      ui_auth.msg = t('reset_sent'); render();
+    }
+  } catch (e) {
+    if (btn.isConnected) { err.textContent = authErr(e); btn.disabled = false; btn.textContent = label; }
+    return;
+  }
+  if (btn.isConnected) { btn.disabled = false; btn.textContent = label; }
+}
+/* Signing out also wipes this browser's offline copy of the account, so the next person on a
+   shared computer finds nothing. */
+async function logout() {
+  if (!fb) return;
+  try { await fb.A.signOut(fb.auth); } catch (e) {}
+  try { await fb.F.terminate(fb.fs); await fb.F.clearIndexedDbPersistence(fb.fs); } catch (e) { console.warn('doelenboek: could not clear offline copy', e && e.code, e && e.message); }
+  location.reload();
+}
+function deleteAccountDialog() {
+  const body = `<p>${esc(t('del_acc_p'))}</p><label class="field"><span>${esc(t('del_acc_confirm'))}</span><input id="da-pw" name="password" type="password" autocomplete="current-password" autofocus></label>`;
+  openDialog(shell('f-delacc', t('del_acc'), body, t('del_acc_btn'), 'danger'), d => bindSubmit(d, async form => {
+    const { A, F, auth, fs } = fb, user = auth.currentUser;
+    if (!user) return t('ae_generic');
+    try { await A.reauthenticateWithCredential(user, A.EmailAuthProvider.credential(user.email, form.password.value)); }
+    catch (e) { return authErr(e); }
+    for (const c of [...COLS, 'photos']) {
+      const s = await F.getDocs(F.collection(fs, 'users', user.uid, c));
+      const errors = await runPool(s.docs, docSnap => F.deleteDoc(docSnap.ref), 6);
+      if (errors.length) throw fbErr(errors[0]);
+    }
+    try { await A.deleteUser(user); } catch (e) { return authErr(e); }
+    try { localStorage.removeItem(MIGRATED_KEY + user.uid); } catch (e) {}
+    try { await F.terminate(fs); await F.clearIndexedDbPersistence(fs); } catch (e) {}
+    toast(t('del_done'));
+    setTimeout(() => location.reload(), 600);
+  }));
+}
+
+/* One-time offer to move data saved in this browser (before accounts existed) into the account. */
+let localSummary = null;
+function readLocalSummary() {
+  localSummary = null;
+  try {
+    const o = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
+    if (!o) return;
+    const n = c => Object.keys(o[c] || {}).length;
+    if (n('children') + n('activities') + n('goals')) localSummary = { o, children: n('children'), activities: n('activities') };
+  } catch (e) {}
+}
+function migrationNotice() {
+  if (!fbUser || !localSummary) return '';
+  try { if (localStorage.getItem(MIGRATED_KEY + fbUser.uid)) return ''; } catch (e) { return ''; }
+  if (data.children.size || data.activities.size || customGoals.size) return '';
+  return `<div class="notice"><p>${esc(t('mig_p', localSummary.children, localSummary.activities))}</p><span class="head-actions"><button class="btn small" data-action="migrate">${esc(t('mig_btn'))}</button><button class="btn small" data-action="migrate-skip">${esc(t('mig_skip'))}</button></span></div>`;
+}
+function markMigrated() { try { localStorage.setItem(MIGRATED_KEY + fbUser.uid, todayIso()); } catch (e) {} scheduleRender(); }
+async function migrateLocal(btn) {
+  const o = localSummary && localSummary.o; if (!o || !fbUser) return;
+  btn.disabled = true;
+  const docs = [];
+  for (const c of COLS) for (const [id, v] of Object.entries(o[c] || {})) { if (!ID_RE.test(id) || (c === 'goals' && BUILTIN.has(id))) continue; const b = clean(c, v); if (b) docs.push({ c, id, b }); }
+  const used = new Set(docs.filter(x => x.c === 'activities').flatMap(x => x.b.photoIds));
+  let photos = [];
+  try { photos = used.size ? (await localPhotosAll()).filter(p => used.has(p.id)) : []; } catch (e) {}
+  const total = docs.length + photos.length;
+  let n = 0;
+  const step = () => { btn.textContent = t('progress', ++n, total); };
+  const errors = await runPool(photos, async p => { await photoStore.put(p.id, p.rec); step(); }, 3);
+  errors.push(...await runPool(docs, async x => { await put(x.c, x.id, x.b); step(); }, 4));
+  if (errors.length) { toast(t('r_partial', errors.length, total, errMsg(errors[0])), true); btn.disabled = false; btn.textContent = t('mig_btn'); return; }
+  markMigrated();
+  toast(t('mig_done', total));
+}
+
 /* ---------- start ---------- */
 function startLocal() {
   mode = 'local'; loadLocal(); render();
 }
 async function init() {
   fromHash();
+  if (FIREBASE_CONFIG) { render(); startFirebase(); return; }
   if (!window.claude || typeof window.claude.use !== 'function') { startLocal(); return; }
   let d = null, u = null;
   try { [d, u, downloads] = await Promise.all([window.claude.use('db'), window.claude.use('user'), window.claude.use('downloads')]); }
@@ -1779,17 +2070,7 @@ async function init() {
   db = d; mode = 'db';
   if (u) { try { const c = await u.can('data.write'); if (c === true || c === false) { canWrite = c; canWriteKnown = true; } } catch (e) {} }
   render();
-  for (const c of COLS) {
-    db.collection(c).onSnapshot(snap => {
-      const m = new Map();
-      for (const doc of snap.docs) { if (!doc.exists) continue; const b = clean(c, doc.data()); if (b) m.set(doc.id, { ...b, id: doc.id }); }
-      if (c === 'goals') setGoals(m); else data[c] = m;
-      loaded[c] = true; scheduleRender();
-    }, err => {
-      loaded[c] = true; scheduleRender();
-      toast(err && err.code === 'revoked' ? t('err_revoked') : t('err_conn'), true);
-    });
-  }
+  subscribeAll();
 }
 init();
 })();
