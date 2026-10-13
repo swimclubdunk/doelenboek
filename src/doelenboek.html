@@ -87,7 +87,7 @@ const T = {
     no_goals_notice: 'Er zijn nog geen minimumdoelen ingeladen. Plak of laad ze in als lijst, dan berekent Doelenboek de voortgang per vak.',
     import_goals: 'Doelen importeren',
     h_overview: 'Overzicht',
-    n_children: n => nlN(n, 'kind', 'kinderen'), n_goals: n => nlN(n, 'minimumdoel', 'minimumdoelen'), n_acts: n => nlN(n, 'activiteit', 'activiteiten'),
+    n_children: n => nlN(n, 'kind', 'kinderen'), n_goals: n => nlN(n, 'minimumdoel', 'minimumdoelen'), n_acts: n => nlN(n, 'activiteit', 'activiteiten'), n_photos: n => nlN(n, 'foto', "foto's"),
     n_goals_short: n => nlN(n, 'doel', 'doelen'),
     add_child: 'Kind toevoegen', add_activity: 'Activiteit toevoegen',
     empty_kids_h: 'Nog geen kinderen', empty_kids_p: 'Voeg een kind toe. Daarna registreer je activiteiten en zie je per vak welke minimumdoelen al aan bod kwamen.',
@@ -190,7 +190,7 @@ const T = {
     no_goals_notice: 'No minimum goals have been loaded yet. Paste or load them as a list and Doelenboek will work out progress per subject.',
     import_goals: 'Import goals',
     h_overview: 'Overview',
-    n_children: n => nlN(n, 'child', 'children'), n_goals: n => nlN(n, 'minimum goal', 'minimum goals'), n_acts: n => nlN(n, 'activity', 'activities'),
+    n_children: n => nlN(n, 'child', 'children'), n_goals: n => nlN(n, 'minimum goal', 'minimum goals'), n_acts: n => nlN(n, 'activity', 'activities'), n_photos: n => nlN(n, 'photo', 'photos'),
     n_goals_short: n => nlN(n, 'goal', 'goals'),
     add_child: 'Add child', add_activity: 'Add activity',
     empty_kids_h: 'No children yet', empty_kids_p: 'Add a child. Then log activities and see, per subject, which minimum goals have been covered.',
@@ -698,14 +698,13 @@ function viewChild(cov) {
 
 function goalChip(g) { return `<li class="code goal-chip" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" tabindex="0" aria-label="${esc(`${g.code} ${sName(g.subject)}: ${gDesc(g)}`)}"><span class="dot"></span>${esc(g.code || sName(g.subject))}</li>`; }
 
-/* Up to four thumbnails to hover and open. With more photos, a fifth one fades out: it only says
-   "there is more", so it isn't a button (all photos are in the activity's edit form and the viewer). */
+/* Up to ten thumbnails (two rows of five) to hover and open, with the number of photos below.
+   The viewer and the activity's edit form show all of them. */
 function photoStrip(a) {
-  const ids = a.photoIds, SHOW = 4;
+  const ids = a.photoIds, SHOW = 10;
   if (!ids.length) return '';
   const thumbs = ids.slice(0, SHOW).map((id, i) => `<button type="button" class="thumb" data-action="photo" data-id="${esc(a.id)}" data-i="${i}" aria-label="${esc(t('photo_alt', a.title, i + 1))}">${photoImg(id)}</button>`);
-  if (ids.length > SHOW) thumbs.push(`<span class="thumb-fade" aria-hidden="true">${photoImg(ids[SHOW])}</span>`);
-  return `<div class="thumbs act-photos">${thumbs.join('')}</div>`;
+  return `<div class="act-photos"><div class="thumbs">${thumbs.join('')}</div><p class="photo-count">${esc(t('n_photos', ids.length))}</p></div>`;
 }
 function activityCard(a) {
   const d = dateObj(a.date);

@@ -75,8 +75,7 @@ puts in the page, so they are the hooks you style. Adding a new class means chan
 - **Goals per child:** `subj` (a `<details>`, `open` when expanded), `status-list` (rows `done` when
   covered), `mark`, `code`, `g-body`, `g-meta`, `g-desc`, `via`, `check`
 - **Activities:** `act-list`, `act`, `act-date` (`d` day, `m` month), `act-body`, `act-kids`,
-  `goal-chips`, `goal-chip`, `act-photos` (the photo column), `thumbs`, `thumb`, `thumb-fade` (the faded
-  fifth photo), `notes`, `row-actions`, `month`
+  `goal-chips`, `goal-chip`, `act-photos` (the photo column), `thumbs`, `thumb`, `photo-count`, `notes`, `row-actions`, `month`
 - **Goal list:** `chips-filter`, `goal-list`, `goal-row`, `g-side`, `kids-row`, `tag`
 - **Dialogs:** `dlg-form`, `dlg-body`, `field`, `field-label`, `hint`, `form-error`, `info`, `row2`,
   `animal-grid`, `kid-picks`, `kid-pick`, `goal-field`, `sel-chips`, `file-label`, `import-preview`,
