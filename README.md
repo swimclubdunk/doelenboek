@@ -3,7 +3,7 @@
 **Track which Flemish *minimumdoelen* your homeschooled kids have covered, one activity at a time.**
 *Houd per kind bij welke minimumdoelen al aan bod kwamen.*
 
-**▶ Open the app: https://swimclubdunk.github.io/doelenboek/**
+**▶ Open the app: https://doelenboek.be**
 
 Create an account with your email and a password, then use it on any device.
 

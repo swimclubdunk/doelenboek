@@ -6,7 +6,7 @@
 <meta name="description" content="Doelenboek: houd per kind bij welke Vlaamse minimumdoelen aan bod kwamen in huisonderwijs.">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231F6F78'/%3E%3Cpath d='M18 16h14a16 16 0 0 1 0 32H18z' fill='none' stroke='white' stroke-width='6'/%3E%3Ccircle cx='31' cy='32' r='4' fill='%23E9C46A'/%3E%3C/svg%3E">
-<title>doelenboek.com</title>
+<title>doelenboek.be</title>
 <!-- tools/build.py inlines these stylesheets; everything visual lives in design/ -->
 <style>
 /* Design tokens: the colours, fonts and shapes the whole app is built from.
@@ -374,7 +374,11 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .auth-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
 .linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
-.site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; }
+.site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; }
+/* the donation line: quiet, like the rest of the footer */
+.site-foot .support > span { font-weight: 700; }
+.site-foot .support a { color: inherit; text-underline-offset: 2px; }
+.site-foot .support a:hover { color: var(--fg); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .thumb:hover img { transform: none; } }
 </style>
@@ -401,7 +405,7 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 <body>
 <header class="top">
   <div class="top-inner">
-    <div class="brand"><b>doelenboek.com</b></div>
+    <div class="brand"><b>doelenboek.be</b></div>
     <nav class="tabs" aria-label="Doelenboek">
       <a href="#overzicht" data-tab="overzicht">Overzicht</a>
       <a href="#activiteiten" data-tab="activiteiten">Activiteiten</a>
@@ -419,7 +423,10 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
   </div>
 </header>
 <main id="main"><p class="loading">Gegevens laden…</p></main>
-<footer class="site-foot" id="site-foot"></footer>
+<footer class="site-foot" id="site-foot">
+  <p id="foot-data"></p>
+  <p class="support"><span id="support-text"></span> <a id="support-link" href="https://ko-fi.com/mat644" target="_blank" rel="noopener"></a></p>
+</footer>
 <dialog id="dlg"></dialog>
 <dialog id="dlg2"></dialog>
 <dialog id="lightbox" class="lightbox">
@@ -866,6 +873,7 @@ const T = {
     err_conn: 'De verbinding met de opslag is verbroken. Herlaad de pagina.',
     pick_btn: 'Doelen kiezen…', pick_h: 'Minimumdoelen kiezen', done: 'Klaar', none_chosen: 'Nog geen doelen gekozen.', n_selected: n => `${n} gekozen`,
     foot_local: 'Je gegevens blijven in deze browser en worden nergens anders opgeslagen.',
+    support_p: 'Donaties helpen de kosten van de domeinnaam en andere kosten te dekken.', support_link: 'Doneren via Ko-fi',
     foot_db: '',
     photos: "Foto's", add_photos: "Foto's toevoegen", photo_remove: 'Foto verwijderen',
     photo_hint: "Kies foto's, sleep ze hierheen of plak ze. Ze worden verkleind bewaard.",
@@ -970,6 +978,7 @@ const T = {
     err_conn: 'The connection to storage was lost. Reload the page.',
     pick_btn: 'Choose goals…', pick_h: 'Choose minimum goals', done: 'Done', none_chosen: 'No goals selected yet.', n_selected: n => `${n} selected`,
     foot_local: 'Your data stays in this browser and is not stored anywhere else.',
+    support_p: 'Donations help cover domain registration and other costs.', support_link: 'Donate on Ko-fi',
     foot_db: '',
     photos: 'Photos', add_photos: 'Add photos', photo_remove: 'Remove photo',
     photo_hint: 'Choose photos, drag them here or paste them. They are stored at a reduced size.',
@@ -1299,9 +1308,12 @@ function renderChrome() {
   $('#data-btn').innerHTML = bt('data_btn');
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
-  const foot = $('#site-foot');
-  foot.textContent = mode === 'local' ? t('foot_local') : fbUser ? t('foot_fb') : t('foot_db');
-  foot.hidden = mode === 'loading' || mode === 'auth' || !foot.textContent;
+  const footData = $('#foot-data');
+  footData.textContent = mode === 'local' ? t('foot_local') : fbUser ? t('foot_fb') : t('foot_db');
+  footData.hidden = !footData.textContent;
+  $('#support-text').textContent = t('support_p');
+  $('#support-link').textContent = t('support_link');
+  $('#site-foot').hidden = mode === 'loading' || mode === 'auth';
   const st = $('#status');
   st.removeAttribute('title');
   if (mode === 'loading') { st.innerHTML = bt('st_connecting'); st.className = 'status'; }
