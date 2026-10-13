@@ -36,6 +36,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .status.ok::before { background: var(--on-chrome); border-color: var(--on-chrome); }
 .status.warn::before { background: transparent; }
 .status .bi { justify-items: start; }   /* keep the text next to the status dot */
+/* a long login email is cut off with … instead of pushing the header onto a second line; the full address is in the tooltip */
+.status { max-width: min(16rem, 45vw); }
+.status-email { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .lang-switch { display: inline-flex; border: 1px solid color-mix(in srgb, var(--on-chrome) 35%, transparent); border-radius: 999px; overflow: hidden; }
 .lang-switch button { border: 0; background: transparent; padding: 4px 10px; font-size: .78rem; font-weight: 700; color: var(--on-chrome-muted); cursor: pointer; letter-spacing: .04em; }
 .lang-switch button[aria-pressed="true"] { background: var(--on-chrome); color: var(--chrome); }

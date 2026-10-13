@@ -608,7 +608,7 @@ function renderChrome() {
   const st = $('#status');
   st.removeAttribute('title');
   if (mode === 'loading') { st.innerHTML = bt('st_connecting'); st.className = 'status'; }
-  else if (mode === 'db' && fbUser) { st.textContent = fbUser.email; st.title = t('signed_in_as', fbUser.email); st.className = 'status ok'; }
+  else if (mode === 'db' && fbUser) { st.innerHTML = `<span class="status-email">${esc(fbUser.email)}</span>`; st.title = t('signed_in_as', fbUser.email); st.className = 'status ok'; }
   else if (mode === 'db') { st.innerHTML = bt(canWrite ? 'st_saved' : 'st_readonly'); st.className = 'status ok'; }
   else { st.innerHTML = bt('st_local'); st.className = 'status warn'; }
   for (const a of document.querySelectorAll('[data-tab]')) {
