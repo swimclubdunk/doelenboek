@@ -1,9 +1,66 @@
-"""Wrap the artifact page (head-less fragment) into a complete standalone index.html.
-Usage: build_standalone.py SRC.html OUT.html [FIREBASE_CONFIG.json]"""
-import sys, json
+"""Wrap the artifact page (head-less fragment) into a complete standalone index.html,
+filling in the built-in goals from doelen/*.json.
+Usage: build.py SRC.html OUT.html [FIREBASE_CONFIG.json]"""
+import sys, json, re
+from pathlib import Path
+
+DOELEN_DIR = Path(__file__).resolve().parent.parent / 'doelen'
+GOAL_FIELDS = {'code', 'category', 'categoryEn', 'description', 'descriptionEn'}
+
+
+def load_goals(subject_keys):
+    """Read every doelen/*.json file and return the goals in the shape the app expects.
+    Stops with a readable message on the first mistake, so a hand edit can't break the app."""
+    goals, seen_subjects = [], {}
+    for path in sorted(DOELEN_DIR.glob('*.json')):
+        def fail(msg):
+            sys.exit(f'{path.relative_to(DOELEN_DIR.parent)}: {msg}')
+        try:
+            doc = json.loads(path.read_text(encoding='utf-8'))
+        except json.JSONDecodeError as e:
+            fail(f'not valid JSON (line {e.lineno}, column {e.colno}: {e.msg})')
+        subject = doc.get('subject') if isinstance(doc, dict) else None
+        if subject not in subject_keys:
+            fail(f'"subject" must be one of {", ".join(subject_keys)}')
+        if subject in seen_subjects:
+            fail(f'subject {subject} is already used by {seen_subjects[subject]}')
+        seen_subjects[subject] = path.name
+        if not isinstance(doc.get('doelen'), list):
+            fail('"doelen" must be a list')
+        codes = set()
+        for n, g in enumerate(doc['doelen'], 1):
+            where = f'goal {n}' + (f' ({g.get("code")})' if isinstance(g, dict) and g.get('code') else '')
+            if not isinstance(g, dict):
+                fail(f'{where} must be an object {{ ... }}')
+            unknown = set(g) - GOAL_FIELDS
+            if unknown:
+                fail(f'{where} has unknown field(s) {", ".join(sorted(unknown))}; allowed: {", ".join(sorted(GOAL_FIELDS))}')
+            for k, v in g.items():
+                if not isinstance(v, str):
+                    fail(f'{where}: "{k}" must be text in quotes')
+            code = g.get('code', '').strip()
+            if not code:
+                fail(f'{where} has no "code"')
+            if not g.get('description', '').strip():
+                fail(f'{where} has no "description"')
+            if code in codes:
+                fail(f'code {code} appears twice')
+            codes.add(code)
+            goals.append({'id': f'b-{subject}-{code}', 'subject': subject, **{k: v.strip() if k == 'code' else v for k, v in g.items()}})
+    return goals
+
 
 src, out = sys.argv[1], sys.argv[2]
 text = open(src, encoding='utf-8').read()
+
+s = text.index('const SUBJECTS = [')
+subject_keys = re.findall(r"\{ key: '([A-Z]+)'", text[s:text.index('\n];', s)])
+goals = sorted(load_goals(subject_keys), key=lambda g: subject_keys.index(g["subject"]))  # stable: keeps file order within a subject
+needle = 'const BUILTIN_GOALS = [];'
+assert text.count(needle) == 1, 'goals placeholder not found exactly once'
+goals_js = json.dumps(goals, ensure_ascii=False, indent=1).replace('</', '<\\/')
+text = text.replace(needle, 'const BUILTIN_GOALS = ' + goals_js + ';')
+
 if len(sys.argv) > 3:
     cfg = json.load(open(sys.argv[3], encoding='utf-8'))
     needle = 'const FIREBASE_CONFIG = null;'

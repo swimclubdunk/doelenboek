@@ -34,10 +34,33 @@ Plain HTML, CSS and JavaScript in a single file. There are no dependencies excep
 
 ```
 src/doelenboek.html     the app (source)
+doelen/*.json           the built-in goals, one file per subject
 firebase-config.json    Firebase web config (public by design; the rules protect the data)
 firestore.rules         Firestore security rules: paste into the Firebase console → Firestore → Rules
-tools/build.py          builds index.html from the source + config
+tools/build.py          builds index.html from the source, the goals and the config
 ```
+
+### Editing the built-in goals
+
+Each subject has its own file in [`doelen/`](doelen), for example `doelen/nederlands.json`. Add a goal by copying an existing entry inside the `"doelen": [ ... ]` list:
+
+```json
+{
+  "code": "1.1.1",
+  "category": "Lezen",
+  "categoryEn": "Reading",
+  "description": "De kleuters kunnen rijm herkennen, ...",
+  "descriptionEn": "Preschoolers can recognise rhyme, ..."
+}
+```
+
+- `code` and `description` are required. The other fields are optional.
+- Separate entries with a comma, but don't put a comma after the last one.
+- Use `\n` for a line break inside a text, and `\"` for a double quote.
+- **Don't change the `code` of an existing goal.** Activities link to goals by subject and code, so a renamed code shows up as a new goal that nothing has covered yet. Fixing typos in the texts is safe.
+- Leave `subject` at the top of the file as it is. It's the subject key the app uses (`NL`, `WK`, `WT`, `GE`, `AK`, `MV`, `LO` or `AT`).
+
+Then rebuild. The build checks the files and names the file and goal if something is wrong.
 
 Rebuild after editing the source:
 

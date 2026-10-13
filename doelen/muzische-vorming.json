@@ -1,0 +1,49 @@
+{
+  "subject": "MV",
+  "name": "Muzische vorming",
+  "nameEn": "Arts education",
+  "doelen": [
+    {
+      "code": "6.1.1",
+      "category": "Domeinoverschrijdend",
+      "categoryEn": "Across domains",
+      "description": "De kleuters kunnen technieken/vaardigheden van de vijf muzische domeinen verkennen.",
+      "descriptionEn": "Preschoolers can explore techniques and skills from the five arts domains."
+    },
+    {
+      "code": "6.1.2",
+      "category": "Domeinoverschrijdend",
+      "categoryEn": "Across domains",
+      "description": "De kleuters kunnen vormgevingsmiddelen van de vijf muzische domeinen verkennen: Muziek: de stem, het lied, de handtrom, de triangel, de tamboerijn, de fluit. Beeld: het potlood, het penseel, de verf, de stempel, het tekenpapier. Drama: de handpop, het toneel, de verkleedkleren, het masker. Dans: de dans, de beweging, de kring, de rij. Media: de (video)camera.",
+      "descriptionEn": "Preschoolers can explore the materials of the five arts domains. Music: the voice, the song, the hand drum, the triangle, the tambourine, the flute. Visual art: the pencil, the brush, paint, the stamp, drawing paper. Drama: the hand puppet, the stage, dress-up clothes, the mask. Dance: the dance, movement, the circle, the line. Media: the (video) camera."
+    },
+    {
+      "code": "6.2.1",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De kleuters kennen de volgende begrippen: kort, lang, hoog, laag, snel, langzaam, hard, zacht, klank, toon, de zanger(es), de muzikant, het instrument.",
+      "descriptionEn": "Preschoolers know these concepts: short, long, high, low, fast, slow, loud, soft, sound, tone, the singer, the musician, the instrument."
+    },
+    {
+      "code": "6.2.2",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De kleuters kunnen patronen van lange en korte geluiden onderscheiden.",
+      "descriptionEn": "Preschoolers can tell apart patterns of long and short sounds."
+    },
+    {
+      "code": "6.2.3",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De kleuters kunnen snelle en langzame ritmische en melodische patronen onderscheiden.",
+      "descriptionEn": "Preschoolers can tell apart fast and slow rhythmic and melodic patterns."
+    },
+    {
+      "code": "6.2.4",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De kleuters kunnen hoge en lage tonen herkennen en eenvoudige melodieën aangepast aan het stembereik zingen.",
+      "descriptionEn": "Preschoolers can recognise high and low notes and sing simple melodies suited to their vocal range."
+    }
+  ]
+}
