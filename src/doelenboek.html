@@ -87,6 +87,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
 .status.ok::before { background: var(--ok); }
 .status.warn::before { background: #D99A1E; }
+/* both languages share one grid cell; the hidden one keeps the width (see both()) */
+.bi { display: inline-grid; justify-items: center; }
+.bi > span { grid-area: 1 / 1; }
+.bi > .off { visibility: hidden; }
+.status .bi { justify-items: start; }   /* keep the text next to the status dot */
 .lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
 .lang-switch button { border: 0; background: transparent; padding: 4px 10px; font-size: .78rem; font-weight: 700; color: var(--muted); cursor: pointer; letter-spacing: .04em; }
 .lang-switch button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
@@ -614,8 +619,16 @@ const T = {
 };
 let lang = 'nl';
 try { const saved = localStorage.getItem(LANG_KEY); if (saved === 'en' || saved === 'nl') lang = saved; } catch (e) {}
-const t = (k, ...a) => { const v = T[lang][k] ?? T.nl[k]; return typeof v === 'function' ? v(...a) : (v ?? k); };
+const tIn = (l, k, ...a) => { const v = T[l][k] ?? T.nl[k]; return typeof v === 'function' ? v(...a) : (v ?? k); };
+const t = (k, ...a) => tIn(lang, k, ...a);
+/* Label HTML for buttons and other controls: both languages in one grid cell, the inactive one
+   invisible, so the control always takes the width of the longer text and nothing jumps
+   when the language is switched. */
+const both = (nl, en) => nl === en ? esc(nl) : `<span class="bi">${[['nl', nl], ['en', en]].map(([l, s]) =>
+  `<span lang="${l}"${l === lang ? '' : ' class="off" aria-hidden="true"'}>${esc(s)}</span>`).join('')}</span>`;
+const bt = (k, ...a) => both(tIn('nl', k, ...a), tIn('en', k, ...a));
 const sName = k => SUBJ[k] ? SUBJ[k].name[lang] : k;
+const bName = k => SUBJ[k] ? both(SUBJ[k].name.nl, SUBJ[k].name.en) : esc(k);
 const gDesc = g => (lang === 'en' && g.descriptionEn) || g.description;
 const gCat = g => (lang === 'en' && g.categoryEn) || g.category;
 
@@ -887,7 +900,7 @@ function scheduleRender() { if (rq) return; rq = requestAnimationFrame(() => { r
 
 function renderChrome() {
   document.documentElement.lang = lang;
-  $('#data-btn').textContent = t('data_btn');
+  $('#data-btn').innerHTML = bt('data_btn');
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
   const foot = $('#site-foot');
@@ -895,12 +908,12 @@ function renderChrome() {
   foot.hidden = mode === 'loading' || mode === 'auth' || !foot.textContent;
   const st = $('#status');
   st.removeAttribute('title');
-  if (mode === 'loading') { st.textContent = t('st_connecting'); st.className = 'status'; }
+  if (mode === 'loading') { st.innerHTML = bt('st_connecting'); st.className = 'status'; }
   else if (mode === 'db' && fbUser) { st.textContent = fbUser.email; st.title = t('signed_in_as', fbUser.email); st.className = 'status ok'; }
-  else if (mode === 'db') { st.textContent = canWrite ? t('st_saved') : t('st_readonly'); st.className = 'status ok'; }
-  else { st.textContent = t('st_local'); st.className = 'status warn'; }
+  else if (mode === 'db') { st.innerHTML = bt(canWrite ? 'st_saved' : 'st_readonly'); st.className = 'status ok'; }
+  else { st.innerHTML = bt('st_local'); st.className = 'status warn'; }
   for (const a of document.querySelectorAll('[data-tab]')) {
-    a.textContent = t('tab_' + a.dataset.tab);
+    a.innerHTML = bt('tab_' + a.dataset.tab);
     const active = a.dataset.tab === ui.view || (ui.view === 'kind' && a.dataset.tab === 'overzicht');
     if (active) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   }
@@ -936,11 +949,11 @@ function render() {
 /* Banners shown at the top of every main view. */
 function exampleBanner() {
   if (!exampleItems().length) return migrationNotice();
-  return `<div class="notice"><p>${t('example_banner')}</p><button class="btn small w" data-action="remove-examples">${esc(t('remove_examples'))}</button></div>`;
+  return `<div class="notice"><p>${t('example_banner')}</p><button class="btn small w" data-action="remove-examples">${bt('remove_examples')}</button></div>`;
 }
 function noGoalsNotice() {
   if (data.goals.size) return '';
-  return `<div class="notice"><p>${esc(t('no_goals_notice'))}</p><button class="btn small w" data-action="import-goals">${esc(t('import_goals'))}</button></div>`;
+  return `<div class="notice"><p>${esc(t('no_goals_notice'))}</p><button class="btn small w" data-action="import-goals">${bt('import_goals')}</button></div>`;
 }
 
 function barRow(label, key, n, tot) {
@@ -952,10 +965,10 @@ function viewOverview(cov) {
   const kids = sortedChildren(), totals = subjectTotals(), total = data.goals.size;
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))} · ${esc(t('n_goals', total))} · ${esc(t('n_acts', data.activities.size))}</p></div>
-    <div class="head-actions w"><button class="btn" data-action="add-child">${esc(t('add_child'))}</button><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${esc(t('add_activity'))}</button></div></section>`;
+    <div class="head-actions w"><button class="btn" data-action="add-child">${bt('add_child')}</button><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${bt('add_activity')}</button></div></section>`;
   h += noGoalsNotice();
   if (!kids.length) {
-    return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${esc(t('add_child'))}</button></div>`;
+    return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
   }
   h += `<div class="child-grid">${kids.map(c => {
     const m = cov.get(c.id), acts = activitiesFor(c.id), covered = m ? m.size : 0;
@@ -965,7 +978,7 @@ function viewOverview(cov) {
         <div class="cc-id"><h2>${esc(c.name)}</h2><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? ' · ' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
         <div class="cc-pct"><strong>${pct}<small>%</small></strong><span>${esc(t('x_of_y_goals', covered, total))}</span></div></header>
       <ul class="bars">${SUBJECTS.map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key] || 0)).join('')}</ul>
-      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${esc(t('goals_per_subject'))}</button><button class="btn small ghost w" data-action="new-activity" data-child="${esc(c.id)}">${esc(t('add_activity'))}</button></footer>
+      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w" data-action="new-activity" data-child="${esc(c.id)}">${bt('add_activity')}</button></footer>
     </article>`;
   }).join('')}</div>`;
   return h;
@@ -977,13 +990,13 @@ function viewChild(cov) {
   const m = cov.get(c.id) || new Map(), totals = subjectTotals(), total = data.goals.size;
   const pct = total ? Math.round(100 * m.size / total) : 0;
   const goals = sortedGoals(), acts = activitiesFor(c.id);
-  let h = `<button class="btn small ghost back" data-action="back">${esc(t('back'))}</button>
+  let h = `<button class="btn small ghost back" data-action="back">${bt('back')}</button>
     <section class="kid-head"><span class="avatar lg" aria-hidden="true">${esc(c.animal)}</span>
       <div class="kid-name"><h1>${esc(c.name)}</h1><p class="lede">${esc(t('reached', m.size, total, pct))} · ${esc(t('n_acts', acts.length))}</p></div>
-      <div class="head-actions"><button class="btn primary w" data-action="new-activity" data-child="${esc(c.id)}">${esc(t('add_activity'))}</button><button class="btn w" data-action="edit-child" data-id="${esc(c.id)}">${esc(t('edit'))}</button><button class="btn ghost w" data-action="delete-child" data-id="${esc(c.id)}">${esc(t('delete'))}</button></div>
+      <div class="head-actions"><button class="btn primary w" data-action="new-activity" data-child="${esc(c.id)}">${bt('add_activity')}</button><button class="btn w" data-action="edit-child" data-id="${esc(c.id)}">${bt('edit')}</button><button class="btn ghost w" data-action="delete-child" data-id="${esc(c.id)}">${bt('delete')}</button></div>
     </section>`;
   h += noGoalsNotice();
-  if (total) h += `<label class="check"><input type="checkbox" id="open-only" ${ui.openOnly ? 'checked' : ''}> ${esc(t('open_only'))}</label>`;
+  if (total) h += `<label class="check"><input type="checkbox" id="open-only" ${ui.openOnly ? 'checked' : ''}> ${bt('open_only')}</label>`;
   for (const s of SUBJECTS) {
     const sg = goals.filter(g => g.subject === s.key);
     if (!sg.length) continue;
@@ -1023,7 +1036,7 @@ function activityCard(a) {
       ${photoStrip(a)}
       ${a.notes ? `<p class="notes">${esc(a.notes)}</p>` : ''}
     </div>
-    <div class="row-actions w"><button class="icon-btn" data-action="edit-activity" data-id="${esc(a.id)}">${esc(t('edit'))}</button><button class="icon-btn del" data-action="delete-activity" data-id="${esc(a.id)}">${esc(t('delete'))}</button></div>
+    <div class="row-actions w"><button class="icon-btn" data-action="edit-activity" data-id="${esc(a.id)}">${bt('edit')}</button><button class="icon-btn del" data-action="delete-activity" data-id="${esc(a.id)}">${bt('delete')}</button></div>
   </article>`;
 }
 
@@ -1036,12 +1049,12 @@ function viewActivities() {
   ).sort(byDateDesc);
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(t('acts_lede'))}</p></div>
-    <div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${esc(t('add_activity'))}</button></div></section>`;
+    <div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${bt('add_activity')}</button></div></section>`;
   if (!data.activities.size) {
-    return h + `<div class="empty"><h2>${esc(t('empty_acts_h'))}</h2><p>${esc(kids.length ? t('empty_acts_p') : t('empty_acts_nokids'))}</p>${kids.length ? `<button class="btn primary w" data-action="new-activity">${esc(t('add_activity'))}</button>` : `<a class="btn" href="#overzicht">${esc(t('to_overview'))}</a>`}</div>`;
+    return h + `<div class="empty"><h2>${esc(t('empty_acts_h'))}</h2><p>${esc(kids.length ? t('empty_acts_p') : t('empty_acts_nokids'))}</p>${kids.length ? `<button class="btn primary w" data-action="new-activity">${bt('add_activity')}</button>` : `<a class="btn" href="#overzicht">${bt('to_overview')}</a>`}</div>`;
   }
   h += `<div class="toolbar"><input class="search" id="act-search" type="search" placeholder="${esc(t('search_acts'))}" value="${esc(ui.actSearch)}" aria-label="${esc(t('search_acts'))}">
-    <select class="select" id="act-child" aria-label="${esc(t('filter_child'))}"><option value="">${esc(t('all_children'))}</option>${kids.map(k => `<option value="${esc(k.id)}" ${ui.actChild === k.id ? 'selected' : ''}>${esc(k.name)}</option>`).join('')}</select></div>`;
+    <select class="select" id="act-child" aria-label="${esc(t('filter_child'))}"><option value="">${esc(t('all_children'))}</option><option hidden disabled>${esc(tIn(lang === 'nl' ? 'en' : 'nl', 'all_children'))}</option>${kids.map(k => `<option value="${esc(k.id)}" ${ui.actChild === k.id ? 'selected' : ''}>${esc(k.name)}</option>`).join('')}</select></div>`;
   if (!acts.length) return h + `<p class="muted">${esc(t('no_acts_found'))}</p>`;
   let month = '';
   const parts = [];
@@ -1060,15 +1073,15 @@ function viewGoals(cov) {
   const allOn = ui.goalSubj.size === SUBJECTS.length;
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.${lang === 'en' ? ' ' + esc(t('translated')) : ''}</p></div>
-    <div class="head-actions w"><button class="btn" data-action="import-goals">${esc(t('import'))}</button><button class="btn primary" data-action="new-goal">${esc(t('add_goal'))}</button></div></section>`;
+    <div class="head-actions w"><button class="btn" data-action="import-goals">${bt('import')}</button><button class="btn primary" data-action="new-goal">${bt('add_goal')}</button></div></section>`;
   if (!all.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_goals_h'))}</h2><p>${esc(t('empty_goals_p'))}</p><pre>code;vak;categorie;omschrijving
-1.1.1;Nederlands;Lezen;${esc(t('ex_desc'))}</pre><button class="btn primary w" data-action="import-goals">${esc(t('import_goals'))}</button></div>`;
+1.1.1;Nederlands;Lezen;${esc(t('ex_desc'))}</pre><button class="btn primary w" data-action="import-goals">${bt('import_goals')}</button></div>`;
   }
   h += `<div class="toolbar"><input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
     <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
-      <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${esc(t('all_subjects'))}</button>
-      ${SUBJECTS.map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${esc(sName(s.key))}</button>`).join('')}
+      <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${bt('all_subjects')}</button>
+      ${SUBJECTS.map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${bName(s.key)}</button>`).join('')}
     </div>
     <p class="count-line">${esc(t('count_line', list.length, all.length, kids.length))}</p>`;
   const MAX = 400;
@@ -1076,7 +1089,7 @@ function viewGoals(cov) {
       <span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(g.code || '—')}</span>
       <div class="g-body"><p class="g-meta">${esc(sName(g.subject))}${gCat(g) ? ' · ' + esc(gCat(g)) : ''}</p><p class="g-desc">${esc(gDesc(g))}</p></div>
       <div class="g-side">${kids.length ? `<span class="kids-row">${kids.map(k => { const done = cov.get(k.id)?.has(g.id); return `<span class="avatar sm ${done ? '' : 'off'}" title="${esc(done ? t('kid_done', k.name) : t('kid_open', k.name))}">${esc(k.animal)}</span>`; }).join('')}</span>` : ''}
-        ${g.builtin ? `<span class="tag" title="${esc(t('builtin_title'))}">${esc(t('builtin'))}</span>` : `<span class="row-actions w"><button class="icon-btn" data-action="edit-goal" data-id="${esc(g.id)}">${esc(t('edit'))}</button><button class="icon-btn del" data-action="delete-goal" data-id="${esc(g.id)}">${esc(t('delete'))}</button></span>`}</div>
+        ${g.builtin ? `<span class="tag" title="${esc(t('builtin_title'))}">${esc(t('builtin'))}</span>` : `<span class="row-actions w"><button class="icon-btn" data-action="edit-goal" data-id="${esc(g.id)}">${bt('edit')}</button><button class="icon-btn del" data-action="delete-goal" data-id="${esc(g.id)}">${bt('delete')}</button></span>`}</div>
     </li>`).join('') || `<li class="goal-row"><p class="muted">${esc(t('no_goals_found'))}</p></li>`}</ul>`;
   if (list.length > MAX) h += `<p class="count-line">${esc(t('first_n', MAX))}</p>`;
   return h;
@@ -1701,8 +1714,8 @@ function authView() {
   const pw2 = v === 'signup' ? `<label class="field"><span>${esc(t('password2'))}</span><input id="au-pw2" name="password2" type="password" autocomplete="new-password" required><span class="hint">${esc(t('pw_hint'))}</span></label>` : '';
   const submit = { login: 'login', signup: 'signup', reset: 'reset_btn' }[v];
   const links = v === 'login'
-    ? `<button type="button" class="linkish" data-action="auth-view" data-v="signup">${esc(t('to_signup'))}</button><button type="button" class="linkish" data-action="auth-view" data-v="reset">${esc(t('forgot'))}</button>`
-    : `<button type="button" class="linkish" data-action="auth-view" data-v="login">${esc(v === 'signup' ? t('to_login') : t('back_login'))}</button>`;
+    ? `<button type="button" class="linkish" data-action="auth-view" data-v="signup">${bt('to_signup')}</button><button type="button" class="linkish" data-action="auth-view" data-v="reset">${bt('forgot')}</button>`
+    : `<button type="button" class="linkish" data-action="auth-view" data-v="login">${bt(v === 'signup' ? 'to_login' : 'back_login')}</button>`;
   return `<section class="card auth">
     <div><h1>${esc(t(head[0]))}</h1><p class="lede">${esc(t(head[1]))}</p></div>
     <form id="auth-form" novalidate>
@@ -1710,7 +1723,7 @@ function authView() {
       ${pw}${pw2}
       <p class="form-error" id="au-err" role="alert">${esc(ui_auth.err)}</p>
       ${ui_auth.msg ? `<p class="info" role="status">${esc(ui_auth.msg)}</p>` : ''}
-      <button class="btn primary" type="submit" ${fb ? '' : 'disabled'}>${esc(t(submit))}</button>
+      <button class="btn primary" type="submit" ${fb ? '' : 'disabled'}>${bt(submit)}</button>
     </form>
     <div class="auth-links">${links}</div>
     <p class="privacy">${esc(t('privacy'))}</p>
@@ -1796,7 +1809,7 @@ function migrationNotice() {
   if (!fbUser || !localSummary) return '';
   try { if (localStorage.getItem(MIGRATED_KEY + fbUser.uid)) return ''; } catch (e) { return ''; }
   if (data.children.size || data.activities.size || customGoals.size) return '';
-  return `<div class="notice"><p>${esc(t('mig_p', localSummary.children, localSummary.activities))}</p><span class="head-actions"><button class="btn small" data-action="migrate">${esc(t('mig_btn'))}</button><button class="btn small" data-action="migrate-skip">${esc(t('mig_skip'))}</button></span></div>`;
+  return `<div class="notice"><p>${esc(t('mig_p', localSummary.children, localSummary.activities))}</p><span class="head-actions"><button class="btn small" data-action="migrate">${bt('mig_btn')}</button><button class="btn small" data-action="migrate-skip">${bt('mig_skip')}</button></span></div>`;
 }
 function markMigrated() { try { localStorage.setItem(MIGRATED_KEY + fbUser.uid, todayIso()); } catch (e) {} scheduleRender(); }
 async function migrateLocal(btn) {
