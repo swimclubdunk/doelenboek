@@ -1,78 +1,15 @@
 # 📒 Doelenboek
 
-**Track which Flemish *minimumdoelen* your homeschooled kids have covered, one activity at a time.**
-*Houd per kind bij welke minimumdoelen al aan bod kwamen.*
+**https://doelenboek.be**
 
-**▶ Open the app: https://doelenboek.be**
+Doelenboek is for parents who homeschool in Flanders. Log what you do with your children, with photos, link it to the Flemish *minimumdoelen*, and see per child and per subject which goals have been covered and which are still open. It is free, in Dutch and English, and works on any device with an email-and-password account.
 
-Create an account with your email and a password, then use it on any device.
+## Development
 
-## What it does
-
-- **Children:** each child gets a card with an animal avatar and a progress bar per subject.
-- **Activities:** log a lesson, outing or project, choose who took part, and tag the minimum goals it covered. Hover a goal code to see what the goal is.
-- **Photos:** attach up to 24 photos per activity. They show as thumbnails; hover to preview, click to view full size. Photos are resized in your browser before they're saved.
-- **Coverage:** calculated from your activities, so it's always correct. Delete an activity and only the goals nothing else covers reopen.
-- **32 built-in goals:** kindergarten goals for Nederlands and Muzische vorming. You can add your own goals or import more from Excel or CSV.
-- **NL / EN:** switch the whole interface between Dutch and English.
-
-## 🔐 Accounts and your data
-
-- **Email + password, nothing else.** Your email address is your username. There are no codes or confirmation emails. The only email the app can send is a *Forgot password?* link.
-- **Every device, in sync.** Log in anywhere and you see the same data; changes appear on your other devices within seconds.
-- **Private by design.** Data is stored in Google Firebase (Cloud Firestore). The database rules in [`firestore.rules`](firestore.rules) only let each account read and write its own data.
-- **Logging out** also removes the offline copy from that browser, so the next person on a shared computer finds nothing.
-- **Delete your account** under **Gegevens**. It permanently removes the login and all its data.
-
-Used Doelenboek before accounts existed? Log in at the same address. The app offers to move the data stored in that browser into your account.
-
-## For developers
-
-Plain HTML, CSS and JavaScript, built into a single `index.html`. There are no dependencies except the Firebase SDK, loaded from a CDN. The fonts are served from this site (`fonts/`, copied there by the build).
-
-```
-src/doelenboek.html     the app: page structure, texts (NL/EN) and behaviour
-src/core.css            the few style rules the code depends on
-src/design/             everything visual: tokens, styles, animal drawings, favicon (see its README)
-doelen/*.json           the built-in goals, one file per subject
-firebase-config.json    Firebase web config (public by design; the rules protect the data)
-firestore.rules         Firestore security rules: paste into the Firebase console → Firestore → Rules
-tools/build.py          builds index.html from the source, the design files, the goals and the config
-tools/serve.py          local preview that rebuilds on every refresh, for design work
-```
-
-### Working on the design
-
-See [`src/design/README.md`](src/design/README.md). In short: run `python tools/serve.py`, open http://localhost:8000, edit files in `src/design/` and refresh.
-
-### Editing the built-in goals
-
-Each subject has its own file in [`doelen/`](doelen), for example `doelen/nederlands.json`. Add a goal by copying an existing entry inside the `"doelen": [ ... ]` list:
-
-```json
-{
-  "code": "1.1.1",
-  "category": "Lezen",
-  "categoryEn": "Reading",
-  "description": "De kleuters kunnen rijm herkennen, ...",
-  "descriptionEn": "Preschoolers can recognise rhyme, ..."
-}
-```
-
-- `code` and `description` are required. The other fields are optional.
-- Separate entries with a comma, but don't put a comma after the last one.
-- Use `\n` for a line break inside a text, and `\"` for a double quote.
-- **Don't change the `code` of an existing goal.** Activities link to goals by subject and code, so a renamed code shows up as a new goal that nothing has covered yet. Fixing typos in the texts is safe.
-- Leave `subject` at the top of the file as it is. It's the subject key the app uses (`NL`, `WK`, `WT`, `GE`, `AK`, `MV`, `LO` or `AT`).
-
-Then rebuild. The build checks the files and names the file and goal if something is wrong.
-
-### Publishing
-
-Rebuild after any change, then commit and push; GitHub Pages serves `index.html`:
+Build the site after a change:
 
 ```
 python tools/build.py src/doelenboek.html index.html firebase-config.json
 ```
 
-Without the config argument, the build stores data only in the browser.
+Preview locally with `python tools/serve.py`. The built-in goals are in `doelen/`, and the design files are in `src/design/` (see its [README](src/design/README.md)).
