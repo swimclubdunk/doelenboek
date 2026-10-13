@@ -135,6 +135,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* avatars */
 .avatar { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; overflow: hidden; background: var(--surface-2); font-size: 17px; line-height: 1; flex: none; }
 .avatar svg { display: block; width: 100%; height: 100%; }
+.avatar:has(> svg) { background: none; border-radius: 0; overflow: visible; }
 .avatar.lg { width: 52px; height: 52px; font-size: 30px; }
 .avatar.sm { width: 24px; height: 24px; font-size: 13px; }
 .avatar.off { opacity: .28; filter: grayscale(1); }
@@ -1097,14 +1098,15 @@ function viewGoals(cov) {
 }
 
 /* ---------- animal avatars ----------
-   Every animal is a flat, front-facing head drawn on a 64×64 canvas over its own pastel disc,
-   so each one fills the round avatar exactly and they all share one look: the same eyes,
-   cheeks and palette. Children store the emoji as their animal; it is only used as the key. */
-/* [emoji key, name, background colour, drawing]; the order here is the order of the picker.
-   The drawing helpers stay inside this function. */
+   Every animal is a flat, front-facing head on a transparent background, and they all share one
+   look: the same eyes, cheeks and palette. Children store the emoji as their animal; it is only
+   used as the key.
+   [emoji key, name, box, drawing]; the order here is the order of the picker. The drawing is made
+   on a 64×64 grid; the box is the square viewBox around its painted pixels (measured, so it
+   includes strokes), which makes every animal fill the avatar until it touches the edge.
+   Redraw an animal → measure it again. The drawing helpers stay inside this function. */
 const ANIMAL_ART = (() => {
   const INK = '#2B2523';
-  const AN_BG = { mint: '#CDEBDC', sky: '#CFE2F3', peach: '#F8DCC6', lemon: '#F4E9B5', lilac: '#E2D8F1', rose: '#F6D3DB' };
   const mirror = s => s + `<g transform="matrix(-1 0 0 1 64 0)">${s}</g>`;
   const eyes = (y = 33, dx = 7.5, r = 2.6) => mirror(`<circle cx="${32 - dx}" cy="${y}" r="${r}" fill="${INK}"/><circle cx="${+(32 - dx + r * .38).toFixed(2)}" cy="${+(y - r * .38).toFixed(2)}" r="${+(r * .34).toFixed(2)}" fill="#fff"/>`);
   const lightEyes = (y, dx, r = 2.4) => mirror(`<circle cx="${32 - dx}" cy="${y}" r="${r}" fill="#fff"/><circle cx="${32 - dx + r * .2}" cy="${y + r * .15}" r="${+(r * .56).toFixed(2)}" fill="${INK}"/>`);
@@ -1115,88 +1117,88 @@ const ANIMAL_ART = (() => {
   const ring = (cx, cy, r, n, rr, fill) => Array.from({ length: n }, (_, i) => { const a = 2 * Math.PI * i / n; return `<circle cx="${+(cx + r * Math.sin(a)).toFixed(2)}" cy="${+(cy - r * Math.cos(a)).toFixed(2)}" r="${rr}" fill="${fill}"/>`; }).join('');
   const star = (cx, cy, ro, ri, n, fill) => `<path d="M${Array.from({ length: 2 * n }, (_, i) => { const a = Math.PI * i / n, r = i % 2 ? ri : ro; return `${+(cx + r * Math.sin(a)).toFixed(2)} ${+(cy - r * Math.cos(a)).toFixed(2)}`; }).join('L')}Z" fill="${fill}" stroke="${fill}" stroke-width="2" stroke-linejoin="round"/>`;
   return [
-    ['🦊', 'fox', 'mint',
+    ['🦊', 'fox', '8.75 8.5 46.5 46.5',
       mirror(`<path d="M12 28L15 8.5L29 19Z" fill="#E8843C"/><path d="M15.6 23L17 13L24.6 19.2Z" fill="#7A3E22"/>`) +
       `<path d="M9 31C9 22 19 17 32 17C45 17 55 22 55 31C55 41 44 51 32 55C20 51 9 41 9 31Z" fill="#E8843C"/>` +
       `<path d="M11 35C18 35 26 39 32 47C38 39 46 35 53 35C51 43 42 51 32 55C22 51 13 43 11 35Z" fill="#FFF3E4"/>` +
       eyes(32, 8) + `<ellipse cx="32" cy="48.5" rx="2.8" ry="2.1" fill="${INK}"/>`],
-    ['🐻', 'bear', 'sky',
+    ['🐻', 'bear', '8 9.25 48 48',
       mirror(`<circle cx="15.5" cy="18" r="7.5" fill="#9A6942"/><circle cx="15.5" cy="18" r="3.8" fill="#D2A27A"/>`) +
       `<circle cx="32" cy="35" r="21" fill="#9A6942"/><ellipse cx="32" cy="44" rx="10" ry="7.5" fill="#E2C09C"/>` +
       eyes(32.5, 8) + `<ellipse cx="32" cy="40.6" rx="3.4" ry="2.4" fill="${INK}"/>` + smile(45.4, 2.6) + cheeks(40, 13.5)],
-    ['🐼', 'panda', 'rose',
+    ['🐼', 'panda', '8 9.25 48 48',
       mirror(`<circle cx="15.5" cy="18" r="7.5" fill="#34302E"/>`) +
       `<circle cx="32" cy="35" r="21" fill="#FBFAF6"/>` +
       mirror(`<ellipse cx="23.8" cy="33.6" rx="5" ry="6.6" transform="rotate(32 23.8 33.6)" fill="#34302E"/>`) +
       lightEyes(33, 8.2, 2.3) + `<ellipse cx="32" cy="41.5" rx="3.2" ry="2.2" fill="#34302E"/>` + smile(45.6, 2.6) + cheeks(42, 13)],
-    ['🐨', 'koala', 'lilac',
+    ['🐨', 'koala', '3.5 5.75 57 57',
       mirror(`<circle cx="13" cy="24" r="9.5" fill="#9AA3AD"/><circle cx="13.6" cy="24.6" r="5.4" fill="#EBDCE2"/>`) +
       `<ellipse cx="32" cy="36" rx="19" ry="18" fill="#AEB6BF"/>` +
       eyes(33, 9) + `<ellipse cx="32" cy="41" rx="4.6" ry="6" fill="#3B3940"/>` + cheeks(43, 12.5)],
-    ['🐯', 'tiger', 'sky',
+    ['🐯', 'tiger', '9.5 11.5 45 45',
       mirror(`<circle cx="16" cy="18.5" r="6.5" fill="#EE9A3A"/><circle cx="16" cy="18.5" r="3.2" fill="#FBE2C2"/>`) +
       `<circle cx="32" cy="35" r="21" fill="#EE9A3A"/>` +
       `<path d="M28.6 14.4H35.4L32 21.5Z" fill="#4A3426"/>` +
       mirror(`<path d="M12.2 30L19.5 32L12.6 35Z" fill="#4A3426"/><path d="M13.6 39.5L20 40L14.8 43Z" fill="#4A3426"/><path d="M21.5 17.6L25 23L19.6 21.6Z" fill="#4A3426"/>`) +
       mirror(`<ellipse cx="28" cy="43.5" rx="6" ry="5" fill="#FFF5E8"/>`) +
       eyes(32, 8) + `<path d="M29 39H35Q35 41 32 42.5Q29 41 29 39Z" fill="#D9675F"/>`],
-    ['🦁', 'lion', 'mint',
+    ['🦁', 'lion', '5.2 6.85 53.6 53.6',
       `<circle cx="32" cy="34" r="20" fill="#C2702B"/>` + ring(32, 34, 19.5, 11, 7.5, '#C2702B') +
       mirror(`<circle cx="20.5" cy="22.5" r="4.6" fill="#F3C557"/><circle cx="20.5" cy="22.5" r="2.2" fill="#C98F3A"/>`) +
       `<circle cx="32" cy="35" r="15.5" fill="#F3C557"/><ellipse cx="32" cy="42" rx="7.5" ry="5.5" fill="#FCE9BC"/>` +
       eyes(33, 6.5, 2.4) + `<path d="M29.5 38.4H34.5Q34.5 40.4 32 41.4Q29.5 40.4 29.5 38.4Z" fill="${INK}"/>` + cheeks(40, 10.5, 2.6)],
-    ['🐸', 'frog', 'lemon',
+    ['🐸', 'frog', '10 12.75 44 44',
       `<ellipse cx="32" cy="38" rx="22" ry="16" fill="#6CBD69"/>` +
       mirror(`<circle cx="21" cy="24" r="8.5" fill="#6CBD69"/><circle cx="21" cy="24" r="5" fill="#fff"/>`) +
       eyes(24, 11, 2.8) + mirror(`<circle cx="30" cy="35.5" r=".9" fill="#3E7D3B"/>`) +
       line('M21 41Q32 50 43 41', INK, 2) + cheeks(43, 16.5)],
-    ['🐵', 'monkey', 'peach',
+    ['🐵', 'monkey', '5 6 54 54',
       mirror(`<circle cx="12" cy="34" r="7" fill="#87583A"/><circle cx="12" cy="34" r="4" fill="#EBC3A3"/>`) +
       `<circle cx="32" cy="33" r="19.5" fill="#87583A"/>` +
       mirror(`<circle cx="26.5" cy="31" r="7.5" fill="#EFCDAE"/>`) + `<ellipse cx="32" cy="41" rx="11.5" ry="9" fill="#EFCDAE"/>` +
       eyes(31, 5.8, 2.4) + mirror(`<circle cx="30.5" cy="39.5" r="1" fill="${INK}"/>`) + smile(43.6, 3.4) + cheeks(41, 9.5, 2.6)],
-    ['🐰', 'rabbit', 'lilac',
+    ['🐰', 'rabbit', '6.75 5 50.5 50.5',
       mirror(`<ellipse cx="24.5" cy="17" rx="5.5" ry="12" transform="rotate(-8 24.5 17)" fill="#F7F3EE"/><ellipse cx="24.5" cy="17.5" rx="2.6" ry="8.5" transform="rotate(-8 24.5 17.5)" fill="#F2B3C0"/>`) +
       `<circle cx="32" cy="39" r="16.5" fill="#F7F3EE"/>` +
       eyes(37.5, 6.5, 2.4) + `<path d="M30 42.4H34L32 44.4Z" fill="#E58FA3" stroke="#E58FA3" stroke-linejoin="round"/>` +
       catMouth(46) + cheeks(43, 10.5, 2.8)],
-    ['🦉', 'owl', 'mint',
+    ['🦉', 'owl', '9.75 11 44.5 44.5',
       `<path d="M13 24L17 11L26 18.5Q32 17 38 18.5L47 11L51 24C55 44 46 54 32 55C18 54 9 44 13 24Z" fill="#8B6A50"/>` +
       `<ellipse cx="32" cy="50" rx="10" ry="5.5" fill="#B89577"/>` +
       mirror(`<circle cx="24" cy="32" r="8.5" fill="#F4E5CB"/>`) +
       eyes(32, 8, 3.4) + `<path d="M29.5 38H34.5L32 43.5Z" fill="#E9A23B" stroke="#E9A23B" stroke-linejoin="round"/>`],
-    ['🐧', 'penguin', 'sky',
+    ['🐧', 'penguin', '11 13 42 42',
       `<circle cx="32" cy="34" r="21" fill="#2F3A4A"/>` +
       `<path d="M32 22C26 18 15 22 15.5 33C16 44 24 51 32 52C40 51 48 44 48.5 33C49 22 38 18 32 22Z" fill="#FAF9F5"/>` +
       eyes(32, 7) + `<path d="M28.5 38H35.5L32 42.5Z" fill="#F2A93B" stroke="#F2A93B" stroke-linejoin="round"/>` + cheeks(40, 11.5)],
-    ['🐢', 'turtle', 'peach',
+    ['🐢', 'turtle', '8 8.25 48 48',
       `<ellipse cx="32" cy="29" rx="24" ry="19" fill="#6F8F3F"/>` +
       `<path d="M32 13L38.5 17V24L32 28L25.5 24V17Z" fill="#87A852"/>` +
       mirror(`<path d="M14.5 23L21 20.5L23 27L18 31L12.5 29Z" fill="#87A852"/>`) +
       `<circle cx="32" cy="40" r="14.5" fill="#9CCB86"/>` +
       eyes(38.5, 6) + smile(45, 3) + cheeks(43, 9.5, 2.6)],
-    ['🐙', 'octopus', 'mint',
+    ['🐙', 'octopus', '8 11 48 48',
       mirror(`<ellipse cx="17" cy="47" rx="5" ry="7.5" transform="rotate(28 17 47)" fill="#B07AC8"/><ellipse cx="25" cy="50.5" rx="4.6" ry="7.5" transform="rotate(10 25 50.5)" fill="#B07AC8"/>`) +
       `<ellipse cx="32" cy="51.5" rx="4.6" ry="7.5" fill="#B07AC8"/>` +
       `<path d="M12 35C12 20 21 11 32 11C43 11 52 20 52 35C52 44 44 48 32 48C20 48 12 44 12 35Z" fill="#B07AC8"/>` +
       `<circle cx="24" cy="19.5" r="2.4" fill="#C99BDB"/><circle cx="41" cy="18" r="1.7" fill="#C99BDB"/><circle cx="37.5" cy="23.5" r="1.2" fill="#C99BDB"/>` +
       eyes(33, 8) + smile(39.6, 3.2) + cheeks(38, 13.5)],
-    ['🦔', 'hedgehog', 'lemon',
+    ['🦔', 'hedgehog', '4 5 56 56',
       star(32, 33, 27, 20.5, 16, '#7B5B45') +
       `<ellipse cx="32" cy="39" rx="15" ry="13" fill="#EBD3B3"/><ellipse cx="32" cy="45" rx="6.5" ry="4.5" fill="#F5E5CE"/>` +
       `<circle cx="32" cy="43" r="2.3" fill="${INK}"/>` + eyes(36.5, 6.5, 2.3) + cheeks(42, 10.5, 2.6)],
-    ['🦒', 'giraffe', 'sky',
+    ['🦒', 'giraffe', '7.4 4.8 49.2 49.2',
       mirror(`<path d="M25 18L23.6 9.5" stroke="#C98B3E" stroke-width="3.2" stroke-linecap="round"/><circle cx="23.4" cy="8.6" r="2.8" fill="#8A5A2B"/><ellipse cx="13.5" cy="25" rx="6.5" ry="3.2" transform="rotate(-25 13.5 25)" fill="#F0B54D"/><ellipse cx="14" cy="25" rx="3.6" ry="1.5" transform="rotate(-25 14 25)" fill="#F7D9A3"/>`) +
       `<ellipse cx="32" cy="33" rx="15" ry="18" fill="#F0B54D"/>` +
       `<path d="M24 20.5Q28 18.5 30 21.5Q30 25.5 26 25.5Q23 24.5 24 20.5Z" fill="#C98B3E"/><circle cx="40" cy="21.5" r="2.6" fill="#C98B3E"/><circle cx="19.6" cy="35" r="1.9" fill="#C98B3E"/><circle cx="44.4" cy="33" r="2.1" fill="#C98B3E"/>` +
       `<ellipse cx="32" cy="45" rx="11.5" ry="8" fill="#F7D9A3"/>` +
       mirror(`<ellipse cx="28.5" cy="44.2" rx="1.2" ry="1.6" fill="#8A5A2B"/>`) + smile(48.4, 2.8) + eyes(32, 7.5)],
-    ['🐘', 'elephant', 'rose',
+    ['🐘', 'elephant', '3.5 5.35 57 57',
       mirror(`<ellipse cx="14" cy="32" rx="10.5" ry="13.5" fill="#9DA9B7"/><ellipse cx="15" cy="32" rx="6.5" ry="9" fill="#E7CBD3"/>`) +
       `<circle cx="32" cy="30" r="16.5" fill="#B4BECA"/>` +
       `<path d="M27.5 37C27.5 46 28.5 52.5 33 54C37.5 55 39.5 51.5 37 50.5C35 50 36.5 45 36.5 37Z" fill="#B4BECA"/>` +
       eyes(29.5, 7) + cheeks(36, 10.5, 2.8)],
-    ['🦓', 'zebra', 'peach',
+    ['🦓', 'zebra', '9.15 7.8 45.7 45.7',
       mirror(`<ellipse cx="20" cy="15" rx="4.2" ry="7.5" transform="rotate(-20 20 15)" fill="#F7F6F2"/><ellipse cx="20.3" cy="15.5" rx="1.8" ry="4.5" transform="rotate(-20 20.3 15.5)" fill="#3A3533"/>`) +
       `<path d="M26 14Q32 6 38 14Z" fill="#3A3533"/>` +
       `<ellipse cx="32" cy="33" rx="15.5" ry="20" fill="#F7F6F2"/>` +
@@ -1204,100 +1206,100 @@ const ANIMAL_ART = (() => {
       mirror(line('M16.9 28Q20.6 29 22.8 27.6', '#3A3533', 2.4) + line('M16.7 34Q20.4 35.2 22.6 33.8', '#3A3533', 2.4)) +
       `<ellipse cx="32" cy="46" rx="11" ry="7.5" fill="#4A4441"/>` +
       mirror(`<ellipse cx="28" cy="45.5" rx="1.3" ry="1.8" fill="#77706C"/>`) + eyes(32, 7.5)],
-    ['🐝', 'bee', 'sky',
+    ['🐝', 'bee', '6.7 5.7 50.6 50.6',
       mirror(`<ellipse cx="14" cy="21" rx="8" ry="5.5" transform="rotate(-35 14 21)" fill="#F7FBFE" opacity=".95"/>`) +
       mirror(line('M26.5 19Q24.5 12.5 21 9.8', INK, 2) + `<circle cx="20.6" cy="9.4" r="2.4" fill="${INK}"/>`) +
       `<circle cx="32" cy="36" r="19" fill="#F6C744"/>` +
       `<path d="M15.6 27.2Q32 18.4 48.4 27.2L50 31Q32 22.4 14 31Z" fill="${INK}"/>` +
       eyes(37, 7) + smile(43.4, 3.2) + cheeks(42, 12.5)],
-    ['🦋', 'butterfly', 'lilac',
+    ['🦋', 'butterfly', '7.2 6.85 49.6 49.6',
       mirror(`<ellipse cx="18" cy="23" rx="11" ry="9.5" transform="rotate(-25 18 23)" fill="#F08A5D"/><ellipse cx="21" cy="42" rx="8.5" ry="7" transform="rotate(20 21 42)" fill="#F5B85E"/><circle cx="15.5" cy="21.5" r="2.6" fill="#FFF4E6"/><circle cx="19.5" cy="42.5" r="1.8" fill="#FFF4E6"/>`) +
       mirror(line('M30 22.5Q27.5 16 24 12.6', INK, 1.8) + `<circle cx="23.6" cy="12.2" r="1.9" fill="${INK}"/>`) +
       `<ellipse cx="32" cy="42" rx="4" ry="11" fill="#5B4683"/><circle cx="32" cy="29" r="8" fill="#7B5EA7"/>` +
       lightEyes(28.6, 3.2, 1.9) + smile(32.2, 1.8, '#fff')],
-    ['🐞', 'ladybug', 'mint',
+    ['🐞', 'ladybug', '6.25 6.4 51.5 51.5',
       mirror(line('M28 15Q26 10 22.5 8.6', INK, 1.8) + `<circle cx="22" cy="8.3" r="1.9" fill="${INK}"/>`) +
       `<circle cx="32" cy="38" r="19" fill="#E2453C"/>` + line('M32 26V57', INK, 1.8) +
       mirror(`<circle cx="22" cy="37" r="3" fill="${INK}"/><circle cx="25.5" cy="48" r="2.5" fill="${INK}"/><circle cx="16.6" cy="45" r="1.8" fill="${INK}"/>`) +
       `<path d="M19 28C19 18.5 25 14 32 14C39 14 45 18.5 45 28Z" fill="#2E2826"/>` +
       lightEyes(22.5, 5, 2.5) + smile(25.4, 2.4, '#fff')],
-    ['🐳', 'whale', 'lemon',
+    ['🐳', 'whale', '9 8.35 46 46',
       line('M32 21.5V14.5', '#7FB8E6', 2.6) + mirror(line('M32 14.5Q27.5 9.5 23.5 11.6', '#7FB8E6', 2.6)) +
       `<path d="M9 38C9 27 19 21 32 21C45 21 55 27 55 38C55 48 45 53 32 53C19 53 9 48 9 38Z" fill="#5B9BD5"/>` +
       `<path d="M14 43C20 47 26 48.5 32 48.5C38 48.5 44 47 50 43C47 49 40 53 32 53C24 53 17 49 14 43Z" fill="#D3E8F8"/>` +
       eyes(35, 9) + smile(40.6, 4) + cheeks(40, 15.5)],
-    ['🦜', 'parrot', 'rose',
+    ['🦜', 'parrot', '8.5 5 47 47',
       `<path d="M28 15Q27 7 32 5Q30 10 33 14Z" fill="#E85D4A"/><path d="M33 14Q35 7 40 7Q36 10 37 15Z" fill="#F2A93B"/>` +
       `<circle cx="32" cy="33" r="19" fill="#4DB36B"/>` +
       mirror(`<circle cx="24" cy="30" r="5.2" fill="#FFF8EC"/>`) + eyes(30, 8, 2.5) +
       `<path d="M27 35.5C27 32.5 37 32.5 37 35.5C37 41 34.5 45.5 32 47.5C29.5 45.5 27 41 27 35.5Z" fill="#F2B13D"/>` +
       `<path d="M29 41.6Q32 44.6 35 41.6Q34 46.6 32 47.4Q30 46.6 29 41.6Z" fill="#D9922C"/>` + cheeks(40, 13)],
-    ['🐿️', 'squirrel', 'sky',
+    ['🐿️', 'squirrel', '15.5 11.1 40.8 40.8',
       `<path d="M41 50C57 47 60 29 52 17.5C46 9 34 12 38.5 20C46.5 24 48.5 36 41 50Z" fill="#B8692E"/>` +
       mirror(`<path d="M19 26L19.6 12L28.4 20.5Z" fill="#D2843F"/><path d="M19.4 16.5L19.6 12L22.6 15Z" fill="#9C5524"/>`) +
       `<ellipse cx="32" cy="36" rx="16.5" ry="15" fill="#D2843F"/><ellipse cx="32" cy="42.2" rx="8.5" ry="6" fill="#F3D6B3"/>` +
       `<ellipse cx="32" cy="39.6" rx="2.2" ry="1.6" fill="${INK}"/>` + smile(43.4, 2.4) + eyes(34, 7, 2.4) + cheeks(41, 11, 2.6)],
-    ['🦩', 'flamingo', 'mint',
-      `<path d="M27 42C27 52 25.5 58 24.5 66H36.5C37 58 37 52 37 42Z" fill="#F49AB2"/>` +
+    ['🦩', 'flamingo', '10.8 12.4 42.4 42.4',
+      `<path d="M27 42C27 46.5 26.2 50 25.2 53Q31 56.5 36.8 53C37.2 50 37 46.5 37 42Z" fill="#F49AB2"/>` +
       `<path d="M30 17.5Q31 12 35.5 12.5Q32.4 14.2 33.4 17.5Z" fill="#F49AB2"/>` +
       `<circle cx="32" cy="31" r="14.5" fill="#F7A8BD"/>` + eyes(29.5, 6.5, 2.4) +
       `<path d="M27.8 34.6Q32 32.8 36.2 34.6L34.6 41Q32 42.4 29.4 41Z" fill="#FBEFF2"/><path d="M29.4 41Q32 42.4 34.6 41L33 46.2Q32 47.6 31 46.2Z" fill="#2E2826"/>` +
       cheeks(36, 10.5, 2.6)],
-    ['🐱', 'cat', 'peach',
+    ['🐱', 'cat', '7.9 7.15 48.2 48.2',
       mirror(`<path d="M11.5 29L14.5 9.5L27.5 18.5Z" fill="#9FA7B3"/><path d="M15 24.5L16.5 14L24 19.5Z" fill="#F2B3C0"/>`) +
       `<ellipse cx="32" cy="35.5" rx="20.5" ry="17.5" fill="#AEB5C0"/>` +
       line('M29 19.5L29.8 23.5M32 19V23.6M35 19.5L34.2 23.5', '#8E96A3', 1.8) +
       eyes(34, 8) + `<path d="M30 39.4H34L32 41.6Z" fill="#E58FA3" stroke="#E58FA3" stroke-linejoin="round"/>` + catMouth(43) +
       mirror(line('M18.5 40.5L8.5 39M18.5 43.5L9.5 45', INK, 1.1).replace('fill="none"', 'fill="none" opacity=".35"')) + cheeks(41, 13)],
-    ['🐶', 'dog', 'sky',
+    ['🐶', 'dog', '6.3 7.3 51.4 51.4',
       mirror(`<ellipse cx="13.5" cy="31" rx="6.5" ry="13" transform="rotate(16 13.5 31)" fill="#8B5E3C"/>`) +
       `<circle cx="32" cy="33" r="18.5" fill="#E0B07B"/><ellipse cx="40.5" cy="27.5" rx="6" ry="7" fill="#C48A55"/>` +
       `<ellipse cx="32" cy="42" rx="9.5" ry="7.5" fill="#F7E4CB"/>` +
       `<path d="M30.3 44.2Q32 49.4 33.7 44.2Z" fill="#EF8A8A"/>` + catMouth(43) +
       `<ellipse cx="32" cy="38.8" rx="3.8" ry="2.7" fill="${INK}"/>` + eyes(31, 7.5) + cheeks(40, 13)],
-    ['🐷', 'pig', 'mint',
+    ['🐷', 'pig', '8.5 8 47 47',
       mirror(`<path d="M13 22L15 9.5L26 16Z" fill="#EE9CAE" stroke="#EE9CAE" stroke-width="3" stroke-linejoin="round"/>`) +
       `<circle cx="32" cy="35" r="20" fill="#F8BFCA"/>` +
       eyes(31.5, 8) + `<ellipse cx="32" cy="41" rx="8" ry="6" fill="#EF9DB0"/>` +
       mirror(`<ellipse cx="29" cy="41" rx="1.4" ry="2.1" fill="#B9566E"/>`) + smile(48.6, 2.4) + cheeks(40, 14)],
-    ['🐮', 'cow', 'lemon',
+    ['🐮', 'cow', '5.2 3.95 53.6 53.6',
       mirror(`<path d="M20 17C17 15 16 11 17.5 8C19.5 11 22 13 24.5 13.5Z" fill="#F1E1BF"/><ellipse cx="12" cy="27" rx="7" ry="3.8" transform="rotate(-18 12 27)" fill="#F6F2EA"/><ellipse cx="12.5" cy="27" rx="4" ry="1.8" transform="rotate(-18 12.5 27)" fill="#F2B8C2"/>`) +
       `<ellipse cx="32" cy="31.5" rx="15.5" ry="18" fill="#F6F2EA"/>` +
       `<path d="M37 15C44 14 48 20 46.5 27C44 30 38 29 36.5 24C35.5 20 34 16 37 15Z" fill="#3A3533"/>` +
       `<ellipse cx="32" cy="45" rx="13" ry="8.5" fill="#F2B8C2"/>` +
       mirror(`<ellipse cx="27.5" cy="45" rx="1.6" ry="2.3" fill="#C27585"/>`) + eyes(32, 7)],
-    ['🐭', 'mouse', 'lilac',
+    ['🐭', 'mouse', '5 5 54 54',
       mirror(`<circle cx="15" cy="20.5" r="10" fill="#B6BAC4"/><circle cx="15.5" cy="21" r="6" fill="#F2B6C2"/>`) +
       `<ellipse cx="32" cy="39" rx="16" ry="14.5" fill="#C7CAD3"/>` +
       eyes(37, 6.5, 2.4) + `<circle cx="32" cy="44.5" r="2.2" fill="#E58FA3"/>` +
       mirror(line('M23 45L13.5 43.5M23 47.5L14.5 49', INK, 1.1).replace('fill="none"', 'fill="none" opacity=".35"')) + cheeks(43, 10.5, 2.6)],
-    ['🐑', 'sheep', 'sky',
+    ['🐑', 'sheep', '9 8 46 46',
       `<circle cx="32" cy="31" r="17" fill="#F7F2E7"/>` + ring(32, 31, 17, 12, 6, '#F7F2E7') +
       mirror(`<ellipse cx="15.5" cy="35" rx="6.5" ry="3.2" transform="rotate(15 15.5 35)" fill="#DCC6AC"/>`) +
       `<ellipse cx="32" cy="38.5" rx="11.5" ry="13.5" fill="#EBDCC9"/>` +
       `<circle cx="27" cy="25.5" r="5" fill="#F7F2E7"/><circle cx="32" cy="23.5" r="5.5" fill="#F7F2E7"/><circle cx="37" cy="25.5" r="5" fill="#F7F2E7"/>` +
       eyes(36.5, 5.5, 2.3) + `<path d="M30 43.4H34L32 45.4Z" fill="#B98E7A" stroke="#B98E7A" stroke-linejoin="round"/>` + catMouth(47.4) + cheeks(42, 8.5, 2.4)],
-    ['🦄', 'unicorn', 'rose',
+    ['🦄', 'unicorn', '5.6 3.5 49 49',
       `<path d="M20 16C12 22 11 34 15 44C17 38 19 34 22 31Z" fill="#B79BE0"/><path d="M24 13C16 16 14 24 16 30C19 26 22 24 26 22Z" fill="#F49AB2"/>` +
       mirror(`<path d="M20.5 23L20.5 11L28.5 17.5Z" fill="#FBF7F2"/>`) +
       `<ellipse cx="32" cy="35" rx="15.5" ry="17.5" fill="#FBF7F2"/>` +
       `<path d="M29 18.5L32 4L35 18.5Z" fill="#F2C14E" stroke="#F2C14E" stroke-linejoin="round"/>` + line('M30.4 13.6L33.6 12.4M29.8 16.6L34.2 15', '#DDA22C', 1.2) +
       `<ellipse cx="32" cy="45" rx="10" ry="6.5" fill="#F8DDE5"/>` +
       mirror(`<ellipse cx="28.8" cy="44.5" rx="1" ry="1.4" fill="#D79AAA"/>`) + eyes(34, 6.5, 2.4) + cheeks(40, 11)],
-    ['🦦', 'otter', 'mint',
+    ['🦦', 'otter', '9.3 14.3 45.4 45.4',
       mirror(`<circle cx="13.5" cy="30" r="4.2" fill="#7E5A44"/><circle cx="13.5" cy="30" r="1.9" fill="#55392A"/>`) +
       `<ellipse cx="32" cy="37" rx="21" ry="15.5" fill="#8E6A52"/>` +
       `<path d="M13.5 41C16 35 25 33 32 36.5C39 33 48 35 50.5 41C48 49 41 52.5 32 52.5C23 52.5 16 49 13.5 41Z" fill="#EBD6BC"/>` +
       `<ellipse cx="32" cy="39" rx="3.6" ry="2.5" fill="${INK}"/>` + catMouth(43) +
       mirror(`<circle cx="25.6" cy="43.6" r=".75" fill="#8E6A52"/><circle cx="23.6" cy="41.6" r=".75" fill="#8E6A52"/>`) + eyes(32, 8.5)],
-  ].map(([key, name, bg, art]) => [key, name, AN_BG[bg], art]);
+  ];
 })();
 const ANIMALS = ANIMAL_ART.map(a => a[0]);
 const ANIMAL_ID = new Map(ANIMAL_ART.map(a => [a[0], 'an-' + a[1]]));
 /* The drawings, added to the page once as <symbol>s; avatars point at them with <use>. */
 function animalSprite() {
-  return `<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">${ANIMAL_ART.map(([, name, bg, art]) =>
-    `<symbol id="an-${name}" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="${bg}"/>${art}</symbol>`).join('')}</svg>`;
+  return `<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">${ANIMAL_ART.map(([, name, box, art]) =>
+    `<symbol id="an-${name}" viewBox="${box}">${art}</symbol>`).join('')}</svg>`;
 }
 /* Avatar contents for a stored animal: its drawing, or the stored text itself for anything unknown. */
 const animalArt = a => ANIMAL_ID.has(a) ? `<svg viewBox="0 0 64 64" focusable="false"><use href="#${ANIMAL_ID.get(a)}"/></svg>` : esc(a);
