@@ -1,0 +1,58 @@
+/* Design tokens: the colours, fonts and shapes the whole app is built from.
+   Change a value here and it changes everywhere.
+
+   Bright and dark: every colour is written once as light-dark(bright, dark). The app starts bright; the
+   sun/moon button in the header switches to dark and remembers that for the next visit. The choice is
+   data-theme="light" or "dark" on the page, and the color-scheme rules at the bottom pick it up.
+
+   Palette: cream #F4F0E4, brown #725C4E and taupe #C8BAAD, plus lighter and darker shades of them.
+   Four layers keep things apart: a brown header band, a warm taupe page, light cream cards, and a
+   slightly deeper cream inside them for bars and fields.
+   Only the subjects use strong colour: every other colour stays at least ΔE00 20 away from the subject
+   colours, so a colour on screen always means "this subject". Every text colour reaches WCAG AA contrast
+   (4.5:1) on the surfaces it sits on, in both themes. */
+@import url("https://fonts.googleapis.com/css2?family=Clarity+City:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap");
+
+:root {
+  /*                              bright      dark      */
+  --chrome:          light-dark(#725C4E, #3E3229);   /* header band */
+  --on-chrome:       light-dark(#F4F0E4, #F4F0E4);
+  --on-chrome-muted: light-dark(#EBE1D6, #CDBFB2);
+  --bg:              light-dark(#E4DACB, #14100D);   /* page */
+  --surface:         light-dark(#FBF8F2, #2A221C);   /* cards and dialogs */
+  --surface-2:       light-dark(#EEE6DA, #3A3028);   /* bars and fields inside cards */
+
+  --fg:              light-dark(#3B2F27, #F4F0E4);
+  --muted:           light-dark(#665244, #C8BAAD);
+  --line:            light-dark(#D9CDBF, #4A3D33);
+  --accent:          light-dark(#725C4E, #C8BAAD);
+  --accent-fg:       light-dark(#F8F4EA, #2A221C);
+  --danger:          light-dark(#8C1C13, #FFDCD3);
+  --ok:              light-dark(#725C4E, #C8BAAD);
+  --warn-bg:         light-dark(#F7EBD3, #3B2F1E);
+  --warn-fg:         light-dark(#5A4220, #F1E2C6);
+
+  /* subject colours, from the original Unity palette (three are lightened for dark) */
+  --s-nl: #2A9D8F;
+  --s-wk: light-dark(#264653, #7EA8BB);
+  --s-wt: light-dark(#B56576, #D0899A);
+  --s-ge: #E08A47;
+  --s-ak: #E76F51;
+  --s-mv: #D4A93E;
+  --s-lo: #7FA872;
+  --s-at: light-dark(#6D597A, #A88FBB);
+
+  --f-display: "Clarity City", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Clarity City", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  /* rounded shapes: cards and dialogs, then small controls (buttons, fields); pills stay fully round */
+  --r: 16px;
+  --r-sm: 10px;
+  --shadow: 0 1px 2px light-dark(rgb(114 92 78 / .10), rgb(0 0 0 / .3)), 0 8px 24px light-dark(rgb(114 92 78 / .10), rgb(0 0 0 / .3));
+
+  color-scheme: light;
+}
+/* the header button's choice */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }

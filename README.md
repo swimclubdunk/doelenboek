@@ -28,15 +28,22 @@ Used Doelenboek before accounts existed? Log in at the same address. The app off
 
 ## For developers
 
-Plain HTML, CSS and JavaScript in a single file. There are no dependencies except the Firebase SDK and Google Fonts, both loaded from a CDN.
+Plain HTML, CSS and JavaScript, built into a single `index.html`. There are no dependencies except the Firebase SDK and Google Fonts, both loaded from a CDN.
 
 ```
-src/doelenboek.html     the app (source)
+src/doelenboek.html     the app: page structure, texts (NL/EN) and behaviour
+src/core.css            the few style rules the code depends on
+src/design/             everything visual: tokens, styles, animal drawings, favicon (see its README)
 doelen/*.json           the built-in goals, one file per subject
 firebase-config.json    Firebase web config (public by design; the rules protect the data)
 firestore.rules         Firestore security rules: paste into the Firebase console → Firestore → Rules
-tools/build.py          builds index.html from the source, the goals and the config
+tools/build.py          builds index.html from the source, the design files, the goals and the config
+tools/serve.py          local preview that rebuilds on every refresh, for design work
 ```
+
+### Working on the design
+
+See [`src/design/README.md`](src/design/README.md). In short: run `python tools/serve.py`, open http://localhost:8000, edit files in `src/design/` and refresh.
 
 ### Editing the built-in goals
 
@@ -60,7 +67,9 @@ Each subject has its own file in [`doelen/`](doelen), for example `doelen/nederl
 
 Then rebuild. The build checks the files and names the file and goal if something is wrong.
 
-Rebuild after editing the source:
+### Publishing
+
+Rebuild after any change, then commit and push; GitHub Pages serves `index.html`:
 
 ```
 python tools/build.py src/doelenboek.html index.html firebase-config.json

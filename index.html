@@ -4,65 +4,75 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Doelenboek: houd per kind bij welke Vlaamse minimumdoelen aan bod kwamen in huisonderwijs.">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231F6F78'/%3E%3Cpath d='M18 16h14a16 16 0 0 1 0 32H18z' fill='none' stroke='white' stroke-width='6'/%3E%3Ccircle cx='31' cy='32' r='4' fill='%23E9C46A'/%3E%3C/svg%3E">
-<title>Doelenboek</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<title>doelenboek.com</title>
+<!-- tools/build.py inlines these stylesheets; everything visual lives in design/ -->
 <style>
-/* Layout: sticky header with three tabs over one working column; child cards in a responsive grid, goals and activities as dense lists. */
-:root {
-  --bg: #F4F6F1;
-  --surface: #FFFFFF;
-  --surface-2: #E9EDE5;
-  --fg: #1B2420;
-  --muted: #5A6862;
-  --line: #D6DCD3;
-  --accent: #1F6F78;
-  --accent-fg: #FFFFFF;
-  --danger: #B3261E;
-  --ok: #2E7D4F;
-  --warn-bg: #FBF0D2;
-  --warn-fg: #5A4200;
+/* Design tokens: the colours, fonts and shapes the whole app is built from.
+   Change a value here and it changes everywhere.
 
-  /* subject colours, from the original Unity palette */
+   Bright and dark: every colour is written once as light-dark(bright, dark). The app starts bright; the
+   sun/moon button in the header switches to dark and remembers that for the next visit. The choice is
+   data-theme="light" or "dark" on the page, and the color-scheme rules at the bottom pick it up.
+
+   Palette: cream #F4F0E4, brown #725C4E and taupe #C8BAAD, plus lighter and darker shades of them.
+   Four layers keep things apart: a brown header band, a warm taupe page, light cream cards, and a
+   slightly deeper cream inside them for bars and fields.
+   Only the subjects use strong colour: every other colour stays at least ΔE00 20 away from the subject
+   colours, so a colour on screen always means "this subject". Every text colour reaches WCAG AA contrast
+   (4.5:1) on the surfaces it sits on, in both themes. */
+@import url("https://fonts.googleapis.com/css2?family=Clarity+City:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap");
+
+:root {
+  /*                              bright      dark      */
+  --chrome:          light-dark(#725C4E, #3E3229);   /* header band */
+  --on-chrome:       light-dark(#F4F0E4, #F4F0E4);
+  --on-chrome-muted: light-dark(#EBE1D6, #CDBFB2);
+  --bg:              light-dark(#E4DACB, #14100D);   /* page */
+  --surface:         light-dark(#FBF8F2, #2A221C);   /* cards and dialogs */
+  --surface-2:       light-dark(#EEE6DA, #3A3028);   /* bars and fields inside cards */
+
+  --fg:              light-dark(#3B2F27, #F4F0E4);
+  --muted:           light-dark(#665244, #C8BAAD);
+  --line:            light-dark(#D9CDBF, #4A3D33);
+  --accent:          light-dark(#725C4E, #C8BAAD);
+  --accent-fg:       light-dark(#F8F4EA, #2A221C);
+  --danger:          light-dark(#8C1C13, #FFDCD3);
+  --ok:              light-dark(#725C4E, #C8BAAD);
+  --warn-bg:         light-dark(#F7EBD3, #3B2F1E);
+  --warn-fg:         light-dark(#5A4220, #F1E2C6);
+
+  /* subject colours, from the original Unity palette (three are lightened for dark) */
   --s-nl: #2A9D8F;
-  --s-wk: #264653;
-  --s-wt: #B56576;
+  --s-wk: light-dark(#264653, #7EA8BB);
+  --s-wt: light-dark(#B56576, #D0899A);
   --s-ge: #E08A47;
   --s-ak: #E76F51;
   --s-mv: #D4A93E;
   --s-lo: #7FA872;
-  --s-at: #6D597A;
+  --s-at: light-dark(#6D597A, #A88FBB);
 
   --f-display: "Clarity City", "Segoe UI", system-ui, sans-serif;
   --f-body: "Clarity City", "Segoe UI", system-ui, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 
-  --r: 10px;
-  --shadow: 0 1px 2px rgb(20 30 25 / .06), 0 6px 20px rgb(20 30 25 / .05);
+  /* rounded shapes: cards and dialogs, then small controls (buttons, fields); pills stay fully round */
+  --r: 16px;
+  --r-sm: 10px;
+  --shadow: 0 1px 2px light-dark(rgb(114 92 78 / .10), rgb(0 0 0 / .3)), 0 8px 24px light-dark(rgb(114 92 78 / .10), rgb(0 0 0 / .3));
+
+  color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #111613; --surface: #192019; --surface-2: #242C27; --fg: #E5EBE7; --muted: #9AA8A1; --line: #2F3934;
-    --accent: #62BAC2; --accent-fg: #0B1E20; --danger: #F08A82; --ok: #74C795; --warn-bg: #3A3016; --warn-fg: #F2DE9F;
-    --s-wk: #7EA8BB; --s-at: #A88FBB; --s-wt: #D0899A;
-    --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 6px 20px rgb(0 0 0 / .25);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #111613; --surface: #192019; --surface-2: #242C27; --fg: #E5EBE7; --muted: #9AA8A1; --line: #2F3934;
-  --accent: #62BAC2; --accent-fg: #0B1E20; --danger: #F08A82; --ok: #74C795; --warn-bg: #3A3016; --warn-fg: #F2DE9F;
-  --s-wk: #7EA8BB; --s-at: #A88FBB; --s-wt: #D0899A;
-  --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 6px 20px rgb(0 0 0 / .25);
-  color-scheme: dark;
-}
+/* the header button's choice */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+</style>
+<style>
+/* Layout: sticky header with three tabs over one working column; child cards in a responsive grid, goals and activities as dense lists. */
 
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
-[hidden] { display: none !important; }
 h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
 h1 { font-size: 1.9rem; }
 h2 { font-size: 1.25rem; }
@@ -73,36 +83,38 @@ button, input, select, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .muted { color: var(--muted); }
 
-/* header */
+/* header: a brown band above the page */
 .top {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
+  background: var(--chrome); color: var(--on-chrome);
+  box-shadow: 0 2px 12px rgb(60 45 35 / .18);
 }
+.top :focus-visible { outline-color: var(--on-chrome); }
 .top-inner { max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; }
 /* the empty space after the name keeps it visually apart from the tabs */
 .brand { display: flex; align-items: baseline; min-width: 0; margin-right: clamp(8px, 9vw, 140px); }
 .brand b { font-family: var(--f-display); font-size: 1.3rem; letter-spacing: -0.02em; }
 .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
 .tabs a {
-  text-decoration: none; color: var(--muted); padding: 7px 12px; border-radius: 999px; font-weight: 700; font-size: .92rem;
+  text-decoration: none; color: var(--on-chrome-muted); padding: 7px 12px; border-radius: 999px; font-weight: 700; font-size: .92rem;
 }
-.tabs a:hover { color: var(--fg); background: var(--surface-2); }
-.tabs a[aria-current="page"] { color: var(--accent-fg); background: var(--accent); }
-.top-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-.status { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; color: var(--muted); white-space: nowrap; }
-.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
-.status.ok::before { background: var(--ok); }
-.status.warn::before { background: #D99A1E; }
-/* both languages share one grid cell; the hidden one keeps the width (see both()) */
-.bi { display: inline-grid; justify-items: center; }
-.bi > span { grid-area: 1 / 1; }
-.bi > .off { visibility: hidden; }
+.tabs a:hover { color: var(--on-chrome); background: color-mix(in srgb, var(--on-chrome) 12%, transparent); }
+.tabs a[aria-current="page"] { color: var(--chrome); background: var(--on-chrome); }
+.top-right { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.status { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; color: var(--on-chrome-muted); white-space: nowrap; }
+/* the dot stays colourless (colour means "subject"): filled when synced, an open ring when only in this browser */
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; box-sizing: border-box; border: 1.5px solid var(--on-chrome-muted); }
+.status.ok::before { background: var(--on-chrome); border-color: var(--on-chrome); }
+.status.warn::before { background: transparent; }
 .status .bi { justify-items: start; }   /* keep the text next to the status dot */
-.lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
-.lang-switch button { border: 0; background: transparent; padding: 4px 10px; font-size: .78rem; font-weight: 700; color: var(--muted); cursor: pointer; letter-spacing: .04em; }
-.lang-switch button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.lang-switch { display: inline-flex; border: 1px solid color-mix(in srgb, var(--on-chrome) 35%, transparent); border-radius: 999px; overflow: hidden; }
+.lang-switch button { border: 0; background: transparent; padding: 4px 10px; font-size: .78rem; font-weight: 700; color: var(--on-chrome-muted); cursor: pointer; letter-spacing: .04em; }
+.lang-switch button[aria-pressed="true"] { background: var(--on-chrome); color: var(--chrome); }
+.theme-btn { display: inline-grid; place-items: center; width: 30px; height: 30px; padding: 0; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--on-chrome) 35%, transparent); background: transparent; color: var(--on-chrome); cursor: pointer; }
+.theme-btn:hover { border-color: var(--on-chrome); }
+.theme-btn svg { width: 16px; height: 16px; }
+.top .btn { background: transparent; color: var(--on-chrome); border-color: color-mix(in srgb, var(--on-chrome) 35%, transparent); }
+.top .btn:hover { border-color: var(--on-chrome); }
 
 main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; display: grid; gap: 20px; }
 
@@ -110,7 +122,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   border: 1px solid var(--line); background: var(--surface); color: var(--fg);
-  padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: .9rem; white-space: nowrap;
+  padding: 8px 14px; border-radius: var(--r-sm); cursor: pointer; font-weight: 700; font-size: .9rem; white-space: nowrap;
 }
 .btn:hover { border-color: var(--muted); }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
@@ -119,24 +131,26 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .btn.danger { background: var(--danger); border-color: var(--danger); color: var(--surface); }
 .btn.small { padding: 5px 10px; font-size: .82rem; }
 .btn:disabled { opacity: .55; cursor: default; }
-.icon-btn { border: 0; background: transparent; color: var(--muted); padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: .82rem; font-weight: 700; }
+.icon-btn { border: 0; background: transparent; color: var(--muted); padding: 6px 8px; border-radius: var(--r-sm); cursor: pointer; font-size: .82rem; font-weight: 700; }
 .icon-btn:hover { background: var(--surface-2); color: var(--fg); }
 .icon-btn.del:hover { color: var(--danger); }
-.readonly .w { display: none !important; }
 
 /* page head */
 .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
 .page-head > div:first-child { min-width: 0; }
 .lede { color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; max-width: 70ch; }
 .head-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+/* the actions next to a page title belong together, so they share one look (no highlighted one) */
+.head-actions .btn.primary { background: var(--surface); border-color: var(--line); color: var(--fg); }
+.head-actions .btn.primary:hover { filter: none; border-color: var(--muted); }
 
-.notice { background: var(--warn-bg); color: var(--warn-fg); border-radius: var(--r); padding: 12px 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.notice { background: var(--warn-bg); color: var(--warn-fg); border: 1px solid color-mix(in srgb, var(--warn-fg) 18%, transparent); border-radius: var(--r); padding: 12px 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 .notice p { min-width: 0; flex: 1 1 280px; }
 .notice .btn { background: transparent; border-color: currentColor; color: inherit; }
 
 .empty { border: 1.5px dashed var(--line); border-radius: var(--r); padding: 36px 20px; text-align: center; display: grid; gap: 10px; justify-items: center; color: var(--muted); }
 .empty h2 { color: var(--fg); }
-.empty pre { text-align: left; background: var(--surface-2); color: var(--fg); padding: 10px 14px; border-radius: 8px; font-family: var(--f-mono); font-size: .8rem; max-width: 100%; overflow-x: auto; margin: 4px 0; }
+.empty pre { text-align: left; background: var(--surface-2); color: var(--fg); padding: 10px 14px; border-radius: var(--r-sm); font-family: var(--f-mono); font-size: .8rem; max-width: 100%; overflow-x: auto; margin: 4px 0; }
 
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); }
 
@@ -170,11 +184,12 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 
 /* toolbar */
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.search { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 12px; }
-.select { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 10px; max-width: 100%; }
+.search { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 12px; }
+.select { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 10px; max-width: 100%; }
 .chips-filter { display: flex; flex-wrap: wrap; gap: 6px; }
 .fchip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 10px 4px 8px; cursor: pointer; font-size: .82rem; font-weight: 700; color: var(--muted); }
 .fchip .dot { opacity: .35; }
+.fchip .bi { justify-items: start; }   /* keep the subject name next to its dot */
 .fchip[aria-pressed="true"] { color: var(--fg); border-color: color-mix(in srgb, var(--c, var(--fg)) 55%, var(--line)); background: color-mix(in srgb, var(--c, var(--fg)) 12%, var(--surface)); }
 .fchip[aria-pressed="true"] .dot { opacity: 1; }
 .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--muted)); flex: none; display: inline-block; }
@@ -184,13 +199,17 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .goal-list { list-style: none; margin: 0; padding: 0; display: grid; }
 .goal-row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto; gap: 6px 14px; align-items: start; padding: 12px 14px; border-bottom: 1px solid var(--line); }
 .goal-row:last-child { border-bottom: 0; }
-.code { font-family: var(--f-mono); font-size: .78rem; display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 6px; background: color-mix(in srgb, var(--c, var(--muted)) 16%, transparent); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; justify-self: start; }
+.code { font-family: var(--f-mono); font-size: .78rem; display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: var(--r-sm); background: color-mix(in srgb, var(--c, var(--muted)) 16%, transparent); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; justify-self: start; }
 .g-body { min-width: 0; display: grid; gap: 2px; }
 .g-meta { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
 .g-desc { overflow-wrap: anywhere; white-space: pre-line; }
 .g-side { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 .kids-row { display: flex; gap: 3px; }
-.row-actions { display: flex; gap: 2px; }
+.row-actions { display: flex; gap: 6px; }
+/* outlined like the small buttons on the child cards, so they read as buttons */
+.row-actions .icon-btn { border: 1px solid var(--line); padding: 5px 10px; color: var(--fg); }
+.row-actions .icon-btn:hover { background: transparent; border-color: var(--muted); }
+.row-actions .icon-btn.del:hover { border-color: var(--danger); }
 .tag { font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
 @media (max-width: 640px) {
   .goal-row { grid-template-columns: minmax(0, 1fr); }
@@ -200,7 +219,19 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* activities */
 .month { font-family: var(--f-display); font-size: 1rem; color: var(--muted); text-transform: capitalize; margin-top: 8px; }
 .act-list { display: grid; gap: 10px; }
-.act { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) auto; gap: 14px; padding: 14px; align-items: start; }
+.act { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) auto auto; grid-template-areas: "date body photos actions"; gap: 14px; padding: 14px; align-items: start; }
+.act-date { grid-area: date; } .act-body { grid-area: body; } .act .row-actions { grid-area: actions; }
+/* one row, clipped at the card edge; the 4px margin keeps the keyboard focus ring visible */
+.thumbs.act-photos { grid-area: photos; align-self: center; flex-wrap: nowrap; overflow: hidden; max-width: 100%; padding: 4px; margin-block: -4px; }
+.act-photos .thumb, .thumb-fade { width: 48px; height: 48px; }
+/* a fifth photo that fades out: "there is more". Not interactive. */
+.thumb-fade { position: relative; flex: none; border-radius: var(--r-sm); overflow: hidden; pointer-events: none; user-select: none;
+  -webkit-mask-image: linear-gradient(90deg, rgb(0 0 0 / .6), transparent 90%); mask-image: linear-gradient(90deg, rgb(0 0 0 / .6), transparent 90%); }
+.thumb-fade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 760px) {
+  .act { grid-template-columns: 3.4rem minmax(0, 1fr) auto; grid-template-areas: "date body actions" "date photos photos"; }
+  .act-photos { align-self: start; }
+}
 .act-date { text-align: center; border-right: 1px solid var(--line); padding-right: 12px; display: grid; }
 .act-date .d { font-family: var(--f-display); font-size: 1.6rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
 .act-date .m { font-size: .74rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
@@ -212,7 +243,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .goal-chips .code { cursor: help; }
 .goal-chips .goal-chip:hover, .goal-chips .goal-chip:focus-visible { background: color-mix(in srgb, var(--c, var(--muted)) 30%, transparent); }
 /* goal preview card, shown while hovering a goal code */
-.gpeek { position: fixed; z-index: 60; pointer-events: none; width: min(380px, calc(100vw - 32px)); background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 18px 50px rgb(0 0 0 / .25); padding: 12px 14px; display: grid; gap: 6px; opacity: 0; transform: translateY(4px); transition: opacity .15s ease, transform .15s ease; }
+.gpeek { position: fixed; z-index: 60; pointer-events: none; width: min(380px, calc(100vw - 32px)); background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: var(--r); box-shadow: 0 18px 50px rgb(0 0 0 / .25); padding: 12px 14px; display: grid; gap: 6px; opacity: 0; transform: translateY(4px); transition: opacity .15s ease, transform .15s ease; }
 .gpeek.show { opacity: 1; transform: none; }
 .gpeek-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: .82rem; font-weight: 700; }
 .gpeek-head .code { font-weight: 500; }
@@ -220,8 +251,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .gpeek .g-desc { font-size: .92rem; line-height: 1.45; }
 .notes { color: var(--muted); font-size: .9rem; white-space: pre-line; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 @media (max-width: 560px) {
-  .act { grid-template-columns: 3rem minmax(0, 1fr); }
-  .act .row-actions { grid-column: 2; }
+  .act { grid-template-columns: 3rem minmax(0, 1fr); grid-template-areas: "date body" "date photos" "date actions"; }
 }
 
 /* child detail */
@@ -250,8 +280,8 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .check { display: inline-flex; gap: 8px; align-items: center; cursor: pointer; font-size: .9rem; }
 
 /* dialog */
-dialog { border: 1px solid var(--line); border-radius: 14px; padding: 0; width: min(760px, calc(100vw - 24px)); max-height: min(92vh, 900px); background: var(--surface); color: var(--fg); box-shadow: 0 20px 60px rgb(0 0 0 / .3); }
-dialog::backdrop { background: rgb(10 20 15 / .45); }
+dialog { border: 1px solid var(--line); border-radius: var(--r); padding: 0; width: min(760px, calc(100vw - 24px)); max-height: min(92vh, 900px); background: var(--surface); color: var(--fg); box-shadow: 0 20px 60px rgb(0 0 0 / .3); }
+dialog::backdrop { background: rgb(40 30 22 / .45); }
 .dlg-form { display: flex; flex-direction: column; max-height: min(92vh, 900px); }
 .dlg-form > header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
 .dlg-body { padding: 16px 18px; overflow-y: auto; display: grid; gap: 14px; min-height: 0; }
@@ -259,7 +289,7 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 .form-error { color: var(--danger); font-size: .88rem; margin-right: auto; flex: 1 1 200px; min-width: 0; }
 .field { display: grid; gap: 5px; }
 .field > span, .field-label { font-weight: 700; font-size: .86rem; }
-.field input, .field textarea, .field select { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 9px 11px; width: 100%; }
+.field input, .field textarea, .field select { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 9px 11px; width: 100%; }
 .field textarea { resize: vertical; min-height: 80px; }
 .row2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; }
 .kid-picks { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -268,7 +298,7 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 .kid-pick input { position: absolute; opacity: 0; pointer-events: none; }
 .kid-pick:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 .animal-grid { display: grid; grid-template-columns: repeat(auto-fill, 46px); gap: 6px; }
-.animal-grid label { display: grid; place-items: center; height: 46px; border-radius: 10px; border: 1px solid var(--line); cursor: pointer; position: relative; }
+.animal-grid label { display: grid; place-items: center; height: 46px; border-radius: var(--r-sm); border: 1px solid var(--line); cursor: pointer; position: relative; }
 .animal-grid .avatar { width: 36px; height: 36px; font-size: 22px; }
 .animal-grid input { position: absolute; opacity: 0; pointer-events: none; }
 .animal-grid label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: 0 0 0 1px var(--accent); }
@@ -290,7 +320,7 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 .sel-chips { display: flex; flex-wrap: wrap; gap: 5px; }
 .sel-chips button { border: 0; cursor: pointer; }
 .sel-chips button::after { content: "×"; margin-left: 2px; opacity: .6; }
-.import-preview { background: var(--surface-2); border-radius: 8px; padding: 10px 12px; font-size: .88rem; display: grid; gap: 4px; }
+.import-preview { background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; font-size: .88rem; display: grid; gap: 4px; }
 .import-preview ul { margin: 0; padding-left: 18px; color: var(--danger); max-height: 140px; overflow-y: auto; }
 .data-actions { display: grid; gap: 12px; }
 .data-actions > div { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
@@ -301,22 +331,21 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 .file-label { position: relative; overflow: hidden; }
 .file-label input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
-.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: .9rem; transition: opacity .2s, transform .2s; max-width: calc(100vw - 32px); z-index: 50; }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: var(--r-sm); font-size: .9rem; transition: opacity .2s, transform .2s; max-width: calc(100vw - 32px); z-index: 50; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast.bad { background: var(--danger); color: var(--surface); }
 .loading { color: var(--muted); padding: 40px 0; text-align: center; }
 /* photos: thumbnail strip on activity cards, hover preview, lightbox, editor */
 .thumbs { display: flex; flex-wrap: wrap; gap: 6px; }
-.thumb { position: relative; width: 64px; height: 64px; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface-2); cursor: zoom-in; flex: none; }
+.thumb { position: relative; width: 64px; height: 64px; padding: 0; border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; background: var(--surface-2); cursor: zoom-in; flex: none; }
 .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .2s ease; }
 .thumb:hover img { transform: scale(1.06); }
 .thumb.missing { cursor: default; }
-.thumb .more { position: absolute; inset: 0; display: grid; place-items: center; background: rgb(0 0 0 / .5); color: #fff; font-weight: 700; font-size: .95rem; }
-.peek { position: fixed; z-index: 60; pointer-events: none; border-radius: 12px; overflow: hidden; border: 3px solid var(--surface); box-shadow: 0 18px 50px rgb(0 0 0 / .35); background: var(--surface-2); opacity: 0; transform: scale(.94); transition: opacity .15s ease, transform .15s ease; }
+.peek { position: fixed; z-index: 60; pointer-events: none; border-radius: var(--r); overflow: hidden; border: 3px solid var(--surface); box-shadow: 0 18px 50px rgb(0 0 0 / .35); background: var(--surface-2); opacity: 0; transform: scale(.94); transition: opacity .15s ease, transform .15s ease; }
 .peek.show { opacity: 1; transform: none; }
 .peek img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .lightbox { width: min(1100px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; background: var(--surface); }
-.lightbox::backdrop { background: rgb(5 10 8 / .8); }
+.lightbox::backdrop { background: rgb(20 15 11 / .8); }
 .lightbox figure { margin: 0; display: grid; gap: 0; }
 .lightbox img { display: block; max-width: 100%; max-height: calc(100vh - 110px); margin: 0 auto; object-fit: contain; min-height: 120px; }
 .lightbox figcaption { padding: 10px 16px; color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); padding-right: 110px; overflow-wrap: anywhere; }
@@ -325,10 +354,10 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 .lb-prev { left: 10px; } .lb-next { right: 10px; }
 .lb-close { position: absolute; right: 10px; bottom: 6px; }
 .photo-edit { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.pe { position: relative; width: 76px; height: 76px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--surface-2); }
+.pe { position: relative; width: 76px; height: 76px; border-radius: var(--r-sm); overflow: hidden; border: 1px solid var(--line); background: var(--surface-2); }
 .pe img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pe-x { position: absolute; top: 3px; right: 3px; width: 22px; height: 22px; border-radius: 50%; border: 0; background: rgb(0 0 0 / .6); color: #fff; cursor: pointer; font-size: .9rem; line-height: 1; }
-.photo-add { position: relative; display: grid; place-items: center; width: 76px; height: 76px; border: 1.5px dashed var(--line); border-radius: 8px; color: var(--muted); font-size: .76rem; font-weight: 700; text-align: center; padding: 6px; cursor: pointer; }
+.photo-add { position: relative; display: grid; place-items: center; width: 76px; height: 76px; border: 1.5px dashed var(--line); border-radius: var(--r-sm); color: var(--muted); font-size: .76rem; font-weight: 700; text-align: center; padding: 6px; cursor: pointer; }
 .photo-add:hover { border-color: var(--accent); color: var(--accent); }
 .photo-add input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 .photo-add:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -337,23 +366,41 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 /* login / sign-up screen */
 .auth { width: min(100%, 440px); margin: 5vh auto 0; padding: 28px; display: grid; gap: 16px; }
 .auth form { display: grid; gap: 14px; }
-.auth .field input { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 10px 12px; width: 100%; }
+.auth .field input { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; width: 100%; }
 .auth .btn.primary { padding-block: 11px; }
 .auth .form-error:empty { display: none; }
 .auth .info { color: var(--ok); font-size: .9rem; }
 .auth-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
 .linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
-.chrome-off .tabs, .chrome-off #data-btn, .chrome-off .status { display: none; }
 .site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .thumb:hover img { transform: none; } }
 </style>
+<style>
+/* Rules the app's code relies on. Not design: removing or overriding these breaks behaviour.
+   Everything visual lives in design/. */
+[hidden] { display: none !important; }
+
+/* Button and tab labels hold both languages in one grid cell; the inactive one is invisible but
+   keeps its width, so controls don't change size when the language switches (see both()). */
+.bi { display: inline-grid; justify-items: center; }
+.bi > span { grid-area: 1 / 1; }
+.bi > .off { visibility: hidden; }
+
+/* Read-only data: hide every control that changes something (marked .w in the markup). */
+.readonly .w { display: none !important; }
+
+/* Login screen and start-up: no navigation, data menu or status yet. */
+.chrome-off .tabs, .chrome-off #data-btn, .chrome-off .status { display: none; }
+</style>
+<!-- bright unless dark was chosen last time; applied before the page is drawn (see the theme button) -->
+<script>let t = 'light'; try { if (localStorage.getItem('doelenboek.theme') === 'dark') t = 'dark'; } catch (e) {} document.documentElement.dataset.theme = t;</script>
 </head>
 <body>
 <header class="top">
   <div class="top-inner">
-    <div class="brand"><b>Doelenboek</b></div>
+    <div class="brand"><b>doelenboek.com</b></div>
     <nav class="tabs" aria-label="Doelenboek">
       <a href="#overzicht" data-tab="overzicht">Overzicht</a>
       <a href="#activiteiten" data-tab="activiteiten">Activiteiten</a>
@@ -365,6 +412,7 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
         <button type="button" data-lang="nl" aria-pressed="true" lang="nl" title="Nederlands">NL</button>
         <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
       </div>
+      <button type="button" class="theme-btn" id="theme-btn"></button>
       <button class="btn small ghost" id="data-btn" type="button">Gegevens</button>
     </div>
   </div>
@@ -382,6 +430,40 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 <div class="peek" id="peek" hidden><img alt=""></div>
 <div class="gpeek" id="gpeek" role="tooltip" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<symbol id="an-fox" viewBox="8.75 8.5 46.5 46.5"><path d="M12 28L15 8.5L29 19Z" fill="#E8843C"/><path d="M15.6 23L17 13L24.6 19.2Z" fill="#7A3E22"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M12 28L15 8.5L29 19Z" fill="#E8843C"/><path d="M15.6 23L17 13L24.6 19.2Z" fill="#7A3E22"/></g><path d="M9 31C9 22 19 17 32 17C45 17 55 22 55 31C55 41 44 51 32 55C20 51 9 41 9 31Z" fill="#E8843C"/><path d="M11 35C18 35 26 39 32 47C38 39 46 35 53 35C51 43 42 51 32 55C22 51 13 43 11 35Z" fill="#FFF3E4"/><circle cx="24" cy="32" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="31.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24" cy="32" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="31.01" r="0.88" fill="#fff"/></g><ellipse cx="32" cy="48.5" rx="2.8" ry="2.1" fill="#2B2523"/></symbol>
+<symbol id="an-bear" viewBox="8 9.25 48 48"><circle cx="15.5" cy="18" r="7.5" fill="#9A6942"/><circle cx="15.5" cy="18" r="3.8" fill="#D2A27A"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="15.5" cy="18" r="7.5" fill="#9A6942"/><circle cx="15.5" cy="18" r="3.8" fill="#D2A27A"/></g><circle cx="32" cy="35" r="21" fill="#9A6942"/><ellipse cx="32" cy="44" rx="10" ry="7.5" fill="#E2C09C"/><circle cx="24" cy="32.5" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="31.51" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24" cy="32.5" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="31.51" r="0.88" fill="#fff"/></g><ellipse cx="32" cy="40.6" rx="3.4" ry="2.4" fill="#2B2523"/><path d="M29.4 45.4Q32 47.61 34.6 45.4" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="18.5" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="18.5" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-panda" viewBox="8 9.25 48 48"><circle cx="15.5" cy="18" r="7.5" fill="#34302E"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="15.5" cy="18" r="7.5" fill="#34302E"/></g><circle cx="32" cy="35" r="21" fill="#FBFAF6"/><ellipse cx="23.8" cy="33.6" rx="5" ry="6.6" transform="rotate(32 23.8 33.6)" fill="#34302E"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="23.8" cy="33.6" rx="5" ry="6.6" transform="rotate(32 23.8 33.6)" fill="#34302E"/></g><circle cx="23.8" cy="33" r="2.3" fill="#fff"/><circle cx="24.26" cy="33.345" r="1.29" fill="#2B2523"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="23.8" cy="33" r="2.3" fill="#fff"/><circle cx="24.26" cy="33.345" r="1.29" fill="#2B2523"/></g><ellipse cx="32" cy="41.5" rx="3.2" ry="2.2" fill="#34302E"/><path d="M29.4 45.6Q32 47.81 34.6 45.6" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="19" cy="42" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="19" cy="42" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-koala" viewBox="3.5 5.75 57 57"><circle cx="13" cy="24" r="9.5" fill="#9AA3AD"/><circle cx="13.6" cy="24.6" r="5.4" fill="#EBDCE2"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="13" cy="24" r="9.5" fill="#9AA3AD"/><circle cx="13.6" cy="24.6" r="5.4" fill="#EBDCE2"/></g><ellipse cx="32" cy="36" rx="19" ry="18" fill="#AEB6BF"/><circle cx="23" cy="33" r="2.6" fill="#2B2523"/><circle cx="23.99" cy="32.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="23" cy="33" r="2.6" fill="#2B2523"/><circle cx="23.99" cy="32.01" r="0.88" fill="#fff"/></g><ellipse cx="32" cy="41" rx="4.6" ry="6" fill="#3B3940"/><ellipse cx="19.5" cy="43" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="19.5" cy="43" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-tiger" viewBox="9.5 11.5 45 45"><circle cx="16" cy="18.5" r="6.5" fill="#EE9A3A"/><circle cx="16" cy="18.5" r="3.2" fill="#FBE2C2"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="16" cy="18.5" r="6.5" fill="#EE9A3A"/><circle cx="16" cy="18.5" r="3.2" fill="#FBE2C2"/></g><circle cx="32" cy="35" r="21" fill="#EE9A3A"/><path d="M28.6 14.4H35.4L32 21.5Z" fill="#4A3426"/><path d="M12.2 30L19.5 32L12.6 35Z" fill="#4A3426"/><path d="M13.6 39.5L20 40L14.8 43Z" fill="#4A3426"/><path d="M21.5 17.6L25 23L19.6 21.6Z" fill="#4A3426"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M12.2 30L19.5 32L12.6 35Z" fill="#4A3426"/><path d="M13.6 39.5L20 40L14.8 43Z" fill="#4A3426"/><path d="M21.5 17.6L25 23L19.6 21.6Z" fill="#4A3426"/></g><ellipse cx="28" cy="43.5" rx="6" ry="5" fill="#FFF5E8"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="28" cy="43.5" rx="6" ry="5" fill="#FFF5E8"/></g><circle cx="24" cy="32" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="31.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24" cy="32" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="31.01" r="0.88" fill="#fff"/></g><path d="M29 39H35Q35 41 32 42.5Q29 41 29 39Z" fill="#D9675F"/></symbol>
+<symbol id="an-lion" viewBox="5.2 6.85 53.6 53.6"><circle cx="32" cy="34" r="20" fill="#C2702B"/><circle cx="32" cy="14.5" r="7.5" fill="#C2702B"/><circle cx="42.54" cy="17.6" r="7.5" fill="#C2702B"/><circle cx="49.74" cy="25.9" r="7.5" fill="#C2702B"/><circle cx="51.3" cy="36.78" r="7.5" fill="#C2702B"/><circle cx="46.74" cy="46.77" r="7.5" fill="#C2702B"/><circle cx="37.49" cy="52.71" r="7.5" fill="#C2702B"/><circle cx="26.51" cy="52.71" r="7.5" fill="#C2702B"/><circle cx="17.26" cy="46.77" r="7.5" fill="#C2702B"/><circle cx="12.7" cy="36.78" r="7.5" fill="#C2702B"/><circle cx="14.26" cy="25.9" r="7.5" fill="#C2702B"/><circle cx="21.46" cy="17.6" r="7.5" fill="#C2702B"/><circle cx="20.5" cy="22.5" r="4.6" fill="#F3C557"/><circle cx="20.5" cy="22.5" r="2.2" fill="#C98F3A"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="20.5" cy="22.5" r="4.6" fill="#F3C557"/><circle cx="20.5" cy="22.5" r="2.2" fill="#C98F3A"/></g><circle cx="32" cy="35" r="15.5" fill="#F3C557"/><ellipse cx="32" cy="42" rx="7.5" ry="5.5" fill="#FCE9BC"/><circle cx="25.5" cy="33" r="2.4" fill="#2B2523"/><circle cx="26.41" cy="32.09" r="0.82" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25.5" cy="33" r="2.4" fill="#2B2523"/><circle cx="26.41" cy="32.09" r="0.82" fill="#fff"/></g><path d="M29.5 38.4H34.5Q34.5 40.4 32 41.4Q29.5 40.4 29.5 38.4Z" fill="#2B2523"/><ellipse cx="21.5" cy="40" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="21.5" cy="40" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-frog" viewBox="10 12.75 44 44"><ellipse cx="32" cy="38" rx="22" ry="16" fill="#6CBD69"/><circle cx="21" cy="24" r="8.5" fill="#6CBD69"/><circle cx="21" cy="24" r="5" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="21" cy="24" r="8.5" fill="#6CBD69"/><circle cx="21" cy="24" r="5" fill="#fff"/></g><circle cx="21" cy="24" r="2.8" fill="#2B2523"/><circle cx="22.06" cy="22.94" r="0.95" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="21" cy="24" r="2.8" fill="#2B2523"/><circle cx="22.06" cy="22.94" r="0.95" fill="#fff"/></g><circle cx="30" cy="35.5" r=".9" fill="#3E7D3B"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="30" cy="35.5" r=".9" fill="#3E7D3B"/></g><path d="M21 41Q32 50 43 41" fill="none" stroke="#2B2523" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="15.5" cy="43" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="15.5" cy="43" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-monkey" viewBox="5 6 54 54"><circle cx="12" cy="34" r="7" fill="#87583A"/><circle cx="12" cy="34" r="4" fill="#EBC3A3"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="12" cy="34" r="7" fill="#87583A"/><circle cx="12" cy="34" r="4" fill="#EBC3A3"/></g><circle cx="32" cy="33" r="19.5" fill="#87583A"/><circle cx="26.5" cy="31" r="7.5" fill="#EFCDAE"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="26.5" cy="31" r="7.5" fill="#EFCDAE"/></g><ellipse cx="32" cy="41" rx="11.5" ry="9" fill="#EFCDAE"/><circle cx="26.2" cy="31" r="2.4" fill="#2B2523"/><circle cx="27.11" cy="30.09" r="0.82" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="26.2" cy="31" r="2.4" fill="#2B2523"/><circle cx="27.11" cy="30.09" r="0.82" fill="#fff"/></g><circle cx="30.5" cy="39.5" r="1" fill="#2B2523"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="30.5" cy="39.5" r="1" fill="#2B2523"/></g><path d="M28.6 43.6Q32 46.49 35.4 43.6" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="22.5" cy="41" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="22.5" cy="41" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-rabbit" viewBox="6.75 5 50.5 50.5"><ellipse cx="24.5" cy="17" rx="5.5" ry="12" transform="rotate(-8 24.5 17)" fill="#F7F3EE"/><ellipse cx="24.5" cy="17.5" rx="2.6" ry="8.5" transform="rotate(-8 24.5 17.5)" fill="#F2B3C0"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="24.5" cy="17" rx="5.5" ry="12" transform="rotate(-8 24.5 17)" fill="#F7F3EE"/><ellipse cx="24.5" cy="17.5" rx="2.6" ry="8.5" transform="rotate(-8 24.5 17.5)" fill="#F2B3C0"/></g><circle cx="32" cy="39" r="16.5" fill="#F7F3EE"/><circle cx="25.5" cy="37.5" r="2.4" fill="#2B2523"/><circle cx="26.41" cy="36.59" r="0.82" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25.5" cy="37.5" r="2.4" fill="#2B2523"/><circle cx="26.41" cy="36.59" r="0.82" fill="#fff"/></g><path d="M30 42.4H34L32 44.4Z" fill="#E58FA3" stroke="#E58FA3" stroke-linejoin="round"/><path d="M28.6 46Q30.3 47.7 32 45.6Q33.7 47.7 35.4 46" fill="none" stroke="#2B2523" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="21.5" cy="43" rx="2.8" ry="1.68" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="21.5" cy="43" rx="2.8" ry="1.68" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-owl" viewBox="9.75 11 44.5 44.5"><path d="M13 24L17 11L26 18.5Q32 17 38 18.5L47 11L51 24C55 44 46 54 32 55C18 54 9 44 13 24Z" fill="#8B6A50"/><ellipse cx="32" cy="50" rx="10" ry="5.5" fill="#B89577"/><circle cx="24" cy="32" r="8.5" fill="#F4E5CB"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24" cy="32" r="8.5" fill="#F4E5CB"/></g><circle cx="24" cy="32" r="3.4" fill="#2B2523"/><circle cx="25.29" cy="30.71" r="1.16" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24" cy="32" r="3.4" fill="#2B2523"/><circle cx="25.29" cy="30.71" r="1.16" fill="#fff"/></g><path d="M29.5 38H34.5L32 43.5Z" fill="#E9A23B" stroke="#E9A23B" stroke-linejoin="round"/></symbol>
+<symbol id="an-penguin" viewBox="11 13 42 42"><circle cx="32" cy="34" r="21" fill="#2F3A4A"/><path d="M32 22C26 18 15 22 15.5 33C16 44 24 51 32 52C40 51 48 44 48.5 33C49 22 38 18 32 22Z" fill="#FAF9F5"/><circle cx="25" cy="32" r="2.6" fill="#2B2523"/><circle cx="25.99" cy="31.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25" cy="32" r="2.6" fill="#2B2523"/><circle cx="25.99" cy="31.01" r="0.88" fill="#fff"/></g><path d="M28.5 38H35.5L32 42.5Z" fill="#F2A93B" stroke="#F2A93B" stroke-linejoin="round"/><ellipse cx="20.5" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="20.5" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-turtle" viewBox="8 8.25 48 48"><ellipse cx="32" cy="29" rx="24" ry="19" fill="#6F8F3F"/><path d="M32 13L38.5 17V24L32 28L25.5 24V17Z" fill="#87A852"/><path d="M14.5 23L21 20.5L23 27L18 31L12.5 29Z" fill="#87A852"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M14.5 23L21 20.5L23 27L18 31L12.5 29Z" fill="#87A852"/></g><circle cx="32" cy="40" r="14.5" fill="#9CCB86"/><circle cx="26" cy="38.5" r="2.6" fill="#2B2523"/><circle cx="26.99" cy="37.51" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="26" cy="38.5" r="2.6" fill="#2B2523"/><circle cx="26.99" cy="37.51" r="0.88" fill="#fff"/></g><path d="M29 45Q32 47.55 35 45" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="22.5" cy="43" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="22.5" cy="43" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-octopus" viewBox="8 11 48 48"><ellipse cx="17" cy="47" rx="5" ry="7.5" transform="rotate(28 17 47)" fill="#B07AC8"/><ellipse cx="25" cy="50.5" rx="4.6" ry="7.5" transform="rotate(10 25 50.5)" fill="#B07AC8"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="17" cy="47" rx="5" ry="7.5" transform="rotate(28 17 47)" fill="#B07AC8"/><ellipse cx="25" cy="50.5" rx="4.6" ry="7.5" transform="rotate(10 25 50.5)" fill="#B07AC8"/></g><ellipse cx="32" cy="51.5" rx="4.6" ry="7.5" fill="#B07AC8"/><path d="M12 35C12 20 21 11 32 11C43 11 52 20 52 35C52 44 44 48 32 48C20 48 12 44 12 35Z" fill="#B07AC8"/><circle cx="24" cy="19.5" r="2.4" fill="#C99BDB"/><circle cx="41" cy="18" r="1.7" fill="#C99BDB"/><circle cx="37.5" cy="23.5" r="1.2" fill="#C99BDB"/><circle cx="24" cy="33" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="32.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24" cy="33" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="32.01" r="0.88" fill="#fff"/></g><path d="M28.8 39.6Q32 42.32 35.2 39.6" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="18.5" cy="38" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="18.5" cy="38" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-hedgehog" viewBox="4 5 56 56"><path d="M32 6L36 12.89L42.33 8.06L43.39 15.95L51.09 13.91L49.05 21.61L56.94 22.67L52.11 29L59 33L52.11 37L56.94 43.33L49.05 44.39L51.09 52.09L43.39 50.05L42.33 57.94L36 53.11L32 60L28 53.11L21.67 57.94L20.61 50.05L12.91 52.09L14.95 44.39L7.06 43.33L11.89 37L5 33L11.89 29L7.06 22.67L14.95 21.61L12.91 13.91L20.61 15.95L21.67 8.06L28 12.89Z" fill="#7B5B45" stroke="#7B5B45" stroke-width="2" stroke-linejoin="round"/><ellipse cx="32" cy="39" rx="15" ry="13" fill="#EBD3B3"/><ellipse cx="32" cy="45" rx="6.5" ry="4.5" fill="#F5E5CE"/><circle cx="32" cy="43" r="2.3" fill="#2B2523"/><circle cx="25.5" cy="36.5" r="2.3" fill="#2B2523"/><circle cx="26.37" cy="35.63" r="0.78" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25.5" cy="36.5" r="2.3" fill="#2B2523"/><circle cx="26.37" cy="35.63" r="0.78" fill="#fff"/></g><ellipse cx="21.5" cy="42" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="21.5" cy="42" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-giraffe" viewBox="7.4 4.8 49.2 49.2"><path d="M25 18L23.6 9.5" stroke="#C98B3E" stroke-width="3.2" stroke-linecap="round"/><circle cx="23.4" cy="8.6" r="2.8" fill="#8A5A2B"/><ellipse cx="13.5" cy="25" rx="6.5" ry="3.2" transform="rotate(-25 13.5 25)" fill="#F0B54D"/><ellipse cx="14" cy="25" rx="3.6" ry="1.5" transform="rotate(-25 14 25)" fill="#F7D9A3"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M25 18L23.6 9.5" stroke="#C98B3E" stroke-width="3.2" stroke-linecap="round"/><circle cx="23.4" cy="8.6" r="2.8" fill="#8A5A2B"/><ellipse cx="13.5" cy="25" rx="6.5" ry="3.2" transform="rotate(-25 13.5 25)" fill="#F0B54D"/><ellipse cx="14" cy="25" rx="3.6" ry="1.5" transform="rotate(-25 14 25)" fill="#F7D9A3"/></g><ellipse cx="32" cy="33" rx="15" ry="18" fill="#F0B54D"/><path d="M24 20.5Q28 18.5 30 21.5Q30 25.5 26 25.5Q23 24.5 24 20.5Z" fill="#C98B3E"/><circle cx="40" cy="21.5" r="2.6" fill="#C98B3E"/><circle cx="19.6" cy="35" r="1.9" fill="#C98B3E"/><circle cx="44.4" cy="33" r="2.1" fill="#C98B3E"/><ellipse cx="32" cy="45" rx="11.5" ry="8" fill="#F7D9A3"/><ellipse cx="28.5" cy="44.2" rx="1.2" ry="1.6" fill="#8A5A2B"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="28.5" cy="44.2" rx="1.2" ry="1.6" fill="#8A5A2B"/></g><path d="M29.2 48.4Q32 50.78 34.8 48.4" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/><circle cx="24.5" cy="32" r="2.6" fill="#2B2523"/><circle cx="25.49" cy="31.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24.5" cy="32" r="2.6" fill="#2B2523"/><circle cx="25.49" cy="31.01" r="0.88" fill="#fff"/></g></symbol>
+<symbol id="an-elephant" viewBox="3.5 5.35 57 57"><ellipse cx="14" cy="32" rx="10.5" ry="13.5" fill="#9DA9B7"/><ellipse cx="15" cy="32" rx="6.5" ry="9" fill="#E7CBD3"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="14" cy="32" rx="10.5" ry="13.5" fill="#9DA9B7"/><ellipse cx="15" cy="32" rx="6.5" ry="9" fill="#E7CBD3"/></g><circle cx="32" cy="30" r="16.5" fill="#B4BECA"/><path d="M27.5 37C27.5 46 28.5 52.5 33 54C37.5 55 39.5 51.5 37 50.5C35 50 36.5 45 36.5 37Z" fill="#B4BECA"/><circle cx="25" cy="29.5" r="2.6" fill="#2B2523"/><circle cx="25.99" cy="28.51" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25" cy="29.5" r="2.6" fill="#2B2523"/><circle cx="25.99" cy="28.51" r="0.88" fill="#fff"/></g><ellipse cx="21.5" cy="36" rx="2.8" ry="1.68" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="21.5" cy="36" rx="2.8" ry="1.68" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-zebra" viewBox="9.15 7.8 45.7 45.7"><ellipse cx="20" cy="15" rx="4.2" ry="7.5" transform="rotate(-20 20 15)" fill="#F7F6F2"/><ellipse cx="20.3" cy="15.5" rx="1.8" ry="4.5" transform="rotate(-20 20.3 15.5)" fill="#3A3533"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="20" cy="15" rx="4.2" ry="7.5" transform="rotate(-20 20 15)" fill="#F7F6F2"/><ellipse cx="20.3" cy="15.5" rx="1.8" ry="4.5" transform="rotate(-20 20.3 15.5)" fill="#3A3533"/></g><path d="M26 14Q32 6 38 14Z" fill="#3A3533"/><ellipse cx="32" cy="33" rx="15.5" ry="20" fill="#F7F6F2"/><path d="M27 16.6Q32 19 37 16.6" fill="none" stroke="#3A3533" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M25.4 21.2Q32 24.2 38.6 21.2" fill="none" stroke="#3A3533" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.9 28Q20.6 29 22.8 27.6" fill="none" stroke="#3A3533" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.7 34Q20.4 35.2 22.6 33.8" fill="none" stroke="#3A3533" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M16.9 28Q20.6 29 22.8 27.6" fill="none" stroke="#3A3533" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.7 34Q20.4 35.2 22.6 33.8" fill="none" stroke="#3A3533" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g><ellipse cx="32" cy="46" rx="11" ry="7.5" fill="#4A4441"/><ellipse cx="28" cy="45.5" rx="1.3" ry="1.8" fill="#77706C"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="28" cy="45.5" rx="1.3" ry="1.8" fill="#77706C"/></g><circle cx="24.5" cy="32" r="2.6" fill="#2B2523"/><circle cx="25.49" cy="31.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24.5" cy="32" r="2.6" fill="#2B2523"/><circle cx="25.49" cy="31.01" r="0.88" fill="#fff"/></g></symbol>
+<symbol id="an-bee" viewBox="6.7 5.7 50.6 50.6"><ellipse cx="14" cy="21" rx="8" ry="5.5" transform="rotate(-35 14 21)" fill="#F7FBFE" opacity=".95"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="14" cy="21" rx="8" ry="5.5" transform="rotate(-35 14 21)" fill="#F7FBFE" opacity=".95"/></g><path d="M26.5 19Q24.5 12.5 21 9.8" fill="none" stroke="#2B2523" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20.6" cy="9.4" r="2.4" fill="#2B2523"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M26.5 19Q24.5 12.5 21 9.8" fill="none" stroke="#2B2523" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20.6" cy="9.4" r="2.4" fill="#2B2523"/></g><circle cx="32" cy="36" r="19" fill="#F6C744"/><path d="M15.6 27.2Q32 18.4 48.4 27.2L50 31Q32 22.4 14 31Z" fill="#2B2523"/><circle cx="25" cy="37" r="2.6" fill="#2B2523"/><circle cx="25.99" cy="36.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25" cy="37" r="2.6" fill="#2B2523"/><circle cx="25.99" cy="36.01" r="0.88" fill="#fff"/></g><path d="M28.8 43.4Q32 46.12 35.2 43.4" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="19.5" cy="42" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="19.5" cy="42" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-butterfly" viewBox="7.2 6.85 49.6 49.6"><ellipse cx="18" cy="23" rx="11" ry="9.5" transform="rotate(-25 18 23)" fill="#F08A5D"/><ellipse cx="21" cy="42" rx="8.5" ry="7" transform="rotate(20 21 42)" fill="#F5B85E"/><circle cx="15.5" cy="21.5" r="2.6" fill="#FFF4E6"/><circle cx="19.5" cy="42.5" r="1.8" fill="#FFF4E6"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="18" cy="23" rx="11" ry="9.5" transform="rotate(-25 18 23)" fill="#F08A5D"/><ellipse cx="21" cy="42" rx="8.5" ry="7" transform="rotate(20 21 42)" fill="#F5B85E"/><circle cx="15.5" cy="21.5" r="2.6" fill="#FFF4E6"/><circle cx="19.5" cy="42.5" r="1.8" fill="#FFF4E6"/></g><path d="M30 22.5Q27.5 16 24 12.6" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23.6" cy="12.2" r="1.9" fill="#2B2523"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M30 22.5Q27.5 16 24 12.6" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23.6" cy="12.2" r="1.9" fill="#2B2523"/></g><ellipse cx="32" cy="42" rx="4" ry="11" fill="#5B4683"/><circle cx="32" cy="29" r="8" fill="#7B5EA7"/><circle cx="28.8" cy="28.6" r="1.9" fill="#fff"/><circle cx="29.18" cy="28.885" r="1.06" fill="#2B2523"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="28.8" cy="28.6" r="1.9" fill="#fff"/><circle cx="29.18" cy="28.885" r="1.06" fill="#2B2523"/></g><path d="M30.2 32.2Q32 33.73 33.8 32.2" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="an-ladybug" viewBox="6.25 6.4 51.5 51.5"><path d="M28 15Q26 10 22.5 8.6" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8.3" r="1.9" fill="#2B2523"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M28 15Q26 10 22.5 8.6" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8.3" r="1.9" fill="#2B2523"/></g><circle cx="32" cy="38" r="19" fill="#E2453C"/><path d="M32 26V57" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="37" r="3" fill="#2B2523"/><circle cx="25.5" cy="48" r="2.5" fill="#2B2523"/><circle cx="16.6" cy="45" r="1.8" fill="#2B2523"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="22" cy="37" r="3" fill="#2B2523"/><circle cx="25.5" cy="48" r="2.5" fill="#2B2523"/><circle cx="16.6" cy="45" r="1.8" fill="#2B2523"/></g><path d="M19 28C19 18.5 25 14 32 14C39 14 45 18.5 45 28Z" fill="#2E2826"/><circle cx="27" cy="22.5" r="2.5" fill="#fff"/><circle cx="27.5" cy="22.875" r="1.4" fill="#2B2523"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="27" cy="22.5" r="2.5" fill="#fff"/><circle cx="27.5" cy="22.875" r="1.4" fill="#2B2523"/></g><path d="M29.6 25.4Q32 27.44 34.4 25.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="an-whale" viewBox="9 8.35 46 46"><path d="M32 21.5V14.5" fill="none" stroke="#7FB8E6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 14.5Q27.5 9.5 23.5 11.6" fill="none" stroke="#7FB8E6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M32 14.5Q27.5 9.5 23.5 11.6" fill="none" stroke="#7FB8E6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g><path d="M9 38C9 27 19 21 32 21C45 21 55 27 55 38C55 48 45 53 32 53C19 53 9 48 9 38Z" fill="#5B9BD5"/><path d="M14 43C20 47 26 48.5 32 48.5C38 48.5 44 47 50 43C47 49 40 53 32 53C24 53 17 49 14 43Z" fill="#D3E8F8"/><circle cx="23" cy="35" r="2.6" fill="#2B2523"/><circle cx="23.99" cy="34.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="23" cy="35" r="2.6" fill="#2B2523"/><circle cx="23.99" cy="34.01" r="0.88" fill="#fff"/></g><path d="M28 40.6Q32 44 36 40.6" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="16.5" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="16.5" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-parrot" viewBox="8.5 5 47 47"><path d="M28 15Q27 7 32 5Q30 10 33 14Z" fill="#E85D4A"/><path d="M33 14Q35 7 40 7Q36 10 37 15Z" fill="#F2A93B"/><circle cx="32" cy="33" r="19" fill="#4DB36B"/><circle cx="24" cy="30" r="5.2" fill="#FFF8EC"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24" cy="30" r="5.2" fill="#FFF8EC"/></g><circle cx="24" cy="30" r="2.5" fill="#2B2523"/><circle cx="24.95" cy="29.05" r="0.85" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24" cy="30" r="2.5" fill="#2B2523"/><circle cx="24.95" cy="29.05" r="0.85" fill="#fff"/></g><path d="M27 35.5C27 32.5 37 32.5 37 35.5C37 41 34.5 45.5 32 47.5C29.5 45.5 27 41 27 35.5Z" fill="#F2B13D"/><path d="M29 41.6Q32 44.6 35 41.6Q34 46.6 32 47.4Q30 46.6 29 41.6Z" fill="#D9922C"/><ellipse cx="19" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="19" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-squirrel" viewBox="15.5 11.1 40.8 40.8"><path d="M41 50C57 47 60 29 52 17.5C46 9 34 12 38.5 20C46.5 24 48.5 36 41 50Z" fill="#B8692E"/><path d="M19 26L19.6 12L28.4 20.5Z" fill="#D2843F"/><path d="M19.4 16.5L19.6 12L22.6 15Z" fill="#9C5524"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M19 26L19.6 12L28.4 20.5Z" fill="#D2843F"/><path d="M19.4 16.5L19.6 12L22.6 15Z" fill="#9C5524"/></g><ellipse cx="32" cy="36" rx="16.5" ry="15" fill="#D2843F"/><ellipse cx="32" cy="42.2" rx="8.5" ry="6" fill="#F3D6B3"/><ellipse cx="32" cy="39.6" rx="2.2" ry="1.6" fill="#2B2523"/><path d="M29.6 43.4Q32 45.44 34.4 43.4" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/><circle cx="25" cy="34" r="2.4" fill="#2B2523"/><circle cx="25.91" cy="33.09" r="0.82" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25" cy="34" r="2.4" fill="#2B2523"/><circle cx="25.91" cy="33.09" r="0.82" fill="#fff"/></g><ellipse cx="21" cy="41" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="21" cy="41" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-flamingo" viewBox="10.8 12.4 42.4 42.4"><path d="M27 42C27 46.5 26.2 50 25.2 53Q31 56.5 36.8 53C37.2 50 37 46.5 37 42Z" fill="#F49AB2"/><path d="M30 17.5Q31 12 35.5 12.5Q32.4 14.2 33.4 17.5Z" fill="#F49AB2"/><circle cx="32" cy="31" r="14.5" fill="#F7A8BD"/><circle cx="25.5" cy="29.5" r="2.4" fill="#2B2523"/><circle cx="26.41" cy="28.59" r="0.82" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25.5" cy="29.5" r="2.4" fill="#2B2523"/><circle cx="26.41" cy="28.59" r="0.82" fill="#fff"/></g><path d="M27.8 34.6Q32 32.8 36.2 34.6L34.6 41Q32 42.4 29.4 41Z" fill="#FBEFF2"/><path d="M29.4 41Q32 42.4 34.6 41L33 46.2Q32 47.6 31 46.2Z" fill="#2E2826"/><ellipse cx="21.5" cy="36" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="21.5" cy="36" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-cat" viewBox="7.9 7.15 48.2 48.2"><path d="M11.5 29L14.5 9.5L27.5 18.5Z" fill="#9FA7B3"/><path d="M15 24.5L16.5 14L24 19.5Z" fill="#F2B3C0"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M11.5 29L14.5 9.5L27.5 18.5Z" fill="#9FA7B3"/><path d="M15 24.5L16.5 14L24 19.5Z" fill="#F2B3C0"/></g><ellipse cx="32" cy="35.5" rx="20.5" ry="17.5" fill="#AEB5C0"/><path d="M29 19.5L29.8 23.5M32 19V23.6M35 19.5L34.2 23.5" fill="none" stroke="#8E96A3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="34" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="33.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24" cy="34" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="33.01" r="0.88" fill="#fff"/></g><path d="M30 39.4H34L32 41.6Z" fill="#E58FA3" stroke="#E58FA3" stroke-linejoin="round"/><path d="M28.6 43Q30.3 44.7 32 42.6Q33.7 44.7 35.4 43" fill="none" stroke="#2B2523" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5 40.5L8.5 39M18.5 43.5L9.5 45" fill="none" opacity=".35" stroke="#2B2523" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M18.5 40.5L8.5 39M18.5 43.5L9.5 45" fill="none" opacity=".35" stroke="#2B2523" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></g><ellipse cx="19" cy="41" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="19" cy="41" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-dog" viewBox="6.3 7.3 51.4 51.4"><ellipse cx="13.5" cy="31" rx="6.5" ry="13" transform="rotate(16 13.5 31)" fill="#8B5E3C"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="13.5" cy="31" rx="6.5" ry="13" transform="rotate(16 13.5 31)" fill="#8B5E3C"/></g><circle cx="32" cy="33" r="18.5" fill="#E0B07B"/><ellipse cx="40.5" cy="27.5" rx="6" ry="7" fill="#C48A55"/><ellipse cx="32" cy="42" rx="9.5" ry="7.5" fill="#F7E4CB"/><path d="M30.3 44.2Q32 49.4 33.7 44.2Z" fill="#EF8A8A"/><path d="M28.6 43Q30.3 44.7 32 42.6Q33.7 44.7 35.4 43" fill="none" stroke="#2B2523" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="32" cy="38.8" rx="3.8" ry="2.7" fill="#2B2523"/><circle cx="24.5" cy="31" r="2.6" fill="#2B2523"/><circle cx="25.49" cy="30.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24.5" cy="31" r="2.6" fill="#2B2523"/><circle cx="25.49" cy="30.01" r="0.88" fill="#fff"/></g><ellipse cx="19" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="19" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-pig" viewBox="8.5 8 47 47"><path d="M13 22L15 9.5L26 16Z" fill="#EE9CAE" stroke="#EE9CAE" stroke-width="3" stroke-linejoin="round"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M13 22L15 9.5L26 16Z" fill="#EE9CAE" stroke="#EE9CAE" stroke-width="3" stroke-linejoin="round"/></g><circle cx="32" cy="35" r="20" fill="#F8BFCA"/><circle cx="24" cy="31.5" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="30.51" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="24" cy="31.5" r="2.6" fill="#2B2523"/><circle cx="24.99" cy="30.51" r="0.88" fill="#fff"/></g><ellipse cx="32" cy="41" rx="8" ry="6" fill="#EF9DB0"/><ellipse cx="29" cy="41" rx="1.4" ry="2.1" fill="#B9566E"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="29" cy="41" rx="1.4" ry="2.1" fill="#B9566E"/></g><path d="M29.6 48.6Q32 50.64 34.4 48.6" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="18" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="18" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-cow" viewBox="5.2 3.95 53.6 53.6"><path d="M20 17C17 15 16 11 17.5 8C19.5 11 22 13 24.5 13.5Z" fill="#F1E1BF"/><ellipse cx="12" cy="27" rx="7" ry="3.8" transform="rotate(-18 12 27)" fill="#F6F2EA"/><ellipse cx="12.5" cy="27" rx="4" ry="1.8" transform="rotate(-18 12.5 27)" fill="#F2B8C2"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M20 17C17 15 16 11 17.5 8C19.5 11 22 13 24.5 13.5Z" fill="#F1E1BF"/><ellipse cx="12" cy="27" rx="7" ry="3.8" transform="rotate(-18 12 27)" fill="#F6F2EA"/><ellipse cx="12.5" cy="27" rx="4" ry="1.8" transform="rotate(-18 12.5 27)" fill="#F2B8C2"/></g><ellipse cx="32" cy="31.5" rx="15.5" ry="18" fill="#F6F2EA"/><path d="M37 15C44 14 48 20 46.5 27C44 30 38 29 36.5 24C35.5 20 34 16 37 15Z" fill="#3A3533"/><ellipse cx="32" cy="45" rx="13" ry="8.5" fill="#F2B8C2"/><ellipse cx="27.5" cy="45" rx="1.6" ry="2.3" fill="#C27585"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="27.5" cy="45" rx="1.6" ry="2.3" fill="#C27585"/></g><circle cx="25" cy="32" r="2.6" fill="#2B2523"/><circle cx="25.99" cy="31.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25" cy="32" r="2.6" fill="#2B2523"/><circle cx="25.99" cy="31.01" r="0.88" fill="#fff"/></g></symbol>
+<symbol id="an-mouse" viewBox="5 5 54 54"><circle cx="15" cy="20.5" r="10" fill="#B6BAC4"/><circle cx="15.5" cy="21" r="6" fill="#F2B6C2"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="15" cy="20.5" r="10" fill="#B6BAC4"/><circle cx="15.5" cy="21" r="6" fill="#F2B6C2"/></g><ellipse cx="32" cy="39" rx="16" ry="14.5" fill="#C7CAD3"/><circle cx="25.5" cy="37" r="2.4" fill="#2B2523"/><circle cx="26.41" cy="36.09" r="0.82" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25.5" cy="37" r="2.4" fill="#2B2523"/><circle cx="26.41" cy="36.09" r="0.82" fill="#fff"/></g><circle cx="32" cy="44.5" r="2.2" fill="#E58FA3"/><path d="M23 45L13.5 43.5M23 47.5L14.5 49" fill="none" opacity=".35" stroke="#2B2523" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M23 45L13.5 43.5M23 47.5L14.5 49" fill="none" opacity=".35" stroke="#2B2523" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></g><ellipse cx="21.5" cy="43" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="21.5" cy="43" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-sheep" viewBox="9 8 46 46"><circle cx="32" cy="31" r="17" fill="#F7F2E7"/><circle cx="32" cy="14" r="6" fill="#F7F2E7"/><circle cx="40.5" cy="16.28" r="6" fill="#F7F2E7"/><circle cx="46.72" cy="22.5" r="6" fill="#F7F2E7"/><circle cx="49" cy="31" r="6" fill="#F7F2E7"/><circle cx="46.72" cy="39.5" r="6" fill="#F7F2E7"/><circle cx="40.5" cy="45.72" r="6" fill="#F7F2E7"/><circle cx="32" cy="48" r="6" fill="#F7F2E7"/><circle cx="23.5" cy="45.72" r="6" fill="#F7F2E7"/><circle cx="17.28" cy="39.5" r="6" fill="#F7F2E7"/><circle cx="15" cy="31" r="6" fill="#F7F2E7"/><circle cx="17.28" cy="22.5" r="6" fill="#F7F2E7"/><circle cx="23.5" cy="16.28" r="6" fill="#F7F2E7"/><ellipse cx="15.5" cy="35" rx="6.5" ry="3.2" transform="rotate(15 15.5 35)" fill="#DCC6AC"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="15.5" cy="35" rx="6.5" ry="3.2" transform="rotate(15 15.5 35)" fill="#DCC6AC"/></g><ellipse cx="32" cy="38.5" rx="11.5" ry="13.5" fill="#EBDCC9"/><circle cx="27" cy="25.5" r="5" fill="#F7F2E7"/><circle cx="32" cy="23.5" r="5.5" fill="#F7F2E7"/><circle cx="37" cy="25.5" r="5" fill="#F7F2E7"/><circle cx="26.5" cy="36.5" r="2.3" fill="#2B2523"/><circle cx="27.37" cy="35.63" r="0.78" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="26.5" cy="36.5" r="2.3" fill="#2B2523"/><circle cx="27.37" cy="35.63" r="0.78" fill="#fff"/></g><path d="M30 43.4H34L32 45.4Z" fill="#B98E7A" stroke="#B98E7A" stroke-linejoin="round"/><path d="M28.6 47.4Q30.3 49.1 32 47Q33.7 49.1 35.4 47.4" fill="none" stroke="#2B2523" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="23.5" cy="42" rx="2.4" ry="1.44" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="23.5" cy="42" rx="2.4" ry="1.44" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-unicorn" viewBox="5.6 3.5 49 49"><path d="M20 16C12 22 11 34 15 44C17 38 19 34 22 31Z" fill="#B79BE0"/><path d="M24 13C16 16 14 24 16 30C19 26 22 24 26 22Z" fill="#F49AB2"/><path d="M20.5 23L20.5 11L28.5 17.5Z" fill="#FBF7F2"/><g transform="matrix(-1 0 0 1 64 0)"><path d="M20.5 23L20.5 11L28.5 17.5Z" fill="#FBF7F2"/></g><ellipse cx="32" cy="35" rx="15.5" ry="17.5" fill="#FBF7F2"/><path d="M29 18.5L32 4L35 18.5Z" fill="#F2C14E" stroke="#F2C14E" stroke-linejoin="round"/><path d="M30.4 13.6L33.6 12.4M29.8 16.6L34.2 15" fill="none" stroke="#DDA22C" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="32" cy="45" rx="10" ry="6.5" fill="#F8DDE5"/><ellipse cx="28.8" cy="44.5" rx="1" ry="1.4" fill="#D79AAA"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="28.8" cy="44.5" rx="1" ry="1.4" fill="#D79AAA"/></g><circle cx="25.5" cy="34" r="2.4" fill="#2B2523"/><circle cx="26.41" cy="33.09" r="0.82" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25.5" cy="34" r="2.4" fill="#2B2523"/><circle cx="26.41" cy="33.09" r="0.82" fill="#fff"/></g><ellipse cx="21" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/><g transform="matrix(-1 0 0 1 64 0)"><ellipse cx="21" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/></g></symbol>
+<symbol id="an-otter" viewBox="9.3 14.3 45.4 45.4"><circle cx="13.5" cy="30" r="4.2" fill="#7E5A44"/><circle cx="13.5" cy="30" r="1.9" fill="#55392A"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="13.5" cy="30" r="4.2" fill="#7E5A44"/><circle cx="13.5" cy="30" r="1.9" fill="#55392A"/></g><ellipse cx="32" cy="37" rx="21" ry="15.5" fill="#8E6A52"/><path d="M13.5 41C16 35 25 33 32 36.5C39 33 48 35 50.5 41C48 49 41 52.5 32 52.5C23 52.5 16 49 13.5 41Z" fill="#EBD6BC"/><ellipse cx="32" cy="39" rx="3.6" ry="2.5" fill="#2B2523"/><path d="M28.6 43Q30.3 44.7 32 42.6Q33.7 44.7 35.4 43" fill="none" stroke="#2B2523" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25.6" cy="43.6" r=".75" fill="#8E6A52"/><circle cx="23.6" cy="41.6" r=".75" fill="#8E6A52"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25.6" cy="43.6" r=".75" fill="#8E6A52"/><circle cx="23.6" cy="41.6" r=".75" fill="#8E6A52"/></g><circle cx="23.5" cy="32" r="2.6" fill="#2B2523"/><circle cx="24.49" cy="31.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="23.5" cy="32" r="2.6" fill="#2B2523"/><circle cx="24.49" cy="31.01" r="0.88" fill="#fff"/></g></symbol>
+</svg>
 
 <script>
 (() => {
@@ -402,6 +484,7 @@ const SUBJ = Object.fromEntries(SUBJECTS.map((s, i) => [s.key, { ...s, i }]));
 const COLS = ['goals', 'children', 'activities'];
 const LS_KEY = 'doelenboek.v1';
 const LANG_KEY = 'doelenboek.lang';
+const THEME_KEY = 'doelenboek.theme';   // also read by the small script in the page head
 /* Firebase accounts (email + password). The standalone build fills this in; left null, the page
    uses the Claude-hosted store or, outside Claude, this browser only. */
 const FIREBASE_CONFIG = {"apiKey": "AIzaSyBBxji4-yKxG1ZZHvdxNV1vtG9JAD46gMA", "authDomain": "doelenboek-e78ca.firebaseapp.com", "projectId": "doelenboek-e78ca", "storageBucket": "doelenboek-e78ca.firebasestorage.app", "messagingSenderId": "224430377433", "appId": "1:224430377433:web:c2eedf518737fab6ce31c8"};
@@ -712,7 +795,7 @@ const T = {
   nl: {
     tab_overzicht: 'Overzicht', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen',
     st_connecting: 'Verbinden…', st_saved: 'Automatisch opgeslagen', st_readonly: 'Alleen lezen', st_local: 'Alleen in deze browser',
-    data_btn: 'Gegevens', loading: 'Gegevens laden…', locale: 'nl-BE',
+    data_btn: 'Gegevens', loading: 'Gegevens laden…', locale: 'nl-BE', to_dark: 'Donkere modus', to_light: 'Lichte modus',
     example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
     remove_examples: 'Voorbeelden verwijderen',
     no_goals_notice: 'Er zijn nog geen minimumdoelen ingeladen. Plak of laad ze in als lijst, dan berekent Doelenboek de voortgang per vak.',
@@ -815,7 +898,7 @@ const T = {
   en: {
     tab_overzicht: 'Overview', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals',
     st_connecting: 'Connecting…', st_saved: 'Saved automatically', st_readonly: 'Read only', st_local: 'This browser only',
-    data_btn: 'Data', loading: 'Loading data…', locale: 'en-GB',
+    data_btn: 'Data', loading: 'Loading data…', locale: 'en-GB', to_dark: 'Dark mode', to_light: 'Bright mode',
     example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
     remove_examples: 'Remove examples',
     no_goals_notice: 'No minimum goals have been loaded yet. Paste or load them as a list and Doelenboek will work out progress per subject.',
@@ -1198,8 +1281,20 @@ const exampleItems = () => COLS.flatMap(c => [...(c === 'goals' ? customGoals : 
 let rq = 0;
 function scheduleRender() { if (rq) return; rq = requestAnimationFrame(() => { rq = 0; render(); }); }
 
+/* Bright or dark: bright to start with; the theme button switches and remembers the choice for next time. */
+const themeNow = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+const ICON_MOON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+const ICON_SUN = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+function renderTheme() {
+  const dark = themeNow() === 'dark', b = $('#theme-btn'), label = t(dark ? 'to_light' : 'to_dark');
+  b.innerHTML = dark ? ICON_SUN : ICON_MOON;
+  b.setAttribute('aria-label', label);
+  b.title = label;
+}
+
 function renderChrome() {
   document.documentElement.lang = lang;
+  renderTheme();
   $('#data-btn').innerHTML = bt('data_btn');
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
@@ -1317,11 +1412,14 @@ function viewChild(cov) {
 
 function goalChip(g) { return `<li class="code goal-chip" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" tabindex="0" aria-label="${esc(`${g.code} ${sName(g.subject)}: ${gDesc(g)}`)}"><span class="dot"></span>${esc(g.code || sName(g.subject))}</li>`; }
 
-/* Up to six thumbnails; the sixth carries a "+n" overlay when there are more. */
+/* Up to four thumbnails to hover and open. With more photos, a fifth one fades out: it only says
+   "there is more", so it isn't a button (all photos are in the activity's edit form and the viewer). */
 function photoStrip(a) {
-  const ids = a.photoIds, SHOW = 6;
+  const ids = a.photoIds, SHOW = 4;
   if (!ids.length) return '';
-  return `<div class="thumbs">${ids.slice(0, SHOW).map((id, i) => `<button type="button" class="thumb" data-action="photo" data-id="${esc(a.id)}" data-i="${i}" aria-label="${esc(t('photo_alt', a.title, i + 1))}">${photoImg(id)}${i === SHOW - 1 && ids.length > SHOW ? `<span class="more">+${ids.length - SHOW}</span>` : ''}</button>`).join('')}</div>`;
+  const thumbs = ids.slice(0, SHOW).map((id, i) => `<button type="button" class="thumb" data-action="photo" data-id="${esc(a.id)}" data-i="${i}" aria-label="${esc(t('photo_alt', a.title, i + 1))}">${photoImg(id)}</button>`);
+  if (ids.length > SHOW) thumbs.push(`<span class="thumb-fade" aria-hidden="true">${photoImg(ids[SHOW])}</span>`);
+  return `<div class="thumbs act-photos">${thumbs.join('')}</div>`;
 }
 function activityCard(a) {
   const d = dateObj(a.date);
@@ -1333,9 +1431,9 @@ function activityCard(a) {
     <div class="act-body"><h3>${esc(a.title)}</h3>
       ${kids.length ? `<p class="act-kids">${kids.map(k => `<span><span class="avatar sm" aria-hidden="true">${animalArt(k.animal)}</span>${esc(k.name)}</span>`).join('')}</p>` : ''}
       ${goals.length ? `<ul class="goal-chips" aria-label="${esc(t('goals_aria'))}">${goals.slice(0, maxChips).map(goalChip).join('')}${goals.length > maxChips ? `<li class="code">+${goals.length - maxChips}</li>` : ''}</ul>` : `<p class="meta">${esc(t('no_goals_linked'))}</p>`}
-      ${photoStrip(a)}
       ${a.notes ? `<p class="notes">${esc(a.notes)}</p>` : ''}
     </div>
+    ${photoStrip(a)}
     <div class="row-actions w"><button class="icon-btn" data-action="edit-activity" data-id="${esc(a.id)}">${bt('edit')}</button><button class="icon-btn del" data-action="delete-activity" data-id="${esc(a.id)}">${bt('delete')}</button></div>
   </article>`;
 }
@@ -1396,209 +1494,12 @@ function viewGoals(cov) {
 }
 
 /* ---------- animal avatars ----------
-   Every animal is a flat, front-facing head on a transparent background, and they all share one
-   look: the same eyes, cheeks and palette. Children store the emoji as their animal; it is only
-   used as the key.
-   [emoji key, name, box, drawing]; the order here is the order of the picker. The drawing is made
-   on a 64×64 grid; the box is the square viewBox around its painted pixels (measured, so it
-   includes strokes), which makes every animal fill the avatar until it touches the edge.
-   Redraw an animal → measure it again. The drawing helpers stay inside this function. */
-const ANIMAL_ART = (() => {
-  const INK = '#2B2523';
-  const mirror = s => s + `<g transform="matrix(-1 0 0 1 64 0)">${s}</g>`;
-  const eyes = (y = 33, dx = 7.5, r = 2.6) => mirror(`<circle cx="${32 - dx}" cy="${y}" r="${r}" fill="${INK}"/><circle cx="${+(32 - dx + r * .38).toFixed(2)}" cy="${+(y - r * .38).toFixed(2)}" r="${+(r * .34).toFixed(2)}" fill="#fff"/>`);
-  const lightEyes = (y, dx, r = 2.4) => mirror(`<circle cx="${32 - dx}" cy="${y}" r="${r}" fill="#fff"/><circle cx="${32 - dx + r * .2}" cy="${y + r * .15}" r="${+(r * .56).toFixed(2)}" fill="${INK}"/>`);
-  const cheeks = (y = 40, dx = 12.5, rx = 3.2) => mirror(`<ellipse cx="${32 - dx}" cy="${y}" rx="${rx}" ry="${+(rx * .6).toFixed(2)}" fill="#EF7D7D" opacity=".4"/>`);
-  const smile = (y = 45, w = 3.2, c = INK) => `<path d="M${32 - w} ${y}Q32 ${+(y + w * .85).toFixed(2)} ${32 + w} ${y}" fill="none" stroke="${c}" stroke-width="1.8" stroke-linecap="round"/>`;
-  const catMouth = (y = 43) => `<path d="M28.6 ${y}Q30.3 ${y + 1.7} 32 ${y - .4}Q33.7 ${y + 1.7} 35.4 ${y}" fill="none" stroke="${INK}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>`;
-  const line = (d, c = INK, w = 1.8) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
-  const ring = (cx, cy, r, n, rr, fill) => Array.from({ length: n }, (_, i) => { const a = 2 * Math.PI * i / n; return `<circle cx="${+(cx + r * Math.sin(a)).toFixed(2)}" cy="${+(cy - r * Math.cos(a)).toFixed(2)}" r="${rr}" fill="${fill}"/>`; }).join('');
-  const star = (cx, cy, ro, ri, n, fill) => `<path d="M${Array.from({ length: 2 * n }, (_, i) => { const a = Math.PI * i / n, r = i % 2 ? ri : ro; return `${+(cx + r * Math.sin(a)).toFixed(2)} ${+(cy - r * Math.cos(a)).toFixed(2)}`; }).join('L')}Z" fill="${fill}" stroke="${fill}" stroke-width="2" stroke-linejoin="round"/>`;
-  return [
-    ['🦊', 'fox', '8.75 8.5 46.5 46.5',
-      mirror(`<path d="M12 28L15 8.5L29 19Z" fill="#E8843C"/><path d="M15.6 23L17 13L24.6 19.2Z" fill="#7A3E22"/>`) +
-      `<path d="M9 31C9 22 19 17 32 17C45 17 55 22 55 31C55 41 44 51 32 55C20 51 9 41 9 31Z" fill="#E8843C"/>` +
-      `<path d="M11 35C18 35 26 39 32 47C38 39 46 35 53 35C51 43 42 51 32 55C22 51 13 43 11 35Z" fill="#FFF3E4"/>` +
-      eyes(32, 8) + `<ellipse cx="32" cy="48.5" rx="2.8" ry="2.1" fill="${INK}"/>`],
-    ['🐻', 'bear', '8 9.25 48 48',
-      mirror(`<circle cx="15.5" cy="18" r="7.5" fill="#9A6942"/><circle cx="15.5" cy="18" r="3.8" fill="#D2A27A"/>`) +
-      `<circle cx="32" cy="35" r="21" fill="#9A6942"/><ellipse cx="32" cy="44" rx="10" ry="7.5" fill="#E2C09C"/>` +
-      eyes(32.5, 8) + `<ellipse cx="32" cy="40.6" rx="3.4" ry="2.4" fill="${INK}"/>` + smile(45.4, 2.6) + cheeks(40, 13.5)],
-    ['🐼', 'panda', '8 9.25 48 48',
-      mirror(`<circle cx="15.5" cy="18" r="7.5" fill="#34302E"/>`) +
-      `<circle cx="32" cy="35" r="21" fill="#FBFAF6"/>` +
-      mirror(`<ellipse cx="23.8" cy="33.6" rx="5" ry="6.6" transform="rotate(32 23.8 33.6)" fill="#34302E"/>`) +
-      lightEyes(33, 8.2, 2.3) + `<ellipse cx="32" cy="41.5" rx="3.2" ry="2.2" fill="#34302E"/>` + smile(45.6, 2.6) + cheeks(42, 13)],
-    ['🐨', 'koala', '3.5 5.75 57 57',
-      mirror(`<circle cx="13" cy="24" r="9.5" fill="#9AA3AD"/><circle cx="13.6" cy="24.6" r="5.4" fill="#EBDCE2"/>`) +
-      `<ellipse cx="32" cy="36" rx="19" ry="18" fill="#AEB6BF"/>` +
-      eyes(33, 9) + `<ellipse cx="32" cy="41" rx="4.6" ry="6" fill="#3B3940"/>` + cheeks(43, 12.5)],
-    ['🐯', 'tiger', '9.5 11.5 45 45',
-      mirror(`<circle cx="16" cy="18.5" r="6.5" fill="#EE9A3A"/><circle cx="16" cy="18.5" r="3.2" fill="#FBE2C2"/>`) +
-      `<circle cx="32" cy="35" r="21" fill="#EE9A3A"/>` +
-      `<path d="M28.6 14.4H35.4L32 21.5Z" fill="#4A3426"/>` +
-      mirror(`<path d="M12.2 30L19.5 32L12.6 35Z" fill="#4A3426"/><path d="M13.6 39.5L20 40L14.8 43Z" fill="#4A3426"/><path d="M21.5 17.6L25 23L19.6 21.6Z" fill="#4A3426"/>`) +
-      mirror(`<ellipse cx="28" cy="43.5" rx="6" ry="5" fill="#FFF5E8"/>`) +
-      eyes(32, 8) + `<path d="M29 39H35Q35 41 32 42.5Q29 41 29 39Z" fill="#D9675F"/>`],
-    ['🦁', 'lion', '5.2 6.85 53.6 53.6',
-      `<circle cx="32" cy="34" r="20" fill="#C2702B"/>` + ring(32, 34, 19.5, 11, 7.5, '#C2702B') +
-      mirror(`<circle cx="20.5" cy="22.5" r="4.6" fill="#F3C557"/><circle cx="20.5" cy="22.5" r="2.2" fill="#C98F3A"/>`) +
-      `<circle cx="32" cy="35" r="15.5" fill="#F3C557"/><ellipse cx="32" cy="42" rx="7.5" ry="5.5" fill="#FCE9BC"/>` +
-      eyes(33, 6.5, 2.4) + `<path d="M29.5 38.4H34.5Q34.5 40.4 32 41.4Q29.5 40.4 29.5 38.4Z" fill="${INK}"/>` + cheeks(40, 10.5, 2.6)],
-    ['🐸', 'frog', '10 12.75 44 44',
-      `<ellipse cx="32" cy="38" rx="22" ry="16" fill="#6CBD69"/>` +
-      mirror(`<circle cx="21" cy="24" r="8.5" fill="#6CBD69"/><circle cx="21" cy="24" r="5" fill="#fff"/>`) +
-      eyes(24, 11, 2.8) + mirror(`<circle cx="30" cy="35.5" r=".9" fill="#3E7D3B"/>`) +
-      line('M21 41Q32 50 43 41', INK, 2) + cheeks(43, 16.5)],
-    ['🐵', 'monkey', '5 6 54 54',
-      mirror(`<circle cx="12" cy="34" r="7" fill="#87583A"/><circle cx="12" cy="34" r="4" fill="#EBC3A3"/>`) +
-      `<circle cx="32" cy="33" r="19.5" fill="#87583A"/>` +
-      mirror(`<circle cx="26.5" cy="31" r="7.5" fill="#EFCDAE"/>`) + `<ellipse cx="32" cy="41" rx="11.5" ry="9" fill="#EFCDAE"/>` +
-      eyes(31, 5.8, 2.4) + mirror(`<circle cx="30.5" cy="39.5" r="1" fill="${INK}"/>`) + smile(43.6, 3.4) + cheeks(41, 9.5, 2.6)],
-    ['🐰', 'rabbit', '6.75 5 50.5 50.5',
-      mirror(`<ellipse cx="24.5" cy="17" rx="5.5" ry="12" transform="rotate(-8 24.5 17)" fill="#F7F3EE"/><ellipse cx="24.5" cy="17.5" rx="2.6" ry="8.5" transform="rotate(-8 24.5 17.5)" fill="#F2B3C0"/>`) +
-      `<circle cx="32" cy="39" r="16.5" fill="#F7F3EE"/>` +
-      eyes(37.5, 6.5, 2.4) + `<path d="M30 42.4H34L32 44.4Z" fill="#E58FA3" stroke="#E58FA3" stroke-linejoin="round"/>` +
-      catMouth(46) + cheeks(43, 10.5, 2.8)],
-    ['🦉', 'owl', '9.75 11 44.5 44.5',
-      `<path d="M13 24L17 11L26 18.5Q32 17 38 18.5L47 11L51 24C55 44 46 54 32 55C18 54 9 44 13 24Z" fill="#8B6A50"/>` +
-      `<ellipse cx="32" cy="50" rx="10" ry="5.5" fill="#B89577"/>` +
-      mirror(`<circle cx="24" cy="32" r="8.5" fill="#F4E5CB"/>`) +
-      eyes(32, 8, 3.4) + `<path d="M29.5 38H34.5L32 43.5Z" fill="#E9A23B" stroke="#E9A23B" stroke-linejoin="round"/>`],
-    ['🐧', 'penguin', '11 13 42 42',
-      `<circle cx="32" cy="34" r="21" fill="#2F3A4A"/>` +
-      `<path d="M32 22C26 18 15 22 15.5 33C16 44 24 51 32 52C40 51 48 44 48.5 33C49 22 38 18 32 22Z" fill="#FAF9F5"/>` +
-      eyes(32, 7) + `<path d="M28.5 38H35.5L32 42.5Z" fill="#F2A93B" stroke="#F2A93B" stroke-linejoin="round"/>` + cheeks(40, 11.5)],
-    ['🐢', 'turtle', '8 8.25 48 48',
-      `<ellipse cx="32" cy="29" rx="24" ry="19" fill="#6F8F3F"/>` +
-      `<path d="M32 13L38.5 17V24L32 28L25.5 24V17Z" fill="#87A852"/>` +
-      mirror(`<path d="M14.5 23L21 20.5L23 27L18 31L12.5 29Z" fill="#87A852"/>`) +
-      `<circle cx="32" cy="40" r="14.5" fill="#9CCB86"/>` +
-      eyes(38.5, 6) + smile(45, 3) + cheeks(43, 9.5, 2.6)],
-    ['🐙', 'octopus', '8 11 48 48',
-      mirror(`<ellipse cx="17" cy="47" rx="5" ry="7.5" transform="rotate(28 17 47)" fill="#B07AC8"/><ellipse cx="25" cy="50.5" rx="4.6" ry="7.5" transform="rotate(10 25 50.5)" fill="#B07AC8"/>`) +
-      `<ellipse cx="32" cy="51.5" rx="4.6" ry="7.5" fill="#B07AC8"/>` +
-      `<path d="M12 35C12 20 21 11 32 11C43 11 52 20 52 35C52 44 44 48 32 48C20 48 12 44 12 35Z" fill="#B07AC8"/>` +
-      `<circle cx="24" cy="19.5" r="2.4" fill="#C99BDB"/><circle cx="41" cy="18" r="1.7" fill="#C99BDB"/><circle cx="37.5" cy="23.5" r="1.2" fill="#C99BDB"/>` +
-      eyes(33, 8) + smile(39.6, 3.2) + cheeks(38, 13.5)],
-    ['🦔', 'hedgehog', '4 5 56 56',
-      star(32, 33, 27, 20.5, 16, '#7B5B45') +
-      `<ellipse cx="32" cy="39" rx="15" ry="13" fill="#EBD3B3"/><ellipse cx="32" cy="45" rx="6.5" ry="4.5" fill="#F5E5CE"/>` +
-      `<circle cx="32" cy="43" r="2.3" fill="${INK}"/>` + eyes(36.5, 6.5, 2.3) + cheeks(42, 10.5, 2.6)],
-    ['🦒', 'giraffe', '7.4 4.8 49.2 49.2',
-      mirror(`<path d="M25 18L23.6 9.5" stroke="#C98B3E" stroke-width="3.2" stroke-linecap="round"/><circle cx="23.4" cy="8.6" r="2.8" fill="#8A5A2B"/><ellipse cx="13.5" cy="25" rx="6.5" ry="3.2" transform="rotate(-25 13.5 25)" fill="#F0B54D"/><ellipse cx="14" cy="25" rx="3.6" ry="1.5" transform="rotate(-25 14 25)" fill="#F7D9A3"/>`) +
-      `<ellipse cx="32" cy="33" rx="15" ry="18" fill="#F0B54D"/>` +
-      `<path d="M24 20.5Q28 18.5 30 21.5Q30 25.5 26 25.5Q23 24.5 24 20.5Z" fill="#C98B3E"/><circle cx="40" cy="21.5" r="2.6" fill="#C98B3E"/><circle cx="19.6" cy="35" r="1.9" fill="#C98B3E"/><circle cx="44.4" cy="33" r="2.1" fill="#C98B3E"/>` +
-      `<ellipse cx="32" cy="45" rx="11.5" ry="8" fill="#F7D9A3"/>` +
-      mirror(`<ellipse cx="28.5" cy="44.2" rx="1.2" ry="1.6" fill="#8A5A2B"/>`) + smile(48.4, 2.8) + eyes(32, 7.5)],
-    ['🐘', 'elephant', '3.5 5.35 57 57',
-      mirror(`<ellipse cx="14" cy="32" rx="10.5" ry="13.5" fill="#9DA9B7"/><ellipse cx="15" cy="32" rx="6.5" ry="9" fill="#E7CBD3"/>`) +
-      `<circle cx="32" cy="30" r="16.5" fill="#B4BECA"/>` +
-      `<path d="M27.5 37C27.5 46 28.5 52.5 33 54C37.5 55 39.5 51.5 37 50.5C35 50 36.5 45 36.5 37Z" fill="#B4BECA"/>` +
-      eyes(29.5, 7) + cheeks(36, 10.5, 2.8)],
-    ['🦓', 'zebra', '9.15 7.8 45.7 45.7',
-      mirror(`<ellipse cx="20" cy="15" rx="4.2" ry="7.5" transform="rotate(-20 20 15)" fill="#F7F6F2"/><ellipse cx="20.3" cy="15.5" rx="1.8" ry="4.5" transform="rotate(-20 20.3 15.5)" fill="#3A3533"/>`) +
-      `<path d="M26 14Q32 6 38 14Z" fill="#3A3533"/>` +
-      `<ellipse cx="32" cy="33" rx="15.5" ry="20" fill="#F7F6F2"/>` +
-      line('M27 16.6Q32 19 37 16.6', '#3A3533', 2.4) + line('M25.4 21.2Q32 24.2 38.6 21.2', '#3A3533', 2.4) +
-      mirror(line('M16.9 28Q20.6 29 22.8 27.6', '#3A3533', 2.4) + line('M16.7 34Q20.4 35.2 22.6 33.8', '#3A3533', 2.4)) +
-      `<ellipse cx="32" cy="46" rx="11" ry="7.5" fill="#4A4441"/>` +
-      mirror(`<ellipse cx="28" cy="45.5" rx="1.3" ry="1.8" fill="#77706C"/>`) + eyes(32, 7.5)],
-    ['🐝', 'bee', '6.7 5.7 50.6 50.6',
-      mirror(`<ellipse cx="14" cy="21" rx="8" ry="5.5" transform="rotate(-35 14 21)" fill="#F7FBFE" opacity=".95"/>`) +
-      mirror(line('M26.5 19Q24.5 12.5 21 9.8', INK, 2) + `<circle cx="20.6" cy="9.4" r="2.4" fill="${INK}"/>`) +
-      `<circle cx="32" cy="36" r="19" fill="#F6C744"/>` +
-      `<path d="M15.6 27.2Q32 18.4 48.4 27.2L50 31Q32 22.4 14 31Z" fill="${INK}"/>` +
-      eyes(37, 7) + smile(43.4, 3.2) + cheeks(42, 12.5)],
-    ['🦋', 'butterfly', '7.2 6.85 49.6 49.6',
-      mirror(`<ellipse cx="18" cy="23" rx="11" ry="9.5" transform="rotate(-25 18 23)" fill="#F08A5D"/><ellipse cx="21" cy="42" rx="8.5" ry="7" transform="rotate(20 21 42)" fill="#F5B85E"/><circle cx="15.5" cy="21.5" r="2.6" fill="#FFF4E6"/><circle cx="19.5" cy="42.5" r="1.8" fill="#FFF4E6"/>`) +
-      mirror(line('M30 22.5Q27.5 16 24 12.6', INK, 1.8) + `<circle cx="23.6" cy="12.2" r="1.9" fill="${INK}"/>`) +
-      `<ellipse cx="32" cy="42" rx="4" ry="11" fill="#5B4683"/><circle cx="32" cy="29" r="8" fill="#7B5EA7"/>` +
-      lightEyes(28.6, 3.2, 1.9) + smile(32.2, 1.8, '#fff')],
-    ['🐞', 'ladybug', '6.25 6.4 51.5 51.5',
-      mirror(line('M28 15Q26 10 22.5 8.6', INK, 1.8) + `<circle cx="22" cy="8.3" r="1.9" fill="${INK}"/>`) +
-      `<circle cx="32" cy="38" r="19" fill="#E2453C"/>` + line('M32 26V57', INK, 1.8) +
-      mirror(`<circle cx="22" cy="37" r="3" fill="${INK}"/><circle cx="25.5" cy="48" r="2.5" fill="${INK}"/><circle cx="16.6" cy="45" r="1.8" fill="${INK}"/>`) +
-      `<path d="M19 28C19 18.5 25 14 32 14C39 14 45 18.5 45 28Z" fill="#2E2826"/>` +
-      lightEyes(22.5, 5, 2.5) + smile(25.4, 2.4, '#fff')],
-    ['🐳', 'whale', '9 8.35 46 46',
-      line('M32 21.5V14.5', '#7FB8E6', 2.6) + mirror(line('M32 14.5Q27.5 9.5 23.5 11.6', '#7FB8E6', 2.6)) +
-      `<path d="M9 38C9 27 19 21 32 21C45 21 55 27 55 38C55 48 45 53 32 53C19 53 9 48 9 38Z" fill="#5B9BD5"/>` +
-      `<path d="M14 43C20 47 26 48.5 32 48.5C38 48.5 44 47 50 43C47 49 40 53 32 53C24 53 17 49 14 43Z" fill="#D3E8F8"/>` +
-      eyes(35, 9) + smile(40.6, 4) + cheeks(40, 15.5)],
-    ['🦜', 'parrot', '8.5 5 47 47',
-      `<path d="M28 15Q27 7 32 5Q30 10 33 14Z" fill="#E85D4A"/><path d="M33 14Q35 7 40 7Q36 10 37 15Z" fill="#F2A93B"/>` +
-      `<circle cx="32" cy="33" r="19" fill="#4DB36B"/>` +
-      mirror(`<circle cx="24" cy="30" r="5.2" fill="#FFF8EC"/>`) + eyes(30, 8, 2.5) +
-      `<path d="M27 35.5C27 32.5 37 32.5 37 35.5C37 41 34.5 45.5 32 47.5C29.5 45.5 27 41 27 35.5Z" fill="#F2B13D"/>` +
-      `<path d="M29 41.6Q32 44.6 35 41.6Q34 46.6 32 47.4Q30 46.6 29 41.6Z" fill="#D9922C"/>` + cheeks(40, 13)],
-    ['🐿️', 'squirrel', '15.5 11.1 40.8 40.8',
-      `<path d="M41 50C57 47 60 29 52 17.5C46 9 34 12 38.5 20C46.5 24 48.5 36 41 50Z" fill="#B8692E"/>` +
-      mirror(`<path d="M19 26L19.6 12L28.4 20.5Z" fill="#D2843F"/><path d="M19.4 16.5L19.6 12L22.6 15Z" fill="#9C5524"/>`) +
-      `<ellipse cx="32" cy="36" rx="16.5" ry="15" fill="#D2843F"/><ellipse cx="32" cy="42.2" rx="8.5" ry="6" fill="#F3D6B3"/>` +
-      `<ellipse cx="32" cy="39.6" rx="2.2" ry="1.6" fill="${INK}"/>` + smile(43.4, 2.4) + eyes(34, 7, 2.4) + cheeks(41, 11, 2.6)],
-    ['🦩', 'flamingo', '10.8 12.4 42.4 42.4',
-      `<path d="M27 42C27 46.5 26.2 50 25.2 53Q31 56.5 36.8 53C37.2 50 37 46.5 37 42Z" fill="#F49AB2"/>` +
-      `<path d="M30 17.5Q31 12 35.5 12.5Q32.4 14.2 33.4 17.5Z" fill="#F49AB2"/>` +
-      `<circle cx="32" cy="31" r="14.5" fill="#F7A8BD"/>` + eyes(29.5, 6.5, 2.4) +
-      `<path d="M27.8 34.6Q32 32.8 36.2 34.6L34.6 41Q32 42.4 29.4 41Z" fill="#FBEFF2"/><path d="M29.4 41Q32 42.4 34.6 41L33 46.2Q32 47.6 31 46.2Z" fill="#2E2826"/>` +
-      cheeks(36, 10.5, 2.6)],
-    ['🐱', 'cat', '7.9 7.15 48.2 48.2',
-      mirror(`<path d="M11.5 29L14.5 9.5L27.5 18.5Z" fill="#9FA7B3"/><path d="M15 24.5L16.5 14L24 19.5Z" fill="#F2B3C0"/>`) +
-      `<ellipse cx="32" cy="35.5" rx="20.5" ry="17.5" fill="#AEB5C0"/>` +
-      line('M29 19.5L29.8 23.5M32 19V23.6M35 19.5L34.2 23.5', '#8E96A3', 1.8) +
-      eyes(34, 8) + `<path d="M30 39.4H34L32 41.6Z" fill="#E58FA3" stroke="#E58FA3" stroke-linejoin="round"/>` + catMouth(43) +
-      mirror(line('M18.5 40.5L8.5 39M18.5 43.5L9.5 45', INK, 1.1).replace('fill="none"', 'fill="none" opacity=".35"')) + cheeks(41, 13)],
-    ['🐶', 'dog', '6.3 7.3 51.4 51.4',
-      mirror(`<ellipse cx="13.5" cy="31" rx="6.5" ry="13" transform="rotate(16 13.5 31)" fill="#8B5E3C"/>`) +
-      `<circle cx="32" cy="33" r="18.5" fill="#E0B07B"/><ellipse cx="40.5" cy="27.5" rx="6" ry="7" fill="#C48A55"/>` +
-      `<ellipse cx="32" cy="42" rx="9.5" ry="7.5" fill="#F7E4CB"/>` +
-      `<path d="M30.3 44.2Q32 49.4 33.7 44.2Z" fill="#EF8A8A"/>` + catMouth(43) +
-      `<ellipse cx="32" cy="38.8" rx="3.8" ry="2.7" fill="${INK}"/>` + eyes(31, 7.5) + cheeks(40, 13)],
-    ['🐷', 'pig', '8.5 8 47 47',
-      mirror(`<path d="M13 22L15 9.5L26 16Z" fill="#EE9CAE" stroke="#EE9CAE" stroke-width="3" stroke-linejoin="round"/>`) +
-      `<circle cx="32" cy="35" r="20" fill="#F8BFCA"/>` +
-      eyes(31.5, 8) + `<ellipse cx="32" cy="41" rx="8" ry="6" fill="#EF9DB0"/>` +
-      mirror(`<ellipse cx="29" cy="41" rx="1.4" ry="2.1" fill="#B9566E"/>`) + smile(48.6, 2.4) + cheeks(40, 14)],
-    ['🐮', 'cow', '5.2 3.95 53.6 53.6',
-      mirror(`<path d="M20 17C17 15 16 11 17.5 8C19.5 11 22 13 24.5 13.5Z" fill="#F1E1BF"/><ellipse cx="12" cy="27" rx="7" ry="3.8" transform="rotate(-18 12 27)" fill="#F6F2EA"/><ellipse cx="12.5" cy="27" rx="4" ry="1.8" transform="rotate(-18 12.5 27)" fill="#F2B8C2"/>`) +
-      `<ellipse cx="32" cy="31.5" rx="15.5" ry="18" fill="#F6F2EA"/>` +
-      `<path d="M37 15C44 14 48 20 46.5 27C44 30 38 29 36.5 24C35.5 20 34 16 37 15Z" fill="#3A3533"/>` +
-      `<ellipse cx="32" cy="45" rx="13" ry="8.5" fill="#F2B8C2"/>` +
-      mirror(`<ellipse cx="27.5" cy="45" rx="1.6" ry="2.3" fill="#C27585"/>`) + eyes(32, 7)],
-    ['🐭', 'mouse', '5 5 54 54',
-      mirror(`<circle cx="15" cy="20.5" r="10" fill="#B6BAC4"/><circle cx="15.5" cy="21" r="6" fill="#F2B6C2"/>`) +
-      `<ellipse cx="32" cy="39" rx="16" ry="14.5" fill="#C7CAD3"/>` +
-      eyes(37, 6.5, 2.4) + `<circle cx="32" cy="44.5" r="2.2" fill="#E58FA3"/>` +
-      mirror(line('M23 45L13.5 43.5M23 47.5L14.5 49', INK, 1.1).replace('fill="none"', 'fill="none" opacity=".35"')) + cheeks(43, 10.5, 2.6)],
-    ['🐑', 'sheep', '9 8 46 46',
-      `<circle cx="32" cy="31" r="17" fill="#F7F2E7"/>` + ring(32, 31, 17, 12, 6, '#F7F2E7') +
-      mirror(`<ellipse cx="15.5" cy="35" rx="6.5" ry="3.2" transform="rotate(15 15.5 35)" fill="#DCC6AC"/>`) +
-      `<ellipse cx="32" cy="38.5" rx="11.5" ry="13.5" fill="#EBDCC9"/>` +
-      `<circle cx="27" cy="25.5" r="5" fill="#F7F2E7"/><circle cx="32" cy="23.5" r="5.5" fill="#F7F2E7"/><circle cx="37" cy="25.5" r="5" fill="#F7F2E7"/>` +
-      eyes(36.5, 5.5, 2.3) + `<path d="M30 43.4H34L32 45.4Z" fill="#B98E7A" stroke="#B98E7A" stroke-linejoin="round"/>` + catMouth(47.4) + cheeks(42, 8.5, 2.4)],
-    ['🦄', 'unicorn', '5.6 3.5 49 49',
-      `<path d="M20 16C12 22 11 34 15 44C17 38 19 34 22 31Z" fill="#B79BE0"/><path d="M24 13C16 16 14 24 16 30C19 26 22 24 26 22Z" fill="#F49AB2"/>` +
-      mirror(`<path d="M20.5 23L20.5 11L28.5 17.5Z" fill="#FBF7F2"/>`) +
-      `<ellipse cx="32" cy="35" rx="15.5" ry="17.5" fill="#FBF7F2"/>` +
-      `<path d="M29 18.5L32 4L35 18.5Z" fill="#F2C14E" stroke="#F2C14E" stroke-linejoin="round"/>` + line('M30.4 13.6L33.6 12.4M29.8 16.6L34.2 15', '#DDA22C', 1.2) +
-      `<ellipse cx="32" cy="45" rx="10" ry="6.5" fill="#F8DDE5"/>` +
-      mirror(`<ellipse cx="28.8" cy="44.5" rx="1" ry="1.4" fill="#D79AAA"/>`) + eyes(34, 6.5, 2.4) + cheeks(40, 11)],
-    ['🦦', 'otter', '9.3 14.3 45.4 45.4',
-      mirror(`<circle cx="13.5" cy="30" r="4.2" fill="#7E5A44"/><circle cx="13.5" cy="30" r="1.9" fill="#55392A"/>`) +
-      `<ellipse cx="32" cy="37" rx="21" ry="15.5" fill="#8E6A52"/>` +
-      `<path d="M13.5 41C16 35 25 33 32 36.5C39 33 48 35 50.5 41C48 49 41 52.5 32 52.5C23 52.5 16 49 13.5 41Z" fill="#EBD6BC"/>` +
-      `<ellipse cx="32" cy="39" rx="3.6" ry="2.5" fill="${INK}"/>` + catMouth(43) +
-      mirror(`<circle cx="25.6" cy="43.6" r=".75" fill="#8E6A52"/><circle cx="23.6" cy="41.6" r=".75" fill="#8E6A52"/>`) + eyes(32, 8.5)],
-  ];
-})();
-const ANIMALS = ANIMAL_ART.map(a => a[0]);
-const ANIMAL_ID = new Map(ANIMAL_ART.map(a => [a[0], 'an-' + a[1]]));
-/* The drawings, added to the page once as <symbol>s; avatars point at them with <use>. */
-function animalSprite() {
-  return `<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">${ANIMAL_ART.map(([, name, box, art]) =>
-    `<symbol id="an-${name}" viewBox="${box}">${art}</symbol>`).join('')}</svg>`;
-}
+   The drawings live in design/animals/ (one SVG per animal, listed in animals.json). tools/build.py
+   adds them to the page as <symbol id="an-NAME"> elements and fills in this list of [emoji, name]
+   pairs, in picker order. Children store the emoji as their animal; it only selects the drawing. */
+const ANIMAL_LIST = [["🦊", "fox"], ["🐻", "bear"], ["🐼", "panda"], ["🐨", "koala"], ["🐯", "tiger"], ["🦁", "lion"], ["🐸", "frog"], ["🐵", "monkey"], ["🐰", "rabbit"], ["🦉", "owl"], ["🐧", "penguin"], ["🐢", "turtle"], ["🐙", "octopus"], ["🦔", "hedgehog"], ["🦒", "giraffe"], ["🐘", "elephant"], ["🦓", "zebra"], ["🐝", "bee"], ["🦋", "butterfly"], ["🐞", "ladybug"], ["🐳", "whale"], ["🦜", "parrot"], ["🐿️", "squirrel"], ["🦩", "flamingo"], ["🐱", "cat"], ["🐶", "dog"], ["🐷", "pig"], ["🐮", "cow"], ["🐭", "mouse"], ["🐑", "sheep"], ["🦄", "unicorn"], ["🦦", "otter"]];
+const ANIMALS = ANIMAL_LIST.map(a => a[0]);
+const ANIMAL_ID = new Map(ANIMAL_LIST.map(([key, name]) => [key, 'an-' + name]));
 /* Avatar contents for a stored animal: its drawing, or the stored text itself for anything unknown. */
 const animalArt = a => ANIMAL_ID.has(a) ? `<svg viewBox="0 0 64 64" focusable="false"><use href="#${ANIMAL_ID.get(a)}"/></svg>` : esc(a);
 
@@ -2110,6 +2011,12 @@ main.addEventListener('toggle', e => {
   el.open ? ui.closed.delete(el.dataset.subj) : ui.closed.add(el.dataset.subj);
 }, true);
 $('#data-btn').addEventListener('click', dataDialog);
+$('#theme-btn').addEventListener('click', () => {
+  const next = themeNow() === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem(THEME_KEY, next); } catch (err) {}
+  renderTheme();
+});
 $('#lang-switch').addEventListener('click', e => {
   const b = e.target.closest('[data-lang]'); if (!b || b.dataset.lang === lang) return;
   lang = b.dataset.lang;
@@ -2342,7 +2249,6 @@ function startLocal() {
   mode = 'local'; loadLocal(); render();
 }
 async function init() {
-  document.body.insertAdjacentHTML('afterbegin', animalSprite());
   fromHash();
   if (FIREBASE_CONFIG) { render(); startFirebase(); return; }
   if (!window.claude || typeof window.claude.use !== 'function') { startLocal(); return; }

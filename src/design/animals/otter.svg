@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="9.3 14.3 45.4 45.4">
+  <circle cx="13.5" cy="30" r="4.2" fill="#7E5A44"/>
+  <circle cx="13.5" cy="30" r="1.9" fill="#55392A"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <circle cx="13.5" cy="30" r="4.2" fill="#7E5A44"/>
+    <circle cx="13.5" cy="30" r="1.9" fill="#55392A"/>
+  </g>
+  <ellipse cx="32" cy="37" rx="21" ry="15.5" fill="#8E6A52"/>
+  <path d="M13.5 41C16 35 25 33 32 36.5C39 33 48 35 50.5 41C48 49 41 52.5 32 52.5C23 52.5 16 49 13.5 41Z" fill="#EBD6BC"/>
+  <ellipse cx="32" cy="39" rx="3.6" ry="2.5" fill="#2B2523"/>
+  <path d="M28.6 43Q30.3 44.7 32 42.6Q33.7 44.7 35.4 43" fill="none" stroke="#2B2523" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="25.6" cy="43.6" r=".75" fill="#8E6A52"/>
+  <circle cx="23.6" cy="41.6" r=".75" fill="#8E6A52"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <circle cx="25.6" cy="43.6" r=".75" fill="#8E6A52"/>
+    <circle cx="23.6" cy="41.6" r=".75" fill="#8E6A52"/>
+  </g>
+  <circle cx="23.5" cy="32" r="2.6" fill="#2B2523"/>
+  <circle cx="24.49" cy="31.01" r="0.88" fill="#fff"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <circle cx="23.5" cy="32" r="2.6" fill="#2B2523"/>
+    <circle cx="24.49" cy="31.01" r="0.88" fill="#fff"/>
+  </g>
+</svg>

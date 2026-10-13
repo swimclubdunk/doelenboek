@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="9.5 11.5 45 45">
+  <circle cx="16" cy="18.5" r="6.5" fill="#EE9A3A"/>
+  <circle cx="16" cy="18.5" r="3.2" fill="#FBE2C2"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <circle cx="16" cy="18.5" r="6.5" fill="#EE9A3A"/>
+    <circle cx="16" cy="18.5" r="3.2" fill="#FBE2C2"/>
+  </g>
+  <circle cx="32" cy="35" r="21" fill="#EE9A3A"/>
+  <path d="M28.6 14.4H35.4L32 21.5Z" fill="#4A3426"/>
+  <path d="M12.2 30L19.5 32L12.6 35Z" fill="#4A3426"/>
+  <path d="M13.6 39.5L20 40L14.8 43Z" fill="#4A3426"/>
+  <path d="M21.5 17.6L25 23L19.6 21.6Z" fill="#4A3426"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <path d="M12.2 30L19.5 32L12.6 35Z" fill="#4A3426"/>
+    <path d="M13.6 39.5L20 40L14.8 43Z" fill="#4A3426"/>
+    <path d="M21.5 17.6L25 23L19.6 21.6Z" fill="#4A3426"/>
+  </g>
+  <ellipse cx="28" cy="43.5" rx="6" ry="5" fill="#FFF5E8"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <ellipse cx="28" cy="43.5" rx="6" ry="5" fill="#FFF5E8"/>
+  </g>
+  <circle cx="24" cy="32" r="2.6" fill="#2B2523"/>
+  <circle cx="24.99" cy="31.01" r="0.88" fill="#fff"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <circle cx="24" cy="32" r="2.6" fill="#2B2523"/>
+    <circle cx="24.99" cy="31.01" r="0.88" fill="#fff"/>
+  </g>
+  <path d="M29 39H35Q35 41 32 42.5Q29 41 29 39Z" fill="#D9675F"/>
+</svg>

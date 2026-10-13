@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 9.25 48 48">
+  <circle cx="15.5" cy="18" r="7.5" fill="#34302E"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <circle cx="15.5" cy="18" r="7.5" fill="#34302E"/>
+  </g>
+  <circle cx="32" cy="35" r="21" fill="#FBFAF6"/>
+  <ellipse cx="23.8" cy="33.6" rx="5" ry="6.6" transform="rotate(32 23.8 33.6)" fill="#34302E"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <ellipse cx="23.8" cy="33.6" rx="5" ry="6.6" transform="rotate(32 23.8 33.6)" fill="#34302E"/>
+  </g>
+  <circle cx="23.8" cy="33" r="2.3" fill="#fff"/>
+  <circle cx="24.26" cy="33.345" r="1.29" fill="#2B2523"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <circle cx="23.8" cy="33" r="2.3" fill="#fff"/>
+    <circle cx="24.26" cy="33.345" r="1.29" fill="#2B2523"/>
+  </g>
+  <ellipse cx="32" cy="41.5" rx="3.2" ry="2.2" fill="#34302E"/>
+  <path d="M29.4 45.6Q32 47.81 34.6 45.6" fill="none" stroke="#2B2523" stroke-width="1.8" stroke-linecap="round"/>
+  <ellipse cx="19" cy="42" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <ellipse cx="19" cy="42" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/>
+  </g>
+</svg>

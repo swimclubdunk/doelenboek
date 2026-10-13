@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8.5 5 47 47">
+  <path d="M28 15Q27 7 32 5Q30 10 33 14Z" fill="#E85D4A"/>
+  <path d="M33 14Q35 7 40 7Q36 10 37 15Z" fill="#F2A93B"/>
+  <circle cx="32" cy="33" r="19" fill="#4DB36B"/>
+  <circle cx="24" cy="30" r="5.2" fill="#FFF8EC"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <circle cx="24" cy="30" r="5.2" fill="#FFF8EC"/>
+  </g>
+  <circle cx="24" cy="30" r="2.5" fill="#2B2523"/>
+  <circle cx="24.95" cy="29.05" r="0.85" fill="#fff"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <circle cx="24" cy="30" r="2.5" fill="#2B2523"/>
+    <circle cx="24.95" cy="29.05" r="0.85" fill="#fff"/>
+  </g>
+  <path d="M27 35.5C27 32.5 37 32.5 37 35.5C37 41 34.5 45.5 32 47.5C29.5 45.5 27 41 27 35.5Z" fill="#F2B13D"/>
+  <path d="M29 41.6Q32 44.6 35 41.6Q34 46.6 32 47.4Q30 46.6 29 41.6Z" fill="#D9922C"/>
+  <ellipse cx="19" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <ellipse cx="19" cy="40" rx="3.2" ry="1.92" fill="#EF7D7D" opacity=".4"/>
+  </g>
+</svg>

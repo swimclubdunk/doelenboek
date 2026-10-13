@@ -1,0 +1,15 @@
+/* Rules the app's code relies on. Not design: removing or overriding these breaks behaviour.
+   Everything visual lives in design/. */
+[hidden] { display: none !important; }
+
+/* Button and tab labels hold both languages in one grid cell; the inactive one is invisible but
+   keeps its width, so controls don't change size when the language switches (see both()). */
+.bi { display: inline-grid; justify-items: center; }
+.bi > span { grid-area: 1 / 1; }
+.bi > .off { visibility: hidden; }
+
+/* Read-only data: hide every control that changes something (marked .w in the markup). */
+.readonly .w { display: none !important; }
+
+/* Login screen and start-up: no navigation, data menu or status yet. */
+.chrome-off .tabs, .chrome-off #data-btn, .chrome-off .status { display: none; }
