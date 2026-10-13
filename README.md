@@ -24,7 +24,6 @@ Create an account with your email and a password, then use it on any device.
 - **Private by design.** Data is stored in Google Firebase (Cloud Firestore). The database rules in [`firestore.rules`](firestore.rules) only let each account read and write its own data.
 - **Logging out** also removes the offline copy from that browser, so the next person on a shared computer finds nothing.
 - **Delete your account** under **Gegevens**. It permanently removes the login and all its data.
-- **Backups:** still a good idea. **Gegevens → Back-up downloaden** saves everything, photos included, as one file.
 
 Used Doelenboek before accounts existed? Log in at the same address. The app offers to move the data stored in that browser into your account.
 

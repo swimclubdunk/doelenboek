@@ -396,8 +396,6 @@ const ANIMALS = ['🦊','🐻','🐼','🐨','🐯','🦁','🐸','🐵','🐰',
 const COLS = ['goals', 'children', 'activities'];
 const LS_KEY = 'doelenboek.v1';
 const LANG_KEY = 'doelenboek.lang';
-const BACKUP_KEY = 'doelenboek.lastBackup';
-const BACKUP_EVERY_DAYS = 14;
 /* Firebase accounts (email + password). The standalone build fills this in; left null, the page
    uses the Claude-hosted store or, outside Claude, this browser only. */
 const FIREBASE_CONFIG = {"apiKey": "AIzaSyBBxji4-yKxG1ZZHvdxNV1vtG9JAD46gMA", "authDomain": "doelenboek-e78ca.firebaseapp.com", "projectId": "doelenboek-e78ca", "storageBucket": "doelenboek-e78ca.firebasestorage.app", "messagingSenderId": "224430377433", "appId": "1:224430377433:web:c2eedf518737fab6ce31c8"};
@@ -765,9 +763,8 @@ const T = {
     e_json: 'Dit is geen geldige JSON.', e_cols: 'Elke regel heeft minstens drie kolommen nodig: code, vak en omschrijving.',
     e_subject: (l, r) => `Regel ${l}: vak "${r}" niet herkend.`, e_desc: l => `Regel ${l}: omschrijving ontbreekt.`,
     data_h: 'Gegevens', where_db: 'Je gegevens worden automatisch bewaard bij deze pagina en zijn zichtbaar voor wie je de pagina deelt.',
-    where_local: 'Je gegevens staan alleen in deze browser. Maak regelmatig een back-up.',
+    where_local: 'Je gegevens staan alleen in deze browser.',
     report_h: 'Rapport per kind', report_p: 'CSV voor Excel: per kind elk minimumdoel, behaald of open, met de activiteiten als bewijs.', report_btn: 'Rapport downloaden',
-    backup_h: 'Back-up', backup_p: "Alle kinderen, eigen doelen, activiteiten en foto's als JSON-bestand. De ingebouwde doelen zitten al in de app.", backup_btn: 'Back-up downloaden',
     restore_h: 'Back-up terugzetten', restore_p: 'Voegt de items uit een back-up toe. Items met dezelfde sleutel worden overschreven, de rest blijft staan.',
     examples_h: 'Voorbeeldgegevens', examples_p: 'Verwijdert het voorbeeldkind en de voorbeeldactiviteit.', restoring: 'Bezig met terugzetten…',
     file_saved: 'Bestand opgeslagen.', dl_open: 'Er staat al een downloadvenster open.',
@@ -780,17 +777,13 @@ const T = {
     err_rights: 'Je hebt geen rechten om hier iets te wijzigen. Vraag de eigenaar om je als bijdrager toe te voegen.',
     err_busy: 'Te veel wijzigingen tegelijk. Wacht even en probeer opnieuw.', err_revoked: 'De toegang tot de opslag is gewijzigd. Herlaad de pagina.',
     err_invalid: 'Deze gegevens zijn onvolledig.', err_generic: 'Opslaan lukte niet. Controleer je verbinding en probeer opnieuw.',
-    err_local_save: 'Opslaan in deze browser lukte niet. Maak een back-up via Gegevens.',
+    err_local_save: 'Opslaan in deze browser lukte niet.',
     err_no_shared: 'Gedeelde opslag is niet beschikbaar. Gegevens worden in deze browser bewaard.',
     err_conn: 'De verbinding met de opslag is verbroken. Herlaad de pagina.',
     rep_head: ['Kind', 'Vak', 'Code', 'Categorie', 'Omschrijving', 'Status', 'Activiteiten'], rep_file: 'rapport',
     pick_btn: 'Doelen kiezen…', pick_h: 'Minimumdoelen kiezen', done: 'Klaar', none_chosen: 'Nog geen doelen gekozen.', n_selected: n => `${n} gekozen`,
-    bk_never_local: 'Je gegevens staan alleen in deze browser. Download af en toe een back-up: worden de browsergegevens gewist, dan ben je anders alles kwijt.',
-    bk_never: 'Je hebt nog geen back-up gemaakt. Download af en toe een back-up, zodat je niets kwijtraakt als er iets misgaat.',
-    bk_old: d => `Je laatste back-up is ${d} dagen oud. Download een nieuwe, zodat je recente activiteiten niet kwijtraakt.`,
-    bk_now: 'Back-up downloaden', bk_last: d => `Laatste back-up: ${d}.`, bk_none: 'Nog geen back-up gemaakt.',
-    foot_local: 'Je gegevens blijven in deze browser en worden nergens anders opgeslagen. Download regelmatig een back-up via Gegevens.',
-    foot_db: 'Download regelmatig een back-up via Gegevens.',
+    foot_local: 'Je gegevens blijven in deze browser en worden nergens anders opgeslagen.',
+    foot_db: '',
     photos: "Foto's", add_photos: "Foto's toevoegen", photo_remove: 'Foto verwijderen',
     photo_hint: "Kies foto's, sleep ze hierheen of plak ze. Ze worden verkleind bewaard.",
     photo_processing: "Foto's verwerken…", photo_wait: "Wacht tot de foto's verwerkt zijn.",
@@ -812,10 +805,10 @@ const T = {
     sdk_fail: 'De inlogdienst kon niet geladen worden. Controleer je internetverbinding en herlaad de pagina.',
     privacy: "Je gegevens (kinderen, activiteiten, foto's) worden bewaard in Google Firebase in de EU en zijn alleen bereikbaar met jouw e-mailadres en wachtwoord. Je kunt je account en al je gegevens altijd verwijderen via Gegevens.",
     account_h: 'Account', signed_in_as: e => `Ingelogd als ${e}.`, logout: 'Uitloggen',
-    del_acc: 'Account verwijderen', del_acc_p: "Verwijdert je account en al je gegevens (kinderen, activiteiten, eigen doelen, foto's) definitief. Download eerst een back-up als je iets wilt bewaren.",
+    del_acc: 'Account verwijderen', del_acc_p: "Verwijdert je account en al je gegevens (kinderen, activiteiten, eigen doelen, foto's) definitief.",
     del_acc_confirm: 'Vul je wachtwoord in om te bevestigen.', del_acc_btn: 'Account en gegevens verwijderen', del_done: 'Je account is verwijderd.',
     where_fb: 'Je gegevens staan in je account en zijn beschikbaar op elk toestel waar je inlogt. Alleen jij hebt er toegang toe.',
-    foot_fb: 'Je gegevens worden met je account gesynchroniseerd. Download af en toe een back-up via Gegevens.',
+    foot_fb: 'Je gegevens worden met je account gesynchroniseerd.',
     mig_p: (k, a) => `In deze browser staan nog gegevens van vóór je account (${nlN(k, 'kind', 'kinderen')}, ${nlN(a, 'activiteit', 'activiteiten')}). Wil je ze naar je account overnemen?`,
     mig_btn: 'Overnemen', mig_skip: 'Niet overnemen', mig_done: n => `${nlN(n, 'item', 'items')} naar je account overgenomen.`,
     late_write_fail: 'Een wijziging kon niet in je account opgeslagen worden. Herlaad de pagina en controleer je gegevens.',
@@ -881,9 +874,8 @@ const T = {
     e_json: 'This is not valid JSON.', e_cols: 'Each line needs at least three columns: code, subject and description.',
     e_subject: (l, r) => `Line ${l}: subject "${r}" not recognised.`, e_desc: l => `Line ${l}: description is missing.`,
     data_h: 'Data', where_db: 'Your data is saved automatically with this page and is visible to anyone you share the page with.',
-    where_local: 'Your data is stored in this browser only. Make a backup regularly.',
+    where_local: 'Your data is stored in this browser only.',
     report_h: 'Report per child', report_p: 'CSV for Excel: every minimum goal per child, covered or open, with the activities as evidence.', report_btn: 'Download report',
-    backup_h: 'Backup', backup_p: 'All children, your own goals, activities and photos as a JSON file. The built-in goals are already part of the app.', backup_btn: 'Download backup',
     restore_h: 'Restore backup', restore_p: 'Adds the items from a backup. Items with the same key are overwritten; everything else stays.',
     examples_h: 'Example data', examples_p: 'Removes the example child and the example activity.', restoring: 'Restoring…',
     file_saved: 'File saved.', dl_open: 'A download prompt is already open.',
@@ -896,17 +888,13 @@ const T = {
     err_rights: 'You do not have permission to change anything here. Ask the owner to add you as a contributor.',
     err_busy: 'Too many changes at once. Wait a moment and try again.', err_revoked: 'Access to the storage has changed. Reload the page.',
     err_invalid: 'This data is incomplete.', err_generic: 'Saving failed. Check your connection and try again.',
-    err_local_save: 'Saving in this browser failed. Make a backup via Data.',
+    err_local_save: 'Saving in this browser failed.',
     err_no_shared: 'Shared storage is not available. Data is kept in this browser.',
     err_conn: 'The connection to storage was lost. Reload the page.',
     rep_head: ['Child', 'Subject', 'Code', 'Category', 'Description', 'Status', 'Activities'], rep_file: 'report',
     pick_btn: 'Choose goals…', pick_h: 'Choose minimum goals', done: 'Done', none_chosen: 'No goals selected yet.', n_selected: n => `${n} selected`,
-    bk_never_local: 'Your data lives only in this browser. Download a backup now and then: if the browser data is cleared, everything is gone otherwise.',
-    bk_never: 'You have not made a backup yet. Download one now and then so nothing is lost if something goes wrong.',
-    bk_old: d => `Your last backup is ${d} days old. Download a new one so you don't lose recent activities.`,
-    bk_now: 'Download backup', bk_last: d => `Last backup: ${d}.`, bk_none: 'No backup made yet.',
-    foot_local: 'Your data stays in this browser and is not stored anywhere else. Download a backup regularly via Data.',
-    foot_db: 'Download a backup regularly via Data.',
+    foot_local: 'Your data stays in this browser and is not stored anywhere else.',
+    foot_db: '',
     photos: 'Photos', add_photos: 'Add photos', photo_remove: 'Remove photo',
     photo_hint: 'Choose photos, drag them here or paste them. They are stored at a reduced size.',
     photo_processing: 'Processing photos…', photo_wait: 'Wait until the photos have been processed.',
@@ -928,10 +916,10 @@ const T = {
     sdk_fail: 'The login service could not be loaded. Check your internet connection and reload the page.',
     privacy: 'Your data (children, activities, photos) is stored in Google Firebase in the EU and can only be reached with your email address and password. You can delete your account and all your data at any time via Data.',
     account_h: 'Account', signed_in_as: e => `Logged in as ${e}.`, logout: 'Log out',
-    del_acc: 'Delete account', del_acc_p: 'Permanently deletes your account and all your data (children, activities, your own goals, photos). Download a backup first if you want to keep anything.',
+    del_acc: 'Delete account', del_acc_p: 'Permanently deletes your account and all your data (children, activities, your own goals, photos).',
     del_acc_confirm: 'Enter your password to confirm.', del_acc_btn: 'Delete account and data', del_done: 'Your account has been deleted.',
     where_fb: 'Your data lives in your account and is available on every device where you log in. Only you can access it.',
-    foot_fb: 'Your data syncs with your account. Download a backup now and then via Data.',
+    foot_fb: 'Your data syncs with your account.',
     mig_p: (k, a) => `This browser still holds data from before your account (${nlN(k, 'child', 'children')}, ${nlN(a, 'activity', 'activities')}). Move it into your account?`,
     mig_btn: 'Move to account', mig_skip: "Don't move", mig_done: n => `${nlN(n, 'item', 'items')} moved to your account.`,
     late_write_fail: 'A change could not be saved to your account. Reload the page and check your data.',
@@ -1223,8 +1211,8 @@ function renderChrome() {
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
   const foot = $('#site-foot');
-  foot.hidden = mode === 'loading' || mode === 'auth';
-  foot.textContent = `${mode === 'local' ? t('foot_local') : fbUser ? t('foot_fb') : t('foot_db')} ${lastBackup() ? t('bk_last', fmtDate(lastBackup())) : t('bk_none')}`;
+  foot.textContent = mode === 'local' ? t('foot_local') : fbUser ? t('foot_fb') : t('foot_db');
+  foot.hidden = mode === 'loading' || mode === 'auth' || !foot.textContent;
   const st = $('#status');
   st.removeAttribute('title');
   if (mode === 'loading') { st.textContent = t('st_connecting'); st.className = 'status'; }
@@ -1267,25 +1255,8 @@ function render() {
 
 /* Banners shown at the top of every main view. */
 function exampleBanner() {
-  if (!exampleItems().length) return migrationNotice() + backupNotice();
+  if (!exampleItems().length) return migrationNotice();
   return `<div class="notice"><p>${t('example_banner')}</p><button class="btn small w" data-action="remove-examples">${esc(t('remove_examples'))}</button></div>`;
-}
-/* The last backup date is remembered per browser; it only drives the reminder. */
-function lastBackup() { try { const v = localStorage.getItem(BACKUP_KEY); return validDate(v) ? v : null; } catch (e) { return null; } }
-function markBackup() { try { localStorage.setItem(BACKUP_KEY, todayIso()); } catch (e) {} scheduleRender(); }
-function backupNotice() {
-  const hasData = data.children.size || data.activities.size || customGoals.size;
-  if (!hasData || !canWrite) return '';
-  const last = lastBackup();
-  const days = last ? Math.floor((dateObj(todayIso()) - dateObj(last)) / 86400000) : null;
-  if (last && days < BACKUP_EVERY_DAYS) return '';
-  const msg = last ? t('bk_old', days) : (mode === 'local' ? t('bk_never_local') : t('bk_never'));
-  return `<div class="notice"><p>${esc(msg)}</p><button class="btn small" data-action="backup">${esc(t('bk_now'))}</button></div>`;
-}
-async function downloadBackup() {
-  let json;
-  try { json = await backupJson(); } catch (e) { toast(errMsg(e), true); return; }
-  if (await offerFile(`doelenboek-backup-${todayIso()}.json`, json)) markBackup();
 }
 function noGoalsNotice() {
   if (data.goals.size) return '';
@@ -1775,15 +1746,7 @@ function importDialog() {
   });
 }
 
-/* ---------- data menu: backup, report, restore ---------- */
-/* Version 2 adds the photos (base64) that activities refer to. */
-async function backupJson() {
-  const o = { app: 'doelenboek', version: 2, exportedAt: new Date().toISOString(), goals: [...customGoals.values()] };
-  for (const c of ['children', 'activities']) o[c] = [...data[c].values()];
-  const used = new Set([...data.activities.values()].flatMap(a => a.photoIds));
-  o.photos = used.size ? (await photoStore.all()).filter(p => used.has(p.id)).map(p => ({ id: p.id, ...p.rec })) : [];
-  return JSON.stringify(o, null, 1);
-}
+/* ---------- data menu: report, restore ---------- */
 const csvCell = v => { const s = String(v ?? ''); return /[";\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
 function reportCsv() {
   const cov = buildCoverage(), goals = sortedGoals();
@@ -1849,7 +1812,6 @@ function dataDialog() {
   const body = `<p class="muted">${esc(fbUser ? t('where_fb') : mode === 'db' ? t('where_db') : t('where_local'))}</p><div class="data-actions">
     ${fbUser ? `<div><p><b>${esc(t('account_h'))}</b><span>${esc(t('signed_in_as', fbUser.email))}</span></p><button type="button" class="btn small" id="d-logout">${esc(t('logout'))}</button></div>` : ''}
     <div><p><b>${esc(t('report_h'))}</b><span>${esc(t('report_p'))}</span></p><button type="button" class="btn small" id="d-report">${esc(t('report_btn'))}</button></div>
-    <div><p><b>${esc(t('backup_h'))}</b><span>${esc(t('backup_p'))} ${esc(lastBackup() ? t('bk_last', fmtDate(lastBackup())) : t('bk_none'))}</span></p><button type="button" class="btn small" id="d-backup">${esc(t('backup_btn'))}</button></div>
     <div class="w"><p><b>${esc(t('restore_h'))}</b><span>${esc(t('restore_p'))}</span></p><span class="btn small file-label">${esc(t('choose_file'))}<input type="file" id="d-restore" accept=".json,application/json" aria-label="${esc(t('restore_h'))}"></span></div>
     ${ex ? `<div class="w"><p><b>${esc(t('examples_h'))}</b><span>${esc(t('examples_p'))}</span></p><button type="button" class="btn small" id="d-ex">${esc(t('remove_examples'))}</button></div>` : ''}
     ${fbUser ? `<div><p><b>${esc(t('del_acc'))}</b><span>${esc(t('del_acc_p'))}</span></p><button type="button" class="btn small" id="d-delacc">${esc(t('del_acc'))}</button></div>` : ''}
@@ -1857,7 +1819,6 @@ function dataDialog() {
   openDialog(shell('f-data', t('data_h'), body, ''), d => {
     const err = d.querySelector('.form-error');
     d.querySelector('#d-report').addEventListener('click', () => offerFile(`doelenboek-${t('rep_file')}-${todayIso()}.csv`, reportCsv()));
-    d.querySelector('#d-backup').addEventListener('click', downloadBackup);
     d.querySelector('#d-restore').addEventListener('change', e => {
       const f = e.target.files[0]; if (!f) return;
       const rd = new FileReader();
@@ -1981,7 +1942,6 @@ main.addEventListener('click', e => {
     case 'delete-goal': return deleteGoal(id);
     case 'import-goals': return importDialog();
     case 'remove-examples': return removeExamples();
-    case 'backup': return downloadBackup();
     case 'photo': return openLightbox(id, Number(b.dataset.i) || 0);
     case 'auth-view': ui_auth.view = b.dataset.v; ui_auth.err = ''; ui_auth.msg = ''; render(); $('#au-email')?.focus(); return;
     case 'migrate': return migrateLocal(b);
