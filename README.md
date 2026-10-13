@@ -28,7 +28,7 @@ Used Doelenboek before accounts existed? Log in at the same address. The app off
 
 ## For developers
 
-Plain HTML, CSS and JavaScript, built into a single `index.html`. There are no dependencies except the Firebase SDK and Google Fonts, both loaded from a CDN.
+Plain HTML, CSS and JavaScript, built into a single `index.html`. There are no dependencies except the Firebase SDK, loaded from a CDN. The fonts are served from this site (`fonts/`, copied there by the build).
 
 ```
 src/doelenboek.html     the app: page structure, texts (NL/EN) and behaviour

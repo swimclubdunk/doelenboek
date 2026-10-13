@@ -5,6 +5,7 @@ touching the app's code, its data or how accounts work.
 
 ```
 tokens.css            colours (light and dark), subject colours, fonts, corner radius, shadow
+fonts/                the font files (woff2) and their licences (SIL Open Font License)
 app.css               layout and the look of every screen and component
 favicon.svg           the browser-tab icon
 animals/animals.json  which animals exist, their order in the picker, and the emoji each belongs to

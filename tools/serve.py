@@ -17,6 +17,7 @@ from build import ROOT, BuildError, build, animal_symbols  # noqa: E402
 
 SRC = ROOT / 'src' / 'doelenboek.html'
 CONFIG = ROOT / 'firebase-config.json'
+FONTS = ROOT / 'src' / 'design' / 'fonts'
 
 
 def animals_page():
@@ -87,6 +88,8 @@ class Handler(BaseHTTPRequestHandler):
                 body, status = build(SRC, CONFIG if self.live else None), 200
             elif path == '/animals':
                 body, status = animals_page(), 200
+            elif path.startswith('/fonts/') and (FONTS / path[7:]).is_file() and '/' not in path[7:]:
+                return self.send_file(FONTS / path[7:])
             else:
                 body, status = '<!doctype html><title>Not found</title>Not found. Try / or /animals.', 404
         except BuildError as e:
@@ -95,6 +98,14 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header('Content-Type', 'text/html; charset=utf-8')
         self.send_header('Cache-Control', 'no-store')   # every refresh shows the current files
+        self.send_header('Content-Length', str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
+    def send_file(self, f):
+        data = f.read_bytes()
+        self.send_response(200)
+        self.send_header('Content-Type', 'font/woff2' if f.suffix == '.woff2' else 'text/plain; charset=utf-8')
         self.send_header('Content-Length', str(len(data)))
         self.end_headers()
         self.wfile.write(data)

@@ -4,8 +4,9 @@ Usage: build.py SRC.html OUT.html [FIREBASE_CONFIG.json]
 - the stylesheets SRC links to (design/*.css, core.css) are inlined
 - the animal drawings in design/animals/ become <symbol>s in the page
 - the favicon comes from design/favicon.svg
-- the built-in goals come from doelen/*.json"""
-import sys, json, re
+- the built-in goals come from doelen/*.json
+- the font files in design/fonts/ are copied to fonts/ next to OUT.html"""
+import sys, json, re, shutil
 from pathlib import Path
 from urllib.parse import quote
 
@@ -142,6 +143,17 @@ def animal_symbols(animals_dir):
     return pairs, sprite
 
 
+def copy_fonts(src, out_dir):
+    """Copy design/fonts/ (the .woff2 files and their licences) to OUT_DIR/fonts/, where the
+    stylesheet's url("fonts/...") finds them once it is inlined into the page."""
+    fonts = Path(src).resolve().parent / 'design' / 'fonts'
+    dest = Path(out_dir) / 'fonts'
+    dest.mkdir(exist_ok=True)
+    for f in fonts.iterdir():
+        if f.suffix in ('.woff2', '.txt'):
+            shutil.copyfile(f, dest / f.name)
+
+
 def favicon_uri(path):
     svg = re.sub(r'\s*\n\s*', '', path.read_text(encoding='utf-8')).replace('"', "'")
     return 'data:image/svg+xml,' + quote(svg, safe=" '=/:;,.-()")
@@ -203,4 +215,5 @@ if __name__ == '__main__':
         sys.exit(str(e))
     out = sys.argv[2]
     open(out, 'w', encoding='utf-8', newline='\n').write(page)
+    copy_fonts(sys.argv[1], Path(out).resolve().parent)
     print(f'wrote {out} ({len(page.encode("utf-8")):,} bytes)')
