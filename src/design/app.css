@@ -261,6 +261,22 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .file-label { position: relative; overflow: hidden; }
 .file-label input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
+/* the one-time donation thank-you */
+dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
+.thanks-x { position: absolute; top: 10px; right: 10px; }
+.thanks-body { display: grid; justify-items: center; gap: 10px; padding: 34px 24px 22px; }
+.thanks-body h2 { font-family: var(--f-display); font-size: 1.25rem; }
+.thanks-body p { color: var(--muted); line-height: 1.55; }
+.thanks-art { display: flex; align-items: flex-end; gap: 2px; margin-bottom: 4px; }
+.thanks-animal { width: 52px; height: 52px; margin-bottom: 6px; }
+.thanks-cup { width: 112px; height: 94px; }
+.thanks-cup .cup { fill: var(--accent); }
+.thanks-cup .handle { fill: none; stroke: var(--accent); stroke-width: 8; }
+.thanks-cup .coffee { fill: var(--chrome); }
+.thanks-cup .saucer { fill: var(--line); }
+.thanks-cup .heart { fill: var(--s-ak); }
+.thanks-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 6px; }
+.thanks-actions a.btn { text-decoration: none; }
 .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: var(--r-sm); font-size: .9rem; transition: opacity .2s, transform .2s; max-width: calc(100vw - 32px); z-index: 50; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast.bad { background: var(--danger); color: var(--surface); }
@@ -296,6 +312,8 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 /* login / sign-up screen */
 .auth { width: min(100%, 440px); margin: 5vh auto 0; padding: 28px; display: grid; gap: 16px; }
 .auth form { display: grid; gap: 14px; }
+/* what the app is and who it is for, above the login form */
+.auth .about { margin: 10px 0 12px; padding: 12px 14px; background: var(--surface-2); border-radius: var(--r-sm); line-height: 1.55; }
 .auth .field input { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; width: 100%; }
 .auth .btn.primary { padding-block: 11px; }
 .auth .form-error:empty { display: none; }

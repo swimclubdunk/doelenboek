@@ -332,6 +332,22 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .file-label { position: relative; overflow: hidden; }
 .file-label input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
+/* the one-time donation thank-you */
+dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
+.thanks-x { position: absolute; top: 10px; right: 10px; }
+.thanks-body { display: grid; justify-items: center; gap: 10px; padding: 34px 24px 22px; }
+.thanks-body h2 { font-family: var(--f-display); font-size: 1.25rem; }
+.thanks-body p { color: var(--muted); line-height: 1.55; }
+.thanks-art { display: flex; align-items: flex-end; gap: 2px; margin-bottom: 4px; }
+.thanks-animal { width: 52px; height: 52px; margin-bottom: 6px; }
+.thanks-cup { width: 112px; height: 94px; }
+.thanks-cup .cup { fill: var(--accent); }
+.thanks-cup .handle { fill: none; stroke: var(--accent); stroke-width: 8; }
+.thanks-cup .coffee { fill: var(--chrome); }
+.thanks-cup .saucer { fill: var(--line); }
+.thanks-cup .heart { fill: var(--s-ak); }
+.thanks-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 6px; }
+.thanks-actions a.btn { text-decoration: none; }
 .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: var(--r-sm); font-size: .9rem; transition: opacity .2s, transform .2s; max-width: calc(100vw - 32px); z-index: 50; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast.bad { background: var(--danger); color: var(--surface); }
@@ -367,6 +383,8 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 /* login / sign-up screen */
 .auth { width: min(100%, 440px); margin: 5vh auto 0; padding: 28px; display: grid; gap: 16px; }
 .auth form { display: grid; gap: 14px; }
+/* what the app is and who it is for, above the login form */
+.auth .about { margin: 10px 0 12px; padding: 12px 14px; background: var(--surface-2); border-radius: var(--r-sm); line-height: 1.55; }
 .auth .field input { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; width: 100%; }
 .auth .btn.primary { padding-block: 11px; }
 .auth .form-error:empty { display: none; }
@@ -429,6 +447,7 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 </footer>
 <dialog id="dlg"></dialog>
 <dialog id="dlg2"></dialog>
+<dialog id="thanks" class="thanks" aria-labelledby="thanks-h"></dialog>
 <dialog id="lightbox" class="lightbox">
   <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
   <button type="button" class="lb-btn lb-prev" data-lb="prev">‹</button>
@@ -498,6 +517,7 @@ const THEME_KEY = 'doelenboek.theme';   // also read by the small script in the 
 const FIREBASE_CONFIG = {"apiKey": "AIzaSyBBxji4-yKxG1ZZHvdxNV1vtG9JAD46gMA", "authDomain": "doelenboek-e78ca.firebaseapp.com", "projectId": "doelenboek-e78ca", "storageBucket": "doelenboek-e78ca.firebasestorage.app", "messagingSenderId": "224430377433", "appId": "1:224430377433:web:c2eedf518737fab6ce31c8"};
 const FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/10.14.1/';
 const MIGRATED_KEY = 'doelenboek.migrated.';
+const THANKS_KEY = 'doelenboek.thanks';   // set once the donation thank-you has been shown
 const MAX_PHOTOS = 24;              // per activity
 const PHOTO_MAX_B64 = 240000;       // keeps one photo under the 256 KiB document limit of the shared store
 const ID_RE = /^[A-Za-z0-9_\-~:@+.]{1,120}$/;
@@ -874,6 +894,9 @@ const T = {
     pick_btn: 'Doelen kiezen…', pick_h: 'Minimumdoelen kiezen', done: 'Klaar', none_chosen: 'Nog geen doelen gekozen.', n_selected: n => `${n} gekozen`,
     foot_local: 'Je gegevens blijven in deze browser en worden nergens anders opgeslagen.',
     support_p: 'Donaties helpen de kosten van de domeinnaam en andere kosten te dekken.', support_link: 'Doneren via Ko-fi',
+    thanks_h: 'Fijn dat je Doelenboek gebruikt!',
+    thanks_p: 'Heb je er iets aan? Dan wordt een kleine donatie enorm gewaardeerd. Ze helpt de kosten van de hosting te dekken, zodat deze pagina online blijft en er nieuwe functies bij kunnen komen.',
+    thanks_later: 'Misschien later',
     foot_db: '',
     photos: "Foto's", add_photos: "Foto's toevoegen", photo_remove: 'Foto verwijderen',
     photo_hint: "Kies foto's, sleep ze hierheen of plak ze. Ze worden verkleind bewaard.",
@@ -882,6 +905,7 @@ const T = {
     photo_max: n => `Maximaal ${n} foto's per activiteit.`,
     photo_alt: (title, i) => `Foto ${i} van ${title}`, lb_prev: 'Vorige foto', lb_next: 'Volgende foto',
     auth_h: 'Welkom bij Doelenboek', auth_p: 'Log in om je gegevens op al je toestellen te gebruiken.',
+    about_p: 'Doelenboek is er voor ouders die in Vlaanderen huisonderwijs geven. Noteer wat je samen doet, met foto\'s, koppel het aan de minimumdoelen en zie per kind en per vak wat al aan bod kwam en wat nog openstaat.',
     signup_h: 'Account aanmaken', signup_p: 'Je e-mailadres is je gebruikersnaam. Er wordt geen code of bevestiging gemaild.',
     reset_h: 'Wachtwoord opnieuw instellen', reset_p: 'Vul je e-mailadres in. Je krijgt een e-mail met een link om een nieuw wachtwoord te kiezen.',
     email: 'E-mailadres', password: 'Wachtwoord', password2: 'Herhaal wachtwoord', pw_hint: 'Minstens 8 tekens.',
@@ -979,6 +1003,9 @@ const T = {
     pick_btn: 'Choose goals…', pick_h: 'Choose minimum goals', done: 'Done', none_chosen: 'No goals selected yet.', n_selected: n => `${n} selected`,
     foot_local: 'Your data stays in this browser and is not stored anywhere else.',
     support_p: 'Donations help cover domain registration and other costs.', support_link: 'Donate on Ko-fi',
+    thanks_h: 'Glad you are using Doelenboek!',
+    thanks_p: 'If you get value from it, a small donation would be greatly appreciated. It helps cover hosting costs to keep this page running and to add new features.',
+    thanks_later: 'Maybe later',
     foot_db: '',
     photos: 'Photos', add_photos: 'Add photos', photo_remove: 'Remove photo',
     photo_hint: 'Choose photos, drag them here or paste them. They are stored at a reduced size.',
@@ -987,6 +1014,7 @@ const T = {
     photo_max: n => `At most ${n} photos per activity.`,
     photo_alt: (title, i) => `Photo ${i} of ${title}`, lb_prev: 'Previous photo', lb_next: 'Next photo',
     auth_h: 'Welcome to Doelenboek', auth_p: 'Log in to use your data on all your devices.',
+    about_p: 'Doelenboek is for parents who homeschool in Flanders. Note down what you do together, with photos, link it to the minimum goals (minimumdoelen) and see per child and per subject what has been covered and what is still open.',
     signup_h: 'Create account', signup_p: 'Your email address is your username. No code or confirmation is emailed.',
     reset_h: 'Reset password', reset_p: "Enter your email address. You'll get an email with a link to choose a new password.",
     email: 'Email address', password: 'Password', password2: 'Repeat password', pw_hint: 'At least 8 characters.',
@@ -1696,6 +1724,7 @@ function activityDialog(act, presetChild) {
       if (!childIds.length) return t('err_kids');
       if (processing) return t('photo_wait');
       const now = Date.now();
+      const firstOwn = !act && ![...data.activities.values()].some(a => !a.example);
       const fresh = photos.filter(p => !p.existing);
       const errors = await runPool(fresh, p => photoStore.put(p.id, { ...p.rec, createdAt: now }), 3);
       if (errors.length) throw errors[0];
@@ -1705,9 +1734,47 @@ function activityDialog(act, presetChild) {
       await runPool(removed, deletePhoto, 3);
       if (fresh.length && mode === 'local') navigator.storage?.persist?.().catch(() => {});
       toast(act ? t('act_updated') : t('act_saved'));
+      if (firstOwn) scheduleThanks();
     });
   });
 }
+/* A one-time thank-you with the Ko-fi link, 2 seconds after the first own activity is saved.
+   Shown at most once per browser; it waits while another window is open.
+   To look at it during development: open the page on localhost with ?thanks in the address. */
+const thanksDlg = $('#thanks');
+const THANKS_ART = `<svg class="thanks-cup" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+  <path class="heart" d="M60 34C48 26 42 20 42 14C42 8 47 5 51 5C55 5 58 7 60 10C62 7 65 5 69 5C73 5 78 8 78 14C78 20 72 26 60 34Z"/>
+  <ellipse class="saucer" cx="56" cy="92" rx="46" ry="6"/>
+  <path class="handle" d="M86 52a12 12 0 0 1 0 24"/>
+  <path class="cup" d="M22 44h68v18a28 28 0 0 1-28 28h-12a28 28 0 0 1-28-28z"/>
+  <ellipse class="coffee" cx="56" cy="44" rx="34" ry="5"/>
+</svg>`;
+function scheduleThanks() {
+  try { if (localStorage.getItem(THANKS_KEY)) return; } catch (e) { return; }
+  setTimeout(function wait() {
+    if (dlg.open || dlg2.open || lb.open) { setTimeout(wait, 1000); return; }
+    try { localStorage.setItem(THANKS_KEY, todayIso()); } catch (e) {}
+    showThanks();
+  }, 2000);
+}
+function showThanks() {
+  const animal = name => `<svg class="thanks-animal" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#an-${name}"/></svg>`;
+  thanksDlg.innerHTML = `<button type="button" class="icon-btn thanks-x" data-close>${esc(t('close'))}</button>
+    <div class="thanks-body">
+      <div class="thanks-art">${animal('koala')}${THANKS_ART}${animal('owl')}</div>
+      <h2 id="thanks-h">${esc(t('thanks_h'))}</h2>
+      <p>${esc(t('thanks_p'))}</p>
+      <div class="thanks-actions">
+        <button type="button" class="btn ghost" data-close>${esc(t('thanks_later'))}</button>
+        <a class="btn primary" href="https://ko-fi.com/mat644" target="_blank" rel="noopener" data-close autofocus>${esc(t('support_link'))}</a>
+      </div>
+    </div>`;
+  if (typeof thanksDlg.showModal === 'function') thanksDlg.showModal(); else thanksDlg.setAttribute('open', '');
+}
+thanksDlg.addEventListener('click', e => { if (e.target === thanksDlg || e.target.closest('[data-close]')) thanksDlg.close(); });
+thanksDlg.addEventListener('close', () => { thanksDlg.innerHTML = ''; });
+if (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('thanks')) showThanks();
+
 /* Goal picker: its own window on top of the activity form. Works on a copy of the
    selection, so Cancel (or Esc) leaves the activity untouched. */
 function goalPicker(initial, kidIds, onDone) {
@@ -2143,7 +2210,7 @@ function authView() {
     ? `<button type="button" class="linkish" data-action="auth-view" data-v="signup">${bt('to_signup')}</button><button type="button" class="linkish" data-action="auth-view" data-v="reset">${bt('forgot')}</button>`
     : `<button type="button" class="linkish" data-action="auth-view" data-v="login">${bt(v === 'signup' ? 'to_login' : 'back_login')}</button>`;
   return `<section class="card auth">
-    <div><h1>${esc(t(head[0]))}</h1><p class="lede">${esc(t(head[1]))}</p></div>
+    <div><h1>${esc(t(head[0]))}</h1>${v === 'reset' ? '' : `<p class="about">${esc(t('about_p'))}</p>`}<p class="lede">${esc(t(head[1]))}</p></div>
     <form id="auth-form" novalidate>
       <label class="field"><span>${esc(t('email'))}</span><input id="au-email" name="email" type="email" autocomplete="email" inputmode="email" required value="${esc(ui_auth.email)}"></label>
       ${pw}${pw2}

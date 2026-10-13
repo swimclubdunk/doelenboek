@@ -63,7 +63,8 @@ Restyle freely: rename nothing, and the app keeps working. The class names below
 puts in the page, so they are the hooks you style. Adding a new class means changing the code.
 
 - **Header:** `top`, `top-inner`, `brand`, `tabs` (links get `aria-current="page"` when active),
-  `top-right`, `status` (+ `ok` / `warn`), `theme-btn` (the sun/moon button), `lang-switch` (buttons get `aria-pressed="true"`), `site-foot` (with `support`, the donation line)
+  `top-right`, `status` (+ `ok` / `warn`), `theme-btn` (the sun/moon button), `lang-switch` (buttons get `aria-pressed="true"`), `site-foot` (with `support`, the donation line), `about` (on the login screen: what the app is for), `thanks` (the one-time donation thank-you: `thanks-art`,
+  `thanks-animal`, `thanks-cup`, `thanks-actions`)
 - **Page:** `page-head`, `lede`, `head-actions`, `toolbar`, `search`, `select`, `notice`, `empty`,
   `loading`, `count-line`, `muted`, `meta`
 - **Buttons:** `btn` (+ `primary`, `ghost`, `small`, `danger`), `icon-btn` (+ `del`), `linkish`, `back`,
