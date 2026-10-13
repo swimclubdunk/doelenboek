@@ -1273,7 +1273,7 @@ function viewOverview(cov) {
     const pct = total ? Math.round(100 * covered / total) : 0, per = countBySubject(m);
     return `<article class="card child-card">
       <header class="cc-head"><span class="avatar lg" aria-hidden="true">${esc(c.animal)}</span>
-        <div class="cc-id"><h2>${esc(c.name)}</h2><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? ' · ' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
+        <div class="cc-id"><h2>${esc(c.name)}</h2><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? '<br>' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
         <div class="cc-pct"><strong>${pct}<small>%</small></strong><span>${esc(t('x_of_y_goals', covered, total))}</span></div></header>
       <ul class="bars">${SUBJECTS.map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key] || 0)).join('')}</ul>
       <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w" data-action="new-activity" data-child="${esc(c.id)}">${bt('add_activity')}</button></footer>
