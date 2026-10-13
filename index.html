@@ -119,6 +119,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* a long login email is cut off with … instead of pushing the header onto a second line; the full address is in the tooltip */
 .status { max-width: min(16rem, 45vw); }
 .status-email { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+/* ...and the right-hand group then gives up the email's width rather than wrapping onto its own row */
+.top-right:has(.status-email) { flex: 1 1 18rem; min-width: 0; flex-wrap: nowrap; }
+.top-right:has(.status-email) > * { flex-shrink: 0; }
+.top-right:has(.status-email) > .status { flex-shrink: 1; min-width: 0; }
+.status::before { flex-shrink: 0; }
 .lang-switch { display: inline-flex; border: 1px solid color-mix(in srgb, var(--on-chrome) 35%, transparent); border-radius: 999px; overflow: hidden; }
 .lang-switch button { border: 0; background: transparent; padding: 4px 10px; font-size: .78rem; font-weight: 700; color: var(--on-chrome-muted); cursor: pointer; letter-spacing: .04em; }
 .lang-switch button[aria-pressed="true"] { background: var(--on-chrome); color: var(--chrome); }
