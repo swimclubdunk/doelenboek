@@ -14,7 +14,6 @@ Create an account with your email and a password, then use it on any device.
 - **Photos:** attach up to 24 photos per activity. They show as thumbnails; hover to preview, click to view full size. Photos are resized in your browser before they're saved.
 - **Coverage:** calculated from your activities, so it's always correct. Delete an activity and only the goals nothing else covers reopen.
 - **32 built-in goals:** kindergarten goals for Nederlands and Muzische vorming. You can add your own goals or import more from Excel or CSV.
-- **Report:** a CSV per child (goal, covered or open, and the activities that covered it). Handy as evidence for the exam board.
 - **NL / EN:** switch the whole interface between Dutch and English.
 
 ## 🔐 Accounts and your data

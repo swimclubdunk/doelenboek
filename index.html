@@ -290,7 +290,6 @@ dialog::backdrop { background: rgb(10 20 15 / .45); }
 .data-actions p { flex: 1 1 260px; min-width: 0; }
 .data-actions p b { display: block; }
 .data-actions p span { color: var(--muted); font-size: .86rem; }
-.copy-area { width: 100%; min-height: 240px; font-family: var(--f-mono); font-size: .76rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); padding: 10px; }
 .file-label { position: relative; overflow: hidden; }
 .file-label input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
@@ -764,14 +763,8 @@ const T = {
     e_subject: (l, r) => `Regel ${l}: vak "${r}" niet herkend.`, e_desc: l => `Regel ${l}: omschrijving ontbreekt.`,
     data_h: 'Gegevens', where_db: 'Je gegevens worden automatisch bewaard bij deze pagina en zijn zichtbaar voor wie je de pagina deelt.',
     where_local: 'Je gegevens staan alleen in deze browser.',
-    report_h: 'Rapport per kind', report_p: 'CSV voor Excel: per kind elk minimumdoel, behaald of open, met de activiteiten als bewijs.', report_btn: 'Rapport downloaden',
-    restore_h: 'Back-up terugzetten', restore_p: 'Voegt de items uit een back-up toe. Items met dezelfde sleutel worden overschreven, de rest blijft staan.',
-    examples_h: 'Voorbeeldgegevens', examples_p: 'Verwijdert het voorbeeldkind en de voorbeeldactiviteit.', restoring: 'Bezig met terugzetten…',
-    file_saved: 'Bestand opgeslagen.', dl_open: 'Er staat al een downloadvenster open.',
-    copy_p: f => `Downloaden lukt hier niet. Kopieer de inhoud en bewaar die als <b>${f}</b>.`, copy_btn: 'Kopiëren', copied: 'Gekopieerd.',
-    copy_fail: 'Kopiëren lukte niet automatisch. De tekst is geselecteerd: gebruik Ctrl+C.',
-    r_invalid: 'Dit bestand is geen geldige back-up.', r_not_backup: 'Dit bestand is geen Doelenboek-back-up.', r_empty: 'De back-up bevat geen bruikbare gegevens.',
-    r_partial: (f, t, m) => `${f} van ${t} items konden niet hersteld worden. ${m}`, r_done: n => `${nlN(n, 'item', 'items')} hersteld.`,
+    examples_h: 'Voorbeeldgegevens', examples_p: 'Verwijdert het voorbeeldkind en de voorbeeldactiviteit.',
+    r_partial: (f, t, m) => `${f} van ${t} items konden niet hersteld worden. ${m}`,
     ex_h: 'Voorbeelden verwijderen', ex_q: n => `Dit verwijdert ${nlN(n, 'voorbeelditem', 'voorbeelditems')}. Je eigen gegevens blijven staan.`, ex_done: 'Voorbeelden verwijderd.',
     err_quota: 'De opslag is vol. Verwijder oude activiteiten of doelen en probeer opnieuw.',
     err_rights: 'Je hebt geen rechten om hier iets te wijzigen. Vraag de eigenaar om je als bijdrager toe te voegen.',
@@ -780,7 +773,6 @@ const T = {
     err_local_save: 'Opslaan in deze browser lukte niet.',
     err_no_shared: 'Gedeelde opslag is niet beschikbaar. Gegevens worden in deze browser bewaard.',
     err_conn: 'De verbinding met de opslag is verbroken. Herlaad de pagina.',
-    rep_head: ['Kind', 'Vak', 'Code', 'Categorie', 'Omschrijving', 'Status', 'Activiteiten'], rep_file: 'rapport',
     pick_btn: 'Doelen kiezen…', pick_h: 'Minimumdoelen kiezen', done: 'Klaar', none_chosen: 'Nog geen doelen gekozen.', n_selected: n => `${n} gekozen`,
     foot_local: 'Je gegevens blijven in deze browser en worden nergens anders opgeslagen.',
     foot_db: '',
@@ -875,14 +867,8 @@ const T = {
     e_subject: (l, r) => `Line ${l}: subject "${r}" not recognised.`, e_desc: l => `Line ${l}: description is missing.`,
     data_h: 'Data', where_db: 'Your data is saved automatically with this page and is visible to anyone you share the page with.',
     where_local: 'Your data is stored in this browser only.',
-    report_h: 'Report per child', report_p: 'CSV for Excel: every minimum goal per child, covered or open, with the activities as evidence.', report_btn: 'Download report',
-    restore_h: 'Restore backup', restore_p: 'Adds the items from a backup. Items with the same key are overwritten; everything else stays.',
-    examples_h: 'Example data', examples_p: 'Removes the example child and the example activity.', restoring: 'Restoring…',
-    file_saved: 'File saved.', dl_open: 'A download prompt is already open.',
-    copy_p: f => `Downloading does not work here. Copy the contents and save them as <b>${f}</b>.`, copy_btn: 'Copy', copied: 'Copied.',
-    copy_fail: 'Copying did not work automatically. The text is selected: press Ctrl+C.',
-    r_invalid: 'This file is not a valid backup.', r_not_backup: 'This file is not a Doelenboek backup.', r_empty: 'The backup contains no usable data.',
-    r_partial: (f, t, m) => `${f} of ${t} items could not be restored. ${m}`, r_done: n => `${nlN(n, 'item', 'items')} restored.`,
+    examples_h: 'Example data', examples_p: 'Removes the example child and the example activity.',
+    r_partial: (f, t, m) => `${f} of ${t} items could not be restored. ${m}`,
     ex_h: 'Remove examples', ex_q: n => `This removes ${nlN(n, 'example item', 'example items')}. Your own data stays.`, ex_done: 'Examples removed.',
     err_quota: 'Storage is full. Delete old activities or goals and try again.',
     err_rights: 'You do not have permission to change anything here. Ask the owner to add you as a contributor.',
@@ -891,7 +877,6 @@ const T = {
     err_local_save: 'Saving in this browser failed.',
     err_no_shared: 'Shared storage is not available. Data is kept in this browser.',
     err_conn: 'The connection to storage was lost. Reload the page.',
-    rep_head: ['Child', 'Subject', 'Code', 'Category', 'Description', 'Status', 'Activities'], rep_file: 'report',
     pick_btn: 'Choose goals…', pick_h: 'Choose minimum goals', done: 'Done', none_chosen: 'No goals selected yet.', n_selected: n => `${n} selected`,
     foot_local: 'Your data stays in this browser and is not stored anywhere else.',
     foot_db: '',
@@ -984,7 +969,7 @@ const bodyOf = doc => { const { id, builtin, ...rest } = doc; return rest; };
 const data = { goals: new Map(BUILTIN), children: new Map(), activities: new Map() };
 let customGoals = new Map();     // goals stored in the database; merged over nothing, built-ins always win
 let mode = 'loading';            // loading | db | local
-let db = null, downloads = null;
+let db = null;
 let canWrite = true, canWriteKnown = false;
 const loaded = { goals: false, children: false, activities: false };
 const ui = {
@@ -1111,13 +1096,6 @@ const photoStore = {
   async del(id) {
     if (mode === 'db') return retry(() => db.collection('photos').doc(id).delete());
     return idbRun('readwrite', st => st.delete(id));
-  },
-  async all() {
-    if (mode === 'db') {
-      const snap = await retry(() => db.collection('photos').limit(1000).get());
-      return snap.docs.filter(d => d.exists).map(d => ({ id: d.id, rec: cleanPhoto(d.data()) })).filter(p => p.rec);
-    }
-    return localPhotosAll();
   },
 };
 /* Photos kept in this browser (IndexedDB), whatever mode the app runs in; used for migration too. */
@@ -1746,85 +1724,15 @@ function importDialog() {
   });
 }
 
-/* ---------- data menu: report, restore ---------- */
-const csvCell = v => { const s = String(v ?? ''); return /[";\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
-function reportCsv() {
-  const cov = buildCoverage(), goals = sortedGoals();
-  const rows = [t('rep_head')];
-  for (const c of sortedChildren()) for (const g of goals) {
-    const acts = cov.get(c.id)?.get(g.id) || [];
-    rows.push([c.name, sName(g.subject), g.code, gCat(g), gDesc(g), acts.length ? t('achieved') : t('open'), acts.map(a => `${a.title} (${a.date})`).join(' | ')]);
-  }
-  return '﻿' + rows.map(r => r.map(csvCell).join(';')).join('\r\n');
-}
-/* Resolves true once the file was handed over (saved, downloaded or copied). */
-async function offerFile(filename, text) {
-  if (downloads) {
-    try { await downloads.save({ filename, data: text }); toast(t('file_saved')); return true; }
-    catch (e) { if (e && e.code === 'declined') return false; if (e && e.code === 'rate_limited') { toast(t('dl_open'), true); return false; } }
-  }
-  if (!window.claude) {
-    try {
-      const url = URL.createObjectURL(new Blob([text], { type: filename.endsWith('.json') ? 'application/json' : 'text/csv' }));
-      const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 2000); return true;
-    } catch (e) {}
-  }
-  return new Promise(resolve => {
-    let copied = false;
-    openDialog(shell('f-copy', filename, `<p>${t('copy_p', esc(filename))}</p><textarea class="copy-area" id="copy-area" readonly>${esc(text)}</textarea>`, t('copy_btn')), d => {
-      d.addEventListener('close', () => resolve(copied), { once: true });
-      bindSubmit(d, async () => {
-        const ta = d.querySelector('#copy-area');
-        try { await navigator.clipboard.writeText(text); copied = true; toast(t('copied')); }
-        catch (e) { ta.focus(); ta.select(); return t('copy_fail'); }
-      });
-    });
-  });
-}
-async function restoreBackup(text, progress) {
-  let o;
-  try { o = JSON.parse(text); } catch (e) { return t('r_invalid'); }
-  if (!o || typeof o !== 'object' || !COLS.some(c => Array.isArray(o[c]))) return t('r_not_backup');
-  const tasks = [];
-  for (const c of COLS) for (const item of (Array.isArray(o[c]) ? o[c] : [])) {
-    if (!item || typeof item.id !== 'string' || !ID_RE.test(item.id)) continue;
-    if (c === 'goals' && BUILTIN.has(item.id)) continue;
-    const body = clean(c, item); if (body) tasks.push({ c, id: item.id, body });
-  }
-  const photoTasks = [];
-  for (const p of (Array.isArray(o.photos) ? o.photos : [])) {
-    if (!p || typeof p.id !== 'string' || !ID_RE.test(p.id)) continue;
-    const rec = cleanPhoto(p); if (rec) photoTasks.push({ c: 'photos', id: p.id, body: rec });
-  }
-  if (!tasks.length && !photoTasks.length) return t('r_empty');
-  // photos first, so restored activities can show them straight away
-  const total = photoTasks.length + tasks.length;
-  const errors = await runPool(photoTasks, tk => photoStore.put(tk.id, tk.body), 3, n => progress(t('progress', n, total)));
-  for (const p of photoTasks) { const u = photoUrl.get(p.id); if (u) URL.revokeObjectURL(u); photoUrl.delete(p.id); }
-  errors.push(...await runPool(tasks, tk => put(tk.c, tk.id, tk.body), 4, n => progress(t('progress', photoTasks.length + n, total))));
-  scheduleRender();
-  if (errors.length) return t('r_partial', errors.length, total, errMsg(errors[0]));
-  toast(t('r_done', total));
-}
+/* ---------- data menu ---------- */
 function dataDialog() {
   const ex = exampleItems().length > 0;
   const body = `<p class="muted">${esc(fbUser ? t('where_fb') : mode === 'db' ? t('where_db') : t('where_local'))}</p><div class="data-actions">
     ${fbUser ? `<div><p><b>${esc(t('account_h'))}</b><span>${esc(t('signed_in_as', fbUser.email))}</span></p><button type="button" class="btn small" id="d-logout">${esc(t('logout'))}</button></div>` : ''}
-    <div><p><b>${esc(t('report_h'))}</b><span>${esc(t('report_p'))}</span></p><button type="button" class="btn small" id="d-report">${esc(t('report_btn'))}</button></div>
-    <div class="w"><p><b>${esc(t('restore_h'))}</b><span>${esc(t('restore_p'))}</span></p><span class="btn small file-label">${esc(t('choose_file'))}<input type="file" id="d-restore" accept=".json,application/json" aria-label="${esc(t('restore_h'))}"></span></div>
     ${ex ? `<div class="w"><p><b>${esc(t('examples_h'))}</b><span>${esc(t('examples_p'))}</span></p><button type="button" class="btn small" id="d-ex">${esc(t('remove_examples'))}</button></div>` : ''}
     ${fbUser ? `<div><p><b>${esc(t('del_acc'))}</b><span>${esc(t('del_acc_p'))}</span></p><button type="button" class="btn small" id="d-delacc">${esc(t('del_acc'))}</button></div>` : ''}
   </div>`;
   openDialog(shell('f-data', t('data_h'), body, ''), d => {
-    const err = d.querySelector('.form-error');
-    d.querySelector('#d-report').addEventListener('click', () => offerFile(`doelenboek-${t('rep_file')}-${todayIso()}.csv`, reportCsv()));
-    d.querySelector('#d-restore').addEventListener('change', e => {
-      const f = e.target.files[0]; if (!f) return;
-      const rd = new FileReader();
-      rd.onload = async () => { err.textContent = t('restoring'); const msg = await restoreBackup(String(rd.result || ''), txt => { err.textContent = txt; }); err.textContent = msg || ''; if (!msg) closeDialog(); };
-      rd.readAsText(f);
-    });
     d.querySelector('#d-ex')?.addEventListener('click', () => removeExamples());
     d.querySelector('#d-logout')?.addEventListener('click', logout);
     d.querySelector('#d-delacc')?.addEventListener('click', deleteAccountDialog);
@@ -2049,7 +1957,6 @@ function firestoreStore(uid) {
     collection: c => ({
       doc: id => docApi(c, id),
       onSnapshot: (next, error) => F.onSnapshot(col(c), s => next({ docs: s.docs.map(snap) }), e => error && error(fbErr(e))),
-      limit: n => ({ get: () => F.getDocs(F.query(col(c), F.limit(n))).then(s => ({ docs: s.docs.map(snap) }), e => { throw fbErr(e); }) }),
     }),
     doc: path => { const [c, id] = path.split('/'); return docApi(c, id); },
   };
@@ -2217,7 +2124,7 @@ async function init() {
   if (FIREBASE_CONFIG) { render(); startFirebase(); return; }
   if (!window.claude || typeof window.claude.use !== 'function') { startLocal(); return; }
   let d = null, u = null;
-  try { [d, u, downloads] = await Promise.all([window.claude.use('db'), window.claude.use('user'), window.claude.use('downloads')]); }
+  try { [d, u] = await Promise.all([window.claude.use('db'), window.claude.use('user')]); }
   catch (e) { d = null; }
   if (!d) { startLocal(); toast(t('err_no_shared'), true); return; }
   db = d; mode = 'db';
