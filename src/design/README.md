@@ -72,15 +72,17 @@ puts in the page, so they are the hooks you style. Adding a new class means chan
   `fchip` (filter chips, `aria-pressed`)
 - **Children:** `child-grid`, `child-card`, `cc-head`, `cc-id`, `cc-pct`, `cc-foot`, `bars` (rows with
   `b-lbl`, `bar`, `b-num`; `none` when a subject has no goals), `kid-head`, `kid-name`
-- **Avatars:** `avatar` (+ `lg`, `sm`; `off` = goal not covered yet). Animal drawings fill the box;
+- **Avatars:** `avatar` (+ `lg`, `sm`; `off` = goal not mastered yet). Animal drawings fill the box;
   the grey circle only shows for an animal without a drawing.
-- **Goals per child:** `subj` (a `<details>`, `open` when expanded), `status-list` (rows `done` when
-  covered), `mark`, `code`, `g-body`, `g-meta`, `g-desc`, `via`, `check`
+- **Child cards:** `bars` rows end in `touch` (activity tags, `zero` when none)
+- **Goals per child:** `seg` (All / To do / Mastered, `seg-n` counts), `subj` (a `<details>`, `open`
+  when expanded), `status-list` (rows `done` when mastered, `untouched` when no activity tagged them),
+  `code`, `g-body`, `g-meta`, `g-desc`, `since`, `via`, `touch`, `mastery` (the tick pill)
 - **Activities:** `act-list`, `act`, `act-date` (`d` day, `m` month), `act-body`, `act-kids`,
   `goal-chips`, `goal-chip`, `act-photos` (the photo column), `thumbs`, `thumb`, `photo-count`, `notes`, `row-actions`, `month`
 - **Goal list:** `chips-filter`, `goal-list`, `goal-row`, `g-side`, `kids-row`, `tag`
 - **Dialogs:** `dlg-form`, `dlg-body`, `field`, `field-label`, `hint`, `form-error`, `info`, `row2`,
-  `animal-grid`, `kid-picks`, `kid-pick`, `goal-field`, `sel-chips`, `file-label`, `import-preview`,
+  `animal-grid`, `kid-picks`, `kid-pick`, `goal-field`, `sel-chips`,
   `data-actions`, picker (`picker-dlg`, `picker-bar`, `picker-scroll`, `pick-group`, `pick`,
   `pick-count`, `pick-more`), photos (`photo-edit`, `pe`, `pe-x`, `photo-add`, `drop` while dragging)
 - **Overlays:** `lightbox` (`lb-btn`, `lb-prev`, `lb-next`, `lb-close`), `peek` and `gpeek` hover

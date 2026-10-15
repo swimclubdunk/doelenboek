@@ -89,30 +89,33 @@ const T = {
     data_btn: 'Gegevens', loading: 'Gegevens laden…', locale: 'nl-BE', to_dark: 'Donkere modus', to_light: 'Lichte modus',
     example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
     remove_examples: 'Voorbeelden verwijderen',
-    no_goals_notice: 'Er zijn nog geen minimumdoelen ingeladen. Plak of laad ze in als lijst, dan berekent Doelenboek de voortgang per vak.',
-    import_goals: 'Doelen importeren',
+    no_goals_notice: 'Er zijn nog geen minimumdoelen. Voeg ze toe bij Minimumdoelen, dan berekent Doelenboek de voortgang per vak.',
     h_overview: 'Overzicht',
     n_children: n => nlN(n, 'kind', 'kinderen'), n_goals: n => nlN(n, 'minimumdoel', 'minimumdoelen'), n_acts: n => nlN(n, 'activiteit', 'activiteiten'), n_photos: n => nlN(n, 'foto', "foto's"),
     n_goals_short: n => nlN(n, 'doel', 'doelen'),
     add_child: 'Kind toevoegen', add_activity: 'Activiteit toevoegen',
     empty_kids_h: 'Nog geen kinderen', empty_kids_p: 'Voeg een kind toe. Daarna registreer je activiteiten en zie je per vak welke minimumdoelen al aan bod kwamen.',
-    last: d => `laatst ${d}`, x_of_y_goals: (a, b) => `${a}/${b} doelen`, goals_per_subject: 'Doelen per vak',
-    back: '← Overzicht', reached: (m, t, p) => `${m} van ${t} minimumdoelen behaald (${p}%)`,
-    edit: 'Wijzigen', delete: 'Verwijderen', open_only: 'Toon alleen doelen die nog open staan',
-    all_done: 'Alle doelen van dit vak zijn behaald.', achieved: 'Behaald', open: 'Open', via: 'Via', child_acts: name => `Activiteiten van ${name}`,
+    last: d => `laatst ${d}`, goals_per_subject: 'Doelen & beheersing beheren',
+    back: '← Overzicht', reached: (m, t) => `${m} van ${t} minimumdoelen beheerst`, n_touches: n => `${n}× aan bod in activiteiten`,
+    mastered_lbl: 'beheerst', touches_title: (l, n) => `${l}: ${n}× aan bod in activiteiten`, bar_aria: (l, n, t) => `${l}: ${n} van ${t} beheerst`,
+    tab_all: 'Alle', tab_todo: 'Te doen', tab_mastered: 'Beheerst', search_kid: 'Zoek op code of tekst',
+    mastered_since: d => `beheerst sinds ${d}`, mastery_aria: c => `${c} beheerst`,
+    none_mastered: 'Nog geen beheerste doelen. Vink bij Alle of Te doen de doelen aan die het kind beheerst.',
+    edit: 'Wijzigen', delete: 'Verwijderen',
+    all_mastered: 'Alle doelen van dit vak zijn beheerst.', via: 'Via', child_acts: name => `Activiteiten van ${name}`,
     h_acts: 'Activiteiten', acts_lede: 'Lessen, uitstappen en projecten, met de minimumdoelen die erin aan bod kwamen.',
     empty_acts_h: 'Nog geen activiteiten', empty_acts_p: 'Registreer wat je samen deed en vink aan welke minimumdoelen erbij horen.',
     empty_acts_nokids: 'Voeg eerst een kind toe op het overzicht.', to_overview: 'Naar overzicht',
     search_acts: 'Zoek op titel, notitie of doelcode', all_children: 'Alle kinderen', filter_child: 'Filter op kind',
     no_acts_found: 'Geen activiteiten gevonden met deze filters.', no_goals_linked: 'Geen minimumdoelen gekoppeld.', goals_aria: 'Minimumdoelen',
     h_goals: 'Minimumdoelen', goals_lede: 'De doelen waartegen je de voortgang meet. Officiële lijsten vind je op',
-    import: 'Importeren', add_goal: 'Doel toevoegen',
-    empty_goals_h: 'Nog geen minimumdoelen', empty_goals_p: 'Plak een lijst uit Excel of een CSV-bestand met deze kolommen:',
+    add_goal: 'Doel toevoegen',
+    empty_goals_h: 'Nog geen minimumdoelen', empty_goals_p: 'Voeg een eerste doel toe met een code, een vak en een omschrijving.',
     search_goals: 'Zoek op code, categorie of tekst', all_subjects: 'Alle vakken', filter_subject: 'Filter op vak',
-    count_line: (n, t, kids) => `${n} van ${t} doelen${kids ? ' · de diertjes tonen welke kinderen het doel behaalden' : ''}`,
+    count_line: (n, t, kids) => `${n} van ${t} doelen${kids ? ' · de diertjes tonen welke kinderen het doel beheersen' : ''}`,
     first_n: n => `De eerste ${n} worden getoond. Verfijn je zoekopdracht om de rest te zien.`,
     no_goals_found: 'Geen doelen gevonden met deze filters.', builtin: 'Standaard', builtin_title: 'Ingebouwd doel, kan niet gewijzigd worden',
-    kid_done: n => `${n}: behaald`, kid_open: n => `${n}: nog open`, ex_desc: 'Omschrijving van het doel',
+    kid_done: n => `${n}: beheerst`, kid_open: n => `${n}: nog niet beheerst`,
     close: 'Sluiten', cancel: 'Annuleren', save: 'Opslaan', busy: 'Bezig…', progress: (a, b) => `Bezig… ${a}/${b}`,
     child_edit_h: 'Kind wijzigen', child_add_h: 'Kind toevoegen', name: 'Naam', animal: 'Diertje', animal_taken: 'Al gekozen voor een ander kind',
     err_name: 'Vul een naam in.', err_dup_name: n => `Er is al een kind met de naam ${n}.`, saved_changes: 'Wijzigingen opgeslagen.', child_added: n => `${n} is toegevoegd.`,
@@ -120,7 +123,7 @@ const T = {
     child_del_acts: (n, c) => `${n} wordt uit ${nlN(c, 'activiteit', 'activiteiten')} gehaald. De activiteiten zelf blijven bewaard.`,
     child_del_none: 'Er zijn geen activiteiten gekoppeld.', child_deleted: n => `${n} is verwijderd.`,
     goal_edit_h: 'Doel wijzigen', goal_add_h: 'Doel toevoegen', code: 'Code', code_ph: 'bv. 1.2.3', subject: 'Vak', category: 'Categorie', description: 'Omschrijving',
-    err_desc: 'Vul een omschrijving in.', err_dup_code: c => `Er bestaat al een doel met code ${c} voor dit vak.`, goal_updated: 'Doel bijgewerkt.', goal_added: 'Doel toegevoegd.',
+    err_desc: 'Vul een omschrijving in.', err_dup_code: (c, s) => `Code ${c} is al in gebruik (${s}). Kies een andere code.`, goal_updated: 'Doel bijgewerkt.', goal_added: 'Doel toegevoegd.',
     goal_del_h: 'Doel verwijderen', goal_del_q: l => `Weet je zeker dat je doel <b>${l}</b> wilt verwijderen?`,
     goal_del_acts: c => `Het wordt losgekoppeld van ${nlN(c, 'activiteit', 'activiteiten')}.`, goal_del_none: 'Het is aan geen enkele activiteit gekoppeld.', goal_deleted: 'Doel verwijderd.',
     act_edit_h: 'Activiteit wijzigen', act_add_h: 'Activiteit toevoegen', title: 'Titel', title_ph: 'bv. Bezoek aan het natuurpunt', date: 'Datum', who: 'Wie deed mee?',
@@ -132,16 +135,6 @@ const T = {
     act_updated: 'Activiteit bijgewerkt.', act_saved: 'Activiteit opgeslagen.', add_child_first: 'Voeg eerst een kind toe.',
     act_del_h: 'Activiteit verwijderen', act_del_q: (t, d) => `Weet je zeker dat je <b>${t}</b> (${d}) wilt verwijderen?`,
     act_del_note: 'Doelen die alleen via deze activiteit behaald waren, staan daarna weer open.', act_deleted: 'Activiteit verwijderd.',
-    import_h: 'Minimumdoelen importeren',
-    import_p: 'Plak een lijst uit Excel, of kies een CSV- of tekstbestand. Kolommen: <b>code, vak, categorie, omschrijving</b>. Een kopregel met die namen mag, de volgorde kiest Doelenboek dan zelf.',
-    import_p2: s => `Vakken: ${s}. Doelen met dezelfde code als een bestaand doel worden bijgewerkt in plaats van dubbel toegevoegd.`,
-    list: 'Lijst', choose_file: 'Bestand kiezen', nothing_read: 'Nog niets ingelezen.',
-    n_recognised: n => `${nlN(n, 'doel', 'doelen')} herkend`, new_upd: (a, b, c) => `${a} nieuw, ${b} bijgewerkt${c ? `, ${c} al ingebouwd (overgeslagen)` : ''}`,
-    n_skipped: n => `${nlN(n, 'regel', 'regels')} overgeslagen:`, err_no_items: 'Er zijn geen nieuwe doelen herkend om te importeren.',
-    import_partial: (ok, fail, m) => `${ok} doelen geïmporteerd, ${fail} mislukt. ${m}`, imported: n => `${nlN(n, 'doel', 'doelen')} geïmporteerd.`,
-    file_unreadable: 'Dit bestand kon niet gelezen worden.',
-    e_json: 'Dit is geen geldige JSON.', e_cols: 'Elke regel heeft minstens drie kolommen nodig: code, vak en omschrijving.',
-    e_subject: (l, r) => `Regel ${l}: vak "${r}" niet herkend.`, e_desc: l => `Regel ${l}: omschrijving ontbreekt.`,
     data_h: 'Gegevens', where_db: 'Je gegevens worden automatisch bewaard bij deze pagina en zijn zichtbaar voor wie je de pagina deelt.',
     where_local: 'Je gegevens staan alleen in deze browser.',
     examples_h: 'Voorbeeldgegevens', examples_p: 'Verwijdert het voorbeeldkind en de voorbeeldactiviteit.',
@@ -197,30 +190,33 @@ const T = {
     data_btn: 'Data', loading: 'Loading data…', locale: 'en-GB', to_dark: 'Dark mode', to_light: 'Bright mode',
     example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
     remove_examples: 'Remove examples',
-    no_goals_notice: 'No minimum goals have been loaded yet. Paste or load them as a list and Doelenboek will work out progress per subject.',
-    import_goals: 'Import goals',
+    no_goals_notice: 'There are no minimum goals yet. Add them under Minimum goals and Doelenboek will work out progress per subject.',
     h_overview: 'Overview',
     n_children: n => nlN(n, 'child', 'children'), n_goals: n => nlN(n, 'minimum goal', 'minimum goals'), n_acts: n => nlN(n, 'activity', 'activities'), n_photos: n => nlN(n, 'photo', 'photos'),
     n_goals_short: n => nlN(n, 'goal', 'goals'),
     add_child: 'Add child', add_activity: 'Add activity',
     empty_kids_h: 'No children yet', empty_kids_p: 'Add a child. Then log activities and see, per subject, which minimum goals have been covered.',
-    last: d => `last ${d}`, x_of_y_goals: (a, b) => `${a}/${b} goals`, goals_per_subject: 'Goals per subject',
-    back: '← Overview', reached: (m, t, p) => `${m} of ${t} minimum goals covered (${p}%)`,
-    edit: 'Edit', delete: 'Delete', open_only: 'Show only goals that are still open',
-    all_done: 'Every goal in this subject is covered.', achieved: 'Covered', open: 'Open', via: 'Via', child_acts: name => `${name}'s activities`,
+    last: d => `last ${d}`, goals_per_subject: 'Manage goals & mastery',
+    back: '← Overview', reached: (m, t) => `${m} of ${t} minimum goals mastered`, n_touches: n => `${n}× touched in activities`,
+    mastered_lbl: 'mastered', touches_title: (l, n) => `${l}: ${n}× touched in activities`, bar_aria: (l, n, t) => `${l}: ${n} of ${t} mastered`,
+    tab_all: 'All', tab_todo: 'To do', tab_mastered: 'Mastered', search_kid: 'Search by code or text',
+    mastered_since: d => `mastered since ${d}`, mastery_aria: c => `${c} mastered`,
+    none_mastered: 'No mastered goals yet. Under All or To do, tick the goals the child has mastered.',
+    edit: 'Edit', delete: 'Delete',
+    all_mastered: 'Every goal in this subject is mastered.', via: 'Via', child_acts: name => `${name}'s activities`,
     h_acts: 'Activities', acts_lede: 'Lessons, outings and projects, with the minimum goals they covered.',
     empty_acts_h: 'No activities yet', empty_acts_p: 'Log what you did together and tick the minimum goals it covered.',
     empty_acts_nokids: 'Add a child on the overview first.', to_overview: 'Go to overview',
     search_acts: 'Search by title, notes or goal code', all_children: 'All children', filter_child: 'Filter by child',
     no_acts_found: 'No activities match these filters.', no_goals_linked: 'No minimum goals linked.', goals_aria: 'Minimum goals',
     h_goals: 'Minimum goals', goals_lede: 'The goals progress is measured against. Official lists are published on',
-    import: 'Import', add_goal: 'Add goal',
-    empty_goals_h: 'No minimum goals yet', empty_goals_p: 'Paste a list from Excel or a CSV file with these columns:',
+    add_goal: 'Add goal',
+    empty_goals_h: 'No minimum goals yet', empty_goals_p: 'Add a first goal with a code, a subject and a description.',
     search_goals: 'Search by code, category or text', all_subjects: 'All subjects', filter_subject: 'Filter by subject',
-    count_line: (n, t, kids) => `${n} of ${t} goals${kids ? ' · the animals show which children covered each goal' : ''}`,
+    count_line: (n, t, kids) => `${n} of ${t} goals${kids ? ' · the animals show which children have mastered each goal' : ''}`,
     first_n: n => `Showing the first ${n}. Narrow your search to see the rest.`,
     no_goals_found: 'No goals match these filters.', builtin: 'Built in', builtin_title: 'Built-in goal, cannot be changed',
-    kid_done: n => `${n}: covered`, kid_open: n => `${n}: still open`, ex_desc: 'Description of the goal',
+    kid_done: n => `${n}: mastered`, kid_open: n => `${n}: not mastered yet`,
     translated: 'Built-in goal texts are English translations of the official Dutch wording.',
     close: 'Close', cancel: 'Cancel', save: 'Save', busy: 'Working…', progress: (a, b) => `Working… ${a}/${b}`,
     child_edit_h: 'Edit child', child_add_h: 'Add child', name: 'Name', animal: 'Animal', animal_taken: 'Already used for another child',
@@ -229,7 +225,7 @@ const T = {
     child_del_acts: (n, c) => `${n} will be removed from ${nlN(c, 'activity', 'activities')}. The activities themselves are kept.`,
     child_del_none: 'No activities are linked.', child_deleted: n => `${n} has been deleted.`,
     goal_edit_h: 'Edit goal', goal_add_h: 'Add goal', code: 'Code', code_ph: 'e.g. 1.2.3', subject: 'Subject', category: 'Category', description: 'Description',
-    err_desc: 'Enter a description.', err_dup_code: c => `A goal with code ${c} already exists for this subject.`, goal_updated: 'Goal updated.', goal_added: 'Goal added.',
+    err_desc: 'Enter a description.', err_dup_code: (c, s) => `Code ${c} is already in use (${s}). Choose a different code.`, goal_updated: 'Goal updated.', goal_added: 'Goal added.',
     goal_del_h: 'Delete goal', goal_del_q: l => `Are you sure you want to delete goal <b>${l}</b>?`,
     goal_del_acts: c => `It will be unlinked from ${nlN(c, 'activity', 'activities')}.`, goal_del_none: 'It is not linked to any activity.', goal_deleted: 'Goal deleted.',
     act_edit_h: 'Edit activity', act_add_h: 'Add activity', title: 'Title', title_ph: 'e.g. Visit to the nature reserve', date: 'Date', who: 'Who took part?',
@@ -241,16 +237,6 @@ const T = {
     act_updated: 'Activity updated.', act_saved: 'Activity saved.', add_child_first: 'Add a child first.',
     act_del_h: 'Delete activity', act_del_q: (t, d) => `Are you sure you want to delete <b>${t}</b> (${d})?`,
     act_del_note: 'Goals that were only covered by this activity will be open again.', act_deleted: 'Activity deleted.',
-    import_h: 'Import minimum goals',
-    import_p: 'Paste a list from Excel, or choose a CSV or text file. Columns: <b>code, subject, category, description</b>. A header row with those names is fine; Doelenboek then works out the order itself.',
-    import_p2: s => `Subjects: ${s}. Goals with the same code as an existing goal are updated instead of added twice.`,
-    list: 'List', choose_file: 'Choose file', nothing_read: 'Nothing read yet.',
-    n_recognised: n => `${nlN(n, 'goal', 'goals')} recognised`, new_upd: (a, b, c) => `${a} new, ${b} updated${c ? `, ${c} already built in (skipped)` : ''}`,
-    n_skipped: n => `${nlN(n, 'line', 'lines')} skipped:`, err_no_items: 'No new goals were recognised to import.',
-    import_partial: (ok, fail, m) => `${ok} goals imported, ${fail} failed. ${m}`, imported: n => `${nlN(n, 'goal', 'goals')} imported.`,
-    file_unreadable: 'This file could not be read.',
-    e_json: 'This is not valid JSON.', e_cols: 'Each line needs at least three columns: code, subject and description.',
-    e_subject: (l, r) => `Line ${l}: subject "${r}" not recognised.`, e_desc: l => `Line ${l}: description is missing.`,
     data_h: 'Data', where_db: 'Your data is saved automatically with this page and is visible to anyone you share the page with.',
     where_local: 'Your data is stored in this browser only.',
     examples_h: 'Example data', examples_p: 'Removes the example child and the example activity.',
@@ -353,7 +339,12 @@ function clean(col, b) {
   if (col === 'children') {
     const name = str(b.name, 80).trim();
     if (!name) return null;
-    return { ...base, name, animal: str(b.animal, 16) || ANIMALS[0] };
+    /* goalId -> date the parent marked it as mastered */
+    const mastered = {};
+    if (b.mastered && typeof b.mastered === 'object' && !Array.isArray(b.mastered)) {
+      for (const [gid, d] of Object.entries(b.mastered).slice(0, 5000)) if (ID_RE.test(gid)) mastered[gid] = validDate(d) ? d : todayIso();
+    }
+    return { ...base, name, animal: str(b.animal, 16) || ANIMALS[0], mastered };
   }
   if (col === 'activities') {
     const title = str(b.title, 200).trim();
@@ -374,7 +365,8 @@ const loaded = { goals: false, children: false, activities: false };
 const ui = {
   view: 'overzicht', childId: null,
   goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)),
-  actSearch: '', actChild: '', openOnly: false, closed: new Set(),
+  actSearch: '', actChild: '', closed: new Set(),
+  kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
 };
 function setGoals(custom) {
   customGoals = custom;
@@ -575,7 +567,12 @@ function buildCoverage() {
   }
   return cov;
 }
+/* Mastered goals of a child that still exist: goalId -> date. */
+const masteredOf = c => new Map(Object.entries(c.mastered || {}).filter(([gid]) => data.goals.has(gid)));
 function countBySubject(m) { const c = {}; if (m) for (const gid of m.keys()) { const g = data.goals.get(gid); if (g) c[g.subject] = (c[g.subject] || 0) + 1; } return c; }
+/* Activity tags per subject: every activity that tagged a goal counts, so one goal can count more than once. */
+function touchesBySubject(m) { const c = {}; if (m) for (const [gid, acts] of m) { const g = data.goals.get(gid); if (g) c[g.subject] = (c[g.subject] || 0) + acts.length; } return c; }
+const sumValues = o => Object.values(o).reduce((a, b) => a + b, 0);
 const exampleItems = () => COLS.flatMap(c => [...(c === 'goals' ? customGoals : data[c]).values()].filter(d => d.example).map(d => ({ c, id: d.id })));
 
 /* ---------- rendering ---------- */
@@ -652,32 +649,34 @@ function exampleBanner() {
 }
 function noGoalsNotice() {
   if (data.goals.size) return '';
-  return `<div class="notice"><p>${esc(t('no_goals_notice'))}</p><button class="btn small w" data-action="import-goals">${bt('import_goals')}</button></div>`;
+  return `<div class="notice"><p>${esc(t('no_goals_notice'))}</p><a class="btn small w" href="#doelen">${bt('add_goal')}</a></div>`;
 }
 
-function barRow(label, key, n, tot) {
+/* The bar and n/tot are mastered goals (bounded); the × number is activity tags (unbounded). */
+const touchNum = (label, n) => `<span class="touch${n ? '' : ' zero'}" title="${esc(t('touches_title', label, n))}">${n ? `${n}×` : '—'}</span>`;
+function barRow(label, key, n, tot, touches) {
   const p = tot ? Math.round(100 * n / tot) : 0;
-  return `<li class="${tot ? '' : 'none'}"><span class="b-lbl">${esc(label)}</span><span class="bar" role="img" aria-label="${esc(label)}: ${n} / ${tot}"><i style="width:${p}%;background:${sv(key)}"></i></span><span class="b-num">${tot ? `${n}/${tot}` : '—'}</span></li>`;
+  return `<li class="${tot ? '' : 'none'}"><span class="b-lbl">${esc(label)}</span><span class="bar" role="img" aria-label="${esc(t('bar_aria', label, n, tot))}"><i style="width:${p}%;background:${sv(key)}"></i></span><span class="b-num">${tot ? `${n}/${tot}` : '—'}</span>${touchNum(label, touches)}</li>`;
 }
 
 function viewOverview(cov) {
   const kids = sortedChildren(), totals = subjectTotals(), total = data.goals.size;
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))} · ${esc(t('n_goals', total))} · ${esc(t('n_acts', data.activities.size))}</p></div>
-    <div class="head-actions w"><button class="btn" data-action="add-child">${bt('add_child')}</button><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${bt('add_activity')}</button></div></section>`;
+    <div class="head-actions w"><button class="btn" data-action="add-child">${bt('add_child')}</button></div></section>`;
   h += noGoalsNotice();
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
   }
   h += `<div class="child-grid">${kids.map(c => {
-    const m = cov.get(c.id), acts = activitiesFor(c.id), covered = m ? m.size : 0;
-    const pct = total ? Math.round(100 * covered / total) : 0, per = countBySubject(m);
+    const acts = activitiesFor(c.id), mast = masteredOf(c);
+    const per = countBySubject(mast), touches = touchesBySubject(cov.get(c.id));
     return `<article class="card child-card">
       <header class="cc-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
         <div class="cc-id"><h2>${esc(c.name)}</h2><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? '<br>' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
-        <div class="cc-pct"><strong>${pct}<small>%</small></strong><span>${esc(t('x_of_y_goals', covered, total))}</span></div></header>
-      <ul class="bars">${SUBJECTS.map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key] || 0)).join('')}</ul>
-      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w" data-action="new-activity" data-child="${esc(c.id)}">${bt('add_activity')}</button></footer>
+        <div class="cc-pct"><strong>${mast.size}<small>/${total}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
+      <ul class="bars">${SUBJECTS.map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key] || 0, touches[s.key] || 0)).join('')}</ul>
+      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button></footer>
     </article>`;
   }).join('')}</div>`;
   return h;
@@ -686,32 +685,55 @@ function viewOverview(cov) {
 function viewChild(cov) {
   const c = data.children.get(ui.childId);
   if (!c) { ui.view = 'overzicht'; return viewOverview(cov); }
-  const m = cov.get(c.id) || new Map(), totals = subjectTotals(), total = data.goals.size;
-  const pct = total ? Math.round(100 * m.size / total) : 0;
-  const goals = sortedGoals(), acts = activitiesFor(c.id);
+  const m = cov.get(c.id) || new Map(), mast = masteredOf(c), totals = subjectTotals(), total = data.goals.size;
+  const goals = sortedGoals(), acts = activitiesFor(c.id), touches = touchesBySubject(m), q = norm(ui.kidSearch);
+  const tab = ui.kidTab;
+  const inTab = g => tab === 'all' || mast.has(g.id) === (tab === 'mastered');
   let h = `<button class="btn small ghost back" data-action="back">${bt('back')}</button>
     <section class="kid-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
-      <div class="kid-name"><h1>${esc(c.name)}</h1><p class="lede">${esc(t('reached', m.size, total, pct))} · ${esc(t('n_acts', acts.length))}</p></div>
-      <div class="head-actions"><button class="btn primary w" data-action="new-activity" data-child="${esc(c.id)}">${bt('add_activity')}</button><button class="btn w" data-action="edit-child" data-id="${esc(c.id)}">${bt('edit')}</button><button class="btn ghost w" data-action="delete-child" data-id="${esc(c.id)}">${bt('delete')}</button></div>
+      <div class="kid-name"><h1>${esc(c.name)}</h1><p class="lede">${esc(t('reached', mast.size, total))} · ${esc(t('n_touches', sumValues(touches)))} · ${esc(t('n_acts', acts.length))}</p></div>
+      <div class="head-actions"><button class="btn primary w" data-action="new-activity" data-child="${esc(c.id)}">${bt('add_activity')}</button><button class="btn w" data-action="edit-child" data-id="${esc(c.id)}">${bt('edit')}</button></div>
     </section>`;
   h += noGoalsNotice();
-  if (total) h += `<label class="check"><input type="checkbox" id="open-only" ${ui.openOnly ? 'checked' : ''}> ${bt('open_only')}</label>`;
+  if (!total) return h;
+  const segBtn = (key, n) => `<button role="tab" data-action="kid-tab" data-tab="${key}" aria-selected="${tab === key}">${bt('tab_' + key)} <span class="seg-n">${n}</span></button>`;
+  h += `<div class="toolbar kid-tools">
+      <div class="seg" role="tablist" aria-label="${esc(t('goals_aria'))}">${segBtn('all', total)}${segBtn('todo', total - mast.size)}${segBtn('mastered', mast.size)}</div>
+      <input class="search" id="kid-search" type="search" placeholder="${esc(t('search_kid'))}" value="${esc(ui.kidSearch)}" aria-label="${esc(t('search_kid'))}">
+    </div>`;
+  let shownAny = false;
   for (const s of SUBJECTS) {
     const sg = goals.filter(g => g.subject === s.key);
     if (!sg.length) continue;
-    const n = sg.filter(g => m.has(g.id)).length, tot = totals[s.key] || 0;
-    const shown = ui.openOnly ? sg.filter(g => !m.has(g.id)) : sg;
-    h += `<details class="card subj" data-subj="${s.key}" ${ui.closed.has(s.key) ? '' : 'open'}>
-      <summary><span class="dot" style="--c:${sv(s.key)}"></span><h2>${esc(sName(s.key))}</h2><span class="bar"><i style="width:${tot ? Math.round(100 * n / tot) : 0}%;background:${sv(s.key)}"></i></span><span class="b-num">${n}/${tot}</span></summary>
+    const n = sg.filter(g => mast.has(g.id)).length, tot = totals[s.key] || 0;
+    const shown = sg.filter(g => inTab(g) && (!q || norm(searchText(g)).includes(q)));
+    if (!shown.length && (tab === 'mastered' || q)) continue;   // hide empty subjects on the mastered tab and while searching
+    shownAny = true;
+    h += `<details class="card subj" data-subj="${s.key}" ${ui.closed.has(s.key) && !q ? '' : 'open'}>
+      <summary><span class="dot" style="--c:${sv(s.key)}"></span><h2>${esc(sName(s.key))}</h2><span class="bar" role="img" aria-label="${esc(t('bar_aria', sName(s.key), n, tot))}"><i style="width:${tot ? Math.round(100 * n / tot) : 0}%;background:${sv(s.key)}"></i></span><span class="b-num">${n}/${tot}</span>${touchNum(sName(s.key), touches[s.key] || 0)}</summary>
       <ul class="status-list">${shown.length ? shown.map(g => {
-        const via = m.get(g.id);
-        return `<li class="${via ? 'done' : ''}"><span class="mark" role="img" aria-label="${esc(via ? t('achieved') : t('open'))}"></span><span class="code" style="--c:${sv(g.subject)}">${esc(g.code || '—')}</span>
-          <div class="g-body">${gCat(g) ? `<p class="g-meta">${esc(gCat(g))}</p>` : ''}<p class="g-desc">${esc(gDesc(g))}</p>${via ? `<p class="via">${esc(t('via'))} ${via.map(a => `${esc(a.title)} (${esc(fmtDate(a.date))})`).join(', ')}</p>` : ''}</div></li>`;
-      }).join('') : `<li><span></span><span></span><p class="muted">${esc(t('all_done'))}</p></li>`}</ul>
+        const via = m.get(g.id), since = mast.get(g.id);
+        return `<li class="${since ? 'done' : ''}${via ? '' : ' untouched'}"><span class="code" style="--c:${sv(g.subject)}">${esc(g.code || '—')}</span>
+          <div class="g-body">${gCat(g) ? `<p class="g-meta">${esc(gCat(g))}</p>` : ''}<p class="g-desc">${esc(gDesc(g))}</p>${since && tab === 'mastered' ? `<p class="since">${esc(t('mastered_since', fmtDate(since)))}</p>` : ''}${via ? `<p class="via">${esc(t('via'))} ${via.map(a => `${esc(a.title)} (${esc(fmtDate(a.date))})`).join(', ')}</p>` : ''}</div>
+          ${touchNum(g.code || sName(g.subject), via ? via.length : 0)}
+          <label class="mastery"${since ? ` title="${esc(t('mastered_since', fmtDate(since)))}"` : ''}><input type="checkbox" id="m-${esc(g.id)}" data-mastery="${esc(g.id)}" ${since ? 'checked' : ''} ${canWrite ? '' : 'disabled'} aria-label="${esc(t('mastery_aria', g.code || gDesc(g).slice(0, 40)))}"><span aria-hidden="true">${bt('mastered_lbl')}</span></label></li>`;
+      }).join('') : `<li><span></span><p class="muted">${esc(t('all_mastered'))}</p></li>`}</ul>
     </details>`;
   }
+  if (!shownAny) h += `<p class="muted">${esc(q ? t('no_goals_found') : t('none_mastered'))}</p>`;
   if (acts.length) h += `<h2>${esc(t('child_acts', c.name))}</h2><div class="act-list">${acts.map(activityCard).join('')}</div>`;
   return h;
+}
+
+/* Tick or untick one goal as mastered for the open child; saved at once on the child's document. */
+async function setMastery(gid, on) {
+  const c = data.children.get(ui.childId); if (!c || !data.goals.has(gid)) return;
+  if (!!c.mastered[gid] === on) return;
+  const mastered = { ...c.mastered };
+  if (on) mastered[gid] = todayIso(); else delete mastered[gid];
+  try { await put('children', c.id, { ...bodyOf(c), mastered, updatedAt: Date.now() }); }
+  catch (e) { toast(errMsg(e), true); }
+  scheduleRender();
 }
 
 function goalChip(g) { return `<li class="code goal-chip" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" tabindex="0" aria-label="${esc(`${g.code} ${sName(g.subject)}: ${gDesc(g)}`)}"><span class="dot"></span>${esc(g.code || sName(g.subject))}</li>`; }
@@ -774,10 +796,9 @@ function viewGoals(cov) {
   const allOn = ui.goalSubj.size === SUBJECTS.length;
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.${lang === 'en' ? ' ' + esc(t('translated')) : ''}</p></div>
-    <div class="head-actions w"><button class="btn" data-action="import-goals">${bt('import')}</button><button class="btn primary" data-action="new-goal">${bt('add_goal')}</button></div></section>`;
+    <div class="head-actions w"><button class="btn primary" data-action="new-goal">${bt('add_goal')}</button></div></section>`;
   if (!all.length) {
-    return h + `<div class="empty"><h2>${esc(t('empty_goals_h'))}</h2><p>${esc(t('empty_goals_p'))}</p><pre>code;vak;categorie;omschrijving
-1.1.1;Nederlands;Lezen;${esc(t('ex_desc'))}</pre><button class="btn primary w" data-action="import-goals">${bt('import_goals')}</button></div>`;
+    return h + `<div class="empty"><h2>${esc(t('empty_goals_h'))}</h2><p>${esc(t('empty_goals_p'))}</p><button class="btn primary w" data-action="new-goal">${bt('add_goal')}</button></div>`;
   }
   h += `<div class="toolbar"><input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
     <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
@@ -789,7 +810,7 @@ function viewGoals(cov) {
   h += `<ul class="card goal-list">${list.slice(0, MAX).map(g => `<li class="goal-row">
       <span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(g.code || '—')}</span>
       <div class="g-body"><p class="g-meta">${esc(sName(g.subject))}${gCat(g) ? ' · ' + esc(gCat(g)) : ''}</p><p class="g-desc">${esc(gDesc(g))}</p></div>
-      <div class="g-side">${kids.length ? `<span class="kids-row">${kids.map(k => { const done = cov.get(k.id)?.has(g.id); return `<span class="avatar sm ${done ? '' : 'off'}" title="${esc(done ? t('kid_done', k.name) : t('kid_open', k.name))}">${animalArt(k.animal)}</span>`; }).join('')}</span>` : ''}
+      <div class="g-side">${kids.length ? `<span class="kids-row">${kids.map(k => { const done = !!k.mastered[g.id]; return `<span class="avatar sm ${done ? '' : 'off'}" title="${esc(done ? t('kid_done', k.name) : t('kid_open', k.name))}">${animalArt(k.animal)}</span>`; }).join('')}</span>` : ''}
         ${g.builtin ? `<span class="tag" title="${esc(t('builtin_title'))}">${esc(t('builtin'))}</span>` : `<span class="row-actions w"><button class="icon-btn" data-action="edit-goal" data-id="${esc(g.id)}">${bt('edit')}</button><button class="icon-btn del" data-action="delete-goal" data-id="${esc(g.id)}">${bt('delete')}</button></span>`}</div>
     </li>`).join('') || `<li class="goal-row"><p class="muted">${esc(t('no_goals_found'))}</p></li>`}</ul>`;
   if (list.length > MAX) h += `<p class="count-line">${esc(t('first_n', MAX))}</p>`;
@@ -892,7 +913,10 @@ function goalDialog(goal) {
   openDialog(shell('f-goal', goal ? t('goal_edit_h') : t('goal_add_h'), body), d => bindSubmit(d, async form => {
     const code = form.code.value.trim(), description = form.description.value.trim(), subject = form.subject.value;
     if (!description) return t('err_desc');
-    if (code && [...data.goals.values()].some(g => (!goal || g.id !== goal.id) && g.code.toLowerCase() === code.toLowerCase() && g.subject === subject)) return t('err_dup_code', code);
+    /* codes are shown without their subject, so they must be unique across all goals, built-in ones included */
+    const codeKey = c => c.toLowerCase().replace(/\s+/g, '');
+    const clash = code && [...data.goals.values()].find(g => (!goal || g.id !== goal.id) && g.code && codeKey(g.code) === codeKey(code));
+    if (clash) return t('err_dup_code', clash.code, sName(clash.subject));
     ui.lastSubject = subject;
     const now = Date.now();
     await put('goals', goal?.id || newId(), { ...(goal ? bodyOf(goal) : { createdAt: now }), code, subject, category: form.category.value.trim(), description, updatedAt: now, example: false });
@@ -904,6 +928,8 @@ function deleteGoal(id) {
   const affected = [...data.activities.values()].filter(a => a.goalIds.includes(id));
   confirmDialog(t('goal_del_h'), `<p>${t('goal_del_q', esc(g.code || g.description.slice(0, 60)))}</p><p class="muted">${esc(affected.length ? t('goal_del_acts', affected.length) : t('goal_del_none'))}</p>`, t('delete'), async () => {
     const errors = await runPool(affected, a => put('activities', a.id, { ...bodyOf(a), goalIds: a.goalIds.filter(x => x !== id), updatedAt: Date.now() }));
+    const kids = [...data.children.values()].filter(c => c.mastered[id]);
+    errors.push(...await runPool(kids, c => { const mastered = { ...c.mastered }; delete mastered[id]; return put('children', c.id, { ...bodyOf(c), mastered, updatedAt: Date.now() }); }));
     if (errors.length) throw errors[0];
     await remove('goals', id);
     toast(t('goal_deleted'));
@@ -1087,108 +1113,6 @@ function deleteActivity(id) {
   });
 }
 
-/* ---------- import ---------- */
-function detectDelim(text) {
-  const line = text.split(/\r?\n/).find(l => l.trim()) || '';
-  let best = ',', n = -1;
-  for (const d of ['\t', ';', ',']) { const c = line.split(d).length - 1; if (c > n) { n = c; best = d; } }
-  return best;
-}
-function parseRows(text, delim) {
-  const rows = []; let row = [], cell = '', q = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    if (q) { if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += ch; }
-    else if (ch === '"' && cell.trim() === '') { q = true; cell = ''; }
-    else if (ch === delim) { row.push(cell); cell = ''; }
-    else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; }
-    else cell += ch;
-  }
-  if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
-  return rows.filter(r => r.some(c => c.trim()));
-}
-function parseGoalImport(text) {
-  const tx = text.replace(/^﻿/, '').trim();
-  const out = { items: [], errors: [] };
-  if (!tx) return out;
-  let records = [];
-  if (tx[0] === '[' || tx[0] === '{') {
-    try {
-      let arr = JSON.parse(tx);
-      if (!Array.isArray(arr)) arr = Array.isArray(arr.goals) ? arr.goals : [];
-      records = arr.map((o, i) => ({ line: i + 1, code: o?.code ?? o?.enumeration ?? '', subject: o?.subject ?? o?.vak ?? '', category: o?.category ?? o?.categorie ?? '', description: o?.description ?? o?.omschrijving ?? '' }));
-    } catch (e) { out.errors.push(t('e_json')); return out; }
-  } else {
-    const rows = parseRows(tx, detectDelim(tx));
-    const head = rows[0].map(c => flat(c));
-    const find = names => head.findIndex(x => names.includes(x));
-    const hc = { code: find(['code', 'nummer', 'nr', 'enumeration', 'doelcode', 'id']), subject: find(['vak', 'subject', 'leergebied', 'domein', 'vakgebied', 'leerdomein']), category: find(['categorie', 'category', 'rubriek', 'subdomein', 'cluster', 'thema']), description: find(['omschrijving', 'description', 'doel', 'tekst', 'beschrijving', 'minimumdoel']) };
-    let map, start = 0, headed = false;
-    if (hc.subject >= 0 && hc.description >= 0) { map = hc; start = 1; headed = true; }
-    else if (rows[0].length >= 4) map = { code: 0, subject: 1, category: 2, description: 3 };
-    else if (rows[0].length === 3) map = { code: 0, subject: 1, category: -1, description: 2 };
-    else { out.errors.push(t('e_cols')); return out; }
-    for (let i = start; i < rows.length; i++) {
-      const r = rows[i], g = k => map[k] >= 0 ? (r[map[k]] || '').trim() : '';
-      // without a header, an unquoted description containing the delimiter spills into extra columns: glue them back
-      const description = headed ? g('description') : r.slice(map.description).join(', ').trim();
-      records.push({ line: i + 1, code: g('code'), subject: g('subject'), category: g('category'), description });
-    }
-  }
-  const seen = new Map();
-  for (const r of records) {
-    const subject = matchSubject(r.subject);
-    if (!subject) { out.errors.push(t('e_subject', r.line, String(r.subject).slice(0, 40))); continue; }
-    const description = String(r.description || '').trim();
-    if (!description) { out.errors.push(t('e_desc', r.line)); continue; }
-    const item = { code: String(r.code || '').trim().slice(0, 40), subject, category: String(r.category || '').trim().slice(0, 200), description: description.slice(0, 4000) };
-    seen.set(goalKey(item), item);
-  }
-  out.items = [...seen.values()];
-  return out;
-}
-const goalKey = g => g.code ? `${g.subject}|c|${g.code.toLowerCase()}` : `${g.subject}|d|${flat(g.description)}`;
-
-function importDialog() {
-  const body = `<p>${t('import_p')}</p>
-    <p class="muted">${esc(t('import_p2', SUBJECTS.map(s => sName(s.key)).join(', ')))}</p>
-    <label class="field"><span>${esc(t('list'))}</span><textarea id="i-text" rows="8" placeholder="code;vak;categorie;omschrijving&#10;1.1.1;Nederlands;Lezen;…" style="font-family:var(--f-mono);font-size:.8rem"></textarea></label>
-    <div><span class="btn small file-label">${esc(t('choose_file'))}<input type="file" id="i-file" accept=".csv,.tsv,.txt,.json,text/csv,text/plain,application/json" aria-label="${esc(t('choose_file'))}"></span></div>
-    <div class="import-preview" id="i-prev"><span class="muted">${esc(t('nothing_read'))}</span></div>`;
-  openDialog(shell('f-import', t('import_h'), body, t('import')), d => {
-    const ta = d.querySelector('#i-text'), prev = d.querySelector('#i-prev');
-    let parsed = { items: [], errors: [] };
-    const existing = new Map([...data.goals.values()].map(g => [goalKey(g), g]));
-    function update() {
-      parsed = parseGoalImport(ta.value);
-      if (!ta.value.trim()) { prev.innerHTML = `<span class="muted">${esc(t('nothing_read'))}</span>`; return; }
-      const builtinHits = parsed.items.filter(i => existing.get(goalKey(i))?.builtin).length;
-      const upd = parsed.items.filter(i => { const ex = existing.get(goalKey(i)); return ex && !ex.builtin; }).length;
-      prev.innerHTML = `<b>${esc(t('n_recognised', parsed.items.length))}</b><span>${esc(t('new_upd', parsed.items.length - upd - builtinHits, upd, builtinHits))}</span>${parsed.errors.length ? `<span>${esc(t('n_skipped', parsed.errors.length))}</span><ul>${parsed.errors.slice(0, 50).map(e => `<li>${esc(e)}</li>`).join('')}</ul>` : ''}`;
-    }
-    ta.addEventListener('input', update);
-    d.querySelector('#i-file').addEventListener('change', e => {
-      const f = e.target.files[0]; if (!f) return;
-      const rd = new FileReader();
-      rd.onload = () => { ta.value = String(rd.result || ''); update(); };
-      rd.onerror = () => toast(t('file_unreadable'), true);
-      rd.readAsText(f);
-    });
-    bindSubmit(d, async (form, progress) => {
-      update();
-      const now = Date.now();
-      const tasks = parsed.items.filter(i => !existing.get(goalKey(i))?.builtin).map(i => {
-        const ex = existing.get(goalKey(i));
-        return { id: ex?.id || newId(), body: { ...(ex ? bodyOf(ex) : { createdAt: now }), ...i, updatedAt: now, example: false } };
-      });
-      if (!tasks.length) return t('err_no_items');
-      const errors = await runPool(tasks, tk => put('goals', tk.id, tk.body), 4, (n, tot) => progress(t('progress', n, tot)));
-      if (errors.length) { toast(t('import_partial', tasks.length - errors.length, errors.length, errMsg(errors[0])), true); return; }
-      toast(t('imported', tasks.length));
-    });
-  });
-}
-
 /* ---------- data menu ---------- */
 function dataDialog() {
   const ex = exampleItems().length > 0;
@@ -1305,15 +1229,15 @@ main.addEventListener('click', e => {
     case 'add-child': return childDialog(null);
     case 'edit-child': return childDialog(data.children.get(id));
     case 'delete-child': return deleteChild(id);
-    case 'open-child': ui.view = 'kind'; ui.childId = id; render(); window.scrollTo(0, 0); return;
+    case 'open-child': ui.view = 'kind'; ui.childId = id; ui.kidTab = 'all'; ui.kidSearch = ''; render(); window.scrollTo(0, 0); return;
     case 'back': ui.view = 'overzicht'; render(); return;
+    case 'kid-tab': ui.kidTab = b.dataset.tab; return render();
     case 'new-activity': return activityDialog(null, b.dataset.child);
     case 'edit-activity': return activityDialog(data.activities.get(id));
     case 'delete-activity': return deleteActivity(id);
     case 'new-goal': return goalDialog(null);
     case 'edit-goal': return goalDialog(data.goals.get(id));
     case 'delete-goal': return deleteGoal(id);
-    case 'import-goals': return importDialog();
     case 'remove-examples': return removeExamples();
     case 'photo': return openLightbox(id, Number(b.dataset.i) || 0);
     case 'auth-view': ui_auth.view = b.dataset.v; ui_auth.err = ''; ui_auth.msg = ''; render(); $('#au-email')?.focus(); return;
@@ -1343,10 +1267,11 @@ main.addEventListener('input', e => {
   if (e.target.id === 'au-email') ui_auth.email = e.target.value;
   if (e.target.id === 'goal-search') { ui.goalSearch = e.target.value; scheduleRender(); }
   if (e.target.id === 'act-search') { ui.actSearch = e.target.value; scheduleRender(); }
+  if (e.target.id === 'kid-search') { ui.kidSearch = e.target.value; scheduleRender(); }
 });
 main.addEventListener('change', e => {
   if (e.target.id === 'act-child') { ui.actChild = e.target.value; render(); }
-  if (e.target.id === 'open-only') { ui.openOnly = e.target.checked; render(); }
+  if (e.target.dataset.mastery) setMastery(e.target.dataset.mastery, e.target.checked);
 });
 main.addEventListener('toggle', e => {
   const el = e.target; if (!el.matches || !el.matches('details[data-subj]')) return;
