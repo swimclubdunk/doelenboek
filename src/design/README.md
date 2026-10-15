@@ -74,7 +74,7 @@ puts in the page, so they are the hooks you style. Adding a new class means chan
   `b-lbl`, `bar`, `b-num`; `none` when a subject has no goals), `kid-head`, `kid-name`
 - **Avatars:** `avatar` (+ `lg`, `sm`; `off` = goal not mastered yet). Animal drawings fill the box;
   the grey circle only shows for an animal without a drawing.
-- **Child cards:** `bars` rows end in `touch` (activity tags, `zero` when none)
+- **Child cards:** `bars` rows end in `touch` (activity tags, `zero` when none); `cc-del` is the delete button in the footer
 - **Goals per child:** `seg` (All / To do / Mastered, `seg-n` counts), `subj` (a `<details>`, `open`
   when expanded), `status-list` (rows `done` when mastered, `untouched` when no activity tagged them),
   `code`, `g-body`, `g-meta`, `g-desc`, `since`, `via`, `touch`, `mastery` (the tick pill)

@@ -201,6 +201,10 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .touch { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: .76rem; font-weight: 500; color: var(--fg); white-space: nowrap; }
 .touch.zero { color: var(--muted); opacity: .6; }
 .cc-foot { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 12px; }
+/* delete sits apart, bottom right, and only turns red on hover */
+.cc-del { margin-left: auto; color: var(--muted); padding: 5px 8px; display: inline-grid; place-items: center; }
+.cc-del svg { width: 16px; height: 16px; display: block; }
+.cc-del:hover { color: var(--danger); border-color: var(--danger); }
 
 /* toolbar */
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
@@ -1355,6 +1359,7 @@ function scheduleRender() { if (rq) return; rq = requestAnimationFrame(() => { r
 const themeNow = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 const ICON_MOON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
 const ICON_SUN = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const ICON_TRASH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function renderTheme() {
   const dark = themeNow() === 'dark', b = $('#theme-btn'), label = t(dark ? 'to_light' : 'to_dark');
   b.innerHTML = dark ? ICON_SUN : ICON_MOON;
@@ -1448,7 +1453,7 @@ function viewOverview(cov) {
         <div class="cc-id"><h2>${esc(c.name)}</h2><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? '<br>' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
         <div class="cc-pct"><strong>${mast.size}<small>/${total}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
       <ul class="bars">${SUBJECTS.map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key] || 0, touches[s.key] || 0)).join('')}</ul>
-      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button></footer>
+      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w cc-del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></footer>
     </article>`;
   }).join('')}</div>`;
   return h;
