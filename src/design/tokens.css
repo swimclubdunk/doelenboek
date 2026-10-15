@@ -43,7 +43,7 @@
 
   /* subject colours, from the original Unity palette (three are lightened for dark) */
   --s-nl: #2A9D8F;
-  --s-wk: light-dark(#264653, #7EA8BB);
+  --s-wk: light-dark(#36679C, #8BB3DE);
   --s-wt: light-dark(#B56576, #D0899A);
   --s-ge: #E08A47;
   --s-ak: #E76F51;

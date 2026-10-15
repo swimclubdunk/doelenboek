@@ -760,7 +760,7 @@ function activityCard(a) {
       ${a.notes ? `<p class="notes">${esc(a.notes)}</p>` : ''}
     </div>
     ${photoStrip(a)}
-    <div class="row-actions w"><button class="icon-btn" data-action="edit-activity" data-id="${esc(a.id)}">${bt('edit')}</button><button class="icon-btn del" data-action="delete-activity" data-id="${esc(a.id)}">${bt('delete')}</button></div>
+    <div class="row-actions w"><button class="icon-btn" data-action="edit-activity" data-id="${esc(a.id)}">${bt('edit')}</button><button class="icon-btn del" data-action="delete-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_del_h'))}" title="${esc(t('act_del_h'))}">${ICON_TRASH}</button></div>
   </article>`;
 }
 
@@ -812,7 +812,7 @@ function viewGoals(cov) {
       <span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(g.code || '—')}</span>
       <div class="g-body"><p class="g-meta">${esc(sName(g.subject))}${gCat(g) ? ' · ' + esc(gCat(g)) : ''}</p><p class="g-desc">${esc(gDesc(g))}</p></div>
       <div class="g-side">${kids.length ? `<span class="kids-row">${kids.map(k => { const done = !!k.mastered[g.id]; return `<span class="avatar sm ${done ? '' : 'off'}" title="${esc(done ? t('kid_done', k.name) : t('kid_open', k.name))}">${animalArt(k.animal)}</span>`; }).join('')}</span>` : ''}
-        ${g.builtin ? `<span class="tag" title="${esc(t('builtin_title'))}">${esc(t('builtin'))}</span>` : `<span class="row-actions w"><button class="icon-btn" data-action="edit-goal" data-id="${esc(g.id)}">${bt('edit')}</button><button class="icon-btn del" data-action="delete-goal" data-id="${esc(g.id)}">${bt('delete')}</button></span>`}</div>
+        ${g.builtin ? `<span class="g-end"><span class="tag" title="${esc(t('builtin_title'))}">${esc(t('builtin'))}</span></span>` : `<span class="row-actions w"><button class="icon-btn" data-action="edit-goal" data-id="${esc(g.id)}">${bt('edit')}</button><button class="icon-btn del" data-action="delete-goal" data-id="${esc(g.id)}" aria-label="${esc(t('goal_del_h'))}" title="${esc(t('goal_del_h'))}">${ICON_TRASH}</button></span>`}</div>
     </li>`).join('') || `<li class="goal-row"><p class="muted">${esc(t('no_goals_found'))}</p></li>`}</ul>`;
   if (list.length > MAX) h += `<p class="count-line">${esc(t('first_n', MAX))}</p>`;
   return h;
