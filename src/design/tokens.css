@@ -41,15 +41,19 @@
   --warn-bg:         light-dark(#F7EBD3, #3B2F1E);
   --warn-fg:         light-dark(#5A4220, #F1E2C6);
 
-  /* subject colours, from the original Unity palette (three are lightened for dark) */
-  --s-nl: #2A9D8F;
-  --s-wk: light-dark(#36679C, #8BB3DE);
-  --s-wt: light-dark(#B56576, #D0899A);
-  --s-ge: #E08A47;
-  --s-ak: #E76F51;
-  --s-mv: #D4A93E;
-  --s-lo: #7FA872;
-  --s-at: light-dark(#6D597A, #A88FBB);
+  /* subject colours: eight hue families spread around the wheel (OKLCH ~45 degrees apart) at moderate
+     chroma (0.10-0.12), with lightness alternating light/dark around the wheel so neighbouring hues
+     differ in lightness as well. Every pair is at least 16 (light) / 15 (dark) OKLab Delta E apart.
+     Around the wheel: LO coral, GE amber-brown, AK olive-sand, WT green, NL teal, WK blue, AT lavender,
+     MV plum. Each has its own step for the dark background. */
+  --s-nl: light-dark(#0BB9BB, #37B6B7);
+  --s-wk: light-dark(#2773B0, #1882B9);
+  --s-wt: light-dark(#0A8257, #257B54);
+  --s-ge: light-dark(#A5631E, #9D5B17);
+  --s-ak: light-dark(#9DA244, #A69D3A);
+  --s-mv: light-dark(#8F4E88, #98598C);
+  --s-lo: light-dark(#E98D90, #E28789);
+  --s-at: light-dark(#A297E9, #9C96E4);
 
   --f-display: "Clarity City", "Segoe UI", system-ui, sans-serif;
   --f-body: "Clarity City", "Segoe UI", system-ui, sans-serif;
