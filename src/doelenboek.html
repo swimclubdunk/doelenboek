@@ -10,7 +10,7 @@
   <div class="top-inner">
     <div class="brand"><b>doelenboek.be</b></div>
     <nav class="tabs" aria-label="Doelenboek">
-      <a href="#overzicht" data-tab="overzicht">Overzicht</a>
+      <a href="#overzicht" data-tab="overzicht">Kinderen</a>
       <a href="#activiteiten" data-tab="activiteiten">Activiteiten</a>
       <a href="#doelen" data-tab="doelen">Minimumdoelen</a>
     </nav>
@@ -84,19 +84,19 @@ const BUILTIN = new Map(BUILTIN_GOALS.map(g => [g.id, { ...g, builtin: true, cre
 const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
-    tab_overzicht: 'Overzicht', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen',
+    tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen',
     st_connecting: 'Verbinden…', st_saved: 'Automatisch opgeslagen', st_readonly: 'Alleen lezen', st_local: 'Alleen in deze browser',
     data_btn: 'Gegevens', loading: 'Gegevens laden…', locale: 'nl-BE', to_dark: 'Donkere modus', to_light: 'Lichte modus',
     example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
     remove_examples: 'Voorbeelden verwijderen',
     no_goals_notice: 'Er zijn nog geen minimumdoelen. Voeg ze toe bij Minimumdoelen, dan berekent Doelenboek de voortgang per vak.',
-    h_overview: 'Overzicht',
+    h_overview: 'Kinderen',
     n_children: n => nlN(n, 'kind', 'kinderen'), n_goals: n => nlN(n, 'minimumdoel', 'minimumdoelen'), n_acts: n => nlN(n, 'activiteit', 'activiteiten'), n_photos: n => nlN(n, 'foto', "foto's"),
     n_goals_short: n => nlN(n, 'doel', 'doelen'),
     add_child: 'Kind toevoegen', add_activity: 'Activiteit toevoegen',
     empty_kids_h: 'Nog geen kinderen', empty_kids_p: 'Voeg een kind toe. Daarna registreer je activiteiten en zie je per vak welke minimumdoelen al aan bod kwamen.',
     last: d => `laatst ${d}`, goals_per_subject: 'Doelen & beheersing bewerken',
-    back: '← Overzicht', reached: (m, t) => `${m} van ${t} minimumdoelen beheerst`, n_touches: n => `${n}× aan bod in activiteiten`,
+    back: '← Kinderen', reached: (m, t) => `${m} van ${t} minimumdoelen beheerst`, n_touches: n => `${n}× aan bod in activiteiten`,
     mastered_lbl: 'beheerst', touches_title: (l, n) => `${l}: ${n}× aan bod in activiteiten`, bar_aria: (l, n, t) => `${l}: ${n} van ${t} beheerst`,
     tab_all: 'Alle', tab_todo: 'Te doen', tab_mastered: 'Beheerst', search_kid: 'Zoek op code of tekst',
     mastered_since: d => `beheerst sinds ${d}`, mastery_aria: c => `${c} beheerst`,
@@ -105,7 +105,8 @@ const T = {
     all_mastered: 'Alle doelen van dit vak zijn beheerst.', via: 'Via', child_acts: name => `Activiteiten van ${name}`,
     h_acts: 'Activiteiten', acts_lede: 'Lessen, uitstappen en projecten, met de minimumdoelen die erin aan bod kwamen.',
     empty_acts_h: 'Nog geen activiteiten', empty_acts_p: 'Registreer wat je samen deed en vink aan welke minimumdoelen erbij horen.',
-    empty_acts_nokids: 'Voeg eerst een kind toe op het overzicht.', to_overview: 'Naar overzicht',
+    empty_acts_nokids: 'Voeg eerst een kind toe bij Kinderen.', to_overview: 'Naar Kinderen',
+    search_kids: 'Zoek een kind op naam', no_kids_found: 'Geen kinderen gevonden.',
     search_acts: 'Zoek op titel, notitie of doelcode', all_children: 'Alle kinderen', filter_child: 'Filter op kind',
     no_acts_found: 'Geen activiteiten gevonden met deze filters.', no_goals_linked: 'Geen minimumdoelen gekoppeld.', goals_aria: 'Minimumdoelen',
     h_goals: 'Minimumdoelen', goals_lede: 'De doelen waartegen je de voortgang meet. Officiële lijsten vind je op',
@@ -183,19 +184,19 @@ const T = {
     late_write_fail: 'Een wijziging kon niet in je account opgeslagen worden. Herlaad de pagina en controleer je gegevens.',
   },
   en: {
-    tab_overzicht: 'Overview', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals',
+    tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals',
     st_connecting: 'Connecting…', st_saved: 'Saved automatically', st_readonly: 'Read only', st_local: 'This browser only',
     data_btn: 'Data', loading: 'Loading data…', locale: 'en-GB', to_dark: 'Dark mode', to_light: 'Bright mode',
     example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
     remove_examples: 'Remove examples',
     no_goals_notice: 'There are no minimum goals yet. Add them under Minimum goals and Doelenboek will work out progress per subject.',
-    h_overview: 'Overview',
+    h_overview: 'Children',
     n_children: n => nlN(n, 'child', 'children'), n_goals: n => nlN(n, 'minimum goal', 'minimum goals'), n_acts: n => nlN(n, 'activity', 'activities'), n_photos: n => nlN(n, 'photo', 'photos'),
     n_goals_short: n => nlN(n, 'goal', 'goals'),
     add_child: 'Add child', add_activity: 'Add activity',
     empty_kids_h: 'No children yet', empty_kids_p: 'Add a child. Then log activities and see, per subject, which minimum goals have been covered.',
     last: d => `last ${d}`, goals_per_subject: 'Edit goals & mastery',
-    back: '← Overview', reached: (m, t) => `${m} of ${t} minimum goals mastered`, n_touches: n => `${n}× touched in activities`,
+    back: '← Children', reached: (m, t) => `${m} of ${t} minimum goals mastered`, n_touches: n => `${n}× touched in activities`,
     mastered_lbl: 'mastered', touches_title: (l, n) => `${l}: ${n}× touched in activities`, bar_aria: (l, n, t) => `${l}: ${n} of ${t} mastered`,
     tab_all: 'All', tab_todo: 'To do', tab_mastered: 'Mastered', search_kid: 'Search by code or text',
     mastered_since: d => `mastered since ${d}`, mastery_aria: c => `${c} mastered`,
@@ -204,7 +205,8 @@ const T = {
     all_mastered: 'Every goal in this subject is mastered.', via: 'Via', child_acts: name => `${name}'s activities`,
     h_acts: 'Activities', acts_lede: 'Lessons, outings and projects, with the minimum goals they covered.',
     empty_acts_h: 'No activities yet', empty_acts_p: 'Log what you did together and tick the minimum goals it covered.',
-    empty_acts_nokids: 'Add a child on the overview first.', to_overview: 'Go to overview',
+    empty_acts_nokids: 'Add a child under Children first.', to_overview: 'Go to Children',
+    search_kids: 'Search children by name', no_kids_found: 'No children found.',
     search_acts: 'Search by title, notes or goal code', all_children: 'All children', filter_child: 'Filter by child',
     no_acts_found: 'No activities match these filters.', no_goals_linked: 'No minimum goals linked.', goals_aria: 'Minimum goals',
     h_goals: 'Minimum goals', goals_lede: 'The goals progress is measured against. Official lists are published on',
@@ -366,7 +368,7 @@ const loaded = { goals: false, children: false, activities: false };
 const ui = {
   view: 'overzicht', childId: null,
   goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)),
-  actSearch: '', actChild: '', closed: new Set(),
+  childSearch: '', actSearch: '', actChild: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
 };
 function setGoals(custom) {
@@ -669,7 +671,10 @@ function viewOverview(cov) {
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
   }
-  h += `<div class="child-grid">${kids.map(c => {
+  const q = norm(ui.childSearch), shown = q ? kids.filter(c => norm(c.name).includes(q)) : kids;
+  h += `<div class="toolbar"><input class="search" id="child-search" type="search" placeholder="${esc(t('search_kids'))}" value="${esc(ui.childSearch)}" aria-label="${esc(t('search_kids'))}"></div>`;
+  if (!shown.length) return h + `<p class="muted">${esc(t('no_kids_found'))}</p>`;
+  h += `<div class="child-grid">${shown.map(c => {
     const acts = activitiesFor(c.id), mast = masteredOf(c);
     const per = countBySubject(mast), touches = touchesBySubject(cov.get(c.id));
     return `<article class="card child-card">
@@ -1266,6 +1271,7 @@ main.addEventListener('submit', e => { if (e.target.id === 'auth-form') { e.prev
 main.addEventListener('input', e => {
   if (e.target.id === 'au-email') ui_auth.email = e.target.value;
   if (e.target.id === 'goal-search') { ui.goalSearch = e.target.value; scheduleRender(); }
+  if (e.target.id === 'child-search') { ui.childSearch = e.target.value; scheduleRender(); }
   if (e.target.id === 'act-search') { ui.actSearch = e.target.value; scheduleRender(); }
   if (e.target.id === 'kid-search') { ui.kidSearch = e.target.value; scheduleRender(); }
 });

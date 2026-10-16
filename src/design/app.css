@@ -80,8 +80,6 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
 .page-head > div:first-child { min-width: 0; }
 .lede { color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; max-width: 70ch; }
-/* page heads always hold two lines of lede (as on the goals page), so the content below doesn't jump between views */
-.page-head .lede { min-height: 3em; }
 .head-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 /* the actions next to a page title belong together, so they share one look (no highlighted one) */
 .head-actions .btn.primary { background: var(--surface); border-color: var(--line); color: var(--fg); }
