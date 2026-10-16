@@ -455,8 +455,8 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 .site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; }
 /* the donation line: quiet, like the rest of the footer */
 .site-foot .support > span { font-weight: 700; }
-.site-foot .support a { color: inherit; text-underline-offset: 2px; }
-.site-foot .support a:hover { color: var(--fg); }
+.site-foot .support a, .site-foot .contact a { color: inherit; text-underline-offset: 2px; }
+.site-foot .support a:hover, .site-foot .contact a:hover { color: var(--fg); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .thumb:hover img { transform: none; } }
 @media (max-width: 400px) {
@@ -506,6 +506,7 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 <main id="main"><p class="loading">Gegevens laden…</p></main>
 <footer class="site-foot" id="site-foot">
   <p id="foot-cookies"></p>
+  <p class="contact"><span id="contact-text"></span> <a id="contact-link"></a></p>
   <p class="support"><span id="support-text"></span> <a id="support-link" href="https://ko-fi.com/mat644" target="_blank" rel="noopener"></a></p>
 </footer>
 <dialog id="dlg"></dialog>
@@ -580,6 +581,8 @@ const THEME_KEY = 'doelenboek.theme';   // also read by the small script in the 
 const FIREBASE_CONFIG = {"apiKey": "AIzaSyBBxji4-yKxG1ZZHvdxNV1vtG9JAD46gMA", "authDomain": "doelenboek-e78ca.firebaseapp.com", "projectId": "doelenboek-e78ca", "storageBucket": "doelenboek-e78ca.firebasestorage.app", "messagingSenderId": "224430377433", "appId": "1:224430377433:web:c2eedf518737fab6ce31c8"};
 const FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/10.14.1/';
 const MIGRATED_KEY = 'doelenboek.migrated.';
+/* The contact address in two parts, put together on load, so it never appears whole in the page source for harvesters. */
+const CONTACT = ['hello.doelenboek', 'gmail.com'];
 const THANKS_KEY = 'doelenboek.thanks';   // set once the donation thank-you has been shown
 const MAX_PHOTOS = 24;              // per activity
 const PHOTO_MAX_B64 = 240000;       // keeps one photo under the 256 KiB document limit of the shared store
@@ -1400,6 +1403,7 @@ const T = {
     err_conn: 'De verbinding met de opslag is verbroken. Herlaad de pagina.',
     pick_btn: 'Doelen kiezen…', pick_h: 'Minimumdoelen kiezen', done: 'Klaar', none_chosen: 'Nog geen doelen gekozen.', n_selected: n => `${n} gekozen`,
     foot_cookies: 'Deze website slaat geen cookies op je toestel op.',
+    contact_p: 'Feedback of een idee voor een nieuwe functie? Mail naar',
     support_p: 'Overweeg een donatie om dit project te steunen.', support_link: 'Doneren via Ko-fi',
     thanks_h: 'Fijn dat je Doelenboek gebruikt!',
     thanks_p: 'Heb je er iets aan? Dan wordt een kleine donatie enorm gewaardeerd. Ze helpt de kosten van de hosting te dekken, zodat deze pagina online blijft en er nieuwe functies bij kunnen komen.',
@@ -1501,6 +1505,7 @@ const T = {
     err_conn: 'The connection to storage was lost. Reload the page.',
     pick_btn: 'Choose goals…', pick_h: 'Choose minimum goals', done: 'Done', none_chosen: 'No goals selected yet.', n_selected: n => `${n} selected`,
     foot_cookies: 'This website does not store cookies on your machine.',
+    contact_p: 'Feedback or a feature request? Email',
     support_p: 'Consider donating to support this project.', support_link: 'Donate on Ko-fi',
     thanks_h: 'Glad you are using Doelenboek!',
     thanks_p: 'If you get value from it, a small donation would be greatly appreciated. It helps cover hosting costs to keep this page running and to add new features.',
@@ -1852,6 +1857,9 @@ function renderChrome() {
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
   $('#foot-cookies').textContent = t('foot_cookies');
+  $('#contact-text').textContent = t('contact_p');
+  const contact = $('#contact-link'), mail = CONTACT.join('@');
+  contact.textContent = mail; contact.href = 'mailto:' + mail;
   $('#support-text').textContent = t('support_p');
   $('#support-link').textContent = t('support_link');
   $('#site-foot').hidden = mode === 'loading' || mode === 'auth';

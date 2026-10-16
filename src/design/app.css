@@ -371,8 +371,8 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 .site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; }
 /* the donation line: quiet, like the rest of the footer */
 .site-foot .support > span { font-weight: 700; }
-.site-foot .support a { color: inherit; text-underline-offset: 2px; }
-.site-foot .support a:hover { color: var(--fg); }
+.site-foot .support a, .site-foot .contact a { color: inherit; text-underline-offset: 2px; }
+.site-foot .support a:hover, .site-foot .contact a:hover { color: var(--fg); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .thumb:hover img { transform: none; } }
 @media (max-width: 400px) {
