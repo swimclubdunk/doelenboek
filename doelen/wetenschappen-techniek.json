@@ -2,5 +2,153 @@
   "subject": "WT",
   "name": "Wetenschappen & techniek",
   "nameEn": "Science & technology",
-  "doelen": []
+  "doelen": [
+    {
+      "code": "3.1.1",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De kleuters kennen de volgende begrippen met betrekking tot organismen: de fauna; de zoogdieren; de vogels; de vissen; de insecten; de flora.",
+      "descriptionEn": "Preschoolers know these concepts about organisms: fauna, mammals, birds, fish, insects, flora."
+    },
+    {
+      "code": "3.1.2",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De kleuters kunnen: organismen beschrijven op basis van waarneembare kenmerken; fauna beschrijven op basis van voortplantingswijze. Woordenschat (richtinggevend): de dieren; de planten; de bouw; de ledematen; het hoofd; het lichaam; de huid; de wortel; de stengel; de stam; het blad; de bloem; de vrucht; de voortplantingswijze; de eieren; het leggen van eieren; zogend; levendbarend.",
+      "descriptionEn": "Preschoolers can describe organisms by their observable features, and describe animals by how they reproduce. Vocabulary (as a guide): the animals, the plants, the structure, the limbs, the head, the body, the skin, the root, the stem, the trunk, the leaf, the flower, the fruit, the way of reproducing, the eggs, laying eggs, suckling, live-bearing."
+    },
+    {
+      "code": "3.1.3",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De kleuters kennen de volgende begrippen in verband met de levenscyclus: geboren worden; kiemen; groeien; sterven.",
+      "descriptionEn": "Preschoolers know these concepts about the life cycle: being born, germinating, growing, dying."
+    },
+    {
+      "code": "3.1.4",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De kleuters kennen de fasen van de levenscyclus: geboorte/ kieming; groei; voortplanting; dood. Woordenschat (richtinggevend): de zwangerschap; de baby; de peuter; de kleuter; het kind; de tiener; de volwassene; het ei; zogend; het zaad.",
+      "descriptionEn": "Preschoolers know the stages of the life cycle: birth or germination, growth, reproduction, death. Vocabulary (as a guide): the pregnancy, the baby, the toddler, the preschooler, the child, the teenager, the adult, the egg, suckling, the seed."
+    },
+    {
+      "code": "3.2.1",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De kleuters kennen het principe van eten en gegeten worden.",
+      "descriptionEn": "Preschoolers know the principle of eating and being eaten."
+    },
+    {
+      "code": "3.2.2",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De kleuters kennen verschillende voedingsmiddelen.",
+      "descriptionEn": "Preschoolers know different kinds of food."
+    },
+    {
+      "code": "3.2.3",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De kleuters weten dat mensen eten en drinken om te groeien en te bewegen.",
+      "descriptionEn": "Preschoolers know that people eat and drink to grow and to move."
+    },
+    {
+      "code": "3.2.4",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De kleuters kunnen aangeven dat je moet eten wanneer je honger hebt en drinken wanneer je dorst hebt.",
+      "descriptionEn": "Preschoolers can say that you eat when you are hungry and drink when you are thirsty."
+    },
+    {
+      "code": "3.3.1",
+      "category": "Menselijk lichaam",
+      "categoryEn": "The human body",
+      "description": "De kleuters kennen de volgende begrippen: de spieren; de botten; de longen; het hart; de maag; de ogen; de oren; de neus; de mond; de huid; bewegen; steunen; ademen; de hartslag; de honger; de dorst; zien; horen; ruiken; proeven; voelen.",
+      "descriptionEn": "Preschoolers know these concepts: the muscles, the bones, the lungs, the heart, the stomach, the eyes, the ears, the nose, the mouth, the skin, moving, supporting, breathing, the heartbeat, hunger, thirst, seeing, hearing, smelling, tasting, feeling."
+    },
+    {
+      "code": "3.3.2",
+      "category": "Menselijk lichaam",
+      "categoryEn": "The human body",
+      "description": "De kleuters kennen lichaamsdelen en hun functie: spieren; botten; longen; hart; maag; ogen; oren; neus; mond; huid.",
+      "descriptionEn": "Preschoolers know these body parts and what they do: muscles, bones, lungs, heart, stomach, eyes, ears, nose, mouth, skin."
+    },
+    {
+      "code": "3.3.3",
+      "category": "Menselijk lichaam",
+      "categoryEn": "The human body",
+      "description": "De kleuters kunnen deze lichaamsdelen op het eigen lichaam aanduiden en benoemen.",
+      "descriptionEn": "Preschoolers can point to and name these body parts on their own body."
+    },
+    {
+      "code": "3.4.1",
+      "category": "Eigenschappen van materie",
+      "categoryEn": "Properties of matter",
+      "description": "De kleuters kunnen materie sorteren op basis van waarneembare eigenschappen. Woordenschat (richtinggevend): het hout; de steen; het zand; het papier; de stof; het glas.",
+      "descriptionEn": "Preschoolers can sort materials by observable properties. Vocabulary (as a guide): the wood, the stone, the sand, the paper, the fabric, the glass."
+    },
+    {
+      "code": "3.5.1",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De kleuters kennen de volgende begrippen met betrekking tot natuurkundige verschijnselen: de zon; de lamp; licht; donker; de schaduw; de spiegel; het stopcontact; de batterij; aantrekken; afstoten; de magneet; magnetisch.",
+      "descriptionEn": "Preschoolers know these concepts about physical phenomena: the sun, the lamp, light, dark, the shadow, the mirror, the plug socket, the battery, attract, repel, the magnet, magnetic."
+    },
+    {
+      "code": "3.5.2",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De kleuters kennen licht: de lichtbron; de reflectie.",
+      "descriptionEn": "Preschoolers know about light: the light source, reflection."
+    },
+    {
+      "code": "3.5.3",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De kleuters kennen geluid: hard; zacht.",
+      "descriptionEn": "Preschoolers know about sound: loud, soft."
+    },
+    {
+      "code": "3.5.4",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De kleuters kennen magnetisme. Eigenschappen van magneten: aantrekken; afstoten.",
+      "descriptionEn": "Preschoolers know about magnetism. Properties of magnets: attract, repel."
+    },
+    {
+      "code": "3.5.5",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De kleuters kunnen magnetische en niet-magnetische materialen onderscheiden.",
+      "descriptionEn": "Preschoolers can tell magnetic from non-magnetic materials."
+    },
+    {
+      "code": "3.6.1",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De kleuters kennen de relatie tussen oorzaak en gevolg.",
+      "descriptionEn": "Preschoolers know the link between cause and effect."
+    },
+    {
+      "code": "3.6.2",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De kleuters kunnen aangeleerde woordenschat inzetten om te redeneren over een wetenschappelijke vraag.",
+      "descriptionEn": "Preschoolers can use vocabulary they have learnt to reason about a scientific question."
+    },
+    {
+      "code": "3.6.3",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De kleuters weten dat voorwerpen en materialen een functie hebben en ontworpen zijn om een probleem op te lossen.",
+      "descriptionEn": "Preschoolers know that objects and materials have a purpose and are designed to solve a problem."
+    },
+    {
+      "code": "3.7.1",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De kleuters kunnen leeftijdsadequate technische systemen correct en veilig gebruiken.",
+      "descriptionEn": "Preschoolers can use age-appropriate technical systems correctly and safely."
+    }
+  ]
 }

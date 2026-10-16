@@ -2,5 +2,125 @@
   "subject": "AK",
   "name": "Aardrijkskunde",
   "nameEn": "Geography",
-  "doelen": []
+  "doelen": [
+    {
+      "code": "4.1.1",
+      "category": "Topografie",
+      "categoryEn": "Topography",
+      "description": "De kleuters kennen de naam van: België; een plaatselijke rivier; de rivier de Nijl.",
+      "descriptionEn": "Preschoolers know the names of: Belgium, a local river, the river Nile."
+    },
+    {
+      "code": "4.1.2",
+      "category": "Topografie",
+      "categoryEn": "Topography",
+      "description": "De kleuters kunnen water, land en de polen op de wereldbol aanduiden.",
+      "descriptionEn": "Preschoolers can point out water, land and the poles on a globe."
+    },
+    {
+      "code": "4.1.3",
+      "category": "Topografie",
+      "categoryEn": "Topography",
+      "description": "De kleuters kennen de volgende begrippen met betrekking tot relatieve ligging: dichtbij, veraf, voor, achter, opzij, boven, onder, tussen, binnen, buiten, hoog, laag, in, uit, naast, midden.",
+      "descriptionEn": "Preschoolers know these concepts of relative position: near, far, in front, behind, to the side, above, below, between, inside, outside, high, low, in, out, next to, in the middle."
+    },
+    {
+      "code": "4.1.4",
+      "category": "Topografie",
+      "categoryEn": "Topography",
+      "description": "De kleuters kennen de volgende begrippen met betrekking tot absolute plaatsbepaling: de straatnaam en het huisnummer; de Noordpool, de Zuidpool.",
+      "descriptionEn": "Preschoolers know these concepts of absolute location: the street name and house number, the North Pole, the South Pole."
+    },
+    {
+      "code": "4.2.1",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De kleuters kennen de volgende begrippen met betrekking tot kenmerken van de aarde en haar atmosfeer: het land, het water, de lucht, de rots, de grot, het zand.",
+      "descriptionEn": "Preschoolers know these concepts about features of the earth and its atmosphere: the land, the water, the air, the rock, the cave, the sand."
+    },
+    {
+      "code": "4.2.2",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De kleuters kennen de volgende begrippen met betrekking tot natuurlijke aspecten van landschappen: de reliëfvorm: de berg, de heuvel, de vallei; de helling: omhoog, omlaag, steil, zacht; het water: de oceaan, de zee, het strand, de rivier, de beek, de plas, de vijver; de vegetatie: de boom, het bos, het gras, het grasland, de weide, het riet, het gazon; de bodem: vruchtbaar, zanderig, rotsachtig.",
+      "descriptionEn": "Preschoolers know these concepts about the natural features of landscapes. Landforms: the mountain, the hill, the valley. Slopes: up, down, steep, gentle. Water: the ocean, the sea, the beach, the river, the stream, the puddle, the pond. Vegetation: the tree, the forest, the grass, the grassland, the meadow, the reeds, the lawn. Soil: fertile, sandy, rocky."
+    },
+    {
+      "code": "4.2.3",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De kleuters kennen de volgende begrippen met betrekking tot infrastructuur en hun interactie met landschappen: het wonen: het huis, het appartement, de tuin; de transportinfrastructuur: de weg, de straat, de bus, het spoor, de trein; de landbouw: de akker, de boerderij, de stal, de koe, het schaap, het varken, het gewas; de industrie: de fabriek, de werkplaats; de handel en diensten: de winkel, de markt, de bakkerij; de recreatie en het toerisme: het zwembad, de zee, het park, de bibliotheek.",
+      "descriptionEn": "Preschoolers know these concepts about infrastructure and how it interacts with landscapes. Housing: the house, the flat, the garden. Transport: the road, the street, the bus, the railway, the train. Farming: the field, the farm, the barn, the cow, the sheep, the pig, the crop. Industry: the factory, the workshop. Trade and services: the shop, the market, the bakery. Recreation and tourism: the swimming pool, the sea, the park, the library."
+    },
+    {
+      "code": "4.2.4",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De kleuters kennen de volgende begrippen met betrekking tot weersverschijnselen: de temperatuur; de neerslag; de bewolking; de wind.",
+      "descriptionEn": "Preschoolers know these concepts about the weather: temperature, precipitation, cloud cover, wind."
+    },
+    {
+      "code": "4.2.5",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De kleuters kunnen de relatie tussen bewolking en neerslag beschrijven.",
+      "descriptionEn": "Preschoolers can describe the link between clouds and precipitation."
+    },
+    {
+      "code": "4.2.6",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De kleuters kennen de volgende begrippen: de aarde; de maan; de zon; de sterren; de dag; de nacht.",
+      "descriptionEn": "Preschoolers know these concepts: the earth, the moon, the sun, the stars, day, night."
+    },
+    {
+      "code": "4.2.7",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De kleuters kunnen het ritme van de seizoenen in de directe omgeving herkennen.",
+      "descriptionEn": "Preschoolers can recognise the rhythm of the seasons in their immediate surroundings."
+    },
+    {
+      "code": "4.2.8",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De kleuters kunnen de beweging van de aarde om haar as tonen met behulp van een wereldbol.",
+      "descriptionEn": "Preschoolers can show the earth turning on its axis using a globe."
+    },
+    {
+      "code": "4.3.1",
+      "category": "Aardrijkskundige bronnen en vaardigheden",
+      "categoryEn": "Geographical sources and skills",
+      "description": "De kleuters kunnen een ruimtelijke indeling van een kamer en een buitenruimte beschrijven door observatie en geheugen.",
+      "descriptionEn": "Preschoolers can describe the layout of a room and an outdoor space from observation and memory."
+    },
+    {
+      "code": "4.3.2",
+      "category": "Aardrijkskundige bronnen en vaardigheden",
+      "categoryEn": "Geographical sources and skills",
+      "description": "De kleuters kunnen een geobserveerde ruimte weergeven door middel van een eenvoudige tekening of schets.",
+      "descriptionEn": "Preschoolers can represent an observed space in a simple drawing or sketch."
+    },
+    {
+      "code": "4.3.3",
+      "category": "Aardrijkskundige bronnen en vaardigheden",
+      "categoryEn": "Geographical sources and skills",
+      "description": "De kleuters kunnen een neerslagvorm observeren: regen, sneeuw, hagel, mist.",
+      "descriptionEn": "Preschoolers can observe a form of precipitation: rain, snow, hail, fog."
+    },
+    {
+      "code": "4.3.4",
+      "category": "Aardrijkskundige bronnen en vaardigheden",
+      "categoryEn": "Geographical sources and skills",
+      "description": "De kleuters kunnen een actueel ruimtelijk vraagstuk bespreken in termen van gevolgen en relatieve meting. (bv. waar een stoel positioneren om meer ruimte te maken, tramhalte gelegen op een nuttige/veilige plaats, hoeveel hoger of dichter bij het raam planten zetten om ze meer licht te geven.)",
+      "descriptionEn": "Preschoolers can discuss a current spatial issue in terms of consequences and relative measurement (e.g. where to put a chair to make more room, whether a tram stop is in a useful and safe place, how much higher or closer to the window to put plants to give them more light)."
+    },
+    {
+      "code": "4.3.5",
+      "category": "Aardrijkskundige bronnen en vaardigheden",
+      "categoryEn": "Geographical sources and skills",
+      "description": "De kleuters kunnen ideeën genereren om actuele ruimtelijke problemen op te lossen met behulp van relatieve ruimtelijke begrippen.",
+      "descriptionEn": "Preschoolers can come up with ideas to solve current spatial problems using relative spatial concepts."
+    }
+  ]
 }

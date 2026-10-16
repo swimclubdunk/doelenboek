@@ -2,5 +2,90 @@
   "subject": "LO",
   "name": "Lichamelijke opvoeding",
   "nameEn": "Physical education",
-  "doelen": []
+  "doelen": [
+    {
+      "code": "7.1.1",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De kleuters kunnen in bewegingscontexten motorische basisvaardigheden inzetten.",
+      "descriptionEn": "Preschoolers can use basic motor skills in movement settings."
+    },
+    {
+      "code": "7.1.2",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De kleuters kunnen in bewegingscontexten eenvoudige (groot)motorische vaardigheden uitvoeren, waaronder heffen en dragen, klimmen en klauteren, rijden en glijden, sluipen en kruipen, springen en landen, stappen en lopen, werpen, vangen en trappen, zwieren, balanceren en roteren.",
+      "descriptionEn": "Preschoolers can perform simple (gross) motor skills in movement settings, including lifting and carrying, climbing and scrambling, riding and sliding, creeping and crawling, jumping and landing, walking and running, throwing, catching and kicking, swinging, balancing and rotating."
+    },
+    {
+      "code": "7.1.3",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De kleuters kunnen in bewegingscontexten de KLUSCE-componenten (kracht; lenigheid; uithouding; snelheid; coördinatie; evenwicht) inzetten.",
+      "descriptionEn": "Preschoolers can use the KLUSCE components (strength, flexibility, endurance, speed, coordination, balance) in movement settings."
+    },
+    {
+      "code": "7.1.4",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De kleuters kunnen in verschillende bewegingscontexten spel- en bewegingsactiviteiten uitvoeren en met verschillende materialen.",
+      "descriptionEn": "Preschoolers can carry out play and movement activities in different movement settings and with different materials."
+    },
+    {
+      "code": "7.1.5",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De kleuters kennen hun voorkeurslichaamszijde.",
+      "descriptionEn": "Preschoolers know their preferred side of the body."
+    },
+    {
+      "code": "7.1.6",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De kleuters kunnen in bewegingscontexten eenvoudige bewegingen afstemmen op tijd (duur; tempo; ritme; volgorde).",
+      "descriptionEn": "Preschoolers can match simple movements to time (duration, pace, rhythm, sequence) in movement settings."
+    },
+    {
+      "code": "7.1.7",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De kleuters kunnen in bewegingscontexten eenvoudige bewegingen afstemmen op de ruimte (positie; afstand; richting; bewegingsbaan).",
+      "descriptionEn": "Preschoolers can match simple movements to space (position, distance, direction, path of movement) in movement settings."
+    },
+    {
+      "code": "7.1.8",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De kleuters kunnen in bewegingscontexten eenvoudige bewegingen afstemmen op zintuiglijke signalen (auditief; visueel; tactiel).",
+      "descriptionEn": "Preschoolers can match simple movements to sensory signals (hearing, sight, touch) in movement settings."
+    },
+    {
+      "code": "7.1.9",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De kleuters kunnen in bewegingscontexten een linker- of rechtervoorkeur tonen bij éénhandige taken.",
+      "descriptionEn": "Preschoolers can show a left or right preference in one-handed tasks in movement settings."
+    },
+    {
+      "code": "7.1.10",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De kleuters kunnen in bewegingscontexten waar tweehandigheid vereist is, een duidelijke taakverdeling tonen tussen het gebruik van de linker- en rechterhand.",
+      "descriptionEn": "In movement settings that need both hands, preschoolers can show a clear division of tasks between the left and the right hand."
+    },
+    {
+      "code": "7.2.1",
+      "category": "Zelfconcept en interactie in groep",
+      "categoryEn": "Self-concept and group interaction",
+      "description": "De kleuters kunnen binnen een eenvoudige spelvorm één tot twee spelregels opvolgen.",
+      "descriptionEn": "Preschoolers can follow one or two rules in a simple game."
+    },
+    {
+      "code": "7.2.2",
+      "category": "Zelfconcept en interactie in groep",
+      "categoryEn": "Self-concept and group interaction",
+      "description": "De kleuters kunnen in hun bewegingsvaardigheid durf tonen.",
+      "descriptionEn": "Preschoolers can show confidence in their movement skills."
+    }
+  ]
 }
