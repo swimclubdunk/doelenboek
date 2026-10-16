@@ -164,6 +164,8 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
 .page-head > div:first-child { min-width: 0; }
 .lede { color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; max-width: 70ch; }
+/* page heads always hold two lines of lede (as on the goals page), so the content below doesn't jump between views */
+.page-head .lede { min-height: 3em; }
 .head-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 /* the actions next to a page title belong together, so they share one look (no highlighted one) */
 .head-actions .btn.primary { background: var(--surface); border-color: var(--line); color: var(--fg); }
@@ -209,9 +211,11 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .touch { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: .76rem; font-weight: 500; color: var(--fg); white-space: nowrap; }
 .touch.zero { color: var(--muted); opacity: .6; }
 .cc-foot { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 12px; }
-/* delete sits apart, bottom right, and only turns red on hover */
-.cc-del { margin-left: auto; color: var(--muted); padding: 5px 8px; display: inline-grid; place-items: center; }
-.cc-del svg { width: 16px; height: 16px; display: block; }
+/* edit and delete sit apart, bottom right; delete only turns red on hover */
+.cc-edit, .cc-del { color: var(--muted); padding: 5px 8px; display: inline-grid; place-items: center; }
+.cc-edit svg, .cc-del svg { width: 16px; height: 16px; display: block; }
+.cc-edit { margin-left: auto; }
+.cc-edit:hover { color: var(--fg); }
 .cc-del:hover { color: var(--danger); border-color: var(--danger); }
 
 /* toolbar */
@@ -248,6 +252,9 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* outlined like the small buttons on the child cards, so they read as buttons */
 .row-actions .icon-btn { border: 1px solid var(--line); padding: 5px 10px; color: var(--fg); }
 .row-actions .icon-btn:hover { background: transparent; border-color: var(--muted); }
+/* edit is a pencil icon, like on the child cards */
+.row-actions .icon-btn.edit { padding: 5px 8px; display: inline-grid; place-items: center; }
+.row-actions .icon-btn.edit svg { width: 16px; height: 16px; display: block; }
 /* delete is the same trash icon everywhere: muted, red on hover (see .cc-del on the child cards) */
 .row-actions .icon-btn.del { color: var(--muted); padding: 5px 8px; display: inline-grid; place-items: center; }
 .row-actions .icon-btn.del svg { width: 16px; height: 16px; display: block; }
@@ -500,7 +507,7 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 </header>
 <main id="main"><p class="loading">Gegevens laden…</p></main>
 <footer class="site-foot" id="site-foot">
-  <p id="foot-data"></p>
+  <p id="foot-cookies"></p>
   <p class="support"><span id="support-text"></span> <a id="support-link" href="https://ko-fi.com/mat644" target="_blank" rel="noopener"></a></p>
 </footer>
 <dialog id="dlg"></dialog>
@@ -890,7 +897,7 @@ const T = {
     n_goals_short: n => nlN(n, 'doel', 'doelen'),
     add_child: 'Kind toevoegen', add_activity: 'Activiteit toevoegen',
     empty_kids_h: 'Nog geen kinderen', empty_kids_p: 'Voeg een kind toe. Daarna registreer je activiteiten en zie je per vak welke minimumdoelen al aan bod kwamen.',
-    last: d => `laatst ${d}`, goals_per_subject: 'Doelen & beheersing beheren',
+    last: d => `laatst ${d}`, goals_per_subject: 'Doelen & beheersing bewerken',
     back: '← Overzicht', reached: (m, t) => `${m} van ${t} minimumdoelen beheerst`, n_touches: n => `${n}× aan bod in activiteiten`,
     mastered_lbl: 'beheerst', touches_title: (l, n) => `${l}: ${n}× aan bod in activiteiten`, bar_aria: (l, n, t) => `${l}: ${n} van ${t} beheerst`,
     tab_all: 'Alle', tab_todo: 'Te doen', tab_mastered: 'Beheerst', search_kid: 'Zoek op code of tekst',
@@ -943,12 +950,11 @@ const T = {
     err_no_shared: 'Gedeelde opslag is niet beschikbaar. Gegevens worden in deze browser bewaard.',
     err_conn: 'De verbinding met de opslag is verbroken. Herlaad de pagina.',
     pick_btn: 'Doelen kiezen…', pick_h: 'Minimumdoelen kiezen', done: 'Klaar', none_chosen: 'Nog geen doelen gekozen.', n_selected: n => `${n} gekozen`,
-    foot_local: 'Je gegevens blijven in deze browser en worden nergens anders opgeslagen.',
-    support_p: 'Donaties helpen de kosten van de domeinnaam en andere kosten te dekken.', support_link: 'Doneren via Ko-fi',
+    foot_cookies: 'Deze website slaat geen cookies op je toestel op.',
+    support_p: 'Overweeg een donatie om dit project te steunen.', support_link: 'Doneren via Ko-fi',
     thanks_h: 'Fijn dat je Doelenboek gebruikt!',
     thanks_p: 'Heb je er iets aan? Dan wordt een kleine donatie enorm gewaardeerd. Ze helpt de kosten van de hosting te dekken, zodat deze pagina online blijft en er nieuwe functies bij kunnen komen.',
     thanks_later: 'Misschien later',
-    foot_db: '',
     photos: "Foto's", add_photos: "Foto's toevoegen", photo_remove: 'Foto verwijderen',
     photo_hint: "Kies foto's, sleep ze hierheen of plak ze. Ze worden verkleind bewaard.",
     photo_processing: "Foto's verwerken…", photo_wait: "Wacht tot de foto's verwerkt zijn.",
@@ -974,7 +980,6 @@ const T = {
     del_acc: 'Account verwijderen', del_acc_p: "Verwijdert je account en al je gegevens (kinderen, activiteiten, eigen doelen, foto's) definitief.",
     del_acc_confirm: 'Vul je wachtwoord in om te bevestigen.', del_acc_btn: 'Account en gegevens verwijderen', del_done: 'Je account is verwijderd.',
     where_fb: 'Je gegevens staan in je account en zijn beschikbaar op elk toestel waar je inlogt. Alleen jij hebt er toegang toe.',
-    foot_fb: 'Je gegevens worden met je account gesynchroniseerd.',
     mig_p: (k, a) => `In deze browser staan nog gegevens van vóór je account (${nlN(k, 'kind', 'kinderen')}, ${nlN(a, 'activiteit', 'activiteiten')}). Wil je ze naar je account overnemen?`,
     mig_btn: 'Overnemen', mig_skip: 'Niet overnemen', mig_done: n => `${nlN(n, 'item', 'items')} naar je account overgenomen.`,
     late_write_fail: 'Een wijziging kon niet in je account opgeslagen worden. Herlaad de pagina en controleer je gegevens.',
@@ -991,7 +996,7 @@ const T = {
     n_goals_short: n => nlN(n, 'goal', 'goals'),
     add_child: 'Add child', add_activity: 'Add activity',
     empty_kids_h: 'No children yet', empty_kids_p: 'Add a child. Then log activities and see, per subject, which minimum goals have been covered.',
-    last: d => `last ${d}`, goals_per_subject: 'Manage goals & mastery',
+    last: d => `last ${d}`, goals_per_subject: 'Edit goals & mastery',
     back: '← Overview', reached: (m, t) => `${m} of ${t} minimum goals mastered`, n_touches: n => `${n}× touched in activities`,
     mastered_lbl: 'mastered', touches_title: (l, n) => `${l}: ${n}× touched in activities`, bar_aria: (l, n, t) => `${l}: ${n} of ${t} mastered`,
     tab_all: 'All', tab_todo: 'To do', tab_mastered: 'Mastered', search_kid: 'Search by code or text',
@@ -1045,12 +1050,11 @@ const T = {
     err_no_shared: 'Shared storage is not available. Data is kept in this browser.',
     err_conn: 'The connection to storage was lost. Reload the page.',
     pick_btn: 'Choose goals…', pick_h: 'Choose minimum goals', done: 'Done', none_chosen: 'No goals selected yet.', n_selected: n => `${n} selected`,
-    foot_local: 'Your data stays in this browser and is not stored anywhere else.',
-    support_p: 'Donations help cover domain registration and other costs.', support_link: 'Donate on Ko-fi',
+    foot_cookies: 'This website does not store cookies on your machine.',
+    support_p: 'Consider donating to support this project.', support_link: 'Donate on Ko-fi',
     thanks_h: 'Glad you are using Doelenboek!',
     thanks_p: 'If you get value from it, a small donation would be greatly appreciated. It helps cover hosting costs to keep this page running and to add new features.',
     thanks_later: 'Maybe later',
-    foot_db: '',
     photos: 'Photos', add_photos: 'Add photos', photo_remove: 'Remove photo',
     photo_hint: 'Choose photos, drag them here or paste them. They are stored at a reduced size.',
     photo_processing: 'Processing photos…', photo_wait: 'Wait until the photos have been processed.',
@@ -1076,7 +1080,6 @@ const T = {
     del_acc: 'Delete account', del_acc_p: 'Permanently deletes your account and all your data (children, activities, your own goals, photos).',
     del_acc_confirm: 'Enter your password to confirm.', del_acc_btn: 'Delete account and data', del_done: 'Your account has been deleted.',
     where_fb: 'Your data lives in your account and is available on every device where you log in. Only you can access it.',
-    foot_fb: 'Your data syncs with your account.',
     mig_p: (k, a) => `This browser still holds data from before your account (${nlN(k, 'child', 'children')}, ${nlN(a, 'activity', 'activities')}). Move it into your account?`,
     mig_btn: 'Move to account', mig_skip: "Don't move", mig_done: n => `${nlN(n, 'item', 'items')} moved to your account.`,
     late_write_fail: 'A change could not be saved to your account. Reload the page and check your data.',
@@ -1092,6 +1095,11 @@ const t = (k, ...a) => tIn(lang, k, ...a);
 const both = (nl, en) => nl === en ? esc(nl) : `<span class="bi">${[['nl', nl], ['en', en]].map(([l, s]) =>
   `<span lang="${l}"${l === lang ? '' : ' class="off" aria-hidden="true"'}>${esc(s)}</span>`).join('')}</span>`;
 const bt = (k, ...a) => both(tIn('nl', k, ...a), tIn('en', k, ...a));
+/* The add buttons in the page heads share one width: the labels of all three, in both languages,
+   stacked in one cell, so the button stays put when switching views or languages. */
+const ADD_KEYS = ['add_child', 'add_activity', 'add_goal'];
+const addBt = k => `<span class="bi">${ADD_KEYS.flatMap(key => ['nl', 'en'].map(l =>
+  `<span lang="${l}"${key === k && l === lang ? '' : ' class="off" aria-hidden="true"'}>${esc(tIn(l, key))}</span>`)).join('')}</span>`;
 const sName = k => SUBJ[k] ? SUBJ[k].name[lang] : k;
 const bName = k => SUBJ[k] ? both(SUBJ[k].name.nl, SUBJ[k].name.en) : esc(k);
 const gDesc = g => (lang === 'en' && g.descriptionEn) || g.description;
@@ -1378,6 +1386,7 @@ function scheduleRender() { if (rq) return; rq = requestAnimationFrame(() => { r
 const themeNow = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 const ICON_MOON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
 const ICON_SUN = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const ICON_EDIT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_TRASH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function renderTheme() {
   const dark = themeNow() === 'dark', b = $('#theme-btn'), label = t(dark ? 'to_light' : 'to_dark');
@@ -1392,9 +1401,7 @@ function renderChrome() {
   $('#data-btn').innerHTML = bt('data_btn');
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
-  const footData = $('#foot-data');
-  footData.textContent = mode === 'local' ? t('foot_local') : fbUser ? t('foot_fb') : t('foot_db');
-  footData.hidden = !footData.textContent;
+  $('#foot-cookies').textContent = t('foot_cookies');
   $('#support-text').textContent = t('support_p');
   $('#support-link').textContent = t('support_link');
   $('#site-foot').hidden = mode === 'loading' || mode === 'auth';
@@ -1459,7 +1466,7 @@ function viewOverview(cov) {
   const kids = sortedChildren(), totals = subjectTotals(), total = data.goals.size;
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))} · ${esc(t('n_goals', total))} · ${esc(t('n_acts', data.activities.size))}</p></div>
-    <div class="head-actions w"><button class="btn" data-action="add-child">${bt('add_child')}</button></div></section>`;
+    <div class="head-actions w"><button class="btn" data-action="add-child">${addBt('add_child')}</button></div></section>`;
   h += noGoalsNotice();
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
@@ -1472,7 +1479,7 @@ function viewOverview(cov) {
         <div class="cc-id"><h2>${esc(c.name)}</h2><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? '<br>' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
         <div class="cc-pct"><strong>${mast.size}<small>/${total}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
       <ul class="bars">${SUBJECTS.map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key] || 0, touches[s.key] || 0)).join('')}</ul>
-      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w cc-del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></footer>
+      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w cc-edit" data-action="edit-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_edit_h'))}" title="${esc(t('child_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost w cc-del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></footer>
     </article>`;
   }).join('')}</div>`;
   return h;
@@ -1488,7 +1495,6 @@ function viewChild(cov) {
   let h = `<button class="btn small ghost back" data-action="back">${bt('back')}</button>
     <section class="kid-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
       <div class="kid-name"><h1>${esc(c.name)}</h1><p class="lede">${esc(t('reached', mast.size, total))} · ${esc(t('n_touches', sumValues(touches)))} · ${esc(t('n_acts', acts.length))}</p></div>
-      <div class="head-actions"><button class="btn primary w" data-action="new-activity" data-child="${esc(c.id)}">${bt('add_activity')}</button><button class="btn w" data-action="edit-child" data-id="${esc(c.id)}">${bt('edit')}</button></div>
     </section>`;
   h += noGoalsNotice();
   if (!total) return h;
@@ -1555,7 +1561,7 @@ function activityCard(a) {
       ${a.notes ? `<p class="notes">${esc(a.notes)}</p>` : ''}
     </div>
     ${photoStrip(a)}
-    <div class="row-actions w"><button class="icon-btn" data-action="edit-activity" data-id="${esc(a.id)}">${bt('edit')}</button><button class="icon-btn del" data-action="delete-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_del_h'))}" title="${esc(t('act_del_h'))}">${ICON_TRASH}</button></div>
+    <div class="row-actions w"><button class="icon-btn edit" data-action="edit-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_edit_h'))}" title="${esc(t('act_edit_h'))}">${ICON_EDIT}</button><button class="icon-btn del" data-action="delete-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_del_h'))}" title="${esc(t('act_del_h'))}">${ICON_TRASH}</button></div>
   </article>`;
 }
 
@@ -1568,7 +1574,7 @@ function viewActivities() {
   ).sort(byDateDesc);
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(t('acts_lede'))}</p></div>
-    <div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${bt('add_activity')}</button></div></section>`;
+    <div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${addBt('add_activity')}</button></div></section>`;
   if (!data.activities.size) {
     return h + `<div class="empty"><h2>${esc(t('empty_acts_h'))}</h2><p>${esc(kids.length ? t('empty_acts_p') : t('empty_acts_nokids'))}</p>${kids.length ? `<button class="btn primary w" data-action="new-activity">${bt('add_activity')}</button>` : `<a class="btn" href="#overzicht">${bt('to_overview')}</a>`}</div>`;
   }
@@ -1592,7 +1598,7 @@ function viewGoals(cov) {
   const allOn = ui.goalSubj.size === SUBJECTS.length;
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.${lang === 'en' ? ' ' + esc(t('translated')) : ''}</p></div>
-    <div class="head-actions w"><button class="btn primary" data-action="new-goal">${bt('add_goal')}</button></div></section>`;
+    <div class="head-actions w"><button class="btn primary" data-action="new-goal">${addBt('add_goal')}</button></div></section>`;
   if (!all.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_goals_h'))}</h2><p>${esc(t('empty_goals_p'))}</p><button class="btn primary w" data-action="new-goal">${bt('add_goal')}</button></div>`;
   }
