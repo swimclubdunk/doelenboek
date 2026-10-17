@@ -28,6 +28,7 @@
 <main id="main"><p class="loading">Gegevens laden…</p></main>
 <footer class="site-foot" id="site-foot">
   <p id="foot-cookies"></p>
+  <p id="foot-goals"></p>
   <p class="contact"><span id="contact-text"></span> <a id="contact-link"></a></p>
   <p class="support"><span id="support-text"></span> <a id="support-link" href="https://ko-fi.com/mat644" target="_blank" rel="noopener"></a></p>
 </footer>
@@ -51,17 +52,17 @@
 
 /* ---------- constants ---------- */
 const SUBJECTS = [
-  { key: 'NL', name: { nl: 'Nederlands', en: 'Dutch' }, aliases: ['nederlands', 'nl', 'taal', 'dutch'] },
-  { key: 'WK', name: { nl: 'Wiskunde', en: 'Mathematics' }, aliases: ['wiskunde', 'wk', 'rekenen', 'math', 'maths', 'mathematics'] },
-  { key: 'WT', name: { nl: 'Wetenschappen & techniek', en: 'Science & technology' }, aliases: ['wetenschappen en techniek', 'wetenschappen & techniek', 'wetenschappen', 'techniek', 'wt', 'wo', 'science', 'science and technology'] },
-  { key: 'GE', name: { nl: 'Geschiedenis', en: 'History' }, aliases: ['geschiedenis', 'ge', 'history'] },
-  { key: 'AK', name: { nl: 'Aardrijkskunde', en: 'Geography' }, aliases: ['aardrijkskunde', 'ak', 'geography'] },
-  { key: 'MV', name: { nl: 'Muzische vorming', en: 'Arts education' }, aliases: ['muzische vorming', 'muzisch', 'mv', 'muvo', 'arts', 'arts education'] },
-  { key: 'LO', name: { nl: 'Lichamelijke opvoeding', en: 'Physical education' }, aliases: ['lichamelijke opvoeding', 'bewegingsopvoeding', 'lo', 'pe', 'physical education'] },
-  { key: 'AT', name: { nl: 'Attitudes', en: 'Attitudes' }, aliases: ['attitudes', 'attitude', 'at'] },
+  { key: 'NL', name: { nl: 'Nederlands', en: 'Dutch' } },
+  { key: 'WK', name: { nl: 'Wiskunde', en: 'Mathematics' } },
+  { key: 'WT', name: { nl: 'Wetenschappen & techniek', en: 'Science & technology' } },
+  { key: 'GE', name: { nl: 'Geschiedenis', en: 'History' } },
+  { key: 'AK', name: { nl: 'Aardrijkskunde', en: 'Geography' } },
+  { key: 'MV', name: { nl: 'Muzische vorming', en: 'Arts education' } },
+  { key: 'LO', name: { nl: 'Lichamelijke opvoeding', en: 'Physical education' } },
+  { key: 'AT', name: { nl: 'Attitudes', en: 'Attitudes' } },
 ];
 const SUBJ = Object.fromEntries(SUBJECTS.map((s, i) => [s.key, { ...s, i }]));
-const COLS = ['goals', 'children', 'activities'];
+const COLS = ['children', 'activities'];
 const LS_KEY = 'doelenboek.v1';
 const LANG_KEY = 'doelenboek.lang';
 const THEME_KEY = 'doelenboek.theme';   // also read by the small script in the page head
@@ -81,7 +82,6 @@ const ID_RE = /^[A-Za-z0-9_\-~:@+.]{1,120}$/;
    fills them in here. The Dutch text is kept exactly as written in the Unity project's
    doelen/*.asset files; the English is a translation. */
 const BUILTIN_GOALS = [];
-const BUILTIN = new Map(BUILTIN_GOALS.map(g => [g.id, { ...g, builtin: true, createdAt: 0, updatedAt: 0 }]));
 
 /* ---------- language ---------- */
 const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
@@ -92,7 +92,6 @@ const T = {
     data_btn: 'Gegevens', loading: 'Gegevens laden…', locale: 'nl-BE', to_dark: 'Donkere modus', to_light: 'Lichte modus',
     example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
     remove_examples: 'Voorbeelden verwijderen',
-    no_goals_notice: 'Er zijn nog geen minimumdoelen. Voeg ze toe bij Minimumdoelen, dan berekent Doelenboek de voortgang per vak.',
     h_overview: 'Kinderen',
     n_children: n => nlN(n, 'kind', 'kinderen'), n_goals: n => nlN(n, 'minimumdoel', 'minimumdoelen'), n_acts: n => nlN(n, 'activiteit', 'activiteiten'), n_photos: n => nlN(n, 'foto', "foto's"),
     n_goals_short: n => nlN(n, 'doel', 'doelen'),
@@ -113,12 +112,10 @@ const T = {
     search_acts: 'Zoek op titel, notitie of doelcode', all_children: 'Alle kinderen', filter_child: 'Filter op kind',
     no_acts_found: 'Geen activiteiten gevonden met deze filters.', no_goals_linked: 'Geen minimumdoelen gekoppeld.', goals_aria: 'Minimumdoelen',
     h_goals: 'Minimumdoelen', goals_lede: 'De doelen waartegen je de voortgang meet. Officiële lijsten vind je op',
-    add_goal: 'Doel toevoegen',
-    empty_goals_h: 'Nog geen minimumdoelen', empty_goals_p: 'Voeg een eerste doel toe met een code, een vak en een omschrijving.',
     search_goals: 'Zoek op code, categorie of tekst', all_subjects: 'Alle vakken', filter_subject: 'Filter op vak',
     count_line: (n, t, kids) => `${n} van ${t} doelen${kids ? ' · de diertjes tonen welke kinderen het doel beheersen' : ''}`,
     first_n: n => `De eerste ${n} worden getoond. Verfijn je zoekopdracht om de rest te zien.`,
-    no_goals_found: 'Geen doelen gevonden met deze filters.', builtin: 'Standaard', builtin_title: 'Ingebouwd doel, kan niet gewijzigd worden',
+    no_goals_found: 'Geen doelen gevonden met deze filters.',
     kid_done: n => `${n}: beheerst`, kid_open: n => `${n}: nog niet beheerst`,
     close: 'Sluiten', cancel: 'Annuleren', save: 'Opslaan', busy: 'Bezig…', progress: (a, b) => `Bezig… ${a}/${b}`,
     child_edit_h: 'Kind wijzigen', child_add_h: 'Kind toevoegen', name: 'Naam', animal: 'Diertje', animal_taken: 'Al gekozen voor een ander kind',
@@ -126,10 +123,7 @@ const T = {
     child_del_h: 'Kind verwijderen', child_del_q: n => `Weet je zeker dat je <b>${n}</b> wilt verwijderen?`,
     child_del_acts: (n, c) => `${n} wordt uit ${nlN(c, 'activiteit', 'activiteiten')} gehaald. De activiteiten zelf blijven bewaard.`,
     child_del_none: 'Er zijn geen activiteiten gekoppeld.', child_deleted: n => `${n} is verwijderd.`,
-    goal_edit_h: 'Doel wijzigen', goal_add_h: 'Doel toevoegen', code: 'Code', code_ph: 'bv. 1.2.3', subject: 'Vak', category: 'Categorie', description: 'Omschrijving',
-    err_desc: 'Vul een omschrijving in.', err_dup_code: (c, s) => `Code ${c} is al in gebruik (${s}). Kies een andere code.`, goal_updated: 'Doel bijgewerkt.', goal_added: 'Doel toegevoegd.',
-    goal_del_h: 'Doel verwijderen', goal_del_q: l => `Weet je zeker dat je doel <b>${l}</b> wilt verwijderen?`,
-    goal_del_acts: c => `Het wordt losgekoppeld van ${nlN(c, 'activiteit', 'activiteiten')}.`, goal_del_none: 'Het is aan geen enkele activiteit gekoppeld.', goal_deleted: 'Doel verwijderd.',
+    subject: 'Vak',
     act_edit_h: 'Activiteit wijzigen', act_add_h: 'Activiteit toevoegen', title: 'Titel', title_ph: 'bv. Bezoek aan het natuurpunt', date: 'Datum', who: 'Wie deed mee?',
     goals_field: 'Minimumdoelen', n_chosen: n => `· ${n} gekozen`, search_goal: 'Zoek doel', show: 'Toon',
     show_all: 'Alle doelen', show_open: 'Nog open voor deze kinderen', show_sel: 'Alleen gekozen',
@@ -153,6 +147,7 @@ const T = {
     err_conn: 'De verbinding met de opslag is verbroken. Herlaad de pagina.',
     pick_btn: 'Doelen kiezen…', pick_h: 'Minimumdoelen kiezen', done: 'Klaar', none_chosen: 'Nog geen doelen gekozen.', n_selected: n => `${n} gekozen`,
     foot_cookies: 'Deze website slaat geen cookies op je toestel op.',
+    foot_goals: 'Wij zijn niet verantwoordelijk voor de volledigheid van de minimumdoelen.',
     contact_p: 'Feedback of een idee voor een nieuwe functie? Mail naar',
     support_p: 'Overweeg een donatie om dit project te steunen.', support_link: 'Doneren via Ko-fi',
     thanks_h: 'Fijn dat je Doelenboek gebruikt!',
@@ -180,7 +175,7 @@ const T = {
     sdk_fail: 'De inlogdienst kon niet geladen worden. Controleer je internetverbinding en herlaad de pagina.',
     privacy: "Je gegevens (kinderen, activiteiten, foto's) worden bewaard in Google Firebase in de EU en zijn alleen bereikbaar met jouw e-mailadres en wachtwoord. Je kunt je account en al je gegevens altijd verwijderen via Gegevens.",
     account_h: 'Account', signed_in_as: e => `Ingelogd als ${e}.`, logout: 'Uitloggen',
-    del_acc: 'Account verwijderen', del_acc_p: "Verwijdert je account en al je gegevens (kinderen, activiteiten, eigen doelen, foto's) definitief.",
+    del_acc: 'Account verwijderen', del_acc_p: "Verwijdert je account en al je gegevens (kinderen, activiteiten, foto's) definitief.",
     del_acc_confirm: 'Vul je wachtwoord in om te bevestigen.', del_acc_btn: 'Account en gegevens verwijderen', del_done: 'Je account is verwijderd.',
     where_fb: 'Je gegevens staan in je account en zijn beschikbaar op elk toestel waar je inlogt. Alleen jij hebt er toegang toe.',
     mig_p: (k, a) => `In deze browser staan nog gegevens van vóór je account (${nlN(k, 'kind', 'kinderen')}, ${nlN(a, 'activiteit', 'activiteiten')}). Wil je ze naar je account overnemen?`,
@@ -193,7 +188,6 @@ const T = {
     data_btn: 'Data', loading: 'Loading data…', locale: 'en-GB', to_dark: 'Dark mode', to_light: 'Bright mode',
     example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
     remove_examples: 'Remove examples',
-    no_goals_notice: 'There are no minimum goals yet. Add them under Minimum goals and Doelenboek will work out progress per subject.',
     h_overview: 'Children',
     n_children: n => nlN(n, 'child', 'children'), n_goals: n => nlN(n, 'minimum goal', 'minimum goals'), n_acts: n => nlN(n, 'activity', 'activities'), n_photos: n => nlN(n, 'photo', 'photos'),
     n_goals_short: n => nlN(n, 'goal', 'goals'),
@@ -214,24 +208,19 @@ const T = {
     search_acts: 'Search by title, notes or goal code', all_children: 'All children', filter_child: 'Filter by child',
     no_acts_found: 'No activities match these filters.', no_goals_linked: 'No minimum goals linked.', goals_aria: 'Minimum goals',
     h_goals: 'Minimum goals', goals_lede: 'The goals progress is measured against. Official lists are published on',
-    add_goal: 'Add goal',
-    empty_goals_h: 'No minimum goals yet', empty_goals_p: 'Add a first goal with a code, a subject and a description.',
     search_goals: 'Search by code, category or text', all_subjects: 'All subjects', filter_subject: 'Filter by subject',
     count_line: (n, t, kids) => `${n} of ${t} goals${kids ? ' · the animals show which children have mastered each goal' : ''}`,
     first_n: n => `Showing the first ${n}. Narrow your search to see the rest.`,
-    no_goals_found: 'No goals match these filters.', builtin: 'Built in', builtin_title: 'Built-in goal, cannot be changed',
+    no_goals_found: 'No goals match these filters.',
     kid_done: n => `${n}: mastered`, kid_open: n => `${n}: not mastered yet`,
-    translated: 'Built-in goal texts are English translations of the official Dutch wording.',
+    translated: 'The goal texts are English translations of the official Dutch wording.',
     close: 'Close', cancel: 'Cancel', save: 'Save', busy: 'Working…', progress: (a, b) => `Working… ${a}/${b}`,
     child_edit_h: 'Edit child', child_add_h: 'Add child', name: 'Name', animal: 'Animal', animal_taken: 'Already used for another child',
     err_name: 'Enter a name.', err_dup_name: n => `There is already a child called ${n}.`, saved_changes: 'Changes saved.', child_added: n => `${n} has been added.`,
     child_del_h: 'Delete child', child_del_q: n => `Are you sure you want to delete <b>${n}</b>?`,
     child_del_acts: (n, c) => `${n} will be removed from ${nlN(c, 'activity', 'activities')}. The activities themselves are kept.`,
     child_del_none: 'No activities are linked.', child_deleted: n => `${n} has been deleted.`,
-    goal_edit_h: 'Edit goal', goal_add_h: 'Add goal', code: 'Code', code_ph: 'e.g. 1.2.3', subject: 'Subject', category: 'Category', description: 'Description',
-    err_desc: 'Enter a description.', err_dup_code: (c, s) => `Code ${c} is already in use (${s}). Choose a different code.`, goal_updated: 'Goal updated.', goal_added: 'Goal added.',
-    goal_del_h: 'Delete goal', goal_del_q: l => `Are you sure you want to delete goal <b>${l}</b>?`,
-    goal_del_acts: c => `It will be unlinked from ${nlN(c, 'activity', 'activities')}.`, goal_del_none: 'It is not linked to any activity.', goal_deleted: 'Goal deleted.',
+    subject: 'Subject',
     act_edit_h: 'Edit activity', act_add_h: 'Add activity', title: 'Title', title_ph: 'e.g. Visit to the nature reserve', date: 'Date', who: 'Who took part?',
     goals_field: 'Minimum goals', n_chosen: n => `· ${n} selected`, search_goal: 'Search goals', show: 'Show',
     show_all: 'All goals', show_open: 'Still open for these children', show_sel: 'Selected only',
@@ -255,6 +244,7 @@ const T = {
     err_conn: 'The connection to storage was lost. Reload the page.',
     pick_btn: 'Choose goals…', pick_h: 'Choose minimum goals', done: 'Done', none_chosen: 'No goals selected yet.', n_selected: n => `${n} selected`,
     foot_cookies: 'This website does not store cookies on your machine.',
+    foot_goals: 'We do not take responsibility for the completeness of the minimum goals.',
     contact_p: 'Feedback or a feature request? Email',
     support_p: 'Consider donating to support this project.', support_link: 'Donate on Ko-fi',
     thanks_h: 'Glad you are using Doelenboek!',
@@ -282,7 +272,7 @@ const T = {
     sdk_fail: 'The login service could not be loaded. Check your internet connection and reload the page.',
     privacy: 'Your data (children, activities, photos) is stored in Google Firebase in the EU and can only be reached with your email address and password. You can delete your account and all your data at any time via Data.',
     account_h: 'Account', signed_in_as: e => `Logged in as ${e}.`, logout: 'Log out',
-    del_acc: 'Delete account', del_acc_p: 'Permanently deletes your account and all your data (children, activities, your own goals, photos).',
+    del_acc: 'Delete account', del_acc_p: 'Permanently deletes your account and all your data (children, activities, photos).',
     del_acc_confirm: 'Enter your password to confirm.', del_acc_btn: 'Delete account and data', del_done: 'Your account has been deleted.',
     where_fb: 'Your data lives in your account and is available on every device where you log in. Only you can access it.',
     mig_p: (k, a) => `This browser still holds data from before your account (${nlN(k, 'child', 'children')}, ${nlN(a, 'activity', 'activities')}). Move it into your account?`,
@@ -300,9 +290,9 @@ const t = (k, ...a) => tIn(lang, k, ...a);
 const both = (nl, en) => nl === en ? esc(nl) : `<span class="bi">${[['nl', nl], ['en', en]].map(([l, s]) =>
   `<span lang="${l}"${l === lang ? '' : ' class="off" aria-hidden="true"'}>${esc(s)}</span>`).join('')}</span>`;
 const bt = (k, ...a) => both(tIn('nl', k, ...a), tIn('en', k, ...a));
-/* The add buttons in the page heads share one width: the labels of all three, in both languages,
+/* The add buttons in the page heads share one width: the labels of both, in both languages,
    stacked in one cell, so the button stays put when switching views or languages. */
-const ADD_KEYS = ['add_child', 'add_activity', 'add_goal'];
+const ADD_KEYS = ['add_child', 'add_activity'];
 const addBt = k => `<span class="bi">${ADD_KEYS.flatMap(key => ['nl', 'en'].map(l =>
   `<span lang="${l}"${key === k && l === lang ? '' : ' class="off" aria-hidden="true"'}>${esc(tIn(l, key))}</span>`)).join('')}</span>`;
 const sName = k => SUBJ[k] ? SUBJ[k].name[lang] : k;
@@ -314,7 +304,6 @@ const gCat = g => (lang === 'en' && g.categoryEn) || g.category;
 const $ = (s, r = document) => r.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const norm = s => String(s ?? '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-const flat = s => norm(s).replace(/[^a-z0-9]/g, '');
 const sv = k => `var(--s-${String(k).toLowerCase()})`;
 const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
 const todayIso = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); };
@@ -325,25 +314,11 @@ const str = (v, max = 4000) => typeof v === 'string' ? v.slice(0, max) : '';
 const strArr = v => Array.isArray(v) ? v.filter(x => typeof x === 'string' && ID_RE.test(x)) : [];
 const searchText = g => `${g.code} ${g.category} ${g.categoryEn || ''} ${g.description} ${g.descriptionEn || ''}`;
 
-function matchSubject(raw) {
-  const f = flat(raw);
-  if (!f) return null;
-  for (const s of SUBJECTS) if (flat(s.key) === f || flat(s.name.nl) === f || flat(s.name.en) === f || s.aliases.some(a => flat(a) === f)) return s.key;
-  for (const s of SUBJECTS) for (const n of [flat(s.name.nl), flat(s.name.en)]) { if ((f.length >= 4 && n.startsWith(f)) || f.startsWith(n)) return s.key; }
-  return null;
-}
-
 /* Every document is cleaned on the way in and out, so malformed rows can't break rendering. */
 function clean(col, b) {
   if (!b || typeof b !== 'object') return null;
   const base = { createdAt: typeof b.createdAt === 'number' ? b.createdAt : 0, updatedAt: typeof b.updatedAt === 'number' ? b.updatedAt : 0 };
   if (b.example === true) base.example = true;
-  if (col === 'goals') {
-    const subject = SUBJ[b.subject] ? b.subject : matchSubject(b.subject);
-    const description = str(b.description).trim();
-    if (!subject || !description) return null;
-    return { ...base, code: str(b.code, 40).trim(), subject, category: str(b.category, 200).trim(), description };
-  }
   if (col === 'children') {
     const name = str(b.name, 80).trim();
     if (!name) return null;
@@ -361,27 +336,20 @@ function clean(col, b) {
   }
   return null;
 }
-const bodyOf = doc => { const { id, builtin, ...rest } = doc; return rest; };
+const bodyOf = doc => { const { id, ...rest } = doc; return rest; };
 
 /* ---------- state ---------- */
-const data = { goals: new Map(BUILTIN), children: new Map(), activities: new Map() };
-let customGoals = new Map();     // goals stored in the database; merged over nothing, built-ins always win
+const data = { goals: new Map(BUILTIN_GOALS.map(g => [g.id, g])), children: new Map(), activities: new Map() };
 let mode = 'loading';            // loading | db | local
 let db = null;
 let canWrite = true, canWriteKnown = false;
-const loaded = { goals: false, children: false, activities: false };
+const loaded = { children: false, activities: false };
 const ui = {
   view: 'overzicht', childId: null,
   goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)),
   childSearch: '', actSearch: '', actChild: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
 };
-function setGoals(custom) {
-  customGoals = custom;
-  const m = new Map(BUILTIN);
-  for (const [id, g] of custom) if (!BUILTIN.has(id)) m.set(id, g);
-  data.goals = m;
-}
 
 /* ---------- storage ---------- */
 function loadLocal() {
@@ -392,14 +360,14 @@ function loadLocal() {
     for (const c of COLS) {
       const m = new Map();
       for (const [id, v] of Object.entries(o[c] || {})) { const d = clean(c, v); if (d && ID_RE.test(id)) m.set(id, { ...d, id }); }
-      if (c === 'goals') setGoals(m); else data[c] = m;
+      data[c] = m;
     }
   } catch (e) { /* unreadable storage: start empty */ }
 }
 function saveLocal() {
   try {
     const o = {};
-    for (const c of COLS) { o[c] = {}; for (const [id, v] of (c === 'goals' ? customGoals : data[c])) o[c][id] = bodyOf(v); }
+    for (const c of COLS) { o[c] = {}; for (const [id, v] of data[c]) o[c][id] = bodyOf(v); }
     localStorage.setItem(LS_KEY, JSON.stringify(o));
   } catch (e) { toast(t('err_local_save'), true); }
 }
@@ -416,19 +384,15 @@ async function retry(fn) {
   }
 }
 async function put(col, id, body) {
-  if (col === 'goals' && BUILTIN.has(id)) return;   // built-ins are fixed
   const doc = clean(col, body);
   if (!doc) throw { code: 'local_invalid' };
   if (mode === 'db') return retry(() => db.collection(col).doc(id).set(doc));
-  if (col === 'goals') { const m = new Map(customGoals); m.set(id, { ...doc, id }); setGoals(m); }
-  else data[col].set(id, { ...doc, id });
+  data[col].set(id, { ...doc, id });
   saveLocal(); scheduleRender();
 }
 async function remove(col, id) {
-  if (col === 'goals' && BUILTIN.has(id)) return;
   if (mode === 'db') return retry(() => db.collection(col).doc(id).delete());
-  if (col === 'goals') { const m = new Map(customGoals); m.delete(id); setGoals(m); }
-  else data[col].delete(id);
+  data[col].delete(id);
   saveLocal(); scheduleRender();
 }
 async function runPool(items, fn, n = 4, onProgress) {
@@ -581,7 +545,7 @@ function countBySubject(m) { const c = {}; if (m) for (const gid of m.keys()) { 
 /* Activity tags per subject: every activity that tagged a goal counts, so one goal can count more than once. */
 function touchesBySubject(m) { const c = {}; if (m) for (const [gid, acts] of m) { const g = data.goals.get(gid); if (g) c[g.subject] = (c[g.subject] || 0) + acts.length; } return c; }
 const sumValues = o => Object.values(o).reduce((a, b) => a + b, 0);
-const exampleItems = () => COLS.flatMap(c => [...(c === 'goals' ? customGoals : data[c]).values()].filter(d => d.example).map(d => ({ c, id: d.id })));
+const exampleItems = () => COLS.flatMap(c => [...data[c].values()].filter(d => d.example).map(d => ({ c, id: d.id })));
 
 /* ---------- rendering ---------- */
 let rq = 0;
@@ -607,6 +571,7 @@ function renderChrome() {
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
   $('#foot-cookies').textContent = t('foot_cookies');
+  $('#foot-goals').textContent = t('foot_goals');
   $('#contact-text').textContent = t('contact_p');
   const contact = $('#contact-link'), mail = CONTACT.join('@');
   contact.textContent = mail; contact.href = 'mailto:' + mail;
@@ -658,10 +623,6 @@ function exampleBanner() {
   if (!exampleItems().length) return migrationNotice();
   return `<div class="notice"><p>${t('example_banner')}</p><button class="btn small w" data-action="remove-examples">${bt('remove_examples')}</button></div>`;
 }
-function noGoalsNotice() {
-  if (data.goals.size) return '';
-  return `<div class="notice"><p>${esc(t('no_goals_notice'))}</p><a class="btn small w" href="#doelen">${bt('add_goal')}</a></div>`;
-}
 
 /* The bar and n/tot are mastered goals (bounded); the × number is activity tags (unbounded). */
 const touchNum = (label, n) => `<span class="touch${n ? '' : ' zero'}" title="${esc(t('touches_title', label, n))}">${n ? `${n}×` : '—'}</span>`;
@@ -675,7 +636,6 @@ function viewOverview(cov) {
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))} · ${esc(t('n_goals', total))} · ${esc(t('n_acts', data.activities.size))}</p></div>
     <div class="head-actions w"><button class="btn" data-action="add-child">${addBt('add_child')}</button></div></section>`;
-  h += noGoalsNotice();
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
   }
@@ -707,7 +667,6 @@ function viewChild(cov) {
     <section class="kid-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
       <div class="kid-name"><h1>${esc(c.name)}</h1><p class="lede">${esc(t('reached', mast.size, total))} · ${esc(t('n_touches', sumValues(touches)))} · ${esc(t('n_acts', acts.length))}</p></div>
     </section>`;
-  h += noGoalsNotice();
   if (!total) return h;
   const segBtn = (key, n) => `<button role="tab" data-action="kid-tab" data-tab="${key}" aria-selected="${tab === key}">${bt('tab_' + key)} <span class="seg-n">${n}</span></button>`;
   h += `<div class="toolbar kid-tools">
@@ -808,11 +767,7 @@ function viewGoals(cov) {
   const list = all.filter(g => ui.goalSubj.has(g.subject) && (!q || norm(searchText(g)).includes(q)));
   const allOn = ui.goalSubj.size === SUBJECTS.length;
   let h = exampleBanner();
-  h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.${lang === 'en' ? ' ' + esc(t('translated')) : ''}</p></div>
-    <div class="head-actions w"><button class="btn primary" data-action="new-goal">${addBt('add_goal')}</button></div></section>`;
-  if (!all.length) {
-    return h + `<div class="empty"><h2>${esc(t('empty_goals_h'))}</h2><p>${esc(t('empty_goals_p'))}</p><button class="btn primary w" data-action="new-goal">${bt('add_goal')}</button></div>`;
-  }
+  h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.${lang === 'en' ? ' ' + esc(t('translated')) : ''}</p></div></section>`;
   h += `<div class="toolbar"><input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
     <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
       <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${bt('all_subjects')}</button>
@@ -823,8 +778,7 @@ function viewGoals(cov) {
   h += `<ul class="card goal-list">${list.slice(0, MAX).map(g => `<li class="goal-row">
       <span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(g.code || '—')}</span>
       <div class="g-body"><p class="g-meta">${esc(sName(g.subject))}${gCat(g) ? ' · ' + esc(gCat(g)) : ''}</p><p class="g-desc">${esc(gDesc(g))}</p></div>
-      <div class="g-side">${kids.length ? `<span class="kids-row">${kids.map(k => { const done = !!k.mastered[g.id]; return `<span class="avatar sm ${done ? '' : 'off'}" title="${esc(done ? t('kid_done', k.name) : t('kid_open', k.name))}">${animalArt(k.animal)}</span>`; }).join('')}</span>` : ''}
-        ${g.builtin ? `<span class="g-end"><span class="tag" title="${esc(t('builtin_title'))}">${esc(t('builtin'))}</span></span>` : `<span class="row-actions w"><button class="icon-btn" data-action="edit-goal" data-id="${esc(g.id)}">${bt('edit')}</button><button class="icon-btn del" data-action="delete-goal" data-id="${esc(g.id)}" aria-label="${esc(t('goal_del_h'))}" title="${esc(t('goal_del_h'))}">${ICON_TRASH}</button></span>`}</div>
+      <div class="g-side">${kids.length ? `<span class="kids-row">${kids.map(k => { const done = !!k.mastered[g.id]; return `<span class="avatar sm ${done ? '' : 'off'}" title="${esc(done ? t('kid_done', k.name) : t('kid_open', k.name))}">${animalArt(k.animal)}</span>`; }).join('')}</span>` : ''}</div>
     </li>`).join('') || `<li class="goal-row"><p class="muted">${esc(t('no_goals_found'))}</p></li>`}</ul>`;
   if (list.length > MAX) h += `<p class="count-line">${esc(t('first_n', MAX))}</p>`;
   return h;
@@ -915,39 +869,6 @@ function deleteChild(id) {
   });
 }
 
-/* goal */
-function goalDialog(goal) {
-  if (goal && goal.builtin) return;
-  const cats = [...new Set([...data.goals.values()].map(g => gCat(g)).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'nl'));
-  const body = `<div class="row2"><label class="field"><span>${esc(t('code'))}</span><input id="g-code" name="code" maxlength="40" autocomplete="off" placeholder="${esc(t('code_ph'))}" autofocus value="${esc(goal?.code || '')}"></label>
-      <label class="field"><span>${esc(t('subject'))}</span><select id="g-subject" name="subject">${SUBJECTS.map(s => `<option value="${s.key}" ${(goal?.subject || ui.lastSubject || 'NL') === s.key ? 'selected' : ''}>${esc(sName(s.key))}</option>`).join('')}</select></label></div>
-    <label class="field"><span>${esc(t('category'))}</span><input id="g-cat" name="category" maxlength="200" list="g-cats" autocomplete="off" value="${esc(goal?.category || '')}"><datalist id="g-cats">${cats.map(c => `<option value="${esc(c)}"></option>`).join('')}</datalist></label>
-    <label class="field"><span>${esc(t('description'))}</span><textarea id="g-desc" name="description" rows="4" maxlength="4000">${esc(goal?.description || '')}</textarea></label>`;
-  openDialog(shell('f-goal', goal ? t('goal_edit_h') : t('goal_add_h'), body), d => bindSubmit(d, async form => {
-    const code = form.code.value.trim(), description = form.description.value.trim(), subject = form.subject.value;
-    if (!description) return t('err_desc');
-    /* codes are shown without their subject, so they must be unique across all goals, built-in ones included */
-    const codeKey = c => c.toLowerCase().replace(/\s+/g, '');
-    const clash = code && [...data.goals.values()].find(g => (!goal || g.id !== goal.id) && g.code && codeKey(g.code) === codeKey(code));
-    if (clash) return t('err_dup_code', clash.code, sName(clash.subject));
-    ui.lastSubject = subject;
-    const now = Date.now();
-    await put('goals', goal?.id || newId(), { ...(goal ? bodyOf(goal) : { createdAt: now }), code, subject, category: form.category.value.trim(), description, updatedAt: now, example: false });
-    toast(goal ? t('goal_updated') : t('goal_added'));
-  }));
-}
-function deleteGoal(id) {
-  const g = data.goals.get(id); if (!g || g.builtin) return;
-  const affected = [...data.activities.values()].filter(a => a.goalIds.includes(id));
-  confirmDialog(t('goal_del_h'), `<p>${t('goal_del_q', esc(g.code || g.description.slice(0, 60)))}</p><p class="muted">${esc(affected.length ? t('goal_del_acts', affected.length) : t('goal_del_none'))}</p>`, t('delete'), async () => {
-    const errors = await runPool(affected, a => put('activities', a.id, { ...bodyOf(a), goalIds: a.goalIds.filter(x => x !== id), updatedAt: Date.now() }));
-    const kids = [...data.children.values()].filter(c => c.mastered[id]);
-    errors.push(...await runPool(kids, c => { const mastered = { ...c.mastered }; delete mastered[id]; return put('children', c.id, { ...bodyOf(c), mastered, updatedAt: Date.now() }); }));
-    if (errors.length) throw errors[0];
-    await remove('goals', id);
-    toast(t('goal_deleted'));
-  });
-}
 
 /* activity */
 function activityDialog(act, presetChild) {
@@ -1248,9 +1169,6 @@ main.addEventListener('click', e => {
     case 'new-activity': return activityDialog(null, b.dataset.child);
     case 'edit-activity': return activityDialog(data.activities.get(id));
     case 'delete-activity': return deleteActivity(id);
-    case 'new-goal': return goalDialog(null);
-    case 'edit-goal': return goalDialog(data.goals.get(id));
-    case 'delete-goal': return deleteGoal(id);
     case 'remove-examples': return removeExamples();
     case 'photo': return openLightbox(id, Number(b.dataset.i) || 0);
     case 'auth-view': ui_auth.view = b.dataset.v; ui_auth.err = ''; ui_auth.msg = ''; render(); $('#au-email')?.focus(); return;
@@ -1318,7 +1236,7 @@ $('.tabs').addEventListener('click', e => {
 });
 
 /* ---------- Firebase accounts ----------
-   Each account's data lives under users/{uid}/{children|activities|goals|photos}/{id}; the
+   Each account's data lives under users/{uid}/{children|activities|photos}/{id}; the
    Firestore rules only let that account read or write it. firestoreStore() exposes the same small
    interface as the Claude-hosted store, so the rest of the app runs unchanged in mode 'db'. */
 let fb = null, fbUser = null, unsubs = [];
@@ -1372,7 +1290,7 @@ function firestoreStore(uid) {
   };
 }
 function resetData() {
-  setGoals(new Map()); data.children = new Map(); data.activities = new Map();
+  data.children = new Map(); data.activities = new Map();
   for (const c of COLS) loaded[c] = false;
 }
 function subscribeAll() {
@@ -1380,7 +1298,7 @@ function subscribeAll() {
   unsubs = COLS.map(c => db.collection(c).onSnapshot(s => {
     const m = new Map();
     for (const doc of s.docs) { if (!doc.exists) continue; const b = clean(c, doc.data()); if (b) m.set(doc.id, { ...b, id: doc.id }); }
-    if (c === 'goals') setGoals(m); else data[c] = m;
+    data[c] = m;
     loaded[c] = true; scheduleRender();
   }, err => {
     loaded[c] = true; scheduleRender();
@@ -1476,7 +1394,8 @@ function deleteAccountDialog() {
     if (!user) return t('ae_generic');
     try { await A.reauthenticateWithCredential(user, A.EmailAuthProvider.credential(user.email, form.password.value)); }
     catch (e) { return authErr(e); }
-    for (const c of [...COLS, 'photos']) {
+    /* 'goals' holds goals parents could once add themselves; cleared along with the rest */
+    for (const c of [...COLS, 'goals', 'photos']) {
       const s = await F.getDocs(F.collection(fs, 'users', user.uid, c));
       const errors = await runPool(s.docs, docSnap => F.deleteDoc(docSnap.ref), 6);
       if (errors.length) throw fbErr(errors[0]);
@@ -1497,13 +1416,13 @@ function readLocalSummary() {
     const o = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
     if (!o) return;
     const n = c => Object.keys(o[c] || {}).length;
-    if (n('children') + n('activities') + n('goals')) localSummary = { o, children: n('children'), activities: n('activities') };
+    if (n('children') + n('activities')) localSummary = { o, children: n('children'), activities: n('activities') };
   } catch (e) {}
 }
 function migrationNotice() {
   if (!fbUser || !localSummary) return '';
   try { if (localStorage.getItem(MIGRATED_KEY + fbUser.uid)) return ''; } catch (e) { return ''; }
-  if (data.children.size || data.activities.size || customGoals.size) return '';
+  if (data.children.size || data.activities.size) return '';
   return `<div class="notice"><p>${esc(t('mig_p', localSummary.children, localSummary.activities))}</p><span class="head-actions"><button class="btn small" data-action="migrate">${bt('mig_btn')}</button><button class="btn small" data-action="migrate-skip">${bt('mig_skip')}</button></span></div>`;
 }
 function markMigrated() { try { localStorage.setItem(MIGRATED_KEY + fbUser.uid, todayIso()); } catch (e) {} scheduleRender(); }
@@ -1511,7 +1430,7 @@ async function migrateLocal(btn) {
   const o = localSummary && localSummary.o; if (!o || !fbUser) return;
   btn.disabled = true;
   const docs = [];
-  for (const c of COLS) for (const [id, v] of Object.entries(o[c] || {})) { if (!ID_RE.test(id) || (c === 'goals' && BUILTIN.has(id))) continue; const b = clean(c, v); if (b) docs.push({ c, id, b }); }
+  for (const c of COLS) for (const [id, v] of Object.entries(o[c] || {})) { if (!ID_RE.test(id)) continue; const b = clean(c, v); if (b) docs.push({ c, id, b }); }
   const used = new Set(docs.filter(x => x.c === 'activities').flatMap(x => x.b.photoIds));
   let photos = [];
   try { photos = used.size ? (await localPhotosAll()).filter(p => used.has(p.id)) : []; } catch (e) {}

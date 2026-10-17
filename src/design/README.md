@@ -81,8 +81,8 @@ puts in the page, so they are the hooks you style. Adding a new class means chan
 - **Activities:** `act-list`, `act`, `act-date` (`d` day, `m` month), `act-body`, `act-kids`,
   `goal-chips`, `goal-chip`, `act-photos` (the photo column), `thumbs`, `thumb`, `photo-count`, `notes`, `row-actions`, `month`
 - **Goal list:** `chips-filter`, `goal-list` (its rows share its columns as a subgrid), `goal-row`, `g-side`,
-  `kids-row`, `g-end` (holds the `tag` of a built-in goal), `tag`
-- **Dialogs:** `dlg-form`, `dlg-body`, `field`, `field-label`, `hint`, `form-error`, `info`, `row2`,
+  `kids-row`
+- **Dialogs:** `dlg-form`, `dlg-body`, `field`, `field-label`, `hint`, `form-error`, `info`,
   `animal-grid`, `kid-picks`, `kid-pick`, `goal-field`, `sel-chips`,
   `data-actions`, picker (`picker-dlg`, `picker-bar`, `picker-scroll`, `pick-group`, `pick`,
   `pick-count`, `pick-more`), photos (`photo-edit`, `pe`, `pe-x`, `photo-add`, `drop` while dragging)

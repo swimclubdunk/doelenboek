@@ -146,9 +146,8 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .count-line { color: var(--muted); font-size: .84rem; font-variant-numeric: tabular-nums; }
 
 /* goal list */
-.goal-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto auto; column-gap: 14px; }
-/* Every row shares the list's columns (subgrid), so the last column is as wide as the widest
-   "edit + delete" pair and the animals line up on built-in and custom goals alike. */
+.goal-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto; column-gap: 14px; }
+/* Every row shares the list's columns (subgrid), so the animals line up from row to row. */
 .goal-row { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; row-gap: 6px; align-items: start; padding: 12px 14px; border-bottom: 1px solid var(--line); }
 .goal-row > p { grid-column: 1 / -1; }
 .goal-row:last-child { border-bottom: 0; }
@@ -157,11 +156,10 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .g-meta { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
 .g-desc { overflow-wrap: anywhere; white-space: pre-line; }
 .g-side { display: contents; }
-/* the animals, the "built in" tag and the edit/delete buttons all centre on one 32px line */
 .g-side > * { min-height: 32px; display: flex; align-items: center; }
 .g-side > .kids-row { grid-column: 3; }
-.g-side > .g-end, .g-side > .row-actions { grid-column: 4; justify-self: end; }
-.kids-row { display: flex; gap: 3px; }
+/* at most six animals side by side (6 × 24px + 5 × 3px gap); more wrap onto a new line */
+.kids-row { display: flex; flex-wrap: wrap; gap: 3px; max-width: 159px; }
 .row-actions { display: flex; gap: 6px; }
 /* outlined like the small buttons on the child cards, so they read as buttons */
 .row-actions .icon-btn { border: 1px solid var(--line); padding: 5px 10px; color: var(--fg); }
@@ -173,7 +171,6 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .row-actions .icon-btn.del { color: var(--muted); padding: 5px 8px; display: inline-grid; place-items: center; }
 .row-actions .icon-btn.del svg { width: 16px; height: 16px; display: block; }
 .row-actions .icon-btn.del:hover { color: var(--danger); border-color: var(--danger); }
-.tag { font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
 @media (max-width: 640px) {
   .goal-list { display: block; }
   .goal-row { grid-template-columns: minmax(0, 1fr); }
@@ -272,7 +269,6 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .field > span, .field-label { font-weight: 700; font-size: .86rem; }
 .field input, .field textarea, .field select { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 9px 11px; width: 100%; }
 .field textarea { resize: vertical; min-height: 80px; }
-.row2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; }
 .kid-picks { display: flex; flex-wrap: wrap; gap: 6px; }
 .kid-pick { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px 3px 4px; cursor: pointer; position: relative; }
 .kid-pick:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
@@ -368,7 +364,7 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 .auth-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
 .linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
-.site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; }
+.site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; text-align: center; }
 /* the donation line: quiet, like the rest of the footer */
 .site-foot .support > span { font-weight: 700; }
 .site-foot .support a, .site-foot .contact a { color: inherit; text-underline-offset: 2px; }

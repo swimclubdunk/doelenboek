@@ -13,8 +13,9 @@ service cloud.firestore {
       allow read, delete: if isOwner(uid)
         && collection in ['children', 'activities', 'goals', 'photos'];
 
+      // 'goals' only held goals parents once added themselves; it can still be read and cleared.
       allow create, update: if isOwner(uid)
-        && collection in ['children', 'activities', 'goals', 'photos']
+        && collection in ['children', 'activities', 'photos']
         && request.resource.data.size() <= 20
         && (collection != 'photos' || request.resource.data.data.size() <= 400000);
     }
