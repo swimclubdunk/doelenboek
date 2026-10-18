@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://doelenboek.be/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/over/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/over/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/over/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/en/about/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/over/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/over/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/minimumdoelen/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/en/minimum-goals/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/minimumdoelen/nederlands/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/nederlands/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/dutch/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/nederlands/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/en/minimum-goals/dutch/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/nederlands/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/dutch/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/nederlands/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/minimumdoelen/wetenschappen-techniek/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/wetenschappen-techniek/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/science-and-technology/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/wetenschappen-techniek/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/en/minimum-goals/science-and-technology/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/wetenschappen-techniek/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/science-and-technology/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/wetenschappen-techniek/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/minimumdoelen/aardrijkskunde/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/aardrijkskunde/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/geography/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/aardrijkskunde/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/en/minimum-goals/geography/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/aardrijkskunde/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/geography/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/aardrijkskunde/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/minimumdoelen/muzische-vorming/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/muzische-vorming/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/arts-education/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/muzische-vorming/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/en/minimum-goals/arts-education/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/muzische-vorming/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/arts-education/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/muzische-vorming/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/minimumdoelen/lichamelijke-opvoeding/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/lichamelijke-opvoeding/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/physical-education/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/lichamelijke-opvoeding/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/en/minimum-goals/physical-education/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/lichamelijke-opvoeding/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/physical-education/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/lichamelijke-opvoeding/"/>
+  </url>
+</urlset>

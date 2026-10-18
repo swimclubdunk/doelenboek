@@ -1,0 +1,76 @@
+# Doelenboek
+
+> Doelenboek is a free web app for parents who homeschool in Flanders, Belgium. Note down what you do with your children, with photos, link it to the Flemish minimum goals (minimumdoelen) and see per child and per subject which goals have been covered and which are still open.
+
+Doelenboek (https://doelenboek.be) is a free web app in Dutch and English. Dutch summary: Doelenboek is een gratis webapp voor ouders die in Vlaanderen huisonderwijs geven. Noteer wat je samen met je kinderen doet, met foto's, koppel het aan de minimumdoelen en zie per kind en per vak welke doelen al aan bod kwamen en welke nog openstaan.
+
+Key facts:
+
+- Audience: parents who homeschool (huisonderwijs) in Flanders, Belgium
+- Price: free, no ads; optional donations via Ko-fi (https://ko-fi.com/mat644)
+- Platform: any web browser on computer, tablet or phone; account with email and password
+- Goals included: the Flemish minimum goals (minimumdoelen) for preschool (kleuteronderwijs), for Dutch, science & technology, geography, arts education and physical education, with their official codes, in Dutch and in English translation
+- Official source of the goals: https://onderwijsdoelen.be
+- Privacy: no cookies on the visitor's device; data stored in Google Firebase in the EU; users can delete their account and data at any time
+- The app itself is at https://doelenboek.be/ and requires JavaScript and a login; the pages below are public
+
+## About
+
+- [Over Doelenboek (Dutch)](https://doelenboek.be/over/): what it is, how it works, questions and answers
+- [About Doelenboek (English)](https://doelenboek.be/en/about/): the same in English
+
+## Minimumdoelen (Dutch)
+
+- [Alle vakken](https://doelenboek.be/minimumdoelen/)
+- [Nederlands](https://doelenboek.be/minimumdoelen/nederlands/): 26 minimumdoelen
+- [Wetenschappen & techniek](https://doelenboek.be/minimumdoelen/wetenschappen-techniek/): 21 minimumdoelen
+- [Aardrijkskunde](https://doelenboek.be/minimumdoelen/aardrijkskunde/): 17 minimumdoelen
+- [Muzische vorming](https://doelenboek.be/minimumdoelen/muzische-vorming/): 6 minimumdoelen
+- [Lichamelijke opvoeding](https://doelenboek.be/minimumdoelen/lichamelijke-opvoeding/): 12 minimumdoelen
+
+## Minimum goals (English)
+
+- [All subjects](https://doelenboek.be/en/minimum-goals/)
+- [Dutch](https://doelenboek.be/en/minimum-goals/dutch/): 26 minimum goals
+- [Science & technology](https://doelenboek.be/en/minimum-goals/science-and-technology/): 21 minimum goals
+- [Geography](https://doelenboek.be/en/minimum-goals/geography/): 17 minimum goals
+- [Arts education](https://doelenboek.be/en/minimum-goals/arts-education/): 6 minimum goals
+- [Physical education](https://doelenboek.be/en/minimum-goals/physical-education/): 12 minimum goals
+
+## Questions and answers
+
+### What is Doelenboek?
+
+Doelenboek is a free web app for parents who homeschool in Flanders, Belgium. You note down what you do with your children, link it to the Flemish minimum goals and see per child and per subject which goals have been covered and which are still open.
+
+### What are the minimum goals (minimumdoelen)?
+
+The minimum goals are the learning goals the Flemish government sets for education: what children should at least know and be able to do. The official texts are published in Dutch on onderwijsdoelen.be. Doelenboek includes them by subject, with their code, so you can pick them for every activity.
+
+### Which minimum goals does Doelenboek include?
+
+At the moment the minimum goals for preschool (kleuteronderwijs), for Dutch, science & technology, geography, arts education and physical education. Other subjects will follow. The full lists are on this website, under Minimum goals.
+
+### Does Doelenboek cost anything?
+
+No. Doelenboek is free and shows no ads. If you would like to support the project, you can make a voluntary donation on Ko-fi, which helps cover the hosting costs.
+
+### Where is my data stored?
+
+Your children, activities and photos are stored in Google Firebase in the EU and can only be reached with your email address and password. The website does not store cookies on your device, and you can delete your account and all your data yourself at any time.
+
+### Do I need to install anything?
+
+No. Doelenboek works in the browser on a computer, tablet or phone. Create an account with your email address and a password, and your data is on all your devices.
+
+### Is Doelenboek available in English?
+
+Yes. You can switch between Dutch and English in the app. The minimum goals are shown in English as a translation of the official Dutch wording.
+
+### Does Doelenboek replace the official homeschooling rules?
+
+No. Doelenboek helps you keep track of what your children learn, but it is not an official document. We do not take responsibility for the completeness of the minimum goals; the official lists are on onderwijsdoelen.be.
+
+## Optional
+
+- [All goals in one file](https://doelenboek.be/llms-full.txt): every built-in minimum goal with code, category and text, in Dutch and English

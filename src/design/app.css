@@ -370,6 +370,11 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 .site-foot .support a, .site-foot .contact a { color: inherit; text-underline-offset: 2px; }
 .site-foot .support a:hover, .site-foot .contact a:hover { color: var(--fg); }
 
+/* shown instead of the app when JavaScript is off */
+.noscript { max-width: 640px; margin: 5vh auto 0; padding: 28px; display: grid; gap: 24px; }
+.noscript section { display: grid; gap: 8px; }
+.noscript h1 { font-size: 1.4rem; }
+
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .thumb:hover img { transform: none; } }
 @media (max-width: 400px) {
   .bars li { grid-template-columns: minmax(0, 6.5rem) 1fr 3.2rem 2.2rem; gap: 8px; }

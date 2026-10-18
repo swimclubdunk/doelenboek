@@ -3,8 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Doelenboek: houd per kind bij welke Vlaamse minimumdoelen aan bod kwamen in huisonderwijs.">
 <meta name="color-scheme" content="light">
+<meta name="description" content="Gratis webapp voor huisonderwijs in Vlaanderen: noteer activiteiten met foto&#x27;s, koppel ze aan de minimumdoelen en zie per kind en per vak wat nog openstaat.">
+<link rel="canonical" href="https://doelenboek.be/">
+<link rel="alternate" hreflang="nl" href="https://doelenboek.be/">
+<link rel="alternate" hreflang="x-default" href="https://doelenboek.be/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Doelenboek">
+<meta property="og:locale" content="nl_BE">
+<meta property="og:title" content="Doelenboek: huisonderwijs bijhouden met de Vlaamse minimumdoelen">
+<meta property="og:description" content="Gratis webapp voor huisonderwijs in Vlaanderen: noteer activiteiten met foto&#x27;s, koppel ze aan de minimumdoelen en zie per kind en per vak wat nog openstaat.">
+<meta property="og:url" content="https://doelenboek.be/">
+<meta property="og:image" content="https://doelenboek.be/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Huisonderwijs bijhouden en koppelen aan de Vlaamse minimumdoelen">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale:alternate" content="en_GB">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://doelenboek.be/#website","url":"https://doelenboek.be/","name":"Doelenboek","alternateName":"doelenboek.be","inLanguage":["nl-BE","en"]},{"@type":"WebApplication","@id":"https://doelenboek.be/#app","name":"Doelenboek","url":"https://doelenboek.be/","description":"Doelenboek is een gratis webapp voor ouders die in Vlaanderen huisonderwijs geven. Noteer wat je samen met je kinderen doet, met foto's, koppel het aan de minimumdoelen en zie per kind en per vak welke doelen al aan bod kwamen en welke nog openstaan.","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","browserRequirements":"Requires JavaScript","inLanguage":["nl-BE","en"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"image":"https://doelenboek.be/og-image.png","featureList":["Gratis, zonder advertenties en zonder cookies op je toestel","In het Nederlands en het Engels; de doelen staan er in beide talen","Werkt op elke computer, tablet of telefoon, in de browser","Een account met e-mailadres en wachtwoord, zodat je gegevens op al je toestellen staan","Foto's bij elke activiteit, verkleind bewaard","Je gegevens staan in Google Firebase in de EU en je kunt ze op elk moment volledig verwijderen"],"audience":{"@type":"ParentAudience","audienceType":"Parents who homeschool in Flanders, Belgium","geographicArea":{"@type":"AdministrativeArea","name":"Vlaanderen (Flanders), Belgium"}},"about":[{"@type":"Thing","name":"Huisonderwijs (homeschooling) in Vlaanderen"},{"@type":"Thing","name":"Minimumdoelen kleuteronderwijs","sameAs":"https://onderwijsdoelen.be"}],"isPartOf":{"@id":"https://doelenboek.be/#website"}}]}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23725C4E'/%3E%3Cpath d='M18 16h14a16 16 0 0 1 0 32H18z' fill='none' stroke='%23F4F0E4' stroke-width='6'/%3E%3Ccircle cx='31' cy='32' r='4' fill='%23C8BAAD'/%3E%3C/svg%3E">
 <title>doelenboek.be</title>
 <!-- tools/build.py inlines these stylesheets; everything visual lives in design/ -->
@@ -454,6 +471,11 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 .site-foot .support a, .site-foot .contact a { color: inherit; text-underline-offset: 2px; }
 .site-foot .support a:hover, .site-foot .contact a:hover { color: var(--fg); }
 
+/* shown instead of the app when JavaScript is off */
+.noscript { max-width: 640px; margin: 5vh auto 0; padding: 28px; display: grid; gap: 24px; }
+.noscript section { display: grid; gap: 8px; }
+.noscript h1 { font-size: 1.4rem; }
+
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .thumb:hover img { transform: none; } }
 @media (max-width: 400px) {
   .bars li { grid-template-columns: minmax(0, 6.5rem) 1fr 3.2rem 2.2rem; gap: 8px; }
@@ -499,6 +521,7 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
     </div>
   </div>
 </header>
+<noscript><div class="noscript card"><section lang="nl"><h1>Doelenboek: huisonderwijs bijhouden met de Vlaamse minimumdoelen</h1><p>Doelenboek is een gratis webapp voor ouders die in Vlaanderen huisonderwijs geven. Noteer wat je samen met je kinderen doet, met foto&#x27;s, koppel het aan de minimumdoelen en zie per kind en per vak welke doelen al aan bod kwamen en welke nog openstaan.</p><p>Doelenboek heeft JavaScript nodig. Lees intussen meer over Doelenboek of bekijk de minimumdoelen per vak.</p><p><a href="/over/">Over Doelenboek</a> · <a href="/minimumdoelen/">Minimumdoelen</a></p></section><section lang="en"><h2>Doelenboek: homeschool tracker for the Flemish minimum goals</h2><p>Doelenboek is a free web app for parents who homeschool in Flanders, Belgium. Note down what you do with your children, with photos, link it to the Flemish minimum goals (minimumdoelen) and see per child and per subject which goals have been covered and which are still open.</p><p>Doelenboek needs JavaScript. Meanwhile, read more about Doelenboek or see the minimum goals by subject.</p><p><a href="/en/about/">About Doelenboek</a> · <a href="/en/minimum-goals/">Minimum goals</a></p></section></div></noscript>
 <main id="main"><p class="loading">Gegevens laden…</p></main>
 <footer class="site-foot" id="site-foot">
   <p id="foot-cookies"></p>
@@ -1352,6 +1375,7 @@ const T = {
     edit: 'Wijzigen', delete: 'Verwijderen',
     all_mastered: 'Alle doelen van dit vak zijn beheerst.', via: 'Via', child_acts: name => `Activiteiten van ${name}`,
     h_acts: 'Activiteiten', acts_lede: 'Lessen, uitstappen en projecten, met de minimumdoelen die erin aan bod kwamen.',
+    acts_range: (n, from, to) => from === to ? `${nlN(n, 'activiteit', 'activiteiten')} op ${from}` : `${nlN(n, 'activiteit', 'activiteiten')} tussen ${from} en ${to}`,
     empty_acts_h: 'Nog geen activiteiten', empty_acts_p: 'Registreer wat je samen deed en vink aan welke minimumdoelen erbij horen.',
     empty_acts_nokids: 'Voeg eerst een kind toe bij Kinderen.', to_overview: 'Naar Kinderen',
     search_kids: 'Zoek een kind op naam', no_kids_found: 'Geen kinderen gevonden.',
@@ -1448,18 +1472,18 @@ const T = {
     edit: 'Edit', delete: 'Delete',
     all_mastered: 'Every goal in this subject is mastered.', via: 'Via', child_acts: name => `${name}'s activities`,
     h_acts: 'Activities', acts_lede: 'Lessons, outings and projects, with the minimum goals they covered.',
+    acts_range: (n, from, to) => from === to ? `${nlN(n, 'activity', 'activities')} on ${from}` : `${nlN(n, 'activity', 'activities')} between ${from} and ${to}`,
     empty_acts_h: 'No activities yet', empty_acts_p: 'Log what you did together and tick the minimum goals it covered.',
     empty_acts_nokids: 'Add a child under Children first.', to_overview: 'Go to Children',
     search_kids: 'Search children by name', no_kids_found: 'No children found.',
     search_acts: 'Search by title, notes or goal code', all_children: 'All children', filter_child: 'Filter by child',
     no_acts_found: 'No activities match these filters.', no_goals_linked: 'No minimum goals linked.', goals_aria: 'Minimum goals',
-    h_goals: 'Minimum goals', goals_lede: 'The goals progress is measured against. Official lists are published on',
+    h_goals: 'Minimum goals', goals_lede: 'The goals to track progress against, translated from the official lists on',
     search_goals: 'Search by code, category or text', all_subjects: 'All subjects', filter_subject: 'Filter by subject',
     count_line: (n, t, kids) => `${n} of ${t} goals${kids ? ' · the animals show which children have mastered each goal' : ''}`,
     first_n: n => `Showing the first ${n}. Narrow your search to see the rest.`,
     no_goals_found: 'No goals match these filters.',
     kid_done: n => `${n}: mastered`, kid_open: n => `${n}: not mastered yet`,
-    translated: 'The goal texts are English translations of the official Dutch wording.',
     close: 'Close', cancel: 'Cancel', save: 'Save', busy: 'Working…', progress: (a, b) => `Working… ${a}/${b}`,
     child_edit_h: 'Edit child', child_add_h: 'Add child', name: 'Name', animal: 'Animal', animal_taken: 'Already used for another child',
     err_name: 'Enter a name.', err_dup_name: n => `There is already a child called ${n}.`, saved_changes: 'Changes saved.', child_added: n => `${n} has been added.`,
@@ -1988,8 +2012,10 @@ function viewActivities() {
     (!ui.actChild || a.childIds.includes(ui.actChild)) &&
     (!q || norm(a.title + ' ' + a.notes + ' ' + a.goalIds.map(id => data.goals.get(id)?.code || '').join(' ')).includes(q))
   ).sort(byDateDesc);
+  const dates = [...data.activities.values()].map(a => a.date).sort();
+  const lede = dates.length ? t('acts_range', dates.length, fmtDate(dates[0]), fmtDate(dates[dates.length - 1])) : t('acts_lede');
   let h = exampleBanner();
-  h += `<section class="page-head"><div><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(t('acts_lede'))}</p></div>
+  h += `<section class="page-head"><div><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(lede)}</p></div>
     <div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${addBt('add_activity')}</button></div></section>`;
   if (!data.activities.size) {
     return h + `<div class="empty"><h2>${esc(t('empty_acts_h'))}</h2><p>${esc(kids.length ? t('empty_acts_p') : t('empty_acts_nokids'))}</p>${kids.length ? `<button class="btn primary w" data-action="new-activity">${bt('add_activity')}</button>` : `<a class="btn" href="#overzicht">${bt('to_overview')}</a>`}</div>`;
@@ -2013,7 +2039,7 @@ function viewGoals(cov) {
   const list = all.filter(g => ui.goalSubj.has(g.subject) && (!q || norm(searchText(g)).includes(q)));
   const allOn = ui.goalSubj.size === SUBJECTS.length;
   let h = exampleBanner();
-  h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.${lang === 'en' ? ' ' + esc(t('translated')) : ''}</p></div></section>`;
+  h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.</p></div></section>`;
   h += `<div class="toolbar"><input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
     <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
       <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${bt('all_subjects')}</button>

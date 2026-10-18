@@ -8,6 +8,8 @@ tokens.css            colours (light and dark), subject colours, fonts, corner r
 fonts/                the font files (woff2) and their licences (SIL Open Font License)
 app.css               layout and the look of every screen and component
 favicon.svg           the browser-tab icon
+site.css              the public pages (over/, minimumdoelen/, en/...), on top of tokens.css
+og-image.png          the picture shown when a link to the site is shared (1200 x 630)
 animals/animals.json  which animals exist, their order in the picker, and the emoji each belongs to
 animals/*.svg         one drawing per animal
 ```

@@ -5,10 +5,14 @@ Usage: build.py SRC.html OUT.html [FIREBASE_CONFIG.json]
 - the animal drawings in design/animals/ become <symbol>s in the page
 - the favicon comes from design/favicon.svg
 - the built-in goals come from doelen/*.json
-- the font files in design/fonts/ are copied to fonts/ next to OUT.html"""
+- the font files in design/fonts/ are copied to fonts/ next to OUT.html
+- the public pages, robots.txt, sitemap.xml and llms.txt are written next to OUT.html (see public.py)"""
 import sys, json, re, shutil
 from pathlib import Path
 from urllib.parse import quote
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import public  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DOELEN_DIR = ROOT / 'doelen'
@@ -165,14 +169,19 @@ def fill(text, needle, value, what):
     return text.replace(needle, value)
 
 
+def subject_keys_of(text):
+    """The subject keys, in the order of the app's SUBJECTS list."""
+    s = text.index('const SUBJECTS = [')
+    return re.findall(r"\{ key: '([A-Z]+)'", text[s:text.index('\n];', s)])
+
+
 def build(src, firebase_config=None):
     """The complete page as a string. Raises BuildError for a mistake in an input file."""
     src = Path(src).resolve()
     design = src.parent / 'design'
     text = src.read_text(encoding='utf-8')
 
-    s = text.index('const SUBJECTS = [')
-    subject_keys = re.findall(r"\{ key: '([A-Z]+)'", text[s:text.index('\n];', s)])
+    subject_keys = subject_keys_of(text)
     goals = sorted(load_goals(subject_keys), key=lambda g: subject_keys.index(g["subject"]))  # stable: keeps file order within a subject
     goals_js = json.dumps(goals, ensure_ascii=False, indent=1).replace('</', '<\\/')
     text = fill(text, 'const BUILTIN_GOALS = [];', 'const BUILTIN_GOALS = ' + goals_js + ';', 'goals')
@@ -186,6 +195,7 @@ def build(src, firebase_config=None):
         text = fill(text, 'const FIREBASE_CONFIG = null;', 'const FIREBASE_CONFIG = ' + json.dumps(cfg, ensure_ascii=False) + ';', 'Firebase config')
 
     text = inline_styles(text, src.parent)
+    text = fill(text, '<main id="main">', public.app_noscript() + '\n<main id="main">', 'main')
     i = text.index('<header class="top">')
     head, body = text[:i].rstrip(), text[i:].rstrip()
 
@@ -194,8 +204,8 @@ def build(src, firebase_config=None):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Doelenboek: houd per kind bij welke Vlaamse minimumdoelen aan bod kwamen in huisonderwijs.">
 <meta name="color-scheme" content="light">
+{public.app_head(public.load_subjects(DOELEN_DIR, subject_keys))}
 <link rel="icon" href="{favicon_uri(design / 'favicon.svg')}">
 {head}
 </head>
@@ -215,5 +225,9 @@ if __name__ == '__main__':
         sys.exit(str(e))
     out = sys.argv[2]
     open(out, 'w', encoding='utf-8', newline='\n').write(page)
-    copy_fonts(sys.argv[1], Path(out).resolve().parent)
+    out_dir = Path(out).resolve().parent
+    copy_fonts(sys.argv[1], out_dir)
     print(f'wrote {out} ({len(page.encode("utf-8")):,} bytes)')
+    src = Path(sys.argv[1]).resolve()
+    written = public.write_site(out_dir, src.parent / 'design', DOELEN_DIR, subject_keys_of(src.read_text(encoding='utf-8')))
+    print(f'wrote {len(written)} public files (pages, robots.txt, sitemap.xml, llms.txt, ...)')

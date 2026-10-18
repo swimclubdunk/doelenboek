@@ -106,6 +106,7 @@ const T = {
     edit: 'Wijzigen', delete: 'Verwijderen',
     all_mastered: 'Alle doelen van dit vak zijn beheerst.', via: 'Via', child_acts: name => `Activiteiten van ${name}`,
     h_acts: 'Activiteiten', acts_lede: 'Lessen, uitstappen en projecten, met de minimumdoelen die erin aan bod kwamen.',
+    acts_range: (n, from, to) => from === to ? `${nlN(n, 'activiteit', 'activiteiten')} op ${from}` : `${nlN(n, 'activiteit', 'activiteiten')} tussen ${from} en ${to}`,
     empty_acts_h: 'Nog geen activiteiten', empty_acts_p: 'Registreer wat je samen deed en vink aan welke minimumdoelen erbij horen.',
     empty_acts_nokids: 'Voeg eerst een kind toe bij Kinderen.', to_overview: 'Naar Kinderen',
     search_kids: 'Zoek een kind op naam', no_kids_found: 'Geen kinderen gevonden.',
@@ -202,18 +203,18 @@ const T = {
     edit: 'Edit', delete: 'Delete',
     all_mastered: 'Every goal in this subject is mastered.', via: 'Via', child_acts: name => `${name}'s activities`,
     h_acts: 'Activities', acts_lede: 'Lessons, outings and projects, with the minimum goals they covered.',
+    acts_range: (n, from, to) => from === to ? `${nlN(n, 'activity', 'activities')} on ${from}` : `${nlN(n, 'activity', 'activities')} between ${from} and ${to}`,
     empty_acts_h: 'No activities yet', empty_acts_p: 'Log what you did together and tick the minimum goals it covered.',
     empty_acts_nokids: 'Add a child under Children first.', to_overview: 'Go to Children',
     search_kids: 'Search children by name', no_kids_found: 'No children found.',
     search_acts: 'Search by title, notes or goal code', all_children: 'All children', filter_child: 'Filter by child',
     no_acts_found: 'No activities match these filters.', no_goals_linked: 'No minimum goals linked.', goals_aria: 'Minimum goals',
-    h_goals: 'Minimum goals', goals_lede: 'The goals progress is measured against. Official lists are published on',
+    h_goals: 'Minimum goals', goals_lede: 'The goals to track progress against, translated from the official lists on',
     search_goals: 'Search by code, category or text', all_subjects: 'All subjects', filter_subject: 'Filter by subject',
     count_line: (n, t, kids) => `${n} of ${t} goals${kids ? ' · the animals show which children have mastered each goal' : ''}`,
     first_n: n => `Showing the first ${n}. Narrow your search to see the rest.`,
     no_goals_found: 'No goals match these filters.',
     kid_done: n => `${n}: mastered`, kid_open: n => `${n}: not mastered yet`,
-    translated: 'The goal texts are English translations of the official Dutch wording.',
     close: 'Close', cancel: 'Cancel', save: 'Save', busy: 'Working…', progress: (a, b) => `Working… ${a}/${b}`,
     child_edit_h: 'Edit child', child_add_h: 'Add child', name: 'Name', animal: 'Animal', animal_taken: 'Already used for another child',
     err_name: 'Enter a name.', err_dup_name: n => `There is already a child called ${n}.`, saved_changes: 'Changes saved.', child_added: n => `${n} has been added.`,
@@ -742,8 +743,10 @@ function viewActivities() {
     (!ui.actChild || a.childIds.includes(ui.actChild)) &&
     (!q || norm(a.title + ' ' + a.notes + ' ' + a.goalIds.map(id => data.goals.get(id)?.code || '').join(' ')).includes(q))
   ).sort(byDateDesc);
+  const dates = [...data.activities.values()].map(a => a.date).sort();
+  const lede = dates.length ? t('acts_range', dates.length, fmtDate(dates[0]), fmtDate(dates[dates.length - 1])) : t('acts_lede');
   let h = exampleBanner();
-  h += `<section class="page-head"><div><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(t('acts_lede'))}</p></div>
+  h += `<section class="page-head"><div><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(lede)}</p></div>
     <div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${addBt('add_activity')}</button></div></section>`;
   if (!data.activities.size) {
     return h + `<div class="empty"><h2>${esc(t('empty_acts_h'))}</h2><p>${esc(kids.length ? t('empty_acts_p') : t('empty_acts_nokids'))}</p>${kids.length ? `<button class="btn primary w" data-action="new-activity">${bt('add_activity')}</button>` : `<a class="btn" href="#overzicht">${bt('to_overview')}</a>`}</div>`;
@@ -767,7 +770,7 @@ function viewGoals(cov) {
   const list = all.filter(g => ui.goalSubj.has(g.subject) && (!q || norm(searchText(g)).includes(q)));
   const allOn = ui.goalSubj.size === SUBJECTS.length;
   let h = exampleBanner();
-  h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.${lang === 'en' ? ' ' + esc(t('translated')) : ''}</p></div></section>`;
+  h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.</p></div></section>`;
   h += `<div class="toolbar"><input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
     <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
       <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${bt('all_subjects')}</button>

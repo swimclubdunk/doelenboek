@@ -5,6 +5,7 @@ Usage: python tools/serve.py [--live] [--port 8000]
 
   http://localhost:8000/          the app
   http://localhost:8000/animals   every animal drawing, with a check that each one fills its frame
+  http://localhost:8000/over/     the public pages (also /minimumdoelen/, /en/about/, /llms.txt, ...)
 
 By default the app keeps its data in this browser only, so you can add and delete test children
 freely. --live builds with firebase-config.json, which logs into real accounts and real data."""
@@ -13,11 +14,14 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build import ROOT, BuildError, build, animal_symbols  # noqa: E402
+from build import ROOT, DOELEN_DIR, BuildError, build, animal_symbols, subject_keys_of  # noqa: E402
+import public  # noqa: E402
 
 SRC = ROOT / 'src' / 'doelenboek.html'
 CONFIG = ROOT / 'firebase-config.json'
-FONTS = ROOT / 'src' / 'design' / 'fonts'
+DESIGN = ROOT / 'src' / 'design'
+FONTS = DESIGN / 'fonts'
+TYPES = {'.html': 'text/html; charset=utf-8', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml; charset=utf-8'}
 
 
 def animals_page():
@@ -88,6 +92,10 @@ class Handler(BaseHTTPRequestHandler):
                 body, status = build(SRC, CONFIG if self.live else None), 200
             elif path == '/animals':
                 body, status = animals_page(), 200
+            elif path.strip('/') in public.COPIED:
+                return self.send_file(DESIGN / path.strip('/'))
+            elif (page := self.public_file(path)) is not None:
+                return self.send_text(*page)
             elif path.startswith('/fonts/') and (FONTS / path[7:]).is_file() and '/' not in path[7:]:
                 return self.send_file(FONTS / path[7:])
             else:
@@ -102,10 +110,28 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(data)
 
+    def public_file(self, path):
+        """(text, content type) of a public page or crawler file, rebuilt on every request; None if PATH is none of them."""
+        rel = path.strip('/')
+        files = public.site_files(DESIGN, DOELEN_DIR, subject_keys_of(SRC.read_text(encoding='utf-8')))
+        for key in (rel, rel + '/index.html'):
+            if key in files:
+                return files[key], TYPES[Path(key).suffix]
+        return None
+
+    def send_text(self, body, ctype):
+        data = body.encode('utf-8')
+        self.send_response(200)
+        self.send_header('Content-Type', ctype)
+        self.send_header('Cache-Control', 'no-store')
+        self.send_header('Content-Length', str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
     def send_file(self, f):
         data = f.read_bytes()
         self.send_response(200)
-        self.send_header('Content-Type', 'font/woff2' if f.suffix == '.woff2' else 'text/plain; charset=utf-8')
+        self.send_header('Content-Type', {'.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.png': 'image/png'}.get(f.suffix, 'text/plain; charset=utf-8'))
         self.send_header('Content-Length', str(len(data)))
         self.end_headers()
         self.wfile.write(data)

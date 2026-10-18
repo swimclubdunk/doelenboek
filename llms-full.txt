@@ -1,0 +1,258 @@
+# Doelenboek: the built-in Flemish minimum goals (minimumdoelen)
+
+> Every minimum goal for preschool (kleuteronderwijs) included in Doelenboek (https://doelenboek.be), the free homeschool tracker for Flanders. Official Dutch text first, then the English translation. Official source: https://onderwijsdoelen.be. The completeness of this list is not guaranteed.
+
+## Nederlands (Dutch)
+
+Page: https://doelenboek.be/minimumdoelen/nederlands/
+
+### Lezen (Reading)
+
+- **1.1.1** De kleuters kunnen rijm herkennen, rijmwoorden bedenken en woorden in klankgroepen verdelen (fonologisch bewustzijn).
+  - EN: Preschoolers can recognise rhyme, come up with rhyming words and split words into sound groups (phonological awareness).
+- **1.1.2** De kleuters kunnen een bepaalde klank in gesproken woorden op verschillende posities herkennen (fonemisch bewustzijn).
+  - EN: Preschoolers can recognise a given sound at different positions in spoken words (phonemic awareness).
+- **1.1.3** De kleuters kunnen een variatie aan klanken in mk-, km-, en mkm-woorden onderscheiden (fonemisch bewustzijn).
+  - EN: Preschoolers can distinguish a variety of sounds in CV, VC and CVC words (phonemic awareness).
+- **1.1.4** De kleuters kunnen minimum 15 letters (korte, lange, tweetekenklinkers en medeklinkers) herkennen door de bijbehorende klank uit te spreken (klank-tekenkoppeling).
+  - EN: Preschoolers can recognise at least 15 letters (short vowels, long vowels, two-letter vowels and consonants) by saying the matching sound (letter-sound correspondence).
+
+### Tekstbegrip (Reading comprehension)
+
+- **1.1.5** De kleuters kunnen de betekenis van eenvoudige visuele boodschappen begrijpen.
+  - EN: Preschoolers can understand the meaning of simple visual messages.
+- **1.1.6** De kleuters kunnen expliciete informatie over de situatie, de gevoelens, de personages en perspectiefname uit voorgelezen teksten halen.
+  - EN: Preschoolers can take explicit information about the situation, feelings, characters and perspective from texts read aloud to them.
+- **1.1.7** De kleuters kunnen expliciete verbanden binnen een tekst verwoorden: oorzaak, gevolg, probleem en oplossing.
+  - EN: Preschoolers can put explicit connections within a text into words: cause, effect, problem and solution.
+- **1.1.8** De kleuters kunnen verbanden leggen tussen voorgelezen teksten en hun vakspecifieke kennis en voorkennis.
+  - EN: Preschoolers can connect texts read aloud to them with their subject knowledge and prior knowledge.
+- **1.1.9** De kleuters kunnen de belangrijkste gebeurtenissen uit een verhaallijn in eigen woorden navertellen.
+  - EN: Preschoolers can retell the main events of a storyline in their own words.
+
+### Tekstsoorten en tekstconventies (Text types and conventions)
+
+- **1.1.10** De kleuters kunnen tonen dat ze de volgende tekstconventies begrijpen: inzicht in leesrichting, onderscheid tekst en beeld, congruentie tussen tekst en beeld.
+  - EN: Preschoolers can show that they understand these text conventions: reading direction, the difference between text and image, and how text and image match.
+- **1.1.11** De kleuters kunnen tonen dat teksten een doel hebben: iets onthouden, iets doen, genieten.
+  - EN: Preschoolers can show that texts have a purpose: remembering something, doing something, enjoyment.
+
+### Schrijven (Writing)
+
+- **1.2.1** De kleuters kunnen een dynamische pengreep hanteren.
+  - EN: Preschoolers can use a dynamic pencil grip.
+- **1.2.2** De kleuters kunnen in een correcte schrijfhouding zitten.
+  - EN: Preschoolers can sit in a correct writing posture.
+- **1.2.3** De kleuters kunnen rechte en gebogen lijnen maken binnen liniatuur.
+  - EN: Preschoolers can draw straight and curved lines within ruled lines.
+- **1.2.4** De kleuters kunnen schrijfpatronen maken binnen liniatuur.
+  - EN: Preschoolers can make writing patterns within ruled lines.
+- **1.2.5** De kleuters kunnen egaal binnen de lijntjes kleuren.
+  - EN: Preschoolers can colour evenly within the lines.
+- **1.2.6** De kleuters kunnen arceren met rechte lijnen.
+  - EN: Preschoolers can shade with straight lines.
+- **1.2.7** De kleuters kunnen de schrijfrichting hanteren.
+  - EN: Preschoolers can follow the writing direction.
+
+### Schrijven om te leren (Writing to learn)
+
+- **1.2.8** De kleuters kunnen door middel van tekenen, krabbels, symbolen, letter- of cijfervormen ideeën of gebeurtenissen vastleggen.
+  - EN: Preschoolers can record ideas or events through drawings, scribbles, symbols, or letter and number shapes.
+
+### Schrijven om te delen (Writing to share)
+
+- **1.2.9** De kleuters kennen de functie van schriftelijke taal om te informeren of te communiceren.
+  - EN: Preschoolers know that written language is used to inform or communicate.
+- **1.2.10** De kleuters kunnen ideeën aanbrengen voor een tekst vanuit aangeboden inhouden, eigen ervaringen of creatieve ideeën.
+  - EN: Preschoolers can suggest ideas for a text based on given content, their own experiences or creative ideas.
+
+### Mondeling taalgebruik (Spoken language)
+
+- **1.3.5** De kleuters kunnen verstaanbaar spreken met aandacht voor uitspraak van klanken, klankcombinaties en volume.
+  - EN: Preschoolers can speak intelligibly, paying attention to the pronunciation of sounds, sound combinations and volume.
+- **1.3.6** De kleuters kunnen bij het spreken mededelende, vragende en samengestelde zinnen hanteren.
+  - EN: Preschoolers can use statements, questions and compound sentences when speaking.
+- **1.3.7** De kleuters kunnen gedachten en gebeurtenissen formuleren met een aanzet tot volgorde en tonen hierbij een aanzet tot het gebruik van structuuraanduiders (verwijs-, verbindings- en signaalwoorden).
+  - EN: Preschoolers can put thoughts and events into words with a beginning sense of order, and show early use of structure markers (reference, linking and signal words).
+- **1.3.8** De kleuters kunnen in een vertrouwde omgeving over een zelfgekozen onderwerp vertellen.
+  - EN: Preschoolers can talk about a topic of their own choice in a familiar setting.
+- **1.3.9** De kleuters kunnen actief deelnemen aan mondelinge interactievormen zoals kringgesprekken, samen spelen, gesprekken met gekende volwassenen en hierbij de volgende interactiestrategieën toepassen: 
+- Op een gepaste manier het woord nemen en vragen.
+- Elkaar laten uitspreken.
+- Inspelen op wat anderen zeggen.
+- Standaardformules gebruiken bij het groeten, aanspreken, bedanken en vragen.
+  - EN: Preschoolers can take an active part in spoken interaction such as circle time, playing together and conversations with familiar adults, using these interaction strategies:
+- Taking a turn to speak and asking questions in an appropriate way.
+- Letting each other finish.
+- Responding to what others say.
+- Using standard phrases for greeting, addressing someone, thanking and asking.
+
+## Wetenschappen & techniek (Science & technology)
+
+Page: https://doelenboek.be/minimumdoelen/wetenschappen-techniek/
+
+### Organismen (Organisms)
+
+- **3.1.1** De kleuters kennen de volgende begrippen met betrekking tot organismen: de fauna; de zoogdieren; de vogels; de vissen; de insecten; de flora.
+  - EN: Preschoolers know these concepts about organisms: fauna, mammals, birds, fish, insects, flora.
+- **3.1.2** De kleuters kunnen: organismen beschrijven op basis van waarneembare kenmerken; fauna beschrijven op basis van voortplantingswijze. Woordenschat (richtinggevend): de dieren; de planten; de bouw; de ledematen; het hoofd; het lichaam; de huid; de wortel; de stengel; de stam; het blad; de bloem; de vrucht; de voortplantingswijze; de eieren; het leggen van eieren; zogend; levendbarend.
+  - EN: Preschoolers can describe organisms by their observable features, and describe animals by how they reproduce. Vocabulary (as a guide): the animals, the plants, the structure, the limbs, the head, the body, the skin, the root, the stem, the trunk, the leaf, the flower, the fruit, the way of reproducing, the eggs, laying eggs, suckling, live-bearing.
+- **3.1.3** De kleuters kennen de volgende begrippen in verband met de levenscyclus: geboren worden; kiemen; groeien; sterven.
+  - EN: Preschoolers know these concepts about the life cycle: being born, germinating, growing, dying.
+- **3.1.4** De kleuters kennen de fasen van de levenscyclus: geboorte/ kieming; groei; voortplanting; dood. Woordenschat (richtinggevend): de zwangerschap; de baby; de peuter; de kleuter; het kind; de tiener; de volwassene; het ei; zogend; het zaad.
+  - EN: Preschoolers know the stages of the life cycle: birth or germination, growth, reproduction, death. Vocabulary (as a guide): the pregnancy, the baby, the toddler, the preschooler, the child, the teenager, the adult, the egg, suckling, the seed.
+
+### Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop (Relationships between organisms, and between organisms and their environment in a habitat)
+
+- **3.2.1** De kleuters kennen het principe van eten en gegeten worden.
+  - EN: Preschoolers know the principle of eating and being eaten.
+- **3.2.2** De kleuters kennen verschillende voedingsmiddelen.
+  - EN: Preschoolers know different kinds of food.
+- **3.2.3** De kleuters weten dat mensen eten en drinken om te groeien en te bewegen.
+  - EN: Preschoolers know that people eat and drink to grow and to move.
+- **3.2.4** De kleuters kunnen aangeven dat je moet eten wanneer je honger hebt en drinken wanneer je dorst hebt.
+  - EN: Preschoolers can say that you eat when you are hungry and drink when you are thirsty.
+
+### Menselijk lichaam (The human body)
+
+- **3.3.1** De kleuters kennen de volgende begrippen: de spieren; de botten; de longen; het hart; de maag; de ogen; de oren; de neus; de mond; de huid; bewegen; steunen; ademen; de hartslag; de honger; de dorst; zien; horen; ruiken; proeven; voelen.
+  - EN: Preschoolers know these concepts: the muscles, the bones, the lungs, the heart, the stomach, the eyes, the ears, the nose, the mouth, the skin, moving, supporting, breathing, the heartbeat, hunger, thirst, seeing, hearing, smelling, tasting, feeling.
+- **3.3.2** De kleuters kennen lichaamsdelen en hun functie: spieren; botten; longen; hart; maag; ogen; oren; neus; mond; huid.
+  - EN: Preschoolers know these body parts and what they do: muscles, bones, lungs, heart, stomach, eyes, ears, nose, mouth, skin.
+- **3.3.3** De kleuters kunnen deze lichaamsdelen op het eigen lichaam aanduiden en benoemen.
+  - EN: Preschoolers can point to and name these body parts on their own body.
+
+### Eigenschappen van materie (Properties of matter)
+
+- **3.4.1** De kleuters kunnen materie sorteren op basis van waarneembare eigenschappen. Woordenschat (richtinggevend): het hout; de steen; het zand; het papier; de stof; het glas.
+  - EN: Preschoolers can sort materials by observable properties. Vocabulary (as a guide): the wood, the stone, the sand, the paper, the fabric, the glass.
+
+### Natuurkundige verschijnselen (Physical phenomena)
+
+- **3.5.1** De kleuters kennen de volgende begrippen met betrekking tot natuurkundige verschijnselen: de zon; de lamp; licht; donker; de schaduw; de spiegel; het stopcontact; de batterij; aantrekken; afstoten; de magneet; magnetisch.
+  - EN: Preschoolers know these concepts about physical phenomena: the sun, the lamp, light, dark, the shadow, the mirror, the plug socket, the battery, attract, repel, the magnet, magnetic.
+- **3.5.2** De kleuters kennen licht: de lichtbron; de reflectie.
+  - EN: Preschoolers know about light: the light source, reflection.
+- **3.5.3** De kleuters kennen geluid: hard; zacht.
+  - EN: Preschoolers know about sound: loud, soft.
+- **3.5.4** De kleuters kennen magnetisme. Eigenschappen van magneten: aantrekken; afstoten.
+  - EN: Preschoolers know about magnetism. Properties of magnets: attract, repel.
+- **3.5.5** De kleuters kunnen magnetische en niet-magnetische materialen onderscheiden.
+  - EN: Preschoolers can tell magnetic from non-magnetic materials.
+
+### Systematische en methodische benadering van wetenschappelijke en technologische problemen (A systematic, methodical approach to scientific and technological problems)
+
+- **3.6.1** De kleuters kennen de relatie tussen oorzaak en gevolg.
+  - EN: Preschoolers know the link between cause and effect.
+- **3.6.2** De kleuters kunnen aangeleerde woordenschat inzetten om te redeneren over een wetenschappelijke vraag.
+  - EN: Preschoolers can use vocabulary they have learnt to reason about a scientific question.
+- **3.6.3** De kleuters weten dat voorwerpen en materialen een functie hebben en ontworpen zijn om een probleem op te lossen.
+  - EN: Preschoolers know that objects and materials have a purpose and are designed to solve a problem.
+
+### Technologie (Technology)
+
+- **3.7.1** De kleuters kunnen leeftijdsadequate technische systemen correct en veilig gebruiken.
+  - EN: Preschoolers can use age-appropriate technical systems correctly and safely.
+
+## Aardrijkskunde (Geography)
+
+Page: https://doelenboek.be/minimumdoelen/aardrijkskunde/
+
+### Topografie (Topography)
+
+- **4.1.1** De kleuters kennen de naam van: België; een plaatselijke rivier; de rivier de Nijl.
+  - EN: Preschoolers know the names of: Belgium, a local river, the river Nile.
+- **4.1.2** De kleuters kunnen water, land en de polen op de wereldbol aanduiden.
+  - EN: Preschoolers can point out water, land and the poles on a globe.
+- **4.1.3** De kleuters kennen de volgende begrippen met betrekking tot relatieve ligging: dichtbij, veraf, voor, achter, opzij, boven, onder, tussen, binnen, buiten, hoog, laag, in, uit, naast, midden.
+  - EN: Preschoolers know these concepts of relative position: near, far, in front, behind, to the side, above, below, between, inside, outside, high, low, in, out, next to, in the middle.
+- **4.1.4** De kleuters kennen de volgende begrippen met betrekking tot absolute plaatsbepaling: de straatnaam en het huisnummer; de Noordpool, de Zuidpool.
+  - EN: Preschoolers know these concepts of absolute location: the street name and house number, the North Pole, the South Pole.
+
+### Aardrijkskundige kennis (Geographical knowledge)
+
+- **4.2.1** De kleuters kennen de volgende begrippen met betrekking tot kenmerken van de aarde en haar atmosfeer: het land, het water, de lucht, de rots, de grot, het zand.
+  - EN: Preschoolers know these concepts about features of the earth and its atmosphere: the land, the water, the air, the rock, the cave, the sand.
+- **4.2.2** De kleuters kennen de volgende begrippen met betrekking tot natuurlijke aspecten van landschappen: de reliëfvorm: de berg, de heuvel, de vallei; de helling: omhoog, omlaag, steil, zacht; het water: de oceaan, de zee, het strand, de rivier, de beek, de plas, de vijver; de vegetatie: de boom, het bos, het gras, het grasland, de weide, het riet, het gazon; de bodem: vruchtbaar, zanderig, rotsachtig.
+  - EN: Preschoolers know these concepts about the natural features of landscapes. Landforms: the mountain, the hill, the valley. Slopes: up, down, steep, gentle. Water: the ocean, the sea, the beach, the river, the stream, the puddle, the pond. Vegetation: the tree, the forest, the grass, the grassland, the meadow, the reeds, the lawn. Soil: fertile, sandy, rocky.
+- **4.2.3** De kleuters kennen de volgende begrippen met betrekking tot infrastructuur en hun interactie met landschappen: het wonen: het huis, het appartement, de tuin; de transportinfrastructuur: de weg, de straat, de bus, het spoor, de trein; de landbouw: de akker, de boerderij, de stal, de koe, het schaap, het varken, het gewas; de industrie: de fabriek, de werkplaats; de handel en diensten: de winkel, de markt, de bakkerij; de recreatie en het toerisme: het zwembad, de zee, het park, de bibliotheek.
+  - EN: Preschoolers know these concepts about infrastructure and how it interacts with landscapes. Housing: the house, the flat, the garden. Transport: the road, the street, the bus, the railway, the train. Farming: the field, the farm, the barn, the cow, the sheep, the pig, the crop. Industry: the factory, the workshop. Trade and services: the shop, the market, the bakery. Recreation and tourism: the swimming pool, the sea, the park, the library.
+- **4.2.4** De kleuters kennen de volgende begrippen met betrekking tot weersverschijnselen: de temperatuur; de neerslag; de bewolking; de wind.
+  - EN: Preschoolers know these concepts about the weather: temperature, precipitation, cloud cover, wind.
+- **4.2.5** De kleuters kunnen de relatie tussen bewolking en neerslag beschrijven.
+  - EN: Preschoolers can describe the link between clouds and precipitation.
+- **4.2.6** De kleuters kennen de volgende begrippen: de aarde; de maan; de zon; de sterren; de dag; de nacht.
+  - EN: Preschoolers know these concepts: the earth, the moon, the sun, the stars, day, night.
+- **4.2.7** De kleuters kunnen het ritme van de seizoenen in de directe omgeving herkennen.
+  - EN: Preschoolers can recognise the rhythm of the seasons in their immediate surroundings.
+- **4.2.8** De kleuters kunnen de beweging van de aarde om haar as tonen met behulp van een wereldbol.
+  - EN: Preschoolers can show the earth turning on its axis using a globe.
+
+### Aardrijkskundige bronnen en vaardigheden (Geographical sources and skills)
+
+- **4.3.1** De kleuters kunnen een ruimtelijke indeling van een kamer en een buitenruimte beschrijven door observatie en geheugen.
+  - EN: Preschoolers can describe the layout of a room and an outdoor space from observation and memory.
+- **4.3.2** De kleuters kunnen een geobserveerde ruimte weergeven door middel van een eenvoudige tekening of schets.
+  - EN: Preschoolers can represent an observed space in a simple drawing or sketch.
+- **4.3.3** De kleuters kunnen een neerslagvorm observeren: regen, sneeuw, hagel, mist.
+  - EN: Preschoolers can observe a form of precipitation: rain, snow, hail, fog.
+- **4.3.4** De kleuters kunnen een actueel ruimtelijk vraagstuk bespreken in termen van gevolgen en relatieve meting. (bv. waar een stoel positioneren om meer ruimte te maken, tramhalte gelegen op een nuttige/veilige plaats, hoeveel hoger of dichter bij het raam planten zetten om ze meer licht te geven.)
+  - EN: Preschoolers can discuss a current spatial issue in terms of consequences and relative measurement (e.g. where to put a chair to make more room, whether a tram stop is in a useful and safe place, how much higher or closer to the window to put plants to give them more light).
+- **4.3.5** De kleuters kunnen ideeën genereren om actuele ruimtelijke problemen op te lossen met behulp van relatieve ruimtelijke begrippen.
+  - EN: Preschoolers can come up with ideas to solve current spatial problems using relative spatial concepts.
+
+## Muzische vorming (Arts education)
+
+Page: https://doelenboek.be/minimumdoelen/muzische-vorming/
+
+### Domeinoverschrijdend (Across domains)
+
+- **6.1.1** De kleuters kunnen technieken/vaardigheden van de vijf muzische domeinen verkennen.
+  - EN: Preschoolers can explore techniques and skills from the five arts domains.
+- **6.1.2** De kleuters kunnen vormgevingsmiddelen van de vijf muzische domeinen verkennen: Muziek: de stem, het lied, de handtrom, de triangel, de tamboerijn, de fluit. Beeld: het potlood, het penseel, de verf, de stempel, het tekenpapier. Drama: de handpop, het toneel, de verkleedkleren, het masker. Dans: de dans, de beweging, de kring, de rij. Media: de (video)camera.
+  - EN: Preschoolers can explore the materials of the five arts domains. Music: the voice, the song, the hand drum, the triangle, the tambourine, the flute. Visual art: the pencil, the brush, paint, the stamp, drawing paper. Drama: the hand puppet, the stage, dress-up clothes, the mask. Dance: the dance, movement, the circle, the line. Media: the (video) camera.
+
+### Muziek (Music)
+
+- **6.2.1** De kleuters kennen de volgende begrippen: kort, lang, hoog, laag, snel, langzaam, hard, zacht, klank, toon, de zanger(es), de muzikant, het instrument.
+  - EN: Preschoolers know these concepts: short, long, high, low, fast, slow, loud, soft, sound, tone, the singer, the musician, the instrument.
+- **6.2.2** De kleuters kunnen patronen van lange en korte geluiden onderscheiden.
+  - EN: Preschoolers can tell apart patterns of long and short sounds.
+- **6.2.3** De kleuters kunnen snelle en langzame ritmische en melodische patronen onderscheiden.
+  - EN: Preschoolers can tell apart fast and slow rhythmic and melodic patterns.
+- **6.2.4** De kleuters kunnen hoge en lage tonen herkennen en eenvoudige melodieën aangepast aan het stembereik zingen.
+  - EN: Preschoolers can recognise high and low notes and sing simple melodies suited to their vocal range.
+
+## Lichamelijke opvoeding (Physical education)
+
+Page: https://doelenboek.be/minimumdoelen/lichamelijke-opvoeding/
+
+### Motorische competenties en fysieke competenties (Motor and physical competences)
+
+- **7.1.1** De kleuters kunnen in bewegingscontexten motorische basisvaardigheden inzetten.
+  - EN: Preschoolers can use basic motor skills in movement settings.
+- **7.1.2** De kleuters kunnen in bewegingscontexten eenvoudige (groot)motorische vaardigheden uitvoeren, waaronder heffen en dragen, klimmen en klauteren, rijden en glijden, sluipen en kruipen, springen en landen, stappen en lopen, werpen, vangen en trappen, zwieren, balanceren en roteren.
+  - EN: Preschoolers can perform simple (gross) motor skills in movement settings, including lifting and carrying, climbing and scrambling, riding and sliding, creeping and crawling, jumping and landing, walking and running, throwing, catching and kicking, swinging, balancing and rotating.
+- **7.1.3** De kleuters kunnen in bewegingscontexten de KLUSCE-componenten (kracht; lenigheid; uithouding; snelheid; coördinatie; evenwicht) inzetten.
+  - EN: Preschoolers can use the KLUSCE components (strength, flexibility, endurance, speed, coordination, balance) in movement settings.
+- **7.1.4** De kleuters kunnen in verschillende bewegingscontexten spel- en bewegingsactiviteiten uitvoeren en met verschillende materialen.
+  - EN: Preschoolers can carry out play and movement activities in different movement settings and with different materials.
+- **7.1.5** De kleuters kennen hun voorkeurslichaamszijde.
+  - EN: Preschoolers know their preferred side of the body.
+- **7.1.6** De kleuters kunnen in bewegingscontexten eenvoudige bewegingen afstemmen op tijd (duur; tempo; ritme; volgorde).
+  - EN: Preschoolers can match simple movements to time (duration, pace, rhythm, sequence) in movement settings.
+- **7.1.7** De kleuters kunnen in bewegingscontexten eenvoudige bewegingen afstemmen op de ruimte (positie; afstand; richting; bewegingsbaan).
+  - EN: Preschoolers can match simple movements to space (position, distance, direction, path of movement) in movement settings.
+- **7.1.8** De kleuters kunnen in bewegingscontexten eenvoudige bewegingen afstemmen op zintuiglijke signalen (auditief; visueel; tactiel).
+  - EN: Preschoolers can match simple movements to sensory signals (hearing, sight, touch) in movement settings.
+- **7.1.9** De kleuters kunnen in bewegingscontexten een linker- of rechtervoorkeur tonen bij éénhandige taken.
+  - EN: Preschoolers can show a left or right preference in one-handed tasks in movement settings.
+- **7.1.10** De kleuters kunnen in bewegingscontexten waar tweehandigheid vereist is, een duidelijke taakverdeling tonen tussen het gebruik van de linker- en rechterhand.
+  - EN: In movement settings that need both hands, preschoolers can show a clear division of tasks between the left and the right hand.
+
+### Zelfconcept en interactie in groep (Self-concept and group interaction)
+
+- **7.2.1** De kleuters kunnen binnen een eenvoudige spelvorm één tot twee spelregels opvolgen.
+  - EN: Preschoolers can follow one or two rules in a simple game.
+- **7.2.2** De kleuters kunnen in hun bewegingsvaardigheid durf tonen.
+  - EN: Preschoolers can show confidence in their movement skills.
