@@ -2,5 +2,132 @@
   "subject": "AT",
   "name": "Attitudes",
   "nameEn": "Attitudes",
-  "doelen": []
+  "doelen": [
+    {
+      "code": "9.1.1",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De kleuters kennen de betekenis van volgende verkeersregels, afspraken en signalen: zebrapad; verkeerslichten voor voetgangers en fietsers; stoppen bij een stopbord; niet spelen op of bij de straat; als voetganger op het voetpad of de berm blijven en langs de huizenkant stappen; op het voetpad en de verhoogde berm fietsen tot 10 jaar; goed kijken bij het oversteken.",
+      "descriptionEn": "Preschoolers know the meaning of these traffic rules, agreements and signals: the zebra crossing, traffic lights for pedestrians and cyclists, stopping at a stop sign, not playing on or near the street, as a pedestrian staying on the pavement or the verge and walking on the side of the houses, cycling on the pavement and the raised verge until the age of 10, looking carefully when crossing."
+    },
+    {
+      "code": "9.1.2",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De kleuters kennen het belang van een veilige voetgangers- of fietsuitrusting: fluorescerende kledij en fietshelm.",
+      "descriptionEn": "Preschoolers know why safe gear for walking and cycling matters: high-visibility clothing and a bicycle helmet."
+    },
+    {
+      "code": "9.1.3",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De kleuters weten dat ze in een noodsituatie meteen een volwassene moeten verwittigen.",
+      "descriptionEn": "Preschoolers know that in an emergency they must tell an adult straight away."
+    },
+    {
+      "code": "9.1.4",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De kleuters kunnen basis hygiëneregels uitvoeren. (bv. tanden poetsen en handen wassen)",
+      "descriptionEn": "Preschoolers can follow basic hygiene rules (e.g. brushing their teeth and washing their hands)."
+    },
+    {
+      "code": "9.1.5",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De kleuters weten dat iedereen meetelt en uniek is, met eigen sterktes, talenten en voorkeuren.",
+      "descriptionEn": "Preschoolers know that everyone counts and is unique, with their own strengths, talents and preferences."
+    },
+    {
+      "code": "9.1.6",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De kleuters weten dat mensen kunnen verschillen in sekse, etniciteit, geloof, uiterlijk en geaardheid.",
+      "descriptionEn": "Preschoolers know that people can differ in sex, ethnicity, faith, appearance and sexual orientation."
+    },
+    {
+      "code": "9.1.7",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De kleuters kunnen respectvol omgaan met verschillen tussen mensen in hun omgeving en op school.",
+      "descriptionEn": "Preschoolers can treat differences between people around them and at school with respect."
+    },
+    {
+      "code": "9.1.8",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De kleuters kunnen gelijkenissen benoemen tussen mensen.",
+      "descriptionEn": "Preschoolers can name similarities between people."
+    },
+    {
+      "code": "9.1.9",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De kleuters kunnen hun noden en fysieke en morele grenzen kenbaar maken.",
+      "descriptionEn": "Preschoolers can make their needs and their physical and moral boundaries known."
+    },
+    {
+      "code": "9.2.1",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De kleuters kunnen zich in eenvoudige taal uitdrukken over leren.",
+      "descriptionEn": "Preschoolers can talk about learning in simple language."
+    },
+    {
+      "code": "9.2.2",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De kleuters kunnen cognitieve leerstrategieën inzetten om informatie te verwerken. (bv. combineren van woord en beeld, oefenen). Woordenschat (richtinggevend): denken, weten, vergeten.",
+      "descriptionEn": "Preschoolers can use cognitive learning strategies to process information (e.g. combining words and pictures, practising). Vocabulary (as a guide): to think, to know, to forget."
+    },
+    {
+      "code": "9.2.3",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De kleuters kunnen metacognitieve strategieën inzetten: doelen stellen en een plan opmaken; een leeractiviteit stapsgewijs uitvoeren en monitoren; het resultaat van een leeractiviteit evalueren en erover reflecteren. Woordenschat (richtinggevend): doelen, plannen.",
+      "descriptionEn": "Preschoolers can use metacognitive strategies: setting goals and making a plan, carrying out a learning activity step by step and keeping track of it, evaluating the result of a learning activity and reflecting on it. Vocabulary (as a guide): goals, plans."
+    },
+    {
+      "code": "9.3.1",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De kleuters kennen een ruime woordenschat en diverse strategieën om emoties te herkennen, te uiten, te benoemen en erop te reageren.",
+      "descriptionEn": "Preschoolers know a wide vocabulary and various strategies to recognise, express, name and respond to emotions."
+    },
+    {
+      "code": "9.3.2",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De kleuters kunnen een aangewezen volwassene hulp vragen of aanspreken wanneer nodig.",
+      "descriptionEn": "Preschoolers can ask a designated adult for help, or turn to them, when needed."
+    },
+    {
+      "code": "9.3.3",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De kleuters kunnen volgens de klas- en schoolafspraken: zelfstandig en samen werken en spelen; sociale formules hanteren, waaronder groeten, uitnodigen om mee te doen en bedanken.",
+      "descriptionEn": "Preschoolers can, following the class and school agreements, work and play on their own and together, and use social phrases such as greeting, inviting others to join in and saying thank you."
+    },
+    {
+      "code": "9.3.4",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De kleuters kunnen volgens de klas- en schoolafspraken vragen stellen en beantwoorden.",
+      "descriptionEn": "Preschoolers can ask and answer questions, following the class and school agreements."
+    },
+    {
+      "code": "9.3.5",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De kleuters kunnen hun beurt afwachten.",
+      "descriptionEn": "Preschoolers can wait their turn."
+    },
+    {
+      "code": "9.3.6",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De kleuters kunnen spreken en stil zijn wanneer het past.",
+      "descriptionEn": "Preschoolers can speak, and be quiet, when appropriate."
+    }
+  ]
 }

@@ -14,15 +14,15 @@
       "code": "6.1.2",
       "category": "Domeinoverschrijdend",
       "categoryEn": "Across domains",
-      "description": "De kleuters kunnen vormgevingsmiddelen van de vijf muzische domeinen verkennen: Muziek: de stem, het lied, de handtrom, de triangel, de tamboerijn, de fluit. Beeld: het potlood, het penseel, de verf, de stempel, het tekenpapier. Drama: de handpop, het toneel, de verkleedkleren, het masker. Dans: de dans, de beweging, de kring, de rij. Media: de (video)camera.",
+      "description": "De kleuters kunnen vormgevingsmiddelen van de vijf muzische domeinen verkennen: Muziek: de stem; het lied; de handtrom; de triangel; de tamboerijn; de fluit. Beeld: het potlood; het penseel; de verf; de stempel; het tekenpapier. Drama: de handpop; het toneel; de verkleedkleren; het masker. Dans: de dans; de beweging; de kring; de rij. Media: de (video)camera.",
       "descriptionEn": "Preschoolers can explore the materials of the five arts domains. Music: the voice, the song, the hand drum, the triangle, the tambourine, the flute. Visual art: the pencil, the brush, paint, the stamp, drawing paper. Drama: the hand puppet, the stage, dress-up clothes, the mask. Dance: the dance, movement, the circle, the line. Media: the (video) camera."
     },
     {
       "code": "6.2.1",
       "category": "Muziek",
       "categoryEn": "Music",
-      "description": "De kleuters kennen de volgende begrippen: kort, lang, hoog, laag, snel, langzaam, hard, zacht, klank, toon, de zanger(es), de muzikant, het instrument.",
-      "descriptionEn": "Preschoolers know these concepts: short, long, high, low, fast, slow, loud, soft, sound, tone, the singer, the musician, the instrument."
+      "description": "De kleuters kennen de volgende begrippen: kort/ lang; hoog/ laag; snel/ langzaam; hard/ zacht; klank; toon; de zanger(es); de muzikant; het instrument.",
+      "descriptionEn": "Preschoolers know these concepts: short and long, high and low, fast and slow, loud and soft, sound, tone, the singer, the musician, the instrument."
     },
     {
       "code": "6.2.2",
@@ -44,6 +44,160 @@
       "categoryEn": "Music",
       "description": "De kleuters kunnen hoge en lage tonen herkennen en eenvoudige melodieën aangepast aan het stembereik zingen.",
       "descriptionEn": "Preschoolers can recognise high and low notes and sing simple melodies suited to their vocal range."
+    },
+    {
+      "code": "6.2.5",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De kleuters kennen de volgende begrippen: de stem; het lied; de handtrom; de triangel; de tamboerijn; de fluit.",
+      "descriptionEn": "Preschoolers know these concepts: the voice, the song, the hand drum, the triangle, the tambourine, the flute."
+    },
+    {
+      "code": "6.3.1",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De kleuters kennen de volgende begrippen: rood; geel; blauw; wit; grijs; zwart; groen; bruin; oranje; paars; licht/ donker; rond; recht; gebogen; dik/ dun; groot/ klein; zacht/ hard; ruw/ glad; het patroon; de kunstenaar; de schilder; het schilderij.",
+      "descriptionEn": "Preschoolers know these concepts: red, yellow, blue, white, grey, black, green, brown, orange, purple, light and dark, round, straight, curved, thick and thin, big and small, soft and hard, rough and smooth, the pattern, the artist, the painter, the painting."
+    },
+    {
+      "code": "6.3.2",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De kleuters kunnen lijnsoorten onderscheiden en maken.",
+      "descriptionEn": "Preschoolers can tell apart and draw different kinds of lines."
+    },
+    {
+      "code": "6.3.3",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De kleuters kunnen verschillende texturen onderscheiden.",
+      "descriptionEn": "Preschoolers can tell apart different textures."
+    },
+    {
+      "code": "6.3.4",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De kleuters kunnen primaire en secundaire kleuren herkennen.",
+      "descriptionEn": "Preschoolers can recognise primary and secondary colours."
+    },
+    {
+      "code": "6.3.5",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De kleuters kennen de volgende begrippen: het potlood; het penseel; de verf; de stempel; het tekenpapier.",
+      "descriptionEn": "Preschoolers know these concepts: the pencil, the brush, paint, the stamp, drawing paper."
+    },
+    {
+      "code": "6.4.1",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De kleuters kennen de volgende begrippen: verzinnen; de rol; het decor; het kostuum; de acteur.",
+      "descriptionEn": "Preschoolers know these concepts: making up, the role, the set, the costume, the actor."
+    },
+    {
+      "code": "6.4.2",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De kleuters kunnen eenvoudige rollen spelen.",
+      "descriptionEn": "Preschoolers can play simple roles."
+    },
+    {
+      "code": "6.4.3",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De kleuters kunnen het stemgebruik aanpassen in functie van de rol.",
+      "descriptionEn": "Preschoolers can adapt how they use their voice to the role."
+    },
+    {
+      "code": "6.4.4",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De kleuters kunnen een eenvoudige speelruimte benutten.",
+      "descriptionEn": "Preschoolers can make use of a simple acting space."
+    },
+    {
+      "code": "6.4.5",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De kleuters kunnen eenvoudige scènes spelen.",
+      "descriptionEn": "Preschoolers can act out simple scenes."
+    },
+    {
+      "code": "6.4.6",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De kleuters kennen de volgende begrippen: de handpop; het toneel; de verkleedkleren; het masker.",
+      "descriptionEn": "Preschoolers know these concepts: the hand puppet, the stage, dress-up clothes, the mask."
+    },
+    {
+      "code": "6.5.1",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De kleuters kennen de volgende begrippen met betrekking tot beweging: de snelle en trage; de grote en kleine; de zware en lichte; de korte en lange. Woordenschat (richtinggevend): springen; rollen; draaien; zwaaien; kruipen; sluipen; starten; stoppen; wiegen; kriskras door elkaar; in een cirkel; op een lijn.",
+      "descriptionEn": "Preschoolers know these concepts about movement: fast and slow, big and small, heavy and light, short and long. Vocabulary (as a guide): jumping, rolling, turning, swinging, crawling, creeping, starting, stopping, rocking, criss-cross, in a circle, in a line."
+    },
+    {
+      "code": "6.5.2",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De kleuters kunnen in een bepaald ritme en tempo dansen.",
+      "descriptionEn": "Preschoolers can dance to a given rhythm and tempo."
+    },
+    {
+      "code": "6.5.3",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De kleuters kunnen een bepaald vloerpatroon uitvoeren.",
+      "descriptionEn": "Preschoolers can follow a given floor pattern."
+    },
+    {
+      "code": "6.5.4",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De kleuters kunnen in een bepaalde richting dansen.",
+      "descriptionEn": "Preschoolers can dance in a given direction."
+    },
+    {
+      "code": "6.5.5",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De kleuters kunnen een bewegingszin in een bepaalde volgorde uitvoeren.",
+      "descriptionEn": "Preschoolers can perform a sequence of movements in a given order."
+    },
+    {
+      "code": "6.5.6",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De kleuters kennen de volgende begrippen: de dans; de beweging; de kring; de rij.",
+      "descriptionEn": "Preschoolers know these concepts: the dance, movement, the circle, the line."
+    },
+    {
+      "code": "6.6.1",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De kleuters kennen de volgende begrippen: de foto; de film; het geluid/ de stilte; de camera; de microfoon; in en buiten beeld; dichtbij/ veraf; het beeld; de klank.",
+      "descriptionEn": "Preschoolers know these concepts: the photo, the film, sound and silence, the camera, the microphone, in and out of frame, close up and far away, the image, the audio."
+    },
+    {
+      "code": "6.6.2",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De kleuters kunnen een onderwerp plaatsen binnen een beeld.",
+      "descriptionEn": "Preschoolers can place a subject within a frame."
+    },
+    {
+      "code": "6.6.3",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De kleuters kunnen geluiden bedenken bij een verhaal.",
+      "descriptionEn": "Preschoolers can come up with sounds to go with a story."
+    },
+    {
+      "code": "6.6.4",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De kleuters kennen het volgende begrip: de (video)camera.",
+      "descriptionEn": "Preschoolers know this concept: the (video) camera."
     }
   ]
 }

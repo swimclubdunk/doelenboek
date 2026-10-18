@@ -41,6 +41,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/nederlands/"/>
   </url>
   <url>
+    <loc>https://doelenboek.be/minimumdoelen/wiskunde/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/wiskunde/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/mathematics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/wiskunde/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/en/minimum-goals/mathematics/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/wiskunde/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/mathematics/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/wiskunde/"/>
+  </url>
+  <url>
     <loc>https://doelenboek.be/minimumdoelen/wetenschappen-techniek/</loc>
     <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/wetenschappen-techniek/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/science-and-technology/"/>
@@ -51,6 +63,18 @@
     <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/wetenschappen-techniek/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/science-and-technology/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/wetenschappen-techniek/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/minimumdoelen/geschiedenis/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/geschiedenis/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/history/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/geschiedenis/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/en/minimum-goals/history/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/geschiedenis/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/history/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/geschiedenis/"/>
   </url>
   <url>
     <loc>https://doelenboek.be/minimumdoelen/aardrijkskunde/</loc>
@@ -87,5 +111,17 @@
     <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/lichamelijke-opvoeding/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/physical-education/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/lichamelijke-opvoeding/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/minimumdoelen/attitudes/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/attitudes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/attitudes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/attitudes/"/>
+  </url>
+  <url>
+    <loc>https://doelenboek.be/en/minimum-goals/attitudes/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://doelenboek.be/minimumdoelen/attitudes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doelenboek.be/en/minimum-goals/attitudes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doelenboek.be/minimumdoelen/attitudes/"/>
   </url>
 </urlset>

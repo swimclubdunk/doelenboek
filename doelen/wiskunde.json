@@ -2,5 +2,419 @@
   "subject": "WK",
   "name": "Wiskunde",
   "nameEn": "Mathematics",
-  "doelen": []
+  "doelen": [
+    {
+      "code": "2.1.1",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kennen de telrij van 0 tot en met 20 (akoestisch tellen).",
+      "descriptionEn": "Preschoolers know the counting sequence from 0 to 20 (rote counting)."
+    },
+    {
+      "code": "2.1.2",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kennen natuurlijke getallen als aantal en als rangorde.",
+      "descriptionEn": "Preschoolers know natural numbers as a quantity and as a position in a sequence."
+    },
+    {
+      "code": "2.1.3",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kennen de rangtelwoorden van eerste tot en met tiende.",
+      "descriptionEn": "Preschoolers know the ordinal numbers from first to tenth."
+    },
+    {
+      "code": "2.1.4",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kennen de één-op-één relatie tussen een aantal objecten en de overeenkomstige telwoorden (synchroon tellen).",
+      "descriptionEn": "Preschoolers know the one-to-one correspondence between a number of objects and the matching number words (one-to-one counting)."
+    },
+    {
+      "code": "2.1.5",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kennen de irrelevantie van de volgorde van objecten bij het bepalen van een aantal.",
+      "descriptionEn": "Preschoolers know that the order of the objects does not matter when finding how many there are."
+    },
+    {
+      "code": "2.1.6",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kennen het principe van conservatie (een aantal is onafhankelijk van tijd en ruimte).",
+      "descriptionEn": "Preschoolers know the principle of conservation (a quantity does not depend on time and space)."
+    },
+    {
+      "code": "2.1.7",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kennen de volgende begrippen: evenveel/ niet evenveel; veel/ weinig; gelijk/ niet gelijk; te veel/ te weinig; meer/ minder; meest/ minst; tussen; één meer/ één minder; van minder naar meer; van weinig naar veel; eerste/ middelste/ laatste; vorige/ volgende; hoeveel; geen enkel; niets; hoeveel meer/ hoeveel minder; juist ervoor/ juist erna.",
+      "descriptionEn": "Preschoolers know these concepts: as many and not as many, many and few, equal and not equal, too many and too few, more and fewer, most and fewest, between, one more and one fewer, from fewer to more, from few to many, first, middle and last, previous and next, how many, not a single one, nothing, how many more and how many fewer, just before and just after."
+    },
+    {
+      "code": "2.1.8",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kunnen (on)gestructureerde aantallen tot en met 10: vergelijken; sorteren; tellen (resultatief tellen); koppelen aan het telwoord en de getalnotatie (in alle richtingen); van weinig naar veel of omgekeerd ordenen (seriëren).",
+      "descriptionEn": "Preschoolers can, with structured and unstructured quantities up to 10: compare them, sort them, count them (resultative counting), match them to the number word and the written numeral (in every direction), and put them in order from few to many or the other way round (seriation)."
+    },
+    {
+      "code": "2.1.9",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kunnen (on)gestructureerde aantallen tot en met 5 herkennen zonder te tellen (subiteren).",
+      "descriptionEn": "Preschoolers can recognise structured and unstructured quantities up to 5 without counting (subitising)."
+    },
+    {
+      "code": "2.1.10",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kunnen met behulp van de telrij: vanaf een willekeurige plaats tot en met 10 tellen, doortellen en terugtellen; één meer en één minder, juist ervoor en juist erna bepalen bij een gegeven getal tot en met 10.",
+      "descriptionEn": "Preschoolers can, using the counting sequence: count, count on and count back from any point up to 10, and find one more and one fewer, just before and just after, for a given number up to 10."
+    },
+    {
+      "code": "2.1.11",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kunnen een rangorde tot en met 10 aangeven.",
+      "descriptionEn": "Preschoolers can show a position in a sequence up to 10."
+    },
+    {
+      "code": "2.1.12",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De kleuters kunnen getallen (in cijfers) tot en met 10 lezen.",
+      "descriptionEn": "Preschoolers can read numbers (in digits) up to 10."
+    },
+    {
+      "code": "2.2.1",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De kleuters kennen de volgende begrippen: bijdoen; erbij; samen(tellen); samenvoegen; weg(nemen); eraf; evenveel; gelijk maken; (gelijke) groepjes maken; keer nemen; splitsen; (eerlijk) verdelen.",
+      "descriptionEn": "Preschoolers know these concepts: adding, adding on, putting together (adding up), combining, taking away, taking off, as many, making equal, making (equal) groups, taking a number of times, splitting, sharing (fairly)."
+    },
+    {
+      "code": "2.2.2",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De kleuters kunnen met concrete materialen en tot en met 10, volgende rekenhandelingen uitvoeren en verwoorden: optellen en aftrekken als 1-oorzaak-verandering, 2-combinatie, 3-vergelijking; 4-vermenigvuldigen als keerhandeling; 5-splitsen van een aantal; 6-delen als verdelingsdeling. (bv. 1-ik heb 5 knikkers en ik win er 2, hoeveel heb ik er nu?; 2-ik heb 5 knikkers en jij hebt er 2, hoeveel hebben we er samen?; 3-ik heb 5 knikkers en jij hebt er 2, hoeveel heb jij er minder?; 4-ik heb 2 zakjes met 3 knikkers, hoeveel knikkers in totaal?; 5-ik heb 6 noten in mijn jaszakken: 4 in de ene, 2 in de andere, dus 6 is gesplitst in een groepje van 4 en een groepje van 2; 6-ik heb 8 knikkers en verdeel ze over 2 vrienden, hoeveel elk?)",
+      "descriptionEn": "Preschoolers can, with concrete materials and up to 10, carry out and put into words these operations: adding and subtracting as 1-a change, 2-a combination, 3-a comparison; 4-multiplying as taking a number of times; 5-splitting a quantity; 6-dividing as sharing out (e.g. 1-I have 5 marbles and win 2, how many do I have now?; 2-I have 5 marbles and you have 2, how many do we have together?; 3-I have 5 marbles and you have 2, how many fewer do you have?; 4-I have 2 bags with 3 marbles each, how many marbles altogether?; 5-I have 6 nuts in my coat pockets, 4 in one and 2 in the other, so 6 is split into a group of 4 and a group of 2; 6-I have 8 marbles and share them between 2 friends, how many does each get?)."
+    },
+    {
+      "code": "2.3.1",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kennen de volgende meetinzichten: we meten geen objecten maar grootheden van objecten; bij een meting gaan we na hoe vaak de natuurlijke maateenheid in de te meten grootheid gaat.",
+      "descriptionEn": "Preschoolers know these ideas about measuring: we do not measure objects but properties of objects; when measuring, we check how many times the natural unit fits into what is being measured."
+    },
+    {
+      "code": "2.3.2",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kennen het principe van conservatie: bepaalde handelingen veranderen niets aan de lengte, inhoud en massa van een object. (bv. een touw oprollen verandert niets aan de lengte, een stuk ervan afknippen wel.)",
+      "descriptionEn": "Preschoolers know the principle of conservation: some actions do not change the length, capacity or mass of an object (e.g. rolling up a rope does not change its length, but cutting a piece off does)."
+    },
+    {
+      "code": "2.3.3",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kennen het principe van samenstellen. (bv. beseffen dat 2 (of meer) touwen samen even lang kunnen zijn als 1 lang touw of dat een emmer gevuld kan worden door de inhoud van verschillende waterflesjes en verschillende bekers samen te voegen.)",
+      "descriptionEn": "Preschoolers know the principle of combining (e.g. understanding that 2 or more ropes together can be as long as 1 long rope, or that a bucket can be filled by pouring in the contents of several water bottles and cups)."
+    },
+    {
+      "code": "2.3.4",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kennen de volgende begrippen: (even) lang/ kort; hoog/ laag; ver/ dichtbij; breed/ smal; dik/ dun; diep; groot/ klein; (bijna) vol/ (bijna) leeg; veel/ weinig; langer/ korter; hoger/ lager; verder/ dichter; breder/ smaller; dikker/ dunner; dieper; groter/ kleiner; leger/ voller; meer/ minder; langste/ kortste; hoogste/ laagste; dikste/ dunste; diepste; grootste/ kleinste; meeste/ minste.",
+      "descriptionEn": "Preschoolers know these concepts: (just as) long and short, high and low, far and near, wide and narrow, thick and thin, deep, big and small, (almost) full and (almost) empty, a lot and a little, longer and shorter, higher and lower, further and nearer, wider and narrower, thicker and thinner, deeper, bigger and smaller, emptier and fuller, more and less, longest and shortest, highest and lowest, thickest and thinnest, deepest, biggest and smallest, most and least."
+    },
+    {
+      "code": "2.3.5",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen lengte, oppervlakte en inhoud/volume kwalitatief: vergelijken; (on)gelijk maken; ordenen (seriëren); samenstellen.",
+      "descriptionEn": "Preschoolers can work with length, area and capacity or volume qualitatively: compare them, make them equal or unequal, put them in order (seriation), combine them."
+    },
+    {
+      "code": "2.3.6",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen lengte en inhoud kwantitatief: meten met natuurlijke maten (bv. kijken hoeveel bekers nodig zijn om een drinkbus te vullen); meten met meetinstrumenten voor natuurlijke maten (eventueel zelfgemaakt) (bv. een volle drinkbus overgieten in een fles met hoeveelheidsmarkeringen); schematisch noteren (metingen tot en met 10).",
+      "descriptionEn": "Preschoolers can work with length and capacity quantitatively: measure with natural units (e.g. seeing how many cups it takes to fill a water bottle), measure with measuring tools for natural units, possibly home-made (e.g. pouring a full water bottle into a bottle with level markings), and record the results in a simple chart (measurements up to 10)."
+    },
+    {
+      "code": "2.3.7",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kennen de volgende begrippen: (even) zwaar/ (even) licht; zwaarder/ lichter; zwaarste/ lichtste.",
+      "descriptionEn": "Preschoolers know these concepts: (just as) heavy and (just as) light, heavier and lighter, heaviest and lightest."
+    },
+    {
+      "code": "2.3.8",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen massa kwalitatief: vergelijken; (on)gelijk maken; ordenen (seriëren); samenstellen.",
+      "descriptionEn": "Preschoolers can work with mass qualitatively: compare it, make it equal or unequal, put it in order (seriation), combine it."
+    },
+    {
+      "code": "2.3.9",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen massa kwantitatief: meten met natuurlijke maten (bv. zandzakjes); meten met een balans; schematisch noteren (metingen tot en met 10).",
+      "descriptionEn": "Preschoolers can work with mass quantitatively: measure with natural units (e.g. little bags of sand), measure with a balance, record the results in a simple chart (measurements up to 10)."
+    },
+    {
+      "code": "2.3.10",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kennen munten en biljetten om dingen te kopen.",
+      "descriptionEn": "Preschoolers know that coins and notes are used to buy things."
+    },
+    {
+      "code": "2.3.11",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kennen de volgende begrippen: betalen; geven; krijgen; kopen; ruilen; verkopen; sparen; kost meer/ kost minder; prijs; euro.",
+      "descriptionEn": "Preschoolers know these concepts: paying, giving, getting, buying, swapping, selling, saving, costs more and costs less, price, euro."
+    },
+    {
+      "code": "2.3.12",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen bij een object een prijs (tot en met 10 euro) schematisch noteren.",
+      "descriptionEn": "Preschoolers can write down the price of an object (up to 10 euros) in a simple way."
+    },
+    {
+      "code": "2.3.13",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen (ronde) prijzen (tot en met 10 euro) lezen.",
+      "descriptionEn": "Preschoolers can read (round) prices up to 10 euros."
+    },
+    {
+      "code": "2.3.14",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen betalen met muntstukken van 1 euro (tot en met 10 euro).",
+      "descriptionEn": "Preschoolers can pay with 1-euro coins (up to 10 euros)."
+    },
+    {
+      "code": "2.3.15",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen 1 of meer objecten kopen met een totaalbedrag tot en met 10 euro.",
+      "descriptionEn": "Preschoolers can buy 1 or more items for a total of up to 10 euros."
+    },
+    {
+      "code": "2.3.16",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kennen de dagen van de week.",
+      "descriptionEn": "Preschoolers know the days of the week."
+    },
+    {
+      "code": "2.3.17",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kennen de volgende begrippen: eerder; vroeger; later; eerst; dan; daarna; laatst; (te) laat/ (te) vroeg; straks; (even) lang/ (even) kort; langer/ korter; langst/ kortst; vandaag/ gisteren/ morgen; de dag; de week; het jaar.",
+      "descriptionEn": "Preschoolers know these concepts: earlier, in the past, later, first, then, after that, last, (too) late and (too) early, in a while, (just as) long and (just as) short, longer and shorter, longest and shortest, today, yesterday and tomorrow, the day, the week, the year."
+    },
+    {
+      "code": "2.3.18",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen zeggen welke dag van de week het vandaag is, welke dag het gisteren was en welke dag het morgen zal zijn.",
+      "descriptionEn": "Preschoolers can say what day of the week it is today, what day it was yesterday and what day it will be tomorrow."
+    },
+    {
+      "code": "2.3.19",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen gebeurtenissen tijdens de dag chronologisch ordenen (seriëren).",
+      "descriptionEn": "Preschoolers can put events during the day in chronological order (seriation)."
+    },
+    {
+      "code": "2.3.20",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen aftellen tussen nu en speciale gebeurtenissen binnen de periode van een week.",
+      "descriptionEn": "Preschoolers can count down from now to special events within a week."
+    },
+    {
+      "code": "2.3.21",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De kleuters kunnen de duur van een activiteit meten met een meetinstrument.",
+      "descriptionEn": "Preschoolers can measure how long an activity takes with a measuring tool."
+    },
+    {
+      "code": "2.4.1",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kennen de volgende begrippen: het punt; de lijn; recht; gebogen; rond; de hoek; de driehoek; de rechthoek; het vierkant; de cirkel; de kubus; de balk; de bol; de piramide; het patroon; opnieuw; hetzelfde; anders.",
+      "descriptionEn": "Preschoolers know these concepts: the point, the line, straight, curved, round, the corner, the triangle, the rectangle, the square, the circle, the cube, the cuboid, the sphere, the pyramid, the pattern, again, the same, different."
+    },
+    {
+      "code": "2.4.2",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen vanuit handelen meetkundige objecten (vlakke figuren en ruimtefiguren) herkennen, benoemen en sorteren.",
+      "descriptionEn": "Preschoolers can, through hands-on activity, recognise, name and sort geometric objects (flat shapes and solid shapes)."
+    },
+    {
+      "code": "2.4.3",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen vanuit handelen meetkundige objecten opdelen in en samenstellen uit andere meetkundige objecten.",
+      "descriptionEn": "Preschoolers can, through hands-on activity, split geometric objects into other geometric objects and build them from other geometric objects."
+    },
+    {
+      "code": "2.4.4",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen patronen hanteren: rijen maken met een afgesproken eenheid; herhalende patronen herkennen, namaken, verderzetten, opvullen; de eenheid herkennen in een herhalend patroon.",
+      "descriptionEn": "Preschoolers can work with patterns: make rows with an agreed unit, recognise, copy, continue and complete repeating patterns, and recognise the unit in a repeating pattern."
+    },
+    {
+      "code": "2.4.5",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kennen de volgende begrippen: in; tussen; uit; binnen/ buiten; (er)voor/ (er)achter/ (er)onder/ (er)boven/ (er)op/ (er)naast; ver/ dichtbij; tegen; tegenover; omhoog/ omlaag; naar boven/ naar beneden; vooruit/ achteruit; naar mij toe/ van mij weg; dichterbij komen; recht naar/ schuin naar.",
+      "descriptionEn": "Preschoolers know these concepts: in, between, out, inside and outside, in front, behind, under, above, on and next to, far and near, against, opposite, up and down, upwards and downwards, forwards and backwards, towards me and away from me, coming closer, straight towards and diagonally towards."
+    },
+    {
+      "code": "2.4.6",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen zichzelf oriënteren in een ruimte op basis van positie, afstand en richting.",
+      "descriptionEn": "Preschoolers can find their way in a space by position, distance and direction."
+    },
+    {
+      "code": "2.4.7",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen personen en objecten situeren op basis van positie, afstand en richting ten opzichte van zichzelf en elkaar.",
+      "descriptionEn": "Preschoolers can place people and objects by position, distance and direction, relative to themselves and to each other."
+    },
+    {
+      "code": "2.4.8",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen pictogrammen die onder meer een richting aanduiden lezen en gebruiken.",
+      "descriptionEn": "Preschoolers can read and use pictograms, including ones that show a direction."
+    },
+    {
+      "code": "2.4.9",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen met de gepaste begrippen verwoorden wat ze zien vanuit een ander gezichtspunt door zich te verplaatsen.",
+      "descriptionEn": "Preschoolers can, by moving to another spot, put into words with the right concepts what they see from a different point of view."
+    },
+    {
+      "code": "2.4.10",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kennen de volgende begrippen: verschuiven; draaien; spiegelen; het spiegelbeeld; vervormen; vergroten/ verkleinen; de voorkant/ de achterkant; de zijkant; de onderkant/ de bovenkant.",
+      "descriptionEn": "Preschoolers know these concepts: sliding, turning, reflecting, the mirror image, changing shape, enlarging and shrinking, the front and the back, the side, the bottom and the top."
+    },
+    {
+      "code": "2.4.11",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen spiegelbeelden ontdekken met een (geo)spiegel.",
+      "descriptionEn": "Preschoolers can discover mirror images with a mirror or geomirror."
+    },
+    {
+      "code": "2.4.12",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen eenvoudige spiegelbeelden met materiaal leggen met behulp van een (geo)spiegel.",
+      "descriptionEn": "Preschoolers can lay out simple mirror images with materials, using a mirror or geomirror."
+    },
+    {
+      "code": "2.4.13",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen constructies uitvoeren op basis van verbale instructies, voorschriften op foto’s en voorschriften op tekeningen.",
+      "descriptionEn": "Preschoolers can build constructions from spoken instructions, instructions in photos and instructions in drawings."
+    },
+    {
+      "code": "2.4.14",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kennen de volgende begrippen: dezelfde vorm; even groot.",
+      "descriptionEn": "Preschoolers know these concepts: the same shape, the same size."
+    },
+    {
+      "code": "2.4.15",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen met concreet materiaal figuren met verschillende oriëntatie en locatie identificeren die: congruent zijn (gelijke vorm en gelijke grootte); gelijkvormig zijn (gelijke vorm).",
+      "descriptionEn": "Preschoolers can, with concrete materials, identify shapes in different orientations and positions that are congruent (same shape and same size) or similar (same shape)."
+    },
+    {
+      "code": "2.4.16",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen symmetrie in eenvoudige figuren herkennen.",
+      "descriptionEn": "Preschoolers can recognise symmetry in simple shapes."
+    },
+    {
+      "code": "2.4.17",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kennen de volgende begrippen: in/ uit; binnen/ buiten; als...dan...; en; of; niet.",
+      "descriptionEn": "Preschoolers know these concepts: in and out, inside and outside, if ... then ..., and, or, not."
+    },
+    {
+      "code": "2.4.18",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen objecten sorteren op basis van een gemeenschappelijke eigenschap volgens 1 of 2 criteria (kwalitatief classificeren op basis van criteria zoals kleur, vorm, grootte, soort/kwantitatief classificeren op basis van aantal).",
+      "descriptionEn": "Preschoolers can sort objects by a shared property using 1 or 2 criteria (classifying qualitatively by criteria such as colour, shape, size or kind, or quantitatively by number)."
+    },
+    {
+      "code": "2.4.19",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De kleuters kunnen als ... dan ... uitspraken gebruiken.",
+      "descriptionEn": "Preschoolers can use if ... then ... statements."
+    },
+    {
+      "code": "2.5.1",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De kleuters kennen de volgende begrippen: kan/ kan niet; altijd; niet; nooit; mogelijk; misschien; soms.",
+      "descriptionEn": "Preschoolers know these concepts: can and cannot, always, not, never, possible, maybe, sometimes."
+    },
+    {
+      "code": "2.5.2",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De kleuters kunnen zekere en onzekere gebeurtenissen van elkaar onderscheiden.",
+      "descriptionEn": "Preschoolers can tell certain and uncertain events apart."
+    },
+    {
+      "code": "2.5.3",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De kleuters kunnen de waarschijnlijkheid van gebeurtenissen beschrijven door gebruik te maken van gepaste begrippen. (bv. ik steek nooit over bij een rood licht/op donderdag hebben we altijd turnles).",
+      "descriptionEn": "Preschoolers can describe how likely events are, using the right concepts (e.g. I never cross at a red light, on Thursdays we always have gym)."
+    },
+    {
+      "code": "2.5.4",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De kleuters kunnen gegevens over de klas verzamelen, ordenen en voorstellen. (bv. lievelingskleuren in de klas voorstellen met blokjes per gekozen kleur en de populairste kleur vinden als de kleur met het grootste aantal blokjes / grote vloer-matrix met op de rijen ‘trui/t-shirt dragen’ en op de kolommen ‘rood/geel/blauw/groen’).",
+      "descriptionEn": "Preschoolers can collect, organise and present data about the class (e.g. showing the favourite colours in the class with blocks per chosen colour, and finding the most popular colour as the one with the most blocks; or a large floor grid with ‘wearing a jumper or T-shirt’ on the rows and ‘red, yellow, blue, green’ on the columns)."
+    },
+    {
+      "code": "2.6.1",
+      "category": "Probleemoplossend denken en vraagstukken",
+      "categoryEn": "Problem solving and word problems",
+      "description": "De kleuters kunnen problemen in spel- en leersituaties oplossen gebruikmakend van wiskundige elementen, door: op zoek te gaan naar manieren om een probleem op te lossen, ook als er meerdere oplossingen zijn; concreet materiaal te gebruiken; hun ideeën te delen met anderen.",
+      "descriptionEn": "Preschoolers can solve problems in play and learning situations using mathematical elements, by looking for ways to solve a problem, also when there are several solutions, by using concrete materials, and by sharing their ideas with others."
+    }
+  ]
 }
