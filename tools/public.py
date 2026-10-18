@@ -67,7 +67,7 @@ TEXT = {
              'moeten kennen en kunnen. De officiële teksten staan op onderwijsdoelen.be. Doelenboek neemt ze over, '
              'per vak en met hun code, zodat je ze bij elke activiteit kunt kiezen.'),
             ('Welke minimumdoelen staan er in Doelenboek?',
-             'Op dit moment de minimumdoelen voor het kleuteronderwijs, voor {subjects}. Andere vakken volgen. '
+             'De minimumdoelen voor het kleuteronderwijs, voor alle vakken: {subjects}. '
              'Je vindt de volledige lijsten op deze website, onder Minimumdoelen.'),
             ('Kost Doelenboek iets?',
              'Nee. Doelenboek is gratis en toont geen advertenties. Wie het project wil steunen, kan een vrijwillige '
@@ -147,8 +147,8 @@ TEXT = {
              'at least know and be able to do. The official texts are published in Dutch on onderwijsdoelen.be. '
              'Doelenboek includes them by subject, with their code, so you can pick them for every activity.'),
             ('Which minimum goals does Doelenboek include?',
-             'At the moment the minimum goals for preschool (kleuteronderwijs), for {subjects}. Other subjects will '
-             'follow. The full lists are on this website, under Minimum goals.'),
+             'The minimum goals for preschool (kleuteronderwijs), for every subject: {subjects}. '
+             'The full lists are on this website, under Minimum goals.'),
             ('Does Doelenboek cost anything?',
              'No. Doelenboek is free and shows no ads. If you would like to support the project, you can make a '
              'voluntary donation on Ko-fi, which helps cover the hosting costs.'),
