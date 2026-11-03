@@ -148,7 +148,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .count-line { color: var(--muted); font-size: .84rem; font-variant-numeric: tabular-nums; }
 
 /* goal list */
-.goal-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto; column-gap: 14px; }
+.goal-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 9rem minmax(0, 1fr) auto; column-gap: 14px; }
 /* Every row shares the list's columns (subgrid), so the animals line up from row to row. */
 .goal-row { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; row-gap: 6px; align-items: start; padding: 12px 14px; border-bottom: 1px solid var(--line); }
 .goal-row > p { grid-column: 1 / -1; }
@@ -229,7 +229,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .subj summary h2 { font-size: 1.05rem; }
 .subj[open] summary { border-bottom: 1px solid var(--line); }
 .status-list { list-style: none; margin: 0; padding: 0; }
-.status-list li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) 2.6rem auto; gap: 12px; align-items: start; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.status-list li { display: grid; grid-template-columns: 9rem minmax(0, 1fr) 2.6rem auto; gap: 12px; align-items: start; padding: 10px 16px; border-bottom: 1px solid var(--line); }
 .status-list li:last-child { border-bottom: 0; }
 .via { font-size: .82rem; color: var(--ok); margin-top: 2px; }
 .since { font-size: .82rem; font-weight: 700; color: var(--ok); margin-top: 2px; }
@@ -297,12 +297,12 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 #dlg2 { width: min(880px, calc(100vw - 24px)); }
 .picker-dlg { height: min(92vh, 900px); }
 .picker-bar { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 18px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
-.picker-bar .search { flex-basis: 180px; }
+.picker-bar .search { flex-basis: 100%; }   /* search on its own line, the three dropdowns below it */
 .picker-scroll { flex: 1; min-height: 0; overflow-y: auto; }
 .pick-group { position: sticky; top: 0; z-index: 1; display: flex; gap: 8px; align-items: center; padding: 8px 18px 6px; background: var(--surface); border-bottom: 1px solid var(--line); color: var(--muted); font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
 .pick-count { margin-right: auto; flex: 1 1 160px; min-width: 0; color: var(--muted); font-size: .88rem; font-variant-numeric: tabular-nums; }
 .goal-field { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.pick { display: grid; grid-template-columns: 20px 7rem minmax(0, 1fr); gap: 10px; align-items: start; padding: 9px 18px; border-bottom: 1px solid var(--line); cursor: pointer; font-size: .9rem; }
+.pick { display: grid; grid-template-columns: 20px 8.5rem minmax(0, 1fr); gap: 10px; align-items: start; padding: 9px 18px; border-bottom: 1px solid var(--line); cursor: pointer; font-size: .9rem; }
 .pick:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
 .pick input { margin-top: 4px; }
 .pick-more { padding: 10px; color: var(--muted); font-size: .84rem; text-align: center; }
