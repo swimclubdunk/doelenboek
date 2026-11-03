@@ -1,0 +1,406 @@
+{
+  "subject": "AT",
+  "name": "Attitudes",
+  "nameEn": "Attitudes",
+  "doelen": [
+    {
+      "code": "L4-9.1.1",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen de betekenis van volgende verkeersregels en signalen: hoe veilig oversteken als er geen voorzieningen zijn; fietsen op het fietspad rechts in de rijrichting of het voetpad; auditieve signalen: fietsbel, bel, tram, claxon; fluitsignaal en armgebaren van een politieagent; handgebaren van een gemachtigd opzichter; bel- en lichtsignalen van hulpdiensten (brandweer, ambulance, politie); waarschuwingssignalen op een spoorwegovergang: knipperende rode lichten en een belgeluid; gevaarsborden waaronder A31 en A33; voorrangsborden waaronder B5; gebodsborden waaronder D1, D7, D10, D11; verbodsborden waaronder C3, C11, C19; aanwijsborden waaronder F49, F50.",
+      "descriptionEn": "Pupils know the meaning of these traffic rules and signals: how to cross safely when there are no crossing facilities; cycling on the cycle path on the right in the direction of travel, or on the pavement; sound signals: bicycle bell, bell, tram, horn; the whistle signals and arm signals of a police officer; the hand signals of a school crossing patrol; the sound and light signals of the emergency services (fire brigade, ambulance, police); warning signals at a level crossing: flashing red lights and a bell; danger signs including A31 and A33; priority signs including B5; mandatory signs including D1, D7, D10, D11; prohibition signs including C3, C11, C19; information signs including F49, F50."
+    },
+    {
+      "code": "L4-9.1.2",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen het belang van een veilige voetgangers- of fietsuitrusting: geen koptelefoon dragen.",
+      "descriptionEn": "Pupils know why safe gear for walking and cycling matters: not wearing headphones."
+    },
+    {
+      "code": "L4-9.1.3",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen de verplichte minimale fietsuitrusting.",
+      "descriptionEn": "Pupils know the minimum compulsory equipment for a bicycle."
+    },
+    {
+      "code": "L4-9.1.4",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kunnen zich als voetganger en fietser op de openbare weg onder begeleiding verplaatsen en de verkeersregels en signalisaties naleven.",
+      "descriptionEn": "Pupils can get around on public roads as pedestrians and cyclists under supervision, following the traffic rules and signs."
+    },
+    {
+      "code": "L4-9.1.5",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kunnen als voetganger en fietser anticiperen op risicovolle situaties in het verkeer: de dode hoek; voorrangsregels voor de tram en de bus; voorrangsregels voor de hulpdiensten.",
+      "descriptionEn": "As pedestrians and cyclists, pupils can anticipate risky situations in traffic: the blind spot; priority rules for trams and buses; priority rules for the emergency services."
+    },
+    {
+      "code": "L4-9.1.6",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen het noodnummer 112.",
+      "descriptionEn": "Pupils know the emergency number 112."
+    },
+    {
+      "code": "L4-9.1.7",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen het belang van voldoende bewegen.",
+      "descriptionEn": "Pupils know why getting enough exercise matters."
+    },
+    {
+      "code": "L4-9.1.8",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen het belang van gezonde voeding.",
+      "descriptionEn": "Pupils know why healthy food matters."
+    },
+    {
+      "code": "L4-9.1.9",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen het belang van een correcte lichaamshouding.",
+      "descriptionEn": "Pupils know why good posture matters."
+    },
+    {
+      "code": "L4-9.1.10",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kunnen een noodoproep uitvoeren in een gesimuleerde situatie.",
+      "descriptionEn": "Pupils can make an emergency call in a simulated situation."
+    },
+    {
+      "code": "L4-9.1.11",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen de volgende begrippen: racisme, discriminatie en diversiteit.",
+      "descriptionEn": "Pupils know these concepts: racism, discrimination and diversity."
+    },
+    {
+      "code": "L4-9.1.12",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen weten hoe racisme en discriminatie mensen schaadt.",
+      "descriptionEn": "Pupils know how racism and discrimination harm people."
+    },
+    {
+      "code": "L4-9.1.13",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen weten dat persoonlijke identiteit een gelaagd en dynamisch karakter heeft.",
+      "descriptionEn": "Pupils know that personal identity has many layers and changes over time."
+    },
+    {
+      "code": "L4-9.1.14",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen weten dat het belangrijk is om de eigen grenzen aan te geven en te bewaken en om de grenzen van anderen te respecteren.",
+      "descriptionEn": "Pupils know that it is important to state and guard their own boundaries and to respect other people's boundaries."
+    },
+    {
+      "code": "L4-9.1.15",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kunnen positieve en negatieve manieren van omgaan met diversiteit herkennen.",
+      "descriptionEn": "Pupils can recognise positive and negative ways of dealing with diversity."
+    },
+    {
+      "code": "L4-9.1.16",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kunnen incidenten van racisme en discriminatie aangeven aan een verantwoordelijke volwassene.",
+      "descriptionEn": "Pupils can report incidents of racism and discrimination to a responsible adult."
+    },
+    {
+      "code": "L4-9.1.17",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen hun voornaamste rechten en plichten onder het VN-kinderrechtenverdrag, waaronder recht op onderwijs; recht op privacy; recht op vrije tijd; recht op eigen identiteit; recht op veiligheid en bescherming.",
+      "descriptionEn": "Pupils know their main rights and duties under the UN Convention on the Rights of the Child, including the right to education; the right to privacy; the right to leisure time; the right to their own identity; the right to safety and protection."
+    },
+    {
+      "code": "L4-9.1.18",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen weten dat volwassenen met de belangen van kinderen rekening moeten houden.",
+      "descriptionEn": "Pupils know that adults must take children's interests into account."
+    },
+    {
+      "code": "L4-9.1.19",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kunnen in hun eigen leefwereld herkennen hoe kinderrechten gewaarborgd of geschonden worden.",
+      "descriptionEn": "Pupils can recognise in their own daily lives how children's rights are upheld or violated."
+    },
+    {
+      "code": "L4-9.2.1",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kennen cognitieve leerstrategieën om kennis actief en gespreid in de tijd in te oefenen. (bv. gespreid herhalen, kennis ophalen, voorspellen)",
+      "descriptionEn": "Pupils know cognitive learning strategies for practising knowledge actively and spread out over time (e.g. spaced repetition, retrieving knowledge, predicting)."
+    },
+    {
+      "code": "L4-9.2.2",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kunnen aangereikte en aangeleerde cognitieve leerstrategieën functioneel inzetten. (bv. generatieve leerstrategieën zoals schema’s maken, zelftoetsen)",
+      "descriptionEn": "Pupils can use cognitive learning strategies they have been given and taught in a purposeful way (e.g. generative learning strategies such as making diagrams, testing themselves)."
+    },
+    {
+      "code": "L4-9.2.3",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kunnen een leeromgeving optimaal organiseren in functie van de leeractiviteit en het leerdoel. (bv. een prikkelarme ruimte, gepaste leermiddelen)",
+      "descriptionEn": "Pupils can organise a learning environment as well as possible to suit the learning activity and the learning goal (e.g. a space with few distractions, suitable learning materials)."
+    },
+    {
+      "code": "L4-9.3.1",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De leerlingen kunnen onenigheid oplossen zonder fysiek geweld.",
+      "descriptionEn": "Pupils can resolve disagreements without physical violence."
+    },
+    {
+      "code": "L4-9.3.2",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De leerlingen kunnen zelfstandig, in duo en in groep werken zonder storend gedrag te vertonen.",
+      "descriptionEn": "Pupils can work on their own, in pairs and in groups without disruptive behaviour."
+    },
+    {
+      "code": "L4-9.3.3",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De leerlingen kunnen aangeven wat begrepen is en wat onduidelijk is.",
+      "descriptionEn": "Pupils can say what they have understood and what is unclear."
+    },
+    {
+      "code": "L4-9.3.4",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De leerlingen kunnen frustratie of onzekerheid uiten op een constructieve manier.",
+      "descriptionEn": "Pupils can express frustration or uncertainty in a constructive way."
+    },
+    {
+      "code": "L4-9.3.5",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De leerlingen kunnen luisteren naar wat de ander zegt en adequaat reageren.",
+      "descriptionEn": "Pupils can listen to what the other person says and respond appropriately."
+    },
+    {
+      "code": "L6-9.1.1",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen de betekenis van volgende verkeersregels en signalen: voetgangers op het zebrapad hebben voorrang; passagiers van een bus of tram hebben bij het uit- of instappen voorrang; een bus, die de bushalte verlaat, heeft voorrang; de algemene voorrangsregel ‘voorrang van rechts’; de wegmarkeringen: stopstreep, haaientanden, fietsoversteekplaats, fietsopstelvlak; gevaarsborden waaronder A21, A41, A47; voorrangsborden waaronder B1, B9, B11, B15a, B17, B19, B21; gebodsborden waaronder D1a, D1b, D5; verbodsborden waaronder C1, C31b; aanwijsborden waaronder F14, F45, F111, F113; onderborden betreffende fietsen en bromfietsen waaronder M2, M5bis.",
+      "descriptionEn": "Pupils know the meaning of these traffic rules and signals: pedestrians on a zebra crossing have priority; passengers getting on or off a bus or tram have priority; a bus pulling away from a bus stop has priority; the general priority rule 'priority to the right'; road markings: stop line, shark's teeth, cycle crossing, advanced stop box for cyclists; danger signs including A21, A41, A47; priority signs including B1, B9, B11, B15a, B17, B19, B21; mandatory signs including D1a, D1b, D5; prohibition signs including C1, C31b; information signs including F14, F45, F111, F113; supplementary plates for bicycles and mopeds including M2, M5bis."
+    },
+    {
+      "code": "L6-9.1.2",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen het effect van bewegen op gezondheid en mentaal welbevinden.",
+      "descriptionEn": "Pupils know the effect of exercise on health and mental well-being."
+    },
+    {
+      "code": "L6-9.1.3",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen de gevaren van genotsmiddelen.",
+      "descriptionEn": "Pupils know the dangers of recreational substances."
+    },
+    {
+      "code": "L6-9.1.4",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen de voor- en nadelen van medicatie.",
+      "descriptionEn": "Pupils know the advantages and disadvantages of medication."
+    },
+    {
+      "code": "L6-9.1.5",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kunnen gevarenpictogrammen van materialen en substanties en veiligheidsvoorschriften naleven.",
+      "descriptionEn": "Pupils can follow hazard pictograms on materials and substances and safety instructions."
+    },
+    {
+      "code": "L6-9.1.6",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen de Belgische federale staatstructuur met drie gemeenschappen (Vlaams, Frans en Duitstalig) en drie gewesten (Vlaams, Waals en Brussels Hoofdstedelijk). Ze weten dat elk een eigen bestuur heeft waar beslissingen worden genomen.",
+      "descriptionEn": "Pupils know Belgium's federal state structure with three communities (Flemish, French and German-speaking) and three regions (Flemish, Walloon and Brussels-Capital). They know that each has its own government where decisions are made."
+    },
+    {
+      "code": "L6-9.1.7",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen de volgende begrippen: het vooroordeel, de gelijkwaardigheid.",
+      "descriptionEn": "Pupils know these concepts: prejudice, equal worth."
+    },
+    {
+      "code": "L6-9.1.8",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen weten hoe racisme en discriminatie in de (sociale) media voorkomen.",
+      "descriptionEn": "Pupils know how racism and discrimination occur in the (social) media."
+    },
+    {
+      "code": "L6-9.1.9",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen weten dat collectieve identiteit een gelaagd en dynamisch karakter heeft.",
+      "descriptionEn": "Pupils know that collective identity has many layers and changes over time."
+    },
+    {
+      "code": "L6-9.1.10",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen de erkende symbolen van de Vlaamse gemeenschap (feestdag, vlag, wapen, memoriaal en volkslied).",
+      "descriptionEn": "Pupils know the official symbols of the Flemish Community (holiday, flag, coat of arms, memorial and anthem)."
+    },
+    {
+      "code": "L6-9.1.11",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen weten dat een seksuele relatie enkel kan opgebouwd worden met wederzijdse toestemming.",
+      "descriptionEn": "Pupils know that a sexual relationship can only be built with mutual consent."
+    },
+    {
+      "code": "L6-9.1.12",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen weten dat ze (seksueel) grensoverschrijdend gedrag moeten melden aan een verantwoordelijke volwassene.",
+      "descriptionEn": "Pupils know that they must report (sexually) inappropriate behaviour that crosses boundaries to a responsible adult."
+    },
+    {
+      "code": "L6-9.1.13",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kunnen illustreren hoe diversiteit het samenleven verrijkend en uitdagend maakt.",
+      "descriptionEn": "Pupils can illustrate how diversity makes living together both enriching and challenging."
+    },
+    {
+      "code": "L6-9.1.14",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kennen organisaties die zich inzetten voor kinder- en mensenrechten.",
+      "descriptionEn": "Pupils know organisations that work for children's rights and human rights."
+    },
+    {
+      "code": "L6-9.1.15",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen weten wat de Universele Verklaring van de Rechten van de Mens is.",
+      "descriptionEn": "Pupils know what the Universal Declaration of Human Rights is."
+    },
+    {
+      "code": "L6-9.1.16",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen weten hoe mensenrechten en kinderrechten zich tot elkaar verhouden. (bv. kinderen hebben geen stemrecht)",
+      "descriptionEn": "Pupils know how human rights and children's rights relate to each other (e.g. children do not have the right to vote)."
+    },
+    {
+      "code": "L6-9.1.17",
+      "category": "Persoonsvormende en socialiserende vaardigheden",
+      "categoryEn": "Personal and social skills",
+      "description": "De leerlingen kunnen illustreren hoe kinder- en mensenrechten in de maatschappij geschonden worden en hoe mensen voor deze rechten strijd voeren.",
+      "descriptionEn": "Pupils can illustrate how children's rights and human rights are violated in society and how people fight for these rights."
+    },
+    {
+      "code": "L6-9.2.1",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kennen de vereenvoudigde werking van het brein: de rol van voorkennis en oefening, informatie opnemen en verwerken, kennis opslaan en ophalen.",
+      "descriptionEn": "Pupils know, in simplified form, how the brain works: the role of prior knowledge and practice, taking in and processing information, storing and retrieving knowledge."
+    },
+    {
+      "code": "L6-9.2.2",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kennen cognitieve leerstrategieën om informatie actief te verwerken. (bv. concept mapping, gespreid herhalen, actief ophalen, leerstof uitleggen aan zichzelf of iemand anders, zichzelf vragen stellen over de leerstof)",
+      "descriptionEn": "Pupils know cognitive learning strategies for processing information actively (e.g. concept mapping, spaced repetition, active retrieval, explaining the material to themselves or someone else, asking themselves questions about the material)."
+    },
+    {
+      "code": "L6-9.2.3",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kennen de verschillende fasen in een leerproces: een voorbereidende fase, een uitvoerende fase, een reflectiefase.",
+      "descriptionEn": "Pupils know the different phases of a learning process: a preparation phase, a carrying-out phase, a reflection phase."
+    },
+    {
+      "code": "L6-9.2.4",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kunnen aangeleerde en ingeoefende cognitieve leerstrategieën inzetten, rekening houdend met hun voorkennis.",
+      "descriptionEn": "Pupils can use cognitive learning strategies they have been taught and have practised, taking their prior knowledge into account."
+    },
+    {
+      "code": "L6-9.2.5",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kunnen een leeromgeving en zichzelf organiseren in functie van de leeractiviteit en het leerdoel. (bv. betrouwbare bronnen, aandacht, doorzettingsvermogen, gepaste hulp)",
+      "descriptionEn": "Pupils can organise a learning environment and themselves to suit the learning activity and the learning goal (e.g. reliable sources, attention, perseverance, appropriate help)."
+    },
+    {
+      "code": "L6-9.2.6",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kunnen bij een leeractiviteit de door de leerkracht aangereikte en aangeleerde metacognitieve strategieën inzetten: realistische korte-termijn-doelen stellen en een plan opmaken; de uitvoering ervan monitoren; het resultaat ervan evalueren en erover reflecteren.",
+      "descriptionEn": "During a learning activity, pupils can use the metacognitive strategies given and taught by the teacher: setting realistic short-term goals and making a plan; monitoring how it is carried out; evaluating and reflecting on the result."
+    },
+    {
+      "code": "L6-9.2.7",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kunnen bij het uitvoeren van een leeractiviteit reflecteren over de ingezette cognitieve, metacognitieve en motivationele strategieën.",
+      "descriptionEn": "While carrying out a learning activity, pupils can reflect on the cognitive, metacognitive and motivational strategies they have used."
+    },
+    {
+      "code": "L6-9.2.8",
+      "category": "Leren leren",
+      "categoryEn": "Learning to learn",
+      "description": "De leerlingen kunnen bij het uitvoeren van een leeractiviteit reflecteren over aspecten met betrekking tot de motivatie voor het eigen leerproces. (bv: persoonlijke betekenis en waarde van (het doel van) de leeractiviteit, leeropvatting, (uitgestelde) zelfbekrachtiging, verklaringen voor leerprestaties)",
+      "descriptionEn": "While carrying out a learning activity, pupils can reflect on aspects of their motivation for their own learning process (e.g. the personal meaning and value of (the goal of) the learning activity, their view of learning, (delayed) self-reward, explanations for how well they did)."
+    },
+    {
+      "code": "L6-9.3.1",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De leerlingen weten hoe gepast te reageren op plagen en pesten.",
+      "descriptionEn": "Pupils know how to respond appropriately to teasing and bullying."
+    },
+    {
+      "code": "L6-9.3.2",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De leerlingen weten hoe te interageren in balans met eigenwaarde en de grenzen van anderen.",
+      "descriptionEn": "Pupils know how to interact in a way that balances self-esteem with other people's boundaries."
+    },
+    {
+      "code": "L6-9.3.3",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De leerlingen kunnen doorzettingsvermogen tonen om een opdracht tot een goed einde te brengen, ook als het moeilijk wordt.",
+      "descriptionEn": "Pupils can show perseverance to see a task through to the end, even when it gets difficult."
+    },
+    {
+      "code": "L6-9.3.4",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De leerlingen kunnen positief en met vertrouwen communiceren met leeftijdsgenoten en volwassenen.",
+      "descriptionEn": "Pupils can communicate positively and confidently with peers and adults."
+    },
+    {
+      "code": "L6-9.3.5",
+      "category": "Leerondersteunende vaardigheden",
+      "categoryEn": "Skills that support learning",
+      "description": "De leerlingen kunnen een toegewezen rol binnen een groepswerk doelgericht invullen.",
+      "descriptionEn": "Pupils can carry out an assigned role in group work in a purposeful way."
+    }
+  ]
+}

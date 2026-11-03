@@ -1,0 +1,203 @@
+{
+  "subject": "LO",
+  "name": "Lichamelijke opvoeding",
+  "nameEn": "Physical education",
+  "doelen": [
+    {
+      "code": "L4-7.1.1",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kennen elementaire tactische principes: aanval, verdediging en omschakeling.",
+      "descriptionEn": "Pupils know basic tactical principles: attack, defence and transition."
+    },
+    {
+      "code": "L4-7.1.2",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten motorische basisvaardigheden ontwikkelen, gebruikmakend van diverse toestellen en materialen.",
+      "descriptionEn": "Pupils can develop basic motor skills in movement settings, using a variety of apparatus and materials."
+    },
+    {
+      "code": "L4-7.1.3",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten grootmotorische vaardigheden toepassen, waaronder heffen en dragen, klimmen en klauteren, rijden en glijden, sluipen en kruipen, springen en landen, stappen en lopen, werpen, vangen en trappen, zwieren, balanceren en roteren.",
+      "descriptionEn": "Pupils can apply gross motor skills in movement settings, including lifting and carrying, climbing and scrambling, riding and sliding, creeping and crawling, jumping and landing, walking and running, throwing, catching and kicking, swinging, balancing and rotating."
+    },
+    {
+      "code": "L4-7.1.4",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten de KLUSCE-componenten kracht, lenigheid, uithouding, snelheid, coördinatie en evenwicht gecombineerd gebruiken.",
+      "descriptionEn": "Pupils can use the KLUSCE components strength, flexibility, endurance, speed, coordination and balance in combination in movement settings."
+    },
+    {
+      "code": "L4-7.1.5",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten aangepaste sport- en spelactiviteiten (doelspelen, terugslagspelen …) uitvoeren.",
+      "descriptionEn": "Pupils can carry out adapted sport and play activities (target games, net and wall games …) in movement settings."
+    },
+    {
+      "code": "L4-7.1.6",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten bewegingen uitvoeren volgens een opgelegd ritme.",
+      "descriptionEn": "Pupils can perform movements to a set rhythm in movement settings."
+    },
+    {
+      "code": "L4-7.1.7",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten bewegingen een bepaalde tijd aan een opgelegd tempo volhouden.",
+      "descriptionEn": "Pupils can keep up movements at a set pace for a given time in movement settings."
+    },
+    {
+      "code": "L4-7.1.8",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten bewegingen afstemmen op de ruimte (positie, afstand, richting, bewegingsbaan) in gecontroleerde situaties.",
+      "descriptionEn": "Pupils can match movements to space (position, distance, direction, path of movement) in controlled situations in movement settings."
+    },
+    {
+      "code": "L4-7.1.9",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten snel en correct reageren op auditieve, visuele en tactiele instructies.",
+      "descriptionEn": "Pupils can respond quickly and correctly to auditory, visual and tactile instructions in movement settings."
+    },
+    {
+      "code": "L4-7.1.10",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten omgaan en rekening houden met de eigen lichaamskenmerken (mogelijkheden en beperkingen).",
+      "descriptionEn": "Pupils can deal with and take into account their own physical characteristics (abilities and limitations) in movement settings."
+    },
+    {
+      "code": "L4-7.1.11",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten hun voorkeurshand en -voet efficiënt gebruiken.",
+      "descriptionEn": "Pupils can use their preferred hand and foot efficiently in movement settings."
+    },
+    {
+      "code": "L4-7.2.1",
+      "category": "Zelfconcept en interactie in groep",
+      "categoryEn": "Self-concept and group interaction",
+      "description": "De leerlingen kennen de spelregels van gespeelde sporten.",
+      "descriptionEn": "Pupils know the rules of the sports they play."
+    },
+    {
+      "code": "L4-7.2.2",
+      "category": "Zelfconcept en interactie in groep",
+      "categoryEn": "Self-concept and group interaction",
+      "description": "De leerlingen kunnen spelregels toepassen.",
+      "descriptionEn": "Pupils can apply the rules of a game."
+    },
+    {
+      "code": "L4-7.2.3",
+      "category": "Zelfconcept en interactie in groep",
+      "categoryEn": "Self-concept and group interaction",
+      "description": "De leerlingen kunnen deelnemen aan teamgericht spel.",
+      "descriptionEn": "Pupils can take part in team play."
+    },
+    {
+      "code": "L4-7.2.4",
+      "category": "Zelfconcept en interactie in groep",
+      "categoryEn": "Self-concept and group interaction",
+      "description": "De leerlingen kunnen eerlijk en sportief gedrag tonen tijdens een spel of wedstrijdvorm.",
+      "descriptionEn": "Pupils can show fair and sporting behaviour during a game or competition."
+    },
+    {
+      "code": "L4-7.2.5",
+      "category": "Zelfconcept en interactie in groep",
+      "categoryEn": "Self-concept and group interaction",
+      "description": "De leerlingen kunnen principes van fair play toepassen (eerlijk, sportief, regels en sancties respecteren, niet vals spelen, integriteit en respect).",
+      "descriptionEn": "Pupils can apply the principles of fair play (being fair, being a good sport, respecting rules and penalties, not cheating, integrity and respect)."
+    },
+    {
+      "code": "L6-7.1.1",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten motorische basisvaardigheden beheersen en in combinatie uitvoeren, gebruikmakend van diverse toestellen en materialen.",
+      "descriptionEn": "Pupils can master basic motor skills and perform them in combination in movement settings, using a variety of apparatus and materials."
+    },
+    {
+      "code": "L6-7.1.2",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten grootmotorische vaardigheden toepassen waaronder heffen en dragen, klimmen en klauteren, rijden en glijden, sluipen en kruipen, springen en landen, stappen en lopen, werpen, vangen en trappen, zwieren, balanceren en roteren in complexere bewegingssituaties.",
+      "descriptionEn": "Pupils can apply gross motor skills in movement settings, including lifting and carrying, climbing and scrambling, riding and sliding, creeping and crawling, jumping and landing, walking and running, throwing, catching and kicking, swinging, balancing and rotating in more complex movement situations."
+    },
+    {
+      "code": "L6-7.1.3",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten de KLUSCE-componenten kracht, lenigheid, uithouding, snelheid, coördinatie, evenwicht voldoende lang toepassen (conform de bewegingsdriehoek).",
+      "descriptionEn": "Pupils can apply the KLUSCE components strength, flexibility, endurance, speed, coordination, balance for long enough in movement settings (in line with the movement triangle)."
+    },
+    {
+      "code": "L6-7.1.4",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten verschillende (aangepaste) sport-, spel- en bewegingsactiviteiten uitvoeren door zelfstandig oplossingen voor een bewegings- of spelprobleem te zoeken.",
+      "descriptionEn": "Pupils can carry out various (adapted) sport, play and movement activities in movement settings by finding their own solutions to a movement or game problem."
+    },
+    {
+      "code": "L6-7.1.5",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten elementaire tactische principes demonstreren in aangepaste spelvormen (aanval, verdediging en omschakeling).",
+      "descriptionEn": "Pupils can demonstrate basic tactical principles in adapted games in movement settings (attack, defence and transition)."
+    },
+    {
+      "code": "L6-7.1.6",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen voelen zich veilig in het water en kunnen zwemmen zonder hulpmiddelen.",
+      "descriptionEn": "Pupils feel safe in the water and can swim without swimming aids."
+    },
+    {
+      "code": "L6-7.1.7",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten combinaties van bewegingen onthouden en zonder aanwijzingen uitvoeren volgens een opgelegd ritme.",
+      "descriptionEn": "Pupils can remember combinations of movements and perform them without prompts to a set rhythm in movement settings."
+    },
+    {
+      "code": "L6-7.1.8",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten bewegingen afstemmen op de ruimte (positie, afstand, richting, bewegingsbaan) in onvoorspelbare spelsituaties.",
+      "descriptionEn": "Pupils can match movements to space (position, distance, direction, path of movement) in unpredictable game situations in movement settings."
+    },
+    {
+      "code": "L6-7.1.9",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten hun voorkeurslichaamszijde ontwikkelen en gericht inzetten bij bewegingsactiviteiten.",
+      "descriptionEn": "Pupils can develop their preferred side of the body and use it purposefully in movement activities in movement settings."
+    },
+    {
+      "code": "L6-7.1.10",
+      "category": "Motorische competenties en fysieke competenties",
+      "categoryEn": "Motor and physical competences",
+      "description": "De leerlingen kunnen in bewegingscontexten omgaan en rekening houden met de lichaamskenmerken, mogelijkheden en beperkingen van de ander.",
+      "descriptionEn": "Pupils can deal with and take into account the physical characteristics, abilities and limitations of others in movement settings."
+    },
+    {
+      "code": "L6-7.2.1",
+      "category": "Zelfconcept en interactie in groep",
+      "categoryEn": "Self-concept and group interaction",
+      "description": "De leerlingen kunnen deelnemen aan teamgericht spel en hierbij verschillende rollen aannemen.",
+      "descriptionEn": "Pupils can take part in team play and take on different roles while doing so."
+    },
+    {
+      "code": "L6-7.2.2",
+      "category": "Zelfconcept en interactie in groep",
+      "categoryEn": "Self-concept and group interaction",
+      "description": "De leerlingen kunnen de functie van scheidsrechter in vereenvoudigde spelvormen opnemen.",
+      "descriptionEn": "Pupils can take on the role of referee in simplified games."
+    }
+  ]
+}

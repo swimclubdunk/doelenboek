@@ -1,0 +1,315 @@
+{
+  "subject": "AK",
+  "name": "Aardrijkskunde",
+  "nameEn": "Geography",
+  "doelen": [
+    {
+      "code": "L4-4.1.1",
+      "category": "Topografie",
+      "categoryEn": "Topography",
+      "description": "De leerlingen kennen de naam en de ligging van: de schoolgemeente en eventuele deelgemeenten, en buurgemeenten; de eigen regio; de Belgische provincies met hun hoofdplaatsen; de buurlanden van België; de gewesten en gemeenschappen; Schelde, Maas en IJzer; een aantal regio's van België: Kempen, Hoge Venen, kuststreek, Ardennen; Noordzee en Middellandse Zee; de werelddelen: Afrika, Antarctica, Azië, Europa, Oceanië, Noord-Amerika en Zuid-Amerika; de Grote Oceaan, Atlantische Oceaan en Indische Oceaan; de vulkaan: de Etna.",
+      "descriptionEn": "Pupils know the name and location of: the school's municipality and any sub-municipalities, and neighbouring municipalities; their own region; the Belgian provinces and their capitals; Belgium's neighbouring countries; the regions and communities; the Scheldt, the Meuse and the Yser; a number of regions of Belgium: the Campine, the High Fens, the coastal region, the Ardennes; the North Sea and the Mediterranean Sea; the continents: Africa, Antarctica, Asia, Europe, Oceania, North America and South America; the Pacific Ocean, the Atlantic Ocean and the Indian Ocean; the volcano: Mount Etna."
+    },
+    {
+      "code": "L4-4.1.2",
+      "category": "Topografie",
+      "categoryEn": "Topography",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot relatieve ligging: de hoofdwindrichtingen, de tussenwindrichtingen, het noorden, het oosten, het zuiden, het westen, het noordoosten, het zuidoosten, het zuidwesten, het noordwesten, N, O, Z, W, NO, ZO, ZW, NW.",
+      "descriptionEn": "Pupils know these concepts of relative position: the cardinal points, the intermediate points, north, east, south, west, north-east, south-east, south-west, north-west, N, E, S, W, NE, SE, SW, NW."
+    },
+    {
+      "code": "L4-4.1.3",
+      "category": "Topografie",
+      "categoryEn": "Topography",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot absolute plaatsbepaling: de thuisgemeente en de postcode, de schoolgemeente en de postcode; de nulmeridiaan, de evenaar; het noordelijk halfrond, het zuidelijk halfrond, het oostelijk halfrond en het westelijk halfrond.",
+      "descriptionEn": "Pupils know these concepts of absolute location: their home municipality and its postcode, the school's municipality and its postcode; the prime meridian, the equator; the northern hemisphere, the southern hemisphere, the eastern hemisphere and the western hemisphere."
+    },
+    {
+      "code": "L4-4.2.1",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot kenmerken van de aarde en haar atmosfeer: ‘de blauwe planeet', het zoet en zout water, de atmosfeer; de verschillende lagen van de aarde en hun relatieve temperatuur.",
+      "descriptionEn": "Pupils know these concepts relating to the features of the Earth and its atmosphere: 'the blue planet', fresh and salt water, the atmosphere; the different layers of the Earth and their relative temperature."
+    },
+    {
+      "code": "L4-4.2.2",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen het concept waterkringloop: verdamping, condensatie, wolken, neerslag, grondwater, oppervlaktewater.",
+      "descriptionEn": "Pupils know the concept of the water cycle: evaporation, condensation, clouds, precipitation, groundwater, surface water."
+    },
+    {
+      "code": "L4-4.2.3",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de kenmerken, oorzaken en gevolgen van vulkanen: waarom vulkanen uitbarsten: magma, lava, vulkaanpijp, krater; hoe vulkanen het landschap en menselijke activiteiten (landbouw, toerisme) kunnen beïnvloeden: aswolk, mineralen.",
+      "descriptionEn": "Pupils know the features, causes and effects of volcanoes: why volcanoes erupt: magma, lava, volcanic vent, crater; how volcanoes can affect the landscape and human activities (farming, tourism): ash cloud, minerals."
+    },
+    {
+      "code": "L4-4.2.4",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot natuurlijke aspecten van landschappen, inclusief de vorming en het proces ervan: het reliëf: de bergketen, het zeeniveau, de horizonlijn, de hoogte, het hoogteverschil; de riviervorming en -processen: de bron, de smeltende ijskappen en gletsjers, de typische kenmerken van beneden-, midden- en bovenloop van rivieren, het eroderen, het afzetten, de waterval, de meander, het estuarium, de delta; de vegetatie: het loofbos, het naaldbos; de bodem: het zand, de klei, de leem, steenachtig.",
+      "descriptionEn": "Pupils know these concepts relating to the natural features of landscapes, including how they form and the processes involved: relief: the mountain range, sea level, the horizon, altitude, difference in height; the formation of rivers and river processes: the source, melting ice caps and glaciers, the typical features of the lower, middle and upper course of rivers, erosion, deposition, the waterfall, the meander, the estuary, the delta; vegetation: deciduous forest, coniferous forest; soil: sand, clay, loam, stony."
+    },
+    {
+      "code": "L4-4.2.5",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot infrastructuur en hun interactie met landschappen: het wonen: het rijhuis, het vrijstaand huis, het appartementsgebouw, stedelijk, landelijk, de stad; de transportinfrastructuur: de snelweg, het kanaal, de (lucht)haven; de landbouw: de akkerbouw, de veeteelt, de gemengde landbouw, de tuinbouw, de glastuinbouw; de landbouwprocessen: de irrigatie; de verwerking en de distributie van gewassen; het water als hulpbron: de dam, het reservoir, de waterkracht; de vervuiling van waterhabitats; de handel en de diensten: het kantoor, de bank, het winkelcentrum; de recreatie en het toerisme: het sportterrein, de entertainmentfaciliteit.",
+      "descriptionEn": "Pupils know these concepts relating to infrastructure and its interaction with landscapes: housing: the terraced house, the detached house, the block of flats, urban, rural, the city; transport infrastructure: the motorway, the canal, the (air)port; farming: arable farming, livestock farming, mixed farming, horticulture, greenhouse horticulture; farming processes: irrigation; the processing and distribution of crops; water as a resource: the dam, the reservoir, hydroelectric power; pollution of water habitats; trade and services: the office, the bank, the shopping centre; recreation and tourism: the sports ground, the entertainment venue."
+    },
+    {
+      "code": "L4-4.2.6",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot bevolking: de bevolkingsdichtheid; patronen van bevolkingsspreiding in een land of regio; manieren om de diversiteit van de bevolking te beschrijven: de etniciteit, de religie, de leeftijd.",
+      "descriptionEn": "Pupils know these concepts relating to population: population density; patterns of population distribution in a country or region; ways of describing the diversity of a population: ethnicity, religion, age."
+    },
+    {
+      "code": "L4-4.2.7",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen verklarende factoren die verandering in bevolkingsaantallen beïnvloeden: migratie; geboortecijfer; industrialisatie en verstedelijking.",
+      "descriptionEn": "Pupils know explanatory factors that influence changes in population numbers: migration; birth rate; industrialisation and urbanisation."
+    },
+    {
+      "code": "L4-4.2.8",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen het verschil tussen weer en klimaat.",
+      "descriptionEn": "Pupils know the difference between weather and climate."
+    },
+    {
+      "code": "L4-4.2.9",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de kenmerken van de belangrijkste klimaatzones:polair, tropisch, gematigd.",
+      "descriptionEn": "Pupils know the features of the main climate zones: polar, tropical, temperate."
+    },
+    {
+      "code": "L4-4.2.10",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot klimaatspecifieke en extreme weersverschijnselen: de orkaan, de tyfoon; de hittegolf, de sneeuwstorm, de waterbom.",
+      "descriptionEn": "Pupils know these concepts relating to climate-specific and extreme weather phenomena: the hurricane, the typhoon; the heatwave, the snowstorm, the cloudburst."
+    },
+    {
+      "code": "L4-4.2.11",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de zon als ster.",
+      "descriptionEn": "Pupils know that the Sun is a star."
+    },
+    {
+      "code": "L4-4.2.12",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de namen van de planeten binnen ons zonnestelsel.",
+      "descriptionEn": "Pupils know the names of the planets in our solar system."
+    },
+    {
+      "code": "L4-4.2.13",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de duur en de richting van de beweging van de aarde om haar as.",
+      "descriptionEn": "Pupils know how long the Earth takes to turn on its axis and in which direction it turns."
+    },
+    {
+      "code": "L4-4.2.14",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de namen, kenmerken en de begin- en einddatum van de seizoenen.",
+      "descriptionEn": "Pupils know the names, features and start and end dates of the seasons."
+    },
+    {
+      "code": "L4-4.2.15",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de relatie tussen de beweging van de aarde en dag/nacht, tijdszones.",
+      "descriptionEn": "Pupils know the link between the Earth's movement and day/night and time zones."
+    },
+    {
+      "code": "L4-4.3.1",
+      "category": "Aardrijkskundige vaardigheden, onderzoek en denken",
+      "categoryEn": "Geographical skills, inquiry and thinking",
+      "description": "De leerlingen kunnen met betrekking tot aardrijkskundige vaardigheden: een digitale en analoge kaart hanteren, inclusief werken met legende, oriëntatie, (tussen)windrichtingen; werken met register en vakcoördinaten; zichzelf oriënteren met behulp van verschillende methoden: kompas, kaart en zon; landschappen schetsen om menselijke en natuurlijke aspecten schematisch weer te geven; aardrijkskundige staaf- en lijngrafieken bespreken.",
+      "descriptionEn": "In terms of geographical skills, pupils can: use a digital and a paper map, including working with the key, orientation and (intermediate) compass points; work with an index and grid references; orientate themselves using different methods: compass, map and sun; sketch landscapes to show human and natural features in a simple diagram; discuss geographical bar and line graphs."
+    },
+    {
+      "code": "L4-4.3.2",
+      "category": "Aardrijkskundige vaardigheden, onderzoek en denken",
+      "categoryEn": "Geographical skills, inquiry and thinking",
+      "description": "De leerlingen kunnen met betrekking tot aardrijkskundig onderzoek: instrumenten gebruiken om neerslag (pluviometer) te meten; observaties en instrumenten gebruiken om windrichting (vlaggen, bomen, rook, windvaan) en windsnelheid (anemometer) te meten; gegevens uit weersvoorspellingen gebruiken: temperatuur, neerslag, windrichting en bewolking.",
+      "descriptionEn": "In terms of geographical investigation, pupils can: use instruments to measure precipitation (rain gauge); use observations and instruments to measure wind direction (flags, trees, smoke, weathervane) and wind speed (anemometer); use data from weather forecasts: temperature, precipitation, wind direction and cloud cover."
+    },
+    {
+      "code": "L4-4.3.3",
+      "category": "Aardrijkskundige vaardigheden, onderzoek en denken",
+      "categoryEn": "Geographical skills, inquiry and thinking",
+      "description": "De leerlingen kunnen aardrijkskundige kennis en vaardigheden van het 4de jaar gebruiken om zelf aardrijkskundige vragen te beantwoorden over: ruimtelijke posities, relaties en contrasten; interactie op verschillende schalen; verandering in de tijd, inclusief de toekomst (bv. de relatie tussen waterdiepte, temperatuur en mariene habitats, hoe is op een bepaalde plaats een vallei of waterval ontstaan, waarom liggen de bushaltes in gebied A verder uit elkaar dan in gebied B, hoe verschilt het leven in een welbepaalde stad van het leven op het platteland eromheen).",
+      "descriptionEn": "Pupils can use the geographical knowledge and skills of year 4 to answer geographical questions themselves about: spatial positions, relationships and contrasts; interaction at different scales; change over time, including the future (e.g. the relationship between water depth, temperature and marine habitats; how a valley or waterfall formed in a particular place; why the bus stops in area A are further apart than in area B; how life in a particular city differs from life in the countryside around it)."
+    },
+    {
+      "code": "L6-4.1.1",
+      "category": "Topografie",
+      "categoryEn": "Topography",
+      "description": "De leerlingen kennen de naam en de ligging van: landen van de Europese Unie en hun hoofdsteden, evenals het Verenigd Koninkrijk, Noorwegen, Zwitserland, Rusland en hun hoofdsteden; Egypte, Marokko, Congo, Zuid-Afrika; de Verenigde Staten van Amerika, Canada, Mexico, Brazilië, Argentinië; Australië, Nieuw-Zeeland; China, India, Japan; Israël, Iran, Turkije; een aantal grote rivieren: de Seine, de Donau, de Rijn, de Amazone; een aantal bergketens: Alpen, Himalaya, Pyreneeën, Oeral; de hoogste berg ter wereld: Mount Everest.",
+      "descriptionEn": "Pupils know the name and location of: the countries of the European Union and their capitals, as well as the United Kingdom, Norway, Switzerland, Russia and their capitals; Egypt, Morocco, Congo, South Africa; the United States of America, Canada, Mexico, Brazil, Argentina; Australia, New Zealand; China, India, Japan; Israel, Iran, Turkey; a number of major rivers: the Seine, the Danube, the Rhine, the Amazon; a number of mountain ranges: the Alps, the Himalayas, the Pyrenees, the Urals; the highest mountain in the world: Mount Everest."
+    },
+    {
+      "code": "L6-4.1.2",
+      "category": "Topografie",
+      "categoryEn": "Topography",
+      "description": "De leerlingen kennen parallellen/breedtecirkels die het klimaat afbakenen: Steenbokskeerkring, Kreeftskeerkring; Noordpoolcirkel en Zuidpoolcirkel.",
+      "descriptionEn": "Pupils know the parallels/lines of latitude that mark out climate: the Tropic of Capricorn, the Tropic of Cancer; the Arctic Circle and the Antarctic Circle."
+    },
+    {
+      "code": "L6-4.2.1",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot de aarde en haar atmosfeer: het zuurstofgas, de koolstofdioxide.",
+      "descriptionEn": "Pupils know these concepts relating to the Earth and its atmosphere: oxygen, carbon dioxide."
+    },
+    {
+      "code": "L6-4.2.2",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de rol van de atmosfeer voor leven op aarde.",
+      "descriptionEn": "Pupils know the role of the atmosphere for life on Earth."
+    },
+    {
+      "code": "L6-4.2.3",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen het belang van delfstoffen vanuit verschillende perspectieven: economie; politiek; duurzaamheid.",
+      "descriptionEn": "Pupils know the importance of mineral resources from different perspectives: economics; politics; sustainability."
+    },
+    {
+      "code": "L6-4.2.4",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de kenmerken, oorzaken en gevolgen van aardbevingen: voorbeelden van platen, plaatgrens, principe van platentektoniek; epicentrum, seismische golven, beving; voorbeelden van aardbevingen, ligging en mogelijke effecten: naschok, verwoesting, tsunami, aardverschuiving; de magnitude van een aardbeving; inspanningen om schade door aardbevingen te anticiperen en te beperken: technieken bij constructie van gebouwen om schokken op te vangen, monitoren en preventief evacueren.",
+      "descriptionEn": "Pupils know the features, causes and effects of earthquakes: examples of plates, plate boundary, the principle of plate tectonics; epicentre, seismic waves, tremor; examples of earthquakes, their location and possible effects: aftershock, devastation, tsunami, landslide; the magnitude of an earthquake; efforts to anticipate and limit earthquake damage: building techniques that absorb shocks, monitoring and preventive evacuation."
+    },
+    {
+      "code": "L6-4.2.5",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kunnen de ruimtelijke spreiding van aardbevingen, vulkanen en bergketens in verband brengen met de ligging van plaatgrenzen: de Ring van Vuur; patroon van vulkanen in het Middellandse Zeegebied waaronder de Etna.",
+      "descriptionEn": "Pupils can link the spatial distribution of earthquakes, volcanoes and mountain ranges to the location of plate boundaries: the Ring of Fire; the pattern of volcanoes in the Mediterranean region, including Mount Etna."
+    },
+    {
+      "code": "L6-4.2.6",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot natuurlijke aspecten van landschappen: het reliëf: de hellingsgraad (bv. landbouw op terrassen om regenwater op steile hellingen op te vangen, wegen en spoorwegen houden rekening met hellingen); de kustprocessen en de gerelateerde landvormen en habitats: de golfslag, de kustlijn, de landtong, de kiezel, de zandduin, de koraalrif, de kusthabitat (bv. de steltlopers, meeuwen en sterns nestelen en foerageren op de Belgische kusthabitats van slikken en schorren, het zeeleven met inbegrip van wormen, schelpdieren en vissen die leven in de ondiepe wateren voor de Belgische kust); de vegetatie en het verband met bodem, vegetatietype en klimaat: de woestijn, de woestijnvorming, de steppe, de savanne, het regenwoud.",
+      "descriptionEn": "Pupils know these concepts relating to the natural features of landscapes: relief: the gradient of slopes (e.g. terrace farming to catch rainwater on steep slopes, roads and railways that take slopes into account); coastal processes and the related landforms and habitats: wave action, the coastline, the headland, pebbles, the sand dune, the coral reef, the coastal habitat (e.g. waders, gulls and terns nest and feed on the Belgian coastal habitats of mudflats and salt marshes; sea life, including worms, shellfish and fish, living in the shallow waters off the Belgian coast); vegetation and its link with soil, vegetation type and climate: the desert, desertification, the steppe, the savannah, the rainforest."
+    },
+    {
+      "code": "L6-4.2.7",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot infrastructuur en hun interactie met landschappen: het wonen: de verstedelijking, de open ruimte, de ruimtelijke ordening; de landbouw: de intensieve landbouw, de duurzame landbouw, de voedselbewaring, -verwerking en -distributie; het menselijk gebruik van natuurlijke hulpbronnen: de duurzaamheid; het kustbeheer: de golfbrekers; de handel en de diensten: de opslagfaciliteiten voor grondstoffen, materialen en goederen.",
+      "descriptionEn": "Pupils know these concepts relating to infrastructure and its interaction with landscapes: housing: urbanisation, open space, spatial planning; farming: intensive farming, sustainable farming, food storage, processing and distribution; human use of natural resources: sustainability; coastal management: breakwaters; trade and services: storage facilities for raw materials, materials and goods."
+    },
+    {
+      "code": "L6-4.2.8",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen weten dat er verschillende niveaus van welvaart zijn.",
+      "descriptionEn": "Pupils know that there are different levels of prosperity."
+    },
+    {
+      "code": "L6-4.2.9",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kunnen vergelijkingen maken binnen en tussen landen door middel van aardrijkskundige indicatoren: oppervlakte; bevolkingsaantal; bevolkingsdichtheid; welvaartsniveau.",
+      "descriptionEn": "Pupils can make comparisons within and between countries using geographical indicators: area; population size; population density; level of prosperity."
+    },
+    {
+      "code": "L6-4.2.10",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen het concept vegetatietype.",
+      "descriptionEn": "Pupils know the concept of vegetation type."
+    },
+    {
+      "code": "L6-4.2.11",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de relatie tussen de ligging van de breedtecirkels en klimaatzones: polair, tropisch, gematigd.",
+      "descriptionEn": "Pupils know the relationship between the position of the lines of latitude and the climate zones: polar, tropical, temperate."
+    },
+    {
+      "code": "L6-4.2.12",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kunnen voorbeelden geven van hoe reliëf en seizoensgebonden oceaantemperaturen het weer beïnvloeden: luchtdruk, landmassa.",
+      "descriptionEn": "Pupils can give examples of how relief and seasonal ocean temperatures influence the weather: air pressure, land mass."
+    },
+    {
+      "code": "L6-4.2.13",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen kenmerken en verschijnselen van het heelal: planetenstelsel, zonnestelsel, sterren.",
+      "descriptionEn": "Pupils know features and phenomena of the universe: planetary system, solar system, stars."
+    },
+    {
+      "code": "L6-4.2.14",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de getijden: eb, vloed, laagwater, hoogwater.",
+      "descriptionEn": "Pupils know the tides: ebb tide, flood tide, low tide, high tide."
+    },
+    {
+      "code": "L6-4.2.15",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de maanfasen: volle maan, nieuwe maan, eerste kwartier, laatste kwartier.",
+      "descriptionEn": "Pupils know the phases of the Moon: full moon, new moon, first quarter, last quarter."
+    },
+    {
+      "code": "L6-4.2.16",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de eclipsen: zonsverduistering, maansverduistering.",
+      "descriptionEn": "Pupils know the eclipses: solar eclipse, lunar eclipse."
+    },
+    {
+      "code": "L6-4.2.17",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kennen de duur en de richting van de beweging van de aarde rond de zon.",
+      "descriptionEn": "Pupils know how long the Earth takes to travel around the Sun and in which direction it moves."
+    },
+    {
+      "code": "L6-4.2.18",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kunnen het burgerlijk jaar, het schrikkeljaar en de seizoenen in verband brengen met de beweging van de aarde rond de zon, rekening houdend met de schuine stand van de aardas.",
+      "descriptionEn": "Pupils can link the calendar year, the leap year and the seasons to the Earth's movement around the Sun, taking into account the tilt of the Earth's axis."
+    },
+    {
+      "code": "L6-4.2.19",
+      "category": "Aardrijkskundige kennis",
+      "categoryEn": "Geographical knowledge",
+      "description": "De leerlingen kunnen de getijden, de maanfasen en de eclipsen in verband brengen met de beweging van de maan rond de aarde.",
+      "descriptionEn": "Pupils can link the tides, the phases of the Moon and the eclipses to the Moon's movement around the Earth."
+    },
+    {
+      "code": "L6-4.3.1",
+      "category": "Aardrijkskundige vaardigheden, onderzoek en denken",
+      "categoryEn": "Geographical skills, inquiry and thinking",
+      "description": "De leerlingen kunnen met betrekking tot aardrijkskundige vaardigheden: verschillende soorten kaarten gebruiken: staatkundig, natuurkundig, thematisch; satellietbeelden hanteren; een klein gebied in kaart brengen met behulp van cartografische technieken: generaliseren, symboliseren, oriënteren, schaal aanbrengen; klimatogrammen lezen.",
+      "descriptionEn": "In terms of geographical skills, pupils can: use different kinds of maps: political, physical, thematic; work with satellite images; map a small area using cartographic techniques: generalising, using symbols, orientating, adding a scale; read climate graphs."
+    },
+    {
+      "code": "L6-4.3.2",
+      "category": "Aardrijkskundige vaardigheden, onderzoek en denken",
+      "categoryEn": "Geographical skills, inquiry and thinking",
+      "description": "De leerlingen kunnen aardrijkskundige kennis en vaardigheden op niveau 6de jaar gebruiken om zelf aardrijkskundige vragen te beantwoorden over: ruimtelijke posities, relaties en contrasten; interactie op verschillende schalen; verandering in de tijd, inclusief de toekomst (bv. de relatie tussen helling, landbouwkeuze en infrastructuurplanning, de relatie tussen bevolkingsdichtheid en de ligging van industriezones, het vervoer van grondstoffen, materialen en goederen, waarom is er woestijnvorming op plaats X, gelijkenissen en verschillen tussen de Rijn en de Amazone, uitzoeken wie (leeftijd, type werknemer) behoefte heeft aan veilige fietsroutes in de stad, bij gunning van een nieuw treinstation, winkelcentrum, vrijetijdscentrum in plaats X onderzoeken wie erbij zou winnen en wie erbij zou verliezen inclusief toekomstige mensen en het milieu).",
+      "descriptionEn": "Pupils can use geographical knowledge and skills at year 6 level to answer geographical questions themselves about: spatial positions, relationships and contrasts; interaction at different scales; change over time, including the future (e.g. the relationship between slope, choice of farming and infrastructure planning; the relationship between population density and the location of industrial zones; the transport of raw materials, materials and goods; why desertification is happening in place X; similarities and differences between the Rhine and the Amazon; finding out who (age, type of worker) needs safe cycle routes in the city; when a new railway station, shopping centre or leisure centre is planned in place X, investigating who would gain and who would lose, including future generations and the environment)."
+    }
+  ]
+}

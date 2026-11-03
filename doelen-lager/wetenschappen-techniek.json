@@ -1,0 +1,742 @@
+{
+  "subject": "WT",
+  "name": "Wetenschappen & techniek",
+  "nameEn": "Science & technology",
+  "doelen": [
+    {
+      "code": "L4-3.1.1",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot de classificatie van organismen: de gewervelde dieren, de amfibieën, de ongewervelde dieren, de spinachtigen, de schimmels.",
+      "descriptionEn": "Pupils know the following concepts relating to the classification of organisms: vertebrates, amphibians, invertebrates, arachnids, fungi."
+    },
+    {
+      "code": "L4-3.1.2",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen de classificatie van organismen: de fauna: de gewervelden: de zoogdieren; de vogels; de amfibieën; de vissen. de ongewervelden: de insecten; de spinachtigen. de flora; de schimmels.",
+      "descriptionEn": "Pupils know the classification of organisms: fauna: vertebrates: mammals; birds; amphibians; fish. invertebrates: insects; arachnids. flora; fungi."
+    },
+    {
+      "code": "L4-3.1.3",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kunnen organismen beschrijven op basis van kenmerken: bouw en voortplantingswijze.",
+      "descriptionEn": "Pupils can describe organisms on the basis of their characteristics: structure and way of reproducing."
+    },
+    {
+      "code": "L4-3.1.4",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen de volgende begrippen: de levenscyclus, de metamorfose.",
+      "descriptionEn": "Pupils know the following concepts: life cycle, metamorphosis."
+    },
+    {
+      "code": "L4-3.1.5",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen de levenscyclus van fauna, voor elk van deze groepen: zoogdieren, vogels, amfibieën, insecten.",
+      "descriptionEn": "Pupils know the life cycle of animals, for each of these groups: mammals, birds, amphibians, insects."
+    },
+    {
+      "code": "L4-3.1.6",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen de fasen van lichamelijke groei en ontwikkeling bij de mens.",
+      "descriptionEn": "Pupils know the stages of physical growth and development in humans."
+    },
+    {
+      "code": "L4-3.1.7",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kunnen verschillen en overeenkomsten beschrijven bij de voortplanting van fauna.",
+      "descriptionEn": "Pupils can describe differences and similarities in the reproduction of animals."
+    },
+    {
+      "code": "L4-3.2.1",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de volgende begrippen: de biotoop, de voedselketen, de voedselkringloop, de producenten, de consumenten, de reducenten, de voedselpiramide; de preventie, het hergebruik, het sorteren, de recyclage, het verbranden en het storten.",
+      "descriptionEn": "Pupils know the following concepts: habitat, food chain, food cycle, producers, consumers, decomposers, food pyramid; prevention, reuse, sorting, recycling, incineration and landfill."
+    },
+    {
+      "code": "L4-3.2.2",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen een voedselketen bestaande uit drie organismen.",
+      "descriptionEn": "Pupils know a food chain made up of three organisms."
+    },
+    {
+      "code": "L4-3.2.3",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de rol van organismen in de voedselkringloop: producenten, consumenten, reducenten.",
+      "descriptionEn": "Pupils know the role of organisms in the food cycle: producers, consumers, decomposers."
+    },
+    {
+      "code": "L4-3.2.4",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de betekenis van de stappen binnen de ladder van Lansink: preventie, hergebruik, sorteren, recycleren, verbranden, storten.",
+      "descriptionEn": "Pupils know the meaning of the steps of Lansink's ladder (the waste hierarchy): prevention, reuse, sorting, recycling, incineration, landfill."
+    },
+    {
+      "code": "L4-3.2.5",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kunnen de voedselpiramide beschrijven door aan te tonen hoe dieren zich voeden met dieren en/of planten.",
+      "descriptionEn": "Pupils can describe the food pyramid by showing how animals feed on animals and/or plants."
+    },
+    {
+      "code": "L4-3.2.6",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kunnen voorbeelden geven van relaties tussen organismen onderling en hun omgeving.",
+      "descriptionEn": "Pupils can give examples of relationships between organisms and between organisms and their environment."
+    },
+    {
+      "code": "L4-3.2.7",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de volgende begrippen: de wortel, de stam, de stengel, het blad, de bloem, de vrucht, het zaad; het transport.",
+      "descriptionEn": "Pupils know the following concepts: root, trunk, stem, leaf, flower, fruit, seed; transport."
+    },
+    {
+      "code": "L4-3.2.8",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de functie van de verschillende delen van een plant: wortel, stengel, stam, bladeren, bloemen, vruchten, zaad.",
+      "descriptionEn": "Pupils know the function of the different parts of a plant: root, stem, trunk, leaves, flowers, fruits, seed."
+    },
+    {
+      "code": "L4-3.2.9",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen weten dat stoffen worden getransporteerd binnen dieren en planten.",
+      "descriptionEn": "Pupils know that substances are transported within animals and plants."
+    },
+    {
+      "code": "L4-3.2.10",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kunnen gelijkenissen en verschillen benoemen tussen ouders en nakomelingen bij mens en dier.",
+      "descriptionEn": "Pupils can name similarities and differences between parents and offspring in humans and animals."
+    },
+    {
+      "code": "L4-3.2.11",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de volgende begrippen: de voedingsmiddelen, de bouwstof, de brandstof, de beschermende stof.",
+      "descriptionEn": "Pupils know the following concepts: foods, building material, fuel, protective substance."
+    },
+    {
+      "code": "L4-3.2.12",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de functies van voedsel: bouwstof, brandstof, beschermende stof.",
+      "descriptionEn": "Pupils know the functions of food: building material, fuel, protective substance."
+    },
+    {
+      "code": "L4-3.2.13",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kunnen onderzoeken dat planten groeien wanneer ze zonlicht, water en warmte krijgen.",
+      "descriptionEn": "Pupils can investigate that plants grow when they get sunlight, water and warmth."
+    },
+    {
+      "code": "L4-3.3.1",
+      "category": "Menselijk lichaam",
+      "categoryEn": "The human body",
+      "description": "De leerlingen kennen de volgende begrippen: de spijsvertering, de slokdarm, de lever, de darmen, de anus; de beweging, de spieren, de pezen, het skelet, de gewrichten.",
+      "descriptionEn": "Pupils know the following concepts: digestion, oesophagus, liver, intestines, anus; movement, muscles, tendons, skeleton, joints."
+    },
+    {
+      "code": "L4-3.3.2",
+      "category": "Menselijk lichaam",
+      "categoryEn": "The human body",
+      "description": "De leerlingen kennen fysieke functies van de mens en de bijbehorende weefsels en organen met hun functie: spijsvertering, beweging, steun (skelet).",
+      "descriptionEn": "Pupils know physical functions of the human body and the related tissues and organs with their function: digestion, movement, support (skeleton)."
+    },
+    {
+      "code": "L4-3.3.3",
+      "category": "Menselijk lichaam",
+      "categoryEn": "The human body",
+      "description": "De leerlingen kunnen deze lichaamsdelen, weefsels en organen op het eigen lichaam aanduiden en benoemen.",
+      "descriptionEn": "Pupils can point out and name these body parts, tissues and organs on their own body."
+    },
+    {
+      "code": "L4-3.4.1",
+      "category": "Eigenschappen van materie",
+      "categoryEn": "Properties of matter",
+      "description": "De leerlingen kennen de volgende begrippen: de materie, natuurlijk, synthetisch; omkeerbare reactie, niet-omkeerbare reactie (bv. zout lost op in water, zout kan terug van het water gescheiden worden door het water te laten verdampen, verbranding is niet-omkeerbaar).",
+      "descriptionEn": "Pupils know the following concepts: matter, natural, synthetic; reversible reaction, irreversible reaction (e.g. salt dissolves in water, salt can be separated from the water again by letting the water evaporate, burning is irreversible)."
+    },
+    {
+      "code": "L4-3.4.2",
+      "category": "Eigenschappen van materie",
+      "categoryEn": "Properties of matter",
+      "description": "De leerlingen kunnen materie onderzoeken en vergelijken op basis van hun eigenschappen: de hardheid, de breekbaarheid, de waterdichtheid, de thermische geleidbaarheid, de oplosbaarheid.",
+      "descriptionEn": "Pupils can investigate and compare materials on the basis of their properties: hardness, brittleness, waterproofness, thermal conductivity, solubility."
+    },
+    {
+      "code": "L4-3.5.1",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen de volgende begrippen: de kracht, de massa; de plaats, de beweging, de snelheid, de weerstand, versnellen, vertragen, de richting; de energie, de energie-omzetting; de thermische energie, de temperatuur; de geluidsbron, de luidspreker, de toonhoogte, hoog, laag, de trilling; het magnetisme, de noordpool, de zuidpool, de magnetische kracht, de magnetische polen, het magnetisch veld, het kompas; de aggregatietoestand, vast, vloeibaar, gasvormig, smelten, stollen, verdampen, condenseren, het smeltpunt, het kookpunt.",
+      "descriptionEn": "Pupils know the following concepts: force, mass; position, motion, speed, resistance, speeding up, slowing down, direction; energy, energy conversion; thermal energy, temperature; sound source, loudspeaker, pitch, high, low, vibration; magnetism, north pole, south pole, magnetic force, magnetic poles, magnetic field, compass; state of matter, solid, liquid, gas, melting, freezing, evaporating, condensing, melting point, boiling point."
+    },
+    {
+      "code": "L4-3.5.2",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen kracht en beweging: de relatie tussen kracht en de verandering van de beweging bij een bepaalde massa; de relatie tussen massa en de verandering van de beweging bij een bepaalde kracht.",
+      "descriptionEn": "Pupils know about force and motion: the relationship between force and the change in motion for a given mass; the relationship between mass and the change in motion for a given force."
+    },
+    {
+      "code": "L4-3.5.3",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen energie en energievormen: bewegingsenergie (bv. windenergie); thermische energie (bv. zonne-energie).",
+      "descriptionEn": "Pupils know about energy and forms of energy: kinetic energy (e.g. wind energy); thermal energy (e.g. solar energy)."
+    },
+    {
+      "code": "L4-3.5.4",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen licht: rechtlijnige beweging.",
+      "descriptionEn": "Pupils know about light: it travels in straight lines."
+    },
+    {
+      "code": "L4-3.5.5",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen geluid: ontstaan van geluid: trilling; toonhoogte of frequentie; geluidssterkte.",
+      "descriptionEn": "Pupils know about sound: how sound is produced: vibration; pitch or frequency; loudness."
+    },
+    {
+      "code": "L4-3.5.6",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen magnetisme: polen, noordpool, zuidpool, magnetische kracht; aarde als magneet.",
+      "descriptionEn": "Pupils know about magnetism: poles, north pole, south pole, magnetic force; the Earth as a magnet."
+    },
+    {
+      "code": "L4-3.5.7",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen aggregatietoestanden: de faseovergangen; de relatie tussen temperatuur en faseovergangen.",
+      "descriptionEn": "Pupils know about states of matter: changes of state; the relationship between temperature and changes of state."
+    },
+    {
+      "code": "L4-3.6.1",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kennen de volgende begrippen: het onderzoek, de onderzoeksvraag, de hypothese, de conclusie.",
+      "descriptionEn": "Pupils know the following concepts: investigation, research question, hypothesis, conclusion."
+    },
+    {
+      "code": "L4-3.6.2",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kennen het concept van onderzoeksvraag en hypothese.",
+      "descriptionEn": "Pupils know the concept of a research question and a hypothesis."
+    },
+    {
+      "code": "L4-3.6.3",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kunnen een voorafgaand opgezet eerlijk onderzoek uitvoeren.",
+      "descriptionEn": "Pupils can carry out a fair test that has been set up in advance."
+    },
+    {
+      "code": "L4-3.6.4",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kunnen systematisch waarnemingen noteren en conclusies trekken.",
+      "descriptionEn": "Pupils can record observations systematically and draw conclusions."
+    },
+    {
+      "code": "L4-3.6.5",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kennen ontwerpen als een manier om aan een behoefte te voldoen.",
+      "descriptionEn": "Pupils know designing as a way of meeting a need."
+    },
+    {
+      "code": "L4-3.6.6",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kunnen met concreet materiaal en gegeven criteria een ontwerp bedenken en uitvoeren om aan een behoefte te voldoen.",
+      "descriptionEn": "Pupils can come up with and carry out a design using concrete materials and given criteria to meet a need."
+    },
+    {
+      "code": "L4-3.7.1",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kennen de volgende begrippen: monteren, demonteren.",
+      "descriptionEn": "Pupils know the following concepts: assembling, dismantling."
+    },
+    {
+      "code": "L4-3.7.2",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kennen basisgereedschap voor montage en demontage.",
+      "descriptionEn": "Pupils know basic tools for assembly and dismantling."
+    },
+    {
+      "code": "L4-3.7.3",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kunnen basisvaardigheden toepassen bij het monteren en demonteren van technische systemen.",
+      "descriptionEn": "Pupils can apply basic skills when assembling and dismantling technical systems."
+    },
+    {
+      "code": "L4-3.7.4",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kennen het volgende begrip: de onderdelen.",
+      "descriptionEn": "Pupils know the following concept: components."
+    },
+    {
+      "code": "L4-3.7.5",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kunnen de werking van een technisch systeem beschrijven aan de hand van onderdelen en materialen.",
+      "descriptionEn": "Pupils can describe how a technical system works with reference to its components and materials."
+    },
+    {
+      "code": "L4-3.7.6",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kunnen verwoorden hoe vormgeving en design een rol spelen bij het gebruik van technische systemen.",
+      "descriptionEn": "Pupils can put into words how form and design play a role in the use of technical systems."
+    },
+    {
+      "code": "L6-3.1.1",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot de classificatie van organismen: het classificeren, de taxonomie, de reptielen, de geleedpotigen, de zaadplanten, de sporenplanten, de bacteriën.",
+      "descriptionEn": "Pupils know the following concepts relating to the classification of organisms: classifying, taxonomy, reptiles, arthropods, seed plants, spore plants, bacteria."
+    },
+    {
+      "code": "L6-3.1.2",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen de classificatie van organismen. de fauna: de gewervelden: de zoogdieren; de vogels; de reptielen; de amfibieën; de vissen. de ongewervelden: de geleedpotigen: de insecten; de spinachtigen. andere ongewervelden. de flora; de zaadplanten; de sporenplanten. de schimmels; de bacteriën.",
+      "descriptionEn": "Pupils know the classification of organisms. fauna: vertebrates: mammals; birds; reptiles; amphibians; fish. invertebrates: arthropods: insects; arachnids. other invertebrates. flora; seed plants; spore plants. fungi; bacteria."
+    },
+    {
+      "code": "L6-3.1.3",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kunnen organismen classificeren op basis van kenmerken: bouw, voedingswijze en voortplantingswijze.",
+      "descriptionEn": "Pupils can classify organisms on the basis of their characteristics: structure, way of feeding and way of reproducing."
+    },
+    {
+      "code": "L6-3.1.4",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen de volgende begrippen: de voortplanting, de geslachtelijke voortplanting, de ongeslachtelijke voortplanting, de bestuiving, de bevruchting.",
+      "descriptionEn": "Pupils know the following concepts: reproduction, sexual reproduction, asexual reproduction, pollination, fertilisation."
+    },
+    {
+      "code": "L6-3.1.5",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen redenen waarom organismen zichzelf voortplanten.",
+      "descriptionEn": "Pupils know reasons why organisms reproduce."
+    },
+    {
+      "code": "L6-3.1.6",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen het proces van geslachtelijke en ongeslachtelijke voortplanting bij zaadplanten.",
+      "descriptionEn": "Pupils know the process of sexual and asexual reproduction in seed plants."
+    },
+    {
+      "code": "L6-3.1.7",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kennen het belang van insecten bij de bestuiving van zaadplanten.",
+      "descriptionEn": "Pupils know the importance of insects in the pollination of seed plants."
+    },
+    {
+      "code": "L6-3.1.8",
+      "category": "Organismen",
+      "categoryEn": "Organisms",
+      "description": "De leerlingen kunnen onderscheid maken tussen geslachtelijke en ongeslachtelijke voortplanting bij zaadplanten.",
+      "descriptionEn": "Pupils can distinguish between sexual and asexual reproduction in seed plants."
+    },
+    {
+      "code": "L6-3.2.1",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de volgende begrippen: de biodiversiteit, het voedselweb, het grasland, het bos, de heide, de zee en de kust, het stadslandschap, het agrarisch landschap, het zoet water, het ecosysteem.",
+      "descriptionEn": "Pupils know the following concepts: biodiversity, food web, grassland, woodland, heathland, sea and coast, urban landscape, agricultural landscape, fresh water, ecosystem."
+    },
+    {
+      "code": "L6-3.2.2",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de opbouw van een voedselweb.",
+      "descriptionEn": "Pupils know how a food web is built up."
+    },
+    {
+      "code": "L6-3.2.3",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen diensten die het ecosysteem levert aan de mens.",
+      "descriptionEn": "Pupils know services that the ecosystem provides to people."
+    },
+    {
+      "code": "L6-3.2.4",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen weten dat mensen een positieve en negatieve impact kunnen hebben op het ecosysteem.",
+      "descriptionEn": "Pupils know that people can have a positive and a negative impact on the ecosystem."
+    },
+    {
+      "code": "L6-3.2.5",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kunnen aan de hand van hun biotische en abiotische factoren de volgende biotopen identificeren: grasland, bos, heide, zee en kust, stadslandschap, agrarisch landschap, zoet water.",
+      "descriptionEn": "Pupils can identify the following habitats from their biotic and abiotic factors: grassland, woodland, heathland, sea and coast, urban landscape, agricultural landscape, fresh water."
+    },
+    {
+      "code": "L6-3.2.6",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kunnen voedselketens opnoemen en interpreteren.",
+      "descriptionEn": "Pupils can name and interpret food chains."
+    },
+    {
+      "code": "L6-3.2.7",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kunnen verwoorden dat omgevingen kunnen veranderen.",
+      "descriptionEn": "Pupils can put into words that environments can change."
+    },
+    {
+      "code": "L6-3.2.8",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kunnen verwoorden waarom biodiversiteit essentieel is voor het leven op aarde.",
+      "descriptionEn": "Pupils can put into words why biodiversity is essential for life on Earth."
+    },
+    {
+      "code": "L6-3.2.9",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de volgende begrippen: de kelkbladeren, de kroonbladeren, de stamper, de meeldraden, het vruchtbeginsel; de cel; de evolutie, de soort, de aanpassing, de erfelijke eigenschappen.",
+      "descriptionEn": "Pupils know the following concepts: sepals, petals, pistil, stamens, ovary; cell; evolution, species, adaptation, inherited characteristics."
+    },
+    {
+      "code": "L6-3.2.10",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de functie van de verschillende delen van een bloem: kelkbladeren, kroonbladeren, stamper, vruchtbeginsel, meeldraden.",
+      "descriptionEn": "Pupils know the function of the different parts of a flower: sepals, petals, pistil, ovary, stamens."
+    },
+    {
+      "code": "L6-3.2.11",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen het concept van evolutie.",
+      "descriptionEn": "Pupils know the concept of evolution."
+    },
+    {
+      "code": "L6-3.2.12",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen weten dat alle organismen uit één of meer cellen bestaan.",
+      "descriptionEn": "Pupils know that all organisms are made up of one or more cells."
+    },
+    {
+      "code": "L6-3.2.13",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen weten dat soorten in de loop der tijd veranderen en dat sommige uitgestorven zijn.",
+      "descriptionEn": "Pupils know that species change over time and that some have become extinct."
+    },
+    {
+      "code": "L6-3.2.14",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen weten dat nakomelingen erfelijke eigenschappen van hun ouders meekrijgen.",
+      "descriptionEn": "Pupils know that offspring inherit characteristics from their parents."
+    },
+    {
+      "code": "L6-3.2.15",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen weten dat nakomelingen in de regel verschillend van, en niet identiek aan hun ouders zijn.",
+      "descriptionEn": "Pupils know that offspring are, as a rule, different from, and not identical to, their parents."
+    },
+    {
+      "code": "L6-3.2.16",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kunnen voorbeelden geven van aanpassingen van organismen.",
+      "descriptionEn": "Pupils can give examples of adaptations of organisms."
+    },
+    {
+      "code": "L6-3.2.17",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de volgende begrippen: de fotosynthese, de koolstofdioxide, het zuurstofgas; de voedingsstoffen, de suiker, het eiwit, het vet, het water, het mineraal, de vitamine, de vezels.",
+      "descriptionEn": "Pupils know the following concepts: photosynthesis, carbon dioxide, oxygen; nutrients, sugar, protein, fat, water, mineral, vitamin, fibre."
+    },
+    {
+      "code": "L6-3.2.18",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de verschillende voedingsstoffen en hun functie: suikers, eiwitten, vetten, water, mineralen, vitaminen, vezels.",
+      "descriptionEn": "Pupils know the different nutrients and their function: sugars, proteins, fats, water, minerals, vitamins, fibre."
+    },
+    {
+      "code": "L6-3.2.19",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen het principe van fotosynthese.",
+      "descriptionEn": "Pupils know the principle of photosynthesis."
+    },
+    {
+      "code": "L6-3.2.20",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen kennen de zon als primaire energiebron.",
+      "descriptionEn": "Pupils know the Sun as the primary source of energy."
+    },
+    {
+      "code": "L6-3.2.21",
+      "category": "Relatie tussen organismen en tussen organismen en omgevingsfactoren in een biotoop",
+      "categoryEn": "Relationships between organisms, and between organisms and their environment in a habitat",
+      "description": "De leerlingen weten dat bijna elke voedselketen start onder invloed van de energie van de zon.",
+      "descriptionEn": "Pupils know that almost every food chain starts with the energy of the Sun."
+    },
+    {
+      "code": "L6-3.3.1",
+      "category": "Menselijk lichaam",
+      "categoryEn": "The human body",
+      "description": "De leerlingen kennen de volgende begrippen: de waarneming, de zintuigen, de hersenen, de zenuwen; de voortplanting, de teelbal, de zaadleider, de penis, het sperma, de eierstok, de eileider, de eicel, de baarmoeder, de vagina; de ademhaling, de keel, de luchtpijp, de longen; de bloedsomloop, de bloedvaten, de ader, de slagader, de haarvaten, zuurstofrijk, zuurstofarm.",
+      "descriptionEn": "Pupils know the following concepts: perception, senses, brain, nerves; reproduction, testicle, sperm duct, penis, sperm, ovary, fallopian tube, egg cell, womb, vagina; breathing, throat, windpipe, lungs; blood circulation, blood vessels, vein, artery, capillaries, oxygen-rich, oxygen-poor."
+    },
+    {
+      "code": "L6-3.3.2",
+      "category": "Menselijk lichaam",
+      "categoryEn": "The human body",
+      "description": "De leerlingen kennen fysieke functies van de mens, en de bijbehorende weefsels en organen met hun functie: waarneming, voortplanting, ademhaling, bloedsomloop.",
+      "descriptionEn": "Pupils know physical functions of the human body, and the related tissues and organs with their function: perception, reproduction, breathing, blood circulation."
+    },
+    {
+      "code": "L6-3.3.3",
+      "category": "Menselijk lichaam",
+      "categoryEn": "The human body",
+      "description": "De leerlingen kunnen deze lichaamsdelen, weefsels en organen schematisch weergeven.",
+      "descriptionEn": "Pupils can represent these body parts, tissues and organs in a diagram."
+    },
+    {
+      "code": "L6-3.4.1",
+      "category": "Eigenschappen van materie",
+      "categoryEn": "Properties of matter",
+      "description": "De leerlingen kennen de volgende begrippen: de massadichtheid; de deeltjes; de zuivere stof, de verbinding.",
+      "descriptionEn": "Pupils know the following concepts: density; particles; pure substance, compound."
+    },
+    {
+      "code": "L6-3.4.2",
+      "category": "Eigenschappen van materie",
+      "categoryEn": "Properties of matter",
+      "description": "De leerlingen weten dat alle materie uit deeltjes bestaat.",
+      "descriptionEn": "Pupils know that all matter is made up of particles."
+    },
+    {
+      "code": "L6-3.4.3",
+      "category": "Eigenschappen van materie",
+      "categoryEn": "Properties of matter",
+      "description": "De leerlingen kunnen de massa-volume-relatie tussen voorwerpen met verschillende massadichtheden onderzoeken.",
+      "descriptionEn": "Pupils can investigate the mass-volume relationship between objects with different densities."
+    },
+    {
+      "code": "L6-3.4.4",
+      "category": "Eigenschappen van materie",
+      "categoryEn": "Properties of matter",
+      "description": "De leerlingen kunnen materie onderzoeken en vergelijken op basis van hun eigenschappen.",
+      "descriptionEn": "Pupils can investigate and compare materials on the basis of their properties."
+    },
+    {
+      "code": "L6-3.5.1",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen de volgende begrippen: het gewicht, de druk, de weerstand (bv. verschil in weerstand bij beweging in lucht of water); de energieomzetting; reflecteren, absorberen, doorlaten; de stroomkring, de geleider, de isolator, de spanning, de stroomsterkte",
+      "descriptionEn": "Pupils know the following concepts: weight, pressure, resistance (e.g. the difference in resistance when moving through air or water); energy conversion; reflecting, absorbing, transmitting; circuit, conductor, insulator, voltage, current"
+    },
+    {
+      "code": "L6-3.5.2",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen kracht en beweging: het onderscheid tussen gewicht en massa; gewicht als kracht en massa als maat voor de hoeveelheid materie van een bepaalde stof; effecten van krachten: verandering van bewegingstoestand.",
+      "descriptionEn": "Pupils know about force and motion: the difference between weight and mass; weight as a force and mass as a measure of the amount of matter of a given substance; effects of forces: a change in state of motion."
+    },
+    {
+      "code": "L6-3.5.3",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen energie: kernenergie; elektrische energie; chemische energie (bv. biomassa, fossiele energie).",
+      "descriptionEn": "Pupils know about energy: nuclear energy; electrical energy; chemical energy (e.g. biomass, fossil fuels)."
+    },
+    {
+      "code": "L6-3.5.4",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen licht: reflecteren, absorberen en doorlaten van licht.",
+      "descriptionEn": "Pupils know about light: reflection, absorption and transmission of light."
+    },
+    {
+      "code": "L6-3.5.5",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen geluid: de relatie tussen geluidssterkte en afstand tot de geluidsbron.",
+      "descriptionEn": "Pupils know about sound: the relationship between loudness and distance from the sound source."
+    },
+    {
+      "code": "L6-3.5.6",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kennen elektrische verschijnselen: elektrische schakeling, stroomkring; geleiders, isolatoren; symbolen bij het voorstellen van een eenvoudige schakeling: energiebron, verbruiker, geleider, schakelaar (bv. energiebron: batterij, verbruiker: lamp).",
+      "descriptionEn": "Pupils know about electrical phenomena: electric circuit, circuit; conductors, insulators; symbols for drawing a simple circuit: power source, component that uses energy, conductor, switch (e.g. power source: battery; component that uses energy: bulb)."
+    },
+    {
+      "code": "L6-3.5.7",
+      "category": "Natuurkundige verschijnselen",
+      "categoryEn": "Physical phenomena",
+      "description": "De leerlingen kunnen natuurkundige verschijnselen onderzoeken met behulp van de onderzoekscyclus.",
+      "descriptionEn": "Pupils can investigate physical phenomena using the investigation cycle."
+    },
+    {
+      "code": "L6-3.6.1",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kennen de volgende begrippen: de onderzoekscyclus, eerlijk onderzoeken, verkennen, onderzoek opzetten, onderzoek uitvoeren, concluderen, presenteren.",
+      "descriptionEn": "Pupils know the following concepts: investigation cycle, fair testing, exploring, setting up an investigation, carrying out an investigation, drawing conclusions, presenting."
+    },
+    {
+      "code": "L6-3.6.2",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kennen de onderzoekscyclus als een gestructureerde aanpak met de volgende fasen: verkennen, onderzoek opzetten, onderzoek uitvoeren, concluderen, presenteren.",
+      "descriptionEn": "Pupils know the investigation cycle as a structured approach with the following stages: exploring, setting up the investigation, carrying out the investigation, drawing conclusions, presenting."
+    },
+    {
+      "code": "L6-3.6.3",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kunnen een onderzoek opzetten met behulp van de onderzoekscyclus.",
+      "descriptionEn": "Pupils can set up an investigation using the investigation cycle."
+    },
+    {
+      "code": "L6-3.6.4",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kunnen de volgende basisprincipes van eerlijk onderzoek toepassen: gecontroleerde omstandigheden, reproduceerbaarheid.",
+      "descriptionEn": "Pupils can apply the following basic principles of fair testing: controlled conditions, reproducibility."
+    },
+    {
+      "code": "L6-3.6.5",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kennen de volgende begrippen: ontwerpen, optimaliseren, de ontwerpcyclus, verkennen, ideeën verzinnen en selecteren, het ontwerp plannen, het ontwerp realiseren, testen en optimaliseren, presenteren.",
+      "descriptionEn": "Pupils know the following concepts: designing, optimising, design cycle, exploring, coming up with and selecting ideas, planning the design, making the design, testing and optimising, presenting."
+    },
+    {
+      "code": "L6-3.6.6",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kennen de ontwerpcyclus als een gestructureerde aanpak met de volgende fasen: verkennen, ideeën verzinnen en selecteren, ontwerp plannen, ontwerp realiseren, testen en optimaliseren, presenteren.",
+      "descriptionEn": "Pupils know the design cycle as a structured approach with the following stages: exploring, coming up with and selecting ideas, planning the design, making the design, testing and optimising, presenting."
+    },
+    {
+      "code": "L6-3.6.7",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kennen het belang van het formuleren van criteria om aan een behoefte te voldoen.",
+      "descriptionEn": "Pupils know the importance of setting criteria in order to meet a need."
+    },
+    {
+      "code": "L6-3.6.8",
+      "category": "Systematische en methodische benadering van wetenschappelijke en technologische problemen",
+      "categoryEn": "A systematic, methodical approach to scientific and technological problems",
+      "description": "De leerlingen kunnen ontwerpen met behulp van de ontwerpcyclus.",
+      "descriptionEn": "Pupils can design using the design cycle."
+    },
+    {
+      "code": "L6-3.7.1",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kennen de volgende begrippen: de wisselwerking, de wetenschap, de technologie, de technologische ontwikkeling, de wetenschappelijke ontdekking, de innovatie, de uitvinding, de duurzaamheid, de ecologische voetafdruk, de ethiek.",
+      "descriptionEn": "Pupils know the following concepts: interaction, science, technology, technological development, scientific discovery, innovation, invention, sustainability, ecological footprint, ethics."
+    },
+    {
+      "code": "L6-3.7.2",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kunnen uitdrukken dat gevolgen van wetenschappen en technologie op zichzelf, anderen, het milieu en de maatschappij, zowel op korte als op lange termijn, positief, negatief of onzeker kunnen zijn.",
+      "descriptionEn": "Pupils can express that the consequences of science and technology for themselves, others, the environment and society, in both the short and the long term, can be positive, negative or uncertain."
+    },
+    {
+      "code": "L6-3.7.3",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kennen de volgende begrippen: herstellen, onderhouden.",
+      "descriptionEn": "Pupils know the following concepts: repairing, maintaining."
+    },
+    {
+      "code": "L6-3.7.4",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kennen basisgereedschap voor basisonderhoud en herstellingen.",
+      "descriptionEn": "Pupils know basic tools for basic maintenance and repairs."
+    },
+    {
+      "code": "L6-3.7.5",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kennen het belang van het onderhouden en herstellen van technische systemen.",
+      "descriptionEn": "Pupils know the importance of maintaining and repairing technical systems."
+    },
+    {
+      "code": "L6-3.7.6",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kunnen basisonderhoud en kleine herstellingen uitvoeren. (bv. fietsband plakken, batterij vervangen)",
+      "descriptionEn": "Pupils can carry out basic maintenance and small repairs. (e.g. patching a bicycle tyre, replacing a battery)"
+    },
+    {
+      "code": "L6-3.7.7",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kennen de volgende begrippen: het tandwiel, de riem, de ketting, de hefboom, de katrol, het technische systeem, de vormgeving, het design.",
+      "descriptionEn": "Pupils know the following concepts: gear (gearwheel), belt, chain, lever, pulley, technical system, form, design."
+    },
+    {
+      "code": "L6-3.7.8",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kennen belangrijke mechanische overbrengingen: tandwielen, riemen en kettingen, hefbomen, katrollen.",
+      "descriptionEn": "Pupils know important mechanical transmissions: gears, belts and chains, levers, pulleys."
+    },
+    {
+      "code": "L6-3.7.9",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kennen de werking van technische systemen op basis van kennis over natuurkundige verschijnselen.",
+      "descriptionEn": "Pupils know how technical systems work on the basis of knowledge of physical phenomena."
+    },
+    {
+      "code": "L6-3.7.10",
+      "category": "Technologie",
+      "categoryEn": "Technology",
+      "description": "De leerlingen kunnen de werking, de bouw en de materiaalkeuze van technische systemen analyseren en beschrijven.",
+      "descriptionEn": "Pupils can analyse and describe how technical systems work, how they are built and the choice of materials."
+    }
+  ]
+}

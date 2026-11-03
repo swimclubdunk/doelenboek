@@ -151,6 +151,34 @@
       "descriptionEn": "Preschoolers can suggest ideas for a text based on given content, their own experiences or creative ideas."
     },
     {
+      "code": "1.3.1",
+      "category": "Luisterbegrip",
+      "categoryEn": "Listening comprehension",
+      "description": "De kleuters kunnen met aandacht luisteren.",
+      "descriptionEn": "Preschoolers can listen attentively."
+    },
+    {
+      "code": "1.3.2",
+      "category": "Luisterbegrip",
+      "categoryEn": "Listening comprehension",
+      "description": "De kleuters kunnen gepast reageren op vragen en instructies.",
+      "descriptionEn": "Preschoolers can respond appropriately to questions and instructions."
+    },
+    {
+      "code": "1.3.3",
+      "category": "Luisterbegrip",
+      "categoryEn": "Listening comprehension",
+      "description": "De kleuters kunnen vragen stellen om meer informatie te krijgen en om te controleren of ze de boodschap begrepen hebben.",
+      "descriptionEn": "Preschoolers can ask questions to get more information and to check whether they have understood the message."
+    },
+    {
+      "code": "1.3.4",
+      "category": "Luisterbegrip",
+      "categoryEn": "Listening comprehension",
+      "description": "De kleuters kunnen op een voorgelezen verhaal reageren door voorspellingen te maken, vragen te stellen of verbanden te leggen met hun vakspecifieke kennis en voorkennis.",
+      "descriptionEn": "Preschoolers can respond to a story read aloud to them by making predictions, asking questions or making connections with their subject knowledge and prior knowledge."
+    },
+    {
       "code": "1.3.5",
       "category": "Mondeling taalgebruik",
       "categoryEn": "Spoken language",
@@ -184,6 +212,90 @@
       "categoryEn": "Spoken language",
       "description": "De kleuters kunnen actief deelnemen aan mondelinge interactievormen zoals kringgesprekken, samen spelen, gesprekken met gekende volwassenen en hierbij de volgende interactiestrategieën toepassen: \n- Op een gepaste manier het woord nemen en vragen.\n- Elkaar laten uitspreken.\n- Inspelen op wat anderen zeggen.\n- Standaardformules gebruiken bij het groeten, aanspreken, bedanken en vragen.",
       "descriptionEn": "Preschoolers can take an active part in spoken interaction such as circle time, playing together and conversations with familiar adults, using these interaction strategies:\n- Taking a turn to speak and asking questions in an appropriate way.\n- Letting each other finish.\n- Responding to what others say.\n- Using standard phrases for greeting, addressing someone, thanking and asking."
+    },
+    {
+      "code": "1.4.1",
+      "category": "Woordenschat",
+      "categoryEn": "Vocabulary",
+      "description": "De kleuters kunnen basiswoordenschat en eenvoudige betekenisrelaties inzetten met betrekking tot de leefomgeving en de school.",
+      "descriptionEn": "Preschoolers can use basic vocabulary and simple relationships between word meanings about their surroundings and school."
+    },
+    {
+      "code": "1.4.2",
+      "category": "Woordenschat",
+      "categoryEn": "Vocabulary",
+      "description": "De kleuters kunnen aangeboden inhoudelijke en functionele school- en instructietaal inzetten binnen de context van de activiteiten en hun vakspecifieke kennis, voorkennis en ervaring.",
+      "descriptionEn": "Preschoolers can use the content-related and functional school and instruction language they are taught, within the context of the activities and their subject knowledge, prior knowledge and experience."
+    },
+    {
+      "code": "1.4.3",
+      "category": "Woordenschat",
+      "categoryEn": "Vocabulary",
+      "description": "De kleuters kunnen onder begeleiding hun woordenschat uitbreiden.",
+      "descriptionEn": "Preschoolers can expand their vocabulary with guidance."
+    },
+    {
+      "code": "1.4.4",
+      "category": "Taalsysteem",
+      "categoryEn": "Language system",
+      "description": "De kleuters kennen woord, woorddeel, klankgroep, rijm, klank, letter.",
+      "descriptionEn": "Preschoolers know the terms word, part of a word, sound group, rhyme, sound and letter."
+    },
+    {
+      "code": "1.4.5",
+      "category": "Taalsysteem",
+      "categoryEn": "Language system",
+      "description": "De kleuters kunnen basiselementen van het taalsysteem toepassen in taal(spel): klanken, klankgroepen, rijm, letter- en cijfersymbolen, klanktekenkoppeling, woorden.",
+      "descriptionEn": "Preschoolers can apply basic elements of the language system in language (games): sounds, sound groups, rhyme, letter and number symbols, letter-sound correspondence, words."
+    },
+    {
+      "code": "1.4.6",
+      "category": "Taalgebruik en taalwetenschap",
+      "categoryEn": "Language use and linguistics",
+      "description": "De kleuters weten dat taal non-verbale en verbale elementen inhoudt.",
+      "descriptionEn": "Preschoolers know that language has non-verbal and verbal elements."
+    },
+    {
+      "code": "1.4.7",
+      "category": "Taalgebruik en taalwetenschap",
+      "categoryEn": "Language use and linguistics",
+      "description": "De kleuters weten dat er verschillende taalvariëteiten en verschillende talen zijn.",
+      "descriptionEn": "Preschoolers know that there are different varieties of a language and different languages."
+    },
+    {
+      "code": "1.5.1",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De kleuters kennen auteur, illustrator, titel, kaft.",
+      "descriptionEn": "Preschoolers know the terms author, illustrator, title and cover."
+    },
+    {
+      "code": "1.5.2",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De kleuters kunnen gedachten of gevoelens verwoorden bij het in contact komen met bekroonde jeugdliteratuur, zowel fictie als non-fictie. (bv. de Boon voor Jeugdliteratuur, de Gouden Griffel, de Kinderjury Nederland, de Leesjury Vlaanderen, de Woutertje Pieterse Prijs)",
+      "descriptionEn": "Preschoolers can put thoughts or feelings into words when they come into contact with award-winning children's literature, both fiction and non-fiction (e.g. the Boon voor Jeugdliteratuur, the Gouden Griffel, the Kinderjury Nederland, the Leesjury Vlaanderen, the Woutertje Pieterse Prijs)."
+    },
+    {
+      "code": "1.5.3",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De kleuters kunnen een eigen voorkeur tonen voor bepaalde verhalen of personages.",
+      "descriptionEn": "Preschoolers can show their own preference for certain stories or characters."
+    },
+    {
+      "code": "1.5.4",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De kleuters kunnen in eigen woorden de kern van een prentenboek navertellen met ondersteuning van beelden of symbolen.",
+      "descriptionEn": "Preschoolers can retell the gist of a picture book in their own words, supported by pictures or symbols."
+    },
+    {
+      "code": "1.5.5",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De kleuters kunnen experimenteren met taal en verhalen via spreken, tekenen en eenvoudige spelvormen.",
+      "descriptionEn": "Preschoolers can experiment with language and stories through speaking, drawing and simple games."
     }
   ]
 }

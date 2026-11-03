@@ -1,0 +1,553 @@
+{
+  "subject": "MV",
+  "name": "Muzische vorming",
+  "nameEn": "Arts education",
+  "doelen": [
+    {
+      "code": "L4-6.1.1",
+      "category": "Domeinoverschrijdend",
+      "categoryEn": "Across domains",
+      "description": "De leerlingen kunnen het onderwerp, de bedoeling en hun eigen interpretatie van een artistieke en een muzische creatie verwoorden.",
+      "descriptionEn": "Pupils can put into words the subject, the intention and their own interpretation of an artistic and an arts creation."
+    },
+    {
+      "code": "L4-6.1.2",
+      "category": "Domeinoverschrijdend",
+      "categoryEn": "Across domains",
+      "description": "De leerlingen kunnen enkele kunststromingen en artistieke creaties verkennen: muziek: artistieke creaties van componisten (bv. Vivaldi, Mozart, Beethoven, Louis Armstrong, Nina Simone, The Beatles, Hildegard van Bingen); muziekstijlen (bv. klassieke muziek, pop, rock). beeld: artistieke creaties van beeldende kunstenaars (bv. Bosch, Van Gogh, Permeke, Kahlo, Magritte, Picasso, Victor Horta, Hyungkoo Lee); kunststromingen (bv. prehistorische kunst, kunst uit de oudheid, Arabische kunst, Europese schilderkunst en bouwkunst). drama: artistieke creaties (bv. de sprookjes van de gebroeders Grimm en Hans C. Andersen, de Griekse mythen); genres (bv. rollenspel, situatiespel, hoorspel, poppentheater, komedie, straattheater). dans: artistieke creaties van choreografen (bv. Sidi Larbi Cherkaoui, Evelien Maes, Igor Vrebac, Isabelle Beernaert); dansstijlen (bv. hip hop, ballet, jazzdans, volksdans). media: artistieke creaties van audiovisuele kunstenaars (bv. de gebroeders Lumière, Bill Viola, Pipilotti Rist, Spielberg, Adil El Arbi en Bilall Fallah); kunststromingen (bv. vroege fotografie, pop art, de stomme film).",
+      "descriptionEn": "Pupils can explore a few art movements and artistic creations: music: artistic creations by composers (e.g. Vivaldi, Mozart, Beethoven, Louis Armstrong, Nina Simone, The Beatles, Hildegard van Bingen); music styles (e.g. classical music, pop, rock). visual art: artistic creations by visual artists (e.g. Bosch, Van Gogh, Permeke, Kahlo, Magritte, Picasso, Victor Horta, Hyungkoo Lee); art movements (e.g. prehistoric art, art from antiquity, Arabic art, European painting and architecture). drama: artistic creations (e.g. the fairy tales of the Brothers Grimm and Hans C. Andersen, the Greek myths); genres (e.g. role play, situational play, radio play, puppet theatre, comedy, street theatre). dance: artistic creations by choreographers (e.g. Sidi Larbi Cherkaoui, Evelien Maes, Igor Vrebac, Isabelle Beernaert); dance styles (e.g. hip hop, ballet, jazz dance, folk dance). media: artistic creations by audiovisual artists (e.g. the Lumière brothers, Bill Viola, Pipilotti Rist, Spielberg, Adil El Arbi and Bilall Fallah); art movements (e.g. early photography, pop art, silent film)."
+    },
+    {
+      "code": "L4-6.1.3",
+      "category": "Domeinoverschrijdend",
+      "categoryEn": "Across domains",
+      "description": "De leerlingen kunnen technieken/vaardigheden van de vijf muzische domeinen gebruiken.",
+      "descriptionEn": "Pupils can use techniques and skills from the five arts domains."
+    },
+    {
+      "code": "L4-6.1.4",
+      "category": "Domeinoverschrijdend",
+      "categoryEn": "Across domains",
+      "description": "De leerlingen kunnen vormgevingsmiddelen van de vijf muzische domeinen gebruiken: muziek: de woodblock, de toeter, de sleebel, de boomwhackers, de xylofoon; beeld: de graffiti, de waterverf, de plakkaatverf, de houtskool, de natuurklei; drama: het poppenspel, het schimmenspel; dans: de volksdans, het dansverhaal; media: de schijnwerper, de opnameapparatuur.",
+      "descriptionEn": "Pupils can use the materials of the five arts domains: music: the woodblock, the horn, the sleigh bells, the boomwhackers, the xylophone; visual art: graffiti, watercolour, poster paint, charcoal, natural clay; drama: puppetry, shadow play; dance: folk dance, the dance story; media: the spotlight, recording equipment."
+    },
+    {
+      "code": "L4-6.2.1",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kennen de volgende begrippen: het versnellen, het vertragen, de toonhoogte, de strofe, het refrein.",
+      "descriptionEn": "Pupils know these concepts: speeding up, slowing down, pitch, the verse, the chorus."
+    },
+    {
+      "code": "L4-6.2.2",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kunnen het metrum en ritmepatronen onderscheiden.",
+      "descriptionEn": "Pupils can tell apart metre and rhythm patterns."
+    },
+    {
+      "code": "L4-6.2.3",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kunnen variaties in tempo herkennen.",
+      "descriptionEn": "Pupils can recognise variations in tempo."
+    },
+    {
+      "code": "L4-6.2.4",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kunnen variaties in dynamiek herkennen en gebruiken.",
+      "descriptionEn": "Pupils can recognise and use variations in dynamics."
+    },
+    {
+      "code": "L4-6.2.5",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kunnen herhaling en contrast herkennen.",
+      "descriptionEn": "Pupils can recognise repetition and contrast."
+    },
+    {
+      "code": "L4-6.2.6",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kennen de volgende begrippen: de woodblock, de toeter, de sleebel, de boomwhackers, de xylofoon.",
+      "descriptionEn": "Pupils know these concepts: the woodblock, the horn, the sleigh bells, the boomwhackers, the xylophone."
+    },
+    {
+      "code": "L4-6.3.1",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kennen de volgende begrippen: primaire en secundaire kleuren, koude en warme kleuren, de schaduw, de diepte, de lichtbron, de horizon, het contrast, het accent, de beeldhouwer.",
+      "descriptionEn": "Pupils know these concepts: primary and secondary colours, cool and warm colours, the shadow, depth, the light source, the horizon, contrast, the accent, the sculptor."
+    },
+    {
+      "code": "L4-6.3.2",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen figuren weergeven met omtreklijnen.",
+      "descriptionEn": "Pupils can draw figures using outlines."
+    },
+    {
+      "code": "L4-6.3.3",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen stofuitdrukking in het beeldend werk weergeven. (bv. de schubben van een vis weergeven)",
+      "descriptionEn": "Pupils can show the texture of materials in their artwork. (e.g. showing the scales of a fish)"
+    },
+    {
+      "code": "L4-6.3.4",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen kleurnuance en contrast aanbrengen met behulp van primaire en secundaire kleuren.",
+      "descriptionEn": "Pupils can add colour nuance and contrast using primary and secondary colours."
+    },
+    {
+      "code": "L4-6.3.5",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen soorten licht, lichtrichting en schaduw benoemen en aanduiden.",
+      "descriptionEn": "Pupils can name and point out types of light, the direction of light and shadow."
+    },
+    {
+      "code": "L4-6.3.6",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen effecten van ordeningswijzen in composities herkennen.",
+      "descriptionEn": "Pupils can recognise the effects of different ways of arranging a composition."
+    },
+    {
+      "code": "L4-6.3.7",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen standpunt en horizon gebruiken.",
+      "descriptionEn": "Pupils can use viewpoint and horizon."
+    },
+    {
+      "code": "L4-6.3.8",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kennen de volgende begrippen: de graffiti, de waterverf, de plakkaatverf, de houtskool, de natuurklei.",
+      "descriptionEn": "Pupils know these concepts: graffiti, watercolour, poster paint, charcoal, natural clay."
+    },
+    {
+      "code": "L4-6.4.1",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kennen de volgende begrippen: het personage, tot leven laten komen, de tegenspeler, de toneelschrijver, drama, de mime, de scène, het script, de mimiek, de rekwisieten, de belichting.",
+      "descriptionEn": "Pupils know these concepts: the character, bringing to life, the scene partner, the playwright, drama, mime, the scene, the script, facial expression, the props, the lighting."
+    },
+    {
+      "code": "L4-6.4.2",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kunnen zich inleven in een personage en de rol vasthouden.",
+      "descriptionEn": "Pupils can empathise with a character and stay in role."
+    },
+    {
+      "code": "L4-6.4.3",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kunnen lichaamstaal gebruiken.",
+      "descriptionEn": "Pupils can use body language."
+    },
+    {
+      "code": "L4-6.4.4",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kunnen zich richten naar en rekening houden met het publiek tijdens het spelen.",
+      "descriptionEn": "Pupils can play towards the audience and take it into account while performing."
+    },
+    {
+      "code": "L4-6.4.5",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kunnen op het juiste moment inspelen op de ander.",
+      "descriptionEn": "Pupils can respond to the other actor at the right moment."
+    },
+    {
+      "code": "L4-6.4.6",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kennen de volgende begrippen: het poppenspel, het schimmenspel.",
+      "descriptionEn": "Pupils know these concepts: puppetry, shadow play."
+    },
+    {
+      "code": "L4-6.5.1",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kennen de volgende begrippen: de volgorde, solo, duo, de plaats in de ruimte, versnellen en vertragen.",
+      "descriptionEn": "Pupils know these concepts: the order, solo, duet, the position in the space, speeding up and slowing down."
+    },
+    {
+      "code": "L4-6.5.2",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kunnen ritmische bewegingen versnellen en vertragen.",
+      "descriptionEn": "Pupils can speed up and slow down rhythmic movements."
+    },
+    {
+      "code": "L4-6.5.3",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kunnen in een specifieke opstelling dansen.",
+      "descriptionEn": "Pupils can dance in a specific formation."
+    },
+    {
+      "code": "L4-6.5.4",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kunnen zelf bewegingszinnen ontwerpen en uitvoeren.",
+      "descriptionEn": "Pupils can design and perform their own movement sequences."
+    },
+    {
+      "code": "L4-6.5.5",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kunnen synchroon dansen.",
+      "descriptionEn": "Pupils can dance in sync."
+    },
+    {
+      "code": "L4-6.5.6",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kunnen dansen vanuit een specifieke spierspanning.",
+      "descriptionEn": "Pupils can dance with a specific muscle tension."
+    },
+    {
+      "code": "L4-6.5.7",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kunnen bewegingen vergroten, verkleinen en vervormen.",
+      "descriptionEn": "Pupils can make movements bigger, smaller and change their shape."
+    },
+    {
+      "code": "L4-6.5.8",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kennen de volgende begrippen: de volksdans, het dansverhaal.",
+      "descriptionEn": "Pupils know these concepts: folk dance, the dance story."
+    },
+    {
+      "code": "L4-6.6.1",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kennen de volgende begrippen: de geluidsbron, het voor- en achtergrond geluid, de animatie, het warm en koud licht, het storyboard; monteren, scherpstellen.",
+      "descriptionEn": "Pupils know these concepts: the sound source, foreground and background sound, animation, warm and cool light, the storyboard; editing, focusing."
+    },
+    {
+      "code": "L4-6.6.2",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kunnen geluid vervormen.",
+      "descriptionEn": "Pupils can distort sound."
+    },
+    {
+      "code": "L4-6.6.3",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kunnen de meest geschikte lichtbron en lichtrichting bepalen.",
+      "descriptionEn": "Pupils can decide on the most suitable light source and direction of light."
+    },
+    {
+      "code": "L4-6.6.4",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kunnen diepte in het beeld creëren.",
+      "descriptionEn": "Pupils can create depth in the image."
+    },
+    {
+      "code": "L4-6.6.5",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kunnen de plaats van een beeld en geluid in een verhaal bepalen.",
+      "descriptionEn": "Pupils can decide where an image and a sound belong in a story."
+    },
+    {
+      "code": "L4-6.6.6",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kennen de volgende begrippen: de schijnwerper, de opnameapparatuur.",
+      "descriptionEn": "Pupils know these concepts: the spotlight, recording equipment."
+    },
+    {
+      "code": "L6-6.1.1",
+      "category": "Domeinoverschrijdend",
+      "categoryEn": "Across domains",
+      "description": "De leerlingen kunnen de geografische, historische en maatschappelijke context van een artistieke creatie beschrijven.",
+      "descriptionEn": "Pupils can describe the geographical, historical and social context of an artistic creation."
+    },
+    {
+      "code": "L6-6.1.2",
+      "category": "Domeinoverschrijdend",
+      "categoryEn": "Across domains",
+      "description": "De leerlingen kunnen enkele kunststromingen en artistieke creaties verkennen: muziek: artistieke creaties van componisten (bv. Bach, Saint-Saëns, Clara Schumann, Stravinsky, Bernstein, Queen, Stromae, Buena Vista Social Club); muziekstijlen (bv. folk, country, blues, jazz). beeld: artistieke creaties van beeldende kunstenaars (bv. Bruegel, Rubens, Delvoye, Berlinde De Bruyckere, Rodin, Zaha Hadid, Banksy); kunststromingen (bv. Afrikaanse kunst, beeldhouwkunst, hedendaagse kunst). drama: artistieke creaties (bv. volksverhalen, legendes en sagen); genres (bv. tragedie, pantomime, opera, improvisatietheater, slam poetry). dans: artistieke creaties van choreografen (bv. Anna Teresa De Keersmaeker, Pina Bausch, Ish Ait Hamou); dansstijlen (bv. breakdance, wals, tango, moderne dans). media: artistieke creaties van audiovisuele kunstenaars (bv. Henri Cartier Bresson, Marina Abramovic, Hans Op de Beeck, Marie-Jo Lafontaine); kunststromingen (bv. performance art, conceptuele kunst, surrealisme).",
+      "descriptionEn": "Pupils can explore a few art movements and artistic creations: music: artistic creations by composers (e.g. Bach, Saint-Saëns, Clara Schumann, Stravinsky, Bernstein, Queen, Stromae, Buena Vista Social Club); music styles (e.g. folk, country, blues, jazz). visual art: artistic creations by visual artists (e.g. Bruegel, Rubens, Delvoye, Berlinde De Bruyckere, Rodin, Zaha Hadid, Banksy); art movements (e.g. African art, sculpture, contemporary art). drama: artistic creations (e.g. folk tales, legends and sagas); genres (e.g. tragedy, pantomime, opera, improv theatre, slam poetry). dance: artistic creations by choreographers (e.g. Anna Teresa De Keersmaeker, Pina Bausch, Ish Ait Hamou); dance styles (e.g. breakdance, waltz, tango, modern dance). media: artistic creations by audiovisual artists (e.g. Henri Cartier Bresson, Marina Abramovic, Hans Op de Beeck, Marie-Jo Lafontaine); art movements (e.g. performance art, conceptual art, surrealism)."
+    },
+    {
+      "code": "L6-6.1.3",
+      "category": "Domeinoverschrijdend",
+      "categoryEn": "Across domains",
+      "description": "De leerlingen kunnen technieken/vaardigheden van de vijf muzische domeinen toepassen.",
+      "descriptionEn": "Pupils can apply techniques and skills from the five arts domains."
+    },
+    {
+      "code": "L6-6.1.4",
+      "category": "Domeinoverschrijdend",
+      "categoryEn": "Across domains",
+      "description": "De leerlingen kunnen vormgevingsmiddelen van de vijf muzische domeinen toepassen: muziek: de grafische partituur, de koebel, de Orff-instrumenten; beeld: de optische illusie, beeldhouwen; drama: het rollenspel, de theatertekst, improviseren; dans: de wals, de tango, de moderne dans, de hiphop, de breakdance; media: de audiosoftware, de beeldbewerkingssoftware.",
+      "descriptionEn": "Pupils can apply the materials of the five arts domains: music: the graphic score, the cowbell, the Orff instruments; visual art: the optical illusion, sculpting; drama: role play, the play script, improvising; dance: the waltz, the tango, modern dance, hip hop, breakdance; media: audio software, image editing software."
+    },
+    {
+      "code": "L6-6.2.1",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kennen de volgende begrippen: een canon, de melodische lijn, het motief, de solo, het ensemble, de componist.",
+      "descriptionEn": "Pupils know these concepts: a round (canon), the melodic line, the motif, the solo, the ensemble, the composer."
+    },
+    {
+      "code": "L6-6.2.2",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kennen de bouwstenen van muziek: ritme, tempo, dynamiek, structuur/vorm, klankkleur, samenklank.",
+      "descriptionEn": "Pupils know the building blocks of music: rhythm, tempo, dynamics, structure/form, timbre, harmony."
+    },
+    {
+      "code": "L6-6.2.3",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kunnen variaties in tempo, versnellen/vertragen, onderbreken uitvoeren.",
+      "descriptionEn": "Pupils can perform variations in tempo, speeding up/slowing down, pausing."
+    },
+    {
+      "code": "L6-6.2.4",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kunnen meerstemmige melodieën met aangepast stembereik zingen.",
+      "descriptionEn": "Pupils can sing melodies in parts within a suitable vocal range."
+    },
+    {
+      "code": "L6-6.2.5",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kunnen variaties in dynamiek toepassen.",
+      "descriptionEn": "Pupils can apply variations in dynamics."
+    },
+    {
+      "code": "L6-6.2.6",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kunnen eenvoudige muziekvormen herkennen. (bv. herkennen van een rondo-vorm)",
+      "descriptionEn": "Pupils can recognise simple musical forms. (e.g. recognising a rondo form)"
+    },
+    {
+      "code": "L6-6.2.7",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kunnen families van instrumenten onderscheiden.",
+      "descriptionEn": "Pupils can tell apart families of instruments."
+    },
+    {
+      "code": "L6-6.2.8",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kunnen samenklank herkennen.",
+      "descriptionEn": "Pupils can recognise harmony."
+    },
+    {
+      "code": "L6-6.2.9",
+      "category": "Muziek",
+      "categoryEn": "Music",
+      "description": "De leerlingen kennen de volgende begrippen: musiceren; de grafische partituur, de koebel, de Orff-instrumenten.",
+      "descriptionEn": "Pupils know these concepts: making music; the graphic score, the cowbell, the Orff instruments."
+    },
+    {
+      "code": "L6-6.3.1",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kennen de volgende begrippen: tertiaire en complementaire kleuren, signaal- en camouflagekleuren, het silhouet, het perspectief, kleurtinten en kleurtonen, driedimensionale vormen, de architect.",
+      "descriptionEn": "Pupils know these concepts: tertiary and complementary colours, signal and camouflage colours, the silhouette, perspective, tints and shades, three-dimensional shapes, the architect."
+    },
+    {
+      "code": "L6-6.3.2",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kennen de bouwstenen van beeld: ruimte, kleur, licht, textuur, vorm, compositie, lijn.",
+      "descriptionEn": "Pupils know the building blocks of visual art: space, colour, light, texture, form, composition, line."
+    },
+    {
+      "code": "L6-6.3.3",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen met lijnstructuren en arcering een beeld maken.",
+      "descriptionEn": "Pupils can make an image using line structures and hatching."
+    },
+    {
+      "code": "L6-6.3.4",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen de betekenis van kleuren, toon- en tintwaarden benoemen en gebruiken.",
+      "descriptionEn": "Pupils can name and use the meaning of colours, tones and tints."
+    },
+    {
+      "code": "L6-6.3.5",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen de functies en symboolwaarden van kleuren benoemen en gebruiken.",
+      "descriptionEn": "Pupils can name and use the functions and symbolic meanings of colours."
+    },
+    {
+      "code": "L6-6.3.6",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen sfeer scheppen door middel van lichtrichting en schaduw.",
+      "descriptionEn": "Pupils can create a mood using the direction of light and shadow."
+    },
+    {
+      "code": "L6-6.3.7",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen vogel- en kikkerperspectief gebruiken.",
+      "descriptionEn": "Pupils can use bird's-eye and worm's-eye view."
+    },
+    {
+      "code": "L6-6.3.8",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kunnen ruimte-innemende, ruimte doorstekende en ruimte-omvattende creaties maken.",
+      "descriptionEn": "Pupils can make creations that occupy space, pierce space and enclose space."
+    },
+    {
+      "code": "L6-6.3.9",
+      "category": "Beeld",
+      "categoryEn": "Visual art",
+      "description": "De leerlingen kennen de volgende begrippen: de optische illusie, beeldhouwen.",
+      "descriptionEn": "Pupils know these concepts: the optical illusion, sculpting."
+    },
+    {
+      "code": "L6-6.4.1",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kennen de volgende begrippen: de monoloog, de dialoog, de tragedie, de komedie, de pantomime, het scenario, de regisseur.",
+      "descriptionEn": "Pupils know these concepts: the monologue, the dialogue, tragedy, comedy, pantomime, the scenario, the director."
+    },
+    {
+      "code": "L6-6.4.2",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kennen de bouwstenen van drama: rol, handeling/taal, ruimte, structuur, tijd, samenspel.",
+      "descriptionEn": "Pupils know the building blocks of drama: role, action/language, space, structure, time, interplay."
+    },
+    {
+      "code": "L6-6.4.3",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kunnen een personage geloofwaardig neerzetten.",
+      "descriptionEn": "Pupils can portray a character convincingly."
+    },
+    {
+      "code": "L6-6.4.4",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kunnen een scenario ontwerpen.",
+      "descriptionEn": "Pupils can design a scenario."
+    },
+    {
+      "code": "L6-6.4.5",
+      "category": "Drama",
+      "categoryEn": "Drama",
+      "description": "De leerlingen kennen de volgende begrippen: het rollenspel, de theatertekst, improviseren.",
+      "descriptionEn": "Pupils know these concepts: role play, the play script, improvising."
+    },
+    {
+      "code": "L6-6.5.1",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kennen de volgende begrippen: de cadans, de spierspanning, dansstijlen, de choreografie, slow motion, het dansstuk, het evenwicht, opstellingen, synchroon, leiden en volgen.",
+      "descriptionEn": "Pupils know these concepts: the cadence, muscle tension, dance styles, the choreography, slow motion, the dance piece, balance, formations, in sync, leading and following."
+    },
+    {
+      "code": "L6-6.5.2",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kennen de bouwstenen van dans: tijd, vorm, kracht, relatie, ruimte en structuur.",
+      "descriptionEn": "Pupils know the building blocks of dance: time, form, force, relationship, space and structure."
+    },
+    {
+      "code": "L6-6.5.3",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kunnen de duurtijd van een beweging aanpassen.",
+      "descriptionEn": "Pupils can adjust the duration of a movement."
+    },
+    {
+      "code": "L6-6.5.4",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kunnen een frasering ontwerpen en uitvoeren rond een thema.",
+      "descriptionEn": "Pupils can design and perform a phrase around a theme."
+    },
+    {
+      "code": "L6-6.5.5",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kunnen op elkaar inspelen en elkaar volgen in een dans.",
+      "descriptionEn": "Pupils can respond to each other and follow each other in a dance."
+    },
+    {
+      "code": "L6-6.5.6",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kunnen bewegingen overdrijven.",
+      "descriptionEn": "Pupils can exaggerate movements."
+    },
+    {
+      "code": "L6-6.5.7",
+      "category": "Dans",
+      "categoryEn": "Dance",
+      "description": "De leerlingen kennen de volgende begrippen: de wals, de tango, de moderne dans, de hiphop, de breakdance.",
+      "descriptionEn": "Pupils know these concepts: the waltz, the tango, modern dance, hip hop, breakdance."
+    },
+    {
+      "code": "L6-6.6.1",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kennen de volgende begrippen: de sfeer, het camerastandpunt, het focuspunt.",
+      "descriptionEn": "Pupils know these concepts: the mood, the camera angle, the focal point."
+    },
+    {
+      "code": "L6-6.6.2",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kennen de bouwstenen van media: geluid, kader, licht, montage en beeldbewerking.",
+      "descriptionEn": "Pupils know the building blocks of media: sound, frame, light, editing and image editing."
+    },
+    {
+      "code": "L6-6.6.3",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kunnen effecten van belichting en samenspel tussen licht en donker toepassen in functie van de boodschap.",
+      "descriptionEn": "Pupils can apply the effects of lighting and the interplay between light and dark to suit the message."
+    },
+    {
+      "code": "L6-6.6.4",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kunnen verschillende camerastandpunten gebruiken in functie van het beoogde effect.",
+      "descriptionEn": "Pupils can use different camera angles to achieve the intended effect."
+    },
+    {
+      "code": "L6-6.6.5",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kunnen beelden en geluiden monteren in functie van de boodschap.",
+      "descriptionEn": "Pupils can edit images and sounds together to suit the message."
+    },
+    {
+      "code": "L6-6.6.6",
+      "category": "Media",
+      "categoryEn": "Media",
+      "description": "De leerlingen kennen de volgende begrippen: de audiosoftware, de beeldbewerkingssoftware.",
+      "descriptionEn": "Pupils know these concepts: audio software, image editing software."
+    }
+  ]
+}
