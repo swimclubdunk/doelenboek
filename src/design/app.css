@@ -105,16 +105,18 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 
 /* child cards */
 .child-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
-.child-card { display: grid; gap: 14px; padding: 16px; }
-.cc-head { display: flex; gap: 12px; align-items: center; }
+.child-card { display: grid; grid-template-rows: auto 1fr auto; gap: 14px; padding: 16px; }   /* footer at the bottom, so cards in a row line up */
+.cc-head { display: flex; gap: 12px; align-items: flex-start; }
 .cc-id { min-width: 0; flex: 1; }
 .cc-id h2 { overflow-wrap: anywhere; }
+.cc-tier { margin: 4px 0 3px; line-height: 1; }
+.cc-id .meta { min-height: 2lh; }   /* room for both lines (activities, last date), so every head is as tall */
 .meta { color: var(--muted); font-size: .84rem; }
 .cc-pct { text-align: right; display: grid; font-variant-numeric: tabular-nums; }
 .cc-pct strong { font-family: var(--f-display); font-size: 1.7rem; line-height: 1; }
 .cc-pct small { font-size: .9rem; color: var(--muted); }
 .cc-pct span { color: var(--muted); font-size: .76rem; }
-.bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; align-content: start; }
 .bars li { display: grid; grid-template-columns: minmax(0, 8.5rem) 1fr 3.4rem 2.4rem; gap: 10px; align-items: center; font-size: .84rem; }
 .bars li.none { color: var(--muted); }
 .b-lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

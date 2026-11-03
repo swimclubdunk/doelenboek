@@ -67,9 +67,9 @@ const SUBJ = Object.fromEntries(SUBJECTS.map((s, i) => [s.key, { ...s, i }]));
 /* Every child is in one tier, and every built-in goal belongs to one (goal.tier, set by tools/build.py):
    the kleuter goals, and the lager goals for the end of the 4th and of the 6th leerjaar. */
 const TIERS = [
-  { key: 'KO', name: { nl: 'Kleuter', en: 'Preschool' }, short: { nl: 'Kleuter', en: 'Preschool' }, badge: { nl: 'Kleuter', en: 'Preschool' }, ages: { nl: '± 2,5 – 6 jaar', en: '± 2.5 – 6 years' } },
-  { key: 'L4', name: { nl: 'Lager · leerjaar 1 – 4', en: 'Primary · years 1 – 4' }, short: { nl: 'Lj. 1–4', en: 'Years 1–4' }, badge: { nl: 'Lager · lj. 1–4', en: 'Primary · yrs 1–4' }, ages: { nl: '± 6 – 10 jaar', en: '± 6 – 10 years' } },
-  { key: 'L6', name: { nl: 'Lager · leerjaar 5 – 6', en: 'Primary · years 5 – 6' }, short: { nl: 'Lj. 5–6', en: 'Years 5–6' }, badge: { nl: 'Lager · lj. 5–6', en: 'Primary · yrs 5–6' }, ages: { nl: '± 10 – 12 jaar', en: '± 10 – 12 years' } },
+  { key: 'KO', name: { nl: 'Kleuter', en: 'Preschool' }, short: { nl: 'Kleuter', en: 'Preschool' }, badge: { nl: 'Kleuter', en: 'Preschool' }, ages: { nl: '2-6 jaar', en: '2-6 years' } },
+  { key: 'L4', name: { nl: 'Lager Leerjaar 1-4', en: 'Primary Year 1-4' }, short: { nl: 'Lj. 1–4', en: 'Years 1–4' }, badge: { nl: 'Lager LJ 1-4', en: 'Primary YR 1-4' }, ages: { nl: '6-10 jaar', en: '6-10 years' } },
+  { key: 'L6', name: { nl: 'Lager Leerjaar 5-6', en: 'Primary Year 5-6' }, short: { nl: 'Lj. 5–6', en: 'Years 5–6' }, badge: { nl: 'Lager LJ 5-6', en: 'Primary YR 5-6' }, ages: { nl: '10-12 jaar', en: '10-12 years' } },
 ];
 const TIER = Object.fromEntries(TIERS.map((x, i) => [x.key, { ...x, i }]));
 const DEFAULT_TIER = 'KO';
@@ -669,7 +669,7 @@ function viewOverview(cov) {
     const per = countBySubject(mast), touches = touchesBySubject(inTier(cov.get(c.id) || new Map(), tier));
     return `<article class="card child-card">
       <header class="cc-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
-        <div class="cc-id"><h2>${esc(c.name)} ${tierBadge(c)}</h2><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? '<br>' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
+        <div class="cc-id"><h2>${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? '<br>' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
         <div class="cc-pct"><strong>${mast.size}<small>/${sumValues(totals)}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
       <ul class="bars">${SUBJECTS.filter(s => totals[s.key]).map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key], touches[s.key] || 0)).join('')}</ul>
       <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w cc-edit" data-action="edit-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_edit_h'))}" title="${esc(t('child_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost w cc-del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></footer>
