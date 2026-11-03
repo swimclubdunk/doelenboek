@@ -791,11 +791,16 @@ function viewActivities() {
 
 /* The goals tab opens on the children's tier, or on all goals when they are in different tiers. */
 function defaultGoalTier() { const ts = new Set(sortedChildren().map(tierOf)); return ts.size === 1 ? [...ts][0] : ts.size ? 'all' : DEFAULT_TIER; }
+/* The subjects the goals tab offers as filters: those with goals in its tier (Frans only in leerjaar 5-6). */
+function goalTabSubjects() {
+  const tier = ui.goalTier || defaultGoalTier();
+  return SUBJECTS.filter(s => [...data.goals.values()].some(g => g.subject === s.key && (tier === 'all' || g.tier === tier))).map(s => s.key);
+}
 function viewGoals(cov) {
-  const tier = ui.goalTier || defaultGoalTier(), mixed = tier === 'all';
+  const tier = ui.goalTier || defaultGoalTier(), mixed = tier === 'all', shownSubj = goalTabSubjects();
   const all = sortedGoals().filter(g => mixed || g.tier === tier), q = norm(ui.goalSearch), kids = sortedChildren();
   const list = all.filter(g => ui.goalSubj.has(g.subject) && (!q || norm(searchText(g)).includes(q)));
-  const allOn = ui.goalSubj.size === SUBJECTS.length;
+  const allOn = shownSubj.every(k => ui.goalSubj.has(k));
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.</p></div></section>`;
   h += `<div class="toolbar">
@@ -803,7 +808,7 @@ function viewGoals(cov) {
       <input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
     <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
       <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${bt('all_subjects')}</button>
-      ${SUBJECTS.filter(s => all.some(g => g.subject === s.key)).map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${bName(s.key)}</button>`).join('')}
+      ${SUBJECTS.filter(s => shownSubj.includes(s.key)).map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${bName(s.key)}</button>`).join('')}
     </div>
     <p class="count-line">${esc(t('count_line', list.length, all.length, kids.length))}</p>`;
   const MAX = 400;
@@ -1222,7 +1227,7 @@ main.addEventListener('click', e => {
     case 'migrate': return migrateLocal(b);
     case 'migrate-skip': return markMigrated();
     case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
-    case 'goal-filter-all': ui.goalSubj = ui.goalSubj.size === SUBJECTS.length ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
+    case 'goal-filter-all': ui.goalSubj = goalTabSubjects().every(k => ui.goalSubj.has(k)) ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
   }
 });
 /* Hover previews for photo thumbnails and goal codes; any mouse move off the element closes them. */
