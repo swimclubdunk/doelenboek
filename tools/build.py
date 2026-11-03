@@ -4,7 +4,7 @@ Usage: build.py SRC.html OUT.html [FIREBASE_CONFIG.json]
 - the stylesheets SRC links to (design/*.css, core.css) are inlined
 - the animal drawings in design/animals/ become <symbol>s in the page
 - the favicon comes from design/favicon.svg
-- the built-in goals come from doelen/*.json
+- the built-in goals come from doelen/*.json (kleuter) and doelen-lager/*.json (lager onderwijs)
 - the font files in design/fonts/ are copied to fonts/ next to OUT.html
 - the public pages, robots.txt, sitemap.xml and llms.txt are written next to OUT.html (see public.py)"""
 import sys, json, re, shutil
@@ -16,6 +16,10 @@ import public  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DOELEN_DIR = ROOT / 'doelen'
+LAGER_DIR = ROOT / 'doelen-lager'
+# Each goal belongs to one tier: KO for kleuter, L4/L6 for the goals at the end of the 4th/6th leerjaar.
+# The lager codes carry their tier as a prefix (L4-2.1.1); the app shows the code without it.
+LAGER_TIERS = ('L4', 'L6')
 GOAL_FIELDS = {'code', 'category', 'categoryEn', 'description', 'descriptionEn'}
 
 
@@ -28,10 +32,14 @@ def fail(where, msg):
 
 
 def load_goals(subject_keys):
-    """Read every doelen/*.json file and return the goals in the shape the app expects.
+    """Read every doelen/*.json and doelen-lager/*.json file and return the goals in the shape the app expects.
     Stops with a readable message on the first mistake, so a hand edit can't break the app."""
+    return load_goal_dir(DOELEN_DIR, subject_keys, lager=False) + load_goal_dir(LAGER_DIR, subject_keys, lager=True)
+
+
+def load_goal_dir(doelen_dir, subject_keys, lager):
     goals, seen_subjects = [], {}
-    for path in sorted(DOELEN_DIR.glob('*.json')):
+    for path in sorted(doelen_dir.glob('*.json')):
         where = path.relative_to(ROOT)
         try:
             doc = json.loads(path.read_text(encoding='utf-8'))
@@ -64,7 +72,12 @@ def load_goals(subject_keys):
             if code in codes:
                 fail(where, f'code {code} appears twice')
             codes.add(code)
-            goals.append({'id': f'b-{subject}-{code}', 'subject': subject, **{k: v.strip() if k == 'code' else v for k, v in g.items()}})
+            tier, shown = 'KO', code
+            if lager:
+                tier, _, shown = code.partition('-')
+                if tier not in LAGER_TIERS or not shown:
+                    fail(where, f'{goal}: a lager code must start with {" or ".join(t + "-" for t in LAGER_TIERS)}')
+            goals.append({'id': f'b-{subject}-{code}', 'subject': subject, 'tier': tier, **g, 'code': shown})
     return goals
 
 

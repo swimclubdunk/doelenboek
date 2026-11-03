@@ -45,7 +45,7 @@ Start here: most of the look comes from these values, and every screen uses them
 | `--line` | borders and dividers |
 | `--accent`, `--accent-fg` | primary buttons, active tab, links; text on top of the accent |
 | `--danger`, `--ok`, `--warn-bg`, `--warn-fg` | delete and errors; "connected"; notices |
-| `--s-nl`, `--s-wk`, `--s-wt`, `--s-ge`, `--s-ak`, `--s-mv`, `--s-lo`, `--s-at` | one colour per subject (bars, dots, goal codes) |
+| `--s-nl`, `--s-wk`, `--s-wt`, `--s-ge`, `--s-ak`, `--s-mv`, `--s-lo`, `--s-at`, `--s-fr`, `--s-ic` | one colour per subject (bars, dots, goal codes) |
 | `--f-display`, `--f-body`, `--f-mono` | headings; everything else; goal codes and numbers |
 | `--r`, `--r-sm` | corner radius of cards, dialogs and pop-ups; of small controls (buttons, fields, chips) |
 | `--shadow` | card shadow |
