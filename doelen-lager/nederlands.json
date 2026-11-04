@@ -1,0 +1,910 @@
+{
+  "subject": "NL",
+  "name": "Nederlands",
+  "nameEn": "Dutch",
+  "doelen": [
+    {
+      "code": "L4-1.1.1",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen woorden lezen met behulp van inzicht in de morfologische opbouw.",
+      "descriptionEn": "Pupils can read words using an understanding of how words are built up (morphological structure)."
+    },
+    {
+      "code": "L4-1.1.2",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen accuraat en geautomatiseerd lezen (vlot lezen).",
+      "descriptionEn": "Pupils can read accurately and automatically (fluent word reading)."
+    },
+    {
+      "code": "L4-1.1.3",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen teksten accuraat, met gepast tempo en met intonatie lezen (vloeiend lezen).",
+      "descriptionEn": "Pupils can read texts accurately, at a suitable pace and with intonation (fluent reading)."
+    },
+    {
+      "code": "L4-1.1.4",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen teksten en boeken lezen met aandacht en doorzettingsvermogen.",
+      "descriptionEn": "Pupils can read texts and books with attention and perseverance."
+    },
+    {
+      "code": "L4-1.1.5",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen expliciet vermelde informatie in teksten weergeven.",
+      "descriptionEn": "Pupils can reproduce information that is stated explicitly in texts."
+    },
+    {
+      "code": "L4-1.1.6",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen informatie uit een tekst combineren om tot een logische conclusie te komen.",
+      "descriptionEn": "Pupils can combine information from a text to reach a logical conclusion."
+    },
+    {
+      "code": "L4-1.1.7",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen verbanden leggen tussen teksten en hun vakspecifieke kennis en voorkennis.",
+      "descriptionEn": "Pupils can make links between texts and their subject knowledge and prior knowledge."
+    },
+    {
+      "code": "L4-1.1.8",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen beoordelen of de titel bij de tekst past.",
+      "descriptionEn": "Pupils can judge whether the title suits the text."
+    },
+    {
+      "code": "L4-1.1.9",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen verwoorden hoe de auteur denkt over het onderwerp van de tekst.",
+      "descriptionEn": "Pupils can put into words what the author thinks about the subject of the text."
+    },
+    {
+      "code": "L4-1.1.10",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen verwoorden hoe een tekst aansluit bij het leesdoel.",
+      "descriptionEn": "Pupils can put into words how a text fits the purpose for reading."
+    },
+    {
+      "code": "L4-1.1.11",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen zich oriënteren op het lezen, tot begrip komen en het lezen bijsturen door aangeleerde leesstrategieën te gebruiken.",
+      "descriptionEn": "Pupils can prepare for reading, arrive at understanding and adjust their reading by using reading strategies they have been taught."
+    },
+    {
+      "code": "L4-1.1.12",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen tonen dat ze de volgende tekstconventies begrijpen: gebruik van interpunctie, hoofdletters, structuuraanduiders (verwijs-, verbindings- en signaalwoorden), titels, tussentitels en alinea's.",
+      "descriptionEn": "Pupils can show that they understand the following text conventions: use of punctuation, capital letters, structure markers (reference words, connectives and signal words), titles, subheadings and paragraphs."
+    },
+    {
+      "code": "L4-1.1.13",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerlingen kunnen tonen dat ze doelen van teksten herkennen aan de hand van tekstkenmerken. (bv. instructies geven via een stappenplan, genieten van een gedicht)",
+      "descriptionEn": "Pupils can show that they recognise the purposes of texts from their text features. (e.g. giving instructions through a step-by-step plan, enjoying a poem)"
+    },
+    {
+      "code": "L4-1.2.1",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen letters, woorden en zinnen schrijven tussen de grondlijn en hulplijnen.",
+      "descriptionEn": "Pupils can write letters, words and sentences between the baseline and guidelines."
+    },
+    {
+      "code": "L4-1.2.2",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen kleine letters, hoofdletters, cijfers, reken- en leestekens volgens een correcte route schrijven binnen een volledige liniatuur.",
+      "descriptionEn": "Pupils can write lower-case letters, capital letters, numerals, maths symbols and punctuation marks following the correct stroke order within full ruling."
+    },
+    {
+      "code": "L4-1.2.3",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen een regelmatig handschrift hanteren met de juiste spatiëring binnen en tussen woorden.",
+      "descriptionEn": "Pupils can keep regular handwriting with the correct spacing within and between words."
+    },
+    {
+      "code": "L4-1.2.4",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen de kantlijn en witruimtes hanteren in schriften.",
+      "descriptionEn": "Pupils can use the margin and white space in exercise books."
+    },
+    {
+      "code": "L4-1.2.5",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen de volgende categorieën van woorden spellen: woorden met een hoofdletter: persoonsnamen, titels van boeken en films, aardrijkskundige namen, feestdagen, talen en taalvariëteiten; woorden met gedekte en vrije klinkers in open en gesloten lettergrepen; woorden met een doffe klank in: open en onbeklemtoonde lettergrepen; voor- en achtervoegsels; -eren,-elen,-enen; frequente woorden (bv. me, moeten, gevaar, voorzichtig, innerlijk, kinderen, meubelen, tekenen, avond). woorden met tweetekenklanken: ei, ij, ou, au, eu, ui; woorden met lettergroepen: aai, oei, ooi, eeuw, ieuw; woorden met meerdere medeklinkers vooraan, in het midden, en achteraan; woorden met medeklinkers eindigend op -b, -p- -d, -t, -g; woorden met -ng en -nk; woorden met -ch/-g; meervouden op -s, 's, -en, -eren; verkleinwoorden op -je, -tje, -etje, -pje, kje.",
+      "descriptionEn": "Pupils can spell the following categories of words: words with a capital letter: names of people, titles of books and films, geographical names, public holidays, languages and language varieties; words with short (checked) and long (free) vowels in open and closed syllables; words with an unstressed 'uh' sound (schwa) in: open and unstressed syllables; prefixes and suffixes; -eren, -elen, -enen; frequent words (e.g. 'me', 'moeten', 'gevaar', 'voorzichtig', 'innerlijk', 'kinderen', 'meubelen', 'tekenen', 'avond'). words with two-letter sounds: ei, ij, ou, au, eu, ui; words with letter clusters: aai, oei, ooi, eeuw, ieuw; words with several consonants at the beginning, in the middle and at the end; words ending in the consonants -b, -p, -d, -t, -g; words with -ng and -nk; words with -ch/-g; plurals ending in -s, 's, -en, -eren; diminutives ending in -je, -tje, -etje, -pje, -kje."
+    },
+    {
+      "code": "L4-1.2.6",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen spellingregels bij werkwoorden in de tegenwoordige tijd toepassen.",
+      "descriptionEn": "Pupils can apply the spelling rules for verbs in the present tense."
+    },
+    {
+      "code": "L4-1.2.7",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen zwakke en sterke werkwoorden in de (on)voltooid verleden tijd spellen.",
+      "descriptionEn": "Pupils can spell weak (regular) and strong (irregular) verbs in the simple past and the past perfect."
+    },
+    {
+      "code": "L4-1.2.8",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen zinnen en teksten schrijven met aandacht voor zinsstructuur, gebruik van hoofdletters en interpunctie.",
+      "descriptionEn": "Pupils can write sentences and texts paying attention to sentence structure, the use of capital letters and punctuation."
+    },
+    {
+      "code": "L4-1.2.9",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen kernwoorden, schema's of eenvoudige lijstjes noteren om teksten of mondelinge informatie uit vakdisciplines te onthouden of te ordenen.",
+      "descriptionEn": "Pupils can note down key words, diagrams or simple lists to remember or organise texts or spoken information from other subjects."
+    },
+    {
+      "code": "L4-1.2.10",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen teksten of mondelinge informatie uit vakdisciplines samenvatten in korte zinnen.",
+      "descriptionEn": "Pupils can summarise texts or spoken information from other subjects in short sentences."
+    },
+    {
+      "code": "L4-1.2.11",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen met behulp van enkele gepaste tekstkenmerken specifieke teksten formuleren. (bv. een stappenplan, een brief)",
+      "descriptionEn": "Pupils can write specific texts using a few suitable text features. (e.g. a step-by-step plan, a letter)"
+    },
+    {
+      "code": "L4-1.2.12",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen bedenken wat de inhoud van een tekst kan zijn en hiervoor gebruik maken van hun vakspecifieke kennis en voorkennis.",
+      "descriptionEn": "Pupils can think up what the content of a text could be, drawing on their subject knowledge and prior knowledge."
+    },
+    {
+      "code": "L4-1.2.13",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen ideeën verzamelen en ordenen voor een tekst via een woordspin of schema.",
+      "descriptionEn": "Pupils can gather and organise ideas for a text using a mind map or diagram."
+    },
+    {
+      "code": "L4-1.2.14",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen teksten schrijven met aandacht voor gepaste inhoud.",
+      "descriptionEn": "Pupils can write texts paying attention to suitable content."
+    },
+    {
+      "code": "L4-1.2.15",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen structuur in een tekst aanbrengen: begin, midden en slot.",
+      "descriptionEn": "Pupils can give a text structure: beginning, middle and end."
+    },
+    {
+      "code": "L4-1.2.16",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen teksten schrijven met aandacht voor woordkeuze en zinsconstructies afgestemd op het beoogde publiek.",
+      "descriptionEn": "Pupils can write texts paying attention to word choice and sentence constructions suited to the intended audience."
+    },
+    {
+      "code": "L4-1.2.17",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen teksten schrijven met een verzorgde tekstopmaak aangepast aan het tekstdoel.",
+      "descriptionEn": "Pupils can write texts with a neat layout suited to the purpose of the text."
+    },
+    {
+      "code": "L4-1.2.18",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen teksten herlezen en op aanwijzing herschrijven.",
+      "descriptionEn": "Pupils can reread texts and rewrite them when given pointers."
+    },
+    {
+      "code": "L4-1.2.19",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerlingen kunnen teksten schrijven met aandacht en doorzettingsvermogen.",
+      "descriptionEn": "Pupils can write texts with attention and perseverance."
+    },
+    {
+      "code": "L4-1.3.1",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen expliciet vermelde informatie in teksten weergeven.",
+      "descriptionEn": "Pupils can reproduce information that is stated explicitly in texts."
+    },
+    {
+      "code": "L4-1.3.2",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen informatie uit een tekst combineren om tot een logische conclusie te komen.",
+      "descriptionEn": "Pupils can combine information from a text to reach a logical conclusion."
+    },
+    {
+      "code": "L4-1.3.3",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen verbanden leggen tussen teksten en hun vakspecifieke kennis en voorkennis.",
+      "descriptionEn": "Pupils can make links between texts and their subject knowledge and prior knowledge."
+    },
+    {
+      "code": "L4-1.3.4",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen verwoorden hoe de auteur denkt over het onderwerp van de tekst.",
+      "descriptionEn": "Pupils can put into words what the author thinks about the subject of the text."
+    },
+    {
+      "code": "L4-1.3.5",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen verwoorden hoe een tekst aansluit bij het luisterdoel.",
+      "descriptionEn": "Pupils can put into words how a text fits the purpose for listening."
+    },
+    {
+      "code": "L4-1.3.6",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen voorafgaand aan het vertellen en presenteren inhoud verzamelen en structureren onder begeleiding.",
+      "descriptionEn": "Before telling or presenting, pupils can gather and structure content with guidance."
+    },
+    {
+      "code": "L4-1.3.7",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen verstaanbaar spreken met aandacht voor uitspraak van het Standaardnederlands en zinsaccent.",
+      "descriptionEn": "Pupils can speak intelligibly, paying attention to Standard Dutch pronunciation and sentence stress."
+    },
+    {
+      "code": "L4-1.3.8",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen bij het spreken gepaste woordkeuze en correcte zinsconstructies gebruiken.",
+      "descriptionEn": "When speaking, pupils can use suitable word choice and correct sentence constructions."
+    },
+    {
+      "code": "L4-1.3.9",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen ideeën, gedachten en verworven inzichten samenhangend formuleren.",
+      "descriptionEn": "Pupils can put ideas, thoughts and insights they have gained into words coherently."
+    },
+    {
+      "code": "L4-1.3.10",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen meningen met argumenten onderbouwen op basis van hun vakspecifieke kennis en voorkennis.",
+      "descriptionEn": "Pupils can support opinions with arguments based on their subject knowledge and prior knowledge."
+    },
+    {
+      "code": "L4-1.3.11",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen bij het vertellen of presenteren afstemmen op het spreekdoel en het publiek.",
+      "descriptionEn": "When telling or presenting, pupils can adapt to the purpose of speaking and the audience."
+    },
+    {
+      "code": "L4-1.3.12",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen bij het vertellen of presenteren gebruik maken van hulpmiddelen wanneer die de boodschap ondersteunen.",
+      "descriptionEn": "When telling or presenting, pupils can use aids when these support the message."
+    },
+    {
+      "code": "L4-1.3.13",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen het spreken en presenteren op aanwijzing verbeteren.",
+      "descriptionEn": "Pupils can improve their speaking and presenting when given pointers."
+    },
+    {
+      "code": "L4-1.3.14",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerlingen kunnen doelgericht deelnemen aan mondelinge interactievormen zoals dialoog, discussie en groepsgesprek en hierbij de volgende interactiestrategieën toepassen: inspelen op de inbreng van de gesprekspartner(s); informatie, argument of mening in het gesprek inbrengen.",
+      "descriptionEn": "Pupils can take part purposefully in forms of spoken interaction such as dialogue, discussion and group conversation, applying the following interaction strategies: responding to what the other speaker(s) contribute; bringing information, an argument or an opinion into the conversation."
+    },
+    {
+      "code": "L4-1.4.1",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kennen woordvorming: samenstellingen, afleidingen.",
+      "descriptionEn": "Pupils know about word formation: compounds, derivatives."
+    },
+    {
+      "code": "L4-1.4.2",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kennen basisprincipes van betekenisrelaties: synoniemen, antoniemen en trappen van vergelijking.",
+      "descriptionEn": "Pupils know the basic principles of meaning relationships: synonyms, antonyms and degrees of comparison."
+    },
+    {
+      "code": "L4-1.4.3",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kennen figuurlijk taalgebruik.",
+      "descriptionEn": "Pupils know about figurative language."
+    },
+    {
+      "code": "L4-1.4.4",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kunnen woorden genuanceerd en gepast inzetten.",
+      "descriptionEn": "Pupils can use words in a nuanced and appropriate way."
+    },
+    {
+      "code": "L4-1.4.5",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kunnen aangeboden school-, instructie- en vaktaal hanteren in de vakdisciplines.",
+      "descriptionEn": "Pupils can use the school language, instruction language and subject-specific language they are taught in the various subjects."
+    },
+    {
+      "code": "L4-1.4.6",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kunnen nieuwe woordbetekenissen en -relaties achterhalen uit gesproken en geschreven contexten door gebruik te maken van woordleerstrategieën: om verduidelijking vragen; belang van het woord in de tekst nagaan; vergelijken met een bekend woord; de context inzetten; de woordopbouw analyseren.",
+      "descriptionEn": "Pupils can work out new word meanings and word relationships from spoken and written contexts by using word-learning strategies: asking for clarification; checking how important the word is in the text; comparing it with a familiar word; using the context; analysing how the word is built up."
+    },
+    {
+      "code": "L4-1.4.7",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kennen klanken: korte, lange, tweetekenklinkers, medeklinkers en uitspraak.",
+      "descriptionEn": "Pupils know about sounds: short vowels, long vowels, two-letter vowels, consonants and pronunciation."
+    },
+    {
+      "code": "L4-1.4.8",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kennen spelling: klanktekenkoppeling, letters, alfabetisch principe; interpunctietekens: punt, vraagteken, uitroepteken, komma, dubbele punt, spatie.",
+      "descriptionEn": "Pupils know about spelling: letter-sound correspondence, letters, the alphabetic principle; punctuation marks: full stop, question mark, exclamation mark, comma, colon, space."
+    },
+    {
+      "code": "L4-1.4.9",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kennen woorden: woordvorming: enkelvoud, meervoud en verbuiging, vervoeging, samenstelling, afleiding; woordsoorten: zelfstandig naamwoord, bijvoeglijk naamwoord, lidwoord, telwoord, voorzetsel, voegwoord, werkwoord; werkwoordstijden: tegenwoordige tijd, verleden tijd.",
+      "descriptionEn": "Pupils know about words: word formation: singular, plural and inflection, conjugation, compounding, derivation; word classes: noun, adjective, article, numeral, preposition, conjunction, verb; verb tenses: present tense, past tense."
+    },
+    {
+      "code": "L4-1.4.10",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kennen zinnen en zinsdelen: zin, onderwerp, persoonsvorm, zinsdeel, gezegde; soorten zinnen: mededelende zin, vragende zin, uitroepende zin.",
+      "descriptionEn": "Pupils know about sentences and sentence parts: sentence, subject, finite verb, sentence part (constituent), predicate; types of sentences: declarative sentence, interrogative sentence, exclamatory sentence."
+    },
+    {
+      "code": "L4-1.4.11",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kunnen inzichten in het taalsysteem toepassen en erover reflecteren.",
+      "descriptionEn": "Pupils can apply insights into the language system and reflect on them."
+    },
+    {
+      "code": "L4-1.4.12",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kennen enkele taalvariëteiten: dialect, Standaardnederlands.",
+      "descriptionEn": "Pupils know a few language varieties: dialect, Standard Dutch."
+    },
+    {
+      "code": "L4-1.4.13",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kennen: het communicatiemodel: zender, ontvanger, boodschap, kanaal; basisregisters: formeel, informeel; non-verbale communicatie: intonatie, mimiek, lichaamstaal.",
+      "descriptionEn": "Pupils know: the communication model: sender, receiver, message, channel; basic registers: formal, informal; non-verbal communication: intonation, facial expressions, body language."
+    },
+    {
+      "code": "L4-1.4.14",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kennen de termen jongerentaal en vaktaal.",
+      "descriptionEn": "Pupils know the terms youth language (slang) and subject-specific language (jargon)."
+    },
+    {
+      "code": "L4-1.4.15",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen weten dat taal wordt beïnvloed door verschillende factoren: leeftijd en beroep van de gebruiker.",
+      "descriptionEn": "Pupils know that language is influenced by various factors: the age and occupation of the user."
+    },
+    {
+      "code": "L4-1.4.16",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen weten dat taal evolueert doorheen de tijd.",
+      "descriptionEn": "Pupils know that language changes over time."
+    },
+    {
+      "code": "L4-1.4.17",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerlingen kunnen basisverschillen tussen formele en informele taal verwoorden.",
+      "descriptionEn": "Pupils can put into words the basic differences between formal and informal language."
+    },
+    {
+      "code": "L4-1.5.1",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerlingen kennen personage, hoofdpersonage, thema.",
+      "descriptionEn": "Pupils know character, main character, theme."
+    },
+    {
+      "code": "L4-1.5.2",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerlingen kennen plot: belangrijkste gebeurtenissen.",
+      "descriptionEn": "Pupils know plot: the most important events."
+    },
+    {
+      "code": "L4-1.5.3",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerlingen kennen context: tijd en plaats.",
+      "descriptionEn": "Pupils know setting: time and place."
+    },
+    {
+      "code": "L4-1.5.4",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerlingen kunnen voor hen geschikte boeken kiezen uit een variatie aan genres, passend bij het leesdoel en de eigen leesvoorkeur.",
+      "descriptionEn": "Pupils can choose books that suit them from a variety of genres, matching the purpose for reading and their own reading preferences."
+    },
+    {
+      "code": "L4-1.5.5",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerlingen kunnen aangereikte en zelfgekozen bekroonde jeugdliteratuur lezen, zowel fictie als non-fictie. (bv. de Boon voor Jeugdliteratuur, de Gouden Griffel, de Kinderjury Nederland, de Leesjury Vlaanderen, de Woutertje Pieterse Prijs)",
+      "descriptionEn": "Pupils can read award-winning children's literature, both suggested and self-chosen, fiction as well as non-fiction. (e.g. de Boon voor Jeugdliteratuur, de Gouden Griffel, de Kinderjury Nederland, de Leesjury Vlaanderen, de Woutertje Pieterse Prijs)"
+    },
+    {
+      "code": "L4-1.5.6",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerlingen kunnen verwoorden waarom een tekst aanspreekt.",
+      "descriptionEn": "Pupils can put into words why a text appeals to them."
+    },
+    {
+      "code": "L4-1.5.7",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerlingen kunnen verbanden leggen tussen elementen uit de tekst en emoties en gedachten tijdens het lezen van de tekst.",
+      "descriptionEn": "Pupils can make links between elements of the text and the emotions and thoughts they have while reading it."
+    },
+    {
+      "code": "L4-1.5.8",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerlingen kunnen complexere verhaallijnen navertellen.",
+      "descriptionEn": "Pupils can retell more complex storylines."
+    },
+    {
+      "code": "L4-1.5.9",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerlingen kunnen op basis van voorbeelden een eigen talige creatie maken. (bv. een verhaal, een gedicht, een toneeldialoog)",
+      "descriptionEn": "Pupils can make their own language creation based on examples. (e.g. a story, a poem, a dialogue for a play)"
+    },
+    {
+      "code": "L6-1.1.1",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerling kan onbekende woorden lezen met behulp van inzicht in de morfologische opbouw en kennis van leenwoorden.",
+      "descriptionEn": "The pupil can read unfamiliar words using an understanding of how words are built up (morphological structure) and knowledge of loanwords."
+    },
+    {
+      "code": "L6-1.1.2",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerling kan teksten expressief lezen.",
+      "descriptionEn": "The pupil can read texts expressively."
+    },
+    {
+      "code": "L6-1.1.3",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerling kan expliciete en impliciete informatie uit een tekst combineren om tot een logische conclusie te komen.",
+      "descriptionEn": "The pupil can combine explicit and implicit information from a text to reach a logical conclusion."
+    },
+    {
+      "code": "L6-1.1.4",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerling kan verbanden leggen tussen teksten en zijn/haar vakspecifieke kennis en voorkennis.",
+      "descriptionEn": "The pupil can make links between texts and his/her subject knowledge and prior knowledge."
+    },
+    {
+      "code": "L6-1.1.5",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerling kan vergelijken hoe verschillende auteurs denken over eenzelfde onderwerp.",
+      "descriptionEn": "The pupil can compare what different authors think about the same subject."
+    },
+    {
+      "code": "L6-1.1.6",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerling kan beoordelen hoe een tekst zijn/haar standpunt wel of niet beïnvloedt.",
+      "descriptionEn": "The pupil can judge whether or not, and how, a text influences his/her point of view."
+    },
+    {
+      "code": "L6-1.1.7",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerling kan zich oriënteren op het lezen, tot leesbegrip komen en het lezen bijsturen door indien nodig relevante leesstrategieën te selecteren en te gebruiken.",
+      "descriptionEn": "The pupil can prepare for reading, arrive at reading comprehension and adjust his/her reading by selecting and using relevant reading strategies where needed."
+    },
+    {
+      "code": "L6-1.1.8",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerling kan tonen dat hij/zij de volgende tekstconventies begrijpt: index, inhoudsopgave, legende, tabellen en figuren.",
+      "descriptionEn": "The pupil can show that he/she understands the following text conventions: index, table of contents, legend (key), tables and figures."
+    },
+    {
+      "code": "L6-1.1.9",
+      "category": "Lezen",
+      "categoryEn": "Reading",
+      "description": "De leerling kan doelen van teksten analyseren aan de hand van tekstkenmerken. (bv. een publiek activeren via een reclametekst, informeren via een nieuwsbericht)",
+      "descriptionEn": "The pupil can analyse the purposes of texts from their text features. (e.g. getting an audience to act through an advertisement, informing through a news report)"
+    },
+    {
+      "code": "L6-1.2.1",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan vlot en regelmatig zonder hulplijnen schrijven op een enkele grondlijn.",
+      "descriptionEn": "The pupil can write fluently and regularly on a single baseline without guidelines."
+    },
+    {
+      "code": "L6-1.2.2",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan het schrijftempo en de vormgevingskwaliteit op elkaar afstemmen.",
+      "descriptionEn": "The pupil can balance writing speed and the quality of presentation."
+    },
+    {
+      "code": "L6-1.2.3",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan een digitale tekst schrijven.",
+      "descriptionEn": "The pupil can write a digital text."
+    },
+    {
+      "code": "L6-1.2.4",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan de volgende categorieën van woorden spellen: woorden met hoofdletters: afleidingen van aardrijkskundige namen, namen van historische gebeurtenissen, namen van bedrijven, gebouwen en merken; woorden die anders uitgesproken worden dan geschreven (bv. station, actie, concert, succes, accu, quotiënt, examen, journaal, team, premier); woorden met vrije klinkers ee, o, u, ie, i, oe, ai, in een open of gesloten lettergreep (bv. café, diner, trainen, ruw, eventueel, fabrikant, radio, historisch, baby, bijzonder, journaal, militair); woorden met de achtervoegsels -isch(e), -air(e), -iaal, -eaal, -ueel, -ieel; vakspecifieke woorden uit het Latijn of Grieks (bv. fauna, flora, fotografie); onregelmatige verkleinwoorden; meervouden op -ie en -ee (bv. kopieën en zeeën); afwijkende meervouden (bv. musea, centra); frequent gebruikte afkortingen, initiaalwoorden en letterwoorden; frequent gebruikte woorden met koppelteken, apostrof, trema en accent.",
+      "descriptionEn": "The pupil can spell the following categories of words: words with capital letters: words derived from geographical names, names of historical events, names of companies, buildings and brands; words that are pronounced differently from how they are written (e.g. 'station', 'actie', 'concert', 'succes', 'accu', 'quotiënt', 'examen', 'journaal', 'team', 'premier'); words with the free vowels ee, o, u, ie, i, oe, ai in an open or closed syllable (e.g. 'café', 'diner', 'trainen', 'ruw', 'eventueel', 'fabrikant', 'radio', 'historisch', 'baby', 'bijzonder', 'journaal', 'militair'); words with the suffixes -isch(e), -air(e), -iaal, -eaal, -ueel, -ieel; subject-specific words from Latin or Greek (e.g. 'fauna', 'flora', 'fotografie'); irregular diminutives; plurals ending in -ie and -ee (e.g. 'kopieën' and 'zeeën'); irregular plurals (e.g. 'musea', 'centra'); frequently used abbreviations, initialisms and acronyms; frequently used words with a hyphen, apostrophe, diaeresis (trema) and accent."
+    },
+    {
+      "code": "L6-1.2.5",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan spellingregels toepassen bij frequente werkwoorden in tegenwoordige, verleden, voltooide en toekomende tijd.",
+      "descriptionEn": "The pupil can apply spelling rules to frequent verbs in the present, past, perfect and future tenses."
+    },
+    {
+      "code": "L6-1.2.6",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan samengestelde zinnen en teksten schrijven met aandacht voor zinsstructuur, gebruik van hoofdletters en interpunctie.",
+      "descriptionEn": "The pupil can write compound and complex sentences and texts, paying attention to sentence structure, the use of capital letters and punctuation."
+    },
+    {
+      "code": "L6-1.2.7",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan het kernidee van teksten of mondelinge informatie uit vakdisciplines in eigen woorden formuleren.",
+      "descriptionEn": "The pupil can put the key idea of texts or spoken information from other subjects into his/her own words."
+    },
+    {
+      "code": "L6-1.2.8",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan een samenvatting schrijven met een kernidee, argumenten en relevante details.",
+      "descriptionEn": "The pupil can write a summary with a key idea, arguments and relevant details."
+    },
+    {
+      "code": "L6-1.2.9",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan bij vakdisciplines gestructureerde aantekeningen maken met kernwoorden.",
+      "descriptionEn": "The pupil can make structured notes with key words in other subjects."
+    },
+    {
+      "code": "L6-1.2.10",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan met behulp van enkele gepaste tekstkenmerken specifieke teksten formuleren. (bv. bij een reclametekst, een nieuwsbericht)",
+      "descriptionEn": "The pupil can write specific texts using a few suitable text features. (e.g. for an advertisement, a news report)"
+    },
+    {
+      "code": "L6-1.2.11",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan bedenken wat de inhoud van een tekst kan zijn en hiervoor gebruik maken van zijn/haar vakspecifieke kennis en voorkennis en relevante strategieën: brainstorm, vragen stellen en associëren.",
+      "descriptionEn": "The pupil can think up what the content of a text could be, drawing on his/her subject knowledge and prior knowledge and relevant strategies: brainstorming, asking questions and making associations."
+    },
+    {
+      "code": "L6-1.2.12",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan ideeën verzamelen en ordenen voor een tekst en hierbij indien relevant een plan of structuur opstellen.",
+      "descriptionEn": "The pupil can gather and organise ideas for a text and, where relevant, draw up a plan or structure."
+    },
+    {
+      "code": "L6-1.2.13",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan teksten schrijven met aandacht voor gepaste en samenhangende inhoud.",
+      "descriptionEn": "The pupil can write texts paying attention to suitable and coherent content."
+    },
+    {
+      "code": "L6-1.2.14",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan een herkenbare en eenvoudige structuur aanbrengen in teksten met inbegrip van titels, tussentitels, alinea's en structuuraanduiders (verwijs, verbindings- en signaalwoorden).",
+      "descriptionEn": "The pupil can give texts a recognisable and simple structure, including titles, subheadings, paragraphs and structure markers (reference words, connectives and signal words)."
+    },
+    {
+      "code": "L6-1.2.15",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan een doelgerichte formulering hanteren met variatie in zinsbouw en gepaste woordkeuze met gebruik van figuurlijk taalgebruik en een gepast register afgestemd op het beoogde publiek.",
+      "descriptionEn": "The pupil can use purposeful wording with varied sentence structure and suitable word choice, using figurative language and an appropriate register suited to the intended audience."
+    },
+    {
+      "code": "L6-1.2.16",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan kritisch reflecteren op teksten en ze op aanwijzing herschrijven.",
+      "descriptionEn": "The pupil can reflect critically on texts and rewrite them when given pointers."
+    },
+    {
+      "code": "L6-1.2.17",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan teksten schrijven met een verzorgde (digitale) tekstopmaak in functie van verzenden of publiceren.",
+      "descriptionEn": "The pupil can write texts with a neat (digital) layout for sending or publishing."
+    },
+    {
+      "code": "L6-1.2.18",
+      "category": "Schrijven",
+      "categoryEn": "Writing",
+      "description": "De leerling kan het schrijfproces met aandacht en doorzettingsvermogen doorlopen.",
+      "descriptionEn": "The pupil can work through the writing process with attention and perseverance."
+    },
+    {
+      "code": "L6-1.3.1",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerling kan expliciete en impliciete informatie uit een tekst combineren om tot een logische conclusie te komen.",
+      "descriptionEn": "The pupil can combine explicit and implicit information from a text to reach a logical conclusion."
+    },
+    {
+      "code": "L6-1.3.2",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerling kan verbanden leggen tussen teksten en zijn/haar vakspecifieke kennis en voorkennis.",
+      "descriptionEn": "The pupil can make links between texts and his/her subject knowledge and prior knowledge."
+    },
+    {
+      "code": "L6-1.3.3",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerling kan vergelijken hoe verschillende auteurs denken over eenzelfde onderwerp.",
+      "descriptionEn": "The pupil can compare what different authors think about the same subject."
+    },
+    {
+      "code": "L6-1.3.4",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerling kan beoordelen hoe een tekst zijn/haar standpunt wel of niet beïnvloedt.",
+      "descriptionEn": "The pupil can judge whether or not, and how, a text influences his/her point of view."
+    },
+    {
+      "code": "L6-1.3.5",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerling kan bij het spreken gepaste woordkeuze en complexere zinsconstructies gebruiken.",
+      "descriptionEn": "When speaking, the pupil can use suitable word choice and more complex sentence constructions."
+    },
+    {
+      "code": "L6-1.3.6",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerling kan ideeën, gedachten en verworven inzichten gestructureerd formuleren.",
+      "descriptionEn": "The pupil can put ideas, thoughts and insights he/she has gained into words in a structured way."
+    },
+    {
+      "code": "L6-1.3.7",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerling kan meningen beargumenteren op basis van zijn/haar vakspecifieke kennis en voorkennis.",
+      "descriptionEn": "The pupil can argue for opinions based on his/her subject knowledge and prior knowledge."
+    },
+    {
+      "code": "L6-1.3.8",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerling kan voorafgaand aan het vertellen en presenteren inhoud verzamelen en structureren op basis van zijn/haar vakspecifieke kennis en voorkennis.",
+      "descriptionEn": "Before telling or presenting, the pupil can gather and structure content based on his/her subject knowledge and prior knowledge."
+    },
+    {
+      "code": "L6-1.3.9",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerling kan bij het vertellen en presenteren een gepaste expressie en gepast register gebruiken.",
+      "descriptionEn": "When telling or presenting, the pupil can use suitable expression and an appropriate register."
+    },
+    {
+      "code": "L6-1.3.10",
+      "category": "Mondeling taalgebruik",
+      "categoryEn": "Spoken language",
+      "description": "De leerling kan doelgericht en genuanceerd deelnemen aan mondelinge interactievormen zoals dialoog, discussie en groepsgesprek en hierbij de volgende interactiestrategieën toepassen: voortbouwen op andermans ideeën; verbanden leggen tussen verschillende standpunten; argumenten bevragen en nuanceren; met ondersteuning tot een conclusie komen.",
+      "descriptionEn": "The pupil can take part purposefully and in a nuanced way in forms of spoken interaction such as dialogue, discussion and group conversation, applying the following interaction strategies: building on other people's ideas; making links between different points of view; questioning and nuancing arguments; reaching a conclusion with support."
+    },
+    {
+      "code": "L6-1.4.1",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kent basisprincipes van betekenisrelaties: hyponiemen.",
+      "descriptionEn": "The pupil knows the basic principles of meaning relationships: hyponyms."
+    },
+    {
+      "code": "L6-1.4.2",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kan formeel en informeel taalgebruik conform de context inzetten.",
+      "descriptionEn": "The pupil can use formal and informal language to suit the context."
+    },
+    {
+      "code": "L6-1.4.3",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kan woorden genuanceerd en gepast inzetten met steeds hogere abstractiegraad en figuurlijk taalgebruik.",
+      "descriptionEn": "The pupil can use words in a nuanced and appropriate way, with an increasing level of abstraction and figurative language."
+    },
+    {
+      "code": "L6-1.4.4",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kan actief op zoek gaan naar nieuwe woordbetekenissen en -relaties door gebruik te maken van woordleerstrategieën: vreemdetalenkennis inzetten; hulpbron inzetten.",
+      "descriptionEn": "The pupil can actively look for new word meanings and word relationships by using word-learning strategies: using knowledge of foreign languages; using a reference source."
+    },
+    {
+      "code": "L6-1.4.5",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kent spelling: interpunctietekens: dubbele aanhalingstekens, haakjes; woordtekens: trema, koppelteken, apostrof, accent, soorten afkortingen.",
+      "descriptionEn": "The pupil knows about spelling: punctuation marks: double quotation marks, brackets; diacritics and word marks: diaeresis (trema), hyphen, apostrophe, accent, types of abbreviations."
+    },
+    {
+      "code": "L6-1.4.6",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kent woorden: woordsoorten: voornaamwoord; werkwoordtijden: toekomende tijd, voltooid deelwoord.",
+      "descriptionEn": "The pupil knows about words: word classes: pronoun; verb tenses: future tense, past participle."
+    },
+    {
+      "code": "L6-1.4.7",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kent woorden: grondwoord, voorvoegsel, achtervoegsel, verkleinwoord, stam, uitgang, infinitief.",
+      "descriptionEn": "The pupil knows about words: root word, prefix, suffix, diminutive, stem, ending, infinitive."
+    },
+    {
+      "code": "L6-1.4.8",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kent zinnen en zinsdelen: meewerkend en lijdend voorwerp; naamwoordelijk en werkwoordelijk gezegde; soorten zinnen: enkelvoudige en samengestelde zinnen, ontkennende zin; gebiedende wijs.",
+      "descriptionEn": "The pupil knows about sentences and sentence parts: indirect and direct object; nominal and verbal predicate; types of sentences: simple and compound sentences, negative sentence; imperative mood."
+    },
+    {
+      "code": "L6-1.4.9",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kan inzichten in het taalsysteem toepassen en erover reflecteren.",
+      "descriptionEn": "The pupil can apply insights into the language system and reflect on them."
+    },
+    {
+      "code": "L6-1.4.10",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kent het uitgebreid communicatiemodel: doel, medium, effect.",
+      "descriptionEn": "The pupil knows the extended communication model: purpose, medium, effect."
+    },
+    {
+      "code": "L6-1.4.11",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling kent taalvariëteiten: tussentaal, vreemde taal.",
+      "descriptionEn": "The pupil knows language varieties: tussentaal (the informal in-between language of Flanders, between dialect and Standard Dutch), foreign language."
+    },
+    {
+      "code": "L6-1.4.12",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling weet dat taal wordt beïnvloed door verschillende factoren: plaats en cultuur.",
+      "descriptionEn": "The pupil knows that language is influenced by various factors: place and culture."
+    },
+    {
+      "code": "L6-1.4.13",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling weet dat informatiebronnen veranderen doorheen de tijd: orale vertelcultuur, schrift, boekdrukkunst, radio, televisie, digitale media.",
+      "descriptionEn": "The pupil knows that sources of information change over time: oral storytelling culture, writing, printing, radio, television, digital media."
+    },
+    {
+      "code": "L6-1.4.14",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling weet dat het Nederlands tot een taalfamilie behoort.",
+      "descriptionEn": "The pupil knows that Dutch belongs to a language family."
+    },
+    {
+      "code": "L6-1.4.15",
+      "category": "Taalsysteem en taalgebruik",
+      "categoryEn": "Language system and language use",
+      "description": "De leerling weet dat er vreemde talen zijn waarin dezelfde of andere schrifttekens worden gebruikt dan in het Nederlands.",
+      "descriptionEn": "The pupil knows that there are foreign languages that use the same or different written characters from those used in Dutch."
+    },
+    {
+      "code": "L6-1.5.1",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerling kent vertelperspectief: ik-verteller.",
+      "descriptionEn": "The pupil knows narrative perspective: first-person narrator."
+    },
+    {
+      "code": "L6-1.5.2",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerling kan literaire voorkeuren verwoorden binnen fictie, non-fictie en bekroonde jeugdliteratuur.",
+      "descriptionEn": "The pupil can put literary preferences into words within fiction, non-fiction and award-winning children's literature."
+    },
+    {
+      "code": "L6-1.5.3",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerling kan zelfgekozen bekroonde jeugdliteratuur lezen, zowel fictie als non-fictie. (bv. de Boon voor Jeugdliteratuur, de Gouden Griffel, de Kinderjury Nederland, de Leesjury Vlaanderen, de Woutertje Pieterse Prijs)",
+      "descriptionEn": "The pupil can read self-chosen award-winning children's literature, both fiction and non-fiction. (e.g. de Boon voor Jeugdliteratuur, de Gouden Griffel, de Kinderjury Nederland, de Leesjury Vlaanderen, de Woutertje Pieterse Prijs)"
+    },
+    {
+      "code": "L6-1.5.4",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerling kan elementen uit de tekst situeren binnen zijn/haar vakspecifieke kennis en voorkennis.",
+      "descriptionEn": "The pupil can place elements of the text within his/her subject knowledge and prior knowledge."
+    },
+    {
+      "code": "L6-1.5.5",
+      "category": "Literatuur",
+      "categoryEn": "Literature",
+      "description": "De leerling kan een eigen talige creatie mondeling of schriftelijk presenteren. (bv. een verhaal, een gedicht, een toneeldialoog)",
+      "descriptionEn": "The pupil can present his/her own language creation orally or in writing. (e.g. a story, a poem, a dialogue for a play)"
+    }
+  ]
+}

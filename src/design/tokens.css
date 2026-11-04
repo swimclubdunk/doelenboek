@@ -54,6 +54,9 @@
   --s-mv: light-dark(#8F4E88, #98598C);
   --s-lo: light-dark(#E98D90, #E28789);
   --s-at: light-dark(#A297E9, #9C96E4);
+  /* the two lager-only subjects: FR brick red, IC slate (low chroma, so it never reads as another subject) */
+  --s-fr: light-dark(#C4512F, #CC6243);
+  --s-ic: light-dark(#5E6E80, #8394A6);
 
   --f-display: "Clarity City", "Segoe UI", system-ui, sans-serif;
   --f-body: "Clarity City", "Segoe UI", system-ui, sans-serif;

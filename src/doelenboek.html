@@ -60,8 +60,19 @@ const SUBJECTS = [
   { key: 'MV', name: { nl: 'Muzische vorming', en: 'Arts education' } },
   { key: 'LO', name: { nl: 'Lichamelijke opvoeding', en: 'Physical education' } },
   { key: 'AT', name: { nl: 'Attitudes', en: 'Attitudes' } },
+  { key: 'FR', name: { nl: 'Frans', en: 'French' } },
+  { key: 'IC', name: { nl: 'ICT', en: 'ICT' } },
 ];
 const SUBJ = Object.fromEntries(SUBJECTS.map((s, i) => [s.key, { ...s, i }]));
+/* Every child is in one tier, and every built-in goal belongs to one (goal.tier, set by tools/build.py):
+   the kleuter goals, and the lager goals for the end of the 4th and of the 6th leerjaar. */
+const TIERS = [
+  { key: 'KO', prefix: 'Kl', name: { nl: 'Kleuter', en: 'Preschool' }, short: { nl: 'Kleuter', en: 'Preschool' }, badge: { nl: 'Kleuter', en: 'Preschool' }, ages: { nl: '2-6 jaar', en: '2-6 years' } },
+  { key: 'L4', prefix: 'LJ1-4', name: { nl: 'Lager Leerjaar 1-4', en: 'Primary Year 1-4' }, short: { nl: 'Lj. 1–4', en: 'Years 1–4' }, badge: { nl: 'Lager LJ 1-4', en: 'Primary YR 1-4' }, ages: { nl: '6-10 jaar', en: '6-10 years' } },
+  { key: 'L6', prefix: 'LJ5-6', name: { nl: 'Lager Leerjaar 5-6', en: 'Primary Year 5-6' }, short: { nl: 'Lj. 5–6', en: 'Years 5–6' }, badge: { nl: 'Lager LJ 5-6', en: 'Primary YR 5-6' }, ages: { nl: '10-12 jaar', en: '10-12 years' } },
+];
+const TIER = Object.fromEntries(TIERS.map((x, i) => [x.key, { ...x, i }]));
+const DEFAULT_TIER = 'KO';
 const COLS = ['children', 'activities'];
 const LS_KEY = 'doelenboek.v1';
 const LANG_KEY = 'doelenboek.lang';
@@ -93,7 +104,7 @@ const T = {
     example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
     remove_examples: 'Voorbeelden verwijderen',
     h_overview: 'Kinderen',
-    n_children: n => nlN(n, 'kind', 'kinderen'), n_goals: n => nlN(n, 'minimumdoel', 'minimumdoelen'), n_acts: n => nlN(n, 'activiteit', 'activiteiten'), n_photos: n => nlN(n, 'foto', "foto's"),
+    n_children: n => nlN(n, 'kind', 'kinderen'), n_acts: n => nlN(n, 'activiteit', 'activiteiten'), n_photos: n => nlN(n, 'foto', "foto's"),
     n_goals_short: n => nlN(n, 'doel', 'doelen'),
     add_child: 'Kind toevoegen', add_activity: 'Activiteit toevoegen',
     empty_kids_h: 'Nog geen kinderen', empty_kids_p: 'Voeg een kind toe. Daarna registreer je activiteiten en zie je per vak welke minimumdoelen al aan bod kwamen.',
@@ -120,6 +131,7 @@ const T = {
     kid_done: n => `${n}: beheerst`, kid_open: n => `${n}: nog niet beheerst`,
     close: 'Sluiten', cancel: 'Annuleren', save: 'Opslaan', busy: 'Bezig…', progress: (a, b) => `Bezig… ${a}/${b}`,
     child_edit_h: 'Kind wijzigen', child_add_h: 'Kind toevoegen', name: 'Naam', animal: 'Diertje', animal_taken: 'Al gekozen voor een ander kind',
+    tier: 'Onderwijsniveau', tier_all: 'Alle niveaus', tier_aria: 'Onderwijsniveau van de doelen',
     err_name: 'Vul een naam in.', err_dup_name: n => `Er is al een kind met de naam ${n}.`, saved_changes: 'Wijzigingen opgeslagen.', child_added: n => `${n} is toegevoegd.`,
     child_del_h: 'Kind verwijderen', child_del_q: n => `Weet je zeker dat je <b>${n}</b> wilt verwijderen?`,
     child_del_acts: (n, c) => `${n} wordt uit ${nlN(c, 'activiteit', 'activiteiten')} gehaald. De activiteiten zelf blijven bewaard.`,
@@ -190,7 +202,7 @@ const T = {
     example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
     remove_examples: 'Remove examples',
     h_overview: 'Children',
-    n_children: n => nlN(n, 'child', 'children'), n_goals: n => nlN(n, 'minimum goal', 'minimum goals'), n_acts: n => nlN(n, 'activity', 'activities'), n_photos: n => nlN(n, 'photo', 'photos'),
+    n_children: n => nlN(n, 'child', 'children'), n_acts: n => nlN(n, 'activity', 'activities'), n_photos: n => nlN(n, 'photo', 'photos'),
     n_goals_short: n => nlN(n, 'goal', 'goals'),
     add_child: 'Add child', add_activity: 'Add activity',
     empty_kids_h: 'No children yet', empty_kids_p: 'Add a child. Then log activities and see, per subject, which minimum goals have been covered.',
@@ -217,6 +229,7 @@ const T = {
     kid_done: n => `${n}: mastered`, kid_open: n => `${n}: not mastered yet`,
     close: 'Close', cancel: 'Cancel', save: 'Save', busy: 'Working…', progress: (a, b) => `Working… ${a}/${b}`,
     child_edit_h: 'Edit child', child_add_h: 'Add child', name: 'Name', animal: 'Animal', animal_taken: 'Already used for another child',
+    tier: 'School level', tier_all: 'All levels', tier_aria: 'School level of the goals',
     err_name: 'Enter a name.', err_dup_name: n => `There is already a child called ${n}.`, saved_changes: 'Changes saved.', child_added: n => `${n} has been added.`,
     child_del_h: 'Delete child', child_del_q: n => `Are you sure you want to delete <b>${n}</b>?`,
     child_del_acts: (n, c) => `${n} will be removed from ${nlN(c, 'activity', 'activities')}. The activities themselves are kept.`,
@@ -313,7 +326,7 @@ const dateObj = s => new Date((validDate(s) ? s : todayIso()) + 'T12:00:00');
 const fmtDate = s => new Intl.DateTimeFormat(t('locale'), { day: 'numeric', month: 'short', year: 'numeric' }).format(dateObj(s));
 const str = (v, max = 4000) => typeof v === 'string' ? v.slice(0, max) : '';
 const strArr = v => Array.isArray(v) ? v.filter(x => typeof x === 'string' && ID_RE.test(x)) : [];
-const searchText = g => `${g.code} ${g.category} ${g.categoryEn || ''} ${g.description} ${g.descriptionEn || ''}`;
+const searchText = g => `${gCode(g)} ${g.category} ${g.categoryEn || ''} ${g.description} ${g.descriptionEn || ''}`;
 
 /* Every document is cleaned on the way in and out, so malformed rows can't break rendering. */
 function clean(col, b) {
@@ -328,7 +341,7 @@ function clean(col, b) {
     if (b.mastered && typeof b.mastered === 'object' && !Array.isArray(b.mastered)) {
       for (const [gid, d] of Object.entries(b.mastered).slice(0, 5000)) if (ID_RE.test(gid)) mastered[gid] = validDate(d) ? d : todayIso();
     }
-    return { ...base, name, animal: str(b.animal, 16) || ANIMALS[0], mastered };
+    return { ...base, name, animal: str(b.animal, 16) || ANIMALS[0], tier: TIER[b.tier] ? b.tier : DEFAULT_TIER, mastered };
   }
   if (col === 'activities') {
     const title = str(b.title, 200).trim();
@@ -347,7 +360,7 @@ let canWrite = true, canWriteKnown = false;
 const loaded = { children: false, activities: false };
 const ui = {
   view: 'overzicht', childId: null,
-  goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)),
+  goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)), goalTier: null,   // null: follow the children's tier
   childSearch: '', actSearch: '', actChild: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
 };
@@ -523,12 +536,23 @@ async function processImage(file) {
 }
 
 /* ---------- derived data ---------- */
-const byGoalOrder = (a, b) => (SUBJ[a.subject].i - SUBJ[b.subject].i) || a.code.localeCompare(b.code, 'nl', { numeric: true }) || a.description.localeCompare(b.description, 'nl');
+const byGoalOrder = (a, b) => (SUBJ[a.subject].i - SUBJ[b.subject].i) || (TIER[a.tier].i - TIER[b.tier].i) || a.code.localeCompare(b.code, 'nl', { numeric: true }) || a.description.localeCompare(b.description, 'nl');
 const sortedGoals = () => [...data.goals.values()].sort(byGoalOrder);
 const sortedChildren = () => [...data.children.values()].sort((a, b) => a.name.localeCompare(b.name, 'nl'));
 const byDateDesc = (a, b) => b.date.localeCompare(a.date) || (b.createdAt - a.createdAt);
 const activitiesFor = cid => [...data.activities.values()].filter(a => a.childIds.includes(cid)).sort(byDateDesc);
-function subjectTotals() { const tt = {}; for (const g of data.goals.values()) tt[g.subject] = (tt[g.subject] || 0) + 1; return tt; }
+function subjectTotals(tier) { const tt = {}; for (const g of data.goals.values()) if (g.tier === tier) tt[g.subject] = (tt[g.subject] || 0) + 1; return tt; }
+const tierOf = c => c.tier || DEFAULT_TIER;
+const goalsOfTier = tier => [...data.goals.values()].filter(g => g.tier === tier);
+/* Only the part of a goalId -> x map that belongs to one tier. Ticks and tags for another tier stay in the
+   data (they come back when the child switches back) but are not shown or counted. */
+const inTier = (m, tier) => new Map([...m].filter(([gid]) => data.goals.get(gid)?.tier === tier));
+const tierBadge = c => `<span class="tier-badge">${esc(TIER[tierOf(c)].badge[lang])}</span>`;
+/* A goal's code as shown: tier prefix, a space, the official number (the numbers repeat between tiers). */
+const gCode = g => g.code ? `${TIER[g.tier].prefix} ${g.code}` : '';
+/* Tier choice as a dropdown (goals tab and goal picker): every tier with its number of goals, then all. */
+const tierOptions = cur => TIERS.map(x => `<option value="${x.key}" ${cur === x.key ? 'selected' : ''}>${esc(x.name[lang])} (${goalsOfTier(x.key).length})</option>`).join('')
+  + `<option value="all" ${cur === 'all' ? 'selected' : ''}>${esc(t('tier_all'))} (${data.goals.size})</option>`;
 /* childId -> Map(goalId -> [activities, oldest first]) */
 function buildCoverage() {
   const cov = new Map();
@@ -633,9 +657,9 @@ function barRow(label, key, n, tot, touches) {
 }
 
 function viewOverview(cov) {
-  const kids = sortedChildren(), totals = subjectTotals(), total = data.goals.size;
+  const kids = sortedChildren();
   let h = exampleBanner();
-  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))} · ${esc(t('n_goals', total))} · ${esc(t('n_acts', data.activities.size))}</p></div>
+  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))} · ${esc(t('n_acts', data.activities.size))}</p></div>
     <div class="head-actions w"><button class="btn" data-action="add-child">${addBt('add_child')}</button></div></section>`;
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
@@ -644,13 +668,13 @@ function viewOverview(cov) {
   h += `<div class="toolbar"><input class="search" id="child-search" type="search" placeholder="${esc(t('search_kids'))}" value="${esc(ui.childSearch)}" aria-label="${esc(t('search_kids'))}"></div>`;
   if (!shown.length) return h + `<p class="muted">${esc(t('no_kids_found'))}</p>`;
   h += `<div class="child-grid">${shown.map(c => {
-    const acts = activitiesFor(c.id), mast = masteredOf(c);
-    const per = countBySubject(mast), touches = touchesBySubject(cov.get(c.id));
+    const acts = activitiesFor(c.id), tier = tierOf(c), totals = subjectTotals(tier), mast = inTier(masteredOf(c), tier);
+    const per = countBySubject(mast), touches = touchesBySubject(inTier(cov.get(c.id) || new Map(), tier));
     return `<article class="card child-card">
       <header class="cc-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
-        <div class="cc-id"><h2>${esc(c.name)}</h2><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? '<br>' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
-        <div class="cc-pct"><strong>${mast.size}<small>/${total}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
-      <ul class="bars">${SUBJECTS.map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key] || 0, touches[s.key] || 0)).join('')}</ul>
+        <div class="cc-id"><h2>${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? '<br>' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
+        <div class="cc-pct"><strong>${mast.size}<small>/${sumValues(totals)}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
+      <ul class="bars">${SUBJECTS.filter(s => totals[s.key]).map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key], touches[s.key] || 0)).join('')}</ul>
       <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w cc-edit" data-action="edit-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_edit_h'))}" title="${esc(t('child_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost w cc-del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></footer>
     </article>`;
   }).join('')}</div>`;
@@ -660,13 +684,13 @@ function viewOverview(cov) {
 function viewChild(cov) {
   const c = data.children.get(ui.childId);
   if (!c) { ui.view = 'overzicht'; return viewOverview(cov); }
-  const m = cov.get(c.id) || new Map(), mast = masteredOf(c), totals = subjectTotals(), total = data.goals.size;
-  const goals = sortedGoals(), acts = activitiesFor(c.id), touches = touchesBySubject(m), q = norm(ui.kidSearch);
+  const tier = tierOf(c), m = inTier(cov.get(c.id) || new Map(), tier), mast = inTier(masteredOf(c), tier), totals = subjectTotals(tier), total = sumValues(totals);
+  const goals = sortedGoals().filter(g => g.tier === tier), acts = activitiesFor(c.id), touches = touchesBySubject(m), q = norm(ui.kidSearch);
   const tab = ui.kidTab;
   const inTab = g => tab === 'all' || mast.has(g.id) === (tab === 'mastered');
   let h = `<button class="btn small ghost back" data-action="back">${bt('back')}</button>
     <section class="kid-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
-      <div class="kid-name"><h1>${esc(c.name)}</h1><p class="lede">${esc(t('reached', mast.size, total))} · ${esc(t('n_touches', sumValues(touches)))} · ${esc(t('n_acts', acts.length))}</p></div>
+      <div class="kid-name"><h1>${esc(c.name)} ${tierBadge(c)}</h1><p class="lede">${esc(t('reached', mast.size, total))} · ${esc(t('n_touches', sumValues(touches)))} · ${esc(t('n_acts', acts.length))}</p></div>
     </section>`;
   if (!total) return h;
   const segBtn = (key, n) => `<button role="tab" data-action="kid-tab" data-tab="${key}" aria-selected="${tab === key}">${bt('tab_' + key)} <span class="seg-n">${n}</span></button>`;
@@ -686,10 +710,10 @@ function viewChild(cov) {
       <summary><span class="dot" style="--c:${sv(s.key)}"></span><h2>${esc(sName(s.key))}</h2><span class="bar" role="img" aria-label="${esc(t('bar_aria', sName(s.key), n, tot))}"><i style="width:${tot ? Math.round(100 * n / tot) : 0}%;background:${sv(s.key)}"></i></span><span class="b-num">${n}/${tot}</span>${touchNum(sName(s.key), touches[s.key] || 0)}</summary>
       <ul class="status-list">${shown.length ? shown.map(g => {
         const via = m.get(g.id), since = mast.get(g.id);
-        return `<li class="${since ? 'done' : ''}${via ? '' : ' untouched'}"><span class="code" style="--c:${sv(g.subject)}">${esc(g.code || '—')}</span>
+        return `<li class="${since ? 'done' : ''}${via ? '' : ' untouched'}"><span class="code" style="--c:${sv(g.subject)}">${esc(gCode(g) || '—')}</span>
           <div class="g-body">${gCat(g) ? `<p class="g-meta">${esc(gCat(g))}</p>` : ''}<p class="g-desc">${esc(gDesc(g))}</p>${since && tab === 'mastered' ? `<p class="since">${esc(t('mastered_since', fmtDate(since)))}</p>` : ''}${via ? `<p class="via">${esc(t('via'))} ${via.map(a => `${esc(a.title)} (${esc(fmtDate(a.date))})`).join(', ')}</p>` : ''}</div>
-          ${touchNum(g.code || sName(g.subject), via ? via.length : 0)}
-          <label class="mastery"${since ? ` title="${esc(t('mastered_since', fmtDate(since)))}"` : ''}><input type="checkbox" id="m-${esc(g.id)}" data-mastery="${esc(g.id)}" ${since ? 'checked' : ''} ${canWrite ? '' : 'disabled'} aria-label="${esc(t('mastery_aria', g.code || gDesc(g).slice(0, 40)))}"><span aria-hidden="true">${bt('mastered_lbl')}</span></label></li>`;
+          ${touchNum(gCode(g) || sName(g.subject), via ? via.length : 0)}
+          <label class="mastery"${since ? ` title="${esc(t('mastered_since', fmtDate(since)))}"` : ''}><input type="checkbox" id="m-${esc(g.id)}" data-mastery="${esc(g.id)}" ${since ? 'checked' : ''} ${canWrite ? '' : 'disabled'} aria-label="${esc(t('mastery_aria', gCode(g) || gDesc(g).slice(0, 40)))}"><span aria-hidden="true">${bt('mastered_lbl')}</span></label></li>`;
       }).join('') : `<li><span></span><p class="muted">${esc(t('all_mastered'))}</p></li>`}</ul>
     </details>`;
   }
@@ -709,7 +733,7 @@ async function setMastery(gid, on) {
   scheduleRender();
 }
 
-function goalChip(g) { return `<li class="code goal-chip" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" tabindex="0" aria-label="${esc(`${g.code} ${sName(g.subject)}: ${gDesc(g)}`)}"><span class="dot"></span>${esc(g.code || sName(g.subject))}</li>`; }
+function goalChip(g) { return `<li class="code goal-chip" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" tabindex="0" aria-label="${esc(`${gCode(g)} ${sName(g.subject)}: ${gDesc(g)}`)}"><span class="dot"></span>${esc(gCode(g) || sName(g.subject))}</li>`; }
 
 /* Up to ten thumbnails (two rows of five) to hover and open, with the number of photos below.
    The viewer and the activity's edit form show all of them. */
@@ -741,7 +765,7 @@ function viewActivities() {
   if (ui.actChild && !data.children.has(ui.actChild)) ui.actChild = '';
   const acts = [...data.activities.values()].filter(a =>
     (!ui.actChild || a.childIds.includes(ui.actChild)) &&
-    (!q || norm(a.title + ' ' + a.notes + ' ' + a.goalIds.map(id => data.goals.get(id)?.code || '').join(' ')).includes(q))
+    (!q || norm(a.title + ' ' + a.notes + ' ' + a.goalIds.map(id => { const g = data.goals.get(id); return g ? gCode(g) : ''; }).join(' ')).includes(q))
   ).sort(byDateDesc);
   const dates = [...data.activities.values()].map(a => a.date).sort();
   const lede = dates.length ? t('acts_range', dates.length, fmtDate(dates[0]), fmtDate(dates[dates.length - 1])) : t('acts_lede');
@@ -765,23 +789,33 @@ function viewActivities() {
   return h + parts.join('');
 }
 
+/* The goals tab opens on the children's tier, or on all goals when they are in different tiers. */
+function defaultGoalTier() { const ts = new Set(sortedChildren().map(tierOf)); return ts.size === 1 ? [...ts][0] : ts.size ? 'all' : DEFAULT_TIER; }
+/* The subjects the goals tab offers as filters: those with goals in its tier (Frans only in leerjaar 5-6). */
+function goalTabSubjects() {
+  const tier = ui.goalTier || defaultGoalTier();
+  return SUBJECTS.filter(s => [...data.goals.values()].some(g => g.subject === s.key && (tier === 'all' || g.tier === tier))).map(s => s.key);
+}
 function viewGoals(cov) {
-  const all = sortedGoals(), q = norm(ui.goalSearch), kids = sortedChildren();
+  const tier = ui.goalTier || defaultGoalTier(), mixed = tier === 'all', shownSubj = goalTabSubjects();
+  const all = sortedGoals().filter(g => mixed || g.tier === tier), q = norm(ui.goalSearch), kids = sortedChildren();
   const list = all.filter(g => ui.goalSubj.has(g.subject) && (!q || norm(searchText(g)).includes(q)));
-  const allOn = ui.goalSubj.size === SUBJECTS.length;
+  const allOn = shownSubj.every(k => ui.goalSubj.has(k));
   let h = exampleBanner();
   h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.</p></div></section>`;
-  h += `<div class="toolbar"><input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
+  h += `<div class="toolbar">
+      <select class="select" id="goal-tier" aria-label="${esc(t('tier_aria'))}">${tierOptions(tier)}</select>
+      <input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
     <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
       <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${bt('all_subjects')}</button>
-      ${SUBJECTS.map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${bName(s.key)}</button>`).join('')}
+      ${SUBJECTS.filter(s => shownSubj.includes(s.key)).map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${bName(s.key)}</button>`).join('')}
     </div>
     <p class="count-line">${esc(t('count_line', list.length, all.length, kids.length))}</p>`;
   const MAX = 400;
   h += `<ul class="card goal-list">${list.slice(0, MAX).map(g => `<li class="goal-row">
-      <span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(g.code || '—')}</span>
+      <span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(gCode(g) || '—')}</span>
       <div class="g-body"><p class="g-meta">${esc(sName(g.subject))}${gCat(g) ? ' · ' + esc(gCat(g)) : ''}</p><p class="g-desc">${esc(gDesc(g))}</p></div>
-      <div class="g-side">${kids.length ? `<span class="kids-row">${kids.map(k => { const done = !!k.mastered[g.id]; return `<span class="avatar sm ${done ? '' : 'off'}" title="${esc(done ? t('kid_done', k.name) : t('kid_open', k.name))}">${animalArt(k.animal)}</span>`; }).join('')}</span>` : ''}</div>
+      <div class="g-side">${kids.length ? `<span class="kids-row">${kids.filter(k => tierOf(k) === g.tier).map(k => { const done = !!k.mastered[g.id]; return `<span class="avatar sm ${done ? '' : 'off'}" title="${esc(done ? t('kid_done', k.name) : t('kid_open', k.name))}">${animalArt(k.animal)}</span>`; }).join('')}</span>` : ''}</div>
     </li>`).join('') || `<li class="goal-row"><p class="muted">${esc(t('no_goals_found'))}</p></li>`}</ul>`;
   if (list.length > MAX) h += `<p class="count-line">${esc(t('first_n', MAX))}</p>`;
   return h;
@@ -843,7 +877,11 @@ function childDialog(child) {
   const used = new Set([...data.children.values()].filter(c => !child || c.id !== child.id).map(c => c.animal));
   const free = ANIMALS.filter(a => !used.has(a));
   const current = child ? child.animal : (free.length ? free[Math.floor(Math.random() * free.length)] : ANIMALS[0]);
+  const curTier = child ? tierOf(child) : DEFAULT_TIER;
   const body = `<label class="field"><span>${esc(t('name'))}</span><input id="c-name" name="name" maxlength="80" autocomplete="off" required autofocus value="${esc(child?.name || '')}"></label>
+    <div class="field"><span class="field-label">${esc(t('tier'))}</span><div class="tier-grid" role="radiogroup" aria-label="${esc(t('tier'))}">
+      ${TIERS.map(x => `<label><input type="radio" name="tier" id="c-tier-${x.key}" value="${x.key}" ${x.key === curTier ? 'checked' : ''}><b>${esc(x.name[lang])}</b><small>${esc(x.ages[lang])} · ${esc(t('n_goals_short', goalsOfTier(x.key).length))}</small></label>`).join('')}
+    </div></div>
     <div class="field"><span class="field-label">${esc(t('animal'))}</span><div class="animal-grid" role="radiogroup" aria-label="${esc(t('animal'))}">
       ${ANIMALS.map((a, i) => `<label title="${used.has(a) ? esc(t('animal_taken')) : ''}"><input type="radio" name="animal" id="c-an-${i}" value="${esc(a)}" ${a === current ? 'checked' : ''} ${used.has(a) && free.length ? 'disabled' : ''}><span class="avatar" aria-hidden="true">${animalArt(a)}</span></label>`).join('')}
     </div></div>`;
@@ -854,8 +892,9 @@ function childDialog(child) {
       const dup = [...data.children.values()].some(c => (!child || c.id !== child.id) && c.name.localeCompare(name, 'nl', { sensitivity: 'accent' }) === 0);
       if (dup) return t('err_dup_name', name);
       const animal = form.querySelector('input[name=animal]:checked')?.value || current;
+      const tier = form.querySelector('input[name=tier]:checked')?.value || curTier;
       const now = Date.now();
-      await put('children', child?.id || newId(), { ...(child ? bodyOf(child) : { createdAt: now }), name, animal, updatedAt: now, example: false });
+      await put('children', child?.id || newId(), { ...(child ? bodyOf(child) : { createdAt: now }), name, animal, tier, updatedAt: now, example: false });
       toast(child ? t('saved_changes') : t('child_added', name));
     });
   });
@@ -897,7 +936,7 @@ function activityDialog(act, presetChild) {
       count.textContent = selGoals.size ? t('n_chosen', selGoals.size) : '';
       const chosen = [...selGoals].map(id => data.goals.get(id)).filter(Boolean).sort(byGoalOrder);
       selBox.innerHTML = chosen.length
-        ? chosen.map(g => `<button type="button" class="code" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" title="${esc(t('remove_x', g.code || gDesc(g).slice(0, 40)))}">${esc(g.code || gDesc(g).slice(0, 24))}</button>`).join('')
+        ? chosen.map(g => `<button type="button" class="code" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" title="${esc(t('remove_x', gCode(g) || gDesc(g).slice(0, 40)))}">${esc(gCode(g) || gDesc(g).slice(0, 24))}</button>`).join('')
         : `<span class="muted">${esc(t('none_chosen'))}</span>`;
     }
     selBox.addEventListener('click', e => { const b = e.target.closest('[data-gid]'); if (!b) return; selGoals.delete(b.dataset.gid); drawSel(); });
@@ -1004,40 +1043,50 @@ if (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParam
 /* Goal picker: its own window on top of the activity form. Works on a copy of the
    selection, so Cancel (or Esc) leaves the activity untouched. */
 function goalPicker(initial, kidIds, onDone) {
+  const kids = kidIds.map(id => data.children.get(id)).filter(Boolean), tiers = new Set(kids.map(tierOf));
   const sel = new Set(initial), cov = buildCoverage(), goals = sortedGoals();
   dlg2.innerHTML = `<form class="dlg-form picker-dlg" novalidate>
     <header><h2>${esc(t('pick_h'))}</h2><button type="button" class="icon-btn" data-close>${esc(t('close'))}</button></header>
     <div class="picker-bar">
       <input class="search" id="p-q" type="search" placeholder="${esc(t('search_goal'))}" aria-label="${esc(t('search_goal'))}" autofocus>
-      <select class="select" id="p-subj" aria-label="${esc(t('subject'))}"><option value="">${esc(t('all_subjects'))}</option>${SUBJECTS.filter(s => goals.some(g => g.subject === s.key)).map(s => `<option value="${s.key}">${esc(sName(s.key))}</option>`).join('')}</select>
+      <select class="select" id="p-tier" aria-label="${esc(t('tier_aria'))}">${tierOptions(tiers.size === 1 ? [...tiers][0] : 'all')}</select>
+      <select class="select" id="p-subj" aria-label="${esc(t('subject'))}"></select>
       <select class="select" id="p-show" aria-label="${esc(t('show'))}"><option value="all">${esc(t('show_all'))}</option>${kidIds.length ? `<option value="open">${esc(t('show_open'))}</option>` : ''}<option value="sel">${esc(t('show_sel'))}</option></select>
     </div>
     <div class="picker-scroll" id="p-list"></div>
     <footer><p class="pick-count" id="p-count" aria-live="polite"></p><button type="button" class="btn ghost" data-close>${esc(t('cancel'))}</button><button type="submit" class="btn primary">${esc(t('done'))}</button></footer>
   </form>`;
+  const tierSel = dlg2.querySelector('#p-tier'), inTierSel = g => tierSel.value === 'all' || g.tier === tierSel.value;
+  /* The subject list follows the tier: only subjects with goals there (Frans only exists in leerjaar 5-6). */
+  function drawSubjects() {
+    const keep = subj.value, ks = SUBJECTS.filter(s => goals.some(g => g.subject === s.key && inTierSel(g)));
+    subj.innerHTML = `<option value="">${esc(t('all_subjects'))}</option>` + ks.map(s => `<option value="${s.key}">${esc(sName(s.key))}</option>`).join('');
+    subj.value = ks.some(s => s.key === keep) ? keep : '';
+  }
   const list = dlg2.querySelector('#p-list'), q = dlg2.querySelector('#p-q'), subj = dlg2.querySelector('#p-subj'), show = dlg2.querySelector('#p-show'), count = dlg2.querySelector('#p-count');
   const drawCount = () => { count.textContent = t('n_selected', sel.size); };
   function drawList() {
     const qq = norm(q.value), sk = subj.value, m2 = show.value;
     const items = goals.filter(g =>
+      (m2 === 'sel' || inTierSel(g)) &&
       (!sk || g.subject === sk) &&
       (!qq || norm(searchText(g)).includes(qq)) &&
       (m2 !== 'sel' || sel.has(g.id)) &&
-      (m2 !== 'open' || kidIds.some(cid => !cov.get(cid)?.has(g.id))));
+      (m2 !== 'open' || kids.some(k => tierOf(k) === g.tier && !cov.get(k.id)?.has(g.id))));
     const MAX = 300;
     let html = '', group = '';
     for (const g of items.slice(0, MAX)) {
       if (g.subject !== group) { group = g.subject; html += `<div class="pick-group"><span class="dot" style="--c:${sv(g.subject)}"></span>${esc(sName(g.subject))}</div>`; }
-      html += `<label class="pick"><input type="checkbox" value="${esc(g.id)}" ${sel.has(g.id) ? 'checked' : ''}><span class="code" style="--c:${sv(g.subject)}">${esc(g.code || '—')}</span><span class="g-desc">${gCat(g) ? `<span class="g-meta">${esc(gCat(g))}</span>\n` : ''}${esc(gDesc(g))}</span></label>`;
+      html += `<label class="pick"><input type="checkbox" value="${esc(g.id)}" ${sel.has(g.id) ? 'checked' : ''}><span class="code" style="--c:${sv(g.subject)}">${esc(gCode(g) || '—')}</span><span class="g-desc">${gCat(g) ? `<span class="g-meta">${esc(gCat(g))}</span>\n` : ''}${esc(gDesc(g))}</span></label>`;
     }
     if (items.length > MAX) html += `<p class="pick-more">${esc(t('n_more', items.length - MAX))}</p>`;
     if (!items.length) html += `<p class="pick-more">${esc(t('picker_none'))}</p>`;
     list.innerHTML = html;
   }
   list.addEventListener('change', e => { const el = e.target; if (el.type !== 'checkbox') return; el.checked ? sel.add(el.value) : sel.delete(el.value); drawCount(); });
-  q.addEventListener('input', drawList); subj.addEventListener('change', drawList); show.addEventListener('change', drawList);
+  q.addEventListener('input', drawList); subj.addEventListener('change', drawList); tierSel.addEventListener('change', () => { drawSubjects(); drawList(); }); show.addEventListener('change', drawList);
   dlg2.querySelector('form').addEventListener('submit', e => { e.preventDefault(); onDone(sel); dlg2.close(); });
-  drawCount(); drawList();
+  drawSubjects(); drawCount(); drawList();
   if (typeof dlg2.showModal === 'function') dlg2.showModal(); else dlg2.setAttribute('open', '');
   q.focus();
 }
@@ -1101,7 +1150,7 @@ function showGoalPeek(chip) {
   const g = data.goals.get(chip.dataset.gid);
   if (!g) return;
   gpeekFor = chip;
-  gpeek.innerHTML = `<div class="gpeek-head"><span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(g.code || '—')}</span><span>${esc(sName(g.subject))}</span></div>
+  gpeek.innerHTML = `<div class="gpeek-head"><span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(gCode(g) || '—')}</span><span>${esc(sName(g.subject))}</span></div>
     ${gCat(g) ? `<p class="g-meta">${esc(gCat(g))}</p>` : ''}<p class="g-desc">${esc(gDesc(g))}</p>`;
   gpeek.classList.remove('show');
   gpeek.hidden = false;
@@ -1178,7 +1227,7 @@ main.addEventListener('click', e => {
     case 'migrate': return migrateLocal(b);
     case 'migrate-skip': return markMigrated();
     case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
-    case 'goal-filter-all': ui.goalSubj = ui.goalSubj.size === SUBJECTS.length ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
+    case 'goal-filter-all': ui.goalSubj = goalTabSubjects().every(k => ui.goalSubj.has(k)) ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
   }
 });
 /* Hover previews for photo thumbnails and goal codes; any mouse move off the element closes them. */
@@ -1206,6 +1255,7 @@ main.addEventListener('input', e => {
 });
 main.addEventListener('change', e => {
   if (e.target.id === 'act-child') { ui.actChild = e.target.value; render(); }
+  if (e.target.id === 'goal-tier') { ui.goalTier = e.target.value; render(); }
   if (e.target.dataset.mastery) setMastery(e.target.dataset.mastery, e.target.checked);
 });
 main.addEventListener('toggle', e => {

@@ -1,0 +1,182 @@
+{
+  "subject": "IC",
+  "name": "ICT",
+  "nameEn": "ICT",
+  "doelen": [
+    {
+      "code": "L4-8.1.1",
+      "category": "Computationeel denken",
+      "categoryEn": "Computational thinking",
+      "description": "De leerlingen kunnen de volgende begrippen gebruiken: digitaal, het internet, de hardware, de software, de invoer, de verwerking, de uitvoer, de opslag, verzenden, ontvangen, offline, online.",
+      "descriptionEn": "Pupils can use the following concepts: digital, the internet, hardware, software, input, processing, output, storage, sending, receiving, offline, online."
+    },
+    {
+      "code": "L4-8.1.2",
+      "category": "Computationeel denken",
+      "categoryEn": "Computational thinking",
+      "description": "De leerlingen kennen het volgende begrip: het algoritme.",
+      "descriptionEn": "Pupils know the following concept: algorithm."
+    },
+    {
+      "code": "L4-8.1.3",
+      "category": "Computationeel denken",
+      "categoryEn": "Computational thinking",
+      "description": "De leerlingen kunnen onder begeleiding de principes van computationeel denken toepassen om een lineair algoritme te ontwerpen, testen en debuggen om tot een werkende oplossing te komen: de principes van computationeel denken: abstractie, decompositie, patroonherkenning, algoritme (abstractie: het focussen op wat belangrijk is en het weglaten van overbodige details; decompositie: het opdelen van een groot probleem in kleinere, hanteerbare delen; patroonherkenning: het zien van gelijkenissen en herhalingen in gegevens of opdrachten, bv. in reeksen, ritmes, bewegingen en programmeeropdrachten; algoritme: een expliciete reeks eenduidige instructies die stapsgewijs moeten worden uitgevoerd, waarbij zowel de instructies als hun volgorde essentieel zijn om het gewenste resultaat te bereiken om zowel een niet-digitaal als digitaal probleem op te lossen); opbouw van algoritme: sequentie.",
+      "descriptionEn": "Pupils can, with guidance, apply the principles of computational thinking to design, test and debug a linear algorithm to arrive at a working solution: the principles of computational thinking: abstraction, decomposition, pattern recognition, algorithm (abstraction: focusing on what matters and leaving out unnecessary details; decomposition: breaking a big problem down into smaller, manageable parts; pattern recognition: spotting similarities and repetitions in data or tasks, e.g. in sequences, rhythms, movements and programming tasks; algorithm: an explicit series of unambiguous instructions to be carried out step by step, where both the instructions and their order are essential to achieving the desired result, in order to solve both a non-digital and a digital problem); structure of an algorithm: sequence."
+    },
+    {
+      "code": "L4-8.2.1",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kennen het volgende begrip: het bestand. (een bestand: digitale informatie zoals tekst, beeld, geluid, video of programma dat je kunt opslaan, openen of bewerken)",
+      "descriptionEn": "Pupils know the following concept: file. (a file: digital information such as text, an image, sound, video or a program that you can save, open or edit)"
+    },
+    {
+      "code": "L4-8.2.2",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kunnen aangereikte invoer- en uitvoerapparaten functioneel gebruiken met inbegrip van basisgebruik van een toetsenbord.",
+      "descriptionEn": "Pupils can use the input and output devices provided for their purpose, including basic use of a keyboard."
+    },
+    {
+      "code": "L4-8.2.3",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kunnen bestanden gebruiken via de bestaande mappenstructuur van het systeem.",
+      "descriptionEn": "Pupils can use files through the system's existing folder structure."
+    },
+    {
+      "code": "L4-8.2.4",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kennen zoekstrategieën om digitale bronnen te vinden en raadplegen: formuleren van zoekvraag; kiezen van zoektool; formuleren van zoekopdracht; beoordelen van zoekresultaten.",
+      "descriptionEn": "Pupils know search strategies for finding and consulting digital sources: formulating a search question; choosing a search tool; formulating a search query; judging the search results."
+    },
+    {
+      "code": "L4-8.2.5",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kunnen onder begeleiding een zoekstrategie uitwerken en toepassen vanuit de principes van computationeel denken.",
+      "descriptionEn": "Pupils can, with guidance, work out and apply a search strategy based on the principles of computational thinking."
+    },
+    {
+      "code": "L4-8.3.1",
+      "category": "Mediawijsheid",
+      "categoryEn": "Media literacy",
+      "description": "De leerlingen kennen de volgende begrippen: de online privacy, de persoonlijke gegevens, de/het account. (online privacy: zelf kiezen welke informatie je deelt en met wie; persoonlijke gegevens: zaken zoals naam, adres, geboortedatum, telefoonnummer of school; account: digitale toegang om in te loggen op een leerplatform, website of spel, vaak met een gebruikersnaam, wachtwoord en/of code)",
+      "descriptionEn": "Pupils know the following concepts: online privacy, personal data, account. (online privacy: choosing for yourself what information you share and with whom; personal data: things such as your name, address, date of birth, phone number or school; account: digital access for logging in to a learning platform, website or game, often with a username, password and/or code)"
+    },
+    {
+      "code": "L6-8.1.1",
+      "category": "Computationeel denken",
+      "categoryEn": "Computational thinking",
+      "description": "De leerlingen kennen het proces van digitale informatieverwerking en begrijpen hoe digitale systemen met elkaar verbonden kunnen worden om te communiceren: samenhang tussen invoer, verwerking, uitvoer en opslag; gegevensuitwisseling tussen digitale systemen; verbinding tussen systemen (bv. via kabel, wifi of mobiel internet); verwerking en opslag van gegevens op een andere locatie dan het eigen digitale apparaat (bv. Leerlingen begrijpen dat een tablet een bericht verwerkt: je typt iets (invoer), het toestel verwerkt dit en toont het bericht op het scherm (uitvoer); Leerlingen begrijpen dat bij online gamen meerdere spelers tegelijk in verbinding staan via het internet, zodat ze samen kunnen spelen en communiceren (realtime gegevensuitwisseling)).",
+      "descriptionEn": "Pupils know the process of digital information processing and understand how digital systems can be connected to each other to communicate: the link between input, processing, output and storage; data exchange between digital systems; connection between systems (e.g. via cable, wifi or mobile internet); processing and storage of data in a location other than your own digital device (e.g. Pupils understand that a tablet processes a message: you type something (input), the device processes it and shows the message on the screen (output); Pupils understand that in online gaming several players are connected at the same time via the internet, so that they can play and communicate together (real-time data exchange))."
+    },
+    {
+      "code": "L6-8.1.2",
+      "category": "Computationeel denken",
+      "categoryEn": "Computational thinking",
+      "description": "De leerlingen kennen de volgende begrippen: de invoer, de uitvoer, de opslag, de informatieverwerking, het netwerk, de verbinding.",
+      "descriptionEn": "Pupils know the following concepts: input, output, storage, information processing, network, connection."
+    },
+    {
+      "code": "L6-8.1.3",
+      "category": "Computationeel denken",
+      "categoryEn": "Computational thinking",
+      "description": "De leerlingen kunnen onder begeleiding de principes van computationeel denken toepassen om een algoritme te ontwerpen, testen en debuggen om tot een werkende oplossing te komen: opbouw van algoritme: combinatie van sequentie, herhaling, keuze.",
+      "descriptionEn": "Pupils can, with guidance, apply the principles of computational thinking to design, test and debug an algorithm to arrive at a working solution: structure of an algorithm: a combination of sequence, repetition and selection."
+    },
+    {
+      "code": "L6-8.2.1",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kunnen doelgericht invoer- en uitvoerapparaten gebruiken en instellen met inbegrip van vlot gebruik van een toetsenbord.",
+      "descriptionEn": "Pupils can use and set up input and output devices purposefully, including fluent use of a keyboard."
+    },
+    {
+      "code": "L6-8.2.2",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kunnen bestanden openen, downloaden, opslaan, uploaden en sluiten.",
+      "descriptionEn": "Pupils can open, download, save, upload and close files."
+    },
+    {
+      "code": "L6-8.2.3",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kunnen bestanden beheren via een aangereikte structuur. (bv. duidelijke bestandsnamen gebruiken; bestanden opslaan in de juiste map; verwijderen van overbodige of foute bestanden; aanmaken van mappen; hernoemen van mappen en bestanden; terughalen van verwijderde bestanden)",
+      "descriptionEn": "Pupils can manage files using a structure they are given. (e.g. using clear file names; saving files in the right folder; deleting unnecessary or incorrect files; creating folders; renaming folders and files; restoring deleted files)"
+    },
+    {
+      "code": "L6-8.2.4",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kunnen eenvoudige systeeminstellingen aanpassen. (bv. taalinstellingen aanpassen; wifi aan/uit zetten; weergave-instellingen aanpassen)",
+      "descriptionEn": "Pupils can change simple system settings. (e.g. changing language settings; turning wifi on/off; changing display settings)"
+    },
+    {
+      "code": "L6-8.2.5",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kennen het volgende begrip: de artificiële intelligentie.",
+      "descriptionEn": "Pupils know the following concept: artificial intelligence."
+    },
+    {
+      "code": "L6-8.2.6",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kunnen een zoekstrategie uitwerken, toepassen en indien nodig bijsturen vanuit de principes van computationeel denken. (bv. een eenvoudige en effectieve prompt formuleren in een door de school beschikbaar gestelde AI-tool om content/informatie te verkrijgen)",
+      "descriptionEn": "Pupils can work out, apply and, where necessary, adjust a search strategy based on the principles of computational thinking. (e.g. writing a simple and effective prompt in an AI tool provided by the school to obtain content/information)"
+    },
+    {
+      "code": "L6-8.2.7",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kunnen aan de hand van aangereikte criteria digitale bronnen beoordelen op bruikbaarheid, betrouwbaarheid en correctheid.",
+      "descriptionEn": "Pupils can use criteria they are given to judge digital sources for usefulness, reliability and accuracy."
+    },
+    {
+      "code": "L6-8.2.8",
+      "category": "Digitale informatievaardigheid",
+      "categoryEn": "Digital information literacy",
+      "description": "De leerlingen kunnen voorbeelden geven van toepassingen waarin AI gebruikt wordt. (bv. spraakherkenning, vertaaltools, aanbevelingssysteem)",
+      "descriptionEn": "Pupils can give examples of applications in which AI is used. (e.g. speech recognition, translation tools, recommendation systems)"
+    },
+    {
+      "code": "L6-8.3.1",
+      "category": "Mediawijsheid",
+      "categoryEn": "Media literacy",
+      "description": "De leerlingen kennen de volgende begrippen: het auteursrecht, het portretrecht, de online veiligheid, het nepnieuws. (auteursrecht: bescherming van eigen creaties; portretrecht: recht op afbeelding; online veiligheid: verantwoord gedrag om jezelf en anderen te beschermen op het internet; nepnieuws: informatie die bewust fout of verzonnen is om mensen te misleiden)",
+      "descriptionEn": "Pupils know the following concepts: copyright, image rights, online safety, fake news. (copyright: protection of your own creations; image rights: the right to control use of your image; online safety: responsible behaviour to protect yourself and others on the internet; fake news: information that is deliberately wrong or made up to mislead people)"
+    },
+    {
+      "code": "L6-8.3.2",
+      "category": "Mediawijsheid",
+      "categoryEn": "Media literacy",
+      "description": "De leerlingen kennen basisprincipes van auteursrecht en portretrecht: wat iemand zelf maakt, zoals een tekst, foto of video, mag niet zomaar door anderen gebruikt of gekopieerd worden; iemand mag niet gefotografeerd of gefilmd worden zonder goedkeuring van die persoon; een foto of video waarop iemand herkenbaar afgebeeld staat mag enkel gepubliceerd of gedeeld worden als die persoon toestemming geeft.",
+      "descriptionEn": "Pupils know the basic principles of copyright and image rights: what someone makes themselves, such as a text, photo or video, may not simply be used or copied by others; someone may not be photographed or filmed without that person's consent; a photo or video in which someone can be recognised may only be published or shared if that person gives permission."
+    },
+    {
+      "code": "L6-8.3.3",
+      "category": "Mediawijsheid",
+      "categoryEn": "Media literacy",
+      "description": "De leerlingen kennen mogelijkheden om zichzelf en anderen online te beschermen. (bv. een sterk wachtwoord kiezen; weten met wie je omgaat; weten bij wie je terechtkunt voor hulp)",
+      "descriptionEn": "Pupils know ways to protect themselves and others online. (e.g. choosing a strong password; knowing who you are dealing with; knowing who you can turn to for help)"
+    },
+    {
+      "code": "L6-8.3.4",
+      "category": "Mediawijsheid",
+      "categoryEn": "Media literacy",
+      "description": "De leerlingen kunnen de impact van digitale media op hun eigen leefwereld, fysieke en morele integriteit en die van anderen illustreren waaronder: ethische aspecten; sociale aspecten; regelgevende aspecten; gezondheidsaspecten; veiligheidsaspecten (bv. berichten of screenshots bekijken en herkennen wanneer iemand wordt buitengesloten, gepest of gekwetst; herkennen hoe bedrijven leerlingen proberen te beïnvloeden via online reclame, spelletjes of influencers; situaties herkennen waarin veel schermtijd leidt tot vermoeidheid of afleiding; cookies herkennen als het gevolg van de privacywet).",
+      "descriptionEn": "Pupils can illustrate the impact of digital media on their own world and on their own physical and moral integrity and that of others, including: ethical aspects; social aspects; regulatory aspects; health aspects; safety aspects (e.g. looking at messages or screenshots and recognising when someone is being left out, bullied or hurt; recognising how companies try to influence pupils through online advertising, games or influencers; recognising situations in which a lot of screen time leads to tiredness or distraction; recognising cookies as a consequence of privacy law)."
+    },
+    {
+      "code": "L6-8.4.1",
+      "category": "Digitale creatie",
+      "categoryEn": "Digital creation",
+      "description": "De leerlingen kennen mogelijkheden van digitale tools om te communiceren. (bv. berichten, e-mail, chat, reacties of videogesprekken)",
+      "descriptionEn": "Pupils know ways in which digital tools can be used to communicate. (e.g. messages, email, chat, comments or video calls)"
+    }
+  ]
+}

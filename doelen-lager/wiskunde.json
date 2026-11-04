@@ -1,0 +1,1701 @@
+{
+  "subject": "WK",
+  "name": "Wiskunde",
+  "nameEn": "Mathematics",
+  "doelen": [
+    {
+      "code": "L4-2.1.1",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen paraat de splitsingen tot en met 10 [F].",
+      "descriptionEn": "Pupils know the number bonds up to and including 10 by heart [F]."
+    },
+    {
+      "code": "L4-2.1.2",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen de waarde van een cijfer in getallen tot en met 10 000 aan de hand van zijn positie in het plaatswaardesysteem [I].",
+      "descriptionEn": "Pupils know the value of a digit in numbers up to and including 10 000 based on its position in the place value system [I]."
+    },
+    {
+      "code": "L4-2.1.3",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen het verband tussen telwoorden tot en met 10 000, getalnotatie en aantal [I].",
+      "descriptionEn": "Pupils know the relationship between number words up to and including 10 000, written numbers and quantity [I]."
+    },
+    {
+      "code": "L4-2.1.4",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen een getal als aanduiding voor een aantal, rangorde en code [I].",
+      "descriptionEn": "Pupils know a number as an indication of a quantity, an order (rank) and a code [I]."
+    },
+    {
+      "code": "L4-2.1.5",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen de kenmerken van deelbaarheid van [I/F]: 2, 5; 10, 100 en 1 000.",
+      "descriptionEn": "Pupils know the divisibility rules for [I/F]: 2, 5; 10, 100 and 1 000."
+    },
+    {
+      "code": "L4-2.1.6",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen de volgende begrippen en wiskundige notaties [F]: E, T, H, D, TD; =, ≠, <, >, ≤, ≥ (tussen getallen); het cijfer (de symbolen 0 tot en met 9), het getal (één- of meercijferig); het aantal, de rangorde; de getallenas, afronden; deelbaar, de deler, de rest, het veelvoud, even en oneven.",
+      "descriptionEn": "Pupils know the following concepts and mathematical notations [F]: U, T, H, Th, TTh; =, ≠, <, >, ≤, ≥ (between numbers); the digit (the symbols 0 to 9), the number (one-digit or multi-digit); the quantity, the order (rank); the number line, rounding; divisible, the divisor, the remainder, the multiple, even and odd."
+    },
+    {
+      "code": "L4-2.1.7",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kunnen (bij) natuurlijke getallen tot en met 10 000: lezen en schrijven; vergelijken, ordenen en plaatsen op de getallenas; met eenheden, tweetallen, vijftallen en machten van tien tellen, doortellen en terugtellen; tellen met sprongen van 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 (in functie van maal- en deeltafels), 25, 50, 100, 125 en 1 000; in duizendtallen, honderdtallen, tientallen en eenheden splitsen en samenstellen; herstructureren (in functie van bewerkingen) (bv. bij een deling als 234: 3 = het getal 234 herstructureren als 210 en 24 om de deling uit te voeren); tot op een tien-, honderd- en duizendtal afronden; aantallen schatten in betekenisvolle contexten (bv. hoeveel kinderen kunnen eten in de refter?); delers en veelvouden bepalen; de kenmerken van deelbaarheid toepassen om de deelbaarheid en de rest te bepalen voor 2, 5, 10, 100 en 1 000.",
+      "descriptionEn": "Pupils can, with natural numbers up to and including 10 000: read and write them; compare them, put them in order and place them on the number line; count, count on and count back in ones, twos, fives and powers of ten; count in jumps of 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 (with a view to the multiplication and division tables), 25, 50, 100, 125 and 1 000; partition them into thousands, hundreds, tens and units and recombine them; restructure them (with a view to calculations) (e.g. for a division such as 234: 3 = restructure the number 234 as 210 and 24 to carry out the division); round them to the nearest ten, hundred and thousand; estimate quantities in meaningful contexts (e.g. how many children can eat in the dining hall?); find divisors and multiples; apply the divisibility rules to determine divisibility and the remainder for 2, 5, 10, 100 and 1 000."
+    },
+    {
+      "code": "L4-2.1.8",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen de uitbreiding van de getallenas met negatieve getallen [I].",
+      "descriptionEn": "Pupils know that the number line can be extended with negative numbers [I]."
+    },
+    {
+      "code": "L4-2.1.9",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen de volgende begrippen en wiskundige notaties [F]: het positief getal, het negatief getal; het minteken (-).",
+      "descriptionEn": "Pupils know the following concepts and mathematical notations [F]: the positive number, the negative number; the minus sign (-)."
+    },
+    {
+      "code": "L4-2.1.10",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kunnen terugtellen vanaf nul met eenheden tot en met -10.",
+      "descriptionEn": "Pupils can count back in ones from zero down to and including -10."
+    },
+    {
+      "code": "L4-2.1.11",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kunnen in herkenbare contexten: negatieve getallen lezen en interpreteren; gehele getallen vergelijken en ordenen.",
+      "descriptionEn": "Pupils can, in recognisable contexts: read and interpret negative numbers; compare and order integers."
+    },
+    {
+      "code": "L4-2.1.12",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen een breuk als operator en als deel van een geheel, hierbij is het geheel [I]: continu; een aantal; een getal.",
+      "descriptionEn": "Pupils know a fraction as an operator and as part of a whole, where the whole is [I]: continuous; a quantity; a number."
+    },
+    {
+      "code": "L4-2.1.13",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen een breuk als rationaal getal en als getal tussen andere getallen [I]. (bij een breuk als rationaal getal geldt de afspraak dat de eenheid het geheel is (= 1), hierdoor kan je alle rationale getallen vergelijken en er bewerkingen mee uitvoeren)",
+      "descriptionEn": "Pupils know a fraction as a rational number and as a number between other numbers [I]. (for a fraction as a rational number, the convention is that the unit is the whole (= 1); this means you can compare all rational numbers and carry out calculations with them)"
+    },
+    {
+      "code": "L4-2.1.14",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen decimale getallen als uitbreiding van het plaatswaardesysteem via de breuken 1/10 en 1/100 [I].",
+      "descriptionEn": "Pupils know decimal numbers as an extension of the place value system through the fractions 1/10 and 1/100 [I]."
+    },
+    {
+      "code": "L4-2.1.15",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen paraat het verband tussen de breuken 1/2, 1/4, 3/4, 1/5, 1/10, 1/100 en hun decimale vorm [F].",
+      "descriptionEn": "Pupils know by heart the relationship between the fractions 1/2, 1/4, 3/4, 1/5, 1/10, 1/100 and their decimal form [F]."
+    },
+    {
+      "code": "L4-2.1.16",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kennen de volgende begrippen en wiskundige notaties [F]: de (ver)deling, de (on)gelijke delen; het dubbel, de helft, een kwart; de teller, de noemer, de breukstreep, de breuk (/); een stambreuk, een (on)echte breuk; gelijkwaardig, vereenvoudigen, (on)gelijknamig; de komma (,), t, h.",
+      "descriptionEn": "Pupils know the following concepts and mathematical notations [F]: the division (sharing), the (un)equal parts; the double, the half, a quarter; the numerator, the denominator, the fraction bar, the fraction (/); a unit fraction, a proper/improper fraction; equivalent, simplifying, like/unlike (same or different denominator); the decimal comma (,), t, h (tenths, hundredths)."
+    },
+    {
+      "code": "L4-2.1.17",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kunnen bij een gegeven geheel en deel, de breuk vinden; geheel en breuk, het deel bepalen; deel en breuk, het geheel zoeken met behulp van een schematische voorstelling.",
+      "descriptionEn": "Pupils can, using a diagram: given a whole and a part, find the fraction; given a whole and a fraction, work out the part; given a part and a fraction, find the whole."
+    },
+    {
+      "code": "L4-2.1.18",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kunnen (bij) breuken waarbij de noemer beperkt is tot en met 20 of breuken die te vereenvoudigen zijn tot deze breuken: lezen met zowel schuine (3/4) als horizontale (3/4) breukstreep; noteren met horizontale breukstreep (3/4); voorstellen en herkennen in oppervlaktemodellen en strookmodellen; gelijknamige breuken vergelijken, ordenen en plaatsen op de getallenas; herstructureren (bv. 5/4 is 1 geheel en 1/4, 3/4 is 1/4 minder dan 1 geheel).",
+      "descriptionEn": "Pupils can, with fractions whose denominator is limited to 20 or fractions that can be simplified to such fractions: read them with both a slanted (3/4) and a horizontal (3/4) fraction bar; write them with a horizontal fraction bar (3/4); represent and recognise them in area models and strip models; compare fractions with the same denominator, put them in order and place them on the number line; restructure them (e.g. 5/4 is 1 whole and 1/4, 3/4 is 1/4 less than 1 whole)."
+    },
+    {
+      "code": "L4-2.1.19",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerlingen kunnen decimale getallen (tot op 1 honderdste): lezen en noteren; in tienden en honderdsten tellen, doortellen en terugtellen; vergelijken, ordenen en plaatsen op de getallenas; in tienden en honderdsten splitsen en samenstellen; in herkenbare contexten interpreteren.",
+      "descriptionEn": "Pupils can, with decimal numbers (to 1 hundredth): read and write them; count, count on and count back in tenths and hundredths; compare them, put them in order and place them on the number line; partition them into tenths and hundredths and recombine them; interpret them in recognisable contexts."
+    },
+    {
+      "code": "L4-2.2.1",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen het optellen/aftrekken als: oorzaak-verandering, combinatie, vergelijking [I]. (bv. zie bewerkingen kleuter)",
+      "descriptionEn": "Pupils know addition/subtraction as: cause-change, combination, comparison [I]. (e.g. see operations at nursery level)"
+    },
+    {
+      "code": "L4-2.2.2",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen het vermenigvuldigen als: keerhandeling, rooster, vergelijking, combinatie [I]. (bv. keerhandeling: ik neem 6 keer een zakje met 24 knikkers, hoeveel knikkers heb ik?; rooster: een moestuin heeft 4 rijen met 9 plantjes in elke rij, hoeveel plantjes zijn er?; vergelijking: je hebt 3 keer zoveel stripboeken als jouw vriend, jouw vriend heeft er 18, hoeveel heb jij er?; combinatie: je hebt 4 soorten soep en 5 verschillende broodjes, hoeveel verschillende maaltijden kun je samenstellen?)",
+      "descriptionEn": "Pupils know multiplication as: repeated action (times), array, comparison, combination [I]. (e.g. repeated action: I take 6 bags of 24 marbles each, how many marbles do I have?; array: a vegetable garden has 4 rows with 9 plants in each row, how many plants are there?; comparison: you have 3 times as many comic books as your friend, your friend has 18, how many do you have?; combination: you have 4 kinds of soup and 5 different sandwiches, how many different meals can you put together?)"
+    },
+    {
+      "code": "L4-2.2.3",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen het delen als: verdelingsdeling, verhoudingsdeling, opgaande en niet-opgaande deling [I]. (bv. verdelingsdeling: ik heb 8 knikkers, ik verdeel ze over twee vrienden, hoeveel elk?; verhoudingsdeling: ik heb 8 knikkers, ik maak zakjes van 2 knikkers, hoeveel zakjes?)",
+      "descriptionEn": "Pupils know division as: sharing (partitive division), grouping (quotative division), division without and with a remainder [I]. (e.g. sharing: I have 8 marbles, I share them between two friends, how many does each get?; grouping: I have 8 marbles, I make bags of 2 marbles, how many bags?)"
+    },
+    {
+      "code": "L4-2.2.4",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen het verband tussen verhoudingsdeling en verdelingsdeling [I]. (bv. 6: 2 = 3: ik deel 6 knikkers uit aan twee leerlingen en kijk hoeveel ieder er krijgt (=3), ik kan ook tellen hoe vaak ik 2 knikkers kan uitdelen (=3))",
+      "descriptionEn": "Pupils know the relationship between grouping and sharing [I]. (e.g. 6: 2 = 3: I hand out 6 marbles to two pupils and see how many each one gets (= 3); I can also count how many times I can hand out 2 marbles (= 3))"
+    },
+    {
+      "code": "L4-2.2.5",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen het gelijkheidsteken als aanduiding voor een wiskundige gelijkheid [I]. (het gelijkheidsteken wordt vaak uitsluitend als signaal gezien om iets uit te rekenen, terwijl het slaat op een gelijkheid tussen beide zijden van het gelijkheidsteken)",
+      "descriptionEn": "Pupils know the equals sign as an indication of a mathematical equality [I]. (the equals sign is often seen only as a signal to work something out, whereas it refers to an equality between the two sides of the equals sign)"
+    },
+    {
+      "code": "L4-2.2.6",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen de rekenvolgorde van links naar rechts [I].",
+      "descriptionEn": "Pupils know the order of operations from left to right [I]."
+    },
+    {
+      "code": "L4-2.2.7",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen het gebruik van haakjes om de rekenvolgorde te doorbreken of de rekenvolgorde te benadrukken [I]. (bv. volgorde doorbreken: 3 + 6 + 4 = 3 + (6 + 4) / rekenvolgorde benadrukken: 7 + 9 = (7 + 3) + 6)",
+      "descriptionEn": "Pupils know the use of brackets to change the order of operations or to emphasise the order of operations [I]. (e.g. changing the order: 3 + 6 + 4 = 3 + (6 + 4) / emphasising the order: 7 + 9 = (7 + 3) + 6)"
+    },
+    {
+      "code": "L4-2.2.8",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen de eigenschappen van bewerkingen [I]: neutraal en opslorpend element; commutativiteit; associativiteit; distributiviteit (de deling is alleen rechtsdistributief t.o.v. de optelling/aftrekking).",
+      "descriptionEn": "Pupils know the properties of operations [I]: identity element and absorbing (zero) element; commutativity; associativity; distributivity (division is only right-distributive over addition/subtraction)."
+    },
+    {
+      "code": "L4-2.2.9",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen relaties tussen bewerkingen [I]: een vermenigvuldiging als een herhaalde optelling en deling als een herhaalde aftrekking (of tellen van de sprongen); optellen/aftrekken en vermenigvuldigen/delen zijn elkaars inverse bewerking.",
+      "descriptionEn": "Pupils know the relationships between operations [I]: multiplication as repeated addition and division as repeated subtraction (or counting the jumps); addition/subtraction and multiplication/division are each other's inverse operations."
+    },
+    {
+      "code": "L4-2.2.10",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen de volgende begrippen en wiskundige notaties [F]: +, -, x, :, /, (), =, ≠; optellen, aftrekken, vermenigvuldigen, delen; plus, min, maal, keer, gedeeld door; de som, het verschil, het product, het quotiënt, de rest; de aftrekker, het aftrektal, de vermenigvuldiger, het vermenigvuldigtal, de deler, het deeltal; termen, factoren; aanvullen tot; compenseren, omgekeerde bewerking; van plaats wisselen, (aaneen)schakelen, splitsen en verdelen.",
+      "descriptionEn": "Pupils know the following concepts and mathematical notations [F]: +, -, x, :, /, (), =, ≠; add, subtract, multiply, divide; plus, minus, times, multiplied by, divided by; the sum, the difference, the product, the quotient, the remainder; the subtrahend, the minuend, the multiplier, the multiplicand, the divisor, the dividend; terms, factors; adding on to (complementing); compensating, inverse operation; swapping places, chaining (linking), partitioning and distributing."
+    },
+    {
+      "code": "L4-2.2.11",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen betekenisvolle situaties omzetten naar bewerkingen met natuurlijke getallen en decimale getallen.",
+      "descriptionEn": "Pupils can turn meaningful situations into calculations with natural numbers and decimal numbers."
+    },
+    {
+      "code": "L4-2.2.12",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen bij een niet-opgaande deling de rest bepalen.",
+      "descriptionEn": "Pupils can find the remainder in a division that does not come out exactly."
+    },
+    {
+      "code": "L4-2.2.13",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen het gelijkheidsteken correct gebruiken. (bv. 76 + 23 = 76 + 20 + 3 = 96 + 3 = 99 en dus niet 76 + 23 = 76 + 20 = 96 + 3 = 99)",
+      "descriptionEn": "Pupils can use the equals sign correctly. (e.g. 76 + 23 = 76 + 20 + 3 = 96 + 3 = 99 and therefore not 76 + 23 = 76 + 20 = 96 + 3 = 99)"
+    },
+    {
+      "code": "L4-2.2.14",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen flexibel een doelmatige rekenmethode uitkiezen, uitvoeren en verantwoorden op basis van inzicht in de getalstructuur en begrip van de rekenhandelingen. Keuze uit: hoofdrekenen: standaardprocedures; hoofdrekenen: handig rekenen, meer bepaald compenseren en eigenschappen van bewerkingen gebruiken.",
+      "descriptionEn": "Pupils can flexibly choose, carry out and justify an efficient calculation method based on insight into the structure of numbers and understanding of the operations. Choice of: mental calculation: standard procedures; mental calculation: clever calculation, more specifically compensating and using the properties of operations."
+    },
+    {
+      "code": "L4-2.2.15",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen andere rekenwijzen (zie verder) gebruiken: schattend rekenen, cijferen.",
+      "descriptionEn": "Pupils can use other calculation methods (see below): estimating, written (column) calculation."
+    },
+    {
+      "code": "L4-2.2.16",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen paraat de optellingen en aftrekkingen tot en met 20 [F].",
+      "descriptionEn": "Pupils know the addition and subtraction facts up to and including 20 by heart [F]."
+    },
+    {
+      "code": "L4-2.2.17",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen paraat de vermenigvuldigings- en deeltafels van 1, 2,...,10 [F].",
+      "descriptionEn": "Pupils know the multiplication and division tables of 1, 2,...,10 by heart [F]."
+    },
+    {
+      "code": "L4-2.2.18",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen standaardprocedures gebruiken voor natuurlijke getallen tot en met 1 000 en grotere getallen met eindnullen: optellen en aftrekken: door de tweede term te splitsen in opeenvolgende rangen (bv. 124 + 254 = 124 + 200 + 50 + 4); vermenigvuldiging als herhaalde optelling (bv. 3 x 36 = 36 + 36 + 36); opgaande en niet-opgaande delingen: het quotiënt bepalen door sprongen te tellen (herhaalde aftrekking) (bv. 74: 12 = … (12, 24, 36, 48, 60, 72 dus 6) 74: 12 = 6 met rest = 2); opgaande deling door het deeltal te splitsen in een som en de distributiviteit toe te passen (bv. 234: 3 = (210 + 24): 3 = (210: 3) + (24: 3)).",
+      "descriptionEn": "Pupils can use standard procedures for natural numbers up to and including 1 000 and larger numbers ending in zeros: addition and subtraction: by partitioning the second term into successive place values (e.g. 124 + 254 = 124 + 200 + 50 + 4); multiplication as repeated addition (e.g. 3 x 36 = 36 + 36 + 36); divisions with and without a remainder: finding the quotient by counting jumps (repeated subtraction) (e.g. 74: 12 = … (12, 24, 36, 48, 60, 72 so 6) 74: 12 = 6 remainder = 2); exact division by partitioning the dividend into a sum and applying distributivity (e.g. 234: 3 = (210 + 24): 3 = (210: 3) + (24: 3))."
+    },
+    {
+      "code": "L4-2.2.19",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen standaardprocedures gebruiken voor natuurlijke getallen tot en met 10 000: vermenigvuldiging op basis van de distributiviteit (E x HTE, TE x TE).",
+      "descriptionEn": "Pupils can use standard procedures for natural numbers up to and including 10 000: multiplication based on distributivity (U x HTU, TU x TU)."
+    },
+    {
+      "code": "L4-2.2.20",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen standaardprocedures gebruiken voor decimale getallen (tot op 1 honderdste): optellen en aftrekken: door de tweede term te splitsen volgens het plaatswaardesysteem (bv. 6,2 + 3,41 = 6,2 + 3 + 0,4 + 0,01); vermenigvuldigen met een natuurlijk getal op basis van de herhaalde optelling (bv. 3 x 0,4 = 0,4 + 0,4 +0,4).",
+      "descriptionEn": "Pupils can use standard procedures for decimal numbers (to 1 hundredth): addition and subtraction: by partitioning the second term according to the place value system (e.g. 6,2 + 3,41 = 6,2 + 3 + 0,4 + 0,01); multiplying by a natural number based on repeated addition (e.g. 3 x 0,4 = 0,4 + 0,4 +0,4)."
+    },
+    {
+      "code": "L4-2.2.21",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen een werkwijze voor het vermenigvuldigen met en delen door 10, 100, 1 000 [I].",
+      "descriptionEn": "Pupils know a method for multiplying and dividing by 10, 100, 1 000 [I]."
+    },
+    {
+      "code": "L4-2.2.22",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen (bij) natuurlijke getallen tot en met 1 000: van plaats wisselen en schakelen om handig te rekenen; optellen en aftrekken naar analogie met optellingen en aftrekkingen tot 20 (bv. 20 + 30 = … 600 – 300 = …); aftrekken door aanvullend optellen (bv. 801 – 796 = 5 als 796 + … = 801); vermenigvuldigen en delen naar analogie met de tafels (bv. 80 x 60 = … 120: 20 = …); compenseren op basis van de betekenis van de rekenhandeling: een keer meer, een keer minder, verdubbelen, halveren; compenseren op basis van de inverse bewerking (bv. 140 + 99 = 140 + 100 – 1 = 239 of 32 x 5 = 32 x 10: 2 = 160).",
+      "descriptionEn": "Pupils can, with natural numbers up to and including 1 000: swap places and chain numbers to calculate cleverly; add and subtract by analogy with additions and subtractions up to 20 (e.g. 20 + 30 = … 600 – 300 = …); subtract by adding on (e.g. 801 – 796 = 5 as 796 + … = 801); multiply and divide by analogy with the times tables (e.g. 80 x 60 = … 120: 20 = …); compensate based on the meaning of the operation: one time more, one time less, doubling, halving; compensate based on the inverse operation (e.g. 140 + 99 = 140 + 100 – 1 = 239 or 32 x 5 = 32 x 10: 2 = 160)."
+    },
+    {
+      "code": "L4-2.2.23",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen een schematische voorstelling voor de oplossingsstrategie van optellen/aftrekken met breuken [I].",
+      "descriptionEn": "Pupils know a diagram for the solution strategy for adding/subtracting fractions [I]."
+    },
+    {
+      "code": "L4-2.2.24",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen bij breuken waarbij de noemer beperkt is tot en met 20: gelijknamige breuken optellen en aftrekken; een breuk van een getal nemen.",
+      "descriptionEn": "Pupils can, with fractions whose denominator is limited to 20: add and subtract fractions with the same denominator; find a fraction of a number."
+    },
+    {
+      "code": "L4-2.2.25",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen procedures om te cijferen voor optellen en aftrekken op basis van inzicht in de tientalligheid en het plaatswaardesysteem van ons talstelsel [I].",
+      "descriptionEn": "Pupils know procedures for written (column) addition and subtraction based on insight into the base-ten structure and the place value system of our number system [I]."
+    },
+    {
+      "code": "L4-2.2.26",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kennen de wiskundige notatie [F]: ≈ (aanduiding schatting).",
+      "descriptionEn": "Pupils know the mathematical notation [F]: ≈ (indicating an estimate)."
+    },
+    {
+      "code": "L4-2.2.27",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen cijferalgoritmes voor optellen en aftrekken gebruiken voor natuurlijke getallen tot en met 10 000.",
+      "descriptionEn": "Pupils can use written (column) methods for addition and subtraction with natural numbers up to and including 10 000."
+    },
+    {
+      "code": "L4-2.2.28",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen schatten door gebruik te maken van afrondingsregels.",
+      "descriptionEn": "Pupils can estimate by using rounding rules."
+    },
+    {
+      "code": "L4-2.2.29",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerlingen kunnen volgende controlestrategieën inzetten om het resultaat van een bewerking te controleren: de omgekeerde bewerking uitvoeren.",
+      "descriptionEn": "Pupils can use the following checking strategies to check the result of a calculation: carrying out the inverse operation."
+    },
+    {
+      "code": "L4-2.3.1",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de volgende meetinzichten [I]: we meten geen objecten maar grootheden van objecten; meten is het bepalen van een verhouding: bij een meting gaan we na hoe vaak de maateenheid in de te meten grootheid gaat; hoe kleiner de maateenheid, hoe groter het maatgetal (en omgekeerd); elk meetresultaat is een benadering, verfijning van maten leidt tot nauwkeuriger meten; om meetresultaten te vergelijken, is het nodig dat we ze in dezelfde maateenheid uitdrukken; de standaardmaateenheden berusten op afspraken en staan in een vaste verhouding tot elkaar, ze vormen een systeem: het metriek stelsel.",
+      "descriptionEn": "Pupils know the following insights about measuring [I]: we do not measure objects but quantities (attributes) of objects; measuring is determining a ratio: when measuring, we check how many times the unit of measurement fits into the quantity being measured; the smaller the unit of measurement, the larger the measurement number (and vice versa); every measurement result is an approximation, refining the units leads to more accurate measuring; to compare measurement results, we need to express them in the same unit of measurement; the standard units of measurement are based on agreements and have a fixed ratio to one another, they form a system: the metric system."
+    },
+    {
+      "code": "L4-2.3.2",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de noodzakelijkheid van standaardmaten voor het eenduidig uitvoeren en vergelijken van metingen [I].",
+      "descriptionEn": "Pupils know why standard units are needed to carry out and compare measurements unambiguously [I]."
+    },
+    {
+      "code": "L4-2.3.3",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de volgende begrippen [F]: de maateenheid, het maatgetal, de maat (= maatgetal + maateenheid).",
+      "descriptionEn": "Pupils know the following concepts [F]: the unit of measurement, the measurement number, the measurement (= measurement number + unit of measurement)."
+    },
+    {
+      "code": "L4-2.3.4",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen meten en metend rekenen voor lengte, oppervlakte en inhoud, massa, geld, tijdstip en tijdsduur, temperatuur (zie verder) met inbegrip van: het zinvol afronden van het resultaat; het ordenen van meetresultaten (seriëren).",
+      "descriptionEn": "Pupils can measure and calculate with measurements for length, area and capacity, mass, money, time (point in time and duration), temperature (see below), including: rounding the result sensibly; putting measurement results in order (seriation)."
+    },
+    {
+      "code": "L4-2.3.5",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen een verhoudingstabel gebruiken voor berekeningen met recht evenredige grootheden en vaste verhoudingen.",
+      "descriptionEn": "Pupils can use a ratio table for calculations with directly proportional quantities and fixed ratios."
+    },
+    {
+      "code": "L4-2.3.6",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de opbouw van het metriek stelsel en de verbanden tussen opeenvolgende maten voor [I/F]: lengte (tot en met km); oppervlakte (tot en met m²); inhoud (tot en met l).",
+      "descriptionEn": "Pupils know how the metric system is built up and the relationships between successive units for [I/F]: length (up to and including km); area (up to and including m²); capacity (up to and including l)."
+    },
+    {
+      "code": "L4-2.3.7",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen referentiematen en referentiepunten voor lengte, oppervlakte en inhoud [F]. (bv. 1 melkfles als referentiemaat voor 1l, de lengte van een volwassen persoon als referentiepunt voor het schatten van de hoogte van een gebouw)",
+      "descriptionEn": "Pupils know reference measures and reference points for length, area and capacity [F]. (e.g. 1 milk bottle as a reference measure for 1l, the height of an adult as a reference point for estimating the height of a building)"
+    },
+    {
+      "code": "L4-2.3.8",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen lengte (en omtrek) als een eendimensionale en oppervlakte als een tweedimensionale grootheid [I].",
+      "descriptionEn": "Pupils know length (and perimeter) as a one-dimensional quantity and area as a two-dimensional quantity [I]."
+    },
+    {
+      "code": "L4-2.3.9",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen het principe dat de lengte of oppervlakte ook van een gebroken, gebogen of grillige vorm kan gemeten worden [I].",
+      "descriptionEn": "Pupils know the principle that the length or area of a broken, curved or irregular shape can also be measured [I]."
+    },
+    {
+      "code": "L4-2.3.10",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de inhoud van een voorwerp als de hoeveelheid (vloei-)stof die een recipiënt kan bevatten [I].",
+      "descriptionEn": "Pupils know the capacity of an object as the amount of substance (liquid) a container can hold [I]."
+    },
+    {
+      "code": "L4-2.3.11",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen het volume van een object als de ruimte die dat object inneemt [I].",
+      "descriptionEn": "Pupils know the volume of an object as the space that object takes up [I]."
+    },
+    {
+      "code": "L4-2.3.12",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen in woorden de formules van (afleiden en paraat kennen) [I/F]: de omtrek van een veelhoek als de som van de lengtes van de zijden; de oppervlakte van een vierkant en een rechthoek (oppervlakte vierkant/rechthoek = basis x hoogte).",
+      "descriptionEn": "Pupils know in words the formulas for (deriving them and knowing them by heart) [I/F]: the perimeter of a polygon as the sum of the lengths of the sides; the area of a square and a rectangle (area of square/rectangle = base x height)."
+    },
+    {
+      "code": "L4-2.3.13",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de volgende maateenheden en hun wiskundige notaties [F]: km, hm, dam, m, dm, cm, mm; m², dm², cm²; l, dl, cl, ml.",
+      "descriptionEn": "Pupils know the following units of measurement and their mathematical notations [F]: km, hm, dam, m, dm, cm, mm; m², dm², cm²; l, dl, cl, ml."
+    },
+    {
+      "code": "L4-2.3.14",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de volgende begrippen [F]: de lengte, de basis, de hoogte, de diepte, de omtrek en de afstand; de oppervlakte; de inhoud.",
+      "descriptionEn": "Pupils know the following concepts [F]: the length, the base, the height, the depth, the perimeter and the distance; the area; the capacity."
+    },
+    {
+      "code": "L4-2.3.15",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen een geschikt meetinstrument voor lengte, oppervlakte en inhoud kiezen en een lengte tot op 1 mm nauwkeurig meten en tekenen, een oppervlakte meten met roosterpapier, een volume afpassen met kubussen, een inhoud tot op 1 cl nauwkeurig meten en afmeten.",
+      "descriptionEn": "Pupils can choose a suitable measuring instrument for length, area and capacity and measure and draw a length accurate to 1 mm, measure an area with squared paper, measure out a volume with cubes, and measure and measure out a capacity accurate to 1 cl."
+    },
+    {
+      "code": "L4-2.3.16",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen referentiematen voor lengte, oppervlakte en inhoud gebruiken om een schatting te maken en deze te vergelijken met het meetresultaat.",
+      "descriptionEn": "Pupils can use reference measures for length, area and capacity to make an estimate and compare it with the measurement result."
+    },
+    {
+      "code": "L4-2.3.17",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen herleidingen tussen veelgebruikte standaardmaateenheden voor lengte, oppervlakte en inhoud uitvoeren met natuurlijke getallen tot en met 10 000. (hm/hm³ en dam/dam²/dam³ zijn geen veelgebruikte maten, maar ondersteunen de opbouw van het metriek stelsel)",
+      "descriptionEn": "Pupils can convert between commonly used standard units of measurement for length, area and capacity with natural numbers up to and including 10 000. (hm/hm³ and dam/dam²/dam³ are not commonly used units, but they support the structure of the metric system)"
+    },
+    {
+      "code": "L4-2.3.18",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen de omtrek en de oppervlakte berekenen van: een vierkant; een rechthoek; samengestelde figuren (bestaande uit vierkanten/rechthoeken) via omstructureren.",
+      "descriptionEn": "Pupils can calculate the perimeter and the area of: a square; a rectangle; composite shapes (made up of squares/rectangles) by restructuring."
+    },
+    {
+      "code": "L4-2.3.19",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de opbouw van het metriek stelsel en de verbanden tussen opeenvolgende maten voor massa (van kg tot g) [I/F].",
+      "descriptionEn": "Pupils know how the metric system is built up and the relationships between successive units for mass (from kg to g) [I/F]."
+    },
+    {
+      "code": "L4-2.3.20",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen referentiematen en referentiepunten voor massa [F]. (bv. een zak suiker weegt 1 kg)",
+      "descriptionEn": "Pupils know reference measures and reference points for mass [F]. (e.g. a bag of sugar weighs 1 kg)"
+    },
+    {
+      "code": "L4-2.3.21",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de volgende maateenheden en hun wiskundige notaties [F]: kg, hg, dag, g.",
+      "descriptionEn": "Pupils know the following units of measurement and their mathematical notations [F]: kg, hg, dag, g."
+    },
+    {
+      "code": "L4-2.3.22",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de volgende begrippen [F]: de massa, de balans, de weegschaal.",
+      "descriptionEn": "Pupils know the following concepts [F]: the mass, the balance, the weighing scales."
+    },
+    {
+      "code": "L4-2.3.23",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen een geschikt weeginstrument voor massa kiezen en een massa wegen tot op 0,01 kg.",
+      "descriptionEn": "Pupils can choose a suitable weighing instrument for mass and weigh a mass accurate to 0,01 kg."
+    },
+    {
+      "code": "L4-2.3.24",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen referentiematen voor massa gebruiken om een schatting te maken en deze te vergelijken met het meetresultaat.",
+      "descriptionEn": "Pupils can use reference measures for mass to make an estimate and compare it with the measurement result."
+    },
+    {
+      "code": "L4-2.3.25",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen herleidingen tussen veelgebruikte standaardmaateenheden voor massa uitvoeren met natuurlijke getallen tot en met 10 000. (hg en dag zijn geen veelgebruikte maten, maar ondersteunen de opbouw van het metriek stelsel)",
+      "descriptionEn": "Pupils can convert between commonly used standard units of measurement for mass with natural numbers up to and including 10 000. (hg and dag are not commonly used units, but they support the structure of the metric system)"
+    },
+    {
+      "code": "L4-2.3.26",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de waarde van alle muntstukken en bankbiljetten van de euro [F].",
+      "descriptionEn": "Pupils know the value of all euro coins and banknotes [F]."
+    },
+    {
+      "code": "L4-2.3.27",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de volgende maateenheden en hun wiskundige notaties [F]: euro (€, EUR), eurocent.",
+      "descriptionEn": "Pupils know the following units of measurement and their mathematical notations [F]: euro (€, EUR), euro cent."
+    },
+    {
+      "code": "L4-2.3.28",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen weten dat 1 euro evenveel is als 100 eurocent [F].",
+      "descriptionEn": "Pupils know that 1 euro is the same as 100 euro cents [F]."
+    },
+    {
+      "code": "L4-2.3.29",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen tot op 1 eurocent nauwkeurig betalen, wisselen, teruggeven, inschatten.",
+      "descriptionEn": "Pupils can pay, exchange, give change and estimate accurate to 1 euro cent."
+    },
+    {
+      "code": "L4-2.3.30",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen de totaalprijs van verschillende artikelen berekenen.",
+      "descriptionEn": "Pupils can calculate the total price of several items."
+    },
+    {
+      "code": "L4-2.3.31",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen het uur (en afgeleide maateenheden) als aanduiding van een tijdstip en tijdsduur [F].",
+      "descriptionEn": "Pupils know the hour (and derived units of measurement) as an indication of a point in time and a duration [F]."
+    },
+    {
+      "code": "L4-2.3.32",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen een analoge klok en een digitale klok [I/F].",
+      "descriptionEn": "Pupils know an analogue clock and a digital clock [I/F]."
+    },
+    {
+      "code": "L4-2.3.33",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen 1 uur als 60 minuten, 1 minuut als 60 seconden [F].",
+      "descriptionEn": "Pupils know that 1 hour is 60 minutes and 1 minute is 60 seconds [F]."
+    },
+    {
+      "code": "L4-2.3.34",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de maanden van het jaar [F].",
+      "descriptionEn": "Pupils know the months of the year [F]."
+    },
+    {
+      "code": "L4-2.3.35",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen het aantal dagen van de maanden [F].",
+      "descriptionEn": "Pupils know the number of days in each month [F]."
+    },
+    {
+      "code": "L4-2.3.36",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de volgende begrippen [F]: het uur, het halfuur, het kwartier, de minuut, de seconde; eergisteren, overmorgen; het jaar (365 dagen), het schrikkeljaar.",
+      "descriptionEn": "Pupils know the following concepts [F]: the hour, the half hour, the quarter of an hour, the minute, the second; the day before yesterday, the day after tomorrow; the year (365 days), the leap year."
+    },
+    {
+      "code": "L4-2.3.37",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen zowel een analoge als digitale klok tot op één minuut nauwkeurig aflezen.",
+      "descriptionEn": "Pupils can read both an analogue and a digital clock accurate to one minute."
+    },
+    {
+      "code": "L4-2.3.38",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen een datum lezen en noteren.",
+      "descriptionEn": "Pupils can read and write a date."
+    },
+    {
+      "code": "L4-2.3.39",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen een tijdsduur berekenen in dagen/maanden/jaren (van … tot en met …).",
+      "descriptionEn": "Pupils can calculate a duration in days/months/years (from … up to and including …)."
+    },
+    {
+      "code": "L4-2.3.40",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen een tijdsduur berekenen in uren en minuten.",
+      "descriptionEn": "Pupils can calculate a duration in hours and minutes."
+    },
+    {
+      "code": "L4-2.3.41",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen 0 °C als het vriespunt van water en het smeltpunt van ijs, 100 °C als het kookpunt van water [F].",
+      "descriptionEn": "Pupils know 0 °C as the freezing point of water and the melting point of ice, and 100 °C as the boiling point of water [F]."
+    },
+    {
+      "code": "L4-2.3.42",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de volgende maateenheid en wiskundige notatie [F]: graden Celsius (°C).",
+      "descriptionEn": "Pupils know the following unit of measurement and mathematical notation [F]: degrees Celsius (°C)."
+    },
+    {
+      "code": "L4-2.3.43",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen de temperatuur tot op 1 °C nauwkeurig meten, aflezen en noteren.",
+      "descriptionEn": "Pupils can measure, read and write down the temperature accurate to 1 °C."
+    },
+    {
+      "code": "L4-2.3.44",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kennen de volgende begrippen [F]: scherpe, rechte en stompe hoeken.",
+      "descriptionEn": "Pupils know the following concepts [F]: acute, right and obtuse angles."
+    },
+    {
+      "code": "L4-2.3.45",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerlingen kunnen hoeken kwalitatief: vergelijken (bv. door hoeken op elkaar te leggen); sorteren in scherpe, stompe en rechte hoeken door te vergelijken met een rechte hoek; ordenen (seriëren); samenstellen.",
+      "descriptionEn": "Pupils can, qualitatively: compare angles (e.g. by placing angles on top of each other); sort them into acute, obtuse and right angles by comparing them with a right angle; put them in order (seriation); combine them."
+    },
+    {
+      "code": "L4-2.4.1",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kennen eigenschappen als uitspraken die waar zijn voor alle elementen van een verzameling [I]. (bv. ‘bij een parallellogram zijn de overstaande zijden even lang’ is een uitspraak die waar is voor alle parallellogrammen en dus een eigenschap)",
+      "descriptionEn": "Pupils know properties as statements that are true for all elements of a set [I]. (e.g. ‘in a parallelogram the opposite sides are equal in length’ is a statement that is true for all parallelograms and is therefore a property)"
+    },
+    {
+      "code": "L4-2.4.2",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kennen de volgende begrippen [F]: het punt, de halfrechte, de rechte, het lijnstuk, de kromme; de breedte, de lengte; de scherpe, rechte, stompe, (overstaande) hoek, het hoekpunt, de benen; de (overstaande) zijde, de diagonaal; vlakke figuren: de gelijkzijdige driehoek, de gelijkbenige driehoek, de rechthoekige driehoek, de stomphoekige driehoek, de scherphoekige driehoek, het vierkant, de rechthoek, de ruit, de parallellogram, het trapezium, de vierhoek, de vijfhoek, de zeshoek, de (regelmatige) veelhoek; ruimtefiguren: de kubus, de balk, de cilinder, de kegel, de bol, de piramide; herhalende en veranderende patronen, de eenheid.",
+      "descriptionEn": "Pupils know the following concepts [F]: the point, the ray, the straight line, the line segment, the curve; the width, the length; the acute, right, obtuse, (opposite) angle, the vertex, the arms; the (opposite) side, the diagonal; plane shapes: the equilateral triangle, the isosceles triangle, the right-angled triangle, the obtuse-angled triangle, the acute-angled triangle, the square, the rectangle, the rhombus, the parallelogram, the trapezium, the quadrilateral, the pentagon, the hexagon, the (regular) polygon; solid shapes: the cube, the cuboid, the cylinder, the cone, the sphere, the pyramid; repeating and changing patterns, the unit."
+    },
+    {
+      "code": "L4-2.4.3",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen eigenschappen in verband met zijden (lengte, onderlinge ligging) en hoekgrootte vaststellen en formuleren op verschillende types van eenzelfde vlakke figuur. (bv. vaststellen dat de hoeken van een smalle, brede, gedraaide, kleine of grote rechthoek altijd recht zijn en dit formuleren in de eigenschap ‘een rechthoek heeft 4 rechte hoeken’)",
+      "descriptionEn": "Pupils can identify and formulate properties relating to sides (length, position relative to each other) and size of angles in different types of the same plane shape. (e.g. noticing that the angles of a narrow, wide, rotated, small or large rectangle are always right angles and formulating this in the property ‘a rectangle has 4 right angles’)"
+    },
+    {
+      "code": "L4-2.4.4",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen vlakke figuren sorteren op basis van eigenschappen. (bv. verzamel alle figuren met 4 rechte hoeken)",
+      "descriptionEn": "Pupils can sort plane shapes based on their properties. (e.g. collect all shapes with 4 right angles)"
+    },
+    {
+      "code": "L4-2.4.5",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen vlakke figuren opdelen in en samenstellen uit andere vlakke figuren als voorbereiding op het afleiden van formules voor oppervlakte.",
+      "descriptionEn": "Pupils can divide plane shapes into other plane shapes and make them up from other plane shapes as preparation for deriving area formulas."
+    },
+    {
+      "code": "L4-2.4.6",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen vlakke meetkundige objecten tekenen met hulpmiddelen zoals lat, cirkelsjabloon en ruitjespapier.",
+      "descriptionEn": "Pupils can draw plane geometric objects using tools such as a ruler, a circle template and squared paper."
+    },
+    {
+      "code": "L4-2.4.7",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen ruimtefiguren benoemen.",
+      "descriptionEn": "Pupils can name solid shapes."
+    },
+    {
+      "code": "L4-2.4.8",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen herhalende en veranderende patronen hanteren voor meetkundige objecten/figuren: patronen herkennen; beschrijven; maken; verderzetten; opvullen.",
+      "descriptionEn": "Pupils can work with repeating and changing patterns for geometric objects/shapes: recognise patterns; describe them; make them; continue them; fill them in."
+    },
+    {
+      "code": "L4-2.4.9",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kennen het volgende begrip en de wiskundige notatie [F]: coördinaat (notatie: D5).",
+      "descriptionEn": "Pupils know the following concept and mathematical notation [F]: coordinate (notation: D5)."
+    },
+    {
+      "code": "L4-2.4.10",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen in concrete situaties verwoorden wat ze zien vanuit een ander gezichtspunt door zich mentaal te verplaatsen in de ruimte.",
+      "descriptionEn": "Pupils can, in concrete situations, put into words what they see from another viewpoint by mentally moving to another position in space."
+    },
+    {
+      "code": "L4-2.4.11",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kennen een verschuiving, draaiing en spiegeling [I].",
+      "descriptionEn": "Pupils know a translation, rotation and reflection [I]."
+    },
+    {
+      "code": "L4-2.4.12",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kennen een aanzicht als een 2D projectie van een 3D figuur [I].",
+      "descriptionEn": "Pupils know a view as a 2D projection of a 3D shape [I]."
+    },
+    {
+      "code": "L4-2.4.13",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kennen de volgende begrippen [F]: het origineel, het beeld; het spiegelbeeld, de spiegelas; het grondplan, het vooraanzicht, het bovenaanzicht, het zijaanzicht.",
+      "descriptionEn": "Pupils know the following concepts [F]: the original, the image; the mirror image, the mirror line; the ground plan, the front view, the top view, the side view."
+    },
+    {
+      "code": "L4-2.4.14",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen een verschuiving, draaiing of spiegeling herkennen.",
+      "descriptionEn": "Pupils can recognise a translation, rotation or reflection."
+    },
+    {
+      "code": "L4-2.4.15",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen figuren spiegelen om een spiegelas, tekenen op geruit papier en met een geospiegel controleren.",
+      "descriptionEn": "Pupils can reflect shapes in a mirror line, draw them on squared paper and check them with a geomirror (Mira)."
+    },
+    {
+      "code": "L4-2.4.16",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen aanzichten van een 3D model tekenen. (bv. aanzichten tekenen van een blokkenbouwsel)",
+      "descriptionEn": "Pupils can draw views of a 3D model. (e.g. drawing views of a block construction)"
+    },
+    {
+      "code": "L4-2.4.17",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kennen de onderlinge ligging van rechten/lijnstukken in een vlak [I].",
+      "descriptionEn": "Pupils know the relative position of lines/line segments in a plane [I]."
+    },
+    {
+      "code": "L4-2.4.18",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kennen de volgende begrippen en wiskundige notaties [F]: evenwijdig (∥), loodrecht (⊥), snijdend (∦).",
+      "descriptionEn": "Pupils know the following concepts and mathematical notations [F]: parallel (∥), perpendicular (⊥), intersecting (∦)."
+    },
+    {
+      "code": "L4-2.4.19",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen rechten en lijnstukken tekenen die loodrecht, evenwijdig en snijdend zijn.",
+      "descriptionEn": "Pupils can draw lines and line segments that are perpendicular, parallel and intersecting."
+    },
+    {
+      "code": "L4-2.4.20",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen symmetrieassen in figuren tekenen door gebruik te maken van een geospiegel.",
+      "descriptionEn": "Pupils can draw lines of symmetry in shapes by using a geomirror (Mira)."
+    },
+    {
+      "code": "L4-2.4.21",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen met concrete materialen gelijkheid van vorm en grootte vaststellen bij een verschuiving, draaiing en spiegeling.",
+      "descriptionEn": "Pupils can use concrete materials to establish that shape and size stay the same under a translation, rotation and reflection."
+    },
+    {
+      "code": "L4-2.4.22",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kennen de volgende begrippen [F]: de verzameling, de deelverzameling; behoort (niet) tot; sommige, geen enkele; en, of, niet; waar/niet waar.",
+      "descriptionEn": "Pupils know the following concepts [F]: the set, the subset; belongs (does not belong) to; some, none; and, or, not; true/false."
+    },
+    {
+      "code": "L4-2.4.23",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen een verzameling van objecten voorstellen door middel van een Venndiagram.",
+      "descriptionEn": "Pupils can represent a set of objects using a Venn diagram."
+    },
+    {
+      "code": "L4-2.4.24",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerlingen kunnen nagaan of een uitspraak waar of onwaar is, onder andere met verzamelingen en (tegen)voorbeelden. (bv. ’alle rechthoeken hebben vier rechte hoeken’ is waar/‘alle rechthoeken hebben vier gelijke zijden’ is onwaar)",
+      "descriptionEn": "Pupils can check whether a statement is true or false, among other things using sets and (counter)examples. (e.g. ‘all rectangles have four right angles’ is true/‘all rectangles have four equal sides’ is false)"
+    },
+    {
+      "code": "L4-2.5.1",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerlingen kennen de volgende begrippen [F]: de tabel; het staafdiagram, het beelddiagram, de lijngrafiek, het cirkeldiagram.",
+      "descriptionEn": "Pupils know the following concepts [F]: the table; the bar chart, the pictogram, the line graph, the pie chart."
+    },
+    {
+      "code": "L4-2.5.2",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerlingen kunnen informatie uit tabellen, lijngrafieken, beeld-, staaf- en (op zicht afleesbare) cirkeldiagrammen aflezen, interpreteren en vergelijken om daarmee afwegingen te maken. (op zicht afleesbare cirkeldiagrammen zijn cirkeldiagrammen met delen 1/2, 1/4, 1/8, 1/3, 1/6 of veelvouden hiervan)",
+      "descriptionEn": "Pupils can read, interpret and compare information from tables, line graphs, pictograms, bar charts and pie charts (that can be read by eye) and use it to weigh up options. (pie charts that can be read by eye are pie charts with parts of 1/2, 1/4, 1/8, 1/3, 1/6 or multiples of these)"
+    },
+    {
+      "code": "L4-2.5.3",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerlingen kunnen tabellen en staafdiagrammen opstellen op basis van (zelf)verzamelde gegevens.",
+      "descriptionEn": "Pupils can draw up tables and bar charts based on data (they have collected themselves)."
+    },
+    {
+      "code": "L4-2.6.1",
+      "category": "Probleemoplossend denken en vraagstukken",
+      "categoryEn": "Problem solving and word problems",
+      "description": "De leerlingen kunnen wiskundige problemen oplossen met minstens 1 bewerking/handeling, door: denkstappen bij wiskundige problemen toe te passen (bv. het probleem in eigen woorden vertellen; het gegeven en het gevraagde onderscheiden; herkennen of een routineuze methode (zie vraagstukken) of heuristische methode nodig is; overbodige gegevens negeren; fouten aangrijpen als aanknoping voor wat nodig is voor een correcte oplossing; controleren of antwoorden mogelijk zijn); heuristieken toe te passen (bv. concreet materiaal gebruiken; een tekening of schets maken; een schema of tabel maken; een systematiek herkennen en voortzetten (patroonherkenning); gissen en missen).",
+      "descriptionEn": "Pupils can solve mathematical problems involving at least 1 operation/action by: applying thinking steps to mathematical problems (e.g. telling the problem in their own words; distinguishing what is given from what is asked; recognising whether a routine method (see word problems) or a heuristic method is needed; ignoring unnecessary information; using mistakes as a starting point for what is needed for a correct solution; checking whether answers are possible); applying heuristics (e.g. using concrete materials; making a drawing or sketch; making a diagram or table; recognising and continuing a system (pattern recognition); trial and error)."
+    },
+    {
+      "code": "L4-2.6.2",
+      "category": "Probleemoplossend denken en vraagstukken",
+      "categoryEn": "Problem solving and word problems",
+      "description": "De leerlingen kunnen met natuurlijke getallen tot en met 1 000 (of grotere getallen met eindnullen), decimale getallen (tot op 1 honderdste) en breuken (noemer tot en met 20 of breuken die te vereenvoudigen zijn tot deze breuken): vraagstukken oplossen over: de bewerkingen met (enkelvoudige vraagstukken): natuurlijke getallen voor optellen, aftrekken, vermenigvuldigen en delen; decimale getallen en breuken voor optellen en aftrekken. verhoudingen met behulp van een verhoudingstabel waarbij: vaste verhoudingen worden vastgesteld (bv. verhouding blauwe en rode kralen in kralenkettingen); gelijkwaardige verhoudingen bepaald worden; het ontbrekende verhoudingsgetal berekend wordt; recht evenredige grootheden een rol spelen (bv. aantal-prijs, massa-prijs, een recept van 2 personen omzetten naar 6 personen). één grootheid: lengte, oppervlakte, inhoud, massa, tijd, geld, temperatuur.",
+      "descriptionEn": "Pupils can, with natural numbers up to and including 1 000 (or larger numbers ending in zeros), decimal numbers (to 1 hundredth) and fractions (denominator up to and including 20 or fractions that can be simplified to such fractions): solve word problems about: operations with (one-step word problems): natural numbers for addition, subtraction, multiplication and division; decimal numbers and fractions for addition and subtraction. ratios using a ratio table in which: fixed ratios are established (e.g. the ratio of blue to red beads in bead necklaces); equivalent ratios are found; the missing ratio number is calculated; directly proportional quantities play a part (e.g. quantity-price, mass-price, converting a recipe for 2 people to 6 people). one quantity: length, area, capacity, mass, time, money, temperature."
+    },
+    {
+      "code": "L6-2.1.1",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent de waarde van een cijfer in getallen tot en met 10 miljard aan de hand van zijn positie in het plaatswaardesysteem [I].",
+      "descriptionEn": "The pupil knows the value of a digit in numbers up to and including 10 billion from its position in the place value system [I]."
+    },
+    {
+      "code": "L6-2.1.2",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent miljoen, miljard als eenheid [F].",
+      "descriptionEn": "The pupil knows million and billion as units [F]."
+    },
+    {
+      "code": "L6-2.1.3",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent de (grootste) gemeenschappelijke deler en het (kleinste) gemeenschappelijk veelvoud [I/F].",
+      "descriptionEn": "The pupil knows the (greatest) common divisor and the (lowest) common multiple [I/F]."
+    },
+    {
+      "code": "L6-2.1.4",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent de volgende begrippen en wiskundige notaties [F]: HD, M, TM, HM, Md.",
+      "descriptionEn": "The pupil knows the following concepts and mathematical notations [F]: HTh (hundred thousands), M (millions), TM (ten millions), HM (hundred millions), B (billions)."
+    },
+    {
+      "code": "L6-2.1.5",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kan de (grootste) gemeenschappelijke deler en het (kleinste) gemeenschappelijk veelvoud van twee natuurlijke getallen tot en met 100 bepalen.",
+      "descriptionEn": "The pupil can find the (greatest) common divisor and the (lowest) common multiple of two natural numbers up to and including 100."
+    },
+    {
+      "code": "L6-2.1.6",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kan (bij) natuurlijke getallen tot en met 10 000 000 000: lezen en schrijven, waarbij miljoen en miljard als eenheid worden gebruikt (bv. in 2025 waren we met 8,2 miljard mensen op de aarde); vergelijken, ordenen en plaatsen op de getallenas; met miljoenen, honderdduizendtallen, tienduizendtallen, duizendtallen, honderdtallen, tientallen, eenheden splitsen en samenstellen; herstructureren en samenstellen (in functie van bewerkingen); tot op een tienduizend-, honderdduizend-, miljoen- en miljardtal afronden; grootteordes inschatten (bv. België had in 2025 ongeveer 11 miljoen inwoners, China 1,4 miljard); de kenmerken van deelbaarheid toepassen om de deelbaarheid en de rest te bepalen.",
+      "descriptionEn": "The pupil can, with natural numbers up to and including 10 000 000 000: read and write them, using million and billion as units (e.g. in 2025 there were 8,2 billion people on earth); compare them, put them in order and place them on the number line; split them into and build them from millions, hundred thousands, ten thousands, thousands, hundreds, tens and units; restructure and compose them (with a view to calculations); round them to the nearest ten thousand, hundred thousand, million and billion; estimate orders of magnitude (e.g. in 2025 Belgium had about 11 million inhabitants, China 1,4 billion); apply the divisibility rules to determine divisibility and the remainder."
+    },
+    {
+      "code": "L6-2.1.7",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kan orde, regelmaat, verbanden en patronen tussen getallen herkennen, beschrijven, maken, verderzetten en opvullen.",
+      "descriptionEn": "The pupil can recognise, describe, make, continue and fill in order, regularity, relationships and patterns between numbers."
+    },
+    {
+      "code": "L6-2.1.8",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kan negatieve gehele getallen tot en met -20 vergelijken, ordenen en plaatsen op de getallenas.",
+      "descriptionEn": "The pupil can compare, order and place negative whole numbers down to -20 on the number line."
+    },
+    {
+      "code": "L6-2.1.9",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kan de afstand tussen twee negatieve getallen bepalen met behulp van een schematische voorstelling. (bv. ik ga van verdieping 4 naar verdieping -2, ik daal 6 verdiepingen)",
+      "descriptionEn": "The pupil can find the distance between two negative numbers using a diagram. (e.g. I go from floor 4 to floor -2, so I go down 6 floors)"
+    },
+    {
+      "code": "L6-2.1.10",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent een breuk als een deling [I].",
+      "descriptionEn": "The pupil knows a fraction as a division [I]."
+    },
+    {
+      "code": "L6-2.1.11",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent een natuurlijk getal als een oneigenlijke breuk [I]. (bv. een oneigenlijke breuk is een breuk waarbij de teller een veelvoud is van de noemer, bv. 9/3, 6/6, 3/1)",
+      "descriptionEn": "The pupil knows a natural number as an improper fraction [I]. (e.g. an improper fraction is a fraction in which the numerator is a multiple of the denominator, e.g. 9/3, 6/6, 3/1)"
+    },
+    {
+      "code": "L6-2.1.12",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent een rationaal getal als aanduiding voor een hoeveelheid en een verhouding [I].",
+      "descriptionEn": "The pupil knows a rational number as a way of expressing a quantity and a ratio [I]."
+    },
+    {
+      "code": "L6-2.1.13",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent een procent als een breuk met noemer 100 [I].",
+      "descriptionEn": "The pupil knows a percentage as a fraction with denominator 100 [I]."
+    },
+    {
+      "code": "L6-2.1.14",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent het verband tussen een breuk, een decimaal getal en procent [I].",
+      "descriptionEn": "The pupil knows the relationship between a fraction, a decimal number and a percentage [I]."
+    },
+    {
+      "code": "L6-2.1.15",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent van de breuken 1/2, 1/4, 3/4, 1/5, 1/10, 1/100 hun uitdrukking als procenten paraat [F].",
+      "descriptionEn": "The pupil knows by heart the fractions 1/2, 1/4, 3/4, 1/5, 1/10, 1/100 expressed as percentages [F]."
+    },
+    {
+      "code": "L6-2.1.16",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent een relatieve en absolute vergelijking [I]. (bv. Ik eet de helft van taart A, jij de helft van taart B, ook al eten we allebei een halve taart (relatief), toch hangt de hoeveelheid af van de grootte van de taart (absoluut))",
+      "descriptionEn": "The pupil knows a relative and an absolute comparison [I]. (e.g. I eat half of cake A, you eat half of cake B; although we both eat half a cake (relative), the amount still depends on the size of the cake (absolute))"
+    },
+    {
+      "code": "L6-2.1.17",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kent de volgende begrippen en wiskundige notaties [F]: d (duizendste); verhouding; procent (%).",
+      "descriptionEn": "The pupil knows the following concepts and mathematical notations [F]: th (thousandth); ratio; percent (%)."
+    },
+    {
+      "code": "L6-2.1.18",
+      "category": "Getallenkennis",
+      "categoryEn": "Number sense",
+      "description": "De leerling kan breuken (noemer tot en met 100), procenten (tot op eenheid) en decimale getallen (tot op 1 duizendste): lezen en noteren; schematisch voorstellen; vergelijken, ordenen en plaatsen op de getallenas; vereenvoudigen en gelijknamig maken; naar elkaar omzetten; afronden (decimale getallen en procenten).",
+      "descriptionEn": "The pupil can, with fractions (denominator up to and including 100), percentages (to the nearest whole) and decimal numbers (to one thousandth): read and write them; represent them in a diagram; compare them, put them in order and place them on the number line; simplify them and give them a common denominator; convert them into one another; round them (decimal numbers and percentages)."
+    },
+    {
+      "code": "L6-2.2.1",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kent het vermenigvuldigen: ‘van’ als ‘maal’ bij breuken [I].",
+      "descriptionEn": "The pupil knows multiplication: 'of' as 'times' with fractions [I]."
+    },
+    {
+      "code": "L6-2.2.2",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kent de eigenschappen van bewerkingen [I]: de som van twee getallen verandert niet als we bij één term een getal optellen en dit getal van de andere term aftrekken; het verschil van twee getallen verandert niet als we bij beide termen hetzelfde getal optellen of aftrekken; het product van twee getallen verandert niet als we de ene factor vermenigvuldigen met een getal en de andere factor delen door dit getal; het quotiënt van twee getallen verandert niet als we deeltal en deler vermenigvuldigen met of delen door eenzelfde getal (de rest verandert wel); het verband tussen deeltal, deler, quotiënt, rest: D = d x q + r; het product/quotiënt verandert niet als we een factor/de deler ontbinden (bv. vermenigvuldigen met 12 is hetzelfde als vermenigvuldigen met 3 en met 4, delen door 12 is delen door 3 en door 4).",
+      "descriptionEn": "The pupil knows the properties of operations [I]: the sum of two numbers does not change if we add a number to one term and subtract that number from the other term; the difference between two numbers does not change if we add the same number to or subtract the same number from both terms; the product of two numbers does not change if we multiply one factor by a number and divide the other factor by that number; the quotient of two numbers does not change if we multiply or divide the dividend and the divisor by the same number (the remainder does change); the relationship between dividend, divisor, quotient and remainder: D = d x q + r; the product/quotient does not change if we break a factor/the divisor down into factors (e.g. multiplying by 12 is the same as multiplying by 3 and by 4, dividing by 12 is dividing by 3 and by 4)."
+    },
+    {
+      "code": "L6-2.2.3",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kent de volgorde van bewerkingen en het gebruik van haakjes om die te doorbreken [I].",
+      "descriptionEn": "The pupil knows the order of operations and the use of brackets to override it [I]."
+    },
+    {
+      "code": "L6-2.2.4",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan betekenisvolle situaties omzetten naar bewerkingen met breuken en procenten.",
+      "descriptionEn": "The pupil can turn meaningful situations into calculations with fractions and percentages."
+    },
+    {
+      "code": "L6-2.2.5",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan flexibel een doelmatige rekenmethode uitkiezen, uitvoeren en verantwoorden op basis van inzicht in de getalstructuur en begrip van de rekenhandelingen. Keuze uit: hoofdrekenen: standaardprocedures; hoofdrekenen: handig rekenen; andere rekenwijzen: schattend rekenen, cijferen of met een digitale rekentool.",
+      "descriptionEn": "The pupil can flexibly choose, carry out and justify an efficient method of calculation based on an understanding of the structure of numbers and of the operations. Choice of: mental arithmetic: standard procedures; mental arithmetic: clever calculating; other methods: estimating, written calculation or a digital calculating tool."
+    },
+    {
+      "code": "L6-2.2.6",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan standaardprocedures uitbreiden voor natuurlijke getallen tot en met 10 000 en grotere getallen met eindnullen optellen en aftrekken.",
+      "descriptionEn": "The pupil can extend standard procedures to adding and subtracting natural numbers up to and including 10 000 and larger numbers ending in zeros."
+    },
+    {
+      "code": "L6-2.2.7",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan standaardprocedures gebruiken om het resultaat van een bewerking te vinden voor decimale getallen (tot op 1 duizendste): optellen en aftrekken; vermenigvuldigen met een natuurlijk getal op basis van de keerhandeling (bv. 0,6 x 3 = 3 x 0,6 = 3 x 6 t); delen door een natuurlijk getal op basis van de verdelingsdeling (bv. 0,08: 2 = 8 h: 2).",
+      "descriptionEn": "The pupil can use standard procedures to find the result of a calculation with decimal numbers (to one thousandth): adding and subtracting; multiplying by a natural number based on repeated groups (e.g. 0,6 x 3 = 3 x 0,6 = 3 x 6 tenths); dividing by a natural number based on sharing (e.g. 0,08: 2 = 8 hundredths: 2)."
+    },
+    {
+      "code": "L6-2.2.8",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kent een werkwijze voor vermenigvuldigen met en delen door 0,1; 0,01; 0,001; 0,2; 0,5; 2; 5; 25; 50 [I].",
+      "descriptionEn": "The pupil knows a method for multiplying and dividing by 0,1; 0,01; 0,001; 0,2; 0,5; 2; 5; 25; 50 [I]."
+    },
+    {
+      "code": "L6-2.2.9",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kent een werkwijze voor vermenigvuldigen met en delen door 10 000, 4, 8 [I].",
+      "descriptionEn": "The pupil knows a method for multiplying and dividing by 10 000, 4, 8 [I]."
+    },
+    {
+      "code": "L6-2.2.10",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan eigenschappen van bewerkingen en relaties gebruiken om handig te rekenen. (bv. 31 + 19 = (31 – 1) + (19 + 1) = 30 + 20 73 – 19 = (73 + 1) – (19 + 1) = 74 – 20 12 x 5 = (12: 2) x (5 x 2) = 6 x 10 48: 12 = (48: 2): (12: 2) = 24: 6 98 x 12 = (100 – 2) x 12 = (100 x 12) – (2 x 12) = 1 200 – 24 (compenseren, splitsen en verdelen) 2 277: 23 = (2 300 – 23): 23 = (2 300: 23) – (23: 23) = 100 – 1 (compenseren, splitsen en verdelen))",
+      "descriptionEn": "The pupil can use properties of operations and relationships to calculate cleverly. (e.g. 31 + 19 = (31 – 1) + (19 + 1) = 30 + 20 73 – 19 = (73 + 1) – (19 + 1) = 74 – 20 12 x 5 = (12: 2) x (5 x 2) = 6 x 10 48: 12 = (48: 2): (12: 2) = 24: 6 98 x 12 = (100 – 2) x 12 = (100 x 12) – (2 x 12) = 1 200 – 24 (compensating, splitting and distributing) 2 277: 23 = (2 300 – 23): 23 = (2 300: 23) – (23: 23) = 100 – 1 (compensating, splitting and distributing))"
+    },
+    {
+      "code": "L6-2.2.11",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan een factor ontbinden om handig te rekenen. (bv. 25 x 32 = 25 x 4 x 8 = 100 x 8 = 800 3000: 12 = 3 000: 3: 4 = 1 000: 4 = 250)",
+      "descriptionEn": "The pupil can break a factor down into factors to calculate cleverly. (e.g. 25 x 32 = 25 x 4 x 8 = 100 x 8 = 800 3000: 12 = 3 000: 3: 4 = 1 000: 4 = 250)"
+    },
+    {
+      "code": "L6-2.2.12",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan decimale getallen (tot op 1 duizendste) vermenigvuldigen en delen door om te zetten naar breuken. (bv. 4 × 0,7 = 4 × 7/10 = 28/10 = 2,8 0,4 × 7 = 4/10 × 7 = 28/10 = 2,8 0,18 × 4 = 18/100 × 4 = 72/100 = 0,72 0,4 × 0,7 = 4/10 × 7/10 = 28/100 = 0,28 5,4: 9 = 54/10: 9 = 6/10 = 0,6 0,72: 0,8 = 72/100: 8/10 = 72/100 × 10/8 = 720/800 = 9/10 = 0,9 70: 3,5 = 70: 35/10 = 70 × 10/35 = 700/35 = 20 5,4: 1,2 = 54/10: 12/10 = 54/10 × 10/12 = 540/120 = 9/2 = 4,5)",
+      "descriptionEn": "The pupil can multiply and divide decimal numbers (to one thousandth) by converting them to fractions. (e.g. 4 × 0,7 = 4 × 7/10 = 28/10 = 2,8 0,4 × 7 = 4/10 × 7 = 28/10 = 2,8 0,18 × 4 = 18/100 × 4 = 72/100 = 0,72 0,4 × 0,7 = 4/10 × 7/10 = 28/100 = 0,28 5,4: 9 = 54/10: 9 = 6/10 = 0,6 0,72: 0,8 = 72/100: 8/10 = 72/100 × 10/8 = 720/800 = 9/10 = 0,9 70: 3,5 = 70: 35/10 = 70 × 10/35 = 700/35 = 20 5,4: 1,2 = 54/10: 12/10 = 54/10 × 10/12 = 540/120 = 9/2 = 4,5)"
+    },
+    {
+      "code": "L6-2.2.13",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kent een procent van een getal als een vermenigvuldigingsfactor [I].",
+      "descriptionEn": "The pupil knows a percentage of a number as a multiplying factor [I]."
+    },
+    {
+      "code": "L6-2.2.14",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kent een schematische voorstelling voor de oplossingsstrategie van onderstaande bewerkingen met breuken [I]: natuurlijk getal x breuk; breuk x natuurlijk getal; breuk x breuk; breuk: natuurlijk getal; de drie basisregels die bovenstaande regels samenvatten [I/F]: optellen en aftrekken van (on)gelijknamige breuken; breuk x breuk; breuk: breuk.",
+      "descriptionEn": "The pupil knows a diagram for the solution strategy of the following calculations with fractions [I]: natural number x fraction; fraction x natural number; fraction x fraction; fraction: natural number; the three basic rules that sum up the rules above [I/F]: adding and subtracting fractions with the same or different denominators; fraction x fraction; fraction: fraction."
+    },
+    {
+      "code": "L6-2.2.15",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan bij breuken waarbij de noemer beperkt is tot en met 20 of breuken die te vereenvoudigen zijn tot deze breuken ongelijknamige breuken optellen en aftrekken.",
+      "descriptionEn": "The pupil can add and subtract fractions with different denominators, where the denominator is limited to 20 or the fractions can be simplified to such fractions."
+    },
+    {
+      "code": "L6-2.2.16",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan breuken (noemer tot en met 100) vermenigvuldigen en delen.",
+      "descriptionEn": "The pupil can multiply and divide fractions (denominator up to and including 100)."
+    },
+    {
+      "code": "L6-2.2.17",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan decimale getallen vermenigvuldigen en delen door ze om te zetten naar breuken (zie Hoofdrekenen: handig rekenen).",
+      "descriptionEn": "The pupil can multiply and divide decimal numbers by converting them to fractions (see Mental arithmetic: clever calculating)."
+    },
+    {
+      "code": "L6-2.2.18",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan een procent van een getal nemen.",
+      "descriptionEn": "The pupil can work out a percentage of a number."
+    },
+    {
+      "code": "L6-2.2.19",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kent procedures om te cijferen voor vermenigvuldigen en delen op basis van inzicht in de tientalligheid en het plaatswaardesysteem van ons talstelsel [I].",
+      "descriptionEn": "The pupil knows procedures for written multiplication and division based on an understanding of the base-ten structure and the place value system of our number system [I]."
+    },
+    {
+      "code": "L6-2.2.20",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan cijferalgoritmes voor vermenigvuldigen en delen gebruiken voor natuurlijke getallen tot en met 10 000 en waarbij vermenigvuldiger en deler van de vorm (T)E zijn.",
+      "descriptionEn": "The pupil can use written algorithms for multiplication and division with natural numbers up to and including 10 000, where the multiplier and divisor have the form (T)U."
+    },
+    {
+      "code": "L6-2.2.21",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan schattend rekenen wanneer een bepaalde context hierom vraagt zoals bij onvoldoende gegevens of wanneer geen exact resultaat nodig is. (bv. voor een optelling het ene getal naar boven en het andere getal naar beneden afronden)",
+      "descriptionEn": "The pupil can estimate when a particular context calls for it, such as when there is not enough information or when an exact result is not needed. (e.g. for an addition, rounding one number up and the other number down)"
+    },
+    {
+      "code": "L6-2.2.22",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan een digitale rekentool gebruiken voor: het uitvoeren van complexere berekeningen (grote getallen, decimale getallen met veel cijfers); het bepalen van de rest bij een deling; het berekenen van procenten.",
+      "descriptionEn": "The pupil can use a digital calculating tool to: carry out more complex calculations (large numbers, decimal numbers with many digits); find the remainder of a division; calculate percentages."
+    },
+    {
+      "code": "L6-2.2.23",
+      "category": "Bewerkingen",
+      "categoryEn": "Operations",
+      "description": "De leerling kan volgende controlestrategieën inzetten om het resultaat van een bewerking te controleren: de omgekeerde bewerking uitvoeren; een digitale rekentool gebruiken.",
+      "descriptionEn": "The pupil can use the following checking strategies to check the result of a calculation: carrying out the inverse operation; using a digital calculating tool."
+    },
+    {
+      "code": "L6-2.3.1",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de meetinzichten uit het 4de jaar toegepast op de nieuwe grootheden [I].",
+      "descriptionEn": "The pupil knows the measuring insights from year 4 applied to the new quantities [I]."
+    },
+    {
+      "code": "L6-2.3.2",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent het onderscheid tussen een verhoudingsmeting (bv. lengte, massa, tijdsduur) en een intervalmeting (temperatuur en tijdstip) [I]. (bv. een lengte van 20 cm is dubbel zo groot als een lengte van 10 cm, een temperatuur van 20°C is niet dubbel zo warm als een temperatuur van 10°C)",
+      "descriptionEn": "The pupil knows the difference between a ratio measurement (e.g. length, mass, duration) and an interval measurement (temperature and time of day) [I]. (e.g. a length of 20 cm is twice as long as a length of 10 cm, but a temperature of 20°C is not twice as warm as a temperature of 10°C)"
+    },
+    {
+      "code": "L6-2.3.3",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan indirect meten door: een andere grootheid te meten (bv. 1 uur lopen komt overeen met een afstand van 5 km); berekeningen te maken (bv. de dikte van een blad bepalen door de dikte van een blok papier te meten en deze lengte te delen door aantal bladzijden); een verhoudingstabel of een formule te gebruiken voor samengestelde grootheden (zie verder bij samengestelde grootheden).",
+      "descriptionEn": "The pupil can measure indirectly by: measuring a different quantity (e.g. walking for 1 hour corresponds to a distance of 5 km); doing calculations (e.g. finding the thickness of a sheet by measuring the thickness of a pad of paper and dividing that length by the number of sheets); using a ratio table or a formula for compound quantities (see further under compound quantities)."
+    },
+    {
+      "code": "L6-2.3.4",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de opbouw van het metriek stelsel en de verbanden tussen opeenvolgende volumematen [I/F].",
+      "descriptionEn": "The pupil knows the structure of the metric system and the relationships between consecutive units of volume [I/F]."
+    },
+    {
+      "code": "L6-2.3.5",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de uitbreiding van het metriek stelsel voor inhouds- en oppervlaktematen [I/F].",
+      "descriptionEn": "The pupil knows the extension of the metric system for units of capacity and area [I/F]."
+    },
+    {
+      "code": "L6-2.3.6",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent referentiematen en referentiepunten voor oppervlakte-, inhouds- en volumematen [F].",
+      "descriptionEn": "The pupil knows benchmark measures and reference points for units of area, capacity and volume [F]."
+    },
+    {
+      "code": "L6-2.3.7",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de grootte-orde van een hectare (ha) in een betekenisvolle context [I].",
+      "descriptionEn": "The pupil knows the size of a hectare (ha) in a meaningful context [I]."
+    },
+    {
+      "code": "L6-2.3.8",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent het volume als een driedimensionale grootheid [I].",
+      "descriptionEn": "The pupil knows volume as a three-dimensional quantity [I]."
+    },
+    {
+      "code": "L6-2.3.9",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent het verband tussen inhoud en volume [I/F]. (bv. 1 dm³ is de ruimte die door 1 liter wordt ingenomen)",
+      "descriptionEn": "The pupil knows the relationship between capacity and volume [I/F]. (e.g. 1 dm³ is the space taken up by 1 litre)"
+    },
+    {
+      "code": "L6-2.3.10",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent in woorden de formules van (afleiden en paraat kennen) [I/F]: de omtrek van een cirkel met π als de verhouding tussen de omtrek en de diameter; de oppervlakte van een driehoek, parallellogram, ruit, trapezium, regelmatige veelhoek, cirkel waarbij de formules worden afgeleid via het omstructureren naar een figuur waarvan de oppervlakteformule gekend is; de oppervlakte van een kubus, balk, cilinder via de som van de oppervlakten van de grensvlakken; het volume van een kubus, balk (via het beeld van gelijke lagen), een cilinder (naar analogie met de balk, via oppervlakte grondvlak x hoogte).",
+      "descriptionEn": "The pupil knows in words the formulas for (deriving them and knowing them by heart) [I/F]: the circumference of a circle, with π as the ratio between the circumference and the diameter; the area of a triangle, parallelogram, rhombus, trapezium, regular polygon and circle, where the formulas are derived by rearranging into a shape whose area formula is known; the surface area of a cube, cuboid and cylinder as the sum of the areas of the faces; the volume of a cube and cuboid (by picturing equal layers) and of a cylinder (by analogy with the cuboid, as area of the base x height)."
+    },
+    {
+      "code": "L6-2.3.11",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de samengestelde grootheid schaal als verhouding tussen de getekende afstand en de werkelijke afstand [I/F].",
+      "descriptionEn": "The pupil knows the compound quantity scale as the ratio between the drawn distance and the real distance [I/F]."
+    },
+    {
+      "code": "L6-2.3.12",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de volgende maateenheden en hun wiskundige notaties [F]: km², hm², dam², m², dm², cm², mm² (hm², dam² zijn geen veelgebruikte maten, maar ondersteunen de opbouw van het metriek stelsel); kl, hl, dal, l, dl, cl, ml (kl,hl,dal zijn geen veelgebruikte maten, maar ondersteunen de opbouw van het metriek stelsel); km³, hm³, dam³, m³, dm³, cm³, mm³ (km³, hm³, dam³ zijn geen veelgebruikte maten, maar ondersteunen de opbouw van het metriek stelsel).",
+      "descriptionEn": "The pupil knows the following units of measurement and their mathematical notations [F]: km², hm², dam², m², dm², cm², mm² (hm² and dam² are not commonly used units, but they support the structure of the metric system); kl, hl, dal, l, dl, cl, ml (kl, hl and dal are not commonly used units, but they support the structure of the metric system); km³, hm³, dam³, m³, dm³, cm³, mm³ (km³, hm³ and dam³ are not commonly used units, but they support the structure of the metric system)."
+    },
+    {
+      "code": "L6-2.3.13",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de volgende begrippen en benaderende waarde [F]: de straal, de diameter; het volume; π (inclusief de waarde π ≈ 3,14).",
+      "descriptionEn": "The pupil knows the following concepts and approximate value [F]: the radius, the diameter; volume; π (including the value π ≈ 3,14)."
+    },
+    {
+      "code": "L6-2.3.14",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan herleidingen tussen verschillende, veelgebruikte standaardmaateenheden voor lengte, oppervlakte en inhoud uitvoeren. (hl/hm³ en dam²/dal/dam³ zijn geen veelgebruikte maten, maar ondersteunen de opbouw van het metriek stelsel)",
+      "descriptionEn": "The pupil can convert between different, commonly used standard units of length, area and capacity. (hl/hm³ and dam²/dal/dam³ are not commonly used units, but they support the structure of the metric system)"
+    },
+    {
+      "code": "L6-2.3.15",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan een inhoudsmaat naar een volumemaat omzetten en omgekeerd.",
+      "descriptionEn": "The pupil can convert a unit of capacity into a unit of volume and vice versa."
+    },
+    {
+      "code": "L6-2.3.16",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan formules toepassen om een omtrek, oppervlakte en volume te berekenen.",
+      "descriptionEn": "The pupil can apply formulas to calculate a perimeter, area and volume."
+    },
+    {
+      "code": "L6-2.3.17",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan de schaal, de werkelijke lengte of de lengte op schaal bepalen wanneer twee van de drie grootheden gegeven zijn.",
+      "descriptionEn": "The pupil can find the scale, the real length or the length on the scale drawing when two of the three quantities are given."
+    },
+    {
+      "code": "L6-2.3.18",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de uitbreiding van het metriek stelsel voor massa [I/F].",
+      "descriptionEn": "The pupil knows the extension of the metric system for mass [I/F]."
+    },
+    {
+      "code": "L6-2.3.19",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent het verband tussen inhoudsmaten/volumematen en massa [I/F]. (bv. 1l water heeft een volume van 1 dm³ en een massa van 1 kg)",
+      "descriptionEn": "The pupil knows the relationship between units of capacity/volume and mass [I/F]. (e.g. 1 l of water has a volume of 1 dm³ and a mass of 1 kg)"
+    },
+    {
+      "code": "L6-2.3.20",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de volgende maateenheden en hun wiskundige notaties [F]: ton; dg, cg, mg; bruto, netto, tarra.",
+      "descriptionEn": "The pupil knows the following units of measurement and their mathematical notations [F]: tonne; dg, cg, mg; gross, net, tare."
+    },
+    {
+      "code": "L6-2.3.21",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan herleidingen tussen verschillende, veelgebruikte maateenheden voor massa (inclusief inhoudsmaten/volumematen) uitvoeren.",
+      "descriptionEn": "The pupil can convert between different, commonly used units of mass (including units of capacity/volume)."
+    },
+    {
+      "code": "L6-2.3.22",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan brutomassa, nettomassa of tarra bepalen als twee van de drie massa’s gegeven zijn.",
+      "descriptionEn": "The pupil can find the gross mass, net mass or tare when two of the three masses are given."
+    },
+    {
+      "code": "L6-2.3.23",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de volgende begrippen [F]: de inkoopprijs, de verkoopprijs, de winst, het verlies; de oude prijs, de nieuwe prijs, de korting (percentage).",
+      "descriptionEn": "The pupil knows the following concepts [F]: the cost price, the selling price, the profit, the loss; the old price, the new price, the discount (percentage)."
+    },
+    {
+      "code": "L6-2.3.24",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan een prijs (inkoopprijs, verkoopprijs, winst, verlies, korting of hun percentage) bepalen als twee van de drie prijzen gegeven zijn.",
+      "descriptionEn": "The pupil can find a price (cost price, selling price, profit, loss, discount or their percentage) when two of the three prices are given."
+    },
+    {
+      "code": "L6-2.3.25",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de samengestelde grootheid snelheid als de verhouding van de afstand per tijdseenheid [I/F].",
+      "descriptionEn": "The pupil knows the compound quantity speed as the ratio of distance per unit of time [I/F]."
+    },
+    {
+      "code": "L6-2.3.26",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de volgende maateenheden en hun wiskundige notaties [F]: km/uur, m/s.",
+      "descriptionEn": "The pupil knows the following units of measurement and their mathematical notations [F]: km/h, m/s."
+    },
+    {
+      "code": "L6-2.3.27",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de volgende begrippen [F]: het trimester, het semester; het decennium, de eeuw en het millennium; de (gemiddelde) snelheid.",
+      "descriptionEn": "The pupil knows the following concepts [F]: the term (three months), the semester (half-year); the decade, the century and the millennium; (average) speed."
+    },
+    {
+      "code": "L6-2.3.28",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan een tijdsduur meten.",
+      "descriptionEn": "The pupil can measure a duration."
+    },
+    {
+      "code": "L6-2.3.29",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan een tijdsduur berekenen in uren, minuten, seconden.",
+      "descriptionEn": "The pupil can calculate a duration in hours, minutes and seconds."
+    },
+    {
+      "code": "L6-2.3.30",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan een jaartal situeren in een eeuw.",
+      "descriptionEn": "The pupil can place a year in a century."
+    },
+    {
+      "code": "L6-2.3.31",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan de gemiddelde snelheid, de afstand of de tijd bepalen wanneer twee van de drie grootheden gegeven zijn.",
+      "descriptionEn": "The pupil can find the average speed, the distance or the time when two of the three quantities are given."
+    },
+    {
+      "code": "L6-2.3.32",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan temperatuurintervallen bepalen.",
+      "descriptionEn": "The pupil can work out temperature intervals."
+    },
+    {
+      "code": "L6-2.3.33",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent een graad als de hoek die negentig keer in een rechte hoek past [I].",
+      "descriptionEn": "The pupil knows a degree as the angle that fits ninety times into a right angle [I]."
+    },
+    {
+      "code": "L6-2.3.34",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kent de volgende maateenheid en wiskundige notatie [F]: graden (°).",
+      "descriptionEn": "The pupil knows the following unit of measurement and mathematical notation [F]: degrees (°)."
+    },
+    {
+      "code": "L6-2.3.35",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan met een geodriehoek hoeken tot op 1° nauwkeurig meten en tekenen.",
+      "descriptionEn": "The pupil can measure and draw angles accurately to 1° with a set square protractor."
+    },
+    {
+      "code": "L6-2.3.36",
+      "category": "Meten en metend rekenen",
+      "categoryEn": "Measuring and measurement calculations",
+      "description": "De leerling kan hoekgroottes lezen en noteren.",
+      "descriptionEn": "The pupil can read and write angle sizes."
+    },
+    {
+      "code": "L6-2.4.1",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kent definities als uitspraken die bepalen welke elementen tot een verzameling horen en welke niet [I].",
+      "descriptionEn": "The pupil knows definitions as statements that determine which elements belong to a set and which do not [I]."
+    },
+    {
+      "code": "L6-2.4.2",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kent de volgende begrippen en wiskundige notaties [F]: notaties: het punt (A), de rechte (a), de halfrechte [AB, het lijnstuk [AB], de hoek Â, de vlakke figuur (ΔABC, vierhoek ABCD); begrensd, onbegrensd; de ongelijkbenige driehoek, de (on)regelmatige veelhoek; de hoogte, de basis, de schuine zijde; de diagonaal, de loodlijn; het middelpunt, de diameter, de straal; het oppervlak, het zijvlak, het grondvlak, de ontvouwing, de ribbe, het gebogen oppervlak; het veelvlak.",
+      "descriptionEn": "The pupil knows the following concepts and mathematical notations [F]: notations: the point (A), the line (a), the ray [AB, the line segment [AB], the angle Â, the plane shape (ΔABC, quadrilateral ABCD); bounded, unbounded; the scalene triangle, the (ir)regular polygon; the height, the base, the hypotenuse; the diagonal, the perpendicular; the centre, the diameter, the radius; the surface, the side face, the base face, the net, the edge, the curved surface; the polyhedron."
+    },
+    {
+      "code": "L6-2.4.3",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan eigenschappen in verband met diagonalen vaststellen en formuleren op verschillende types van eenzelfde vlakke figuur.",
+      "descriptionEn": "The pupil can identify and formulate properties relating to diagonals in different types of the same plane shape."
+    },
+    {
+      "code": "L6-2.4.4",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan meetkundige objecten classificeren met behulp van verzamelingen volgens toenemend of afnemend aantal eigenschappen voor de driehoeken, vierhoeken, veelhoeken, vlakke figuren en de ruimtefiguren en kan hierbij de woorden en, of en niet gebruiken. (bv. verzamel de figuren die een rechthoek of een ruit zijn)",
+      "descriptionEn": "The pupil can classify geometric objects using sets according to an increasing or decreasing number of properties for triangles, quadrilaterals, polygons, plane shapes and 3D shapes, and can use the words and, or and not when doing so. (e.g. collect the shapes that are a rectangle or a rhombus)"
+    },
+    {
+      "code": "L6-2.4.5",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan vanuit het classificeren de definities formuleren, beoordelen en corrigeren voor: soorten driehoeken; soorten vierhoeken; (on)regelmatige veelhoeken.",
+      "descriptionEn": "The pupil can, based on classifying, formulate, assess and correct the definitions of: types of triangles; types of quadrilaterals; (ir)regular polygons."
+    },
+    {
+      "code": "L6-2.4.6",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan vlakke, meetkundige objecten tekenen vanuit eigenschappen en de gebruikte werkwijze toelichten. (bv. een gelijkbenige driehoek tekenen met behulp van een passer en toelichten waarom deze werkwijze een gelijkbenige driehoek oplevert/de diagonalen gebruiken om een ruit te tekenen)",
+      "descriptionEn": "The pupil can draw plane geometric objects from their properties and explain the method used. (e.g. drawing an isosceles triangle with a pair of compasses and explaining why this method produces an isosceles triangle/using the diagonals to draw a rhombus)"
+    },
+    {
+      "code": "L6-2.4.7",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan de juiste ontvouwing(en) selecteren uit verschillende (juiste en foute) varianten van dezelfde ruimtefiguur voor: een kubus; een balk; een cilinder.",
+      "descriptionEn": "The pupil can select the correct net(s) from different (correct and incorrect) versions of the same 3D shape for: a cube; a cuboid; a cylinder."
+    },
+    {
+      "code": "L6-2.4.8",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kent de volgende begrippen en wiskundige notatie [F]: de horizontale as, de verticale as, de coördinaat (notatie: (3,4)).",
+      "descriptionEn": "The pupil knows the following concepts and mathematical notation [F]: the horizontal axis, the vertical axis, the coordinate (notation: (3,4))."
+    },
+    {
+      "code": "L6-2.4.9",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan puntcoördinaten gebruiken om een punt in een assenstelsel vast te leggen.",
+      "descriptionEn": "The pupil can use point coordinates to fix a point in a coordinate system."
+    },
+    {
+      "code": "L6-2.4.10",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan kijklijnen aangeven op een schets en gebruiken om de plaats van de waarnemer te bepalen.",
+      "descriptionEn": "The pupil can mark lines of sight on a sketch and use them to determine the position of the observer."
+    },
+    {
+      "code": "L6-2.4.11",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kent een vergroting/verkleining met een vaste verhouding [I].",
+      "descriptionEn": "The pupil knows an enlargement/reduction by a fixed ratio [I]."
+    },
+    {
+      "code": "L6-2.4.12",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kent schaal als het verband tussen lengtes van het origineel en die van zijn vergroting/verkleining [I].",
+      "descriptionEn": "The pupil knows scale as the relationship between the lengths of the original and those of its enlargement/reduction [I]."
+    },
+    {
+      "code": "L6-2.4.13",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kent de volgende begrippen [F]: de schaal, de lijnschaal, de breukschaal, de verhouding.",
+      "descriptionEn": "The pupil knows the following concepts [F]: the scale, the scale bar, the fractional scale (representative fraction), the ratio."
+    },
+    {
+      "code": "L6-2.4.14",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan figuren om een spiegelas spiegelen, gebruik makend van de eigenschappen van een spiegeling.",
+      "descriptionEn": "The pupil can reflect shapes in a mirror line, using the properties of a reflection."
+    },
+    {
+      "code": "L6-2.4.15",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan figuren vergroten/verkleinen met een vaste verhouding.",
+      "descriptionEn": "The pupil can enlarge/reduce shapes by a fixed ratio."
+    },
+    {
+      "code": "L6-2.4.16",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan op basis van een grondplan of aanzichten een 3D model bouwen.",
+      "descriptionEn": "The pupil can build a 3D model from a floor plan or views."
+    },
+    {
+      "code": "L6-2.4.17",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kent symmetrie als een spiegeling die een figuur op zichzelf afbeeldt [I].",
+      "descriptionEn": "The pupil knows symmetry as a reflection that maps a shape onto itself [I]."
+    },
+    {
+      "code": "L6-2.4.18",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kent de volgende begrippen [F]: congruent, gelijkvormig; de (a)symmetrie, (a)symmetrisch, de symmetrieas.",
+      "descriptionEn": "The pupil knows the following concepts [F]: congruent, similar; (a)symmetry, (a)symmetrical, the line of symmetry."
+    },
+    {
+      "code": "L6-2.4.19",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan congruentie vaststellen bij een spiegeling.",
+      "descriptionEn": "The pupil can identify congruence in a reflection."
+    },
+    {
+      "code": "L6-2.4.20",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan congruente figuren tekenen.",
+      "descriptionEn": "The pupil can draw congruent shapes."
+    },
+    {
+      "code": "L6-2.4.21",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan symmetrieassen in figuren tekenen.",
+      "descriptionEn": "The pupil can draw lines of symmetry in shapes."
+    },
+    {
+      "code": "L6-2.4.22",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan vlakke meetkundige objecten tekenen vanuit meetkundige relaties en de gebruikte werkwijze verklaren. (bv. de symmetrieas gebruiken om een gelijkbenige driehoek te tekenen)",
+      "descriptionEn": "The pupil can draw plane geometric objects from geometric relationships and explain the method used. (e.g. using the line of symmetry to draw an isosceles triangle)"
+    },
+    {
+      "code": "L6-2.4.23",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kent de doorsnede als het gemeenschappelijk gebied met de elementen die tot de twee verzamelingen behoren [I].",
+      "descriptionEn": "The pupil knows the intersection as the shared region containing the elements that belong to both sets [I]."
+    },
+    {
+      "code": "L6-2.4.24",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kent de volgende begrippen [F]: als … dan … ; alle, niet alle, juist één, geen, ten minste, ten hoogste.",
+      "descriptionEn": "The pupil knows the following concepts [F]: if … then … ; all, not all, exactly one, none, at least, at most."
+    },
+    {
+      "code": "L6-2.4.25",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan uitdrukkingen met logische begrippen gebruiken in concrete situaties. (bv. alle ruiten hebben gelijke zijden/een rechthoek die geen vierkant is, heeft juist 2 symmetrieassen)",
+      "descriptionEn": "The pupil can use expressions with logical concepts in concrete situations. (e.g. all rhombuses have equal sides/a rectangle that is not a square has exactly 2 lines of symmetry)"
+    },
+    {
+      "code": "L6-2.4.26",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan classificeren volgens meerdere criteria. (bv. de vierhoeken classificeren volgens hoeken en zijden)",
+      "descriptionEn": "The pupil can classify according to several criteria. (e.g. classifying quadrilaterals by their angles and sides)"
+    },
+    {
+      "code": "L6-2.4.27",
+      "category": "Meetkunde",
+      "categoryEn": "Geometry",
+      "description": "De leerling kan nagaan of een uitspraak waar of onwaar is voor nieuwe (meetkundige) begrippen in het 6de jaar. (bv. ’alle vierkanten hebben loodrechte diagonalen’ is waar/‘alle vierhoeken met loodrechte diagonalen zijn vierkanten’ is onwaar)",
+      "descriptionEn": "The pupil can check whether a statement is true or false for new (geometric) concepts in year 6. (e.g. 'all squares have perpendicular diagonals' is true/'all quadrilaterals with perpendicular diagonals are squares' is false)"
+    },
+    {
+      "code": "L6-2.5.1",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kent een kans als de verhouding van het aantal gunstige uitkomsten tot het aantal mogelijke uitkomsten [I]. (bv. een muntstuk heeft 2 zijden, de munt is 1 van de zijden. De kans op munt is 1/2.)",
+      "descriptionEn": "The pupil knows a probability as the ratio of the number of favourable outcomes to the number of possible outcomes [I]. (e.g. a coin has 2 sides and tails is 1 of the sides. The probability of tails is 1/2.)"
+    },
+    {
+      "code": "L6-2.5.2",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kent een kans als een breuk en als procent [I].",
+      "descriptionEn": "The pupil knows a probability as a fraction and as a percentage [I]."
+    },
+    {
+      "code": "L6-2.5.3",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kent de volgende begrippen [F]: de kans, de uitkomst(en).",
+      "descriptionEn": "The pupil knows the following concepts [F]: probability (chance), the outcome(s)."
+    },
+    {
+      "code": "L6-2.5.4",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kan kansen berekenen voor enkelvoudige gebeurtenissen door de verhouding te bepalen van het aantal gewenste uitkomsten en het aantal mogelijke uitkomsten.",
+      "descriptionEn": "The pupil can calculate probabilities for single events by finding the ratio of the number of desired outcomes to the number of possible outcomes."
+    },
+    {
+      "code": "L6-2.5.5",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kent het verband tussen een cirkeldiagram en de kennis van hoeken, breuken, procenten [I].",
+      "descriptionEn": "The pupil knows the relationship between a pie chart and knowledge of angles, fractions and percentages [I]."
+    },
+    {
+      "code": "L6-2.5.6",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kent grafieken waarbij twee grootheden ten opzichte van elkaar worden weergegeven [I]. (bv. een tijd-afstandsgrafiek, een grafiek waarbij schermtijd wordt uitgezet tegen aantal uren slapen, een grafiek die (gemiddelde) massa en lengte uitzet)",
+      "descriptionEn": "The pupil knows graphs in which two quantities are shown against each other [I]. (e.g. a time-distance graph, a graph plotting screen time against number of hours of sleep, a graph plotting (average) mass and height)"
+    },
+    {
+      "code": "L6-2.5.7",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kent het gemiddelde als de verhouding van de som van alle waarden op het aantal waarden [I].",
+      "descriptionEn": "The pupil knows the mean (average) as the ratio of the sum of all the values to the number of values [I]."
+    },
+    {
+      "code": "L6-2.5.8",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kent het gemiddelde als een gelijke verdeling van een hoeveelheid [I]. (bv. als ik 120 bonbons verdeel over 10 leerlingen, dan moet ik 12 bonbons geven aan elke leerling (het gemiddelde is 12).)",
+      "descriptionEn": "The pupil knows the mean (average) as an equal sharing of a quantity [I]. (e.g. if I share 120 chocolates among 10 pupils, I have to give each pupil 12 chocolates (the mean is 12).)"
+    },
+    {
+      "code": "L6-2.5.9",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kent de mediaan als de middelste waarde in geordende gegevens [I].",
+      "descriptionEn": "The pupil knows the median as the middle value in ordered data [I]."
+    },
+    {
+      "code": "L6-2.5.10",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kent het principe dat het gemiddelde niet altijd samenvalt met de mediaan [I]. (bv. als het gemiddelde op een toets 6/10 is, betekent dit niet (noodzakelijk) dat de helft van de leerlingen hoger scoorde dan 6/10.)",
+      "descriptionEn": "The pupil knows the principle that the mean does not always coincide with the median [I]. (e.g. if the mean score on a test is 6/10, this does not (necessarily) mean that half of the pupils scored higher than 6/10.)"
+    },
+    {
+      "code": "L6-2.5.11",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kent de volgende begrippen [F]: het cirkeldiagram; de verticale as, de horizontale as; het gemiddelde, de mediaan.",
+      "descriptionEn": "The pupil knows the following concepts [F]: the pie chart; the vertical axis, the horizontal axis; the mean (average), the median."
+    },
+    {
+      "code": "L6-2.5.12",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kan informatie uit een cirkeldiagram, staafdiagram of lijngrafiek met twee grootheden aflezen, interpreteren en vergelijken.",
+      "descriptionEn": "The pupil can read, interpret and compare information from a pie chart, bar chart or line graph with two quantities."
+    },
+    {
+      "code": "L6-2.5.13",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kan lijngrafieken en cirkeldiagrammen opstellen op basis van (zelf)verzamelde gegevens.",
+      "descriptionEn": "The pupil can draw line graphs and pie charts based on data (they have collected themselves)."
+    },
+    {
+      "code": "L6-2.5.14",
+      "category": "Kansrekenen en statistiek",
+      "categoryEn": "Probability and statistics",
+      "description": "De leerling kan het gemiddelde en de mediaan berekenen van (zelf)verzamelde gegevens.",
+      "descriptionEn": "The pupil can calculate the mean and the median of data (they have collected themselves)."
+    },
+    {
+      "code": "L6-2.6.1",
+      "category": "Probleemoplossend denken en vraagstukken",
+      "categoryEn": "Problem solving and word problems",
+      "description": "De leerling kan wiskundige problemen oplossen met meerdere bewerkingen/handelingen, door: denkstappen bij wiskundige problemen toe te passen (bv. de denkstappen van het 4de jaar toepassen; een model om problemen op te lossen hanteren zoals het model van Polya dat de volgende stappen onderscheidt: (1) een probleem begrijpen, (2) een plan maken, (3) een plan uitvoeren, (4) reflectie); heuristieken toe te passen (bv. de heuristieken van het 4de jaar toepassen; naar analogie werken met soortgelijke, eerder opgeloste problemen; een probleem opsplitsen in deelproblemen (decompositie); een gegeven voorlopig buiten beschouwing laten; moeilijke gegevens tijdelijk vervangen door eenvoudige; een algoritme ontwerpen om het probleem op te lossen; abstraheren).",
+      "descriptionEn": "The pupil can solve mathematical problems involving several operations/steps by: applying thinking steps to mathematical problems (e.g. applying the thinking steps from year 4; using a problem-solving model such as Polya's model, which distinguishes the following steps: (1) understanding the problem, (2) making a plan, (3) carrying out the plan, (4) reflecting); applying heuristics (e.g. applying the heuristics from year 4; working by analogy with similar problems solved before; splitting a problem into smaller problems (decomposition); leaving a piece of information aside for the time being; temporarily replacing difficult information with simpler information; designing an algorithm to solve the problem; abstracting)."
+    },
+    {
+      "code": "L6-2.6.2",
+      "category": "Probleemoplossend denken en vraagstukken",
+      "categoryEn": "Problem solving and word problems",
+      "description": "De leerling kan met natuurlijke getallen tot en met 10 000 (of grotere getallen met eindnullen), decimale getallen (tot op 1 duizendste) en breuken (noemers tot en met 100): (samengestelde) vraagstukken oplossen over: breuken en procenten met: een breuk als operator of deel/geheel; groeipercentages (bv. een bevolkingstoename); absolute en relatieve vergelijkingen (met verhoudingstabel, een breuk of een procent) (bv. in de Vlinderschool (100 lln.) fietst 48%, in de Parkschool (2000 lln.) een vijfde. Relatief meer fietsers in de Vlinderschool, absoluut meer in de Parkschool.). delers, veelvouden en restbepaling; de bewerkingen (+, -, x, :) met (samengestelde vraagstukken): natuurlijke getallen; decimale getallen, breuken, procenten. ongelijke verdeling waarbij: de som en het verschil gegeven zijn; de som en de verhouding van de delen gegeven zijn. mengsels; verhoudingen met behulp van een verhoudingstabel (waaronder de regel-van-drie) waarbij: gelijkwaardige verhoudingen bepaald worden; het ontbrekende verhoudingsgetal berekend wordt; recht, omgekeerd en niet-evenredige grootheden een rol spelen (bv. aantal-prijs, afstand-prijs, afstand-tijd, massa-prijs, aantal dieren-hoeveelheid voedsel, debiet-tijd, tijd-snelheid). één grootheid: lengte, oppervlakte, inhoud, volume, massa, tijd, geld, temperatuur, hoekgrootte; relaties tussen grootheden (zonder en met procenten): prijsberekeningen: winst/verlies, korting, prijsstijging, enkelvoudige interest; bruto/tarra/netto; afstand, snelheid en tijd; schaal, lengte op schaal en werkelijke lengte. meetkundige figuren waarbij de eigenschappen gebruikt worden; statistiek met tabellen, grafieken, diagrammen, gemiddelde en mediaan.",
+      "descriptionEn": "The pupil can, with natural numbers up to and including 10 000 (or larger numbers ending in zeros), decimal numbers (to one thousandth) and fractions (denominators up to and including 100), solve (multi-step) word problems about: fractions and percentages with: a fraction as an operator or as part/whole; growth percentages (e.g. a population increase); absolute and relative comparisons (with a ratio table, a fraction or a percentage) (e.g. at the Vlinderschool (100 pupils) 48% cycle, at the Parkschool (2000 pupils) one fifth do. Relatively more cyclists at the Vlinderschool, in absolute terms more at the Parkschool.). divisors, multiples and finding the remainder; the operations (+, -, x, :) with (multi-step word problems): natural numbers; decimal numbers, fractions, percentages. unequal sharing where: the sum and the difference are given; the sum and the ratio of the parts are given. mixtures; ratios using a ratio table (including the rule of three) where: equivalent ratios are found; the missing term of a ratio is calculated; directly proportional, inversely proportional and non-proportional quantities play a part (e.g. number-price, distance-price, distance-time, mass-price, number of animals-amount of food, flow rate-time, time-speed). a single quantity: length, area, capacity, volume, mass, time, money, temperature, angle size; relationships between quantities (with and without percentages): price calculations: profit/loss, discount, price increase, simple interest; gross/tare/net; distance, speed and time; scale, length on the scale drawing and real length. geometric shapes where their properties are used; statistics with tables, graphs, charts, mean and median."
+    }
+  ]
+}

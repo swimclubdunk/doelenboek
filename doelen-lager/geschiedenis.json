@@ -1,0 +1,231 @@
+{
+  "subject": "GE",
+  "name": "Geschiedenis",
+  "nameEn": "History",
+  "doelen": [
+    {
+      "code": "L4-5.1.1",
+      "category": "Kennis van het verleden",
+      "categoryEn": "Knowledge of the past",
+      "description": "De leerlingen weten hoe mensen tijdens de prehistorie met de natuur omgingen en samenleefden. ontwikkelingen: rechtop lopen, taal, omgang met anderen, werktuigen (brons en ijzer), de eerste migraties, relaties tussen mens-dier-plant, leven op het ritme van dag/nacht/seizoenen; plaatsen: Afrika (Riftvallei), Flores, Maasvallei, Çatalhöyük; personen en groepen: complexere sociale groepen, Neanderthaler, Sapiens.",
+      "descriptionEn": "Pupils know how people dealt with nature and lived together in prehistoric times. Developments: walking upright, language, dealing with others, tools (bronze and iron), the first migrations, relationships between people, animals and plants, living to the rhythm of day/night/seasons; places: Africa (the Rift Valley), Flores, the Meuse Valley, Çatalhöyük; people and groups: more complex social groups, Neanderthals, Homo sapiens."
+    },
+    {
+      "code": "L4-5.1.2",
+      "category": "Kennis van het verleden",
+      "categoryEn": "Knowledge of the past",
+      "description": "De leerlingen weten hoe mensen tijdens de oudheid overleefden, samenleefden en hoe ze dachten. Mesopotamië: ontwikkelingen: standenmaatschappij, beroepsspecialisatie, slavernij, handel, irrigatielandbouw, spijkerschrift, epische verhalen; plaatsen: stroomgebied van Tigris en Eufraat, stadstaat, ziggurat; personen en groepen: slaafgemaakten, schriftgeleerde, koning; gebeurtenissen: Codex Hammurabi, Gilgamesj-epos. De Griekse wereld: ontwikkelingen: mythologie, religie, filosofie, democratie, burgerrechten; plaatsen: Athene, de Akropolis, de berg Olympos; personen en groepen: de aristocratie, Socrates, Archimedes, Hippocrates, vrouwen in de Griekse oudheid; gebeurtenissen: de wetten van Solon. De Romeinen: ontwikkelingen: imperialisme, identiteit en integratie, migratie, handel over lange afstanden, culturele uitwisseling, voedselproductie, dagelijks leven; plaatsen: wegennetwerk, keukens, Rome, Pompeii, Carthago, Tongeren, Velzeke, Limes; personen en groepen: Hannibal, Cornelia, Caesar, keizer Augustus, slaafgemaakten, de Kelten, Germanen, Constantijn; gebeurtenissen: ontstaan van het christendom, Pax Romana.",
+      "descriptionEn": "Pupils know how people survived, lived together and thought in antiquity. Mesopotamia: developments: a society of social classes, specialised trades, slavery, trade, irrigated farming, cuneiform writing, epic stories; places: the basin of the Tigris and Euphrates, the city-state, the ziggurat; people and groups: enslaved people, the scribe, the king; events: the Code of Hammurabi, the Epic of Gilgamesh. The Greek world: developments: mythology, religion, philosophy, democracy, citizens' rights; places: Athens, the Acropolis, Mount Olympus; people and groups: the aristocracy, Socrates, Archimedes, Hippocrates, women in ancient Greece; events: the laws of Solon. The Romans: developments: imperialism, identity and integration, migration, long-distance trade, cultural exchange, food production, daily life; places: the road network, kitchens, Rome, Pompeii, Carthage, Tongeren, Velzeke, the Limes; people and groups: Hannibal, Cornelia, Caesar, the emperor Augustus, enslaved people, the Celts, the Germanic peoples, Constantine; events: the rise of Christianity, the Pax Romana."
+    },
+    {
+      "code": "L4-5.1.3",
+      "category": "Kennis van het verleden",
+      "categoryEn": "Knowledge of the past",
+      "description": "De leerlingen weten hoe mensen tijdens de middeleeuwen overleefden, samenleefden en hoe ze dachten. De Arabische wereld: ontwikkelingen: het ontstaan en de verspreiding van de islam, kennisontwikkeling, Arabische kunst; plaatsen: Bagdad (huis van wijsheid); personen en groepen: Al-Ghazali, geleerden, kaliefen; gebeurtenissen: schisma tussen sjiieten en soennieten (de Slag van de Kameel). Europa: ontwikkelingen: rurale en stedelijke samenleving, ziekten (de pest), agrarische (r)evolutie, handel, rechtspraak, machtsverhoudingen en ongelijkheid, christendom; plaatsen: Brugge, Gent, kloosters en abdijen; personen en groepen: Hildegard van Bingen, de Bourgondiërs, begijnen, gilde, ambachtslieden; gebeurtenissen: de keure van Kortenberg, het drieslagstelsel. Contacten tussen samenlevingen: ontwikkelingen: interculturele contacten; plaatsen: Al-Andaluz, de moskee van Cordoba, het Alhambra, Dorestad; personen en groepen: Maimonides, conversos, vikingen, Rollo de Noorman; gebeurtenissen: de Reconquista, de belegering van Parijs.",
+      "descriptionEn": "Pupils know how people survived, lived together and thought in the Middle Ages. The Arab world: developments: the rise and spread of Islam, the growth of knowledge, Arab art; places: Baghdad (the House of Wisdom); people and groups: Al-Ghazali, scholars, caliphs; events: the split between Shias and Sunnis (the Battle of the Camel). Europe: developments: rural and urban society, disease (the plague), the agricultural (r)evolution, trade, the administration of justice, power relations and inequality, Christianity; places: Bruges, Ghent, monasteries and abbeys; people and groups: Hildegard of Bingen, the Burgundians, beguines, the guild, craftsmen; events: the Charter of Kortenberg, the three-field system. Contacts between societies: developments: intercultural contacts; places: Al-Andalus, the Mosque of Córdoba, the Alhambra, Dorestad; people and groups: Maimonides, conversos, Vikings, Rollo the Norseman; events: the Reconquista, the Siege of Paris."
+    },
+    {
+      "code": "L4-5.1.4",
+      "category": "Kennis van het verleden",
+      "categoryEn": "Knowledge of the past",
+      "description": "De leerlingen weten hoe mensen tijdens de vroegmoderne tijd overleefden, samenleefden en hoe ze dachten. Europa: ontwikkelingen: religieuze conflicten, staatsvorming, imperialisme, boekdrukkunst; plaatsen: Frankrijk, Duitse Rijk, Antwerpen; personen en groepen: Karel V, Plantijn, Lodewijk XIV; gebeurtenissen: de Vrede van Westfalen.",
+      "descriptionEn": "Pupils know how people survived, lived together and thought in the early modern period. Europe: developments: religious conflicts, state formation, imperialism, printing; places: France, the Holy Roman Empire, Antwerp; people and groups: Charles V, Plantin, Louis XIV; events: the Peace of Westphalia."
+    },
+    {
+      "code": "L4-5.2.1",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kennen het verschil tussen bron en bewijs.",
+      "descriptionEn": "Pupils know the difference between a source and evidence."
+    },
+    {
+      "code": "L4-5.2.2",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kennen typische vragen om te stellen over aangereikte bronnen: hoe en waarom een bron is gemaakt; wanneer en waar een bron is gemaakt.",
+      "descriptionEn": "Pupils know typical questions to ask about sources they are given: how and why a source was made; when and where a source was made."
+    },
+    {
+      "code": "L4-5.2.3",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen weten wat paleontologen, archeologen en historici doen.",
+      "descriptionEn": "Pupils know what palaeontologists, archaeologists and historians do."
+    },
+    {
+      "code": "L4-5.2.4",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen diverse, veelgebruikte bronnen relevant voor de oudheid, de middeleeuwen en de vroegmoderne tijd noemen.",
+      "descriptionEn": "Pupils can name various commonly used sources relevant to antiquity, the Middle Ages and the early modern period."
+    },
+    {
+      "code": "L4-5.2.5",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen gelijkenissen en verschillen onderscheiden binnen en tussen bestudeerde samenlevingen. (bv. vergelijking van Mesopotamische en Egyptische samenlevingen; of vergelijking van ervaringen van mannen en vrouwen, boeren en reizende kooplieden, binnen Mesopotamië)",
+      "descriptionEn": "Pupils can identify similarities and differences within and between the societies studied (e.g. comparing Mesopotamian and Egyptian societies; or comparing the experiences of men and women, farmers and travelling merchants within Mesopotamia)."
+    },
+    {
+      "code": "L4-5.2.6",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen aspecten van verandering en continuïteit bespreken.",
+      "descriptionEn": "Pupils can discuss aspects of change and continuity."
+    },
+    {
+      "code": "L4-5.2.7",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen oorzaken en gevolgen van een gebeurtenis of een ontwikkeling verklaren.",
+      "descriptionEn": "Pupils can explain the causes and consequences of an event or a development."
+    },
+    {
+      "code": "L4-5.2.8",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen een onderscheid tussen een perspectief van mensen in het verleden en een hedendaags perspectief op het verleden begrijpen.",
+      "descriptionEn": "Pupils can understand the difference between the perspective of people in the past and a present-day perspective on the past."
+    },
+    {
+      "code": "L4-5.2.9",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kennen de volgende begrippen: het verleden, het heden, de toekomst, de periode, de duur, geschiedenis.",
+      "descriptionEn": "Pupils know these concepts: the past, the present, the future, the period, duration, history."
+    },
+    {
+      "code": "L4-5.2.10",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kennen de tijdsaanduidingen: v.o.t. en o.t.",
+      "descriptionEn": "Pupils know the time notations BCE and CE."
+    },
+    {
+      "code": "L4-5.2.11",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen aangereikte bronnen over de bestudeerde historische periodes chronologisch ordenen.",
+      "descriptionEn": "Pupils can put sources they are given about the historical periods studied in chronological order."
+    },
+    {
+      "code": "L4-5.3.1",
+      "category": "Reflectie en dialoog over verleden en geschiedenis",
+      "categoryEn": "Reflection and dialogue about the past and history",
+      "description": "De leerlingen kennen de volgende begrippen met betrekking tot de principes van de democratische rechtsstaat: verkiezingen, vertegenwoordiging, macht, rechten, plichten, regels, afspraken, gelijkheid.",
+      "descriptionEn": "Pupils know these concepts relating to the principles of a democratic state governed by the rule of law: elections, representation, power, rights, duties, rules, agreements, equality."
+    },
+    {
+      "code": "L4-5.3.2",
+      "category": "Reflectie en dialoog over verleden en geschiedenis",
+      "categoryEn": "Reflection and dialogue about the past and history",
+      "description": "De leerlingen kunnen principes van een democratische rechtsstaat herkennen in de bestudeerde samenlevingen uit het verleden.",
+      "descriptionEn": "Pupils can recognise principles of a democratic state governed by the rule of law in the past societies studied."
+    },
+    {
+      "code": "L4-5.3.3",
+      "category": "Reflectie en dialoog over verleden en geschiedenis",
+      "categoryEn": "Reflection and dialogue about the past and history",
+      "description": "De leerlingen weten dat ontwikkelingen in de bestudeerde samenlevingen een invloed hebben uitgeoefend op hedendaagse samenlevingen: (on)vrijheid, (on)gelijkheid, (on)verdraagzaamheid, oorlog en vrede; erfgoed.",
+      "descriptionEn": "Pupils know that developments in the societies studied have influenced present-day societies: (lack of) freedom, (in)equality, (in)tolerance, war and peace; heritage."
+    },
+    {
+      "code": "L4-5.3.4",
+      "category": "Reflectie en dialoog over verleden en geschiedenis",
+      "categoryEn": "Reflection and dialogue about the past and history",
+      "description": "De leerlingen kunnen uitleggen hoe persoonlijke identiteit mee gevormd wordt door het verleden: familiebanden; aandenken.",
+      "descriptionEn": "Pupils can explain how personal identity is partly shaped by the past: family ties; keepsakes."
+    },
+    {
+      "code": "L6-5.1.1",
+      "category": "Kennis van het verleden",
+      "categoryEn": "Knowledge of the past",
+      "description": "De leerlingen weten hoe mensen in de vroegmoderne tijd overleefden, samenleefden en hoe ze dachten. Afrika: ontwikkelingen: mondelinge tradities, religie, machtsverhoudingen, slavenhandel, staatsvorming; plaatsen: de Kongostroom; personen en groepen: Lukeni Lua Nimi, Portugese handelaren, Afonso I, Garcia II van Kongo; gebeurtenissen: de oprichting van het Kongo-koninkrijk, introductie van het christendom. Contacten tussen samenlevingen: ontwikkelingen: uitwisseling van ideeën in kunst, wetenschap en kosmologie, wereldimperialisme, Atlantische driehoekshandel; plaatsen: zijderoutes, handelspost, kolonie; personen en groepen: slaafgemaakten, zeevaarders, Vermeer, Columbus, de West-Indische Compagnie, La Malinche; gebeurtenissen: het ronden van Kaap de Goede Hoop.",
+      "descriptionEn": "Pupils know how people survived, lived together and thought in the early modern period. Africa: developments: oral traditions, religion, power relations, the slave trade, state formation; places: the Congo River; people and groups: Lukeni Lua Nimi, Portuguese traders, Afonso I, Garcia II of Kongo; events: the founding of the Kingdom of Kongo, the introduction of Christianity. Contacts between societies: developments: the exchange of ideas in art, science and cosmology, global imperialism, the Atlantic triangular trade; places: the Silk Roads, the trading post, the colony; people and groups: enslaved people, seafarers, Vermeer, Columbus, the Dutch West India Company, La Malinche; events: the rounding of the Cape of Good Hope."
+    },
+    {
+      "code": "L6-5.1.2",
+      "category": "Kennis van het verleden",
+      "categoryEn": "Knowledge of the past",
+      "description": "De leerlingen weten hoe mensen tijdens de moderne tijd met de natuur omgingen, overleefden, samenleefden en dachten. ontwikkelingen: industriële en agrarische revolutie, effecten van verstedelijking op leef- en werkomstandigheden, leven op het ritme van de klok, migratie, imperialisme, veranderende grenzen, grondwetten, emancipatie; plaatsen, personen, groepen en gebeurtenissen: de Verklaring van de Rechten van de Mens en van de Burger, het Burgerlijk Wetboek van Napoleon, de Belgische Grondwet, de Bloednacht in Leuven; Charleroi, arbeiders en opdrachtgevers, Lieven Bauwens, Emilie Claeys, landschapsverandering (terrils, kleiputten, kanalen, spoorwegen), landverhuizers; conferentie van Berlijn, de Onafhankelijke Kongostaat, Union Minière du Haut-Katanga, Paul Panda Farnana; begraafplaatsen, monumenten en gedenktekens van de Eerste Wereldoorlog, Verdrag van Versailles.",
+      "descriptionEn": "Pupils know how people dealt with nature, survived, lived together and thought in the modern period. Developments: the industrial and agricultural revolution, the effects of urbanisation on living and working conditions, living by the clock, migration, imperialism, changing borders, constitutions, emancipation; places, people, groups and events: the Declaration of the Rights of Man and of the Citizen, the Napoleonic Code, the Belgian Constitution, the Night of Blood in Leuven; Charleroi, workers and employers, Lieven Bauwens, Emilie Claeys, changes to the landscape (slag heaps, clay pits, canals, railways), emigrants; the Berlin Conference, the Congo Free State, the Union Minière du Haut-Katanga, Paul Panda Farnana; cemeteries, monuments and memorials of the First World War, the Treaty of Versailles."
+    },
+    {
+      "code": "L6-5.1.3",
+      "category": "Kennis van het verleden",
+      "categoryEn": "Knowledge of the past",
+      "description": "De leerlingen weten hoe mensen tijdens de hedendaagse tijd samenleefden. ontwikkelingen: internationale rivaliteit en samenwerking; vrouwenemancipatie, burgerrechten; informatie-, communicatie- en technologierevoluties, ruimte-exploratie; plaatsen, personen, groepen en gebeurtenissen: het Fort van Breendonk en de Kazerne Dossin, verzetsstrijders en collaborateurs; Verenigde Naties, Europese Unie, de Muur van Berlijn; Rosa Parks, gastarbeiders, de pil, stemrecht voor vrouwen, homohuwelijk; Neil Armstrong, het internet.",
+      "descriptionEn": "Pupils know how people lived together in the contemporary period. Developments: international rivalry and cooperation; women's emancipation, civil rights; revolutions in information, communication and technology, space exploration; places, people, groups and events: Fort Breendonk and the Kazerne Dossin, resistance fighters and collaborators; the United Nations, the European Union, the Berlin Wall; Rosa Parks, guest workers, the contraceptive pill, votes for women, same-sex marriage; Neil Armstrong, the internet."
+    },
+    {
+      "code": "L6-5.2.1",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen aangereikt bewijs uit bronnen gebruiken bij het antwoorden op historische vragen.",
+      "descriptionEn": "Pupils can use evidence they are given from sources when answering historical questions."
+    },
+    {
+      "code": "L6-5.2.2",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen diverse, veelgebruikte bronnen relevant voor de vroegmoderne, moderne en hedendaagse tijd noemen.",
+      "descriptionEn": "Pupils can name various commonly used sources relevant to the early modern, modern and contemporary periods."
+    },
+    {
+      "code": "L6-5.2.3",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen typische historische vragen stellen met betrekking tot: continuïteit-verandering (bv. wat veranderde er voor vrouwen in de 20e eeuw?); oorzaak-gevolg (bv. welke impact had de Europese handel op het Kongo-koninkrijk?, waarom werd de Muur van Berlijn afgebroken?).",
+      "descriptionEn": "Pupils can ask typical historical questions about: continuity and change (e.g. what changed for women in the 20th century?); cause and effect (e.g. what impact did European trade have on the Kingdom of Kongo?, why was the Berlin Wall torn down?)."
+    },
+    {
+      "code": "L6-5.2.4",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen hun gedachten ordenen om typische historische vragen te beantwoorden met betrekking tot: continuïteit-verandering; oorzaak-gevolg.",
+      "descriptionEn": "Pupils can organise their thoughts to answer typical historical questions about: continuity and change; cause and effect."
+    },
+    {
+      "code": "L6-5.2.5",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen hun historische kennis gebruiken om vragen te stellen over de perspectieven van mensen en groepen in het verleden. (bv. waarom was het zo belangrijk voor Afonso I dat zijn zoon bisschop was?, waarom schafte de Europese clerus de Congolese bisschopszetel gauw terug af?, waarom stelde Pieter Bruegel de Oude “de Korenoogst” voor als erg hard werken en armoedig?)",
+      "descriptionEn": "Pupils can use their historical knowledge to ask questions about the perspectives of people and groups in the past (e.g. why was it so important to Afonso I that his son was a bishop?, why did the European clergy soon abolish the Congolese bishopric again?, why did Pieter Bruegel the Elder portray 'The Harvesters' as very hard and poor work?)."
+    },
+    {
+      "code": "L6-5.2.6",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kunnen redeneringen over personen, groepen, gebeurtenissen en ontwikkelingen in het verleden verwoorden vanuit verschillende perspectieven.",
+      "descriptionEn": "Pupils can put into words reasoning about people, groups, events and developments in the past from different perspectives."
+    },
+    {
+      "code": "L6-5.2.7",
+      "category": "Kennis van geschiedenis",
+      "categoryEn": "Knowledge of history",
+      "description": "De leerlingen kennen de zes periodes van het gehanteerde historische referentiekader: prehistorie, oudheid, middeleeuwen, vroegmoderne tijd, moderne tijd, hedendaagse tijd.",
+      "descriptionEn": "Pupils know the six periods of the historical framework used: prehistory, antiquity, the Middle Ages, the early modern period, the modern period, the contemporary period."
+    },
+    {
+      "code": "L6-5.3.1",
+      "category": "Reflectie en dialoog over verleden en geschiedenis",
+      "categoryEn": "Reflection and dialogue about the past and history",
+      "description": "De leerlingen kennen de begrippen met betrekking tot de principes van de democratische rechtsstaat: democratie, regering, parlement, rechtbank, bescherming, wetten, grondwet, vrijheid.",
+      "descriptionEn": "Pupils know the concepts relating to the principles of a democratic state governed by the rule of law: democracy, government, parliament, court, protection, laws, constitution, freedom."
+    },
+    {
+      "code": "L6-5.3.2",
+      "category": "Reflectie en dialoog over verleden en geschiedenis",
+      "categoryEn": "Reflection and dialogue about the past and history",
+      "description": "De leerlingen kunnen de relatie tussen heden, verleden en toekomst verwoorden met betrekking tot de bestudeerde samenlevingen: materieel en immaterieel erfgoed; racisme en discriminatie; organisatie van samenleving en dialoog: democratische instellingen, dictatorschap.",
+      "descriptionEn": "Pupils can put into words the relationship between present, past and future with regard to the societies studied: tangible and intangible heritage; racism and discrimination; the organisation of society and dialogue: democratic institutions, dictatorship."
+    },
+    {
+      "code": "L6-5.3.3",
+      "category": "Reflectie en dialoog over verleden en geschiedenis",
+      "categoryEn": "Reflection and dialogue about the past and history",
+      "description": "De leerlingen kunnen uitleggen wat historische gebeurtenissen, ontwikkelingen, plaatsen, en/of personen voor de samenleving kunnen betekenen: erfgoed: standbeelden, straatnamen, verhalen, feestdagen.",
+      "descriptionEn": "Pupils can explain what historical events, developments, places and/or people can mean for society: heritage: statues, street names, stories, public holidays."
+    }
+  ]
+}
