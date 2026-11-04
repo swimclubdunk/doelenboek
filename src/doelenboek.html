@@ -104,7 +104,7 @@ const T = {
     example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
     remove_examples: 'Voorbeelden verwijderen',
     h_overview: 'Kinderen',
-    n_children: n => nlN(n, 'kind', 'kinderen'), n_goals: n => nlN(n, 'minimumdoel', 'minimumdoelen'), n_acts: n => nlN(n, 'activiteit', 'activiteiten'), n_photos: n => nlN(n, 'foto', "foto's"),
+    n_children: n => nlN(n, 'kind', 'kinderen'), n_acts: n => nlN(n, 'activiteit', 'activiteiten'), n_photos: n => nlN(n, 'foto', "foto's"),
     n_goals_short: n => nlN(n, 'doel', 'doelen'),
     add_child: 'Kind toevoegen', add_activity: 'Activiteit toevoegen',
     empty_kids_h: 'Nog geen kinderen', empty_kids_p: 'Voeg een kind toe. Daarna registreer je activiteiten en zie je per vak welke minimumdoelen al aan bod kwamen.',
@@ -202,7 +202,7 @@ const T = {
     example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
     remove_examples: 'Remove examples',
     h_overview: 'Children',
-    n_children: n => nlN(n, 'child', 'children'), n_goals: n => nlN(n, 'minimum goal', 'minimum goals'), n_acts: n => nlN(n, 'activity', 'activities'), n_photos: n => nlN(n, 'photo', 'photos'),
+    n_children: n => nlN(n, 'child', 'children'), n_acts: n => nlN(n, 'activity', 'activities'), n_photos: n => nlN(n, 'photo', 'photos'),
     n_goals_short: n => nlN(n, 'goal', 'goals'),
     add_child: 'Add child', add_activity: 'Add activity',
     empty_kids_h: 'No children yet', empty_kids_p: 'Add a child. Then log activities and see, per subject, which minimum goals have been covered.',
@@ -657,9 +657,9 @@ function barRow(label, key, n, tot, touches) {
 }
 
 function viewOverview(cov) {
-  const kids = sortedChildren(), total = data.goals.size;
+  const kids = sortedChildren();
   let h = exampleBanner();
-  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))} · ${esc(t('n_goals', total))} · ${esc(t('n_acts', data.activities.size))}</p></div>
+  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))} · ${esc(t('n_acts', data.activities.size))}</p></div>
     <div class="head-actions w"><button class="btn" data-action="add-child">${addBt('add_child')}</button></div></section>`;
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
