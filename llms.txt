@@ -22,7 +22,7 @@ Key facts:
 ## Minimumdoelen (Dutch)
 
 - [Alle vakken](https://doelenboek.be/minimumdoelen/)
-- [Nederlands](https://doelenboek.be/minimumdoelen/nederlands/): 26 minimumdoelen
+- [Nederlands](https://doelenboek.be/minimumdoelen/nederlands/): 42 minimumdoelen
 - [Wiskunde](https://doelenboek.be/minimumdoelen/wiskunde/): 59 minimumdoelen
 - [Wetenschappen & techniek](https://doelenboek.be/minimumdoelen/wetenschappen-techniek/): 21 minimumdoelen
 - [Geschiedenis](https://doelenboek.be/minimumdoelen/geschiedenis/): 11 minimumdoelen
@@ -34,7 +34,7 @@ Key facts:
 ## Minimum goals (English)
 
 - [All subjects](https://doelenboek.be/en/minimum-goals/)
-- [Dutch](https://doelenboek.be/en/minimum-goals/dutch/): 26 minimum goals
+- [Dutch](https://doelenboek.be/en/minimum-goals/dutch/): 42 minimum goals
 - [Mathematics](https://doelenboek.be/en/minimum-goals/mathematics/): 59 minimum goals
 - [Science & technology](https://doelenboek.be/en/minimum-goals/science-and-technology/): 21 minimum goals
 - [History](https://doelenboek.be/en/minimum-goals/history/): 11 minimum goals

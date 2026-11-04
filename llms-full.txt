@@ -66,6 +66,17 @@ Page: https://doelenboek.be/minimumdoelen/nederlands/
 - **1.2.10** De kleuters kunnen ideeën aanbrengen voor een tekst vanuit aangeboden inhouden, eigen ervaringen of creatieve ideeën.
   - EN: Preschoolers can suggest ideas for a text based on given content, their own experiences or creative ideas.
 
+### Luisterbegrip (Listening comprehension)
+
+- **1.3.1** De kleuters kunnen met aandacht luisteren.
+  - EN: Preschoolers can listen attentively.
+- **1.3.2** De kleuters kunnen gepast reageren op vragen en instructies.
+  - EN: Preschoolers can respond appropriately to questions and instructions.
+- **1.3.3** De kleuters kunnen vragen stellen om meer informatie te krijgen en om te controleren of ze de boodschap begrepen hebben.
+  - EN: Preschoolers can ask questions to get more information and to check whether they have understood the message.
+- **1.3.4** De kleuters kunnen op een voorgelezen verhaal reageren door voorspellingen te maken, vragen te stellen of verbanden te leggen met hun vakspecifieke kennis en voorkennis.
+  - EN: Preschoolers can respond to a story read aloud to them by making predictions, asking questions or making connections with their subject knowledge and prior knowledge.
+
 ### Mondeling taalgebruik (Spoken language)
 
 - **1.3.5** De kleuters kunnen verstaanbaar spreken met aandacht voor uitspraak van klanken, klankcombinaties en volume.
@@ -86,6 +97,42 @@ Page: https://doelenboek.be/minimumdoelen/nederlands/
 - Letting each other finish.
 - Responding to what others say.
 - Using standard phrases for greeting, addressing someone, thanking and asking.
+
+### Woordenschat (Vocabulary)
+
+- **1.4.1** De kleuters kunnen basiswoordenschat en eenvoudige betekenisrelaties inzetten met betrekking tot de leefomgeving en de school.
+  - EN: Preschoolers can use basic vocabulary and simple relationships between word meanings about their surroundings and school.
+- **1.4.2** De kleuters kunnen aangeboden inhoudelijke en functionele school- en instructietaal inzetten binnen de context van de activiteiten en hun vakspecifieke kennis, voorkennis en ervaring.
+  - EN: Preschoolers can use the content-related and functional school and instruction language they are taught, within the context of the activities and their subject knowledge, prior knowledge and experience.
+- **1.4.3** De kleuters kunnen onder begeleiding hun woordenschat uitbreiden.
+  - EN: Preschoolers can expand their vocabulary with guidance.
+
+### Taalsysteem (Language system)
+
+- **1.4.4** De kleuters kennen woord, woorddeel, klankgroep, rijm, klank, letter.
+  - EN: Preschoolers know the terms word, part of a word, sound group, rhyme, sound and letter.
+- **1.4.5** De kleuters kunnen basiselementen van het taalsysteem toepassen in taal(spel): klanken, klankgroepen, rijm, letter- en cijfersymbolen, klanktekenkoppeling, woorden.
+  - EN: Preschoolers can apply basic elements of the language system in language (games): sounds, sound groups, rhyme, letter and number symbols, letter-sound correspondence, words.
+
+### Taalgebruik en taalwetenschap (Language use and linguistics)
+
+- **1.4.6** De kleuters weten dat taal non-verbale en verbale elementen inhoudt.
+  - EN: Preschoolers know that language has non-verbal and verbal elements.
+- **1.4.7** De kleuters weten dat er verschillende taalvariëteiten en verschillende talen zijn.
+  - EN: Preschoolers know that there are different varieties of a language and different languages.
+
+### Literatuur (Literature)
+
+- **1.5.1** De kleuters kennen auteur, illustrator, titel, kaft.
+  - EN: Preschoolers know the terms author, illustrator, title and cover.
+- **1.5.2** De kleuters kunnen gedachten of gevoelens verwoorden bij het in contact komen met bekroonde jeugdliteratuur, zowel fictie als non-fictie. (bv. de Boon voor Jeugdliteratuur, de Gouden Griffel, de Kinderjury Nederland, de Leesjury Vlaanderen, de Woutertje Pieterse Prijs)
+  - EN: Preschoolers can put thoughts or feelings into words when they come into contact with award-winning children's literature, both fiction and non-fiction (e.g. the Boon voor Jeugdliteratuur, the Gouden Griffel, the Kinderjury Nederland, the Leesjury Vlaanderen, the Woutertje Pieterse Prijs).
+- **1.5.3** De kleuters kunnen een eigen voorkeur tonen voor bepaalde verhalen of personages.
+  - EN: Preschoolers can show their own preference for certain stories or characters.
+- **1.5.4** De kleuters kunnen in eigen woorden de kern van een prentenboek navertellen met ondersteuning van beelden of symbolen.
+  - EN: Preschoolers can retell the gist of a picture book in their own words, supported by pictures or symbols.
+- **1.5.5** De kleuters kunnen experimenteren met taal en verhalen via spreken, tekenen en eenvoudige spelvormen.
+  - EN: Preschoolers can experiment with language and stories through speaking, drawing and simple games.
 
 ## Wiskunde (Mathematics)
 
