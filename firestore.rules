@@ -12,7 +12,7 @@ service cloud.firestore {
 
     // The site owner's uid (Firebase console → Authentication). tools/build.py reads it from here for /admin/.
     function isAdmin() {
-      return request.auth != null && request.auth.uid == 'OWNER_UID';
+      return request.auth != null && request.auth.uid == '1VjmzNNpdlU3NhZ6DziM16Zwiyr1';
     }
 
     match /users/{uid}/{collection}/{docId} {
