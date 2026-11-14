@@ -10,6 +10,7 @@
 .adm-tag { opacity: .75; }
 /* <main> already sets the page width and padding; a section fills it */
 .adm { display: grid; gap: 14px; min-width: 0; }
+.adm > * { min-width: 0; }   /* lets wide tables scroll inside their card instead of widening the page */
 .adm h1 { margin: 0; }
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; }
 .kpi { padding: 12px 14px; }
@@ -174,19 +175,61 @@ function contentView() {
       <button type="button" class="linkish" data-action="never">${state.showNever ? 'Toon meest gekoppelde' : `Toon nooit gekoppelde (${n(c.neverLinked.length)})`}</button></h3>
       ${state.showNever ? goalTable(c.neverLinked, false) : c.topGoals.length ? goalTable(c.topGoals, true) : '<p class="muted">Nog geen doelen gekoppeld.</p>'}</div>`);
 }
-/* Task 8 replaces the accounts entry with the real tab. */
+const COLS = [['email', 'E-mail', ''], ['signupAt', 'Aangemaakt', ''], ['lastActive', 'Laatst actief', ''], ['children', 'Kinderen', 'r'], ['activities', 'Activiteiten', 'r'], ['photos', "Foto's", 'r']];
+const FILTERS = [['all', 'Alle'], ['active', 'Actief'], ['inactive', 'Inactief']];
+function accountsTable() {
+  const now = Date.now();
+  const rows = S.accountRows(state.accounts, { query: state.q, filter: state.filter, sort: state.sort, dir: state.dir }, now);
+  const head = COLS.map(([k, label, cls]) => {
+    const on = state.sort === k, arrow = on ? (state.dir === 'asc' ? ' ▴' : ' ▾') : '';
+    return `<th class="${cls}" aria-sort="${on ? (state.dir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button type="button" data-action="sort" data-v="${k}">${label}${arrow}</button></th>`;
+  }).join('');
+  const body = rows.map(r => {
+    const open = state.open === r.uid;
+    const line = `<tr class="${open ? 'open' : ''}">
+      <td><button type="button" class="linkish" data-action="row" data-v="${esc(r.uid)}" aria-expanded="${open}">${who(r)}</button></td>
+      <td>${r.signupApprox ? '~ ' : ''}${fmtDate(r.signupAt)}</td><td>${esc(S.relDays(r.lastActive, now))}</td>
+      <td class="r">${n(r.children)}</td><td class="r">${n(r.activities)}</td><td class="r">${n(r.photos)}</td></tr>`;
+    if (!open) return line;
+    const d = S.accountDetail(state.accounts.find(a => a.uid === r.uid));
+    const kids = d.kids.length
+      ? `<table class="t" style="width:auto"><tr><th>Kind</th><th>Niveau</th><th class="r">Activiteiten</th><th class="r">Doelen beheerst</th></tr>${d.kids.map(k =>
+        `<tr><td>${esc(k.label)}</td><td>${esc(tierName(k.tier))}</td><td class="r">${n(k.activities)}</td><td class="r">${n(k.mastered)}</td></tr>`).join('')}</table>`
+      : '<p class="muted" style="margin:0">Geen kinderen.</p>';
+    return line + `<tr class="detail"><td colspan="6">${kids}<p class="mono muted" style="margin:6px 0 0">uid ${esc(d.uid)} · laatste wijziging ${d.lastChange ? `${fmtDate(d.lastChange)} ${timeFmt.format(d.lastChange)}` : '—'}</p></td></tr>`;
+  }).join('');
+  return `<p class="count-line">${n(rows.length)} van ${n(state.accounts.length)} accounts</p>
+    <div class="card panel tbl-wrap"><table class="t"><tr>${head}</tr>${body || '<tr><td colspan="6" class="muted">Geen accounts gevonden.</td></tr>'}</table></div>`;
+}
+function accountsView() {
+  return section('Accounts', `
+    <div class="acc-tools"><input class="search" id="acc-q" type="search" placeholder="Zoek op e-mail of uid…" value="${esc(state.q)}" aria-label="Zoek accounts">
+      <div class="seg" role="tablist" aria-label="Filter">${FILTERS.map(([k, label]) => `<button type="button" role="tab" aria-selected="${k === state.filter}" data-action="filter" data-v="${k}">${label}</button>`).join('')}</div></div>
+    <div id="acc-table">${accountsTable()}</div>
+    <p class="count-line">Actief: iets gedaan in de laatste 30 dagen. Inactief: niets in de laatste 90 dagen.</p>${FOOTNOTE}`);
+}
+/* re-draws only the table, so the search field keeps its focus while typing */
+const updateTable = () => { const el = $('acc-table'); if (el) el.innerHTML = accountsTable(); };
 const VIEWS = {
   overzicht: overviewView,
   groei: growthView,
   gebruik: usageView,
   inhoud: contentView,
-  accounts: () => section('Accounts', ''),
+  accounts: accountsView,
 };
 const ACTIONS = {
   retry: () => fb && fb.auth.currentUser ? load() : start(),
   period: el => { state.growthPeriod = el.dataset.v; render(); },
   'subj-more': () => { state.subjOpen = !state.subjOpen; render(); },
   never: () => { state.showNever = !state.showNever; render(); },
+  filter: el => { state.filter = el.dataset.v; render(); },
+  sort: el => {
+    const k = el.dataset.v;
+    if (state.sort === k) state.dir = state.dir === 'asc' ? 'desc' : 'asc';
+    else { state.sort = k; state.dir = k === 'email' ? 'asc' : 'desc'; }
+    updateTable();
+  },
+  row: el => { state.open = state.open === el.dataset.v ? null : el.dataset.v; updateTable(); },
 };
 
 /* ---------- screens ---------- */
@@ -300,6 +343,7 @@ document.addEventListener('submit', async e => {
   try { await fb.A.signInWithEmailAndPassword(fb.auth, f.email.value.trim(), f.password.value); }
   catch (err) { state.err = 'Aanmelden mislukt: controleer je e-mailadres en wachtwoord.'; render(); }
 });
+document.addEventListener('input', e => { if (e.target.id === 'acc-q') { state.q = e.target.value; updateTable(); } });
 window.addEventListener('hashchange', render);
 $('refresh-btn').addEventListener('click', () => load());
 $('out-btn').addEventListener('click', () => fb.A.signOut(fb.auth));
