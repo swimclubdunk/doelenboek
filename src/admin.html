@@ -1,9 +1,41 @@
 <title>doelenboek.be admin</title>
-<!-- tools/build.py builds this into admin/index.html; the stylesheets and admin-stats.js are inlined -->
+<!-- The owner's dashboard. tools/build.py builds this into admin/index.html; the stylesheets and admin-stats.js are inlined.
+     Only the account in firestore.rules (isAdmin) can read other accounts' data; this page only ever shows counts. -->
 <link rel="stylesheet" href="design/tokens.css">
 <link rel="stylesheet" href="design/app.css">
 <link rel="stylesheet" href="core.css">
 <script>let t = 'light'; try { if (localStorage.getItem('doelenboek.theme') === 'dark') t = 'dark'; } catch (e) {} document.documentElement.dataset.theme = t;</script>
+<style>
+/* admin-only pieces; everything else comes from the app's design files */
+.adm-tag { opacity: .75; }
+/* <main> already sets the page width and padding; a section fills it */
+.adm { display: grid; gap: 14px; min-width: 0; }
+.adm h1 { margin: 0; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; }
+.kpi { padding: 12px 14px; }
+.k-n { font-family: var(--f-display); font-size: 1.6rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.k-l { color: var(--muted); font-size: .82rem; }
+.k-s { color: var(--muted); font-size: .76rem; font-family: var(--f-mono); }
+.panel { padding: 14px; min-width: 0; }
+.panel h3 { margin: 0 0 10px; font-size: .95rem; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.panel h3 small { font-weight: 400; color: var(--muted); font-size: .78rem; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 14px; }
+.colchart { display: flex; align-items: flex-end; gap: 3px; height: 110px; border-bottom: 1px solid var(--line); }
+.colchart i { flex: 1; min-height: 2px; background: var(--accent); border-radius: 3px 3px 0 0; }
+.colchart i.zero { background: var(--line); }
+.axis { display: flex; justify-content: space-between; color: var(--muted); font-size: .72rem; margin-top: 4px; font-family: var(--f-mono); }
+.tbl-wrap { overflow-x: auto; }
+table.t { width: 100%; border-collapse: collapse; font-size: .84rem; }
+table.t th { text-align: left; color: var(--muted); font-weight: 600; padding: 6px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.t th button { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; }
+table.t td { padding: 6px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+table.t .r { text-align: right; }
+table.t tr.open > td, table.t tr.detail > td { background: var(--surface-2); }
+.pill { font-size: .72rem; padding: 1px 7px; border-radius: 99px; background: var(--warn-bg); color: var(--warn-fg); white-space: nowrap; }
+.mono { font-family: var(--f-mono); font-size: .76rem; }
+.bars.funnel li { grid-template-columns: minmax(0, 11rem) 1fr 3.4rem 2.4rem; }
+.acc-tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+</style>
 <header class="top">
   <div class="top-inner">
     <div class="brand"><b>doelenboek.be</b>&nbsp;<span class="adm-tag">admin</span></div>
@@ -20,10 +52,203 @@
 <script>
 (() => {
 'use strict';
+/* Filled in by tools/build.py: the app's subjects, tiers and goals, the Firebase config and the admin uid from firestore.rules. */
 const SUBJECTS = [];
 const TIERS = [];
 const BUILTIN_GOALS = [];
 const FIREBASE_CONFIG = null;
 const ADMIN_UID = null;
+const FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/10.14.1/';
+
+const S = AdminStats;
+const SUBJ = Object.fromEntries(SUBJECTS.map(s => [s.key, s]));
+const TIER = Object.fromEntries(TIERS.map(x => [x.key, x]));
+const TIER_KEYS = TIERS.map(x => x.key);
+const TABS = [['overzicht', 'Overzicht'], ['groei', 'Groei'], ['gebruik', 'Gebruik'], ['inhoud', 'Inhoud'], ['accounts', 'Accounts']];
+
+/* ---------- formatting ---------- */
+const nf = new Intl.NumberFormat('nl-BE');
+const n = v => nf.format(v);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const dateFmt = new Intl.DateTimeFormat('nl-BE', { day: 'numeric', month: 'short', year: 'numeric' });
+const timeFmt = new Intl.DateTimeFormat('nl-BE', { hour: '2-digit', minute: '2-digit' });
+const fmtDate = ts => ts ? dateFmt.format(ts) : '—';
+const subjName = k => SUBJ[k] ? SUBJ[k].name.nl : 'Onbekend';
+const subjColor = k => SUBJ[k] ? `var(--s-${k.toLowerCase()})` : 'var(--muted)';
+const tierName = k => TIER[k] ? TIER[k].badge.nl : k;
+
+/* ---------- state ---------- */
+const state = { view: 'loading', err: '', accounts: [], loadedAt: 0, demo: false,
+  growthPeriod: 'weeks', subjOpen: false, showNever: false,
+  q: '', filter: 'all', sort: 'lastActive', dir: 'desc', open: null };
+let fb = null;
+const $ = id => document.getElementById(id);
+const currentTab = () => { const h = location.hash.slice(1); return TABS.some(x => x[0] === h) ? h : 'overzicht'; };
+
+/* ---------- building blocks ---------- */
+const tile = (value, label, sub = '') => `<div class="card kpi"><div class="k-n">${value}</div><div class="k-l">${esc(label)}</div>${sub ? `<div class="k-s">${esc(sub)}</div>` : ''}</div>`;
+const section = (title, inner, aside = '') => `<section class="adm"><div class="page-head"><div><h1>${esc(title)}</h1></div>${aside}</div>${inner}</section>`;
+const axisFmt = { weeks: new Intl.DateTimeFormat('nl-BE', { day: 'numeric', month: 'short' }), months: new Intl.DateTimeFormat('nl-BE', { month: 'short', year: '2-digit' }) };
+/* rows: [{ start, value, title }]; one bar per period, three dates under it */
+function colChart(rows, period) {
+  const max = Math.max(1, ...rows.map(r => r.value));
+  const f = axisFmt[period === 'weeks' ? 'weeks' : 'months'];
+  const ticks = rows.length > 2 ? [rows[0], rows[Math.floor(rows.length / 2)], rows[rows.length - 1]] : rows;
+  return `<div class="colchart" role="img" aria-label="${esc(rows.map(r => r.title).join('; '))}">${rows.map(r =>
+    `<i class="${r.value ? '' : 'zero'}" style="height:${Math.round(100 * r.value / max)}%" title="${esc(r.title)}"></i>`).join('')}</div>
+    <div class="axis">${ticks.map(r => `<span>${esc(f.format(r.start))}</span>`).join('')}</div>`;
+}
+/* items: [{ label, value, pct, color }], in the app's .bars style */
+const barList = (items, cls = '') => `<ul class="bars ${cls}">${items.map(it =>
+  `<li><span class="b-lbl" title="${esc(it.label)}">${esc(it.label)}</span><span class="bar"><i style="width:${it.pct}%;background:${it.color || 'var(--accent)'}"></i></span><span class="b-num">${n(it.value)}</span><span class="b-num">${it.pct}%</span></li>`).join('')}</ul>`;
+const weekRows = weekly => weekly.map(w => ({ start: w.start, value: w.count, title: `week van ${dateFmt.format(w.start)}: ${w.count} actief` }));
+const who = a => a.email ? esc(a.email) : `<span class="mono">${esc(a.uid.slice(0, 6))}…</span> <span class="pill">geen profiel</span>`;
+const FOOTNOTE = '<p class="count-line">Accounts zonder gegevens en zonder profiel zijn niet zichtbaar.</p>';
+
+/* ---------- tabs ---------- */
+function overviewView() {
+  const now = Date.now(), o = S.overview(state.accounts, now);
+  const recent = o.recent.length
+    ? `<div class="tbl-wrap"><table class="t"><tr><th>Account</th><th class="r">Laatst actief</th></tr>${o.recent.map(r => `<tr><td>${who(r)}</td><td class="r">${esc(S.relDays(r.lastActive, now))}</td></tr>`).join('')}</table></div>`
+    : '<p class="muted">Nog niemand actief.</p>';
+  return section('Overzicht', `
+    <div class="kpis">
+      ${tile(n(o.accounts), 'Accounts', `+${n(o.accountsThisMonth)} deze maand`)}
+      ${tile(n(o.active30), 'Actief (30 d)', `${o.active30Pct}% van alle`)}
+      ${tile(n(o.children), 'Kinderen', `+${n(o.childrenThisMonth)} deze maand`)}
+      ${tile(n(o.activities), 'Activiteiten', `+${n(o.activitiesThisMonth)} deze maand`)}
+    </div>
+    <div class="two">
+      <div class="card panel"><h3>Actieve accounts per week</h3>${colChart(weekRows(o.activeWeekly), 'weeks')}</div>
+      <div class="card panel"><h3>Recent actief</h3>${recent}</div>
+    </div>${FOOTNOTE}`);
+}
+/* Tasks 7 and 8 replace these with the real tabs. */
+const VIEWS = {
+  overzicht: overviewView,
+  groei: () => section('Groei', ''),
+  gebruik: () => section('Gebruik', ''),
+  inhoud: () => section('Inhoud', ''),
+  accounts: () => section('Accounts', ''),
+};
+const ACTIONS = {
+  retry: () => fb && fb.auth.currentUser ? load() : start(),
+};
+
+/* ---------- screens ---------- */
+function loginView() {
+  return `<section class="card auth"><div><h1>Admin</h1><p class="lede">Meld je aan met je Doelenboek-account.</p></div>
+    <form id="login-form" novalidate>
+      <label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email" inputmode="email" required></label>
+      <label class="field"><span>Wachtwoord</span><input name="password" type="password" autocomplete="current-password" required></label>
+      <p class="form-error" role="alert">${esc(state.err)}</p>
+      <button class="btn primary" type="submit">Aanmelden</button>
+    </form></section>`;
+}
+const noAccessView = () => `<section class="card auth"><div><h1>Geen toegang</h1><p class="lede">Dit account heeft geen beheerdersrechten.</p>
+  ${ADMIN_UID ? '' : '<p class="muted">Er staat nog geen beheerder in firestore.rules (OWNER_UID).</p>'}</div></section>`;
+const errorView = () => `<section class="adm"><div class="notice"><p>${esc(state.err)}</p><button class="btn small" type="button" data-action="retry">Opnieuw</button></div></section>`;
+
+function render() {
+  const dash = state.view === 'dash';
+  $('out-btn').hidden = !(fb && fb.auth.currentUser);
+  $('refresh-btn').hidden = !dash || state.demo;
+  $('status').textContent = dash ? (state.demo ? 'Voorbeeldgegevens' : `Bijgewerkt om ${timeFmt.format(state.loadedAt)}`) : '';
+  const tab = currentTab();
+  $('tabs').innerHTML = dash ? TABS.map(([k, label]) => `<a href="#${k}"${k === tab ? ' aria-current="page"' : ''}>${label}</a>`).join('') : '';
+  $('main').innerHTML = state.view === 'login' ? loginView()
+    : state.view === 'noaccess' ? noAccessView()
+    : state.view === 'error' ? errorView()
+    : dash ? VIEWS[tab]()
+    : '<p class="loading">Gegevens laden…</p>';
+}
+
+/* ---------- data ---------- */
+/* Every record of every account, via collection-group queries (allowed for the admin only by firestore.rules).
+   buildDataset drops names, titles and notes, so they never stay in memory. */
+async function load() {
+  state.view = 'loading'; render();
+  const { F, fs } = fb;
+  const rows = snap => snap.docs.flatMap(d => {
+    const user = d.ref.parent.parent;
+    return user && user.parent.id === 'users' ? [{ uid: user.id, id: d.id, data: d.data() }] : [];
+  });
+  try {
+    const [profiles, children, activities] = await Promise.all(['profile', 'children', 'activities'].map(c => F.getDocs(F.collectionGroup(fs, c)).then(rows)));
+    state.accounts = S.buildDataset({ profiles, children, activities }, TIER_KEYS);
+    state.loadedAt = Date.now();
+    state.view = 'dash';
+  } catch (e) {
+    const code = e && e.code || 'onbekende fout';
+    state.err = `Laden mislukt (${code}).` + (code === 'permission-denied' ? ' Zijn de regels uit firestore.rules gepubliceerd in de Firebase-console?' : '');
+    state.view = 'error';
+  }
+  render();
+}
+
+/* Without a Firebase config (python tools/serve.py without --live) the page shows made-up accounts. */
+function demoRaw(now) {
+  let seed = 7;
+  const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  const pick = arr => arr[Math.floor(rnd() * arr.length)];
+  const raw = { profiles: [], children: [], activities: [] };
+  for (let i = 1; i <= 40; i++) {
+    const uid = 'demo' + String(i).padStart(3, '0') + 'xxxxxxxxxxxxxxxxxxx';
+    const signup = now - Math.floor(rnd() * 420) * S.DAY;
+    const quiet = rnd() < 0.3;
+    const last = quiet ? signup + Math.floor(rnd() * 20) * S.DAY : now - Math.floor(rnd() * 25) * S.DAY;
+    if (i % 5) raw.profiles.push({ uid, id: 'main', data: { email: `ouder${i}@voorbeeld.be`, createdAt: signup, lastSeen: Math.min(now, last) } });
+    const kids = Math.floor(rnd() * 4);
+    for (let k = 0; k < kids; k++) raw.children.push({ uid, id: 'c' + k, data: { name: 'x', tier: pick(TIER_KEYS), createdAt: signup + k * S.DAY, updatedAt: last,
+      mastered: Object.fromEntries(Array.from({ length: Math.floor(rnd() * 30) }, () => [pick(BUILTIN_GOALS).id, '2026-01-01'])) } });
+    const acts = kids ? Math.floor(rnd() * (quiet ? 8 : 150)) : 0;
+    for (let a = 0; a < acts; a++) {
+      const at = signup + rnd() * Math.max(S.DAY, Math.min(now, last) - signup);
+      raw.activities.push({ uid, id: 'a' + a, data: { title: 'x', createdAt: at, updatedAt: at, childIds: ['c' + Math.floor(rnd() * kids)],
+        goalIds: Array.from({ length: 1 + Math.floor(rnd() * 3) }, () => pick(BUILTIN_GOALS).id), photoIds: rnd() < 0.35 ? ['p1', 'p2'].slice(0, 1 + Math.floor(rnd() * 2)) : [] } });
+    }
+  }
+  raw.children.push({ uid: 'demo001xxxxxxxxxxxxxxxxxxx', id: 'ex', data: { name: 'Voorbeeld', example: true, createdAt: now } });
+  return raw;
+}
+
+async function start() {
+  if (!FIREBASE_CONFIG) {
+    state.demo = true; state.accounts = S.buildDataset(demoRaw(Date.now()), TIER_KEYS); state.loadedAt = Date.now(); state.view = 'dash';
+    return render();
+  }
+  try {
+    const [appM, authM, fsM] = await Promise.all(['firebase-app.js', 'firebase-auth.js', 'firebase-firestore.js'].map(f => import(FIREBASE_SDK + f)));
+    const cfg = { ...FIREBASE_CONFIG }, emu = cfg.emulator; delete cfg.emulator;
+    const app = appM.initializeApp(cfg);
+    fb = { auth: authM.getAuth(app), fs: fsM.getFirestore(app), A: authM, F: fsM };
+    if (emu) { authM.connectAuthEmulator(fb.auth, emu.auth, { disableWarnings: true }); fsM.connectFirestoreEmulator(fb.fs, emu.host, emu.port); }
+    authM.onAuthStateChanged(fb.auth, user => {
+      state.err = '';
+      if (!user) { state.accounts = []; state.view = 'login'; render(); }
+      else if (!ADMIN_UID || user.uid !== ADMIN_UID) { state.view = 'noaccess'; render(); }
+      else load();
+    });
+  } catch (e) {
+    state.err = 'De Firebase-bibliotheek kon niet laden. Controleer je verbinding.'; state.view = 'error'; render();
+  }
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-action]');
+  if (el && ACTIONS[el.dataset.action]) ACTIONS[el.dataset.action](el);
+});
+document.addEventListener('submit', async e => {
+  if (e.target.id !== 'login-form') return;
+  e.preventDefault();
+  const f = e.target;
+  try { await fb.A.signInWithEmailAndPassword(fb.auth, f.email.value.trim(), f.password.value); }
+  catch (err) { state.err = 'Aanmelden mislukt: controleer je e-mailadres en wachtwoord.'; render(); }
+});
+window.addEventListener('hashchange', render);
+$('refresh-btn').addEventListener('click', () => load());
+$('out-btn').addEventListener('click', () => fb.A.signOut(fb.auth));
+start();
 })();
 </script>
