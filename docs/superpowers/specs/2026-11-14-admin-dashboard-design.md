@@ -74,7 +74,7 @@ All data is loaded once per page load; the *Vernieuwen* button reloads it. At th
 - **Sign-up date:** `profile.createdAt`. Without a profile, the earliest `createdAt` of the account's records, shown with a "~" prefix.
 - **Last active:** the latest of `profile.lastSeen` and any record's `updatedAt`/`createdAt`.
 - **Active in the last N days:** last active within N days of now.
-- **Active in week W** (chart): at least one record created or updated in that week, plus `lastSeen` in that week for the current week only (`lastSeen` has no history).
+- **Active in week W** (chart): at least one record created or updated in that week, or `lastSeen` falls in that week (it is the last visit, so it only ever marks one week).
 - **Inactive:** last active more than 90 days ago.
 - **Never logged anything:** account with zero activities.
 - **Photos:** the sum of `photoIds.length` over activities. Photo files are never read.
@@ -128,7 +128,7 @@ Charts are simple bars made with the app's CSS (`.bars`, plain flex bars). No ch
 
 ## Testing
 
-- `node --test tests/` covers `admin-stats.js` against fixtures: account union, profile fallbacks, active and inactive edges, week boundaries, example records excluded, funnel, subject mapping, unknown goals, and empty data.
+- `node --test "tests/*.test.mjs"` covers `admin-stats.js` against fixtures: account union, profile fallbacks, active and inactive edges, week boundaries, example records excluded, funnel, subject mapping, unknown goals, and empty data.
 - `python tools/build.py …` must build both pages without errors.
 - Local demo: `python tools/serve.py --port 8000`, then `/admin/`. Check the "Geen toegang" screen with a normal account, and the full dashboard with the owner account once the rules are published. Check at phone width (no horizontal scroll) and in light and dark themes.
 - The app still works for a normal user: the profile is written once, and delete account removes it.
