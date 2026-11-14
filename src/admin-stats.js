@@ -7,7 +7,9 @@ const AdminStats = (() => {
 const DAY = 86400000;
 const MAX_PHOTOS = 24;   // per activity, as in the app
 const ID_RE = /^[A-Za-z0-9_\-~:@+.]{1,120}$/;
-const num = v => typeof v === 'number' && isFinite(v) ? v : 0;
+/* A timestamp a user's own records could hold: anything outside 2020–2100 (huge, negative, in seconds) counts as unknown. */
+const T_MIN = Date.UTC(2020, 0, 1), T_MAX = Date.UTC(2100, 0, 1);
+const num = v => typeof v === 'number' && v >= T_MIN && v < T_MAX ? v : 0;
 const ids = v => Array.isArray(v) ? [...new Set(v.filter(x => typeof x === 'string' && ID_RE.test(x)))] : [];
 const named = v => typeof v === 'string' && v.trim() !== '';
 const maxOf = arr => arr.reduce((m, v) => v > m ? v : m, 0);
@@ -76,7 +78,7 @@ function periodStarts(period, now, earliest = 0) {
     for (let i = 11; i >= 0; i--) out.push(new Date(n.getFullYear(), n.getMonth() - i, 1).getTime());
     return out;
   }
-  const e = new Date(monthStart(earliest || now));
+  const e = new Date(monthStart(earliest && earliest < now ? earliest : now));
   for (let d = e; d.getTime() <= now; d = new Date(d.getFullYear(), d.getMonth() + 1, 1)) out.push(d.getTime());
   return out;
 }

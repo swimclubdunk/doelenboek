@@ -216,3 +216,23 @@ test('relDays: today, yesterday across midnight, days, months, years, never', ()
   assert.equal(S.relDays(day(0, 1, 12, 2025), NOW), '1 j geleden');
   assert.equal(S.relDays(0, NOW), '—');
 });
+
+test('buildDataset: timestamps out of range (huge, negative, in seconds) count as unknown, never NaN', () => {
+  const [a] = S.buildDataset({
+    profiles: [{ uid: 'z', id: 'main', data: { email: 'z@z.be', createdAt: 1e20, lastSeen: 1e300 } }],
+    children: [{ uid: 'z', id: 'c', data: { name: 'Z', createdAt: -1e300, updatedAt: 1700000000 } }],
+    activities: [{ uid: 'z', id: 'a', data: { title: 'T', createdAt: day(9, 1), updatedAt: 8.64e15 + 1 } }],
+  });
+  assert.equal(a.signupAt, day(9, 1));
+  assert.equal(a.signupApprox, true);
+  assert.equal(a.lastActive, day(9, 1));
+  assert.equal(a.children[0].createdAt, 0);
+  assert.equal(a.children[0].updatedAt, 0);
+  assert.notEqual(S.relDays(a.lastActive, NOW), 'NaN j geleden');
+});
+
+test('growth "all": data only in the future still gives the current month, never an empty chart', () => {
+  const future = S.buildDataset({ activities: [{ uid: 'f', id: 'a', data: { title: 'T', createdAt: NOW + 40 * S.DAY } }] });
+  const g = S.growth(future, 'all', NOW);
+  assert.deepEqual(g.rows.map(r => r.start), [new Date(2026, 10, 1).getTime()]);
+});
