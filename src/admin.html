@@ -33,6 +33,7 @@ table.t .r { text-align: right; }
 table.t tr.open > td, table.t tr.detail > td { background: var(--surface-2); }
 .pill { font-size: .72rem; padding: 1px 7px; border-radius: 99px; background: var(--warn-bg); color: var(--warn-fg); white-space: nowrap; }
 .mono { font-family: var(--f-mono); font-size: .76rem; }
+td.nw { white-space: nowrap; }
 .bars.funnel li { grid-template-columns: minmax(0, 11rem) 1fr 3.4rem 2.4rem; }
 .acc-tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 </style>
@@ -123,16 +124,69 @@ function overviewView() {
       <div class="card panel"><h3>Recent actief</h3>${recent}</div>
     </div>${FOOTNOTE}`);
 }
-/* Tasks 7 and 8 replace these with the real tabs. */
+const PERIODS = [['weeks', '12 weken'], ['months', '12 maanden'], ['all', 'Alles']];
+function growthView() {
+  const p = state.growthPeriod, g = S.growth(state.accounts, p, Date.now());
+  const seg = `<div class="seg" role="tablist" aria-label="Periode">${PERIODS.map(([k, label]) =>
+    `<button type="button" role="tab" aria-selected="${k === p}" data-action="period" data-v="${k}">${label}</button>`).join('')}</div>`;
+  const label = p === 'weeks' ? 'week' : 'maand';
+  const rows = key => g.rows.map(r => ({ start: r.start, value: r[key], title: `${dateFmt.format(r.start)}: ${r[key]} nieuw` + (key === 'accounts' ? `, totaal ${r.total}` : '') }));
+  return section('Groei', `
+    <div class="kpis">
+      ${tile(n(g.totals.accounts), 'Accounts')}${tile(n(g.totals.children), 'Kinderen')}${tile(n(g.totals.activities), 'Activiteiten')}${tile(n(g.totals.photos), "Foto's")}
+    </div>
+    <div class="card panel"><h3>Nieuwe accounts per ${label} <small>totaal aan het einde: ${n(g.rows[g.rows.length - 1].total)}</small></h3>${colChart(rows('accounts'), p)}</div>
+    <div class="two">
+      <div class="card panel"><h3>Nieuwe kinderen per ${label}</h3>${colChart(rows('children'), p)}</div>
+      <div class="card panel"><h3>Nieuwe activiteiten per ${label}</h3>${colChart(rows('activities'), p)}</div>
+    </div>`, seg);
+}
+
+const FUNNEL = { account: 'Account aangemaakt', child: 'Eerste kind toegevoegd', activity: 'Eerste activiteit', ten: '10+ activiteiten' };
+function usageView() {
+  const u = S.usage(state.accounts, Date.now());
+  return section('Gebruik', `
+    <div class="kpis">
+      ${tile(n(u.active7), 'Actief, 7 dagen')}${tile(n(u.active30), 'Actief, 30 dagen')}${tile(n(u.inactive90), 'Inactief > 90 dagen')}${tile(n(u.neverLogged), 'Nooit iets gelogd')}
+    </div>
+    <div class="card panel"><h3>Van aanmelden tot vaste gebruiker <small>van alle ${n(u.funnel[0].count)} accounts</small></h3>
+      ${barList(u.funnel.map(f => ({ label: FUNNEL[f.key], value: f.count, pct: f.pct })), 'funnel')}</div>
+    <div class="card panel"><h3>Actieve accounts per week <small>iets gewijzigd of de app geopend</small></h3>${colChart(weekRows(u.activeWeekly), 'weeks')}</div>`);
+}
+
+function contentView() {
+  const c = S.content(state.accounts, BUILTIN_GOALS, SUBJECTS.map(s => s.key), TIER_KEYS);
+  const subjects = state.subjOpen ? c.bySubject : c.bySubject.slice(0, 5);
+  const more = c.bySubject.length > 5
+    ? `<button type="button" class="linkish" data-action="subj-more">${state.subjOpen ? 'minder' : `… ${c.bySubject.length - 5} meer`}</button>` : '';
+  const goalTable = (rows, extra) => `<div class="tbl-wrap"><table class="t"><tr><th>Code</th><th>Niveau</th><th>Doel</th>${extra ? '<th class="r">Activiteiten</th><th class="r">Kinderen beheerst</th>' : ''}</tr>${rows.map(g =>
+    `<tr><td class="mono nw">${esc(g.subject)} ${esc(g.code)}</td><td class="nw">${esc(tierName(g.tier))}</td><td>${esc(g.description)}</td>${extra ? `<td class="r">${n(g.activities)}</td><td class="r">${n(g.mastered)}</td>` : ''}</tr>`).join('')}</table></div>`;
+  return section('Inhoud', `
+    <div class="two">
+      <div class="card panel"><h3>Gekoppelde doelen per vak</h3>
+        ${c.bySubject.length ? barList(subjects.map(s => ({ label: subjName(s.key), value: s.count, pct: s.pct, color: subjColor(s.key) }))) : '<p class="muted">Nog geen doelen gekoppeld.</p>'}${more}</div>
+      <div class="card panel"><h3>Kinderen per niveau</h3>
+        ${barList(c.byTier.map(x => ({ label: tierName(x.key), value: x.count, pct: x.pct })))}
+        <h3 style="margin-top:14px">Foto's</h3>
+        <p style="margin:0;font-size:.86rem">${n(c.photos.total)} foto's · ${c.photos.withPhotoPct}% van de activiteiten heeft er minstens één · gem. ${c.photos.avgGoals.toLocaleString('nl-BE', { maximumFractionDigits: 1 })} doelen per activiteit</p></div>
+    </div>
+    <div class="card panel"><h3>Meest gekoppelde doelen
+      <button type="button" class="linkish" data-action="never">${state.showNever ? 'Toon meest gekoppelde' : `Toon nooit gekoppelde (${n(c.neverLinked.length)})`}</button></h3>
+      ${state.showNever ? goalTable(c.neverLinked, false) : c.topGoals.length ? goalTable(c.topGoals, true) : '<p class="muted">Nog geen doelen gekoppeld.</p>'}</div>`);
+}
+/* Task 8 replaces the accounts entry with the real tab. */
 const VIEWS = {
   overzicht: overviewView,
-  groei: () => section('Groei', ''),
-  gebruik: () => section('Gebruik', ''),
-  inhoud: () => section('Inhoud', ''),
+  groei: growthView,
+  gebruik: usageView,
+  inhoud: contentView,
   accounts: () => section('Accounts', ''),
 };
 const ACTIONS = {
   retry: () => fb && fb.auth.currentUser ? load() : start(),
+  period: el => { state.growthPeriod = el.dataset.v; render(); },
+  'subj-more': () => { state.subjOpen = !state.subjOpen; render(); },
+  never: () => { state.showNever = !state.showNever; render(); },
 };
 
 /* ---------- screens ---------- */
