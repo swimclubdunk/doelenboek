@@ -53,6 +53,100 @@ function buildDataset(raw, tierKeys = ['KO', 'L4', 'L6']) {
   return [...map.values()];
 }
 
-return { DAY, buildDataset };
+const pct = (n, d) => d ? Math.round(100 * n / d) : 0;
+const sum = (arr, f) => arr.reduce((s, x) => s + f(x), 0);
+
+/* ---------- time: weeks start on Monday, everything in local time ---------- */
+function weekStart(ts) {
+  const d = new Date(ts);
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() - (d.getDay() + 6) % 7);
+  return d.getTime();
+}
+function monthStart(ts) { const d = new Date(ts); return new Date(d.getFullYear(), d.getMonth(), 1).getTime(); }
+function periodStarts(period, now, earliest = 0) {
+  const out = [];
+  if (period === 'weeks') {
+    const w = new Date(weekStart(now));
+    for (let i = 11; i >= 0; i--) out.push(new Date(w.getFullYear(), w.getMonth(), w.getDate() - 7 * i).getTime());
+    return out;
+  }
+  const n = new Date(now);
+  if (period === 'months') {
+    for (let i = 11; i >= 0; i--) out.push(new Date(n.getFullYear(), n.getMonth() - i, 1).getTime());
+    return out;
+  }
+  const e = new Date(monthStart(earliest || now));
+  for (let d = e; d.getTime() <= now; d = new Date(d.getFullYear(), d.getMonth() + 1, 1)) out.push(d.getTime());
+  return out;
+}
+/* index of the period ts falls in; -1 before the first; anything after now counts in the last */
+function bucketOf(starts, ts) {
+  if (!ts || ts < starts[0]) return -1;
+  let i = starts.length - 1;
+  while (starts[i] > ts) i--;
+  return i;
+}
+
+/* ---------- activity ---------- */
+const isActive = (a, now, days) => a.lastActive > 0 && now - a.lastActive <= days * DAY;
+const isInactive = (a, now) => !a.lastActive || now - a.lastActive > 90 * DAY;
+
+/* An account is active in a week when it created or changed a record that week, or opened the app (lastSeen). */
+function activeWeekly(accounts, now) {
+  const starts = periodStarts('weeks', now);
+  const counts = starts.map(() => 0);
+  for (const a of accounts) {
+    const weeks = new Set([...stamps(a), a.lastSeen].map(ts => bucketOf(starts, ts)).filter(i => i >= 0));
+    for (const i of weeks) counts[i]++;
+  }
+  return starts.map((start, i) => ({ start, count: counts[i] }));
+}
+
+/* ---------- tabs ---------- */
+function overview(accounts, now) {
+  const ms = monthStart(now);
+  const kids = accounts.flatMap(a => a.children), acts = accounts.flatMap(a => a.activities);
+  const active30 = accounts.filter(a => isActive(a, now, 30)).length;
+  return {
+    accounts: accounts.length, accountsThisMonth: accounts.filter(a => a.signupAt >= ms).length,
+    active30, active30Pct: pct(active30, accounts.length),
+    children: kids.length, childrenThisMonth: kids.filter(c => c.createdAt >= ms).length,
+    activities: acts.length, activitiesThisMonth: acts.filter(x => x.createdAt >= ms).length,
+    activeWeekly: activeWeekly(accounts, now),
+    recent: accounts.filter(a => a.lastActive).sort((x, y) => y.lastActive - x.lastActive).slice(0, 8)
+      .map(a => ({ uid: a.uid, email: a.email, lastActive: a.lastActive })),
+  };
+}
+
+function growth(accounts, period, now) {
+  const kids = accounts.flatMap(a => a.children), acts = accounts.flatMap(a => a.activities);
+  const firsts = [...accounts.map(a => a.signupAt), ...kids.map(c => c.createdAt), ...acts.map(x => x.createdAt)].filter(Boolean);
+  const starts = periodStarts(period, now, firsts.length ? firsts.reduce((m, v) => v < m ? v : m) : 0);
+  const rows = starts.map(start => ({ start, accounts: 0, children: 0, activities: 0, total: 0 }));
+  let before = 0;
+  for (const a of accounts) { const i = bucketOf(starts, a.signupAt); if (i >= 0) rows[i].accounts++; else if (a.signupAt) before++; }
+  for (const c of kids) { const i = bucketOf(starts, c.createdAt); if (i >= 0) rows[i].children++; }
+  for (const x of acts) { const i = bucketOf(starts, x.createdAt); if (i >= 0) rows[i].activities++; }
+  let total = before;
+  for (const r of rows) { total += r.accounts; r.total = total; }
+  return { totals: { accounts: accounts.length, children: kids.length, activities: acts.length, photos: sum(acts, x => x.photos) }, rows };
+}
+
+function usage(accounts, now) {
+  const all = accounts.length;
+  const step = (key, count) => ({ key, count, pct: pct(count, all) });
+  return {
+    active7: accounts.filter(a => isActive(a, now, 7)).length,
+    active30: accounts.filter(a => isActive(a, now, 30)).length,
+    inactive90: accounts.filter(a => isInactive(a, now)).length,
+    neverLogged: accounts.filter(a => !a.activities.length).length,
+    funnel: [step('account', all), step('child', accounts.filter(a => a.children.length).length),
+      step('activity', accounts.filter(a => a.activities.length).length), step('ten', accounts.filter(a => a.activities.length >= 10).length)],
+    activeWeekly: activeWeekly(accounts, now),
+  };
+}
+
+return { DAY, pct, buildDataset, weekStart, monthStart, periodStarts, isActive, isInactive, activeWeekly, overview, growth, usage };
 })();
 if (typeof module !== 'undefined') module.exports = AdminStats;
