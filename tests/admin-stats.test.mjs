@@ -156,3 +156,63 @@ test('overview, growth and usage on an empty platform: zeros, no NaN', () => {
   assert.deepEqual(S.growth([], 'all', NOW).rows.map(r => r.total), [0]);
   assert.deepEqual(S.usage([], NOW).funnel.map(f => f.pct), [0, 0, 0, 0]);
 });
+
+const GOALS = [
+  { id: 'b-NL-1.1.2', subject: 'NL', tier: 'KO', code: '1.1.2', description: 'Luistert' },
+  { id: 'b-WK-2.1', subject: 'WK', tier: 'KO', code: '2.1', description: 'Telt' },
+];
+const SUBJECT_KEYS = ['NL', 'WK', 'WT'], TIER_KEYS = ['KO', 'L4', 'L6'];
+
+test('content: links per subject with unknown goals as "?", tiers, photos, top and never-linked goals', () => {
+  const c = S.content(accounts(), GOALS, SUBJECT_KEYS, TIER_KEYS);
+  assert.deepEqual(c.bySubject, [{ key: 'NL', count: 1, pct: 50 }, { key: '?', count: 1, pct: 50 }]);
+  assert.deepEqual(c.byTier, [{ key: 'KO', count: 1, pct: 33 }, { key: 'L4', count: 1, pct: 33 }, { key: 'L6', count: 1, pct: 33 }]);
+  assert.deepEqual(c.photos, { total: 26, withPhotoPct: 100, avgGoals: 1 });
+  assert.deepEqual(c.topGoals, [{ id: 'b-NL-1.1.2', subject: 'NL', tier: 'KO', code: '1.1.2', description: 'Luistert', activities: 1, mastered: 1 }]);
+  assert.deepEqual(c.neverLinked.map(g => g.id), ['b-WK-2.1']);
+});
+
+test('content on an empty platform: zeros, every goal never linked', () => {
+  const c = S.content([], GOALS, SUBJECT_KEYS, TIER_KEYS);
+  assert.deepEqual(c.bySubject, []);
+  assert.deepEqual(c.byTier.map(t => [t.count, t.pct]), [[0, 0], [0, 0], [0, 0]]);
+  assert.deepEqual(c.photos, { total: 0, withPhotoPct: 0, avgGoals: 0 });
+  assert.equal(c.neverLinked.length, 2);
+});
+
+test('accountRows: default sort, case-insensitive search on email and uid, filters', () => {
+  const a = accounts();
+  assert.deepEqual(S.accountRows(a, {}, NOW).map(r => r.uid), ['u1', 'u4', 'u2']);
+  assert.deepEqual(S.accountRows(a, { query: 'EXAMPLE' }, NOW).map(r => r.uid), ['u1']);
+  assert.deepEqual(S.accountRows(a, { query: ' u2 ' }, NOW).map(r => r.uid), ['u2']);
+  assert.deepEqual(S.accountRows(a, { filter: 'active' }, NOW).map(r => r.uid), ['u1', 'u4']);
+  assert.deepEqual(S.accountRows(a, { filter: 'inactive' }, NOW).map(r => r.uid), ['u2']);
+});
+
+test('accountRows: sorting with ties broken by uid, email falls back to uid', () => {
+  const a = accounts();
+  assert.deepEqual(S.accountRows(a, { sort: 'activities' }, NOW).map(r => r.uid), ['u1', 'u2', 'u4']);
+  assert.deepEqual(S.accountRows(a, { sort: 'activities', dir: 'asc' }, NOW).map(r => r.uid), ['u4', 'u1', 'u2']);
+  assert.deepEqual(S.accountRows(a, { sort: 'email', dir: 'asc' }, NOW).map(r => r.uid), ['u1', 'u2', 'u4']);
+  const u2 = S.accountRows(a, { query: 'u2' }, NOW)[0];
+  assert.deepEqual(u2, { uid: 'u2', email: '', hasProfile: false, signupAt: day(5, 2), signupApprox: true, lastActive: day(7, 3), children: 1, activities: 1, photos: 24 });
+});
+
+test('accountDetail: children as Kind 1, 2… in creation order with counts, never names', () => {
+  const d = S.accountDetail(accounts()[0]);
+  assert.equal(d.uid, 'u1');
+  assert.equal(d.lastChange, day(10, 1));
+  assert.deepEqual(d.kids, [
+    { label: 'Kind 1', tier: 'KO', activities: 1, mastered: 0 },
+    { label: 'Kind 2', tier: 'L4', activities: 1, mastered: 1 },
+  ]);
+});
+
+test('relDays: today, yesterday across midnight, days, months, years, never', () => {
+  assert.equal(S.relDays(day(10, 14, 8), NOW), 'vandaag');
+  assert.equal(S.relDays(day(10, 13, 23), NOW), 'gisteren');
+  assert.equal(S.relDays(day(10, 4), NOW), '10 d geleden');
+  assert.equal(S.relDays(day(7, 3), NOW), '3 mnd geleden');
+  assert.equal(S.relDays(day(0, 1, 12, 2025), NOW), '1 j geleden');
+  assert.equal(S.relDays(0, NOW), '—');
+});

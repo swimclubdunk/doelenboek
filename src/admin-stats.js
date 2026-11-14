@@ -147,6 +147,64 @@ function usage(accounts, now) {
   };
 }
 
-return { DAY, pct, buildDataset, weekStart, monthStart, periodStarts, isActive, isInactive, activeWeekly, overview, growth, usage };
+const goalRow = g => ({ id: g.id, subject: g.subject, tier: g.tier, code: g.code, description: g.description });
+
+function content(accounts, goals, subjectKeys, tierKeys) {
+  const byId = new Map(goals.map(g => [g.id, g]));
+  const kids = accounts.flatMap(a => a.children), acts = accounts.flatMap(a => a.activities);
+  const subj = new Map(subjectKeys.map(k => [k, 0]));
+  const actsPerGoal = new Map(), masteredPerGoal = new Map();
+  let links = 0, unknown = 0;
+  for (const x of acts) for (const id of x.goalIds) {
+    links++;
+    const g = byId.get(id);
+    if (g && subj.has(g.subject)) subj.set(g.subject, subj.get(g.subject) + 1); else unknown++;
+    actsPerGoal.set(id, (actsPerGoal.get(id) || 0) + 1);
+  }
+  for (const c of kids) for (const id of c.mastered) masteredPerGoal.set(id, (masteredPerGoal.get(id) || 0) + 1);
+  const bySubject = [...subj].filter(([, n]) => n).sort((x, y) => y[1] - x[1]).map(([key, count]) => ({ key, count, pct: pct(count, links) }));
+  if (unknown) bySubject.push({ key: '?', count: unknown, pct: pct(unknown, links) });
+  return {
+    bySubject,
+    byTier: tierKeys.map(key => { const count = kids.filter(c => c.tier === key).length; return { key, count, pct: pct(count, kids.length) }; }),
+    photos: { total: sum(acts, x => x.photos), withPhotoPct: pct(acts.filter(x => x.photos).length, acts.length), avgGoals: acts.length ? links / acts.length : 0 },
+    topGoals: [...actsPerGoal].filter(([id]) => byId.has(id)).sort((x, y) => y[1] - x[1] || (x[0] < y[0] ? -1 : 1)).slice(0, 10)
+      .map(([id, n]) => ({ ...goalRow(byId.get(id)), activities: n, mastered: masteredPerGoal.get(id) || 0 })),
+    neverLinked: goals.filter(g => !actsPerGoal.has(g.id)).map(goalRow),
+  };
+}
+
+function accountRows(accounts, { query = '', filter = 'all', sort = 'lastActive', dir = 'desc' } = {}, now) {
+  const q = query.trim().toLowerCase();
+  const rows = accounts
+    .filter(a => filter === 'active' ? isActive(a, now, 30) : filter === 'inactive' ? isInactive(a, now) : true)
+    .filter(a => !q || a.email.toLowerCase().includes(q) || a.uid.toLowerCase().includes(q))
+    .map(a => ({ uid: a.uid, email: a.email, hasProfile: a.hasProfile, signupAt: a.signupAt, signupApprox: a.signupApprox, lastActive: a.lastActive,
+      children: a.children.length, activities: a.activities.length, photos: sum(a.activities, x => x.photos) }));
+  const sign = dir === 'asc' ? 1 : -1;
+  const key = sort === 'email' ? (x, y) => (x.email || x.uid).localeCompare(y.email || y.uid, 'nl', { sensitivity: 'base' }) : (x, y) => x[sort] - y[sort];
+  return rows.sort((x, y) => sign * key(x, y) || (x.uid < y.uid ? -1 : x.uid > y.uid ? 1 : 0));
+}
+
+function accountDetail(a) {
+  return {
+    uid: a.uid,
+    lastChange: maxOf(stamps(a)),
+    kids: a.children.map((c, i) => ({ label: `Kind ${i + 1}`, tier: c.tier, activities: a.activities.filter(x => x.childIds.includes(c.id)).length, mastered: c.mastered.length })),
+  };
+}
+
+function relDays(ts, now) {
+  if (!ts) return '—';
+  const midnight = t => { const d = new Date(t); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); };
+  const d = Math.max(0, Math.round((midnight(now) - midnight(ts)) / DAY));
+  if (d === 0) return 'vandaag';
+  if (d === 1) return 'gisteren';
+  if (d < 31) return `${d} d geleden`;
+  if (d < 365) return `${Math.floor(d / 30)} mnd geleden`;
+  return `${Math.floor(d / 365)} j geleden`;
+}
+
+return { DAY, pct, buildDataset, weekStart, monthStart, periodStarts, isActive, isInactive, activeWeekly, overview, growth, usage, content, accountRows, accountDetail, relDays };
 })();
 if (typeof module !== 'undefined') module.exports = AdminStats;
