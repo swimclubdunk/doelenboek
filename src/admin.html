@@ -28,7 +28,11 @@
 .tbl-wrap { overflow-x: auto; }
 table.t { width: 100%; border-collapse: collapse; font-size: .84rem; }
 table.t th { text-align: left; color: var(--muted); font-weight: 600; padding: 6px; border-bottom: 1px solid var(--line); white-space: nowrap; }
-table.t th button { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; }
+table.t th button { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; white-space: nowrap; }
+table.t th button:hover { color: var(--fg); text-decoration: underline; }
+table.t th button .sort-i { opacity: .45; }
+table.t th[aria-sort="ascending"] button, table.t th[aria-sort="descending"] button { color: var(--fg); }
+table.t th[aria-sort="ascending"] .sort-i, table.t th[aria-sort="descending"] .sort-i { opacity: 1; }
 table.t td { padding: 6px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
 table.t .r { text-align: right; }
 table.t tr.open > td, table.t tr.detail > td { background: var(--surface-2); }
@@ -181,7 +185,7 @@ function accountsTable() {
   const now = Date.now();
   const rows = S.accountRows(state.accounts, { query: state.q, filter: state.filter, sort: state.sort, dir: state.dir }, now);
   const head = COLS.map(([k, label, cls]) => {
-    const on = state.sort === k, arrow = on ? (state.dir === 'asc' ? ' ▴' : ' ▾') : '';
+    const on = state.sort === k, arrow = ` <span class="sort-i" aria-hidden="true">${on ? (state.dir === 'asc' ? '▴' : '▾') : '↕'}</span>`;
     return `<th class="${cls}" aria-sort="${on ? (state.dir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button type="button" data-action="sort" data-v="${k}">${label}${arrow}</button></th>`;
   }).join('');
   const body = rows.map(r => {

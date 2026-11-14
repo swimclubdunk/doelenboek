@@ -236,3 +236,9 @@ test('growth "all": data only in the future still gives the current month, never
   const g = S.growth(future, 'all', NOW);
   assert.deepEqual(g.rows.map(r => r.start), [new Date(2026, 10, 1).getTime()]);
 });
+
+test('accountRows: email sort uses natural number order (ouder9 before ouder10)', () => {
+  const a = S.buildDataset({ profiles: ['ouder10@x.be', 'ouder9@x.be', 'ouder1@x.be'].map((email, i) => ({ uid: 'p' + i, id: 'main', data: { email, createdAt: day(9, 1), lastSeen: day(9, 1) } })) });
+  assert.deepEqual(S.accountRows(a, { sort: 'email', dir: 'asc' }, NOW).map(r => r.email), ['ouder1@x.be', 'ouder9@x.be', 'ouder10@x.be']);
+  assert.deepEqual(S.accountRows(a, { sort: 'email', dir: 'desc' }, NOW).map(r => r.email), ['ouder10@x.be', 'ouder9@x.be', 'ouder1@x.be']);
+});

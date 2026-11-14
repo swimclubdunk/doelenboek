@@ -184,7 +184,7 @@ function accountRows(accounts, { query = '', filter = 'all', sort = 'lastActive'
     .map(a => ({ uid: a.uid, email: a.email, hasProfile: a.hasProfile, signupAt: a.signupAt, signupApprox: a.signupApprox, lastActive: a.lastActive,
       children: a.children.length, activities: a.activities.length, photos: sum(a.activities, x => x.photos) }));
   const sign = dir === 'asc' ? 1 : -1;
-  const key = sort === 'email' ? (x, y) => (x.email || x.uid).localeCompare(y.email || y.uid, 'nl', { sensitivity: 'base' }) : (x, y) => x[sort] - y[sort];
+  const key = sort === 'email' ? (x, y) => (x.email || x.uid).localeCompare(y.email || y.uid, 'nl', { sensitivity: 'base', numeric: true }) : (x, y) => x[sort] - y[sort];
   return rows.sort((x, y) => sign * key(x, y) || (x.uid < y.uid ? -1 : x.uid > y.uid ? 1 : 0));
 }
 
