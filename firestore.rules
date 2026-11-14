@@ -1,6 +1,7 @@
 rules_version = '2';
 
 // Doelenboek: every account can only read and write its own data under users/{uid}/...
+// One admin account (isAdmin) may also read, never write, every account's children, activities and profile, for /admin/.
 // Paste this into Firebase console → Firestore Database → Rules, then Publish.
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -9,9 +10,14 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == uid;
     }
 
+    // The site owner's uid (Firebase console → Authentication). tools/build.py reads it from here for /admin/.
+    function isAdmin() {
+      return request.auth != null && request.auth.uid == 'OWNER_UID';
+    }
+
     match /users/{uid}/{collection}/{docId} {
       allow read, delete: if isOwner(uid)
-        && collection in ['children', 'activities', 'goals', 'photos'];
+        && collection in ['children', 'activities', 'goals', 'photos', 'profile'];
 
       // 'goals' only held goals parents once added themselves; it can still be read and cleared.
       allow create, update: if isOwner(uid)
@@ -19,6 +25,21 @@ service cloud.firestore {
         && request.resource.data.size() <= 20
         && (collection != 'photos' || request.resource.data.data.size() <= 400000);
     }
+
+    // One small record per account for /admin/: email, sign-up date and the last day the app was opened.
+    match /users/{uid}/profile/{docId} {
+      allow create, update: if isOwner(uid) && docId == 'main'
+        && request.resource.data.keys().hasOnly(['email', 'createdAt', 'lastSeen'])
+        && request.resource.data.keys().hasAll(['email', 'createdAt', 'lastSeen'])
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.createdAt is number
+        && request.resource.data.lastSeen is number;
+    }
+
+    // Admin: read-only, across all accounts (collection-group queries from /admin/).
+    match /{path=**}/children/{docId}   { allow read: if isAdmin(); }
+    match /{path=**}/activities/{docId} { allow read: if isAdmin(); }
+    match /{path=**}/profile/{docId}    { allow read: if isAdmin(); }
 
     // Everything else is closed.
   }

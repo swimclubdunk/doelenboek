@@ -1364,12 +1364,26 @@ function enterAccount(user) {
   mode = 'db'; canWrite = true; canWriteKnown = true;
   resetData(); closeDialog(); render(); subscribeAll();
   readLocalSummary();
+  writeProfile(user);
 }
 function leaveAccount() {
   for (const u of unsubs) u();
   unsubs = []; fbUser = null; db = null;
   resetData(); closeDialog();
   mode = 'auth'; render();
+}
+/* The small users/{uid}/profile/main record the /admin/ page counts with: email, sign-up date and the
+   last day this account opened the app. Written at most once a day; a failure never bothers the user. */
+async function writeProfile(user) {
+  const { F, fs } = fb;
+  const ref = F.doc(fs, 'users', user.uid, 'profile', 'main');
+  const now = Date.now();
+  try {
+    const s = await F.getDoc(ref);
+    const p = s.exists() ? s.data() : null;
+    if (p && p.email === user.email && typeof p.lastSeen === 'number' && new Date(p.lastSeen).toDateString() === new Date(now).toDateString()) return;
+    await F.setDoc(ref, { email: user.email || '', createdAt: Date.parse(user.metadata.creationTime) || now, lastSeen: now });
+  } catch (e) { console.warn('doelenboek: profile not saved', e && e.code); }
 }
 
 /* login / sign-up / reset screen */
@@ -1447,8 +1461,8 @@ function deleteAccountDialog() {
     if (!user) return t('ae_generic');
     try { await A.reauthenticateWithCredential(user, A.EmailAuthProvider.credential(user.email, form.password.value)); }
     catch (e) { return authErr(e); }
-    /* 'goals' holds goals parents could once add themselves; cleared along with the rest */
-    for (const c of [...COLS, 'goals', 'photos']) {
+    /* 'goals' holds goals parents could once add themselves; cleared along with the rest, as is the admin profile */
+    for (const c of [...COLS, 'goals', 'photos', 'profile']) {
       const s = await F.getDocs(F.collection(fs, 'users', user.uid, c));
       const errors = await runPool(s.docs, docSnap => F.deleteDoc(docSnap.ref), 6);
       if (errors.length) throw fbErr(errors[0]);
