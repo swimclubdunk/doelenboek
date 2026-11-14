@@ -1,0 +1,29 @@
+<title>doelenboek.be admin</title>
+<!-- tools/build.py builds this into admin/index.html; the stylesheets and admin-stats.js are inlined -->
+<link rel="stylesheet" href="design/tokens.css">
+<link rel="stylesheet" href="design/app.css">
+<link rel="stylesheet" href="core.css">
+<script>let t = 'light'; try { if (localStorage.getItem('doelenboek.theme') === 'dark') t = 'dark'; } catch (e) {} document.documentElement.dataset.theme = t;</script>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand"><b>doelenboek.be</b>&nbsp;<span class="adm-tag">admin</span></div>
+    <nav class="tabs" id="tabs" aria-label="Admin"></nav>
+    <div class="top-right">
+      <span class="status" id="status"></span>
+      <button class="btn small" id="refresh-btn" type="button" hidden>Vernieuwen</button>
+      <button class="btn small ghost" id="out-btn" type="button" hidden>Afmelden</button>
+    </div>
+  </div>
+</header>
+<main id="main"><p class="loading">Gegevens laden…</p></main>
+<script src="admin-stats.js"></script>
+<script>
+(() => {
+'use strict';
+const SUBJECTS = [];
+const TIERS = [];
+const BUILTIN_GOALS = [];
+const FIREBASE_CONFIG = null;
+const ADMIN_UID = null;
+})();
+</script>

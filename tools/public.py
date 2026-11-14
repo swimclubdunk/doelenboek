@@ -451,9 +451,10 @@ def app_noscript():
 def robots():
     return f"""# Doelenboek welcomes search engines and AI assistants: everything public may be crawled,
 # indexed, quoted and used to answer questions. The app's own data sits behind a login and is
-# never part of the pages.
+# never part of the pages. /admin/ is the owner's private page.
 User-agent: *
 Allow: /
+Disallow: /admin/
 
 Sitemap: {SITE}/sitemap.xml
 """
