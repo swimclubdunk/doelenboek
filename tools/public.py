@@ -74,7 +74,9 @@ TEXT = {
              'donatie doen via Ko-fi; dat helpt de kosten van de hosting te dekken.'),
             ('Waar worden mijn gegevens bewaard?',
              'Je kinderen, activiteiten en foto\'s worden bewaard in Google Firebase in de EU. Ze zijn alleen bereikbaar '
-             'met jouw e-mailadres en wachtwoord. De website slaat geen cookies op je toestel op, en je kunt je account '
+             'met jouw e-mailadres en wachtwoord. '
+             "De beheerder kan opgeslagen gegevens inzien voor statistieken en ondersteuning. Foto's kan de beheerder niet inzien, en in het beheeroverzicht worden namen van kinderen geanonimiseerd. "
+             'De website slaat geen cookies op je toestel op, en je kunt je account '
              'en al je gegevens altijd zelf verwijderen.'),
             ('Moet ik iets installeren?',
              'Nee. Doelenboek werkt in de browser op een computer, tablet of telefoon. Maak een account aan met je '
@@ -154,7 +156,9 @@ TEXT = {
              'voluntary donation on Ko-fi, which helps cover the hosting costs.'),
             ('Where is my data stored?',
              'Your children, activities and photos are stored in Google Firebase in the EU and can only be reached with '
-             'your email address and password. The website does not store cookies on your device, and you can delete '
+             'your email address and password. '
+             "The administrator can view stored data for statistics and support. The administrator cannot view photos, and children's names are anonymised in the admin overview. "
+             'The website does not store cookies on your device, and you can delete '
              'your account and all your data yourself at any time.'),
             ('Do I need to install anything?',
              'No. Doelenboek works in the browser on a computer, tablet or phone. Create an account with your email '
@@ -496,7 +500,7 @@ Key facts:
 - Platform: any web browser on computer, tablet or phone; account with email and password
 - Goals included: the Flemish minimum goals (minimumdoelen) for preschool (kleuteronderwijs), for {subject_list(subjects, 'en')}, with their official codes, in Dutch and in English translation
 - Official source of the goals: {SOURCE}
-- Privacy: no cookies on the visitor's device; data stored in Google Firebase in the EU; users can delete their account and data at any time
+- Privacy: no cookies on the visitor's device; data stored in Google Firebase in the EU; the site administrator can view stored data for statistics and support, but not photos; children's names are anonymised in the admin overview; users can delete their account and data at any time
 - The app itself is at {SITE}/ and requires JavaScript and a login; the pages below are public
 
 ## About
