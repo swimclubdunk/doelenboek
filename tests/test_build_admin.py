@@ -1,5 +1,5 @@
 """Tests for the /admin/ build. Run: python -m unittest discover -s tests"""
-import sys, tempfile, unittest
+import re, subprocess, sys, tempfile, unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -43,6 +43,22 @@ class BuildAdmin(unittest.TestCase):
 
     def test_robots_keeps_crawlers_out_of_admin(self):
         self.assertIn('Disallow: /admin/', public.robots())
+
+
+class BuiltPagesParse(unittest.TestCase):
+    """Every inline <script> in the built app and admin page must be valid JavaScript (checked with node --check)."""
+    def check(self, page):
+        for i, js in enumerate(re.findall(r'<script>(.*?)</script>', page, re.S)):
+            with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False, encoding='utf-8') as f:
+                f.write(js)
+            r = subprocess.run(['node', '--check', f.name], capture_output=True, text=True)
+            self.assertEqual(r.returncode, 0, f'script {i}: {r.stderr[:400]}')
+
+    def test_app_scripts_parse(self):
+        self.check(build.build(APP, ROOT / 'firebase-config.json'))
+
+    def test_admin_scripts_parse(self):
+        self.check(build.build_admin(build.ADMIN_SRC, APP, ROOT / 'firebase-config.json'))
 
 
 if __name__ == '__main__':
