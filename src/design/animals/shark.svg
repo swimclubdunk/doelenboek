@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8.50 6.25 47 47">
+  <path d="M26.5 20L32 6.5L37.5 20Z" fill="#62829D"/>
+  <path d="M10 35C10 24 20 18.5 32 18.5C44 18.5 54 24 54 35C54 46 44 53 32 53C20 53 10 46 10 35Z" fill="#7D9DB8"/>
+  <path d="M12 39.5C18 42.5 25 44 32 44C39 44 46 42.5 52 39.5C50 48 42 53 32 53C22 53 14 48 12 39.5Z" fill="#EEF4F8"/>
+    <path d="M14.5 33.5Q13 36 14.5 38.5" fill="none" stroke="#62829D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M17.5 33Q16 36 17.5 39" fill="none" stroke="#62829D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+      <path d="M14.5 33.5Q13 36 14.5 38.5" fill="none" stroke="#62829D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M17.5 33Q16 36 17.5 39" fill="none" stroke="#62829D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M21.5 44.5Q32 53.5 42.5 44.5Q32 48.2 21.5 44.5Z" fill="#2B2523"/>
+  <path d="M24.200000000000003 44.8L25.6 47.2L27.0 44.8Z" fill="#fff"/>
+  <path d="M27.8 45.3L29.2 47.7L30.599999999999998 45.3Z" fill="#fff"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <path d="M24.200000000000003 44.8L25.6 47.2L27.0 44.8Z" fill="#fff"/>
+    <path d="M27.8 45.3L29.2 47.7L30.599999999999998 45.3Z" fill="#fff"/>
+  </g>
+  <circle cx="22.5" cy="31.5" r="2.6" fill="#2B2523"/>
+  <circle cx="23.49" cy="30.51" r="0.88" fill="#fff"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <circle cx="22.5" cy="31.5" r="2.6" fill="#2B2523"/>
+    <circle cx="23.49" cy="30.51" r="0.88" fill="#fff"/>
+  </g>
+  <ellipse cx="19.5" cy="40.5" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/>
+  <g transform="matrix(-1 0 0 1 64 0)">
+    <ellipse cx="19.5" cy="40.5" rx="2.6" ry="1.56" fill="#EF7D7D" opacity=".4"/>
+  </g>
+</svg>

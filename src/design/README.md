@@ -104,7 +104,9 @@ and save it here.
   The app scales every animal until it touches the edge of the avatar, so they all look the same size.
   `/animals` in the preview tells you if one doesn't fill its frame.
 - **Add an animal:** save `name.svg` here and add `{"animal": "name", "emoji": "🦔"}` to
-  `animals.json`. The emoji is how a child's choice is stored; pick one that isn't used yet.
+  `animals.json`. The emoji is how a child's choice is stored; pick one that isn't used yet. It is never
+  shown while the drawing exists, so an animal without its own emoji can use a short word instead
+  (`"macaw"`), at most 16 characters.
 - **Never change or remove the emoji of an existing animal.** Children who chose it would lose their
   drawing (they fall back to showing the emoji). Changing the drawing itself is always safe.
 - **Reorder the picker** by reordering `animals.json`.

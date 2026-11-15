@@ -30,5 +30,21 @@
   {"animal": "mouse", "emoji": "🐭"},
   {"animal": "sheep", "emoji": "🐑"},
   {"animal": "unicorn", "emoji": "🦄"},
-  {"animal": "otter", "emoji": "🦦"}
+  {"animal": "otter", "emoji": "🦦"},
+  {"animal": "chicken", "emoji": "🐔"},
+  {"animal": "duck", "emoji": "🦆"},
+  {"animal": "horse", "emoji": "🐴"},
+  {"animal": "llama", "emoji": "🦙"},
+  {"animal": "ram", "emoji": "🐏"},
+  {"animal": "moose", "emoji": "🫎"},
+  {"animal": "boar", "emoji": "🐗"},
+  {"animal": "raccoon", "emoji": "🦝"},
+  {"animal": "beaver", "emoji": "🦫"},
+  {"animal": "sloth", "emoji": "🦥"},
+  {"animal": "hippo", "emoji": "🦛"},
+  {"animal": "crocodile", "emoji": "🐊"},
+  {"animal": "macaw", "emoji": "macaw"},
+  {"animal": "shark", "emoji": "🦈"},
+  {"animal": "snail", "emoji": "🐌"},
+  {"animal": "ant", "emoji": "🐜"}
 ]
