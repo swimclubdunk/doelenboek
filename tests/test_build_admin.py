@@ -50,6 +50,23 @@ class BuildAdmin(unittest.TestCase):
         self.assertIn('Disallow: /admin/', public.robots())
 
 
+class SharedScripts(unittest.TestCase):
+    def test_both_pages_inline_messages_and_images(self):
+        app = build.build(APP, None, rules_with('OWNER_UID'))
+        admin = build.build_admin(build.ADMIN_SRC, APP, None, rules_with('OWNER_UID'))
+        for page in (app, admin):
+            self.assertIn('const Messages = ', page)
+            self.assertIn('const Images = ', page)
+            self.assertNotIn('<script src="messages.js">', page)
+            self.assertNotIn('<script src="images.js">', page)
+
+    def test_script_with_closing_tag_is_refused(self):
+        d = Path(tempfile.mkdtemp())
+        (d / 'x.js').write_text('const a = "</script>";', encoding='utf-8')
+        with self.assertRaises(build.BuildError):
+            build.inline_script('<script src="x.js"></script>', d, 'x.js')
+
+
 class BuiltPagesParse(unittest.TestCase):
     """Every inline <script> in the built app and admin page must be valid JavaScript (checked with node --check)."""
     def check(self, page):

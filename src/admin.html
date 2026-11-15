@@ -1,5 +1,5 @@
 <title>doelenboek.be admin</title>
-<!-- The owner's dashboard. tools/build.py builds this into admin/index.html; the stylesheets and admin-stats.js are inlined.
+<!-- The owner's dashboard. tools/build.py builds this into admin/index.html; the stylesheets, admin-stats.js, messages.js and images.js are inlined.
      Only the account in firestore.rules (isAdmin) can read other accounts' data; this page only ever shows counts. -->
 <link rel="stylesheet" href="design/tokens.css">
 <link rel="stylesheet" href="design/app.css">
@@ -77,6 +77,8 @@ main .btn .bi, main .seg .bi { justify-items: center; }
 </header>
 <main id="main"><p class="loading">Gegevens laden…</p></main>
 <script src="admin-stats.js"></script>
+<script src="messages.js"></script>
+<script src="images.js"></script>
 <script>
 (() => {
 'use strict';

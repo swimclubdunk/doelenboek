@@ -2,6 +2,7 @@
 Usage: build.py SRC.html OUT.html [FIREBASE_CONFIG.json]
 
 - the stylesheets SRC links to (design/*.css, core.css) are inlined
+- the shared scripts messages.js and images.js are inlined (in the app and the admin page)
 - the animal drawings in design/animals/ become <symbol>s in the page
 - the favicon comes from design/favicon.svg
 - the built-in goals come from doelen/*.json (kleuter) and doelen-lager/*.json (lager onderwijs)
@@ -203,6 +204,15 @@ def js_block(text, name):
     return text[start:text.index('\n];', start) + 3]
 
 
+def inline_script(text, src_dir, name):
+    """Replace <script src="NAME"></script> with the contents of src_dir/NAME in a <script> block."""
+    path = Path(src_dir) / name
+    js = path.read_text(encoding='utf-8').rstrip()
+    if '</script' in js.lower():
+        fail(path.name, 'may not contain "</script"')
+    return fill(text, f'<script src="{name}"></script>', f'<script>\n{js}\n</script>', name)
+
+
 def admin_uid(rules):
     """The uid in isAdmin() of firestore.rules, or None while it still holds the OWNER_UID placeholder."""
     m = re.search(r"request\.auth\.uid == '([^']*)'", Path(rules).read_text(encoding='utf-8'))
@@ -227,11 +237,8 @@ def build_admin(src, app_src, firebase_config=None, rules=RULES):
         cfg = json.loads(Path(firebase_config).read_text(encoding='utf-8'))
         text = fill(text, 'const FIREBASE_CONFIG = null;', 'const FIREBASE_CONFIG = ' + json.dumps(cfg, ensure_ascii=False) + ';', 'Firebase config')
 
-    stats_path = src.parent / 'admin-stats.js'
-    stats = stats_path.read_text(encoding='utf-8').rstrip()
-    if '</script' in stats.lower():
-        fail(stats_path.relative_to(ROOT), 'may not contain "</script"')
-    text = fill(text, '<script src="admin-stats.js"></script>', f'<script>\n{stats}\n</script>', 'admin-stats.js')
+    for name in ('admin-stats.js', 'messages.js', 'images.js'):
+        text = inline_script(text, src.parent, name)
 
     # the page lives one folder down, at admin/index.html; the fonts are at fonts/ in the site root
     text = inline_styles(text, src.parent).replace('url("fonts/', 'url("../fonts/')
@@ -274,6 +281,8 @@ def build(src, firebase_config=None, rules=RULES):
     if uid:   # the owner's account gets an Admin button in the header
         text = fill(text, 'const ADMIN_UID = null;', 'const ADMIN_UID = ' + json.dumps(uid) + ';', 'admin uid')
 
+    for name in ('messages.js', 'images.js'):   # shared with the admin page
+        text = inline_script(text, src.parent, name)
     text = inline_styles(text, src.parent)
     text = fill(text, '<main id="main">', public.app_noscript() + '\n<main id="main">', 'main')
     i = text.index('<header class="top">')
