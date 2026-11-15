@@ -10857,7 +10857,7 @@ function lineChart(rows, period) {
 const barList = (items, cls = '') => `<ul class="bars ${cls}">${items.map(it =>
   `<li><span class="b-lbl" title="${esc(it.label)}">${esc(it.label)}</span><span class="bar"><i style="width:${it.pct}%;background:${it.color || 'var(--accent)'}"></i></span><span class="b-num">${n(it.value)}</span><span class="b-num">${it.pct}%</span></li>`).join('')}</ul>`;
 const weekRows = weekly => weekly.map(w => ({ start: w.start, value: w.count, title: `week van ${dateFmt.format(w.start)}: ${w.count} actief` }));
-const who = a => a.email ? esc(a.email) : `<span class="mono">${esc(a.uid.slice(0, 6))}…</span> <span class="pill">geen profiel</span>`;
+const who = a => a.email ? esc(a.email) : `<span class="mono">${esc(a.uid.slice(0, 6))}…</span> <span class="pill">e-mail nog onbekend</span>`;
 const FOOTNOTE = '<p class="count-line">Accounts zonder gegevens en zonder profiel zijn niet zichtbaar.</p>';
 
 /* ---------- tabs ---------- */
