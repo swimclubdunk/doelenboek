@@ -5,8 +5,10 @@
 const Messages = (() => {
 'use strict';
 const ZOOMS = ['click', 'hover', 'none'];
-const IMG_LINE = /^!\[([^\]]*)\]\(img:([A-Za-z0-9]{1,20})\s+([a-z]+)\)\s*$/;
-const IMG_ANY = /!\[[^\]]*\]\(img:([A-Za-z0-9]{1,20})\s+[a-z]+\)/g;
+const IMG_LINE = /^!\[([^\]]*)\]\(img:([A-Za-z0-9]{1,20})((?:\s+[^\s)]+)*)\s*\)$/;
+const IMG_START = /^!\[[^\]]*\]\(img:/;
+const IMG_ANY = /!\[[^\]]*\]\(img:([A-Za-z0-9]{1,20})[^)]*\)/g;
+const CENTER = /^->\s*(.*?)\s*<-$/;
 const LINK = /\[([^\]]+)\]\(([^)\s]+)\)/g;
 const SAFE_URL = /^(https?:\/\/|mailto:)/i;
 
@@ -23,8 +25,10 @@ function inline(raw) {
   }
   return out + emph(esc(raw.slice(last)));
 }
-/* plain text of one line: block markers, links, images and bold/italic codes removed */
-const plain = line => line.trim()
+/* a line without its centre markers: { center, body } */
+const centred = line => { const t = line.trim(), m = CENTER.exec(t); return m ? { center: true, body: m[1] } : { center: false, body: t }; };
+/* plain text of one line: centre and block markers, links, images and bold/italic codes removed */
+const plain = line => centred(line).body
   .replace(/^(#{1,2}\s+|-\s+|\d+\.\s+)/, '')
   .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
   .replace(LINK, '$1')
@@ -32,17 +36,36 @@ const plain = line => line.trim()
   .trim();
 const linesOf = text => String(text || '').replace(/\r\n?/g, '\n').split('\n');
 
+/* One image line -> { alt, id, zoom, size, center }, or null when it isn't a valid image code.
+   The code: ![alt](img:ID ZOOM [N%] [center]), optionally between -> <- (also centres it). */
+function parseImage(line) {
+  const c = centred(line), m = IMG_LINE.exec(c.body);
+  if (!m) return null;
+  const [zoom, ...rest] = m[3].trim().split(/\s+/);
+  if (!ZOOMS.includes(zoom)) return null;
+  let size = 100, center = c.center;
+  for (const tok of rest) {
+    const pm = /^(\d{1,3})%$/.exec(tok);
+    if (pm && +pm[1] >= 10 && +pm[1] <= 100) size = +pm[1];
+    else if (tok === 'center') center = true;
+    else return null;
+  }
+  return { alt: m[1], id: m[2], zoom, size, center };
+}
+const imageCode = ({ alt, id, zoom, size, center }) => `![${alt}](img:${id} ${zoom}${size !== 100 ? ` ${size}%` : ''}${center ? ' center' : ''})`;
+
 /* Message text in formatting codes -> { title, html }. A '# ' heading on the first non-empty line is the
-   title (plain, escaped) and is left out of html. imageIds: the ids of the images this message holds. */
+   title (plain, escaped) and is left out of html. imageIds: the ids of the images this message holds.
+   A centred block gets class="msg-c"; an image gets its width as a percentage of the message width. */
 function render(text, imageIds) {
   const lines = linesOf(text);
   let title = '';
   const first = lines.findIndex(l => l.trim() !== '');
-  if (first >= 0 && /^#\s+\S/.test(lines[first])) { title = esc(plain(lines[first])); lines.splice(first, 1); }
-  const out = [];
-  let para = [], list = null;   // list: { tag, items }
+  if (first >= 0 && /^#\s+\S/.test(centred(lines[first]).body)) { title = esc(plain(lines[first])); lines.splice(first, 1); }
+  const out = [], cls = c => c ? ' class="msg-c"' : '';
+  let para = [], paraCenter = false, list = null;   // list: { tag, items }
   const flush = () => {
-    if (para.length) { out.push(`<p>${para.join('<br>')}</p>`); para = []; }
+    if (para.length) { out.push(`<p${cls(paraCenter)}>${para.join('<br>')}</p>`); para = []; }
     if (list) { out.push(`<${list.tag}>${list.items.map(i => `<li>${i}</li>`).join('')}</${list.tag}>`); list = null; }
   };
   const item = (tag, html) => {
@@ -53,19 +76,21 @@ function render(text, imageIds) {
   for (const line of lines) {
     let m;
     if (line.trim() === '') { flush(); continue; }
-    if ((m = IMG_LINE.exec(line.trim()))) {
+    const { center, body } = centred(line);
+    if (IMG_START.test(body)) {
       flush();
-      const [, alt, id, zoom] = m;
-      if (imageIds && imageIds.has(id) && ZOOMS.includes(zoom))
-        out.push(`<figure class="msg-fig"><img class="msg-img" data-img="${id}" data-zoom="${zoom}" alt="${esc(alt)}"></figure>`);
+      const im = parseImage(line);
+      if (im && imageIds && imageIds.has(im.id))
+        out.push(`<figure class="msg-fig${im.center ? ' msg-c' : ''}"><img class="msg-img" data-img="${im.id}" data-zoom="${im.zoom}" alt="${esc(im.alt)}" style="width:${im.size}%"></figure>`);
       continue;
     }
-    if ((m = /^##\s+(.*)$/.exec(line))) { flush(); out.push(`<h4>${inline(m[1].trim())}</h4>`); continue; }
-    if ((m = /^#\s+(.*)$/.exec(line))) { flush(); out.push(`<h3>${inline(m[1].trim())}</h3>`); continue; }
-    if ((m = /^-\s+(.*)$/.exec(line))) { item('ul', inline(m[1].trim())); continue; }
-    if ((m = /^\d+\.\s+(.*)$/.exec(line))) { item('ol', inline(m[1].trim())); continue; }
-    if (list) flush();
-    para.push(inline(line.trim()));
+    if ((m = /^##\s+(.*)$/.exec(body))) { flush(); out.push(`<h4${cls(center)}>${inline(m[1].trim())}</h4>`); continue; }
+    if ((m = /^#\s+(.*)$/.exec(body))) { flush(); out.push(`<h3${cls(center)}>${inline(m[1].trim())}</h3>`); continue; }
+    if ((m = /^-\s+(.*)$/.exec(body))) { item('ul', inline(m[1].trim())); continue; }
+    if ((m = /^\d+\.\s+(.*)$/.exec(body))) { item('ol', inline(m[1].trim())); continue; }
+    if (list || (para.length && paraCenter !== center)) flush();
+    paraCenter = center;
+    para.push(inline(body));
   }
   flush();
   return { title, html: out.join('') };
@@ -139,6 +164,6 @@ function seenCounts(profiles) {
   return c;
 }
 
-return { ZOOMS, render, imageRefs, unknownImages, firstLine, clean, endFrom, effectiveEnd, status, pending, replacements, seenCounts };
+return { ZOOMS, render, parseImage, imageCode, imageRefs, unknownImages, firstLine, clean, endFrom, effectiveEnd, status, pending, replacements, seenCounts };
 })();
 if (typeof module !== 'undefined') module.exports = Messages;

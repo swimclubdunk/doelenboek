@@ -65,7 +65,8 @@ td.nw { white-space: nowrap; }
 .msg-tools .tool:hover { border-color: var(--muted); }
 .msg-tools .tool[data-v="italic"] { font-style: italic; font-family: serif; }
 textarea.msg-text { width: 100%; min-height: 200px; resize: vertical; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg); border-radius: var(--r-sm); padding: 10px 12px; font: .86rem/1.5 var(--f-mono); }
-.msg-preview { border: 1px dashed var(--line); border-radius: var(--r); background: var(--surface); min-height: 80px; }
+/* as wide as the app popup (dialog.msg in design/app.css), so image sizes in % look the same */
+.msg-preview { border: 1px dashed var(--line); border-radius: var(--r); background: var(--surface); min-height: 80px; width: min(100%, 560px); }
 .msg-preview .msg-head { padding-right: 20px; }
 .msg-pick { display: grid; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface-2); }
 .msg-pick img { max-width: 160px; max-height: 110px; border-radius: var(--r-sm); }
@@ -168,7 +169,7 @@ const T = {
     sdk_fail: 'De Firebase-bibliotheek kon niet laden. Controleer je verbinding.',
     berichten: 'Berichten', new_message: 'Nieuw bericht', edit_message: 'Bericht bewerken', language: 'Taal',
     m_both: 'NL + EN', m_nl: 'Alleen NL', m_en: 'Alleen EN',
-    f_bold: 'Vet', f_italic: 'Cursief', f_heading: 'Kop (# of ##)', f_bullet: 'Opsomming', f_number: 'Genummerde lijst', f_link: 'Link', f_image: 'Afbeelding',
+    f_bold: 'Vet', f_italic: 'Cursief', f_heading: 'Kop (# of ##)', f_bullet: 'Opsomming', f_number: 'Genummerde lijst', f_link: 'Link', f_image: 'Afbeelding (nieuw, of de afbeelding op deze regel aanpassen)', f_center: 'Centreren', size: 'Grootte', center_image: 'Centreren', save_image: 'Afbeelding aanpassen',
     preview: 'Voorbeeld', preview_empty: 'Het voorbeeld verschijnt hier.',
     alt: 'Omschrijving', zoom: 'Vergroten', zoom_click: 'Vergroten bij klikken', zoom_hover: 'Vergroten bij aanwijzen', zoom_none: 'Nooit vergroten',
     insert: 'Invoegen', cancel: 'Annuleren',
@@ -219,7 +220,7 @@ const T = {
     sdk_fail: 'The Firebase library could not load. Check your connection.',
     berichten: 'Messages', new_message: 'New message', edit_message: 'Edit message', language: 'Language',
     m_both: 'NL + EN', m_nl: 'NL only', m_en: 'EN only',
-    f_bold: 'Bold', f_italic: 'Italic', f_heading: 'Heading (# or ##)', f_bullet: 'Bulleted list', f_number: 'Numbered list', f_link: 'Link', f_image: 'Image',
+    f_bold: 'Bold', f_italic: 'Italic', f_heading: 'Heading (# or ##)', f_bullet: 'Bulleted list', f_number: 'Numbered list', f_link: 'Link', f_image: 'Image (new, or change the image on this line)', f_center: 'Centre', size: 'Size', center_image: 'Centre', save_image: 'Update image',
     preview: 'Preview', preview_empty: 'The preview appears here.',
     alt: 'Description', zoom: 'Enlarge', zoom_click: 'Enlarge on click', zoom_hover: 'Enlarge on hover', zoom_none: 'Never enlarge',
     insert: 'Insert', cancel: 'Cancel',
@@ -497,10 +498,14 @@ function defaultStartLocal() {
 function previewHtml(l) {
   const d = state.draft, ids = new Set([...d.images.keys()]);
   const r = M.render(d.body[l], ids);
-  const html = r.html.replace(/data-img="([A-Za-z0-9]+)"/g, (m, id) => `${m} src="data:image/jpeg;base64,${d.images.get(id).data}"`);
+  /* each image gets its data and never shows wider than its own pixel width */
+  const html = r.html.replace(/data-img="([A-Za-z0-9]+)"(.*?)style="width:(\d+)%"/g, (m, id, mid, pct) => {
+    const im = d.images.get(id), w = Number(im.w) > 0 ? `;max-width:${Number(im.w)}px` : '';
+    return `data-img="${id}" src="data:image/jpeg;base64,${im.data}"${mid}style="width:${pct}%${w}"`;
+  });
   return `<div class="msg-head"><h2 lang="${l}">${r.title}</h2></div><div class="msg-body" lang="${l}">${html || `<p class="muted">${bt('preview_empty')}</p>`}</div>`;
 }
-const TOOLS = [['bold', 'B'], ['italic', 'I'], ['heading', 'H'], ['bullet', '•'], ['number', '1.'], ['link', '🔗'], ['image', '🖼']];
+const TOOLS = [['bold', 'B'], ['italic', 'I'], ['heading', 'H'], ['center', '≡'], ['bullet', '•'], ['number', '1.'], ['link', '🔗'], ['image', '🖼']];
 function pickHtml(l) {
   const p = state.draft.pick;
   if (!p || p.lang !== l) return '';
@@ -508,7 +513,9 @@ function pickHtml(l) {
     <img src="data:image/jpeg;base64,${p.rec.data}" alt="">
     <label class="field"><span>${bt('alt')}</span><input id="pick-alt" type="text" maxlength="120" value="${esc(p.alt)}"></label>
     <label class="field"><span>${bt('zoom')}</span><select id="pick-zoom">${M.ZOOMS.map(z => `<option value="${z}" ${z === p.zoom ? 'selected' : ''}>${esc(t('zoom_' + z))}</option>`).join('')}</select></label>
-    <div class="msg-acts"><button type="button" class="btn small primary" data-action="pick-insert">${bt('insert')}</button>
+    <label class="field"><span>${bt('size')} <output id="pick-size-v">${p.size}%</output></span><input id="pick-size" type="range" min="10" max="100" step="5" value="${p.size}"></label>
+    <label class="msg-check"><input type="checkbox" id="pick-center" ${p.center ? 'checked' : ''}> ${bt('center_image')}</label>
+    <div class="msg-acts"><button type="button" class="btn small primary" data-action="pick-insert">${bt(p.line != null ? 'save_image' : 'insert')}</button>
       <button type="button" class="btn small ghost" data-action="pick-cancel">${bt('cancel')}</button></div></div>`;
 }
 const colHtml = l => `<div class="msg-col">
@@ -573,10 +580,22 @@ function pruneImages(d) { const refs = new Set(['nl', 'en'].flatMap(l => M.image
 function applyTool(kind, l) {
   const ta = document.querySelector(`textarea[data-draft-lang="${l}"]`);
   if (!ta) return;
-  if (kind === 'image') { state.draft.pickLang = l; state.draft.pickAt = ta.selectionStart; $('img-file').click(); return; }
+  if (kind === 'image') {
+    /* on an image's line the image button edits that image; elsewhere it picks a new one */
+    const d = state.draft, line = ta.value.slice(0, ta.selectionStart).split('\n').length - 1, im = M.parseImage(ta.value.split('\n')[line] || '');
+    if (im && d.images.has(im.id)) { d.pick = { lang: l, line, id: im.id, rec: d.images.get(im.id), alt: im.alt, zoom: im.zoom, size: im.size, center: im.center }; render(); return; }
+    d.pickLang = l; d.pickAt = ta.selectionStart; $('img-file').click(); return;
+  }
   const v = ta.value, s = ta.selectionStart, e = ta.selectionEnd, sel = v.slice(s, e);
   const wrap = (a, b, ph) => { const inner = sel || ph; ta.setRangeText(a + inner + b, s, e, 'end'); ta.setSelectionRange(s + a.length, s + a.length + inner.length); };
-  if (kind === 'bold') wrap('**', '**', t('f_bold').toLowerCase());
+  if (kind === 'center') {
+    /* -> line <- on every line the selection touches; when they are all centred already, undo it */
+    const a = v.lastIndexOf('\n', s - 1) + 1, bEnd = v.indexOf('\n', e), b = bEnd < 0 ? v.length : bEnd;
+    const lines = v.slice(a, b).split('\n'), isC = x => /^->\s*.*?\s*<-$/.test(x.trim());
+    const undo = lines.filter(x => x.trim()).every(isC);
+    const out = lines.map(x => !x.trim() ? x : undo ? x.trim().replace(/^->\s*/, '').replace(/\s*<-$/, '') : isC(x) ? x : `-> ${x.trim()} <-`).join('\n');
+    ta.setRangeText(out, a, b, 'end'); ta.setSelectionRange(a, a + out.length);
+  } else if (kind === 'bold') wrap('**', '**', t('f_bold').toLowerCase());
   else if (kind === 'italic') wrap('*', '*', t('f_italic').toLowerCase());
   else if (kind === 'link') {
     const text = sel || 'link';
@@ -604,17 +623,24 @@ async function pickImage(file) {
   if (d.images.size >= MAX_IMAGES) { d.note = 'too_many_images'; updateActions(); return; }
   try {
     const rec = await Images.process(file, MAX_B64);
-    d.pick = { lang: l, at: d.pickAt, rec, alt: '', zoom: 'click' }; d.note = '';
+    d.pick = { lang: l, at: d.pickAt, rec, alt: '', zoom: 'click', size: 100, center: false }; d.note = '';
   } catch (e) { d.note = 'image_failed'; }
   render();
 }
 function insertPicked() {
   const d = state.draft, p = d.pick; if (!p) return;
+  const alt = p.alt.replace(/[\]\n\r]/g, ' ').trim(), v = d.body[p.lang];
+  if (p.line != null) {
+    /* editing: replace the image's line, if it still holds that image */
+    const lines = v.split('\n'), cur = M.parseImage(lines[p.line] || '');
+    if (cur && cur.id === p.id) { lines[p.line] = M.imageCode({ alt, id: p.id, zoom: p.zoom, size: p.size, center: p.center }); d.body[p.lang] = lines.join('\n'); }
+    d.pick = null; d.confirming = false;
+    return render();
+  }
   let id; do { id = Math.random().toString(36).slice(2, 10).padEnd(8, '0'); } while (d.images.has(id));
   d.images.set(id, { data: p.rec.data, w: p.rec.w, h: p.rec.h });
-  const alt = p.alt.replace(/[\]\n\r]/g, ' ').trim(), v = d.body[p.lang], at = Math.min(p.at ?? v.length, v.length);
-  const before = v.slice(0, at), after = v.slice(at);
-  const code = `![${alt}](img:${id} ${p.zoom})`;
+  const at = Math.min(p.at ?? v.length, v.length), before = v.slice(0, at), after = v.slice(at);
+  const code = M.imageCode({ alt, id, zoom: p.zoom, size: p.size, center: p.center });
   d.body[p.lang] = before + (before && !before.endsWith('\n') ? '\n' : '') + code + (after.startsWith('\n') || !after ? '' : '\n') + after;
   d.pick = null; d.confirming = false;
   render();
@@ -636,12 +662,14 @@ document.addEventListener('input', e => {
   else if (el.id === 'd-days') { d.days = el.value === '' ? NaN : Number(el.value); d.confirming = false; updateEnd(); updateActions(); }
   else if (el.id === 'd-start') { d.startLocal = el.value; d.confirming = false; updateEnd(); updateActions(); }
   else if (el.id === 'pick-alt' && d.pick) d.pick.alt = el.value;
+  else if (el.id === 'pick-size' && d.pick) { d.pick.size = Number(el.value); const o = $('pick-size-v'); if (o) o.textContent = el.value + '%'; }
 });
 document.addEventListener('change', e => {
   const d = state.draft, el = e.target;
   if (el.id === 'd-replace') { d.replace = el.checked; d.confirming = false; updateActions(); }
   else if (el.id === 'd-new') { d.newAccounts = el.checked; d.confirming = false; updateActions(); }
   else if (el.id === 'pick-zoom' && d.pick) d.pick.zoom = el.value;
+  else if (el.id === 'pick-center' && d.pick) d.pick.center = el.checked;
   else if (el.id === 'img-file' && el.files && el.files[0]) { const f = el.files[0]; el.value = ''; pickImage(f); }
 });
 MessageZoom.attach($('main'));   // the previews enlarge images like the app popup does

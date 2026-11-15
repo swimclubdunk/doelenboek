@@ -351,6 +351,8 @@ dialog.msg { width: min(560px, calc(100vw - 24px)); }
 .msg-body h4 { font-size: .98rem; margin: .8em 0 .3em; }
 .msg-body a { color: var(--accent); }
 .msg-fig { margin: .6em 0; }
+.msg-body .msg-c { text-align: center; }
+.msg-fig.msg-c .msg-img { margin-inline: auto; }
 .msg-img { display: block; max-width: 100%; height: auto; border-radius: var(--r-sm); }
 .msg-img[data-zoom="click"] { cursor: zoom-in; }
 .msg-img[data-zoom="hover"] { cursor: zoom-in; }

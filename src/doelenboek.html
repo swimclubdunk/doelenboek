@@ -1030,7 +1030,7 @@ if (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParam
    To look at it during development: open the page on localhost with ?messages (?messages=5 waits 5 seconds). */
 const msgDlg = $('#msgdlg');
 const CLOCK_MARGIN = 5 * 60 * 1000;   // keeps the query inside the rules when a device clock runs up to 5 minutes ahead
-let msgQueue = null;   // { list, images: Map('msgId/imgId' -> data URL), i, lang, marked: Set, onSeen } while messages wait or show
+let msgQueue = null;   // { list, images: Map('msgId/imgId' -> { src: data URL, w: px }), i, lang, marked: Set, onSeen } while messages wait or show
 
 function showMessages(list, images, onSeen) {
   if (!list.length) return;
@@ -1056,7 +1056,11 @@ function drawMessage() {
     <div class="msg-body" lang="${cur}">${r.html}</div>
     ${n > 1 ? `<div class="msg-foot"><span class="msg-count">${esc(t('msg_count', q.i + 1, n))}</span>
       <button type="button" class="btn primary" data-msg-next>${esc(t(q.i === n - 1 ? 'close' : 'msg_next'))}</button></div>` : ''}`;
-  for (const img of msgDlg.querySelectorAll('img[data-img]')) img.src = q.images.get(`${m.id}/${img.dataset.img}`);
+  for (const img of msgDlg.querySelectorAll('img[data-img]')) {
+    const im = q.images.get(`${m.id}/${img.dataset.img}`);
+    img.src = im.src;
+    if (im.w > 0) img.style.maxWidth = im.w + 'px';   // never wider than the image itself
+  }
 }
 function markCurrentSeen() {
   const q = msgQueue; if (!q) return;
@@ -1097,7 +1101,7 @@ async function loadMessages(user) {
       /* one missing or unreadable image drops that image only, never the whole message load */
       const s = await F.getDoc(F.doc(fs, 'messages', m.id, 'images', id)).catch(() => null);
       const d = s && s.exists() ? s.data() : null;
-      if (d && typeof d.data === 'string') images.set(`${m.id}/${id}`, 'data:image/jpeg;base64,' + d.data);
+      if (d && typeof d.data === 'string') images.set(`${m.id}/${id}`, { src: 'data:image/jpeg;base64,' + d.data, w: Number(d.w) || 0 });
     })));
     if (same()) showMessages(list, images, markSeen);
   } catch (e) { console.warn('doelenboek: messages not loaded', e && e.code); }
@@ -1117,11 +1121,11 @@ if (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParam
   const pic = (label, hue) => 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="150"><rect width="240" height="150" fill="hsl(${hue} 45% 55%)"/><text x="120" y="82" font-family="sans-serif" font-size="20" fill="#fff" text-anchor="middle">${label}</text></svg>`);
   const demo = [
     Messages.clean('demo1', { langs: ['nl', 'en'], startAt: now - 3600000, endAt: now + 86400000, body: {
-      nl: '# Vrolijk kerstfeest!\nFijne feestdagen, en **bedankt** dat jullie *Doelenboek* gebruiken.\n\n## Nieuw\n- Berichten van de beheerder\n- Afbeeldingen\n\nMeer op [doelenboek.be](https://doelenboek.be).\n\n![Klik om te vergroten](img:a1 click)\n![Vergroot bij aanwijzen](img:a2 hover)\n![Vast](img:a3 none)',
-      en: '# Merry Christmas!\nHappy holidays, and **thank you** for using *Doelenboek*.\n\n## New\n1. Messages from the admin\n2. Images\n\nMore at [doelenboek.be](https://doelenboek.be).\n\n![Click to enlarge](img:a1 click)\n![Enlarges on hover](img:a2 hover)\n![Fixed](img:a3 none)' } }),
+      nl: '# Vrolijk kerstfeest!\nFijne feestdagen, en **bedankt** dat jullie *Doelenboek* gebruiken.\n\n## Nieuw\n- Berichten van de beheerder\n- Afbeeldingen\n\nMeer op [doelenboek.be](https://doelenboek.be).\n-> Gecentreerd, op **twee** regels <-\n-> zoals een kaartje <-\n\n![Klik om te vergroten](img:a1 click 50% center)\n![Vergroot bij aanwijzen](img:a2 hover)\n![Vast](img:a3 none)',
+      en: '# Merry Christmas!\nHappy holidays, and **thank you** for using *Doelenboek*.\n\n## New\n1. Messages from the admin\n2. Images\n\nMore at [doelenboek.be](https://doelenboek.be).\n-> Centred, on **two** lines <-\n-> like a card <-\n\n![Click to enlarge](img:a1 click 50% center)\n![Enlarges on hover](img:a2 hover)\n![Fixed](img:a3 none)' } }),
     Messages.clean('demo2', { langs: ['nl'], startAt: now - 1800000, endAt: now + 86400000, body: { nl: 'Alleen in het Nederlands: een tweede bericht, zonder titel en zonder taalknop.' } }),
   ];
-  const images = new Map([['demo1/a1', pic('click', 20)], ['demo1/a2', pic('hover', 140)], ['demo1/a3', pic('none', 220)]]);
+  const images = new Map([['demo1/a1', { src: pic('click', 20), w: 240 }], ['demo1/a2', { src: pic('hover', 140), w: 240 }], ['demo1/a3', { src: pic('none', 220), w: 240 }]]);
   setTimeout(() => showMessages(demo, images, id => console.log('doelenboek: demo message seen', id)), (parseFloat(new URLSearchParams(location.search).get('messages')) || 0) * 1000);
 }
 
