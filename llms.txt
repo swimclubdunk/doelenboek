@@ -11,7 +11,7 @@ Key facts:
 - Platform: any web browser on computer, tablet or phone; account with email and password
 - Goals included: the Flemish minimum goals (minimumdoelen) for preschool (kleuteronderwijs), for Dutch, mathematics, science & technology, history, geography, arts education, physical education and attitudes, with their official codes, in Dutch and in English translation
 - Official source of the goals: https://onderwijsdoelen.be
-- Privacy: no cookies on the visitor's device; data stored in Google Firebase in the EU; users can delete their account and data at any time
+- Privacy: no cookies on the visitor's device; data stored in Google Firebase in the EU; the site administrator can view stored data for statistics and support, but not photos; children's names are anonymised in the admin overview; users can delete their account and data at any time
 - The app itself is at https://doelenboek.be/ and requires JavaScript and a login; the pages below are public
 
 ## About
@@ -63,7 +63,7 @@ No. Doelenboek is free and shows no ads. If you would like to support the projec
 
 ### Where is my data stored?
 
-Your children, activities and photos are stored in Google Firebase in the EU and can only be reached with your email address and password. The website does not store cookies on your device, and you can delete your account and all your data yourself at any time.
+Your children, activities and photos are stored in Google Firebase in the EU and can only be reached with your email address and password. The administrator can view stored data for statistics and support. The administrator cannot view photos, and children's names are anonymised in the admin overview. The website does not store cookies on your device, and you can delete your account and all your data yourself at any time.
 
 ### Do I need to install anything?
 

@@ -4,6 +4,7 @@ src/design/ (or anywhere else) and refreshing the browser is the whole loop.
 Usage: python tools/serve.py [--live] [--port 8000]
 
   http://localhost:8000/          the app
+  http://localhost:8000/admin/    the admin dashboard (sample data unless --live)
   http://localhost:8000/animals   every animal drawing, with a check that each one fills its frame
   http://localhost:8000/over/     the public pages (also /minimumdoelen/, /en/about/, /llms.txt, ...)
 
@@ -14,7 +15,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build import ROOT, DOELEN_DIR, BuildError, build, animal_symbols, subject_keys_of  # noqa: E402
+from build import ROOT, DOELEN_DIR, ADMIN_SRC, BuildError, build, build_admin, animal_symbols, subject_keys_of  # noqa: E402
 import public  # noqa: E402
 
 SRC = ROOT / 'src' / 'doelenboek.html'
@@ -90,6 +91,8 @@ class Handler(BaseHTTPRequestHandler):
         try:
             if path in ('/', '/index.html'):
                 body, status = build(SRC, CONFIG if self.live else None), 200
+            elif path in ('/admin', '/admin/', '/admin/index.html'):
+                body, status = build_admin(ADMIN_SRC, SRC, CONFIG if self.live else None), 200
             elif path == '/animals':
                 body, status = animals_page(), 200
             elif path.strip('/') in public.COPIED:

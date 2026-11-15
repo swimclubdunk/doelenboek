@@ -186,7 +186,7 @@ const T = {
     ae_many: 'Te veel pogingen. Wacht even en probeer opnieuw.', ae_net: 'Geen verbinding. Controleer je internet en probeer opnieuw.',
     ae_generic: 'Dat lukte niet. Probeer het opnieuw.',
     sdk_fail: 'De inlogdienst kon niet geladen worden. Controleer je internetverbinding en herlaad de pagina.',
-    privacy: "Je gegevens (kinderen, activiteiten, foto's) worden bewaard in Google Firebase in de EU en zijn alleen bereikbaar met jouw e-mailadres en wachtwoord. Je kunt je account en al je gegevens altijd verwijderen via Gegevens.",
+    privacy: "Je gegevens (kinderen, activiteiten, foto's) worden bewaard in Google Firebase in de EU en zijn alleen bereikbaar met jouw e-mailadres en wachtwoord. De beheerder kan opgeslagen gegevens inzien voor statistieken en ondersteuning. Foto's kan de beheerder niet inzien, en in het beheeroverzicht worden namen van kinderen geanonimiseerd. Je kunt je account en al je gegevens altijd verwijderen via Gegevens.",
     account_h: 'Account', signed_in_as: e => `Ingelogd als ${e}.`, logout: 'Uitloggen',
     del_acc: 'Account verwijderen', del_acc_p: "Verwijdert je account en al je gegevens (kinderen, activiteiten, foto's) definitief.",
     del_acc_confirm: 'Vul je wachtwoord in om te bevestigen.', del_acc_btn: 'Account en gegevens verwijderen', del_done: 'Je account is verwijderd.',
@@ -284,7 +284,7 @@ const T = {
     ae_many: 'Too many attempts. Wait a moment and try again.', ae_net: 'No connection. Check your internet and try again.',
     ae_generic: 'That did not work. Try again.',
     sdk_fail: 'The login service could not be loaded. Check your internet connection and reload the page.',
-    privacy: 'Your data (children, activities, photos) is stored in Google Firebase in the EU and can only be reached with your email address and password. You can delete your account and all your data at any time via Data.',
+    privacy: 'Your data (children, activities, photos) is stored in Google Firebase in the EU and can only be reached with your email address and password. The administrator can view stored data for statistics and support. The administrator cannot view photos, and children\'s names are anonymised in the admin overview. You can delete your account and all your data at any time via Data.',
     account_h: 'Account', signed_in_as: e => `Logged in as ${e}.`, logout: 'Log out',
     del_acc: 'Delete account', del_acc_p: 'Permanently deletes your account and all your data (children, activities, photos).',
     del_acc_confirm: 'Enter your password to confirm.', del_acc_btn: 'Delete account and data', del_done: 'Your account has been deleted.',
@@ -1364,12 +1364,26 @@ function enterAccount(user) {
   mode = 'db'; canWrite = true; canWriteKnown = true;
   resetData(); closeDialog(); render(); subscribeAll();
   readLocalSummary();
+  writeProfile(user);
 }
 function leaveAccount() {
   for (const u of unsubs) u();
   unsubs = []; fbUser = null; db = null;
   resetData(); closeDialog();
   mode = 'auth'; render();
+}
+/* The small users/{uid}/profile/main record the /admin/ page counts with: email, sign-up date and the
+   last day this account opened the app. Written at most once a day; a failure never bothers the user. */
+async function writeProfile(user) {
+  const { F, fs } = fb;
+  const ref = F.doc(fs, 'users', user.uid, 'profile', 'main');
+  const now = Date.now();
+  try {
+    const s = await F.getDoc(ref);
+    const p = s.exists() ? s.data() : null;
+    if (p && p.email === user.email && typeof p.lastSeen === 'number' && new Date(p.lastSeen).toDateString() === new Date(now).toDateString()) return;
+    await F.setDoc(ref, { email: user.email || '', createdAt: Date.parse(user.metadata.creationTime) || now, lastSeen: now });
+  } catch (e) { console.warn('doelenboek: profile not saved', e && e.code); }
 }
 
 /* login / sign-up / reset screen */
@@ -1447,8 +1461,8 @@ function deleteAccountDialog() {
     if (!user) return t('ae_generic');
     try { await A.reauthenticateWithCredential(user, A.EmailAuthProvider.credential(user.email, form.password.value)); }
     catch (e) { return authErr(e); }
-    /* 'goals' holds goals parents could once add themselves; cleared along with the rest */
-    for (const c of [...COLS, 'goals', 'photos']) {
+    /* 'goals' holds goals parents could once add themselves; cleared along with the rest, as is the admin profile */
+    for (const c of [...COLS, 'goals', 'photos', 'profile']) {
       const s = await F.getDocs(F.collection(fs, 'users', user.uid, c));
       const errors = await runPool(s.docs, docSnap => F.deleteDoc(docSnap.ref), 6);
       if (errors.length) throw fbErr(errors[0]);

@@ -6,7 +6,8 @@ Usage: build.py SRC.html OUT.html [FIREBASE_CONFIG.json]
 - the favicon comes from design/favicon.svg
 - the built-in goals come from doelen/*.json (kleuter) and doelen-lager/*.json (lager onderwijs)
 - the font files in design/fonts/ are copied to fonts/ next to OUT.html
-- the public pages, robots.txt, sitemap.xml and llms.txt are written next to OUT.html (see public.py)"""
+- the public pages, robots.txt, sitemap.xml and llms.txt are written next to OUT.html (see public.py)
+- the admin page src/admin.html is built to admin/index.html next to OUT.html (see build_admin)"""
 import sys, json, re, shutil
 from pathlib import Path
 from urllib.parse import quote
@@ -21,6 +22,8 @@ LAGER_DIR = ROOT / 'doelen-lager'
 # The lager codes carry their tier as a prefix (L4-2.1.1); the app shows the code without it.
 LAGER_TIERS = ('L4', 'L6')
 GOAL_FIELDS = {'code', 'category', 'categoryEn', 'description', 'descriptionEn'}
+ADMIN_SRC = ROOT / 'src' / 'admin.html'
+RULES = ROOT / 'firestore.rules'
 
 
 class BuildError(Exception):
@@ -188,6 +191,69 @@ def subject_keys_of(text):
     return re.findall(r"\{ key: '([A-Z]+)'", text[s:text.index('\n];', s)])
 
 
+def goals_js(subject_keys):
+    """The built-in goals as a JavaScript array literal, in the order of the app's subjects."""
+    goals = sorted(load_goals(subject_keys), key=lambda g: subject_keys.index(g["subject"]))  # stable: keeps file order within a subject
+    return json.dumps(goals, ensure_ascii=False, indent=1).replace('</', '<\\/')
+
+
+def js_block(text, name):
+    """The `const NAME = [ ... ];` list from the app source, word for word, so the admin page shares it."""
+    start = text.index(f'const {name} = [')
+    return text[start:text.index('\n];', start) + 3]
+
+
+def admin_uid(rules):
+    """The uid in isAdmin() of firestore.rules, or None while it still holds the OWNER_UID placeholder."""
+    m = re.search(r"request\.auth\.uid == '([^']*)'", Path(rules).read_text(encoding='utf-8'))
+    uid = m.group(1) if m else ''
+    return uid if re.fullmatch(r'[A-Za-z0-9]{10,128}', uid) and uid != 'OWNER_UID' else None
+
+
+def build_admin(src, app_src, firebase_config=None, rules=RULES):
+    """The /admin/ page as a string: src/admin.html with the app's subjects, tiers, goals and styles,
+    admin-stats.js and the Firebase config inlined. Raises BuildError for a mistake in an input file."""
+    src, app_src = Path(src).resolve(), Path(app_src).resolve()
+    app_text = app_src.read_text(encoding='utf-8')
+    text = src.read_text(encoding='utf-8')
+
+    text = fill(text, 'const SUBJECTS = [];', js_block(app_text, 'SUBJECTS'), 'subjects')
+    text = fill(text, 'const TIERS = [];', js_block(app_text, 'TIERS'), 'tiers')
+    text = fill(text, 'const BUILTIN_GOALS = [];', 'const BUILTIN_GOALS = ' + goals_js(subject_keys_of(app_text)) + ';', 'goals')
+    uid = admin_uid(rules)
+    if uid:
+        text = fill(text, 'const ADMIN_UID = null;', 'const ADMIN_UID = ' + json.dumps(uid) + ';', 'admin uid')
+    if firebase_config:
+        cfg = json.loads(Path(firebase_config).read_text(encoding='utf-8'))
+        text = fill(text, 'const FIREBASE_CONFIG = null;', 'const FIREBASE_CONFIG = ' + json.dumps(cfg, ensure_ascii=False) + ';', 'Firebase config')
+
+    stats_path = src.parent / 'admin-stats.js'
+    stats = stats_path.read_text(encoding='utf-8').rstrip()
+    if '</script' in stats.lower():
+        fail(stats_path.relative_to(ROOT), 'may not contain "</script"')
+    text = fill(text, '<script src="admin-stats.js"></script>', f'<script>\n{stats}\n</script>', 'admin-stats.js')
+
+    # the page lives one folder down, at admin/index.html; the fonts are at fonts/ in the site root
+    text = inline_styles(text, src.parent).replace('url("fonts/', 'url("../fonts/')
+    i = text.index('<header class="top">')
+    head, body = text[:i].rstrip(), text[i:].rstrip()
+
+    return f"""<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="{favicon_uri(src.parent / 'design' / 'favicon.svg')}">
+{head}
+</head>
+<body>
+{body}
+</body>
+</html>
+"""
+
+
 def build(src, firebase_config=None):
     """The complete page as a string. Raises BuildError for a mistake in an input file."""
     src = Path(src).resolve()
@@ -195,9 +261,7 @@ def build(src, firebase_config=None):
     text = src.read_text(encoding='utf-8')
 
     subject_keys = subject_keys_of(text)
-    goals = sorted(load_goals(subject_keys), key=lambda g: subject_keys.index(g["subject"]))  # stable: keeps file order within a subject
-    goals_js = json.dumps(goals, ensure_ascii=False, indent=1).replace('</', '<\\/')
-    text = fill(text, 'const BUILTIN_GOALS = [];', 'const BUILTIN_GOALS = ' + goals_js + ';', 'goals')
+    text = fill(text, 'const BUILTIN_GOALS = [];', 'const BUILTIN_GOALS = ' + goals_js(subject_keys) + ';', 'goals')
 
     pairs, sprite = animal_symbols(design / 'animals')
     text = fill(text, 'const ANIMAL_LIST = [];', 'const ANIMAL_LIST = ' + json.dumps(pairs, ensure_ascii=False) + ';', 'animal list')
@@ -232,8 +296,10 @@ def build(src, firebase_config=None):
 if __name__ == '__main__':
     if len(sys.argv) < 3:
         sys.exit(__doc__)
+    config = sys.argv[3] if len(sys.argv) > 3 else None
     try:
-        page = build(sys.argv[1], sys.argv[3] if len(sys.argv) > 3 else None)
+        page = build(sys.argv[1], config)
+        admin = build_admin(ADMIN_SRC, sys.argv[1], config)
     except BuildError as e:
         sys.exit(str(e))
     out = sys.argv[2]
@@ -241,6 +307,11 @@ if __name__ == '__main__':
     out_dir = Path(out).resolve().parent
     copy_fonts(sys.argv[1], out_dir)
     print(f'wrote {out} ({len(page.encode("utf-8")):,} bytes)')
+    (out_dir / 'admin').mkdir(exist_ok=True)
+    (out_dir / 'admin' / 'index.html').write_text(admin, encoding='utf-8', newline='\n')
+    print(f'wrote admin/index.html ({len(admin.encode("utf-8")):,} bytes)')
+    if not admin_uid(RULES):
+        print('note: firestore.rules has no admin uid yet (OWNER_UID), so /admin/ shows "Geen toegang" to everyone', file=sys.stderr)
     src = Path(sys.argv[1]).resolve()
     written = public.write_site(out_dir, src.parent / 'design', DOELEN_DIR, subject_keys_of(src.read_text(encoding='utf-8')))
     print(f'wrote {len(written)} public files (pages, robots.txt, sitemap.xml, llms.txt, ...)')
