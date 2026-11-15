@@ -1,4 +1,4 @@
-<title>doelenboek.be admin</title>
+<title>Doelenboek.be admin</title>
 <!-- The owner's dashboard. tools/build.py builds this into admin/index.html; the stylesheets, admin-stats.js, messages.js and images.js are inlined.
      Only the account in firestore.rules (isAdmin) can read other accounts' data; this page only ever shows counts. -->
 <link rel="stylesheet" href="design/tokens.css">
@@ -123,7 +123,7 @@ main .btn .bi, main .seg .bi { justify-items: center; }
 </style>
 <header class="top">
   <div class="top-inner">
-    <div class="brand"><b>doelenboek.be</b>&nbsp;<span class="adm-tag">admin</span></div>
+    <div class="brand"><b>Doelenboek.be</b>&nbsp;<span class="adm-tag">admin</span></div>
     <nav class="tabs" id="tabs" aria-label="Admin"></nav>
     <div class="top-right">
       <span class="status" id="status"></span>
@@ -161,10 +161,9 @@ const TIER_KEYS = TIERS.map(x => x.key);
 const GOAL = new Map(BUILTIN_GOALS.map(g => [g.id, g]));
 const TABS = ['overzicht', 'groei', 'gebruik', 'inhoud', 'accounts', 'berichten'];   // also the #hash of each tab
 
-/* ---------- language: Dutch or English, the same choice and buttons as the app (both read doelenboek.lang) ---------- */
-const LANG_KEY = 'doelenboek.lang';
-let lang = 'nl';
-try { const saved = localStorage.getItem(LANG_KEY); if (saved === 'en' || saved === 'nl') lang = saved; } catch (e) {}
+/* ---------- language: Dutch or English, the same buttons as the app. The dashboard always opens in English;
+   switching lasts for this visit only and never changes the app's own choice (doelenboek.lang). ---------- */
+let lang = 'en';
 const T = {
   nl: {
     overzicht: 'Overzicht', groei: 'Groei', gebruik: 'Gebruik', inhoud: 'Inhoud', accounts: 'Accounts',
@@ -995,7 +994,6 @@ $('lang-switch').addEventListener('click', e => {
   const b = e.target.closest('[data-lang]');
   if (!b || b.dataset.lang === lang) return;
   lang = b.dataset.lang;
-  try { localStorage.setItem(LANG_KEY, lang); } catch (err) {}
   setFormats();
   render();
 });

@@ -321,7 +321,7 @@ def page(lang, title, description, path, alternates, extra_ld, css, current, bod
 <a class="skip" href="#inhoud">{escape(T['skip'])}</a>
 <header class="top">
   <div class="top-inner">
-    <a class="brand" href="/{ABOUT[lang]}/"><b>doelenboek.be</b></a>
+    <a class="brand" href="/{ABOUT[lang]}/"><b>Doelenboek.be</b></a>
     <nav class="site-nav" aria-label="{NAME}">{nav}</nav>
     <div class="top-right">
       <a class="lang-link" href="/{alternates[other]}/" hreflang="{other}" lang="{other}">{escape(T['other_lang'])}</a>
