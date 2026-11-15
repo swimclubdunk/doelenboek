@@ -436,6 +436,36 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 .thanks-cup .heart { fill: var(--s-ak); }
 .thanks-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 6px; }
 .thanks-actions a.btn { text-decoration: none; }
+
+/* admin messages: the popup in the app; .msg-body is also the preview on /admin/ */
+dialog.msg { width: min(560px, calc(100vw - 24px)); }
+.msg-head { display: flex; align-items: center; gap: 10px; padding: 14px 12px 4px 20px; }
+.msg-head h2 { flex: 1; min-width: 0; margin: 0; font-family: var(--f-display); font-size: 1.2rem; overflow-wrap: anywhere; }
+.msg-head h2:empty { visibility: hidden; }
+.msg-lang { display: inline-flex; flex: none; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.msg-lang button { border: 0; background: transparent; padding: 4px 10px; font-size: .78rem; font-weight: 700; color: var(--muted); cursor: pointer; letter-spacing: .04em; }
+.msg-lang button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
+.msg-x { flex: none; font-size: 1rem; }
+.msg-body { padding: 6px 20px 18px; line-height: 1.55; overflow-wrap: anywhere; }
+.msg-body > :first-child { margin-top: 0; }
+.msg-body > :last-child { margin-bottom: 0; }
+.msg-body p, .msg-body ul, .msg-body ol { margin: 0 0 .7em; }
+.msg-body ul, .msg-body ol { padding-left: 1.4em; }
+.msg-body h3 { font-family: var(--f-display); font-size: 1.1rem; margin: .9em 0 .4em; }
+.msg-body h4 { font-size: .98rem; margin: .8em 0 .3em; }
+.msg-body a { color: var(--accent); }
+.msg-fig { margin: .6em 0; }
+.msg-img { display: block; max-width: 100%; height: auto; border-radius: var(--r-sm); }
+.msg-img[data-zoom="click"] { cursor: zoom-in; }
+.msg-img[data-zoom="hover"] { cursor: zoom-in; }
+@media (hover: hover) { .msg-img[data-zoom="hover"] { cursor: default; } }
+.msg-foot { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 10px 20px 16px; border-top: 1px solid var(--line); }
+.msg-count { color: var(--muted); font: .82rem var(--f-mono); }
+.msg-hover { position: fixed; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 5; }
+.msg-hover img { max-width: 92vw; max-height: 88vh; border-radius: var(--r-sm); box-shadow: 0 20px 60px rgb(0 0 0 / .45); background: var(--surface); }
+dialog.msgzoom { width: fit-content; height: fit-content; overflow: hidden; max-width: 92vw; max-height: 88vh; padding: 0; background: transparent; border: 0; box-shadow: none; cursor: zoom-out; }
+dialog.msgzoom::backdrop { background: rgb(20 15 11 / .8); }
+dialog.msgzoom img { display: block; max-width: 92vw; max-height: 88vh; border-radius: var(--r-sm); }
 .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: var(--r-sm); font-size: .9rem; transition: opacity .2s, transform .2s; max-width: calc(100vw - 32px); z-index: 50; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast.bad { background: var(--danger); color: var(--surface); }
@@ -548,6 +578,8 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 <dialog id="dlg"></dialog>
 <dialog id="dlg2"></dialog>
 <dialog id="thanks" class="thanks" aria-labelledby="thanks-h"></dialog>
+<dialog id="msgdlg" class="msg" aria-labelledby="msg-h"></dialog>
+<dialog id="msgzoom" class="msgzoom"><img alt=""></dialog>
 <dialog id="lightbox" class="lightbox">
   <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
   <button type="button" class="lb-btn lb-prev" data-lb="prev">‹</button>
@@ -592,6 +624,182 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 <symbol id="an-otter" viewBox="9.3 14.3 45.4 45.4"><circle cx="13.5" cy="30" r="4.2" fill="#7E5A44"/><circle cx="13.5" cy="30" r="1.9" fill="#55392A"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="13.5" cy="30" r="4.2" fill="#7E5A44"/><circle cx="13.5" cy="30" r="1.9" fill="#55392A"/></g><ellipse cx="32" cy="37" rx="21" ry="15.5" fill="#8E6A52"/><path d="M13.5 41C16 35 25 33 32 36.5C39 33 48 35 50.5 41C48 49 41 52.5 32 52.5C23 52.5 16 49 13.5 41Z" fill="#EBD6BC"/><ellipse cx="32" cy="39" rx="3.6" ry="2.5" fill="#2B2523"/><path d="M28.6 43Q30.3 44.7 32 42.6Q33.7 44.7 35.4 43" fill="none" stroke="#2B2523" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25.6" cy="43.6" r=".75" fill="#8E6A52"/><circle cx="23.6" cy="41.6" r=".75" fill="#8E6A52"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="25.6" cy="43.6" r=".75" fill="#8E6A52"/><circle cx="23.6" cy="41.6" r=".75" fill="#8E6A52"/></g><circle cx="23.5" cy="32" r="2.6" fill="#2B2523"/><circle cx="24.49" cy="31.01" r="0.88" fill="#fff"/><g transform="matrix(-1 0 0 1 64 0)"><circle cx="23.5" cy="32" r="2.6" fill="#2B2523"/><circle cx="24.49" cy="31.01" r="0.88" fill="#fff"/></g></symbol>
 </svg>
 
+<script>
+/* Doelenboek admin messages: the formatting codes and the rules for which message a user sees.
+   Pure functions only (no DOM, no Firebase), so tests/messages.test.mjs runs them in Node.
+   tools/build.py inlines this file into both the app (index.html) and the admin page (admin/index.html),
+   so the admin's preview and the user's popup render a message with the same code. */
+const Messages = (() => {
+'use strict';
+const ZOOMS = ['click', 'hover', 'none'];
+const IMG_LINE = /^!\[([^\]]*)\]\(img:([A-Za-z0-9]{1,20})\s+([a-z]+)\)\s*$/;
+const IMG_ANY = /!\[[^\]]*\]\(img:([A-Za-z0-9]{1,20})\s+[a-z]+\)/g;
+const LINK = /\[([^\]]+)\]\(([^)\s]+)\)/g;
+const SAFE_URL = /^(https?:\/\/|mailto:)/i;
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+/* bold and italic, on text that is already escaped (escaping leaves * alone) */
+const emph = s => s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+/* one line of text: links with a safe scheme become <a>, everything else is escaped, then bold/italic */
+function inline(raw) {
+  let out = '', last = 0;
+  for (const m of raw.matchAll(LINK)) {
+    out += emph(esc(raw.slice(last, m.index)));
+    out += SAFE_URL.test(m[2]) ? `<a href="${esc(m[2])}" target="_blank" rel="noopener noreferrer">${emph(esc(m[1]))}</a>` : emph(esc(m[0]));
+    last = m.index + m[0].length;
+  }
+  return out + emph(esc(raw.slice(last)));
+}
+/* plain text of one line: block markers, links, images and bold/italic codes removed */
+const plain = line => line.trim()
+  .replace(/^(#{1,2}\s+|-\s+|\d+\.\s+)/, '')
+  .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
+  .replace(LINK, '$1')
+  .replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1')
+  .trim();
+const linesOf = text => String(text || '').replace(/\r\n?/g, '\n').split('\n');
+
+/* Message text in formatting codes -> { title, html }. A '# ' heading on the first non-empty line is the
+   title (plain, escaped) and is left out of html. imageIds: the ids of the images this message holds. */
+function render(text, imageIds) {
+  const lines = linesOf(text);
+  let title = '';
+  const first = lines.findIndex(l => l.trim() !== '');
+  if (first >= 0 && /^#\s+\S/.test(lines[first])) { title = esc(plain(lines[first])); lines.splice(first, 1); }
+  const out = [];
+  let para = [], list = null;   // list: { tag, items }
+  const flush = () => {
+    if (para.length) { out.push(`<p>${para.join('<br>')}</p>`); para = []; }
+    if (list) { out.push(`<${list.tag}>${list.items.map(i => `<li>${i}</li>`).join('')}</${list.tag}>`); list = null; }
+  };
+  const item = (tag, html) => {
+    if (para.length || (list && list.tag !== tag)) flush();
+    if (!list) list = { tag, items: [] };
+    list.items.push(html);
+  };
+  for (const line of lines) {
+    let m;
+    if (line.trim() === '') { flush(); continue; }
+    if ((m = IMG_LINE.exec(line.trim()))) {
+      flush();
+      const [, alt, id, zoom] = m;
+      if (imageIds && imageIds.has(id) && ZOOMS.includes(zoom))
+        out.push(`<figure class="msg-fig"><img class="msg-img" data-img="${id}" data-zoom="${zoom}" alt="${esc(alt)}"></figure>`);
+      continue;
+    }
+    if ((m = /^##\s+(.*)$/.exec(line))) { flush(); out.push(`<h4>${inline(m[1].trim())}</h4>`); continue; }
+    if ((m = /^#\s+(.*)$/.exec(line))) { flush(); out.push(`<h3>${inline(m[1].trim())}</h3>`); continue; }
+    if ((m = /^-\s+(.*)$/.exec(line))) { item('ul', inline(m[1].trim())); continue; }
+    if ((m = /^\d+\.\s+(.*)$/.exec(line))) { item('ol', inline(m[1].trim())); continue; }
+    if (list) flush();
+    para.push(inline(line.trim()));
+  }
+  flush();
+  return { title, html: out.join('') };
+}
+
+/* The image ids a text refers to, in order of first appearance. */
+const imageRefs = text => [...new Set([...String(text || '').matchAll(IMG_ANY)].map(m => m[1]))];
+
+/* The first non-empty line as plain text, at most 80 characters: the message's name in the admin list. */
+function firstLine(text) {
+  const line = linesOf(text).find(l => plain(l) !== '');
+  return line ? plain(line).slice(0, 80) : '';
+}
+
+/* ---------- message records and the rules for who sees what ---------- */
+const LANG_SETS = ['nl', 'en', 'nl,en'];
+const finite = v => typeof v === 'number' && Number.isFinite(v);
+
+/* A Firestore message record -> Msg, or null when it can't be shown safely. */
+function clean(id, d) {
+  if (!d || typeof d !== 'object' || !Array.isArray(d.langs) || !LANG_SETS.includes(d.langs.join(','))) return null;
+  const body = {};
+  for (const l of d.langs) {
+    const t = d.body && d.body[l];
+    if (typeof t !== 'string' || t.trim() === '') return null;
+    body[l] = t;
+  }
+  if (!finite(d.startAt) || !finite(d.endAt) || d.endAt <= d.startAt) return null;
+  const replaced = typeof d.replacedBy === 'string' && finite(d.replacedAt);
+  return { id, langs: [...d.langs], body, startAt: d.startAt, endAt: d.endAt, replace: d.replace === true, newAccounts: d.newAccounts === true,
+    replacedBy: replaced ? d.replacedBy : null, replacedAt: replaced ? d.replacedAt : null, createdAt: finite(d.createdAt) ? d.createdAt : 0 };
+}
+
+/* The same local clock time, `days` calendar days later (so a DST change doesn't shift it by an hour). */
+function endFrom(startAt, days) { const d = new Date(startAt); d.setDate(d.getDate() + days); return d.getTime(); }
+
+const effectiveEnd = m => m.replacedAt == null ? m.endAt : Math.min(m.endAt, m.replacedAt);
+const status = (m, now) => now < m.startAt ? 'scheduled' : now < effectiveEnd(m) ? 'live' : 'ended';
+
+/* The messages one user still has to see, oldest start first. who: { seen: [ids], createdAt: ms, now: ms } */
+function pending(msgs, who) {
+  const seen = new Set(Array.isArray(who.seen) ? who.seen : []);
+  return msgs.filter(m => status(m, who.now) === 'live' && !seen.has(m.id) && (m.newAccounts || who.createdAt <= m.startAt))
+    .sort((a, b) => a.startAt - b.startAt || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+}
+
+/* Per message: { replacedBy, replacedAt } or null. A message R with replace ends every message that starts
+   before R and is still running at R's start; the earliest such R wins. A replacement that already took
+   effect (replacedAt <= now) stays as it is, also when R has since been withdrawn. */
+function replacements(msgs, now) {
+  const out = new Map();
+  const rs = msgs.filter(r => r.replace).sort((a, b) => a.startAt - b.startAt);
+  for (const m of msgs) {
+    if (m.replacedAt != null && m.replacedAt <= now) { out.set(m.id, { replacedBy: m.replacedBy, replacedAt: m.replacedAt }); continue; }
+    const r = rs.find(r => r.id !== m.id && r.startAt > m.startAt && r.startAt < m.endAt);
+    out.set(m.id, r ? { replacedBy: r.id, replacedAt: r.startAt } : null);
+  }
+  return out;
+}
+
+/* message id -> number of profiles whose seen list holds it */
+function seenCounts(profiles) {
+  const c = new Map();
+  for (const p of profiles) {
+    const seen = p && p.data && Array.isArray(p.data.seen) ? p.data.seen : [];
+    for (const id of new Set(seen.filter(x => typeof x === 'string'))) c.set(id, (c.get(id) || 0) + 1);
+  }
+  return c;
+}
+
+return { ZOOMS, render, imageRefs, firstLine, clean, endFrom, effectiveEnd, status, pending, replacements, seenCounts };
+})();
+if (typeof module !== 'undefined') module.exports = Messages;
+</script>
+<script>
+/* Doelenboek: image compression shared by the app (activity photos) and the admin page (message images).
+   Decode, downscale and JPEG-encode in the browser; steps down until the base64 data fits maxB64.
+   tools/build.py inlines this file into both pages. */
+const Images = (() => {
+'use strict';
+async function process(file, maxB64) {
+  let src, cleanup = () => {};
+  try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); cleanup = () => src.close && src.close(); }
+  catch (e) {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.src = url;
+    try { await img.decode(); } catch (er) { URL.revokeObjectURL(url); throw er; }
+    src = img; cleanup = () => URL.revokeObjectURL(url);
+  }
+  try {
+    const W = src.naturalWidth || src.width, H = src.naturalHeight || src.height;
+    if (!W || !H) throw new Error('empty image');
+    const steps = [[1600, .82], [1280, .78], [1024, .74], [800, .7], [640, .65]];
+    for (let i = 0; i < steps.length; i++) {
+      const [max, q] = steps[i], s = Math.min(1, max / Math.max(W, H));
+      const w = Math.max(1, Math.round(W * s)), h = Math.max(1, Math.round(H * s));
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); g.drawImage(src, 0, 0, w, h);
+      const url = c.toDataURL('image/jpeg', q), data = url.slice(url.indexOf(',') + 1);
+      if (data.length <= maxB64 || i === steps.length - 1) return { mime: 'image/jpeg', w, h, data };
+    }
+  } finally { cleanup(); }
+}
+return { process };
+})();
+if (typeof module !== 'undefined') module.exports = Images;
+</script>
 <script>
 (() => {
 'use strict';
@@ -10693,6 +10901,7 @@ const T = {
     contact_p: 'Feedback of een idee voor een nieuwe functie? Mail naar',
     support_p: 'Overweeg een donatie om dit project te steunen.', support_link: 'Doneren via Ko-fi',
     thanks_h: 'Fijn dat je Doelenboek gebruikt!',
+    msg_next: 'Volgende', msg_count: (a, b) => `${a} / ${b}`, msg_lang: 'Taal van dit bericht',
     thanks_p: 'Heb je er iets aan? Dan wordt een kleine donatie enorm gewaardeerd. Ze helpt de kosten van de hosting te dekken, zodat deze pagina online blijft en er nieuwe functies bij kunnen komen.',
     thanks_later: 'Misschien later',
     photos: "Foto's", add_photos: "Foto's toevoegen", photo_remove: 'Foto verwijderen',
@@ -10791,6 +11000,7 @@ const T = {
     contact_p: 'Feedback or a feature request? Email',
     support_p: 'Consider donating to support this project.', support_link: 'Donate on Ko-fi',
     thanks_h: 'Glad you are using Doelenboek!',
+    msg_next: 'Next', msg_count: (a, b) => `${a} / ${b}`, msg_lang: 'Language of this message',
     thanks_p: 'If you get value from it, a small donation would be greatly appreciated. It helps cover hosting costs to keep this page running and to add new features.',
     thanks_later: 'Maybe later',
     photos: 'Photos', add_photos: 'Add photos', photo_remove: 'Remove photo',
@@ -11039,31 +11249,6 @@ async function deletePhoto(id) {
   const u = photoUrl.get(id); if (u) URL.revokeObjectURL(u);
   photoUrl.delete(id);
 }
-/* Decode, downscale and JPEG-encode in the browser; steps down until it fits PHOTO_MAX_B64. */
-async function processImage(file) {
-  let src, cleanup = () => {};
-  try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); cleanup = () => src.close && src.close(); }
-  catch (e) {
-    const url = URL.createObjectURL(file), img = new Image();
-    img.src = url;
-    try { await img.decode(); } catch (er) { URL.revokeObjectURL(url); throw er; }
-    src = img; cleanup = () => URL.revokeObjectURL(url);
-  }
-  try {
-    const W = src.naturalWidth || src.width, H = src.naturalHeight || src.height;
-    if (!W || !H) throw new Error('empty image');
-    const steps = [[1600, .82], [1280, .78], [1024, .74], [800, .7], [640, .65]];
-    for (let i = 0; i < steps.length; i++) {
-      const [max, q] = steps[i], s = Math.min(1, max / Math.max(W, H));
-      const w = Math.max(1, Math.round(W * s)), h = Math.max(1, Math.round(H * s));
-      const c = document.createElement('canvas'); c.width = w; c.height = h;
-      const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); g.drawImage(src, 0, 0, w, h);
-      const url = c.toDataURL('image/jpeg', q), data = url.slice(url.indexOf(',') + 1);
-      if (data.length <= PHOTO_MAX_B64 || i === steps.length - 1) return { mime: 'image/jpeg', w, h, data };
-    }
-  } finally { cleanup(); }
-}
-
 /* ---------- derived data ---------- */
 const byGoalOrder = (a, b) => (SUBJ[a.subject].i - SUBJ[b.subject].i) || (TIER[a.tier].i - TIER[b.tier].i) || a.code.localeCompare(b.code, 'nl', { numeric: true }) || a.description.localeCompare(b.description, 'nl');
 const sortedGoals = () => [...data.goals.values()].sort(byGoalOrder);
@@ -11491,7 +11676,7 @@ function activityDialog(act, presetChild) {
       let failed = 0;
       processing++; phint.textContent = t('photo_processing');
       for (const f of files.slice(0, Math.max(0, room))) {
-        try { const rec = await processImage(f); if (!dlg.contains(pbox)) return; photos.push({ id: newId(), rec, url: b64ToUrl(rec), existing: false }); drawPhotos(); }
+        try { const rec = await Images.process(f, PHOTO_MAX_B64); if (!dlg.contains(pbox)) return; photos.push({ id: newId(), rec, url: b64ToUrl(rec), existing: false }); drawPhotos(); }
         catch (e) { failed++; }
       }
       processing--; if (!processing) phint.textContent = t('photo_hint');
@@ -11546,7 +11731,7 @@ const THANKS_ART = `<svg class="thanks-cup" viewBox="0 0 120 100" aria-hidden="t
 function scheduleThanks() {
   try { if (localStorage.getItem(THANKS_KEY)) return; } catch (e) { return; }
   setTimeout(function wait() {
-    if (dlg.open || dlg2.open || lb.open) { setTimeout(wait, 1000); return; }
+    if (dlg.open || dlg2.open || lb.open || msgDlg.open || msgQueue) { setTimeout(wait, 1000); return; }
     try { localStorage.setItem(THANKS_KEY, todayIso()); } catch (e) {}
     showThanks();
   }, 2000);
@@ -11568,6 +11753,123 @@ function showThanks() {
 thanksDlg.addEventListener('click', e => { if (e.target === thanksDlg || e.target.closest('[data-close]')) thanksDlg.close(); });
 thanksDlg.addEventListener('close', () => { thanksDlg.innerHTML = ''; });
 if (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('thanks')) showThanks();
+
+/* ---------- admin messages ----------
+   Messages the admin writes on /admin/ (rules and formatting codes in src/messages.js). A signed-in account
+   loads them once per app open; each pending message shows once in this popup, oldest first.
+   To look at it during development: open the page on localhost with ?messages (?messages=5 waits 5 seconds). */
+const msgDlg = $('#msgdlg'), msgZoom = $('#msgzoom');
+const CLOCK_MARGIN = 5 * 60 * 1000;   // keeps the query inside the rules when a device clock runs up to 5 minutes ahead
+let msgQueue = null;   // { list, images: Map('msgId/imgId' -> data URL), i, lang, marked: Set, onSeen } while messages wait or show
+const noHover = () => !!(window.matchMedia && matchMedia('(hover: none)').matches);
+
+function showMessages(list, images, onSeen) {
+  if (!list.length) return;
+  const q = msgQueue = { list, images, i: 0, lang: null, marked: new Set(), onSeen };
+  (function wait() {
+    if (msgQueue !== q) return;
+    if (dlg.open || dlg2.open || lb.open || thanksDlg.open || (mode === 'db' && !(loaded.children && loaded.activities))) { setTimeout(wait, 1000); return; }
+    drawMessage();
+    if (typeof msgDlg.showModal === 'function') msgDlg.showModal(); else msgDlg.setAttribute('open', '');
+  })();
+}
+function drawMessage() {
+  const q = msgQueue, m = q.list[q.i], n = q.list.length;
+  const cur = q.lang && m.langs.includes(q.lang) ? q.lang : m.langs.includes(lang) ? lang : m.langs[0];
+  const ids = new Set(Messages.imageRefs(m.body[cur]).filter(id => q.images.has(`${m.id}/${id}`)));
+  const r = Messages.render(m.body[cur], ids);
+  const toggle = m.langs.length < 2 ? '' : `<div class="msg-lang" role="group" aria-label="${esc(t('msg_lang'))}">${m.langs.map(l =>
+    `<button type="button" data-msg-lang="${l}" aria-pressed="${l === cur}" lang="${l}">${l.toUpperCase()}</button>`).join('')}</div>`;
+  msgDlg.innerHTML = `<div class="msg-head">
+      <h2 id="msg-h" lang="${cur}">${r.title}</h2>${toggle}
+      <button type="button" class="icon-btn msg-x" data-msg-close aria-label="${esc(t('close'))}" title="${esc(t('close'))}">✕</button>
+    </div>
+    <div class="msg-body" lang="${cur}">${r.html}</div>
+    ${n > 1 ? `<div class="msg-foot"><span class="msg-count">${esc(t('msg_count', q.i + 1, n))}</span>
+      <button type="button" class="btn primary" data-msg-next>${esc(t(q.i === n - 1 ? 'close' : 'msg_next'))}</button></div>` : ''}`;
+  for (const img of msgDlg.querySelectorAll('img[data-img]')) img.src = q.images.get(`${m.id}/${img.dataset.img}`);
+}
+function markCurrentSeen() {
+  const q = msgQueue; if (!q) return;
+  const id = q.list[q.i].id;
+  if (!q.marked.has(id)) { q.marked.add(id); q.onSeen(id); }
+}
+function openMsgZoom(img) {
+  const z = msgZoom.querySelector('img'); z.src = img.src; z.alt = img.alt;
+  if (typeof msgZoom.showModal === 'function') msgZoom.showModal(); else msgZoom.setAttribute('open', '');
+}
+function hideMsgHover() { const h = msgDlg.querySelector('.msg-hover'); if (h) h.remove(); }
+msgDlg.addEventListener('click', e => {
+  const q = msgQueue; if (!q) return;
+  const b = e.target.closest('button');
+  if (b && b.dataset.msgLang) { q.lang = b.dataset.msgLang; drawMessage(); return; }
+  if (b && 'msgNext' in b.dataset) {
+    markCurrentSeen();
+    if (q.i === q.list.length - 1) msgDlg.close(); else { q.i++; drawMessage(); msgDlg.scrollTop = 0; }
+    return;
+  }
+  if (e.target === msgDlg || (b && 'msgClose' in b.dataset)) { msgDlg.close(); return; }
+  const img = e.target.closest('img[data-zoom]');
+  if (img && (img.dataset.zoom === 'click' || (img.dataset.zoom === 'hover' && noHover()))) { hideMsgHover(); openMsgZoom(img); }
+});
+msgDlg.addEventListener('pointerover', e => {
+  const img = e.target.closest && e.target.closest('img[data-zoom="hover"]');
+  if (!img || e.pointerType !== 'mouse' || noHover() || msgDlg.querySelector('.msg-hover')) return;
+  const box = document.createElement('div'); box.className = 'msg-hover'; box.setAttribute('aria-hidden', 'true');
+  const big = document.createElement('img'); big.src = img.src; big.alt = ''; box.append(big);
+  msgDlg.append(box);
+});
+msgDlg.addEventListener('pointerout', e => { if (e.target.closest && e.target.closest('img[data-zoom="hover"]')) hideMsgHover(); });
+msgDlg.addEventListener('close', () => { markCurrentSeen(); msgQueue = null; msgDlg.innerHTML = ''; });
+msgZoom.addEventListener('click', () => msgZoom.close());
+msgZoom.addEventListener('close', () => { msgZoom.querySelector('img').removeAttribute('src'); });
+
+/* One query per app open: the messages that started (minus the clock margin) and the account's seen list.
+   A failure only reaches the console; the next app open tries again. */
+async function loadMessages(user) {
+  const { F, fs } = fb;
+  const same = () => fbUser && fbUser.uid === user.uid;
+  try {
+    const [snap, prof] = await Promise.all([
+      F.getDocs(F.query(F.collection(fs, 'messages'), F.where('startAt', '<=', Date.now() - CLOCK_MARGIN), F.orderBy('startAt', 'desc'), F.limit(50))),
+      F.getDoc(F.doc(fs, 'users', user.uid, 'profile', 'main')),
+    ]);
+    if (!same()) return;
+    const p = prof.exists() ? prof.data() : {};
+    const msgs = snap.docs.map(d => Messages.clean(d.id, d.data())).filter(Boolean);
+    const list = Messages.pending(msgs, { seen: Array.isArray(p.seen) ? p.seen : [], createdAt: Date.parse(user.metadata.creationTime) || 0, now: Date.now() });
+    if (!list.length) return;
+    const images = new Map();
+    await Promise.all(list.flatMap(m => [...new Set(m.langs.flatMap(l => Messages.imageRefs(m.body[l])))].map(async id => {
+      const s = await F.getDoc(F.doc(fs, 'messages', m.id, 'images', id));
+      const d = s.exists() ? s.data() : null;
+      if (d && typeof d.data === 'string') images.set(`${m.id}/${id}`, 'data:image/jpeg;base64,' + d.data);
+    })));
+    if (same()) showMessages(list, images, markSeen);
+  } catch (e) { console.warn('doelenboek: messages not loaded', e && e.code); }
+}
+/* Adds the message id to the account's seen list. The profile's other fields go along, because the rules
+   require them when the profile doesn't exist yet. A failure is ignored: the message shows again next time. */
+async function markSeen(id) {
+  const user = fbUser; if (!user || !fb) return;
+  const { F, fs } = fb, now = Date.now();
+  try {
+    await F.setDoc(F.doc(fs, 'users', user.uid, 'profile', 'main'),
+      { email: user.email || '', createdAt: Date.parse(user.metadata.creationTime) || now, lastSeen: now, seen: F.arrayUnion(id) }, { merge: true });
+  } catch (e) { console.warn('doelenboek: message not marked as seen', e && e.code); }
+}
+if (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('messages')) {
+  const now = Date.now();
+  const pic = (label, hue) => 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="150"><rect width="240" height="150" fill="hsl(${hue} 45% 55%)"/><text x="120" y="82" font-family="sans-serif" font-size="20" fill="#fff" text-anchor="middle">${label}</text></svg>`);
+  const demo = [
+    Messages.clean('demo1', { langs: ['nl', 'en'], startAt: now - 3600000, endAt: now + 86400000, body: {
+      nl: '# Vrolijk kerstfeest!\nFijne feestdagen, en **bedankt** dat jullie *Doelenboek* gebruiken.\n\n## Nieuw\n- Berichten van de beheerder\n- Afbeeldingen\n\nMeer op [doelenboek.be](https://doelenboek.be).\n\n![Klik om te vergroten](img:a1 click)\n![Vergroot bij aanwijzen](img:a2 hover)\n![Vast](img:a3 none)',
+      en: '# Merry Christmas!\nHappy holidays, and **thank you** for using *Doelenboek*.\n\n## New\n1. Messages from the admin\n2. Images\n\nMore at [doelenboek.be](https://doelenboek.be).\n\n![Click to enlarge](img:a1 click)\n![Enlarges on hover](img:a2 hover)\n![Fixed](img:a3 none)' } }),
+    Messages.clean('demo2', { langs: ['nl'], startAt: now - 1800000, endAt: now + 86400000, body: { nl: 'Alleen in het Nederlands: een tweede bericht, zonder titel en zonder taalknop.' } }),
+  ];
+  const images = new Map([['demo1/a1', pic('click', 20)], ['demo1/a2', pic('hover', 140)], ['demo1/a3', pic('none', 220)]]);
+  setTimeout(() => showMessages(demo, images, id => console.log('doelenboek: demo message seen', id)), (parseFloat(new URLSearchParams(location.search).get('messages')) || 0) * 1000);
+}
 
 /* Goal picker: its own window on top of the activity form. Works on a copy of the
    selection, so Cancel (or Esc) leaves the activity untouched. */
@@ -11895,10 +12197,12 @@ function enterAccount(user) {
   resetData(); closeDialog(); render(); subscribeAll();
   readLocalSummary();
   writeProfile(user);
+  loadMessages(user);
 }
 function leaveAccount() {
   for (const u of unsubs) u();
   unsubs = []; fbUser = null; db = null;
+  msgQueue = null; if (msgDlg.open) msgDlg.close();
   $('#admin-link').hidden = true;
   resetData(); closeDialog();
   mode = 'auth'; render();
@@ -11913,7 +12217,7 @@ async function writeProfile(user) {
     const s = await F.getDoc(ref);
     const p = s.exists() ? s.data() : null;
     if (p && p.email === user.email && typeof p.lastSeen === 'number' && new Date(p.lastSeen).toDateString() === new Date(now).toDateString()) return;
-    await F.setDoc(ref, { email: user.email || '', createdAt: Date.parse(user.metadata.creationTime) || now, lastSeen: now });
+    await F.setDoc(ref, { email: user.email || '', createdAt: Date.parse(user.metadata.creationTime) || now, lastSeen: now }, { merge: true });   // merge: keeps 'seen'
   } catch (e) { console.warn('doelenboek: profile not saved', e && e.code); }
 }
 

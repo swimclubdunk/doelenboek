@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23725C4E'/%3E%3Cpath d='M18 16h14a16 16 0 0 1 0 32H18z' fill='none' stroke='%23F4F0E4' stroke-width='6'/%3E%3Ccircle cx='31' cy='32' r='4' fill='%23C8BAAD'/%3E%3C/svg%3E">
 <title>doelenboek.be admin</title>
-<!-- The owner's dashboard. tools/build.py builds this into admin/index.html; the stylesheets and admin-stats.js are inlined.
+<!-- The owner's dashboard. tools/build.py builds this into admin/index.html; the stylesheets, admin-stats.js, messages.js and images.js are inlined.
      Only the account in firestore.rules (isAdmin) can read other accounts' data; this page only ever shows counts. -->
 <style>
 /* Design tokens: the colours, fonts and shapes the whole app is built from.
@@ -419,6 +419,36 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 .thanks-cup .heart { fill: var(--s-ak); }
 .thanks-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 6px; }
 .thanks-actions a.btn { text-decoration: none; }
+
+/* admin messages: the popup in the app; .msg-body is also the preview on /admin/ */
+dialog.msg { width: min(560px, calc(100vw - 24px)); }
+.msg-head { display: flex; align-items: center; gap: 10px; padding: 14px 12px 4px 20px; }
+.msg-head h2 { flex: 1; min-width: 0; margin: 0; font-family: var(--f-display); font-size: 1.2rem; overflow-wrap: anywhere; }
+.msg-head h2:empty { visibility: hidden; }
+.msg-lang { display: inline-flex; flex: none; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.msg-lang button { border: 0; background: transparent; padding: 4px 10px; font-size: .78rem; font-weight: 700; color: var(--muted); cursor: pointer; letter-spacing: .04em; }
+.msg-lang button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
+.msg-x { flex: none; font-size: 1rem; }
+.msg-body { padding: 6px 20px 18px; line-height: 1.55; overflow-wrap: anywhere; }
+.msg-body > :first-child { margin-top: 0; }
+.msg-body > :last-child { margin-bottom: 0; }
+.msg-body p, .msg-body ul, .msg-body ol { margin: 0 0 .7em; }
+.msg-body ul, .msg-body ol { padding-left: 1.4em; }
+.msg-body h3 { font-family: var(--f-display); font-size: 1.1rem; margin: .9em 0 .4em; }
+.msg-body h4 { font-size: .98rem; margin: .8em 0 .3em; }
+.msg-body a { color: var(--accent); }
+.msg-fig { margin: .6em 0; }
+.msg-img { display: block; max-width: 100%; height: auto; border-radius: var(--r-sm); }
+.msg-img[data-zoom="click"] { cursor: zoom-in; }
+.msg-img[data-zoom="hover"] { cursor: zoom-in; }
+@media (hover: hover) { .msg-img[data-zoom="hover"] { cursor: default; } }
+.msg-foot { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 10px 20px 16px; border-top: 1px solid var(--line); }
+.msg-count { color: var(--muted); font: .82rem var(--f-mono); }
+.msg-hover { position: fixed; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 5; }
+.msg-hover img { max-width: 92vw; max-height: 88vh; border-radius: var(--r-sm); box-shadow: 0 20px 60px rgb(0 0 0 / .45); background: var(--surface); }
+dialog.msgzoom { width: fit-content; height: fit-content; overflow: hidden; max-width: 92vw; max-height: 88vh; padding: 0; background: transparent; border: 0; box-shadow: none; cursor: zoom-out; }
+dialog.msgzoom::backdrop { background: rgb(20 15 11 / .8); }
+dialog.msgzoom img { display: block; max-width: 92vw; max-height: 88vh; border-radius: var(--r-sm); }
 .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: var(--r-sm); font-size: .9rem; transition: opacity .2s, transform .2s; max-width: calc(100vw - 32px); z-index: 50; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast.bad { background: var(--danger); color: var(--surface); }
@@ -545,6 +575,37 @@ table.t tr.open > td, table.t tr.detail > td { background: var(--surface-2); }
 td.nw { white-space: nowrap; }
 .bars.funnel li { grid-template-columns: minmax(0, 11rem) 1fr 3.4rem 2.4rem; }
 .acc-tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+/* Berichten: the composer; the preview reuses the app popup's .msg-head and .msg-body (design/app.css) */
+.msg-compose { display: grid; gap: 12px; }
+.msg-compose h3 { margin: 0; }
+.msg-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.msg-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 14px; }
+.msg-col { display: grid; gap: 6px; min-width: 0; align-content: start; }
+.msg-tools { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.msg-col-h { font: 700 .8rem var(--f-mono); margin-right: 6px; }
+.msg-tools .tool { min-width: 34px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: var(--r-sm); padding: 4px 8px; cursor: pointer; font-weight: 700; }
+.msg-tools .tool:hover { border-color: var(--muted); }
+.msg-tools .tool[data-v="italic"] { font-style: italic; font-family: serif; }
+textarea.msg-text { width: 100%; min-height: 200px; resize: vertical; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg); border-radius: var(--r-sm); padding: 10px 12px; font: .86rem/1.5 var(--f-mono); }
+.msg-preview { border: 1px dashed var(--line); border-radius: var(--r); background: var(--surface); min-height: 80px; }
+.msg-preview .msg-head { padding-right: 20px; }
+.msg-pick { display: grid; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface-2); }
+.msg-pick img { max-width: 160px; max-height: 110px; border-radius: var(--r-sm); }
+.msg-check { display: flex; gap: 8px; align-items: center; font-size: .9rem; }
+.msg-days { flex: 0 0 5.5rem; }
+.msg-dt { flex: 0 1 15rem; }
+.msg-acts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.msg-probs { margin: 6px 0 0; font-size: .84rem; }
+.msg-confirm { display: grid; gap: 4px; padding: 12px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface-2); }
+.msg-confirm p { margin: 0; }
+.msg-confirm .msg-acts { margin-top: 6px; }
+.msg-item { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--line); }
+.msg-item:first-of-type { border-top: 0; }
+.msg-item.ended .msg-item-main { opacity: .7; }
+.msg-item-main { display: grid; gap: 2px; min-width: 0; flex: 1 1 260px; }
+.msg-item-main b { overflow-wrap: anywhere; }
+.msg-item-main .muted { font-size: .82rem; }
+.msg-sure { font-size: .84rem; }
 /* both-language labels (.bi): text lines up at the start, number columns at the end, buttons and capsules centred */
 main .bi { justify-items: start; }
 main .r .bi { justify-items: end; }
@@ -788,6 +849,182 @@ function relDays(ts, now, lang = 'nl') {
 return { DAY, pct, buildDataset, weekStart, monthStart, periodStarts, isActive, isInactive, activeWeekly, overview, growth, usage, content, accountRows, accountDetail, relDays };
 })();
 if (typeof module !== 'undefined') module.exports = AdminStats;
+</script>
+<script>
+/* Doelenboek admin messages: the formatting codes and the rules for which message a user sees.
+   Pure functions only (no DOM, no Firebase), so tests/messages.test.mjs runs them in Node.
+   tools/build.py inlines this file into both the app (index.html) and the admin page (admin/index.html),
+   so the admin's preview and the user's popup render a message with the same code. */
+const Messages = (() => {
+'use strict';
+const ZOOMS = ['click', 'hover', 'none'];
+const IMG_LINE = /^!\[([^\]]*)\]\(img:([A-Za-z0-9]{1,20})\s+([a-z]+)\)\s*$/;
+const IMG_ANY = /!\[[^\]]*\]\(img:([A-Za-z0-9]{1,20})\s+[a-z]+\)/g;
+const LINK = /\[([^\]]+)\]\(([^)\s]+)\)/g;
+const SAFE_URL = /^(https?:\/\/|mailto:)/i;
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+/* bold and italic, on text that is already escaped (escaping leaves * alone) */
+const emph = s => s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+/* one line of text: links with a safe scheme become <a>, everything else is escaped, then bold/italic */
+function inline(raw) {
+  let out = '', last = 0;
+  for (const m of raw.matchAll(LINK)) {
+    out += emph(esc(raw.slice(last, m.index)));
+    out += SAFE_URL.test(m[2]) ? `<a href="${esc(m[2])}" target="_blank" rel="noopener noreferrer">${emph(esc(m[1]))}</a>` : emph(esc(m[0]));
+    last = m.index + m[0].length;
+  }
+  return out + emph(esc(raw.slice(last)));
+}
+/* plain text of one line: block markers, links, images and bold/italic codes removed */
+const plain = line => line.trim()
+  .replace(/^(#{1,2}\s+|-\s+|\d+\.\s+)/, '')
+  .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
+  .replace(LINK, '$1')
+  .replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1')
+  .trim();
+const linesOf = text => String(text || '').replace(/\r\n?/g, '\n').split('\n');
+
+/* Message text in formatting codes -> { title, html }. A '# ' heading on the first non-empty line is the
+   title (plain, escaped) and is left out of html. imageIds: the ids of the images this message holds. */
+function render(text, imageIds) {
+  const lines = linesOf(text);
+  let title = '';
+  const first = lines.findIndex(l => l.trim() !== '');
+  if (first >= 0 && /^#\s+\S/.test(lines[first])) { title = esc(plain(lines[first])); lines.splice(first, 1); }
+  const out = [];
+  let para = [], list = null;   // list: { tag, items }
+  const flush = () => {
+    if (para.length) { out.push(`<p>${para.join('<br>')}</p>`); para = []; }
+    if (list) { out.push(`<${list.tag}>${list.items.map(i => `<li>${i}</li>`).join('')}</${list.tag}>`); list = null; }
+  };
+  const item = (tag, html) => {
+    if (para.length || (list && list.tag !== tag)) flush();
+    if (!list) list = { tag, items: [] };
+    list.items.push(html);
+  };
+  for (const line of lines) {
+    let m;
+    if (line.trim() === '') { flush(); continue; }
+    if ((m = IMG_LINE.exec(line.trim()))) {
+      flush();
+      const [, alt, id, zoom] = m;
+      if (imageIds && imageIds.has(id) && ZOOMS.includes(zoom))
+        out.push(`<figure class="msg-fig"><img class="msg-img" data-img="${id}" data-zoom="${zoom}" alt="${esc(alt)}"></figure>`);
+      continue;
+    }
+    if ((m = /^##\s+(.*)$/.exec(line))) { flush(); out.push(`<h4>${inline(m[1].trim())}</h4>`); continue; }
+    if ((m = /^#\s+(.*)$/.exec(line))) { flush(); out.push(`<h3>${inline(m[1].trim())}</h3>`); continue; }
+    if ((m = /^-\s+(.*)$/.exec(line))) { item('ul', inline(m[1].trim())); continue; }
+    if ((m = /^\d+\.\s+(.*)$/.exec(line))) { item('ol', inline(m[1].trim())); continue; }
+    if (list) flush();
+    para.push(inline(line.trim()));
+  }
+  flush();
+  return { title, html: out.join('') };
+}
+
+/* The image ids a text refers to, in order of first appearance. */
+const imageRefs = text => [...new Set([...String(text || '').matchAll(IMG_ANY)].map(m => m[1]))];
+
+/* The first non-empty line as plain text, at most 80 characters: the message's name in the admin list. */
+function firstLine(text) {
+  const line = linesOf(text).find(l => plain(l) !== '');
+  return line ? plain(line).slice(0, 80) : '';
+}
+
+/* ---------- message records and the rules for who sees what ---------- */
+const LANG_SETS = ['nl', 'en', 'nl,en'];
+const finite = v => typeof v === 'number' && Number.isFinite(v);
+
+/* A Firestore message record -> Msg, or null when it can't be shown safely. */
+function clean(id, d) {
+  if (!d || typeof d !== 'object' || !Array.isArray(d.langs) || !LANG_SETS.includes(d.langs.join(','))) return null;
+  const body = {};
+  for (const l of d.langs) {
+    const t = d.body && d.body[l];
+    if (typeof t !== 'string' || t.trim() === '') return null;
+    body[l] = t;
+  }
+  if (!finite(d.startAt) || !finite(d.endAt) || d.endAt <= d.startAt) return null;
+  const replaced = typeof d.replacedBy === 'string' && finite(d.replacedAt);
+  return { id, langs: [...d.langs], body, startAt: d.startAt, endAt: d.endAt, replace: d.replace === true, newAccounts: d.newAccounts === true,
+    replacedBy: replaced ? d.replacedBy : null, replacedAt: replaced ? d.replacedAt : null, createdAt: finite(d.createdAt) ? d.createdAt : 0 };
+}
+
+/* The same local clock time, `days` calendar days later (so a DST change doesn't shift it by an hour). */
+function endFrom(startAt, days) { const d = new Date(startAt); d.setDate(d.getDate() + days); return d.getTime(); }
+
+const effectiveEnd = m => m.replacedAt == null ? m.endAt : Math.min(m.endAt, m.replacedAt);
+const status = (m, now) => now < m.startAt ? 'scheduled' : now < effectiveEnd(m) ? 'live' : 'ended';
+
+/* The messages one user still has to see, oldest start first. who: { seen: [ids], createdAt: ms, now: ms } */
+function pending(msgs, who) {
+  const seen = new Set(Array.isArray(who.seen) ? who.seen : []);
+  return msgs.filter(m => status(m, who.now) === 'live' && !seen.has(m.id) && (m.newAccounts || who.createdAt <= m.startAt))
+    .sort((a, b) => a.startAt - b.startAt || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+}
+
+/* Per message: { replacedBy, replacedAt } or null. A message R with replace ends every message that starts
+   before R and is still running at R's start; the earliest such R wins. A replacement that already took
+   effect (replacedAt <= now) stays as it is, also when R has since been withdrawn. */
+function replacements(msgs, now) {
+  const out = new Map();
+  const rs = msgs.filter(r => r.replace).sort((a, b) => a.startAt - b.startAt);
+  for (const m of msgs) {
+    if (m.replacedAt != null && m.replacedAt <= now) { out.set(m.id, { replacedBy: m.replacedBy, replacedAt: m.replacedAt }); continue; }
+    const r = rs.find(r => r.id !== m.id && r.startAt > m.startAt && r.startAt < m.endAt);
+    out.set(m.id, r ? { replacedBy: r.id, replacedAt: r.startAt } : null);
+  }
+  return out;
+}
+
+/* message id -> number of profiles whose seen list holds it */
+function seenCounts(profiles) {
+  const c = new Map();
+  for (const p of profiles) {
+    const seen = p && p.data && Array.isArray(p.data.seen) ? p.data.seen : [];
+    for (const id of new Set(seen.filter(x => typeof x === 'string'))) c.set(id, (c.get(id) || 0) + 1);
+  }
+  return c;
+}
+
+return { ZOOMS, render, imageRefs, firstLine, clean, endFrom, effectiveEnd, status, pending, replacements, seenCounts };
+})();
+if (typeof module !== 'undefined') module.exports = Messages;
+</script>
+<script>
+/* Doelenboek: image compression shared by the app (activity photos) and the admin page (message images).
+   Decode, downscale and JPEG-encode in the browser; steps down until the base64 data fits maxB64.
+   tools/build.py inlines this file into both pages. */
+const Images = (() => {
+'use strict';
+async function process(file, maxB64) {
+  let src, cleanup = () => {};
+  try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); cleanup = () => src.close && src.close(); }
+  catch (e) {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.src = url;
+    try { await img.decode(); } catch (er) { URL.revokeObjectURL(url); throw er; }
+    src = img; cleanup = () => URL.revokeObjectURL(url);
+  }
+  try {
+    const W = src.naturalWidth || src.width, H = src.naturalHeight || src.height;
+    if (!W || !H) throw new Error('empty image');
+    const steps = [[1600, .82], [1280, .78], [1024, .74], [800, .7], [640, .65]];
+    for (let i = 0; i < steps.length; i++) {
+      const [max, q] = steps[i], s = Math.min(1, max / Math.max(W, H));
+      const w = Math.max(1, Math.round(W * s)), h = Math.max(1, Math.round(H * s));
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); g.drawImage(src, 0, 0, w, h);
+      const url = c.toDataURL('image/jpeg', q), data = url.slice(url.indexOf(',') + 1);
+      if (data.length <= maxB64 || i === steps.length - 1) return { mime: 'image/jpeg', w, h, data };
+    }
+  } finally { cleanup(); }
+}
+return { process };
+})();
+if (typeof module !== 'undefined') module.exports = Images;
 </script>
 <script>
 (() => {
@@ -10801,7 +11038,7 @@ const SUBJ = Object.fromEntries(SUBJECTS.map(s => [s.key, s]));
 const TIER = Object.fromEntries(TIERS.map(x => [x.key, x]));
 const TIER_KEYS = TIERS.map(x => x.key);
 const GOAL = new Map(BUILTIN_GOALS.map(g => [g.id, g]));
-const TABS = ['overzicht', 'groei', 'gebruik', 'inhoud', 'accounts'];   // also the #hash of each tab
+const TABS = ['overzicht', 'groei', 'gebruik', 'inhoud', 'accounts', 'berichten'];   // also the #hash of each tab
 
 /* ---------- language: Dutch or English, the same choice and buttons as the app (both read doelenboek.lang) ---------- */
 const LANG_KEY = 'doelenboek.lang';
@@ -10840,6 +11077,24 @@ const T = {
     retry: 'Opnieuw', load_failed: x => `Laden mislukt (${x}).`, unknown_error: 'onbekende fout',
     rules_hint: ' Zijn de regels uit firestore.rules gepubliceerd in de Firebase-console?',
     sdk_fail: 'De Firebase-bibliotheek kon niet laden. Controleer je verbinding.',
+    berichten: 'Berichten', new_message: 'Nieuw bericht', edit_message: 'Bericht bewerken', language: 'Taal',
+    m_both: 'NL + EN', m_nl: 'Alleen NL', m_en: 'Alleen EN',
+    f_bold: 'Vet', f_italic: 'Cursief', f_heading: 'Kop (# of ##)', f_bullet: 'Opsomming', f_number: 'Genummerde lijst', f_link: 'Link', f_image: 'Afbeelding',
+    preview: 'Voorbeeld', preview_empty: 'Het voorbeeld verschijnt hier.',
+    alt: 'Omschrijving', zoom: 'Vergroten', zoom_click: 'Vergroten bij klikken', zoom_hover: 'Vergroten bij aanwijzen', zoom_none: 'Nooit vergroten',
+    insert: 'Invoegen', cancel: 'Annuleren',
+    start: 'Start', start_now: 'Nu', start_scheduled: 'Gepland', lifetime: 'Looptijd', days: 'dagen', until: 'zichtbaar tot',
+    replace_label: 'Vervangt oudere berichten die nog niet gezien zijn', new_accounts_label: 'Ook tonen aan nieuwe accounts',
+    send: 'Versturen', save_changes: 'Opslaan', cancel_edit: 'Bewerken annuleren', confirm: 'Bevestigen', back: 'Terug',
+    send_q: 'Dit bericht versturen?', save_q: 'De wijzigingen opslaan?', sum_start: 'Start:', sum_end: 'Einde:', sum_now: 'meteen', yes: 'ja', no: 'nee',
+    p_empty: 'Vul de tekst in voor elke gekozen taal.', p_days: 'De looptijd is 1 tot 365 dagen.', p_start: 'Een geplande start ligt minstens 1 minuut in de toekomst.',
+    too_many_images: 'Maximaal 20 afbeeldingen per bericht.', image_failed: 'Deze afbeelding kon niet gelezen worden.',
+    sent_messages: 'Verstuurde en geplande berichten', no_messages: 'Nog geen berichten.',
+    st_scheduled: (a, b) => `gepland van ${a} tot ${b}`, st_live: x => `loopt tot ${x}`, st_ended: x => `afgelopen op ${x}`, st_replaced: (x, y) => `vervangen op ${x} door "${y}"`,
+    seen_by: x => `gezien door ${x}`, edit: 'Bewerken', delete: 'Verwijderen', withdraw: 'Intrekken',
+    withdraw_q: 'Intrekken? Wie het nog niet zag, krijgt het niet meer.', delete_q: 'Definitief verwijderen?',
+    already_started: 'Dit bericht is intussen gestart en kan niet meer bewerkt worden.', saving: 'Bezig…',
+    save_failed: x => `Opslaan mislukt (${x}).`, msgs_failed: x => `Berichten laden mislukt (${x}).`,
   },
   en: {
     overzicht: 'Overview', groei: 'Growth', gebruik: 'Usage', inhoud: 'Content', accounts: 'Accounts',
@@ -10873,6 +11128,24 @@ const T = {
     retry: 'Try again', load_failed: x => `Loading failed (${x}).`, unknown_error: 'unknown error',
     rules_hint: ' Have the rules from firestore.rules been published in the Firebase console?',
     sdk_fail: 'The Firebase library could not load. Check your connection.',
+    berichten: 'Messages', new_message: 'New message', edit_message: 'Edit message', language: 'Language',
+    m_both: 'NL + EN', m_nl: 'NL only', m_en: 'EN only',
+    f_bold: 'Bold', f_italic: 'Italic', f_heading: 'Heading (# or ##)', f_bullet: 'Bulleted list', f_number: 'Numbered list', f_link: 'Link', f_image: 'Image',
+    preview: 'Preview', preview_empty: 'The preview appears here.',
+    alt: 'Description', zoom: 'Enlarge', zoom_click: 'Enlarge on click', zoom_hover: 'Enlarge on hover', zoom_none: 'Never enlarge',
+    insert: 'Insert', cancel: 'Cancel',
+    start: 'Start', start_now: 'Now', start_scheduled: 'Scheduled', lifetime: 'Lifetime', days: 'days', until: 'visible until',
+    replace_label: "Replace older messages that haven't been seen", new_accounts_label: 'Also show to new accounts',
+    send: 'Send', save_changes: 'Save', cancel_edit: 'Cancel editing', confirm: 'Confirm', back: 'Back',
+    send_q: 'Send this message?', save_q: 'Save the changes?', sum_start: 'Start:', sum_end: 'End:', sum_now: 'immediately', yes: 'yes', no: 'no',
+    p_empty: 'Fill in the text for every chosen language.', p_days: 'The lifetime is 1 to 365 days.', p_start: 'A scheduled start is at least 1 minute in the future.',
+    too_many_images: 'At most 20 images per message.', image_failed: 'This image could not be read.',
+    sent_messages: 'Sent and scheduled messages', no_messages: 'No messages yet.',
+    st_scheduled: (a, b) => `scheduled from ${a} until ${b}`, st_live: x => `live until ${x}`, st_ended: x => `ended ${x}`, st_replaced: (x, y) => `replaced on ${x} by "${y}"`,
+    seen_by: x => `seen by ${x}`, edit: 'Edit', delete: 'Delete', withdraw: 'Withdraw',
+    withdraw_q: "Withdraw? Whoever hasn't seen it won't get it anymore.", delete_q: 'Delete for good?',
+    already_started: 'This message has started and can no longer be edited.', saving: 'Working…',
+    save_failed: x => `Saving failed (${x}).`, msgs_failed: x => `Loading the messages failed (${x}).`,
   },
 };
 const tIn = (l, k, ...a) => { const v = T[l][k]; return typeof v === 'function' ? v(...a) : v; };
@@ -11094,6 +11367,337 @@ const ACTIONS = {
   row: el => { state.open = state.open === el.dataset.v ? null : el.dataset.v; updateTable(); },
 };
 
+/* ---------- Berichten: messages to users (rules and formatting codes in messages.js) ----------
+   The draft lives in state.draft, so a full render() (language, tab, Vernieuwen) never loses it.
+   Typing only redraws that column's preview and the action line, so the text box keeps its focus. */
+const M = Messages;
+const MAX_IMAGES = 20;          // keeps one save under Firestore's 10 MiB request limit
+const MAX_B64 = 240000;         // the same limit as PHOTO_MAX_B64 for photos in the app
+const DT_BOTH = { nl: new Intl.DateTimeFormat('nl-BE', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+  en: new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) };
+const fmtDT = ts => both(DT_BOTH.nl.format(ts), DT_BOTH.en.format(ts));
+const newDraft = () => ({ editing: null, createdAt: null, mode: 'both', body: { nl: '', en: '' }, images: new Map(), start: 'now', startLocal: '',
+  days: 30, replace: false, newAccounts: false, confirming: false, pick: null, note: '' });
+state.draft = newDraft();
+state.messages = [];
+state.seen = new Map();
+const draftLangs = d => d.mode === 'both' ? ['nl', 'en'] : [d.mode];
+const draftRefs = d => new Set(draftLangs(d).flatMap(l => M.imageRefs(d.body[l])));
+const draftDirty = d => !!(d.body.nl.trim() || d.body.en.trim() || d.images.size);
+/* a datetime-local value is local time; '' or nonsense gives NaN */
+const draftStart = (d, now) => d.start === 'now' ? now : new Date(d.startLocal).getTime();
+function draftProblems(d, now) {
+  const p = [];
+  if (draftLangs(d).some(l => !d.body[l].trim())) p.push('p_empty');
+  if (!Number.isInteger(d.days) || d.days < 1 || d.days > 365) p.push('p_days');
+  if (d.start === 'scheduled') { const s = draftStart(d, now); if (!Number.isFinite(s) || s < now + 60000) p.push('p_start'); }
+  return p;
+}
+function draftToRecord(d, now) {
+  const langs = draftLangs(d), startAt = draftStart(d, now);
+  return { langs, body: Object.fromEntries(langs.map(l => [l, d.body[l]])), startAt, endAt: M.endFrom(startAt, d.days), replace: d.replace, newAccounts: d.newAccounts };
+}
+/* tomorrow 08:00, as a datetime-local value */
+function defaultStartLocal() {
+  const d = new Date(); d.setDate(d.getDate() + 1); d.setHours(8, 0, 0, 0);
+  const p = x => String(x).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+function previewHtml(l) {
+  const d = state.draft, ids = new Set([...d.images.keys()]);
+  const r = M.render(d.body[l], ids);
+  const html = r.html.replace(/data-img="([A-Za-z0-9]+)"/g, (m, id) => `${m} src="data:image/jpeg;base64,${d.images.get(id).data}"`);
+  return `<div class="msg-head"><h2 lang="${l}">${r.title}</h2></div><div class="msg-body" lang="${l}">${html || `<p class="muted">${bt('preview_empty')}</p>`}</div>`;
+}
+const TOOLS = [['bold', 'B'], ['italic', 'I'], ['heading', 'H'], ['bullet', '•'], ['number', '1.'], ['link', '🔗'], ['image', '🖼']];
+function pickHtml(l) {
+  const p = state.draft.pick;
+  if (!p || p.lang !== l) return '';
+  return `<div class="msg-pick">
+    <img src="data:image/jpeg;base64,${p.rec.data}" alt="">
+    <label class="field"><span>${bt('alt')}</span><input id="pick-alt" type="text" maxlength="120" value="${esc(p.alt)}"></label>
+    <label class="field"><span>${bt('zoom')}</span><select id="pick-zoom">${M.ZOOMS.map(z => `<option value="${z}" ${z === p.zoom ? 'selected' : ''}>${esc(t('zoom_' + z))}</option>`).join('')}</select></label>
+    <div class="msg-acts"><button type="button" class="btn small primary" data-action="pick-insert">${bt('insert')}</button>
+      <button type="button" class="btn small ghost" data-action="pick-cancel">${bt('cancel')}</button></div></div>`;
+}
+const colHtml = l => `<div class="msg-col">
+    <div class="msg-tools" role="toolbar" aria-label="${l.toUpperCase()}"><b class="msg-col-h">${l.toUpperCase()}</b>${TOOLS.map(([k, s]) =>
+      `<button type="button" class="tool" data-action="fmt" data-v="${k}" data-l="${l}" title="${esc(t('f_' + k))}" aria-label="${esc(t('f_' + k))}">${s}</button>`).join('')}</div>
+    <textarea class="msg-text" data-draft-lang="${l}" lang="${l}" rows="10" spellcheck="true">${esc(state.draft.body[l])}</textarea>
+    ${pickHtml(l)}
+    <div class="msg-preview" id="prev-${l}" aria-label="${esc(t('preview'))}">${previewHtml(l)}</div>
+  </div>`;
+function endHtml() {
+  const d = state.draft, now = Date.now(), s = draftStart(d, now);
+  return Number.isFinite(s) && Number.isInteger(d.days) && d.days >= 1 && d.days <= 365 ? bt('until') + ' ' + fmtDT(M.endFrom(s, d.days)) : '—';
+}
+function actionsHtml() {
+  const d = state.draft, now = Date.now();
+  if (d.confirming) {
+    const r = draftToRecord(d, now), yn = v => bt(v ? 'yes' : 'no');
+    return `<div class="msg-confirm"><p><b>${bt(d.editing ? 'save_q' : 'send_q')}</b></p>
+      <p>${bt('sum_start')} ${d.start === 'now' ? bt('sum_now') : fmtDT(r.startAt)} · ${bt('sum_end')} ${fmtDT(r.endAt)}</p>
+      <p>${bt('replace_label')}: ${yn(r.replace)} · ${bt('new_accounts_label')}: ${yn(r.newAccounts)}</p>
+      <div class="msg-acts"><button type="button" class="btn primary" data-action="draft-confirm" ${d.busy ? 'disabled' : ''}>${bt(d.busy ? 'saving' : 'confirm')}</button>
+        <button type="button" class="btn ghost" data-action="draft-back">${bt('back')}</button></div></div>`;
+  }
+  const probs = draftProblems(d, now);
+  return `<div class="msg-acts">
+      ${d.editing ? `<button type="button" class="btn ghost" data-action="draft-cancel">${bt('cancel_edit')}</button>` : ''}
+      <button type="button" class="btn primary" data-action="draft-send" ${probs.length ? 'disabled' : ''}>${bt(d.editing ? 'save_changes' : 'send')}</button>
+    </div>
+    ${d.note ? `<p class="form-error" role="alert">${bt(d.note)}</p>` : ''}
+    ${d.err ? `<p class="form-error" role="alert">${errBoth('save_failed', d.err)}</p>` : ''}
+    ${probs.length ? `<p class="muted msg-probs">${probs.map(k => bt(k)).join('<br>')}</p>` : ''}`;
+}
+function composerHtml() {
+  const d = state.draft;
+  const modes = ['both', 'nl', 'en'].map(m => `<button type="button" role="radio" aria-checked="${d.mode === m}" aria-selected="${d.mode === m}" data-action="draft-mode" data-v="${m}">${bt('m_' + m)}</button>`).join('');
+  const starts = ['now', 'scheduled'].map(m => `<button type="button" role="radio" aria-checked="${d.start === m}" aria-selected="${d.start === m}" data-action="draft-start" data-v="${m}">${bt('start_' + m)}</button>`).join('');
+  return `<div class="card panel msg-compose">
+    <h3>${bt(d.editing ? 'edit_message' : 'new_message')}</h3>
+    <div class="msg-row"><span class="field-label">${bt('language')}</span><div class="seg" role="radiogroup" aria-label="${esc(t('language'))}">${modes}</div></div>
+    <div class="msg-cols">${draftLangs(d).map(colHtml).join('')}</div>
+    <input type="file" id="img-file" accept="image/*" hidden>
+    <div class="msg-row"><span class="field-label">${bt('start')}</span><div class="seg" role="radiogroup" aria-label="${esc(t('start'))}">${starts}</div>
+      ${d.start === 'scheduled' ? `<input class="search msg-dt" id="d-start" type="datetime-local" value="${esc(d.startLocal)}" aria-label="${esc(t('start'))}">` : ''}</div>
+    <div class="msg-row"><label class="field-label" for="d-days">${bt('lifetime')}</label>
+      <input class="search msg-days" id="d-days" type="number" min="1" max="365" step="1" value="${Number.isInteger(d.days) ? d.days : ''}"> ${bt('days')}
+      <span class="muted" id="d-end">${endHtml()}</span></div>
+    <label class="msg-check"><input type="checkbox" id="d-replace" ${d.replace ? 'checked' : ''}> ${bt('replace_label')}</label>
+    <label class="msg-check"><input type="checkbox" id="d-new" ${d.newAccounts ? 'checked' : ''}> ${bt('new_accounts_label')}</label>
+    <div id="d-actions">${actionsHtml()}</div>
+  </div>`;
+}
+VIEWS.berichten = () => messagesView();
+function messagesView() {
+  return section(bt('berichten'), composerHtml() + messageListHtml());
+}
+const updateActions = () => { const el = $('d-actions'); if (el) el.innerHTML = actionsHtml(); };
+const updateEnd = () => { const el = $('d-end'); if (el) el.innerHTML = endHtml(); };
+const updatePreview = l => { const el = $('prev-' + l); if (el) el.innerHTML = previewHtml(l); };
+function pruneImages(d) { const refs = draftRefs(d); for (const id of [...d.images.keys()]) if (!refs.has(id)) d.images.delete(id); }
+
+/* toolbar: change the text box's selection, then keep state and preview in step */
+function applyTool(kind, l) {
+  const ta = document.querySelector(`textarea[data-draft-lang="${l}"]`);
+  if (!ta) return;
+  if (kind === 'image') { state.draft.pickLang = l; state.draft.pickAt = ta.selectionStart; $('img-file').click(); return; }
+  const v = ta.value, s = ta.selectionStart, e = ta.selectionEnd, sel = v.slice(s, e);
+  const wrap = (a, b, ph) => { const inner = sel || ph; ta.setRangeText(a + inner + b, s, e, 'end'); ta.setSelectionRange(s + a.length, s + a.length + inner.length); };
+  if (kind === 'bold') wrap('**', '**', t('f_bold').toLowerCase());
+  else if (kind === 'italic') wrap('*', '*', t('f_italic').toLowerCase());
+  else if (kind === 'link') {
+    const text = sel || 'link';
+    ta.setRangeText(`[${text}](https://)`, s, e, 'end');
+    const at = s + text.length + 3; ta.setSelectionRange(at, at + 8);
+  } else {
+    /* line prefixes act on every line the selection touches */
+    const a = v.lastIndexOf('\n', s - 1) + 1, bEnd = v.indexOf('\n', e), b = bEnd < 0 ? v.length : bEnd;
+    const lines = v.slice(a, b).split('\n');
+    const out = lines.map((line, i) => {
+      if (kind === 'heading') return line.startsWith('## ') ? line.slice(3) : line.startsWith('# ') ? '#' + line : '# ' + line;
+      if (kind === 'bullet') return line.startsWith('- ') ? line.slice(2) : '- ' + line;
+      return /^\d+\.\s/.test(line) ? line.replace(/^\d+\.\s/, '') : `${i + 1}. ${line}`;   // number
+    }).join('\n');
+    ta.setRangeText(out, a, b, 'end');
+    ta.setSelectionRange(a, a + out.length);
+  }
+  ta.focus();
+  state.draft.body[l] = ta.value; state.draft.confirming = false;
+  updatePreview(l); updateActions();
+}
+async function pickImage(file) {
+  const d = state.draft, l = d.pickLang;
+  pruneImages(d);
+  if (d.images.size >= MAX_IMAGES) { d.note = 'too_many_images'; updateActions(); return; }
+  try {
+    const rec = await Images.process(file, MAX_B64);
+    d.pick = { lang: l, at: d.pickAt, rec, alt: '', zoom: 'click' }; d.note = '';
+  } catch (e) { d.note = 'image_failed'; }
+  render();
+}
+function insertPicked() {
+  const d = state.draft, p = d.pick; if (!p) return;
+  let id; do { id = Math.random().toString(36).slice(2, 10).padEnd(8, '0'); } while (d.images.has(id));
+  d.images.set(id, { data: p.rec.data, w: p.rec.w, h: p.rec.h });
+  const alt = p.alt.replace(/[\]\n\r]/g, ' ').trim(), v = d.body[p.lang], at = Math.min(p.at ?? v.length, v.length);
+  const before = v.slice(0, at), after = v.slice(at);
+  const code = `![${alt}](img:${id} ${p.zoom})`;
+  d.body[p.lang] = before + (before && !before.endsWith('\n') ? '\n' : '') + code + (after.startsWith('\n') || !after ? '' : '\n') + after;
+  d.pick = null; d.confirming = false;
+  render();
+}
+Object.assign(ACTIONS, {
+  'draft-mode': el => { const d = state.draft; d.mode = el.dataset.v; d.confirming = false; d.pick = null; render(); },
+  'draft-start': el => { const d = state.draft; d.start = el.dataset.v; if (d.start === 'scheduled' && !d.startLocal) d.startLocal = defaultStartLocal(); d.confirming = false; render(); },
+  fmt: el => applyTool(el.dataset.v, el.dataset.l),
+  'pick-insert': () => insertPicked(),
+  'pick-cancel': () => { state.draft.pick = null; render(); },
+  'draft-send': () => { const d = state.draft; if (draftProblems(d, Date.now()).length) return updateActions(); d.confirming = true; d.note = ''; updateActions(); },
+  'draft-back': () => { state.draft.confirming = false; updateActions(); },
+  'draft-confirm': () => saveDraft(),
+  'draft-cancel': () => { state.draft = newDraft(); render(); },
+});
+document.addEventListener('input', e => {
+  const d = state.draft, el = e.target;
+  if (el.dataset && el.dataset.draftLang) { d.body[el.dataset.draftLang] = el.value; d.confirming = false; updatePreview(el.dataset.draftLang); updateActions(); }
+  else if (el.id === 'd-days') { d.days = el.value === '' ? NaN : Number(el.value); d.confirming = false; updateEnd(); updateActions(); }
+  else if (el.id === 'd-start') { d.startLocal = el.value; d.confirming = false; updateEnd(); updateActions(); }
+  else if (el.id === 'pick-alt' && d.pick) d.pick.alt = el.value;
+});
+document.addEventListener('change', e => {
+  const d = state.draft, el = e.target;
+  if (el.id === 'd-replace') { d.replace = el.checked; d.confirming = false; updateActions(); }
+  else if (el.id === 'd-new') { d.newAccounts = el.checked; d.confirming = false; updateActions(); }
+  else if (el.id === 'pick-zoom' && d.pick) d.pick.zoom = el.value;
+  else if (el.id === 'img-file' && el.files && el.files[0]) { const f = el.files[0]; el.value = ''; pickImage(f); }
+});
+window.addEventListener('beforeunload', e => { if (draftDirty(state.draft)) { e.preventDefault(); e.returnValue = ''; } });
+
+/* ---------- Berichten: saving, the list, withdraw and delete ----------
+   Every save and delete recomputes which messages a 'replace' message ends (messages.js replacements())
+   and writes the changes in the same batch. In demo mode (no Firebase) everything stays in memory. */
+state.removing = null;
+state.msgErr = null;
+state.demoImages = new Map();   // demo mode: message id -> Map(image id -> { data, w, h })
+const newMsgId = () => Array.from(crypto.getRandomValues(new Uint8Array(20)), b => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[b % 62]).join('');
+const sameRepl = (m, want) => want ? m.replacedBy === want.replacedBy && m.replacedAt === want.replacedAt : m.replacedBy == null && m.replacedAt == null;
+const withRepl = (m, want) => ({ ...m, replacedBy: want ? want.replacedBy : null, replacedAt: want ? want.replacedAt : null });
+const errBoth = (k, code) => both(tIn('nl', k, code) + (code === 'permission-denied' ? tIn('nl', 'rules_hint') : ''), tIn('en', k, code) + (code === 'permission-denied' ? tIn('en', 'rules_hint') : ''));
+
+async function loadAdminMessages() {
+  if (state.demo || !fb) return;
+  const { F, fs } = fb;
+  try {
+    const s = await F.getDocs(F.collection(fs, 'messages'));
+    state.messages = s.docs.map(d => M.clean(d.id, d.data())).filter(Boolean);
+    state.msgErr = null;
+  } catch (e) { state.msgErr = (e && e.code) || 'unknown'; }
+}
+
+/* the updates that bring every other message's replacedBy/replacedAt in line with `repl` */
+function replUpdates(others, repl, b, F, fs) {
+  for (const m of others) {
+    const want = repl.get(m.id);
+    if (sameRepl(m, want)) continue;
+    b.update(F.doc(fs, 'messages', m.id), want ? { ...want } : { replacedBy: F.deleteField(), replacedAt: F.deleteField() });
+  }
+}
+
+async function saveDraft() {
+  const d = state.draft, now = Date.now();
+  d.err = null; d.note = '';
+  if (draftProblems(d, now).length) { d.confirming = false; return updateActions(); }
+  const editing = d.editing ? state.messages.find(m => m.id === d.editing) : null;
+  if (d.editing && (!editing || editing.startAt <= now)) { d.confirming = false; d.note = 'already_started'; return updateActions(); }
+  pruneImages(d);
+  const id = d.editing || newMsgId();
+  const rec = { ...draftToRecord(d, now), createdAt: editing ? editing.createdAt : now };
+  const others = state.messages.filter(m => m.id !== id);
+  const repl = M.replacements([...others, M.clean(id, rec)], now);
+  const own = repl.get(id);
+  d.busy = true; updateActions();
+  try {
+    if (state.demo) {
+      state.messages = [...others.map(m => withRepl(m, repl.get(m.id))), M.clean(id, { ...rec, ...(own || {}) })];
+      state.demoImages.set(id, new Map(d.images));
+    } else {
+      const { F, fs } = fb, b = F.writeBatch(fs);
+      b.set(F.doc(fs, 'messages', id), { ...rec, ...(own || {}) });
+      for (const [imgId, im] of d.images) b.set(F.doc(fs, 'messages', id, 'images', imgId), { data: im.data, w: im.w, h: im.h, startAt: rec.startAt });
+      for (const imgId of d.loadedImages || []) if (!d.images.has(imgId)) b.delete(F.doc(fs, 'messages', id, 'images', imgId));
+      replUpdates(others, repl, b, F, fs);
+      await b.commit();
+      await loadAdminMessages();
+    }
+    state.draft = newDraft();
+  } catch (e) {
+    d.busy = false; d.confirming = false; d.err = (e && e.code) || 'unknown';
+  }
+  render();
+}
+
+async function removeMessage(id) {
+  const now = Date.now(), others = state.messages.filter(m => m.id !== id);
+  const repl = M.replacements(others, now);
+  state.removing = null;
+  try {
+    if (state.demo) {
+      state.messages = others.map(m => withRepl(m, repl.get(m.id)));
+      state.demoImages.delete(id);
+    } else {
+      const { F, fs } = fb, b = F.writeBatch(fs);
+      const imgs = await F.getDocs(F.collection(fs, 'messages', id, 'images'));
+      for (const im of imgs.docs) b.delete(im.ref);
+      b.delete(F.doc(fs, 'messages', id));
+      replUpdates(others, repl, b, F, fs);
+      await b.commit();
+      await loadAdminMessages();
+    }
+    state.listErr = null;
+  } catch (e) { state.listErr = (e && e.code) || 'unknown'; }
+  render();
+}
+
+async function editMessage(id) {
+  const m = state.messages.find(x => x.id === id);
+  if (!m || m.startAt <= Date.now()) return;
+  let images = new Map();
+  try {
+    if (state.demo) images = new Map(state.demoImages.get(id) || []);
+    else {
+      const { F, fs } = fb, s = await F.getDocs(F.collection(fs, 'messages', id, 'images'));
+      for (const im of s.docs) { const x = im.data(); if (x && typeof x.data === 'string') images.set(im.id, { data: x.data, w: x.w, h: x.h }); }
+    }
+  } catch (e) { state.listErr = (e && e.code) || 'unknown'; render(); return; }
+  const p = v => String(v).padStart(2, '0'), s = new Date(m.startAt);
+  state.draft = { ...newDraft(), editing: id, createdAt: m.createdAt, mode: m.langs.length === 2 ? 'both' : m.langs[0],
+    body: { nl: m.body.nl || '', en: m.body.en || '' }, images, loadedImages: [...images.keys()], start: 'scheduled',
+    startLocal: `${s.getFullYear()}-${p(s.getMonth() + 1)}-${p(s.getDate())}T${p(s.getHours())}:${p(s.getMinutes())}`,
+    days: Math.round((m.endAt - m.startAt) / S.DAY), replace: m.replace, newAccounts: m.newAccounts };
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function statusHtml(m, now) {
+  const st = M.status(m, now), dt = l => DT_BOTH[l].format.bind(DT_BOTH[l]);
+  const per = (k, ...ts) => both(tIn('nl', k, ...ts.map(dt('nl'))), tIn('en', k, ...ts.map(dt('en'))));
+  if (st === 'scheduled') return per('st_scheduled', m.startAt, m.endAt);
+  if (st === 'live') return per('st_live', M.effectiveEnd(m));
+  if (m.replacedAt != null && m.replacedAt <= m.endAt) {
+    const r = state.messages.find(x => x.id === m.replacedBy), name = r ? M.firstLine(r.body.nl ?? r.body.en) : '—';
+    return both(tIn('nl', 'st_replaced', DT_BOTH.nl.format(m.replacedAt), name), tIn('en', 'st_replaced', DT_BOTH.en.format(m.replacedAt), name));
+  }
+  return per('st_ended', m.endAt);
+}
+function messageListHtml() {
+  const now = Date.now(), list = [...state.messages].sort((a, b) => b.startAt - a.startAt);
+  const rows = list.map(m => {
+    const st = M.status(m, now), name = M.firstLine(m.body.nl ?? m.body.en) || '—';
+    const seen = st === 'scheduled' ? '' : ` · ${bt('seen_by', n(state.seen.get(m.id) || 0))}`;
+    const btn = (action, key, cls = 'ghost') => `<button type="button" class="btn small ${cls}" data-action="${action}" data-v="${esc(m.id)}">${bt(key)}</button>`;
+    const acts = state.removing === m.id
+      ? `<span class="msg-sure">${bt(st === 'live' ? 'withdraw_q' : 'delete_q')}</span>${btn('msg-remove-yes', st === 'live' ? 'withdraw' : 'delete', 'danger')}${btn('msg-remove-no', 'cancel')}`
+      : st === 'scheduled' ? btn('msg-edit', 'edit') + btn('msg-remove', 'delete')
+      : btn('msg-remove', st === 'live' ? 'withdraw' : 'delete');
+    return `<div class="msg-item${st === 'ended' ? ' ended' : ''}">
+      <div class="msg-item-main"><b>${esc(name)}</b><span class="muted">${m.langs.map(l => l.toUpperCase()).join(' + ')} · ${statusHtml(m, now)}${seen}</span></div>
+      <div class="msg-acts">${acts}</div></div>`;
+  }).join('');
+  const err = state.msgErr ? `<div class="notice"><p>${errBoth('msgs_failed', state.msgErr)}</p></div>`
+    : state.listErr ? `<div class="notice"><p>${errBoth('save_failed', state.listErr)}</p></div>` : '';
+  return `<div class="card panel"><h3>${bt('sent_messages')}</h3>${err}
+    ${rows || (state.msgErr ? '' : `<p class="muted" style="margin:0">${bt('no_messages')}</p>`)}</div>`;
+}
+Object.assign(ACTIONS, {
+  'msg-edit': el => editMessage(el.dataset.v),
+  'msg-remove': el => { state.removing = el.dataset.v; render(); },
+  'msg-remove-no': () => { state.removing = null; render(); },
+  'msg-remove-yes': el => removeMessage(el.dataset.v),
+});
+
 /* ---------- screens ---------- */
 function loginView() {
   return `<section class="card auth"><div><h1>Admin</h1><p class="lede">${bt('login_lede')}</p></div>
@@ -11141,6 +11745,8 @@ async function load() {
   try {
     const [profiles, children, activities] = await Promise.all(['profile', 'children', 'activities'].map(c => F.getDocs(F.collectionGroup(fs, c)).then(rows)));
     state.accounts = S.buildDataset({ profiles, children, activities }, TIER_KEYS);
+    state.seen = M.seenCounts(profiles);
+    await loadAdminMessages();
     state.loadedAt = Date.now();
     state.view = 'dash';
   } catch (e) {

@@ -14,4 +14,8 @@ python tools/build.py src/doelenboek.html index.html firebase-config.json
 
 The build also writes the public side of the site next to `index.html`: plain HTML pages about Doelenboek and the minimumdoelen per subject (`over/`, `minimumdoelen/`, `en/...`), `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt` and the share image. These are what search engines and AI assistants read, since the app itself needs JavaScript and a login. Their texts are in `tools/public.py`.
 
+Messages to users are written on the admin page, under `/admin/#berichten`. Each signed-in user sees each message once, in a popup, the next time they open the app. The rules for which message shows and the formatting codes are in `src/messages.js`. To preview the popup locally, open `http://localhost:8000/?messages`.
+
+`firestore.rules` doesn't publish itself: after every change, paste it into the Firebase console (Firestore Database → Rules) and publish it, before deploying the pages that need it.
+
 Preview locally with `python tools/serve.py`. The built-in goals are in `doelen/`, and the design files are in `src/design/` (see its [README](src/design/README.md)).
