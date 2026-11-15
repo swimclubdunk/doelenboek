@@ -53,6 +53,10 @@ table.t tr.open > td, table.t tr.detail > td { background: var(--surface-2); }
 td.nw { white-space: nowrap; }
 .bars.funnel li { grid-template-columns: minmax(0, 11rem) 1fr 3.4rem 2.4rem; }
 .acc-tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+/* both-language labels (.bi): text lines up at the start, number columns at the end, buttons and capsules centred */
+main .bi { justify-items: start; }
+main .r .bi { justify-items: end; }
+main .btn .bi, main .seg .bi { justify-items: center; }
 </style>
 <header class="top">
   <div class="top-inner">
@@ -163,9 +167,17 @@ const T = {
     sdk_fail: 'The Firebase library could not load. Check your connection.',
   },
 };
-const t = (k, ...a) => { const v = T[lang][k]; return typeof v === 'function' ? v(...a) : v; };
+const tIn = (l, k, ...a) => { const v = T[l][k]; return typeof v === 'function' ? v(...a) : v; };
+const t = (k, ...a) => tIn(lang, k, ...a);
+/* Label HTML: both languages in one grid cell, the inactive one invisible, so every label, button and
+   capsule always takes the size of the longer text and nothing moves when the language is switched
+   (the same .bi as in the app, from core.css). */
+const both = (nl, en) => nl === en ? esc(nl) : `<span class="bi">${[['nl', nl], ['en', en]].map(([l, x]) =>
+  `<span lang="${l}"${l === lang ? '' : ' class="off" aria-hidden="true"'}>${esc(x)}</span>`).join('')}</span>`;
+const bt = (k, ...a) => both(tIn('nl', k, ...a), tIn('en', k, ...a));
 
 /* ---------- formatting: rebuilt when the language changes ---------- */
+const DATE_BOTH = { nl: new Intl.DateTimeFormat('nl-BE', { day: 'numeric', month: 'short', year: 'numeric' }), en: new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) };
 let nf, dateFmt, timeFmt, axisFmt;
 function setFormats() {
   const loc = lang === 'en' ? 'en-GB' : 'nl-BE';
@@ -177,12 +189,12 @@ function setFormats() {
 setFormats();
 const n = v => nf.format(v);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const fmtDate = ts => ts ? dateFmt.format(ts) : '—';
-const rel = (ts, now) => S.relDays(ts, now, lang);
-const subjName = k => SUBJ[k] ? SUBJ[k].name[lang] : t('unknown');
+const fmtDate = ts => ts ? both(DATE_BOTH.nl.format(ts), DATE_BOTH.en.format(ts)) : '—';
+const rel = (ts, now) => both(S.relDays(ts, now, 'nl'), S.relDays(ts, now, 'en'));
+const subjName = k => SUBJ[k] ? both(SUBJ[k].name.nl, SUBJ[k].name.en) : bt('unknown');
 const subjColor = k => SUBJ[k] ? `var(--s-${k.toLowerCase()})` : 'var(--muted)';
-const tierName = k => TIER[k] ? TIER[k].badge[lang] : k;
-const goalText = g => { const b = GOAL.get(g.id); return lang === 'en' && b && b.descriptionEn ? b.descriptionEn : g.description; };
+const tierName = k => TIER[k] ? both(TIER[k].badge.nl, TIER[k].badge.en) : esc(k);
+const goalText = g => { const b = GOAL.get(g.id); return both(g.description, (b && b.descriptionEn) || g.description); };
 
 /* ---------- bright or dark: the same choice and button as the app (both read doelenboek.theme) ---------- */
 const THEME_KEY = 'doelenboek.theme';
@@ -204,13 +216,14 @@ let fb = null;
 const $ = id => document.getElementById(id);
 const currentTab = () => { const h = location.hash.slice(1); return TABS.includes(h) ? h : 'overzicht'; };
 /* state.err is { key, code }, so it is shown in whichever language is chosen */
-const errText = () => !state.err ? '' : state.err.key === 'load_failed'
-  ? t('load_failed', state.err.code || t('unknown_error')) + (state.err.code === 'permission-denied' ? t('rules_hint') : '')
-  : t(state.err.key);
+const errIn = l => !state.err ? '' : state.err.key === 'load_failed'
+  ? tIn(l, 'load_failed', state.err.code || tIn(l, 'unknown_error')) + (state.err.code === 'permission-denied' ? tIn(l, 'rules_hint') : '')
+  : tIn(l, state.err.key);
+const errHtml = () => state.err ? both(errIn('nl'), errIn('en')) : '';
 
 /* ---------- building blocks ---------- */
-const tile = (value, label, sub = '') => `<div class="card kpi"><div class="k-n">${value}</div><div class="k-l">${esc(label)}</div>${sub ? `<div class="k-s">${esc(sub)}</div>` : ''}</div>`;
-const section = (title, inner, aside = '') => `<section class="adm"><div class="page-head"><div><h1>${esc(title)}</h1></div>${aside}</div>${inner}</section>`;
+const tile = (value, label, sub = '') => `<div class="card kpi"><div class="k-n">${value}</div><div class="k-l">${label}</div>${sub ? `<div class="k-s">${sub}</div>` : ''}</div>`;
+const section = (title, inner, aside = '') => `<section class="adm"><div class="page-head"><div><h1>${title}</h1></div>${aside}</div>${inner}</section>`;
 /* the top of a chart's scale: a clean number at or above max (2, 4, 5, 10, 20, 40, 50, ...) */
 function niceTop(max) {
   if (max <= 2) return 2;
@@ -241,79 +254,79 @@ function lineChart(rows, period) {
     </div>
     <div class="axis">${ticks.map(r => `<span>${esc(f.format(r.start))}</span>`).join('')}</div></div>`;
 }
-/* items: [{ label, value, pct, color }], in the app's .bars style */
+/* items: [{ label (HTML), value, pct, color }], in the app's .bars style */
 const barList = (items, cls = '') => `<ul class="bars ${cls}">${items.map(it =>
-  `<li><span class="b-lbl" title="${esc(it.label)}">${esc(it.label)}</span><span class="bar"><i style="width:${it.pct}%;background:${it.color || 'var(--accent)'}"></i></span><span class="b-num">${n(it.value)}</span><span class="b-num">${it.pct}%</span></li>`).join('')}</ul>`;
+  `<li><span class="b-lbl">${it.label}</span><span class="bar"><i style="width:${it.pct}%;background:${it.color || 'var(--accent)'}"></i></span><span class="b-num">${n(it.value)}</span><span class="b-num">${it.pct}%</span></li>`).join('')}</ul>`;
 const weekRows = weekly => weekly.map(w => ({ start: w.start, value: w.count, title: t('week_tip', dateFmt.format(w.start), w.count) }));
-const who = a => a.email ? esc(a.email) : `<span class="mono">${esc(a.uid.slice(0, 6))}…</span> <span class="pill">${t('email_unknown')}</span>`;
-const footnote = () => `<p class="count-line">${t('footnote')}</p>`;
+const who = a => a.email ? esc(a.email) : `<span class="mono">${esc(a.uid.slice(0, 6))}…</span> <span class="pill">${bt('email_unknown')}</span>`;
+const footnote = () => `<p class="count-line">${bt('footnote')}</p>`;
 
 /* ---------- tabs ---------- */
 function overviewView() {
   const now = Date.now(), o = S.overview(state.accounts, now);
   const recent = o.recent.length
-    ? `<div class="tbl-wrap"><table class="t"><tr><th>${t('account')}</th><th class="r">${t('last_active')}</th></tr>${o.recent.map(r => `<tr><td>${who(r)}</td><td class="r">${esc(rel(r.lastActive, now))}</td></tr>`).join('')}</table></div>`
-    : `<p class="muted">${t('nobody_active')}</p>`;
-  return section(t('overzicht'), `
+    ? `<div class="tbl-wrap"><table class="t"><tr><th>${bt('account')}</th><th class="r">${bt('last_active')}</th></tr>${o.recent.map(r => `<tr><td>${who(r)}</td><td class="r">${rel(r.lastActive, now)}</td></tr>`).join('')}</table></div>`
+    : `<p class="muted">${bt('nobody_active')}</p>`;
+  return section(bt('overzicht'), `
     <div class="kpis">
-      ${tile(n(o.accounts), t('k_accounts'), t('this_month', n(o.accountsThisMonth)))}
-      ${tile(n(o.active30), t('k_active30'), t('pct_of_all', o.active30Pct))}
-      ${tile(n(o.children), t('k_children'), t('this_month', n(o.childrenThisMonth)))}
-      ${tile(n(o.activities), t('k_activities'), t('this_month', n(o.activitiesThisMonth)))}
+      ${tile(n(o.accounts), bt('k_accounts'), bt('this_month', n(o.accountsThisMonth)))}
+      ${tile(n(o.active30), bt('k_active30'), bt('pct_of_all', o.active30Pct))}
+      ${tile(n(o.children), bt('k_children'), bt('this_month', n(o.childrenThisMonth)))}
+      ${tile(n(o.activities), bt('k_activities'), bt('this_month', n(o.activitiesThisMonth)))}
     </div>
     <div class="two">
-      <div class="card panel"><h3>${t('active_per_week')}</h3>${lineChart(weekRows(o.activeWeekly), 'weeks')}</div>
-      <div class="card panel"><h3>${t('recent')}</h3>${recent}</div>
+      <div class="card panel"><h3>${bt('active_per_week')}</h3>${lineChart(weekRows(o.activeWeekly), 'weeks')}</div>
+      <div class="card panel"><h3>${bt('recent')}</h3>${recent}</div>
     </div>${footnote()}`);
 }
 const PERIODS = ['weeks', 'months', 'all'];
 function growthView() {
   const p = state.growthPeriod, g = S.growth(state.accounts, p, Date.now());
   const seg = `<div class="seg" role="tablist" aria-label="${t('period')}">${PERIODS.map(k =>
-    `<button type="button" role="tab" aria-selected="${k === p}" data-action="period" data-v="${k}">${t(k)}</button>`).join('')}</div>`;
-  const label = t(p === 'weeks' ? 'unit_week' : 'unit_month');
+    `<button type="button" role="tab" aria-selected="${k === p}" data-action="period" data-v="${k}">${bt(k)}</button>`).join('')}</div>`;
+  const unit = p === 'weeks' ? 'unit_week' : 'unit_month';
   const rows = key => g.rows.map(r => ({ start: r.start, value: r[key], title: t('new_tip', dateFmt.format(r.start), r[key]) + (key === 'accounts' ? t('total_tip', r.total) : '') }));
-  return section(t('groei'), `
+  return section(bt('groei'), `
     <div class="kpis">
-      ${tile(n(g.totals.accounts), t('k_accounts'))}${tile(n(g.totals.children), t('k_children'))}${tile(n(g.totals.activities), t('k_activities'))}${tile(n(g.totals.photos), t('k_photos'))}
+      ${tile(n(g.totals.accounts), bt('k_accounts'))}${tile(n(g.totals.children), bt('k_children'))}${tile(n(g.totals.activities), bt('k_activities'))}${tile(n(g.totals.photos), bt('k_photos'))}
     </div>
-    <div class="card panel"><h3>${t('new_accounts', label)} <small>${t('total_end', n(g.rows[g.rows.length - 1].total))}</small></h3>${lineChart(rows('accounts'), p)}</div>
+    <div class="card panel"><h3>${both(tIn('nl', 'new_accounts', tIn('nl', unit)), tIn('en', 'new_accounts', tIn('en', unit)))} <small>${bt('total_end', n(g.rows[g.rows.length - 1].total))}</small></h3>${lineChart(rows('accounts'), p)}</div>
     <div class="two">
-      <div class="card panel"><h3>${t('new_children', label)}</h3>${lineChart(rows('children'), p)}</div>
-      <div class="card panel"><h3>${t('new_activities', label)}</h3>${lineChart(rows('activities'), p)}</div>
+      <div class="card panel"><h3>${both(tIn('nl', 'new_children', tIn('nl', unit)), tIn('en', 'new_children', tIn('en', unit)))}</h3>${lineChart(rows('children'), p)}</div>
+      <div class="card panel"><h3>${both(tIn('nl', 'new_activities', tIn('nl', unit)), tIn('en', 'new_activities', tIn('en', unit)))}</h3>${lineChart(rows('activities'), p)}</div>
     </div>`, seg);
 }
 
 function usageView() {
   const u = S.usage(state.accounts, Date.now());
-  return section(t('gebruik'), `
+  return section(bt('gebruik'), `
     <div class="kpis">
-      ${tile(n(u.active7), t('active7'))}${tile(n(u.active30), t('active30'))}${tile(n(u.inactive90), t('inactive90'))}${tile(n(u.neverLogged), t('never_logged'))}
+      ${tile(n(u.active7), bt('active7'))}${tile(n(u.active30), bt('active30'))}${tile(n(u.inactive90), bt('inactive90'))}${tile(n(u.neverLogged), bt('never_logged'))}
     </div>
-    <div class="card panel"><h3>${t('funnel_h')} <small>${t('funnel_of', n(u.funnel[0].count))}</small></h3>
-      ${barList(u.funnel.map(f => ({ label: t('f_' + f.key), value: f.count, pct: f.pct })), 'funnel')}</div>
-    <div class="card panel"><h3>${t('active_per_week')} <small>${t('active_note')}</small></h3>${lineChart(weekRows(u.activeWeekly), 'weeks')}</div>`);
+    <div class="card panel"><h3>${bt('funnel_h')} <small>${bt('funnel_of', n(u.funnel[0].count))}</small></h3>
+      ${barList(u.funnel.map(f => ({ label: bt('f_' + f.key), value: f.count, pct: f.pct })), 'funnel')}</div>
+    <div class="card panel"><h3>${bt('active_per_week')} <small>${bt('active_note')}</small></h3>${lineChart(weekRows(u.activeWeekly), 'weeks')}</div>`);
 }
 
 function contentView() {
   const c = S.content(state.accounts, BUILTIN_GOALS, SUBJECTS.map(s => s.key), TIER_KEYS);
   const subjects = state.subjOpen ? c.bySubject : c.bySubject.slice(0, 5);
   const more = c.bySubject.length > 5
-    ? `<button type="button" class="linkish" data-action="subj-more">${state.subjOpen ? t('less') : t('more', c.bySubject.length - 5)}</button>` : '';
-  const goalTable = (rows, extra) => `<div class="tbl-wrap"><table class="t"><tr><th>${t('code')}</th><th>${t('level')}</th><th>${t('goal')}</th>${extra ? `<th class="r">${t('k_activities')}</th><th class="r">${t('kids_mastered')}</th>` : ''}</tr>${rows.map(g =>
-    `<tr><td class="mono nw">${esc(g.subject)} ${esc(g.code)}</td><td class="nw">${esc(tierName(g.tier))}</td><td>${esc(goalText(g))}</td>${extra ? `<td class="r">${n(g.activities)}</td><td class="r">${n(g.mastered)}</td>` : ''}</tr>`).join('')}</table></div>`;
-  return section(t('inhoud'), `
+    ? `<button type="button" class="linkish" data-action="subj-more">${state.subjOpen ? bt('less') : bt('more', c.bySubject.length - 5)}</button>` : '';
+  const goalTable = (rows, extra) => `<div class="tbl-wrap"><table class="t"><tr><th>${bt('code')}</th><th>${bt('level')}</th><th>${bt('goal')}</th>${extra ? `<th class="r">${bt('k_activities')}</th><th class="r">${bt('kids_mastered')}</th>` : ''}</tr>${rows.map(g =>
+    `<tr><td class="mono nw">${esc(g.subject)} ${esc(g.code)}</td><td class="nw">${tierName(g.tier)}</td><td>${goalText(g)}</td>${extra ? `<td class="r">${n(g.activities)}</td><td class="r">${n(g.mastered)}</td>` : ''}</tr>`).join('')}</table></div>`;
+  return section(bt('inhoud'), `
     <div class="two">
-      <div class="card panel"><h3>${t('by_subject')}</h3>
-        ${c.bySubject.length ? barList(subjects.map(s => ({ label: subjName(s.key), value: s.count, pct: s.pct, color: subjColor(s.key) }))) : `<p class="muted">${t('no_links')}</p>`}${more}</div>
-      <div class="card panel"><h3>${t('by_tier')}</h3>
+      <div class="card panel"><h3>${bt('by_subject')}</h3>
+        ${c.bySubject.length ? barList(subjects.map(s => ({ label: subjName(s.key), value: s.count, pct: s.pct, color: subjColor(s.key) }))) : `<p class="muted">${bt('no_links')}</p>`}${more}</div>
+      <div class="card panel"><h3>${bt('by_tier')}</h3>
         ${barList(c.byTier.map(x => ({ label: tierName(x.key), value: x.count, pct: x.pct })))}
-        <h3 style="margin-top:14px">${t('photos')}</h3>
-        <p style="margin:0;font-size:.86rem">${t('photo_line', n(c.photos.total), c.photos.withPhotoPct, c.photos.avgGoals.toLocaleString(lang === 'en' ? 'en-GB' : 'nl-BE', { maximumFractionDigits: 1 }))}</p></div>
+        <h3 style="margin-top:14px">${bt('photos')}</h3>
+        <p style="margin:0;font-size:.86rem">${bt('photo_line', n(c.photos.total), c.photos.withPhotoPct, c.photos.avgGoals.toLocaleString(lang === 'en' ? 'en-GB' : 'nl-BE', { maximumFractionDigits: 1 }))}</p></div>
     </div>
-    <div class="card panel"><h3>${t('top_goals')}
-      <button type="button" class="linkish" data-action="never">${state.showNever ? t('show_top') : t('show_never', n(c.neverLinked.length))}</button></h3>
-      ${state.showNever ? goalTable(c.neverLinked, false) : c.topGoals.length ? goalTable(c.topGoals, true) : `<p class="muted">${t('no_links')}</p>`}</div>`);
+    <div class="card panel"><h3>${bt('top_goals')}
+      <button type="button" class="linkish" data-action="never">${state.showNever ? bt('show_top') : bt('show_never', n(c.neverLinked.length))}</button></h3>
+      ${state.showNever ? goalTable(c.neverLinked, false) : c.topGoals.length ? goalTable(c.topGoals, true) : `<p class="muted">${bt('no_links')}</p>`}</div>`);
 }
 const COLS = [['email', ''], ['signupAt', ''], ['lastActive', ''], ['children', 'r'], ['activities', 'r'], ['photos', 'r']];
 const FILTERS = ['all', 'active', 'inactive'];
@@ -321,7 +334,7 @@ function accountsTable() {
   const now = Date.now();
   const rows = S.accountRows(state.accounts, { query: state.q, filter: state.filter, sort: state.sort, dir: state.dir }, now);
   const head = COLS.map(([k, cls]) => {
-    const label = t('c_' + k);
+    const label = bt('c_' + k);
     const on = state.sort === k, arrow = ` <span class="sort-i" aria-hidden="true">${on ? (state.dir === 'asc' ? '▴' : '▾') : '↕'}</span>`;
     return `<th class="${cls}" aria-sort="${on ? (state.dir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button type="button" data-action="sort" data-v="${k}">${label}${arrow}</button></th>`;
   }).join('');
@@ -329,25 +342,25 @@ function accountsTable() {
     const open = state.open === r.uid;
     const line = `<tr class="${open ? 'open' : ''}">
       <td><button type="button" class="linkish" data-action="row" data-v="${esc(r.uid)}" aria-expanded="${open}">${who(r)}</button></td>
-      <td>${r.signupApprox ? '~ ' : ''}${fmtDate(r.signupAt)}</td><td>${esc(rel(r.lastActive, now))}</td>
+      <td>${r.signupApprox ? '~ ' : ''}${fmtDate(r.signupAt)}</td><td>${rel(r.lastActive, now)}</td>
       <td class="r">${n(r.children)}</td><td class="r">${n(r.activities)}</td><td class="r">${n(r.photos)}</td></tr>`;
     if (!open) return line;
     const d = S.accountDetail(state.accounts.find(a => a.uid === r.uid));
     const kids = d.kids.length
-      ? `<table class="t" style="width:auto"><tr><th>${t('kid')}</th><th>${t('level')}</th><th class="r">${t('k_activities')}</th><th class="r">${t('goals_mastered')}</th></tr>${d.kids.map((k, i) =>
-        `<tr><td>${t('kid')} ${i + 1}</td><td>${esc(tierName(k.tier))}</td><td class="r">${n(k.activities)}</td><td class="r">${n(k.mastered)}</td></tr>`).join('')}</table>`
-      : `<p class="muted" style="margin:0">${t('no_kids')}</p>`;
-    return line + `<tr class="detail"><td colspan="6">${kids}<p class="mono muted" style="margin:6px 0 0">uid ${esc(d.uid)} · ${t('last_change')} ${d.lastChange ? `${fmtDate(d.lastChange)} ${timeFmt.format(d.lastChange)}` : '—'}</p></td></tr>`;
+      ? `<table class="t" style="width:auto"><tr><th>${bt('kid')}</th><th>${bt('level')}</th><th class="r">${bt('k_activities')}</th><th class="r">${bt('goals_mastered')}</th></tr>${d.kids.map((k, i) =>
+        `<tr><td>${both(`${tIn('nl', 'kid')} ${i + 1}`, `${tIn('en', 'kid')} ${i + 1}`)}</td><td>${tierName(k.tier)}</td><td class="r">${n(k.activities)}</td><td class="r">${n(k.mastered)}</td></tr>`).join('')}</table>`
+      : `<p class="muted" style="margin:0">${bt('no_kids')}</p>`;
+    return line + `<tr class="detail"><td colspan="6">${kids}<p class="mono muted" style="margin:6px 0 0">uid ${esc(d.uid)} · ${bt('last_change')} ${d.lastChange ? `${fmtDate(d.lastChange)} ${timeFmt.format(d.lastChange)}` : '—'}</p></td></tr>`;
   }).join('');
-  return `<p class="count-line">${t('count_of', n(rows.length), n(state.accounts.length))}</p>
-    <div class="card panel tbl-wrap"><table class="t"><tr>${head}</tr>${body || `<tr><td colspan="6" class="muted">${t('no_accounts')}</td></tr>`}</table></div>`;
+  return `<p class="count-line">${bt('count_of', n(rows.length), n(state.accounts.length))}</p>
+    <div class="card panel tbl-wrap"><table class="t"><tr>${head}</tr>${body || `<tr><td colspan="6" class="muted">${bt('no_accounts')}</td></tr>`}</table></div>`;
 }
 function accountsView() {
-  return section(t('accounts'), `
+  return section(bt('accounts'), `
     <div class="acc-tools"><input class="search" id="acc-q" type="search" placeholder="${t('search')}" value="${esc(state.q)}" aria-label="${t('search_label')}">
-      <div class="seg" role="tablist" aria-label="${t('filter')}">${FILTERS.map(k => `<button type="button" role="tab" aria-selected="${k === state.filter}" data-action="filter" data-v="${k}">${t('f_' + k)}</button>`).join('')}</div></div>
+      <div class="seg" role="tablist" aria-label="${t('filter')}">${FILTERS.map(k => `<button type="button" role="tab" aria-selected="${k === state.filter}" data-action="filter" data-v="${k}">${bt('f_' + k)}</button>`).join('')}</div></div>
     <div id="acc-table">${accountsTable()}</div>
-    <p class="count-line">${t('legend')}</p>${footnote()}`);
+    <p class="count-line">${bt('legend')}</p>${footnote()}`);
 }
 /* re-draws only the table, so the search field keeps its focus while typing */
 const updateTable = () => { const el = $('acc-table'); if (el) el.innerHTML = accountsTable(); };
@@ -375,36 +388,36 @@ const ACTIONS = {
 
 /* ---------- screens ---------- */
 function loginView() {
-  return `<section class="card auth"><div><h1>Admin</h1><p class="lede">${t('login_lede')}</p></div>
+  return `<section class="card auth"><div><h1>Admin</h1><p class="lede">${bt('login_lede')}</p></div>
     <form id="login-form" novalidate>
-      <label class="field"><span>${t('email')}</span><input name="email" type="email" autocomplete="email" inputmode="email" required></label>
-      <label class="field"><span>${t('password')}</span><input name="password" type="password" autocomplete="current-password" required></label>
-      <p class="form-error" role="alert">${esc(errText())}</p>
-      <button class="btn primary" type="submit">${t('sign_in')}</button>
+      <label class="field"><span>${bt('email')}</span><input name="email" type="email" autocomplete="email" inputmode="email" required></label>
+      <label class="field"><span>${bt('password')}</span><input name="password" type="password" autocomplete="current-password" required></label>
+      <p class="form-error" role="alert">${errHtml()}</p>
+      <button class="btn primary" type="submit">${bt('sign_in')}</button>
     </form></section>`;
 }
-const noAccessView = () => `<section class="card auth"><div><h1>${t('no_access')}</h1><p class="lede">${t('no_access_p')}</p>
-  ${ADMIN_UID ? '' : `<p class="muted">${t('no_admin')}</p>`}</div></section>`;
-const errorView = () => `<section class="adm"><div class="notice"><p>${esc(errText())}</p><button class="btn small" type="button" data-action="retry">${t('retry')}</button></div></section>`;
+const noAccessView = () => `<section class="card auth"><div><h1>${bt('no_access')}</h1><p class="lede">${bt('no_access_p')}</p>
+  ${ADMIN_UID ? '' : `<p class="muted">${bt('no_admin')}</p>`}</div></section>`;
+const errorView = () => `<section class="adm"><div class="notice"><p>${errHtml()}</p><button class="btn small" type="button" data-action="retry">${bt('retry')}</button></div></section>`;
 
 function render() {
   const dash = state.view === 'dash';
   document.documentElement.lang = lang;
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   renderTheme();
-  $('app-link').textContent = t('to_app');
-  $('refresh-btn').textContent = t('refresh');
-  $('out-btn').textContent = t('sign_out');
+  $('app-link').innerHTML = bt('to_app');
+  $('refresh-btn').innerHTML = bt('refresh');
+  $('out-btn').innerHTML = bt('sign_out');
   $('out-btn').hidden = !(fb && fb.auth.currentUser);
   $('refresh-btn').hidden = !dash || state.demo;
-  $('status').textContent = dash ? (state.demo ? t('demo') : t('updated', timeFmt.format(state.loadedAt))) : '';
+  $('status').innerHTML = dash ? (state.demo ? bt('demo') : bt('updated', timeFmt.format(state.loadedAt))) : '';
   const tab = currentTab();
-  $('tabs').innerHTML = dash ? TABS.map(k => `<a href="#${k}"${k === tab ? ' aria-current="page"' : ''}>${t(k)}</a>`).join('') : '';
+  $('tabs').innerHTML = dash ? TABS.map(k => `<a href="#${k}"${k === tab ? ' aria-current="page"' : ''}>${bt(k)}</a>`).join('') : '';
   $('main').innerHTML = state.view === 'login' ? loginView()
     : state.view === 'noaccess' ? noAccessView()
     : state.view === 'error' ? errorView()
     : dash ? VIEWS[tab]()
-    : `<p class="loading">${t('loading')}</p>`;
+    : `<p class="loading">${bt('loading')}</p>`;
 }
 
 /* ---------- data ---------- */
