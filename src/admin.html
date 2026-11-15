@@ -53,6 +53,30 @@ table.t tr.open > td, table.t tr.detail > td { background: var(--surface-2); }
 td.nw { white-space: nowrap; }
 .bars.funnel li { grid-template-columns: minmax(0, 11rem) 1fr 3.4rem 2.4rem; }
 .acc-tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+/* Berichten: the composer; the preview reuses the app popup's .msg-head and .msg-body (design/app.css) */
+.msg-compose { display: grid; gap: 12px; }
+.msg-compose h3 { margin: 0; }
+.msg-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.msg-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 14px; }
+.msg-col { display: grid; gap: 6px; min-width: 0; align-content: start; }
+.msg-tools { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.msg-col-h { font: 700 .8rem var(--f-mono); margin-right: 6px; }
+.msg-tools .tool { min-width: 34px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: var(--r-sm); padding: 4px 8px; cursor: pointer; font-weight: 700; }
+.msg-tools .tool:hover { border-color: var(--muted); }
+.msg-tools .tool[data-v="italic"] { font-style: italic; font-family: serif; }
+textarea.msg-text { width: 100%; min-height: 200px; resize: vertical; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg); border-radius: var(--r-sm); padding: 10px 12px; font: .86rem/1.5 var(--f-mono); }
+.msg-preview { border: 1px dashed var(--line); border-radius: var(--r); background: var(--surface); min-height: 80px; }
+.msg-preview .msg-head { padding-right: 20px; }
+.msg-pick { display: grid; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface-2); }
+.msg-pick img { max-width: 160px; max-height: 110px; border-radius: var(--r-sm); }
+.msg-check { display: flex; gap: 8px; align-items: center; font-size: .9rem; }
+.msg-days { flex: 0 0 5.5rem; }
+.msg-dt { flex: 0 1 15rem; }
+.msg-acts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.msg-probs { margin: 6px 0 0; font-size: .84rem; }
+.msg-confirm { display: grid; gap: 4px; padding: 12px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface-2); }
+.msg-confirm p { margin: 0; }
+.msg-confirm .msg-acts { margin-top: 6px; }
 /* both-language labels (.bi): text lines up at the start, number columns at the end, buttons and capsules centred */
 main .bi { justify-items: start; }
 main .r .bi { justify-items: end; }
@@ -95,7 +119,7 @@ const SUBJ = Object.fromEntries(SUBJECTS.map(s => [s.key, s]));
 const TIER = Object.fromEntries(TIERS.map(x => [x.key, x]));
 const TIER_KEYS = TIERS.map(x => x.key);
 const GOAL = new Map(BUILTIN_GOALS.map(g => [g.id, g]));
-const TABS = ['overzicht', 'groei', 'gebruik', 'inhoud', 'accounts'];   // also the #hash of each tab
+const TABS = ['overzicht', 'groei', 'gebruik', 'inhoud', 'accounts', 'berichten'];   // also the #hash of each tab
 
 /* ---------- language: Dutch or English, the same choice and buttons as the app (both read doelenboek.lang) ---------- */
 const LANG_KEY = 'doelenboek.lang';
@@ -134,6 +158,18 @@ const T = {
     retry: 'Opnieuw', load_failed: x => `Laden mislukt (${x}).`, unknown_error: 'onbekende fout',
     rules_hint: ' Zijn de regels uit firestore.rules gepubliceerd in de Firebase-console?',
     sdk_fail: 'De Firebase-bibliotheek kon niet laden. Controleer je verbinding.',
+    berichten: 'Berichten', new_message: 'Nieuw bericht', edit_message: 'Bericht bewerken', language: 'Taal',
+    m_both: 'NL + EN', m_nl: 'Alleen NL', m_en: 'Alleen EN',
+    f_bold: 'Vet', f_italic: 'Cursief', f_heading: 'Kop (# of ##)', f_bullet: 'Opsomming', f_number: 'Genummerde lijst', f_link: 'Link', f_image: 'Afbeelding',
+    preview: 'Voorbeeld', preview_empty: 'Het voorbeeld verschijnt hier.',
+    alt: 'Omschrijving', zoom: 'Vergroten', zoom_click: 'Vergroten bij klikken', zoom_hover: 'Vergroten bij aanwijzen', zoom_none: 'Nooit vergroten',
+    insert: 'Invoegen', cancel: 'Annuleren',
+    start: 'Start', start_now: 'Nu', start_scheduled: 'Gepland', lifetime: 'Looptijd', days: 'dagen', until: 'zichtbaar tot',
+    replace_label: 'Vervangt oudere berichten die nog niet gezien zijn', new_accounts_label: 'Ook tonen aan nieuwe accounts',
+    send: 'Versturen', save_changes: 'Opslaan', cancel_edit: 'Bewerken annuleren', confirm: 'Bevestigen', back: 'Terug',
+    send_q: 'Dit bericht versturen?', save_q: 'De wijzigingen opslaan?', sum_start: 'Start:', sum_end: 'Einde:', sum_now: 'meteen', yes: 'ja', no: 'nee',
+    p_empty: 'Vul de tekst in voor elke gekozen taal.', p_days: 'De looptijd is 1 tot 365 dagen.', p_start: 'Een geplande start ligt minstens 1 minuut in de toekomst.',
+    too_many_images: 'Maximaal 20 afbeeldingen per bericht.', image_failed: 'Deze afbeelding kon niet gelezen worden.',
   },
   en: {
     overzicht: 'Overview', groei: 'Growth', gebruik: 'Usage', inhoud: 'Content', accounts: 'Accounts',
@@ -167,6 +203,18 @@ const T = {
     retry: 'Try again', load_failed: x => `Loading failed (${x}).`, unknown_error: 'unknown error',
     rules_hint: ' Have the rules from firestore.rules been published in the Firebase console?',
     sdk_fail: 'The Firebase library could not load. Check your connection.',
+    berichten: 'Messages', new_message: 'New message', edit_message: 'Edit message', language: 'Language',
+    m_both: 'NL + EN', m_nl: 'NL only', m_en: 'EN only',
+    f_bold: 'Bold', f_italic: 'Italic', f_heading: 'Heading (# or ##)', f_bullet: 'Bulleted list', f_number: 'Numbered list', f_link: 'Link', f_image: 'Image',
+    preview: 'Preview', preview_empty: 'The preview appears here.',
+    alt: 'Description', zoom: 'Enlarge', zoom_click: 'Enlarge on click', zoom_hover: 'Enlarge on hover', zoom_none: 'Never enlarge',
+    insert: 'Insert', cancel: 'Cancel',
+    start: 'Start', start_now: 'Now', start_scheduled: 'Scheduled', lifetime: 'Lifetime', days: 'days', until: 'visible until',
+    replace_label: "Replace older messages that haven't been seen", new_accounts_label: 'Also show to new accounts',
+    send: 'Send', save_changes: 'Save', cancel_edit: 'Cancel editing', confirm: 'Confirm', back: 'Back',
+    send_q: 'Send this message?', save_q: 'Save the changes?', sum_start: 'Start:', sum_end: 'End:', sum_now: 'immediately', yes: 'yes', no: 'no',
+    p_empty: 'Fill in the text for every chosen language.', p_days: 'The lifetime is 1 to 365 days.', p_start: 'A scheduled start is at least 1 minute in the future.',
+    too_many_images: 'At most 20 images per message.', image_failed: 'This image could not be read.',
   },
 };
 const tIn = (l, k, ...a) => { const v = T[l][k]; return typeof v === 'function' ? v(...a) : v; };
@@ -387,6 +435,197 @@ const ACTIONS = {
   },
   row: el => { state.open = state.open === el.dataset.v ? null : el.dataset.v; updateTable(); },
 };
+
+/* ---------- Berichten: messages to users (rules and formatting codes in messages.js) ----------
+   The draft lives in state.draft, so a full render() (language, tab, Vernieuwen) never loses it.
+   Typing only redraws that column's preview and the action line, so the text box keeps its focus. */
+const M = Messages;
+const MAX_IMAGES = 20;          // keeps one save under Firestore's 10 MiB request limit
+const MAX_B64 = 240000;         // the same limit as PHOTO_MAX_B64 for photos in the app
+const DT_BOTH = { nl: new Intl.DateTimeFormat('nl-BE', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+  en: new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) };
+const fmtDT = ts => both(DT_BOTH.nl.format(ts), DT_BOTH.en.format(ts));
+const newDraft = () => ({ editing: null, createdAt: null, mode: 'both', body: { nl: '', en: '' }, images: new Map(), start: 'now', startLocal: '',
+  days: 30, replace: false, newAccounts: false, confirming: false, pick: null, note: '' });
+state.draft = newDraft();
+state.messages = [];
+state.seen = new Map();
+const draftLangs = d => d.mode === 'both' ? ['nl', 'en'] : [d.mode];
+const draftRefs = d => new Set(draftLangs(d).flatMap(l => M.imageRefs(d.body[l])));
+const draftDirty = d => !!(d.body.nl.trim() || d.body.en.trim() || d.images.size);
+/* a datetime-local value is local time; '' or nonsense gives NaN */
+const draftStart = (d, now) => d.start === 'now' ? now : new Date(d.startLocal).getTime();
+function draftProblems(d, now) {
+  const p = [];
+  if (draftLangs(d).some(l => !d.body[l].trim())) p.push('p_empty');
+  if (!Number.isInteger(d.days) || d.days < 1 || d.days > 365) p.push('p_days');
+  if (d.start === 'scheduled') { const s = draftStart(d, now); if (!Number.isFinite(s) || s < now + 60000) p.push('p_start'); }
+  return p;
+}
+function draftToRecord(d, now) {
+  const langs = draftLangs(d), startAt = draftStart(d, now);
+  return { langs, body: Object.fromEntries(langs.map(l => [l, d.body[l]])), startAt, endAt: M.endFrom(startAt, d.days), replace: d.replace, newAccounts: d.newAccounts };
+}
+/* tomorrow 08:00, as a datetime-local value */
+function defaultStartLocal() {
+  const d = new Date(); d.setDate(d.getDate() + 1); d.setHours(8, 0, 0, 0);
+  const p = x => String(x).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+function previewHtml(l) {
+  const d = state.draft, ids = new Set([...d.images.keys()]);
+  const r = M.render(d.body[l], ids);
+  const html = r.html.replace(/data-img="([A-Za-z0-9]+)"/g, (m, id) => `${m} src="data:image/jpeg;base64,${d.images.get(id).data}"`);
+  return `<div class="msg-head"><h2 lang="${l}">${r.title}</h2></div><div class="msg-body" lang="${l}">${html || `<p class="muted">${bt('preview_empty')}</p>`}</div>`;
+}
+const TOOLS = [['bold', 'B'], ['italic', 'I'], ['heading', 'H'], ['bullet', '•'], ['number', '1.'], ['link', '🔗'], ['image', '🖼']];
+function pickHtml(l) {
+  const p = state.draft.pick;
+  if (!p || p.lang !== l) return '';
+  return `<div class="msg-pick">
+    <img src="data:image/jpeg;base64,${p.rec.data}" alt="">
+    <label class="field"><span>${bt('alt')}</span><input id="pick-alt" type="text" maxlength="120" value="${esc(p.alt)}"></label>
+    <label class="field"><span>${bt('zoom')}</span><select id="pick-zoom">${M.ZOOMS.map(z => `<option value="${z}" ${z === p.zoom ? 'selected' : ''}>${esc(t('zoom_' + z))}</option>`).join('')}</select></label>
+    <div class="msg-acts"><button type="button" class="btn small primary" data-action="pick-insert">${bt('insert')}</button>
+      <button type="button" class="btn small ghost" data-action="pick-cancel">${bt('cancel')}</button></div></div>`;
+}
+const colHtml = l => `<div class="msg-col">
+    <div class="msg-tools" role="toolbar" aria-label="${l.toUpperCase()}"><b class="msg-col-h">${l.toUpperCase()}</b>${TOOLS.map(([k, s]) =>
+      `<button type="button" class="tool" data-action="fmt" data-v="${k}" data-l="${l}" title="${esc(t('f_' + k))}" aria-label="${esc(t('f_' + k))}">${s}</button>`).join('')}</div>
+    <textarea class="msg-text" data-draft-lang="${l}" lang="${l}" rows="10" spellcheck="true">${esc(state.draft.body[l])}</textarea>
+    ${pickHtml(l)}
+    <div class="msg-preview" id="prev-${l}" aria-label="${esc(t('preview'))}">${previewHtml(l)}</div>
+  </div>`;
+function endHtml() {
+  const d = state.draft, now = Date.now(), s = draftStart(d, now);
+  return Number.isFinite(s) && Number.isInteger(d.days) && d.days >= 1 && d.days <= 365 ? bt('until') + ' ' + fmtDT(M.endFrom(s, d.days)) : '—';
+}
+function actionsHtml() {
+  const d = state.draft, now = Date.now();
+  if (d.confirming) {
+    const r = draftToRecord(d, now), yn = v => bt(v ? 'yes' : 'no');
+    return `<div class="msg-confirm"><p><b>${bt(d.editing ? 'save_q' : 'send_q')}</b></p>
+      <p>${bt('sum_start')} ${d.start === 'now' ? bt('sum_now') : fmtDT(r.startAt)} · ${bt('sum_end')} ${fmtDT(r.endAt)}</p>
+      <p>${bt('replace_label')}: ${yn(r.replace)} · ${bt('new_accounts_label')}: ${yn(r.newAccounts)}</p>
+      <div class="msg-acts"><button type="button" class="btn primary" data-action="draft-confirm">${bt('confirm')}</button>
+        <button type="button" class="btn ghost" data-action="draft-back">${bt('back')}</button></div></div>`;
+  }
+  const probs = draftProblems(d, now);
+  return `<div class="msg-acts">
+      ${d.editing ? `<button type="button" class="btn ghost" data-action="draft-cancel">${bt('cancel_edit')}</button>` : ''}
+      <button type="button" class="btn primary" data-action="draft-send" ${probs.length ? 'disabled' : ''}>${bt(d.editing ? 'save_changes' : 'send')}</button>
+    </div>
+    ${d.note ? `<p class="form-error" role="alert">${bt(d.note)}</p>` : ''}
+    ${probs.length ? `<p class="muted msg-probs">${probs.map(k => bt(k)).join('<br>')}</p>` : ''}`;
+}
+function composerHtml() {
+  const d = state.draft;
+  const modes = ['both', 'nl', 'en'].map(m => `<button type="button" role="radio" aria-checked="${d.mode === m}" aria-selected="${d.mode === m}" data-action="draft-mode" data-v="${m}">${bt('m_' + m)}</button>`).join('');
+  const starts = ['now', 'scheduled'].map(m => `<button type="button" role="radio" aria-checked="${d.start === m}" aria-selected="${d.start === m}" data-action="draft-start" data-v="${m}">${bt('start_' + m)}</button>`).join('');
+  return `<div class="card panel msg-compose">
+    <h3>${bt(d.editing ? 'edit_message' : 'new_message')}</h3>
+    <div class="msg-row"><span class="field-label">${bt('language')}</span><div class="seg" role="radiogroup" aria-label="${esc(t('language'))}">${modes}</div></div>
+    <div class="msg-cols">${draftLangs(d).map(colHtml).join('')}</div>
+    <input type="file" id="img-file" accept="image/*" hidden>
+    <div class="msg-row"><span class="field-label">${bt('start')}</span><div class="seg" role="radiogroup" aria-label="${esc(t('start'))}">${starts}</div>
+      ${d.start === 'scheduled' ? `<input class="search msg-dt" id="d-start" type="datetime-local" value="${esc(d.startLocal)}" aria-label="${esc(t('start'))}">` : ''}</div>
+    <div class="msg-row"><label class="field-label" for="d-days">${bt('lifetime')}</label>
+      <input class="search msg-days" id="d-days" type="number" min="1" max="365" step="1" value="${Number.isInteger(d.days) ? d.days : ''}"> ${bt('days')}
+      <span class="muted" id="d-end">${endHtml()}</span></div>
+    <label class="msg-check"><input type="checkbox" id="d-replace" ${d.replace ? 'checked' : ''}> ${bt('replace_label')}</label>
+    <label class="msg-check"><input type="checkbox" id="d-new" ${d.newAccounts ? 'checked' : ''}> ${bt('new_accounts_label')}</label>
+    <div id="d-actions">${actionsHtml()}</div>
+  </div>`;
+}
+VIEWS.berichten = () => messagesView();
+function messagesView() {
+  return section(bt('berichten'), composerHtml() + messageListHtml());
+}
+/* the message list comes with sending (filled in later) */
+function messageListHtml() { return ''; }
+const updateActions = () => { const el = $('d-actions'); if (el) el.innerHTML = actionsHtml(); };
+const updateEnd = () => { const el = $('d-end'); if (el) el.innerHTML = endHtml(); };
+const updatePreview = l => { const el = $('prev-' + l); if (el) el.innerHTML = previewHtml(l); };
+function pruneImages(d) { const refs = draftRefs(d); for (const id of [...d.images.keys()]) if (!refs.has(id)) d.images.delete(id); }
+
+/* toolbar: change the text box's selection, then keep state and preview in step */
+function applyTool(kind, l) {
+  const ta = document.querySelector(`textarea[data-draft-lang="${l}"]`);
+  if (!ta) return;
+  if (kind === 'image') { state.draft.pickLang = l; state.draft.pickAt = ta.selectionStart; $('img-file').click(); return; }
+  const v = ta.value, s = ta.selectionStart, e = ta.selectionEnd, sel = v.slice(s, e);
+  const wrap = (a, b, ph) => { const inner = sel || ph; ta.setRangeText(a + inner + b, s, e, 'end'); ta.setSelectionRange(s + a.length, s + a.length + inner.length); };
+  if (kind === 'bold') wrap('**', '**', t('f_bold').toLowerCase());
+  else if (kind === 'italic') wrap('*', '*', t('f_italic').toLowerCase());
+  else if (kind === 'link') {
+    const text = sel || 'link';
+    ta.setRangeText(`[${text}](https://)`, s, e, 'end');
+    const at = s + text.length + 3; ta.setSelectionRange(at, at + 8);
+  } else {
+    /* line prefixes act on every line the selection touches */
+    const a = v.lastIndexOf('\n', s - 1) + 1, bEnd = v.indexOf('\n', e), b = bEnd < 0 ? v.length : bEnd;
+    const lines = v.slice(a, b).split('\n');
+    const out = lines.map((line, i) => {
+      if (kind === 'heading') return line.startsWith('## ') ? line.slice(3) : line.startsWith('# ') ? '#' + line : '# ' + line;
+      if (kind === 'bullet') return line.startsWith('- ') ? line.slice(2) : '- ' + line;
+      return /^\d+\.\s/.test(line) ? line.replace(/^\d+\.\s/, '') : `${i + 1}. ${line}`;   // number
+    }).join('\n');
+    ta.setRangeText(out, a, b, 'end');
+    ta.setSelectionRange(a, a + out.length);
+  }
+  ta.focus();
+  state.draft.body[l] = ta.value; state.draft.confirming = false;
+  updatePreview(l); updateActions();
+}
+async function pickImage(file) {
+  const d = state.draft, l = d.pickLang;
+  pruneImages(d);
+  if (d.images.size >= MAX_IMAGES) { d.note = 'too_many_images'; updateActions(); return; }
+  try {
+    const rec = await Images.process(file, MAX_B64);
+    d.pick = { lang: l, at: d.pickAt, rec, alt: '', zoom: 'click' }; d.note = '';
+  } catch (e) { d.note = 'image_failed'; }
+  render();
+}
+function insertPicked() {
+  const d = state.draft, p = d.pick; if (!p) return;
+  let id; do { id = Math.random().toString(36).slice(2, 10).padEnd(8, '0'); } while (d.images.has(id));
+  d.images.set(id, { data: p.rec.data, w: p.rec.w, h: p.rec.h });
+  const alt = p.alt.replace(/[\]\n\r]/g, ' ').trim(), v = d.body[p.lang], at = Math.min(p.at ?? v.length, v.length);
+  const before = v.slice(0, at), after = v.slice(at);
+  const code = `![${alt}](img:${id} ${p.zoom})`;
+  d.body[p.lang] = before + (before && !before.endsWith('\n') ? '\n' : '') + code + (after.startsWith('\n') || !after ? '' : '\n') + after;
+  d.pick = null; d.confirming = false;
+  render();
+}
+async function saveDraft() { console.log('doelenboek admin: would save', draftToRecord(state.draft, Date.now())); }
+Object.assign(ACTIONS, {
+  'draft-mode': el => { const d = state.draft; d.mode = el.dataset.v; d.confirming = false; d.pick = null; render(); },
+  'draft-start': el => { const d = state.draft; d.start = el.dataset.v; if (d.start === 'scheduled' && !d.startLocal) d.startLocal = defaultStartLocal(); d.confirming = false; render(); },
+  fmt: el => applyTool(el.dataset.v, el.dataset.l),
+  'pick-insert': () => insertPicked(),
+  'pick-cancel': () => { state.draft.pick = null; render(); },
+  'draft-send': () => { const d = state.draft; if (draftProblems(d, Date.now()).length) return updateActions(); d.confirming = true; d.note = ''; updateActions(); },
+  'draft-back': () => { state.draft.confirming = false; updateActions(); },
+  'draft-confirm': () => saveDraft(),
+  'draft-cancel': () => { state.draft = newDraft(); render(); },
+});
+document.addEventListener('input', e => {
+  const d = state.draft, el = e.target;
+  if (el.dataset && el.dataset.draftLang) { d.body[el.dataset.draftLang] = el.value; d.confirming = false; updatePreview(el.dataset.draftLang); updateActions(); }
+  else if (el.id === 'd-days') { d.days = el.value === '' ? NaN : Number(el.value); d.confirming = false; updateEnd(); updateActions(); }
+  else if (el.id === 'd-start') { d.startLocal = el.value; d.confirming = false; updateEnd(); updateActions(); }
+  else if (el.id === 'pick-alt' && d.pick) d.pick.alt = el.value;
+});
+document.addEventListener('change', e => {
+  const d = state.draft, el = e.target;
+  if (el.id === 'd-replace') { d.replace = el.checked; d.confirming = false; updateActions(); }
+  else if (el.id === 'd-new') { d.newAccounts = el.checked; d.confirming = false; updateActions(); }
+  else if (el.id === 'pick-zoom' && d.pick) d.pick.zoom = el.value;
+  else if (el.id === 'img-file' && el.files && el.files[0]) { const f = el.files[0]; el.value = ''; pickImage(f); }
+});
+window.addEventListener('beforeunload', e => { if (draftDirty(state.draft)) { e.preventDefault(); e.returnValue = ''; } });
 
 /* ---------- screens ---------- */
 function loginView() {
