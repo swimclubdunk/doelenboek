@@ -57,6 +57,8 @@ class SharedScripts(unittest.TestCase):
         for page in (app, admin):
             self.assertIn('const Messages = ', page)
             self.assertIn('const Images = ', page)
+            self.assertIn('const MessageZoom = ', page)   # image enlarging: the app popup and the admin preview
+            self.assertNotIn('<script src="message-zoom.js">', page)
             self.assertNotIn('<script src="messages.js">', page)
             self.assertNotIn('<script src="images.js">', page)
 

@@ -110,3 +110,9 @@ test('seenCounts', () => {
   const c = M.seenCounts([{ data: { seen: ['a', 'b', 'a', 3] } }, { data: { seen: ['a'] } }, { data: null }, { data: {} }]);
   assert.equal(c.get('a'), 2); assert.equal(c.get('b'), 1); assert.equal(c.size, 2);
 });
+
+/* ---------- image codes without an image ---------- */
+test('unknownImages lists codes whose image is missing', () => {
+  assert.deepEqual(M.unknownImages('![a](img:x1 click)\n![b](img:y2 none)\n![c](img:y2 hover)', new Set(['x1'])), ['y2']);
+  assert.deepEqual(M.unknownImages('no images', new Set()), []);
+});

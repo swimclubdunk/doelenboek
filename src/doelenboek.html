@@ -37,7 +37,6 @@
 <dialog id="dlg2"></dialog>
 <dialog id="thanks" class="thanks" aria-labelledby="thanks-h"></dialog>
 <dialog id="msgdlg" class="msg" aria-labelledby="msg-h"></dialog>
-<dialog id="msgzoom" class="msgzoom"><img alt=""></dialog>
 <dialog id="lightbox" class="lightbox">
   <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
   <button type="button" class="lb-btn lb-prev" data-lb="prev">‹</button>
@@ -50,6 +49,7 @@
 <!-- animal drawings: filled in by tools/build.py -->
 
 <script src="messages.js"></script>
+<script src="message-zoom.js"></script>
 <script src="images.js"></script>
 <script>
 (() => {
@@ -1028,10 +1028,9 @@ if (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParam
    Messages the admin writes on /admin/ (rules and formatting codes in src/messages.js). A signed-in account
    loads them once per app open; each pending message shows once in this popup, oldest first.
    To look at it during development: open the page on localhost with ?messages (?messages=5 waits 5 seconds). */
-const msgDlg = $('#msgdlg'), msgZoom = $('#msgzoom');
+const msgDlg = $('#msgdlg');
 const CLOCK_MARGIN = 5 * 60 * 1000;   // keeps the query inside the rules when a device clock runs up to 5 minutes ahead
 let msgQueue = null;   // { list, images: Map('msgId/imgId' -> data URL), i, lang, marked: Set, onSeen } while messages wait or show
-const noHover = () => !!(window.matchMedia && matchMedia('(hover: none)').matches);
 
 function showMessages(list, images, onSeen) {
   if (!list.length) return;
@@ -1064,11 +1063,6 @@ function markCurrentSeen() {
   const id = q.list[q.i].id;
   if (!q.marked.has(id)) { q.marked.add(id); q.onSeen(id); }
 }
-function openMsgZoom(img) {
-  const z = msgZoom.querySelector('img'); z.src = img.src; z.alt = img.alt;
-  if (typeof msgZoom.showModal === 'function') msgZoom.showModal(); else msgZoom.setAttribute('open', '');
-}
-function hideMsgHover() { const h = msgDlg.querySelector('.msg-hover'); if (h) h.remove(); }
 msgDlg.addEventListener('click', e => {
   const q = msgQueue; if (!q) return;
   const b = e.target.closest('button');
@@ -1079,20 +1073,9 @@ msgDlg.addEventListener('click', e => {
     return;
   }
   if (e.target === msgDlg || (b && 'msgClose' in b.dataset)) { msgDlg.close(); return; }
-  const img = e.target.closest('img[data-zoom]');
-  if (img && (img.dataset.zoom === 'click' || (img.dataset.zoom === 'hover' && noHover()))) { hideMsgHover(); openMsgZoom(img); }
 });
-msgDlg.addEventListener('pointerover', e => {
-  const img = e.target.closest && e.target.closest('img[data-zoom="hover"]');
-  if (!img || e.pointerType !== 'mouse' || noHover() || msgDlg.querySelector('.msg-hover')) return;
-  const box = document.createElement('div'); box.className = 'msg-hover'; box.setAttribute('aria-hidden', 'true');
-  const big = document.createElement('img'); big.src = img.src; big.alt = ''; box.append(big);
-  msgDlg.append(box);
-});
-msgDlg.addEventListener('pointerout', e => { if (e.target.closest && e.target.closest('img[data-zoom="hover"]')) hideMsgHover(); });
+MessageZoom.attach(msgDlg);
 msgDlg.addEventListener('close', () => { markCurrentSeen(); msgQueue = null; msgDlg.innerHTML = ''; });
-msgZoom.addEventListener('click', () => msgZoom.close());
-msgZoom.addEventListener('close', () => { msgZoom.querySelector('img').removeAttribute('src'); });
 
 /* One query per app open: the messages that started (minus the clock margin) and the account's seen list.
    A failure only reaches the console; the next app open tries again. */
@@ -1111,8 +1094,9 @@ async function loadMessages(user) {
     if (!list.length) return;
     const images = new Map();
     await Promise.all(list.flatMap(m => [...new Set(m.langs.flatMap(l => Messages.imageRefs(m.body[l])))].map(async id => {
-      const s = await F.getDoc(F.doc(fs, 'messages', m.id, 'images', id));
-      const d = s.exists() ? s.data() : null;
+      /* one missing or unreadable image drops that image only, never the whole message load */
+      const s = await F.getDoc(F.doc(fs, 'messages', m.id, 'images', id)).catch(() => null);
+      const d = s && s.exists() ? s.data() : null;
       if (d && typeof d.data === 'string') images.set(`${m.id}/${id}`, 'data:image/jpeg;base64,' + d.data);
     })));
     if (same()) showMessages(list, images, markSeen);

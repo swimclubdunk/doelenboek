@@ -2,7 +2,7 @@
 Usage: build.py SRC.html OUT.html [FIREBASE_CONFIG.json]
 
 - the stylesheets SRC links to (design/*.css, core.css) are inlined
-- the shared scripts messages.js and images.js are inlined (in the app and the admin page)
+- the shared scripts messages.js, message-zoom.js and images.js are inlined (in the app and the admin page)
 - the animal drawings in design/animals/ become <symbol>s in the page
 - the favicon comes from design/favicon.svg
 - the built-in goals come from doelen/*.json (kleuter) and doelen-lager/*.json (lager onderwijs)
@@ -237,7 +237,7 @@ def build_admin(src, app_src, firebase_config=None, rules=RULES):
         cfg = json.loads(Path(firebase_config).read_text(encoding='utf-8'))
         text = fill(text, 'const FIREBASE_CONFIG = null;', 'const FIREBASE_CONFIG = ' + json.dumps(cfg, ensure_ascii=False) + ';', 'Firebase config')
 
-    for name in ('admin-stats.js', 'messages.js', 'images.js'):
+    for name in ('admin-stats.js', 'messages.js', 'message-zoom.js', 'images.js'):
         text = inline_script(text, src.parent, name)
 
     # the page lives one folder down, at admin/index.html; the fonts are at fonts/ in the site root
@@ -281,7 +281,7 @@ def build(src, firebase_config=None, rules=RULES):
     if uid:   # the owner's account gets an Admin button in the header
         text = fill(text, 'const ADMIN_UID = null;', 'const ADMIN_UID = ' + json.dumps(uid) + ';', 'admin uid')
 
-    for name in ('messages.js', 'images.js'):   # shared with the admin page
+    for name in ('messages.js', 'message-zoom.js', 'images.js'):   # shared with the admin page
         text = inline_script(text, src.parent, name)
     text = inline_styles(text, src.parent)
     text = fill(text, '<main id="main">', public.app_noscript() + '\n<main id="main">', 'main')

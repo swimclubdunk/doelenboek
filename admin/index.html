@@ -927,6 +927,9 @@ function render(text, imageIds) {
 /* The image ids a text refers to, in order of first appearance. */
 const imageRefs = text => [...new Set([...String(text || '').matchAll(IMG_ANY)].map(m => m[1]))];
 
+/* The image ids a text refers to that aren't in imageIds: codes that would show no image. */
+const unknownImages = (text, imageIds) => imageRefs(text).filter(id => !imageIds.has(id));
+
 /* The first non-empty line as plain text, at most 80 characters: the message's name in the admin list. */
 function firstLine(text) {
   const line = linesOf(text).find(l => plain(l) !== '');
@@ -989,9 +992,54 @@ function seenCounts(profiles) {
   return c;
 }
 
-return { ZOOMS, render, imageRefs, firstLine, clean, endFrom, effectiveEnd, status, pending, replacements, seenCounts };
+return { ZOOMS, render, imageRefs, unknownImages, firstLine, clean, endFrom, effectiveEnd, status, pending, replacements, seenCounts };
 })();
 if (typeof module !== 'undefined') module.exports = Messages;
+</script>
+<script>
+/* Doelenboek: enlarging the images in a message (data-zoom="click" | "hover" | "none", see messages.js).
+   Shared by the app's message popup and the admin page's preview, so both behave the same.
+   tools/build.py inlines this file into both pages. Styles: .msg-hover and dialog.msgzoom in design/app.css. */
+const MessageZoom = (() => {
+'use strict';
+/* phones and tablets have no hover: there "enlarge on hover" works as "enlarge on click" */
+const noHover = () => !!(window.matchMedia && matchMedia('(hover: none)').matches);
+let dlg = null;
+function zoomDialog() {
+  if (dlg) return dlg;
+  dlg = document.createElement('dialog');
+  dlg.className = 'msgzoom';
+  dlg.innerHTML = '<img alt="">';
+  document.body.append(dlg);
+  dlg.addEventListener('click', () => dlg.close());
+  dlg.addEventListener('close', () => dlg.querySelector('img').removeAttribute('src'));
+  return dlg;
+}
+function open(img) {
+  const d = zoomDialog(), z = d.querySelector('img');
+  z.src = img.src; z.alt = img.alt;
+  if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+}
+/* the hover copy goes inside root, so it stays above root when root is a modal dialog */
+const hide = root => { const h = root.querySelector('.msg-hover'); if (h) h.remove(); };
+function attach(root) {
+  root.addEventListener('click', e => {
+    const img = e.target.closest && e.target.closest('img[data-zoom]');
+    if (img && img.src && (img.dataset.zoom === 'click' || (img.dataset.zoom === 'hover' && noHover()))) { hide(root); open(img); }
+  });
+  root.addEventListener('pointerover', e => {
+    const img = e.target.closest && e.target.closest('img[data-zoom="hover"]');
+    if (!img || !img.src || e.pointerType !== 'mouse' || noHover() || root.querySelector('.msg-hover')) return;
+    const box = document.createElement('div'), big = document.createElement('img');
+    box.className = 'msg-hover'; box.setAttribute('aria-hidden', 'true');
+    big.src = img.src; big.alt = ''; box.append(big);
+    root.append(box);
+  });
+  root.addEventListener('pointerout', e => { if (e.target.closest && e.target.closest('img[data-zoom="hover"]')) hide(root); });
+}
+return { attach, hide };
+})();
+if (typeof module !== 'undefined') module.exports = MessageZoom;
 </script>
 <script>
 /* Doelenboek: image compression shared by the app (activity photos) and the admin page (message images).
@@ -11087,7 +11135,7 @@ const T = {
     replace_label: 'Vervangt oudere berichten die nog niet gezien zijn', new_accounts_label: 'Ook tonen aan nieuwe accounts',
     send: 'Versturen', save_changes: 'Opslaan', cancel_edit: 'Bewerken annuleren', confirm: 'Bevestigen', back: 'Terug',
     send_q: 'Dit bericht versturen?', save_q: 'De wijzigingen opslaan?', sum_start: 'Start:', sum_end: 'Einde:', sum_now: 'meteen', yes: 'ja', no: 'nee',
-    p_empty: 'Vul de tekst in voor elke gekozen taal.', p_days: 'De looptijd is 1 tot 365 dagen.', p_start: 'Een geplande start ligt minstens 1 minuut in de toekomst.',
+    p_empty: 'Vul de tekst in voor elke gekozen taal.', p_images: 'Een afbeeldingscode verwijst naar een afbeelding die niet bij dit bericht hoort. Voeg ze opnieuw in met de afbeeldingsknop.', p_days: 'De looptijd is 1 tot 365 dagen.', p_start: 'Een geplande start ligt minstens 1 minuut in de toekomst.',
     too_many_images: 'Maximaal 20 afbeeldingen per bericht.', image_failed: 'Deze afbeelding kon niet gelezen worden.',
     sent_messages: 'Verstuurde en geplande berichten', no_messages: 'Nog geen berichten.',
     st_scheduled: (a, b) => `gepland van ${a} tot ${b}`, st_live: x => `loopt tot ${x}`, st_ended: x => `afgelopen op ${x}`, st_replaced: (x, y) => `vervangen op ${x} door "${y}"`,
@@ -11138,7 +11186,7 @@ const T = {
     replace_label: "Replace older messages that haven't been seen", new_accounts_label: 'Also show to new accounts',
     send: 'Send', save_changes: 'Save', cancel_edit: 'Cancel editing', confirm: 'Confirm', back: 'Back',
     send_q: 'Send this message?', save_q: 'Save the changes?', sum_start: 'Start:', sum_end: 'End:', sum_now: 'immediately', yes: 'yes', no: 'no',
-    p_empty: 'Fill in the text for every chosen language.', p_days: 'The lifetime is 1 to 365 days.', p_start: 'A scheduled start is at least 1 minute in the future.',
+    p_empty: 'Fill in the text for every chosen language.', p_images: "An image code points to an image this message doesn't have. Insert it again with the image button.", p_days: 'The lifetime is 1 to 365 days.', p_start: 'A scheduled start is at least 1 minute in the future.',
     too_many_images: 'At most 20 images per message.', image_failed: 'This image could not be read.',
     sent_messages: 'Sent and scheduled messages', no_messages: 'No messages yet.',
     st_scheduled: (a, b) => `scheduled from ${a} until ${b}`, st_live: x => `live until ${x}`, st_ended: x => `ended ${x}`, st_replaced: (x, y) => `replaced on ${x} by "${y}"`,
@@ -11389,6 +11437,7 @@ const draftStart = (d, now) => d.start === 'now' ? now : new Date(d.startLocal).
 function draftProblems(d, now) {
   const p = [];
   if (draftLangs(d).some(l => !d.body[l].trim())) p.push('p_empty');
+  if (draftLangs(d).some(l => M.unknownImages(d.body[l], d.images).length)) p.push('p_images');
   if (!Number.isInteger(d.days) || d.days < 1 || d.days > 365) p.push('p_days');
   if (d.start === 'scheduled') { const s = draftStart(d, now); if (!Number.isFinite(s) || s < now + 60000) p.push('p_start'); }
   return p;
@@ -11477,7 +11526,7 @@ function messagesView() {
 const updateActions = () => { const el = $('d-actions'); if (el) el.innerHTML = actionsHtml(); };
 const updateEnd = () => { const el = $('d-end'); if (el) el.innerHTML = endHtml(); };
 const updatePreview = l => { const el = $('prev-' + l); if (el) el.innerHTML = previewHtml(l); };
-function pruneImages(d) { const refs = draftRefs(d); for (const id of [...d.images.keys()]) if (!refs.has(id)) d.images.delete(id); }
+function pruneImages(d) { const refs = new Set(['nl', 'en'].flatMap(l => M.imageRefs(d.body[l]))); for (const id of [...d.images.keys()]) if (!refs.has(id)) d.images.delete(id); }
 
 /* toolbar: change the text box's selection, then keep state and preview in step */
 function applyTool(kind, l) {
@@ -11554,6 +11603,7 @@ document.addEventListener('change', e => {
   else if (el.id === 'pick-zoom' && d.pick) d.pick.zoom = el.value;
   else if (el.id === 'img-file' && el.files && el.files[0]) { const f = el.files[0]; el.value = ''; pickImage(f); }
 });
+MessageZoom.attach($('main'));   // the previews enlarge images like the app popup does
 window.addEventListener('beforeunload', e => { if (draftDirty(state.draft)) { e.preventDefault(); e.returnValue = ''; } });
 
 /* ---------- Berichten: saving, the list, withdraw and delete ----------
@@ -11593,6 +11643,7 @@ async function saveDraft() {
   const editing = d.editing ? state.messages.find(m => m.id === d.editing) : null;
   if (d.editing && (!editing || editing.startAt <= now)) { d.confirming = false; d.note = 'already_started'; return updateActions(); }
   pruneImages(d);
+  const used = draftRefs(d), saveImages = new Map([...d.images].filter(([imgId]) => used.has(imgId)));
   const id = d.editing || newMsgId();
   const rec = { ...draftToRecord(d, now), createdAt: editing ? editing.createdAt : now };
   const others = state.messages.filter(m => m.id !== id);
@@ -11602,12 +11653,12 @@ async function saveDraft() {
   try {
     if (state.demo) {
       state.messages = [...others.map(m => withRepl(m, repl.get(m.id))), M.clean(id, { ...rec, ...(own || {}) })];
-      state.demoImages.set(id, new Map(d.images));
+      state.demoImages.set(id, saveImages);
     } else {
       const { F, fs } = fb, b = F.writeBatch(fs);
       b.set(F.doc(fs, 'messages', id), { ...rec, ...(own || {}) });
-      for (const [imgId, im] of d.images) b.set(F.doc(fs, 'messages', id, 'images', imgId), { data: im.data, w: im.w, h: im.h, startAt: rec.startAt });
-      for (const imgId of d.loadedImages || []) if (!d.images.has(imgId)) b.delete(F.doc(fs, 'messages', id, 'images', imgId));
+      for (const [imgId, im] of saveImages) b.set(F.doc(fs, 'messages', id, 'images', imgId), { data: im.data, w: im.w, h: im.h, startAt: rec.startAt });
+      for (const imgId of d.loadedImages || []) if (!saveImages.has(imgId)) b.delete(F.doc(fs, 'messages', id, 'images', imgId));
       replUpdates(others, repl, b, F, fs);
       await b.commit();
       await loadAdminMessages();

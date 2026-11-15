@@ -74,6 +74,9 @@ function render(text, imageIds) {
 /* The image ids a text refers to, in order of first appearance. */
 const imageRefs = text => [...new Set([...String(text || '').matchAll(IMG_ANY)].map(m => m[1]))];
 
+/* The image ids a text refers to that aren't in imageIds: codes that would show no image. */
+const unknownImages = (text, imageIds) => imageRefs(text).filter(id => !imageIds.has(id));
+
 /* The first non-empty line as plain text, at most 80 characters: the message's name in the admin list. */
 function firstLine(text) {
   const line = linesOf(text).find(l => plain(l) !== '');
@@ -136,6 +139,6 @@ function seenCounts(profiles) {
   return c;
 }
 
-return { ZOOMS, render, imageRefs, firstLine, clean, endFrom, effectiveEnd, status, pending, replacements, seenCounts };
+return { ZOOMS, render, imageRefs, unknownImages, firstLine, clean, endFrom, effectiveEnd, status, pending, replacements, seenCounts };
 })();
 if (typeof module !== 'undefined') module.exports = Messages;
