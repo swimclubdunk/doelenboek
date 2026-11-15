@@ -532,6 +532,7 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
         <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
       </div>
       <button type="button" class="theme-btn" id="theme-btn"></button>
+      <a class="btn small ghost" id="admin-link" href="admin/" hidden>Admin</a>
       <button class="btn small ghost" id="data-btn" type="button">Gegevens</button>
     </div>
   </div>
@@ -625,6 +626,8 @@ const THEME_KEY = 'doelenboek.theme';   // also read by the small script in the 
 /* Firebase accounts (email + password). The standalone build fills this in; left null, the page
    uses the Claude-hosted store or, outside Claude, this browser only. */
 const FIREBASE_CONFIG = {"apiKey": "AIzaSyBBxji4-yKxG1ZZHvdxNV1vtG9JAD46gMA", "authDomain": "doelenboek-e78ca.firebaseapp.com", "projectId": "doelenboek-e78ca", "storageBucket": "doelenboek-e78ca.firebasestorage.app", "messagingSenderId": "224430377433", "appId": "1:224430377433:web:c2eedf518737fab6ce31c8"};
+/* The owner's uid from firestore.rules (filled in by tools/build.py): that account sees an Admin button. */
+const ADMIN_UID = "1VjmzNNpdlU3NhZ6DziM16Zwiyr1";
 const FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/10.14.1/';
 const MIGRATED_KEY = 'doelenboek.migrated.';
 /* The contact address in two parts, put together on load, so it never appears whole in the page source for harvesters. */
@@ -11887,6 +11890,7 @@ function subscribeAll() {
 function enterAccount(user) {
   if (fbUser && fbUser.uid === user.uid) return;
   fbUser = user; db = firestoreStore(user.uid);
+  $('#admin-link').hidden = !ADMIN_UID || user.uid !== ADMIN_UID;
   mode = 'db'; canWrite = true; canWriteKnown = true;
   resetData(); closeDialog(); render(); subscribeAll();
   readLocalSummary();
@@ -11895,6 +11899,7 @@ function enterAccount(user) {
 function leaveAccount() {
   for (const u of unsubs) u();
   unsubs = []; fbUser = null; db = null;
+  $('#admin-link').hidden = true;
   resetData(); closeDialog();
   mode = 'auth'; render();
 }

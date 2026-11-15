@@ -196,15 +196,20 @@ function accountDetail(a) {
   };
 }
 
-function relDays(ts, now) {
+const REL = {
+  nl: { today: 'vandaag', yesterday: 'gisteren', d: 'd geleden', mo: 'mnd geleden', y: 'j geleden' },
+  en: { today: 'today', yesterday: 'yesterday', d: 'd ago', mo: 'mo ago', y: 'y ago' },
+};
+function relDays(ts, now, lang = 'nl') {
   if (!ts) return '—';
+  const w = REL[lang] || REL.nl;
   const midnight = t => { const d = new Date(t); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); };
   const d = Math.max(0, Math.round((midnight(now) - midnight(ts)) / DAY));
-  if (d === 0) return 'vandaag';
-  if (d === 1) return 'gisteren';
-  if (d < 31) return `${d} d geleden`;
-  if (d < 365) return `${Math.floor(d / 30)} mnd geleden`;
-  return `${Math.floor(d / 365)} j geleden`;
+  if (d === 0) return w.today;
+  if (d === 1) return w.yesterday;
+  if (d < 31) return `${d} ${w.d}`;
+  if (d < 365) return `${Math.floor(d / 30)} ${w.mo}`;
+  return `${Math.floor(d / 365)} ${w.y}`;
 }
 
 return { DAY, pct, buildDataset, weekStart, monthStart, periodStarts, isActive, isInactive, activeWeekly, overview, growth, usage, content, accountRows, accountDetail, relDays };

@@ -254,7 +254,7 @@ def build_admin(src, app_src, firebase_config=None, rules=RULES):
 """
 
 
-def build(src, firebase_config=None):
+def build(src, firebase_config=None, rules=RULES):
     """The complete page as a string. Raises BuildError for a mistake in an input file."""
     src = Path(src).resolve()
     design = src.parent / 'design'
@@ -270,6 +270,9 @@ def build(src, firebase_config=None):
     if firebase_config:
         cfg = json.loads(Path(firebase_config).read_text(encoding='utf-8'))
         text = fill(text, 'const FIREBASE_CONFIG = null;', 'const FIREBASE_CONFIG = ' + json.dumps(cfg, ensure_ascii=False) + ';', 'Firebase config')
+    uid = admin_uid(rules)
+    if uid:   # the owner's account gets an Admin button in the header
+        text = fill(text, 'const ADMIN_UID = null;', 'const ADMIN_UID = ' + json.dumps(uid) + ';', 'admin uid')
 
     text = inline_styles(text, src.parent)
     text = fill(text, '<main id="main">', public.app_noscript() + '\n<main id="main">', 'main')

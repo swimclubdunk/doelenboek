@@ -41,6 +41,11 @@ class BuildAdmin(unittest.TestCase):
         page = build.build_admin(build.ADMIN_SRC, APP, ROOT / 'firebase-config.json', rules_with('OWNER_UID'))
         self.assertIn('"projectId": "doelenboek-e78ca"', page)
 
+    def test_app_gets_the_admin_uid_for_its_admin_button(self):
+        page = build.build(APP, None, rules_with('AbCdEf1234567890xyz'))
+        self.assertIn('const ADMIN_UID = "AbCdEf1234567890xyz";', page)
+        self.assertIn('id="admin-link"', page)
+
     def test_robots_keeps_crawlers_out_of_admin(self):
         self.assertIn('Disallow: /admin/', public.robots())
 

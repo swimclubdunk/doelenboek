@@ -242,3 +242,13 @@ test('accountRows: email sort uses natural number order (ouder9 before ouder10)'
   assert.deepEqual(S.accountRows(a, { sort: 'email', dir: 'asc' }, NOW).map(r => r.email), ['ouder1@x.be', 'ouder9@x.be', 'ouder10@x.be']);
   assert.deepEqual(S.accountRows(a, { sort: 'email', dir: 'desc' }, NOW).map(r => r.email), ['ouder10@x.be', 'ouder9@x.be', 'ouder1@x.be']);
 });
+
+test('relDays in English: today, yesterday, days, months, years, never', () => {
+  assert.equal(S.relDays(day(10, 14, 8), NOW, 'en'), 'today');
+  assert.equal(S.relDays(day(10, 13, 23), NOW, 'en'), 'yesterday');
+  assert.equal(S.relDays(day(10, 4), NOW, 'en'), '10 d ago');
+  assert.equal(S.relDays(day(7, 3), NOW, 'en'), '3 mo ago');
+  assert.equal(S.relDays(day(0, 1, 12, 2025), NOW, 'en'), '1 y ago');
+  assert.equal(S.relDays(0, NOW, 'en'), '—');
+  assert.equal(S.relDays(day(10, 4), NOW), '10 d geleden');
+});
