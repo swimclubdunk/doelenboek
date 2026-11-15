@@ -554,6 +554,7 @@ td.nw { white-space: nowrap; }
     <nav class="tabs" id="tabs" aria-label="Admin"></nav>
     <div class="top-right">
       <span class="status" id="status"></span>
+      <button type="button" class="theme-btn" id="theme-btn"></button>
       <button class="btn small" id="refresh-btn" type="button" hidden>Vernieuwen</button>
       <button class="btn small ghost" id="out-btn" type="button" hidden>Afmelden</button>
     </div>
@@ -10798,6 +10799,18 @@ const subjName = k => SUBJ[k] ? SUBJ[k].name.nl : 'Onbekend';
 const subjColor = k => SUBJ[k] ? `var(--s-${k.toLowerCase()})` : 'var(--muted)';
 const tierName = k => TIER[k] ? TIER[k].badge.nl : k;
 
+/* ---------- bright or dark: the same choice and button as the app (both read doelenboek.theme) ---------- */
+const THEME_KEY = 'doelenboek.theme';
+const ICON_MOON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+const ICON_SUN = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+function renderTheme() {
+  const dark = document.documentElement.dataset.theme === 'dark', label = dark ? 'Lichte modus' : 'Donkere modus';
+  const b = document.getElementById('theme-btn');
+  b.innerHTML = dark ? ICON_SUN : ICON_MOON;
+  b.setAttribute('aria-label', label);
+  b.title = label;
+}
+
 /* ---------- state ---------- */
 const state = { view: 'loading', err: '', accounts: [], loadedAt: 0, demo: false,
   growthPeriod: 'weeks', subjOpen: false, showNever: false,
@@ -11101,6 +11114,13 @@ document.addEventListener('submit', async e => {
 });
 document.addEventListener('input', e => { if (e.target.id === 'acc-q') { state.q = e.target.value; updateTable(); } });
 window.addEventListener('hashchange', render);
+$('theme-btn').addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem(THEME_KEY, next); } catch (err) {}
+  renderTheme();
+});
+renderTheme();
 $('refresh-btn').addEventListener('click', () => load());
 $('out-btn').addEventListener('click', () => fb.A.signOut(fb.auth));
 start();
