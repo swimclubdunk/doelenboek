@@ -26,14 +26,27 @@ service cloud.firestore {
         && (collection != 'photos' || request.resource.data.data.size() <= 400000);
     }
 
-    // One small record per account for /admin/: email, sign-up date and the last day the app was opened.
+    // One small record per account for /admin/: email, sign-up date, the last day the app was opened,
+    // and 'seen': the ids of the admin messages this account has seen.
     match /users/{uid}/profile/{docId} {
       allow create, update: if isOwner(uid) && docId == 'main'
-        && request.resource.data.keys().hasOnly(['email', 'createdAt', 'lastSeen'])
+        && request.resource.data.keys().hasOnly(['email', 'createdAt', 'lastSeen', 'seen'])
         && request.resource.data.keys().hasAll(['email', 'createdAt', 'lastSeen'])
         && request.resource.data.email == request.auth.token.email
         && request.resource.data.createdAt is number
-        && request.resource.data.lastSeen is number;
+        && request.resource.data.lastSeen is number
+        && (!('seen' in request.resource.data) || (request.resource.data.seen is list && request.resource.data.seen.size() <= 1000));
+    }
+
+    // Admin messages: the admin reads and writes everything; a signed-in user reads only what has started.
+    function started() { return request.auth != null && resource.data.startAt <= request.time.toMillis(); }
+    match /messages/{msgId} {
+      allow read: if isAdmin() || started();
+      allow write: if isAdmin();
+      match /images/{imgId} {
+        allow read: if isAdmin() || started();
+        allow write: if isAdmin();
+      }
     }
 
     // Admin: read-only, across all accounts (collection-group queries from /admin/).
