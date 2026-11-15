@@ -7,7 +7,8 @@ touching the app's code, its data or how accounts work.
 tokens.css            colours (light and dark), subject colours, fonts, corner radius, shadow
 fonts/                the font files (woff2) and their licences (SIL Open Font License)
 app.css               layout and the look of every screen and component
-favicon.svg           the browser-tab icon
+favicon.svg           the browser-tab icon (the book stack from the seal, as a 64 px picture)
+apple-touch-icon.png  the icon when the app is added to a phone's home screen (180 x 180)
 site.css              the public pages (over/, minimumdoelen/, en/...), on top of tokens.css
 og-image.png          the picture shown when a link to the site is shared (1200 x 630)
 animals/animals.json  which animals exist, their order in the picker, and the emoji each belongs to

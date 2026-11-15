@@ -296,6 +296,7 @@ def build(src, firebase_config=None, rules=RULES):
 <meta name="color-scheme" content="light">
 {public.app_head(public.load_subjects(DOELEN_DIR, subject_keys))}
 <link rel="icon" href="{favicon_uri(design / 'favicon.svg')}">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 {head}
 </head>
 <body>
