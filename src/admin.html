@@ -77,6 +77,13 @@ textarea.msg-text { width: 100%; min-height: 200px; resize: vertical; border: 1p
 .msg-confirm { display: grid; gap: 4px; padding: 12px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface-2); }
 .msg-confirm p { margin: 0; }
 .msg-confirm .msg-acts { margin-top: 6px; }
+.msg-item { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--line); }
+.msg-item:first-of-type { border-top: 0; }
+.msg-item.ended .msg-item-main { opacity: .7; }
+.msg-item-main { display: grid; gap: 2px; min-width: 0; flex: 1 1 260px; }
+.msg-item-main b { overflow-wrap: anywhere; }
+.msg-item-main .muted { font-size: .82rem; }
+.msg-sure { font-size: .84rem; }
 /* both-language labels (.bi): text lines up at the start, number columns at the end, buttons and capsules centred */
 main .bi { justify-items: start; }
 main .r .bi { justify-items: end; }
@@ -170,6 +177,12 @@ const T = {
     send_q: 'Dit bericht versturen?', save_q: 'De wijzigingen opslaan?', sum_start: 'Start:', sum_end: 'Einde:', sum_now: 'meteen', yes: 'ja', no: 'nee',
     p_empty: 'Vul de tekst in voor elke gekozen taal.', p_days: 'De looptijd is 1 tot 365 dagen.', p_start: 'Een geplande start ligt minstens 1 minuut in de toekomst.',
     too_many_images: 'Maximaal 20 afbeeldingen per bericht.', image_failed: 'Deze afbeelding kon niet gelezen worden.',
+    sent_messages: 'Verstuurde en geplande berichten', no_messages: 'Nog geen berichten.',
+    st_scheduled: (a, b) => `gepland van ${a} tot ${b}`, st_live: x => `loopt tot ${x}`, st_ended: x => `afgelopen op ${x}`, st_replaced: (x, y) => `vervangen op ${x} door "${y}"`,
+    seen_by: x => `gezien door ${x}`, edit: 'Bewerken', delete: 'Verwijderen', withdraw: 'Intrekken',
+    withdraw_q: 'Intrekken? Wie het nog niet zag, krijgt het niet meer.', delete_q: 'Definitief verwijderen?',
+    already_started: 'Dit bericht is intussen gestart en kan niet meer bewerkt worden.', saving: 'Bezig…',
+    save_failed: x => `Opslaan mislukt (${x}).`, msgs_failed: x => `Berichten laden mislukt (${x}).`,
   },
   en: {
     overzicht: 'Overview', groei: 'Growth', gebruik: 'Usage', inhoud: 'Content', accounts: 'Accounts',
@@ -215,6 +228,12 @@ const T = {
     send_q: 'Send this message?', save_q: 'Save the changes?', sum_start: 'Start:', sum_end: 'End:', sum_now: 'immediately', yes: 'yes', no: 'no',
     p_empty: 'Fill in the text for every chosen language.', p_days: 'The lifetime is 1 to 365 days.', p_start: 'A scheduled start is at least 1 minute in the future.',
     too_many_images: 'At most 20 images per message.', image_failed: 'This image could not be read.',
+    sent_messages: 'Sent and scheduled messages', no_messages: 'No messages yet.',
+    st_scheduled: (a, b) => `scheduled from ${a} until ${b}`, st_live: x => `live until ${x}`, st_ended: x => `ended ${x}`, st_replaced: (x, y) => `replaced on ${x} by "${y}"`,
+    seen_by: x => `seen by ${x}`, edit: 'Edit', delete: 'Delete', withdraw: 'Withdraw',
+    withdraw_q: "Withdraw? Whoever hasn't seen it won't get it anymore.", delete_q: 'Delete for good?',
+    already_started: 'This message has started and can no longer be edited.', saving: 'Working…',
+    save_failed: x => `Saving failed (${x}).`, msgs_failed: x => `Loading the messages failed (${x}).`,
   },
 };
 const tIn = (l, k, ...a) => { const v = T[l][k]; return typeof v === 'function' ? v(...a) : v; };
@@ -508,7 +527,7 @@ function actionsHtml() {
     return `<div class="msg-confirm"><p><b>${bt(d.editing ? 'save_q' : 'send_q')}</b></p>
       <p>${bt('sum_start')} ${d.start === 'now' ? bt('sum_now') : fmtDT(r.startAt)} · ${bt('sum_end')} ${fmtDT(r.endAt)}</p>
       <p>${bt('replace_label')}: ${yn(r.replace)} · ${bt('new_accounts_label')}: ${yn(r.newAccounts)}</p>
-      <div class="msg-acts"><button type="button" class="btn primary" data-action="draft-confirm">${bt('confirm')}</button>
+      <div class="msg-acts"><button type="button" class="btn primary" data-action="draft-confirm" ${d.busy ? 'disabled' : ''}>${bt(d.busy ? 'saving' : 'confirm')}</button>
         <button type="button" class="btn ghost" data-action="draft-back">${bt('back')}</button></div></div>`;
   }
   const probs = draftProblems(d, now);
@@ -517,6 +536,7 @@ function actionsHtml() {
       <button type="button" class="btn primary" data-action="draft-send" ${probs.length ? 'disabled' : ''}>${bt(d.editing ? 'save_changes' : 'send')}</button>
     </div>
     ${d.note ? `<p class="form-error" role="alert">${bt(d.note)}</p>` : ''}
+    ${d.err ? `<p class="form-error" role="alert">${errBoth('save_failed', d.err)}</p>` : ''}
     ${probs.length ? `<p class="muted msg-probs">${probs.map(k => bt(k)).join('<br>')}</p>` : ''}`;
 }
 function composerHtml() {
@@ -542,8 +562,6 @@ VIEWS.berichten = () => messagesView();
 function messagesView() {
   return section(bt('berichten'), composerHtml() + messageListHtml());
 }
-/* the message list comes with sending (filled in later) */
-function messageListHtml() { return ''; }
 const updateActions = () => { const el = $('d-actions'); if (el) el.innerHTML = actionsHtml(); };
 const updateEnd = () => { const el = $('d-end'); if (el) el.innerHTML = endHtml(); };
 const updatePreview = l => { const el = $('prev-' + l); if (el) el.innerHTML = previewHtml(l); };
@@ -599,7 +617,6 @@ function insertPicked() {
   d.pick = null; d.confirming = false;
   render();
 }
-async function saveDraft() { console.log('doelenboek admin: would save', draftToRecord(state.draft, Date.now())); }
 Object.assign(ACTIONS, {
   'draft-mode': el => { const d = state.draft; d.mode = el.dataset.v; d.confirming = false; d.pick = null; render(); },
   'draft-start': el => { const d = state.draft; d.start = el.dataset.v; if (d.start === 'scheduled' && !d.startLocal) d.startLocal = defaultStartLocal(); d.confirming = false; render(); },
@@ -626,6 +643,148 @@ document.addEventListener('change', e => {
   else if (el.id === 'img-file' && el.files && el.files[0]) { const f = el.files[0]; el.value = ''; pickImage(f); }
 });
 window.addEventListener('beforeunload', e => { if (draftDirty(state.draft)) { e.preventDefault(); e.returnValue = ''; } });
+
+/* ---------- Berichten: saving, the list, withdraw and delete ----------
+   Every save and delete recomputes which messages a 'replace' message ends (messages.js replacements())
+   and writes the changes in the same batch. In demo mode (no Firebase) everything stays in memory. */
+state.removing = null;
+state.msgErr = null;
+state.demoImages = new Map();   // demo mode: message id -> Map(image id -> { data, w, h })
+const newMsgId = () => Array.from(crypto.getRandomValues(new Uint8Array(20)), b => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[b % 62]).join('');
+const sameRepl = (m, want) => want ? m.replacedBy === want.replacedBy && m.replacedAt === want.replacedAt : m.replacedBy == null && m.replacedAt == null;
+const withRepl = (m, want) => ({ ...m, replacedBy: want ? want.replacedBy : null, replacedAt: want ? want.replacedAt : null });
+const errBoth = (k, code) => both(tIn('nl', k, code) + (code === 'permission-denied' ? tIn('nl', 'rules_hint') : ''), tIn('en', k, code) + (code === 'permission-denied' ? tIn('en', 'rules_hint') : ''));
+
+async function loadAdminMessages() {
+  if (state.demo || !fb) return;
+  const { F, fs } = fb;
+  try {
+    const s = await F.getDocs(F.collection(fs, 'messages'));
+    state.messages = s.docs.map(d => M.clean(d.id, d.data())).filter(Boolean);
+    state.msgErr = null;
+  } catch (e) { state.msgErr = (e && e.code) || 'unknown'; }
+}
+
+/* the updates that bring every other message's replacedBy/replacedAt in line with `repl` */
+function replUpdates(others, repl, b, F, fs) {
+  for (const m of others) {
+    const want = repl.get(m.id);
+    if (sameRepl(m, want)) continue;
+    b.update(F.doc(fs, 'messages', m.id), want ? { ...want } : { replacedBy: F.deleteField(), replacedAt: F.deleteField() });
+  }
+}
+
+async function saveDraft() {
+  const d = state.draft, now = Date.now();
+  d.err = null; d.note = '';
+  if (draftProblems(d, now).length) { d.confirming = false; return updateActions(); }
+  const editing = d.editing ? state.messages.find(m => m.id === d.editing) : null;
+  if (d.editing && (!editing || editing.startAt <= now)) { d.confirming = false; d.note = 'already_started'; return updateActions(); }
+  pruneImages(d);
+  const id = d.editing || newMsgId();
+  const rec = { ...draftToRecord(d, now), createdAt: editing ? editing.createdAt : now };
+  const others = state.messages.filter(m => m.id !== id);
+  const repl = M.replacements([...others, M.clean(id, rec)], now);
+  const own = repl.get(id);
+  d.busy = true; updateActions();
+  try {
+    if (state.demo) {
+      state.messages = [...others.map(m => withRepl(m, repl.get(m.id))), M.clean(id, { ...rec, ...(own || {}) })];
+      state.demoImages.set(id, new Map(d.images));
+    } else {
+      const { F, fs } = fb, b = F.writeBatch(fs);
+      b.set(F.doc(fs, 'messages', id), { ...rec, ...(own || {}) });
+      for (const [imgId, im] of d.images) b.set(F.doc(fs, 'messages', id, 'images', imgId), { data: im.data, w: im.w, h: im.h, startAt: rec.startAt });
+      for (const imgId of d.loadedImages || []) if (!d.images.has(imgId)) b.delete(F.doc(fs, 'messages', id, 'images', imgId));
+      replUpdates(others, repl, b, F, fs);
+      await b.commit();
+      await loadAdminMessages();
+    }
+    state.draft = newDraft();
+  } catch (e) {
+    d.busy = false; d.confirming = false; d.err = (e && e.code) || 'unknown';
+  }
+  render();
+}
+
+async function removeMessage(id) {
+  const now = Date.now(), others = state.messages.filter(m => m.id !== id);
+  const repl = M.replacements(others, now);
+  state.removing = null;
+  try {
+    if (state.demo) {
+      state.messages = others.map(m => withRepl(m, repl.get(m.id)));
+      state.demoImages.delete(id);
+    } else {
+      const { F, fs } = fb, b = F.writeBatch(fs);
+      const imgs = await F.getDocs(F.collection(fs, 'messages', id, 'images'));
+      for (const im of imgs.docs) b.delete(im.ref);
+      b.delete(F.doc(fs, 'messages', id));
+      replUpdates(others, repl, b, F, fs);
+      await b.commit();
+      await loadAdminMessages();
+    }
+    state.listErr = null;
+  } catch (e) { state.listErr = (e && e.code) || 'unknown'; }
+  render();
+}
+
+async function editMessage(id) {
+  const m = state.messages.find(x => x.id === id);
+  if (!m || m.startAt <= Date.now()) return;
+  let images = new Map();
+  try {
+    if (state.demo) images = new Map(state.demoImages.get(id) || []);
+    else {
+      const { F, fs } = fb, s = await F.getDocs(F.collection(fs, 'messages', id, 'images'));
+      for (const im of s.docs) { const x = im.data(); if (x && typeof x.data === 'string') images.set(im.id, { data: x.data, w: x.w, h: x.h }); }
+    }
+  } catch (e) { state.listErr = (e && e.code) || 'unknown'; render(); return; }
+  const p = v => String(v).padStart(2, '0'), s = new Date(m.startAt);
+  state.draft = { ...newDraft(), editing: id, createdAt: m.createdAt, mode: m.langs.length === 2 ? 'both' : m.langs[0],
+    body: { nl: m.body.nl || '', en: m.body.en || '' }, images, loadedImages: [...images.keys()], start: 'scheduled',
+    startLocal: `${s.getFullYear()}-${p(s.getMonth() + 1)}-${p(s.getDate())}T${p(s.getHours())}:${p(s.getMinutes())}`,
+    days: Math.round((m.endAt - m.startAt) / S.DAY), replace: m.replace, newAccounts: m.newAccounts };
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function statusHtml(m, now) {
+  const st = M.status(m, now), dt = l => DT_BOTH[l].format.bind(DT_BOTH[l]);
+  const per = (k, ...ts) => both(tIn('nl', k, ...ts.map(dt('nl'))), tIn('en', k, ...ts.map(dt('en'))));
+  if (st === 'scheduled') return per('st_scheduled', m.startAt, m.endAt);
+  if (st === 'live') return per('st_live', M.effectiveEnd(m));
+  if (m.replacedAt != null && m.replacedAt <= m.endAt) {
+    const r = state.messages.find(x => x.id === m.replacedBy), name = r ? M.firstLine(r.body.nl ?? r.body.en) : '—';
+    return both(tIn('nl', 'st_replaced', DT_BOTH.nl.format(m.replacedAt), name), tIn('en', 'st_replaced', DT_BOTH.en.format(m.replacedAt), name));
+  }
+  return per('st_ended', m.endAt);
+}
+function messageListHtml() {
+  const now = Date.now(), list = [...state.messages].sort((a, b) => b.startAt - a.startAt);
+  const rows = list.map(m => {
+    const st = M.status(m, now), name = M.firstLine(m.body.nl ?? m.body.en) || '—';
+    const seen = st === 'scheduled' ? '' : ` · ${bt('seen_by', n(state.seen.get(m.id) || 0))}`;
+    const btn = (action, key, cls = 'ghost') => `<button type="button" class="btn small ${cls}" data-action="${action}" data-v="${esc(m.id)}">${bt(key)}</button>`;
+    const acts = state.removing === m.id
+      ? `<span class="msg-sure">${bt(st === 'live' ? 'withdraw_q' : 'delete_q')}</span>${btn('msg-remove-yes', st === 'live' ? 'withdraw' : 'delete', 'danger')}${btn('msg-remove-no', 'cancel')}`
+      : st === 'scheduled' ? btn('msg-edit', 'edit') + btn('msg-remove', 'delete')
+      : btn('msg-remove', st === 'live' ? 'withdraw' : 'delete');
+    return `<div class="msg-item${st === 'ended' ? ' ended' : ''}">
+      <div class="msg-item-main"><b>${esc(name)}</b><span class="muted">${m.langs.map(l => l.toUpperCase()).join(' + ')} · ${statusHtml(m, now)}${seen}</span></div>
+      <div class="msg-acts">${acts}</div></div>`;
+  }).join('');
+  const err = state.msgErr ? `<div class="notice"><p>${errBoth('msgs_failed', state.msgErr)}</p></div>`
+    : state.listErr ? `<div class="notice"><p>${errBoth('save_failed', state.listErr)}</p></div>` : '';
+  return `<div class="card panel"><h3>${bt('sent_messages')}</h3>${err}
+    ${rows || (state.msgErr ? '' : `<p class="muted" style="margin:0">${bt('no_messages')}</p>`)}</div>`;
+}
+Object.assign(ACTIONS, {
+  'msg-edit': el => editMessage(el.dataset.v),
+  'msg-remove': el => { state.removing = el.dataset.v; render(); },
+  'msg-remove-no': () => { state.removing = null; render(); },
+  'msg-remove-yes': el => removeMessage(el.dataset.v),
+});
 
 /* ---------- screens ---------- */
 function loginView() {
@@ -674,6 +833,8 @@ async function load() {
   try {
     const [profiles, children, activities] = await Promise.all(['profile', 'children', 'activities'].map(c => F.getDocs(F.collectionGroup(fs, c)).then(rows)));
     state.accounts = S.buildDataset({ profiles, children, activities }, TIER_KEYS);
+    state.seen = M.seenCounts(profiles);
+    await loadAdminMessages();
     state.loadedAt = Date.now();
     state.view = 'dash';
   } catch (e) {
