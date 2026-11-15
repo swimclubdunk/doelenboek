@@ -332,6 +332,36 @@ dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
 .thanks-cup .heart { fill: var(--s-ak); }
 .thanks-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 6px; }
 .thanks-actions a.btn { text-decoration: none; }
+
+/* admin messages: the popup in the app; .msg-body is also the preview on /admin/ */
+dialog.msg { width: min(560px, calc(100vw - 24px)); }
+.msg-head { display: flex; align-items: center; gap: 10px; padding: 14px 12px 4px 20px; }
+.msg-head h2 { flex: 1; min-width: 0; margin: 0; font-family: var(--f-display); font-size: 1.2rem; overflow-wrap: anywhere; }
+.msg-head h2:empty { visibility: hidden; }
+.msg-lang { display: inline-flex; flex: none; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.msg-lang button { border: 0; background: transparent; padding: 4px 10px; font-size: .78rem; font-weight: 700; color: var(--muted); cursor: pointer; letter-spacing: .04em; }
+.msg-lang button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
+.msg-x { flex: none; font-size: 1rem; }
+.msg-body { padding: 6px 20px 18px; line-height: 1.55; overflow-wrap: anywhere; }
+.msg-body > :first-child { margin-top: 0; }
+.msg-body > :last-child { margin-bottom: 0; }
+.msg-body p, .msg-body ul, .msg-body ol { margin: 0 0 .7em; }
+.msg-body ul, .msg-body ol { padding-left: 1.4em; }
+.msg-body h3 { font-family: var(--f-display); font-size: 1.1rem; margin: .9em 0 .4em; }
+.msg-body h4 { font-size: .98rem; margin: .8em 0 .3em; }
+.msg-body a { color: var(--accent); }
+.msg-fig { margin: .6em 0; }
+.msg-img { display: block; max-width: 100%; height: auto; border-radius: var(--r-sm); }
+.msg-img[data-zoom="click"] { cursor: zoom-in; }
+.msg-img[data-zoom="hover"] { cursor: zoom-in; }
+@media (hover: hover) { .msg-img[data-zoom="hover"] { cursor: default; } }
+.msg-foot { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 10px 20px 16px; border-top: 1px solid var(--line); }
+.msg-count { color: var(--muted); font: .82rem var(--f-mono); }
+.msg-hover { position: fixed; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 5; }
+.msg-hover img { max-width: 92vw; max-height: 88vh; border-radius: var(--r-sm); box-shadow: 0 20px 60px rgb(0 0 0 / .45); background: var(--surface); }
+dialog.msgzoom { width: fit-content; height: fit-content; overflow: hidden; max-width: 92vw; max-height: 88vh; padding: 0; background: transparent; border: 0; box-shadow: none; cursor: zoom-out; }
+dialog.msgzoom::backdrop { background: rgb(20 15 11 / .8); }
+dialog.msgzoom img { display: block; max-width: 92vw; max-height: 88vh; border-radius: var(--r-sm); }
 .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: var(--r-sm); font-size: .9rem; transition: opacity .2s, transform .2s; max-width: calc(100vw - 32px); z-index: 50; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast.bad { background: var(--danger); color: var(--surface); }
