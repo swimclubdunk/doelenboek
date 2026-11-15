@@ -35,3 +35,78 @@ test('firstLine strips codes and cuts at 80', () => {
   assert.equal(M.firstLine('x'.repeat(100)).length, 80);
 });
 test('empty text', () => assert.deepEqual(M.render('', new Set()), { title: '', html: '' }));
+
+/* ---------- message rules ---------- */
+// Months are 0-based (11 = December).
+const day = (m, d, h = 12, y = 2026) => new Date(y, m, d, h).getTime();
+const msg = (id, over = {}) => ({ langs: ['nl'], body: { nl: 'x' }, startAt: day(11, 1), endAt: day(11, 31), replace: false, newAccounts: false, createdAt: day(10, 30), ...over });
+
+test('clean rejects bad records', () => {
+  assert.equal(M.clean('a', msg('a', { langs: ['de'] })), null);
+  assert.equal(M.clean('a', msg('a', { langs: ['nl', 'en'], body: { nl: 'x', en: '  ' } })), null);
+  assert.equal(M.clean('a', msg('a', { endAt: day(11, 1) })), null);
+  assert.equal(M.clean('a', msg('a', { startAt: 'soon' })), null);
+  assert.equal(M.clean('a', null), null);
+});
+test('clean keeps a valid record', () => {
+  const m = M.clean('a', msg('a', { langs: ['nl', 'en'], body: { nl: 'x', en: 'y' }, replace: true }));
+  assert.deepEqual(m, { id: 'a', langs: ['nl', 'en'], body: { nl: 'x', en: 'y' }, startAt: day(11, 1), endAt: day(11, 31), replace: true, newAccounts: false, replacedBy: null, replacedAt: null, createdAt: day(10, 30) });
+});
+test('clean drops body of unlisted language', () => assert.deepEqual(M.clean('a', msg('a', { body: { nl: 'x', en: 'y' } })).body, { nl: 'x' }));
+test('endFrom keeps the clock time', () => {
+  assert.equal(M.endFrom(day(11, 24, 8), 30), day(0, 23, 8, 2027));
+  assert.equal(M.endFrom(day(2, 20, 8, 2027), 30), day(3, 19, 8, 2027));   // across the 28 March 2027 DST change
+});
+test('status edges', () => {
+  const m = M.clean('a', msg('a'));
+  assert.equal(M.status(m, day(11, 1) - 1), 'scheduled');
+  assert.equal(M.status(m, day(11, 1)), 'live');
+  assert.equal(M.status(m, day(11, 31) - 1), 'live');
+  assert.equal(M.status(m, day(11, 31)), 'ended');
+  assert.equal(M.status({ ...m, replacedAt: day(11, 10) }, day(11, 10)), 'ended');
+  assert.equal(M.effectiveEnd({ ...m, replacedAt: day(11, 10) }), day(11, 10));
+});
+test('pending: seen, new accounts, order', () => {
+  const a = M.clean('a', msg('a', { startAt: day(11, 5) }));
+  const b = M.clean('b', msg('b', { startAt: day(11, 2) }));
+  const c = M.clean('c', msg('c', { startAt: day(11, 3), newAccounts: true }));
+  const now = day(11, 10);
+  assert.deepEqual(M.pending([a, b, c], { seen: [], createdAt: day(0, 1), now }).map(m => m.id), ['b', 'c', 'a']);
+  assert.deepEqual(M.pending([a, b, c], { seen: ['b'], createdAt: day(0, 1), now }).map(m => m.id), ['c', 'a']);
+  // account created 4 Dec: b (2 Dec) is hidden, c shows because newAccounts is on, a (5 Dec) started after the account
+  assert.deepEqual(M.pending([a, b, c], { seen: [], createdAt: day(11, 4), now }).map(m => m.id), ['c', 'a']);
+  assert.deepEqual(M.pending([a, b, c], { seen: [], createdAt: day(0, 1), now: day(11, 31) }), []);   // all ended
+});
+test('pending: not before the start, not after a replacement', () => {
+  const a = M.clean('a', msg('a', { startAt: day(11, 5) }));
+  const r = M.clean('r', msg('r', { startAt: day(11, 2), replacedBy: 'x', replacedAt: day(11, 4) }));
+  assert.deepEqual(M.pending([a, r], { seen: [], createdAt: day(0, 1), now: day(11, 4) }), []);
+});
+test('replacements: earliest later replacing message wins', () => {
+  const m = M.clean('m', msg('m', { startAt: day(11, 1), endAt: day(1, 28, 12, 2027) }));
+  const r1 = M.clean('r1', msg('r1', { startAt: day(11, 24), replace: true }));
+  const r2 = M.clean('r2', msg('r2', { startAt: day(11, 20), replace: true }));
+  const later = M.clean('l', msg('l', { startAt: day(11, 26) }));
+  const out = M.replacements([m, r1, r2, later], day(11, 1));
+  assert.deepEqual(out.get('m'), { replacedBy: 'r2', replacedAt: day(11, 20) });
+  assert.deepEqual(out.get('r2'), { replacedBy: 'r1', replacedAt: day(11, 24) });
+  assert.equal(out.get('l'), null);   // starts after r1 and r2
+  assert.equal(out.get('r1'), null);
+});
+test('replacements: no effect on a message that ended before R starts', () => {
+  const m = M.clean('m', msg('m', { startAt: day(11, 1), endAt: day(11, 5) }));
+  const r = M.clean('r', msg('r', { startAt: day(11, 6), replace: true }));
+  assert.equal(M.replacements([m, r], day(11, 1)).get('m'), null);
+});
+test('replacements: an effective replacement stays after R is withdrawn', () => {
+  const m = M.clean('m', msg('m', { replacedBy: 'gone', replacedAt: day(11, 3) }));
+  assert.deepEqual(M.replacements([m], day(11, 10)).get('m'), { replacedBy: 'gone', replacedAt: day(11, 3) });
+});
+test('replacements: a scheduled replacement is recomputed', () => {
+  const m = M.clean('m', msg('m', { replacedBy: 'gone', replacedAt: day(11, 20) }));
+  assert.equal(M.replacements([m], day(11, 10)).get('m'), null);
+});
+test('seenCounts', () => {
+  const c = M.seenCounts([{ data: { seen: ['a', 'b', 'a', 3] } }, { data: { seen: ['a'] } }, { data: null }, { data: {} }]);
+  assert.equal(c.get('a'), 2); assert.equal(c.get('b'), 1); assert.equal(c.size, 2);
+});

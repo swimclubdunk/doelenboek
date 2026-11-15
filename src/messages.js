@@ -80,6 +80,62 @@ function firstLine(text) {
   return line ? plain(line).slice(0, 80) : '';
 }
 
-return { ZOOMS, render, imageRefs, firstLine };
+/* ---------- message records and the rules for who sees what ---------- */
+const LANG_SETS = ['nl', 'en', 'nl,en'];
+const finite = v => typeof v === 'number' && Number.isFinite(v);
+
+/* A Firestore message record -> Msg, or null when it can't be shown safely. */
+function clean(id, d) {
+  if (!d || typeof d !== 'object' || !Array.isArray(d.langs) || !LANG_SETS.includes(d.langs.join(','))) return null;
+  const body = {};
+  for (const l of d.langs) {
+    const t = d.body && d.body[l];
+    if (typeof t !== 'string' || t.trim() === '') return null;
+    body[l] = t;
+  }
+  if (!finite(d.startAt) || !finite(d.endAt) || d.endAt <= d.startAt) return null;
+  const replaced = typeof d.replacedBy === 'string' && finite(d.replacedAt);
+  return { id, langs: [...d.langs], body, startAt: d.startAt, endAt: d.endAt, replace: d.replace === true, newAccounts: d.newAccounts === true,
+    replacedBy: replaced ? d.replacedBy : null, replacedAt: replaced ? d.replacedAt : null, createdAt: finite(d.createdAt) ? d.createdAt : 0 };
+}
+
+/* The same local clock time, `days` calendar days later (so a DST change doesn't shift it by an hour). */
+function endFrom(startAt, days) { const d = new Date(startAt); d.setDate(d.getDate() + days); return d.getTime(); }
+
+const effectiveEnd = m => m.replacedAt == null ? m.endAt : Math.min(m.endAt, m.replacedAt);
+const status = (m, now) => now < m.startAt ? 'scheduled' : now < effectiveEnd(m) ? 'live' : 'ended';
+
+/* The messages one user still has to see, oldest start first. who: { seen: [ids], createdAt: ms, now: ms } */
+function pending(msgs, who) {
+  const seen = new Set(Array.isArray(who.seen) ? who.seen : []);
+  return msgs.filter(m => status(m, who.now) === 'live' && !seen.has(m.id) && (m.newAccounts || who.createdAt <= m.startAt))
+    .sort((a, b) => a.startAt - b.startAt || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+}
+
+/* Per message: { replacedBy, replacedAt } or null. A message R with replace ends every message that starts
+   before R and is still running at R's start; the earliest such R wins. A replacement that already took
+   effect (replacedAt <= now) stays as it is, also when R has since been withdrawn. */
+function replacements(msgs, now) {
+  const out = new Map();
+  const rs = msgs.filter(r => r.replace).sort((a, b) => a.startAt - b.startAt);
+  for (const m of msgs) {
+    if (m.replacedAt != null && m.replacedAt <= now) { out.set(m.id, { replacedBy: m.replacedBy, replacedAt: m.replacedAt }); continue; }
+    const r = rs.find(r => r.id !== m.id && r.startAt > m.startAt && r.startAt < m.endAt);
+    out.set(m.id, r ? { replacedBy: r.id, replacedAt: r.startAt } : null);
+  }
+  return out;
+}
+
+/* message id -> number of profiles whose seen list holds it */
+function seenCounts(profiles) {
+  const c = new Map();
+  for (const p of profiles) {
+    const seen = p && p.data && Array.isArray(p.data.seen) ? p.data.seen : [];
+    for (const id of new Set(seen.filter(x => typeof x === 'string'))) c.set(id, (c.get(id) || 0) + 1);
+  }
+  return c;
+}
+
+return { ZOOMS, render, imageRefs, firstLine, clean, endFrom, effectiveEnd, status, pending, replacements, seenCounts };
 })();
 if (typeof module !== 'undefined') module.exports = Messages;
