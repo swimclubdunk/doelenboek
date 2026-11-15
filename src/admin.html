@@ -21,9 +21,21 @@
 .panel h3 { margin: 0 0 10px; font-size: .95rem; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; flex-wrap: wrap; }
 .panel h3 small { font-weight: 400; color: var(--muted); font-size: .78rem; }
 .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 14px; }
-.colchart { display: flex; align-items: flex-end; gap: 3px; height: 110px; border-bottom: 1px solid var(--line); }
-.colchart i { flex: 1; min-height: 2px; background: var(--accent); border-radius: 3px 3px 0 0; }
-.colchart i.zero { background: var(--line); }
+/* line charts: a 2px line with a faint wash, hairline grid, end dot + value, crosshair and tooltip on hover */
+.lc { --lc: var(--accent); color: var(--lc); }
+.lc-plot { position: relative; height: 120px; margin: 18px 8px 0 30px; touch-action: pan-y; }
+.lc-plot svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.lc-grid { stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.lc-area { fill: currentColor; opacity: .1; }
+.lc-line { fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.lc-y { position: absolute; left: -30px; width: 24px; text-align: right; transform: translateY(-50%); color: var(--muted); font: .7rem var(--f-mono); }
+.lc-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 2px var(--surface); pointer-events: none; }
+.lc-end { position: absolute; transform: translate(-50%, -150%); color: var(--fg); font: 600 .78rem var(--f-mono); white-space: nowrap; pointer-events: none; }
+.lc-cross { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--muted); pointer-events: none; }
+.lc-tip { position: absolute; top: -8px; transform: translate(-50%, -100%); background: var(--fg); color: var(--surface); padding: 4px 8px; border-radius: var(--r-sm); font-size: .76rem; white-space: nowrap; pointer-events: none; z-index: 2; }
+.lc-plot:not(.hover) .lc-cross, .lc-plot:not(.hover) .lc-tip, .lc-plot:not(.hover) .lc-hdot { display: none; }
+.lc-plot.hover .lc-end { opacity: .25; }
+.lc .axis { margin: 4px 8px 0 30px; }
 .axis { display: flex; justify-content: space-between; color: var(--muted); font-size: .72rem; margin-top: 4px; font-family: var(--f-mono); }
 .tbl-wrap { overflow-x: auto; }
 table.t { width: 100%; border-collapse: collapse; font-size: .84rem; }
@@ -95,14 +107,35 @@ const currentTab = () => { const h = location.hash.slice(1); return TABS.some(x 
 const tile = (value, label, sub = '') => `<div class="card kpi"><div class="k-n">${value}</div><div class="k-l">${esc(label)}</div>${sub ? `<div class="k-s">${esc(sub)}</div>` : ''}</div>`;
 const section = (title, inner, aside = '') => `<section class="adm"><div class="page-head"><div><h1>${esc(title)}</h1></div>${aside}</div>${inner}</section>`;
 const axisFmt = { weeks: new Intl.DateTimeFormat('nl-BE', { day: 'numeric', month: 'short' }), months: new Intl.DateTimeFormat('nl-BE', { month: 'short', year: '2-digit' }) };
-/* rows: [{ start, value, title }]; one bar per period, three dates under it */
-function colChart(rows, period) {
-  const max = Math.max(1, ...rows.map(r => r.value));
+/* the top of a chart's scale: a clean number at or above max (2, 4, 5, 10, 20, 40, 50, ...) */
+function niceTop(max) {
+  if (max <= 2) return 2;
+  const p = 10 ** Math.floor(Math.log10(max));
+  return [1, 2, 4, 5, 10].map(m => m * p).find(v => v >= max);
+}
+/* rows: [{ start, value, title }]; one point per period, a line through them, three dates under it */
+function lineChart(rows, period) {
+  const top = niceTop(Math.max(0, ...rows.map(r => r.value)));
   const f = axisFmt[period === 'weeks' ? 'weeks' : 'months'];
-  const ticks = rows.length > 2 ? [rows[0], rows[Math.floor(rows.length / 2)], rows[rows.length - 1]] : rows;
-  return `<div class="colchart" role="img" aria-label="${esc(rows.map(r => r.title).join('; '))}">${rows.map(r =>
-    `<i class="${r.value ? '' : 'zero'}" style="height:${Math.round(100 * r.value / max)}%" title="${esc(r.title)}"></i>`).join('')}</div>
-    <div class="axis">${ticks.map(r => `<span>${esc(f.format(r.start))}</span>`).join('')}</div>`;
+  const xs = rows.map((r, i) => rows.length > 1 ? 100 * i / (rows.length - 1) : 50);
+  const ys = rows.map(r => 100 - 100 * r.value / top);
+  const pts = xs.map((x, i) => `${x.toFixed(2)},${ys[i].toFixed(2)}`);
+  const line = 'M' + pts.join(' L');
+  const area = `${line} L${xs[xs.length - 1].toFixed(2)},100 L${xs[0].toFixed(2)},100 Z`;
+  const last = rows.length - 1;
+  const ticks = rows.length > 2 ? [rows[0], rows[Math.floor(rows.length / 2)], rows[last]] : rows;
+  const data = esc(JSON.stringify(rows.map((r, i) => [xs[i], ys[i], r.title])));
+  return `<div class="lc"><div class="lc-plot" role="img" aria-label="${esc(rows.map(r => r.title).join('; '))}" data-points="${data}">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <line class="lc-grid" x1="0" x2="100" y1="0" y2="0"/><line class="lc-grid" x1="0" x2="100" y1="50" y2="50"/><line class="lc-grid" x1="0" x2="100" y1="100" y2="100"/>
+        <path class="lc-area" d="${area}"/><path class="lc-line" d="${line}"/>
+      </svg>
+      <span class="lc-y" style="top:0">${n(top)}</span><span class="lc-y" style="top:100%">0</span>
+      <span class="lc-dot" style="left:${xs[last]}%;top:${ys[last]}%"></span>
+      <span class="lc-end" style="left:${xs[last]}%;top:${ys[last]}%">${n(rows[last].value)}</span>
+      <span class="lc-cross"></span><span class="lc-dot lc-hdot"></span><span class="lc-tip"></span>
+    </div>
+    <div class="axis">${ticks.map(r => `<span>${esc(f.format(r.start))}</span>`).join('')}</div></div>`;
 }
 /* items: [{ label, value, pct, color }], in the app's .bars style */
 const barList = (items, cls = '') => `<ul class="bars ${cls}">${items.map(it =>
@@ -125,7 +158,7 @@ function overviewView() {
       ${tile(n(o.activities), 'Activiteiten', `+${n(o.activitiesThisMonth)} deze maand`)}
     </div>
     <div class="two">
-      <div class="card panel"><h3>Actieve accounts per week</h3>${colChart(weekRows(o.activeWeekly), 'weeks')}</div>
+      <div class="card panel"><h3>Actieve accounts per week</h3>${lineChart(weekRows(o.activeWeekly), 'weeks')}</div>
       <div class="card panel"><h3>Recent actief</h3>${recent}</div>
     </div>${FOOTNOTE}`);
 }
@@ -140,10 +173,10 @@ function growthView() {
     <div class="kpis">
       ${tile(n(g.totals.accounts), 'Accounts')}${tile(n(g.totals.children), 'Kinderen')}${tile(n(g.totals.activities), 'Activiteiten')}${tile(n(g.totals.photos), "Foto's")}
     </div>
-    <div class="card panel"><h3>Nieuwe accounts per ${label} <small>totaal aan het einde: ${n(g.rows[g.rows.length - 1].total)}</small></h3>${colChart(rows('accounts'), p)}</div>
+    <div class="card panel"><h3>Nieuwe accounts per ${label} <small>totaal aan het einde: ${n(g.rows[g.rows.length - 1].total)}</small></h3>${lineChart(rows('accounts'), p)}</div>
     <div class="two">
-      <div class="card panel"><h3>Nieuwe kinderen per ${label}</h3>${colChart(rows('children'), p)}</div>
-      <div class="card panel"><h3>Nieuwe activiteiten per ${label}</h3>${colChart(rows('activities'), p)}</div>
+      <div class="card panel"><h3>Nieuwe kinderen per ${label}</h3>${lineChart(rows('children'), p)}</div>
+      <div class="card panel"><h3>Nieuwe activiteiten per ${label}</h3>${lineChart(rows('activities'), p)}</div>
     </div>`, seg);
 }
 
@@ -156,7 +189,7 @@ function usageView() {
     </div>
     <div class="card panel"><h3>Van aanmelden tot vaste gebruiker <small>van alle ${n(u.funnel[0].count)} accounts</small></h3>
       ${barList(u.funnel.map(f => ({ label: FUNNEL[f.key], value: f.count, pct: f.pct })), 'funnel')}</div>
-    <div class="card panel"><h3>Actieve accounts per week <small>iets gewijzigd of de app geopend</small></h3>${colChart(weekRows(u.activeWeekly), 'weeks')}</div>`);
+    <div class="card panel"><h3>Actieve accounts per week <small>iets gewijzigd of de app geopend</small></h3>${lineChart(weekRows(u.activeWeekly), 'weeks')}</div>`);
 }
 
 function contentView() {
@@ -336,6 +369,22 @@ async function start() {
 }
 
 /* ---------- events ---------- */
+/* line charts: the crosshair snaps to the nearest period under the pointer */
+document.addEventListener('pointermove', e => {
+  const plot = e.target.closest && e.target.closest('.lc-plot');
+  document.querySelectorAll('.lc-plot.hover').forEach(p => { if (p !== plot) p.classList.remove('hover'); });
+  if (!plot) return;
+  const pts = JSON.parse(plot.dataset.points), box = plot.getBoundingClientRect();
+  const fx = 100 * (e.clientX - box.left) / box.width;
+  const [x, y, title] = pts.reduce((a, b) => Math.abs(b[0] - fx) < Math.abs(a[0] - fx) ? b : a);
+  plot.classList.add('hover');
+  plot.querySelector('.lc-cross').style.left = x + '%';
+  Object.assign(plot.querySelector('.lc-hdot').style, { left: x + '%', top: y + '%' });
+  const tip = plot.querySelector('.lc-tip');
+  tip.textContent = title;
+  tip.style.left = Math.min(Math.max(x, 12), 88) + '%';
+});
+document.addEventListener('pointerleave', e => { if (e.target.classList && e.target.classList.contains('lc-plot')) e.target.classList.remove('hover'); }, true);
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-action]');
   if (el && ACTIONS[el.dataset.action]) ACTIONS[el.dataset.action](el);
