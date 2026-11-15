@@ -24,7 +24,7 @@ test('mailto link', () => assert.match(M.render('[mail](mailto:a@b.be)', new Set
 test('javascript: link stays text', () => assert.doesNotMatch(M.render('[x](javascript:alert(1))', new Set()).html, /<a /));
 test('a quote in a link cannot break out of the attribute', () => assert.doesNotMatch(M.render('[x](https://a.be/"onmouseover="alert(1))', new Set()).html, /" onmouseover|"onmouseover="/));
 test('known image', () => assert.equal(M.render('![Boom](img:ab12 hover)', new Set(['ab12'])).html,
-  '<figure class="msg-fig"><img class="msg-img" data-img="ab12" data-zoom="hover" alt="Boom"></figure>'));
+  '<figure class="msg-fig"><img class="msg-img" data-img="ab12" data-zoom="hover" alt="Boom" style="width:100%"></figure>'));
 test('unknown image id or zoom is dropped', () => {
   assert.equal(M.render('![x](img:zz99 click)', new Set(['ab12'])).html, '');
   assert.equal(M.render('![x](img:ab12 big)', new Set(['ab12'])).html, '');
@@ -115,4 +115,33 @@ test('seenCounts', () => {
 test('unknownImages lists codes whose image is missing', () => {
   assert.deepEqual(M.unknownImages('![a](img:x1 click)\n![b](img:y2 none)\n![c](img:y2 hover)', new Set(['x1'])), ['y2']);
   assert.deepEqual(M.unknownImages('no images', new Set()), []);
+});
+
+/* ---------- centring and image size ---------- */
+test('a centred paragraph', () => assert.equal(M.render('-> Hallo **jij** <-', new Set()).html, '<p class="msg-c">Hallo <strong>jij</strong></p>'));
+test('centred and plain lines become separate paragraphs', () => assert.equal(M.render('a\n-> b <-\n-> c <-\nd', new Set()).html, '<p>a</p><p class="msg-c">b<br>c</p><p>d</p>'));
+test('a centred heading', () => assert.equal(M.render('x\n-> ## Sub <-', new Set()).html, '<p>x</p><h4 class="msg-c">Sub</h4>'));
+test('centre markers on a list item are ignored', () => assert.equal(M.render('-> - a <-\n- b', new Set()).html, '<ul><li>a</li><li>b</li></ul>'));
+test('a centred first-line heading is still the title', () => {
+  const r = M.render('-> # Titel <-\nTekst', new Set());
+  assert.equal(r.title, 'Titel'); assert.equal(r.html, '<p>Tekst</p>');
+});
+test('image size and centre', () => assert.equal(M.render('![a](img:ab12 click 50% center)', new Set(['ab12'])).html,
+  '<figure class="msg-fig msg-c"><img class="msg-img" data-img="ab12" data-zoom="click" alt="a" style="width:50%"></figure>'));
+test('an image between centre markers is centred', () => assert.equal(M.render('-> ![a](img:ab12 none 25%) <-', new Set(['ab12'])).html,
+  '<figure class="msg-fig msg-c"><img class="msg-img" data-img="ab12" data-zoom="none" alt="a" style="width:25%"></figure>'));
+test('a size outside 10-100% drops the image', () => {
+  assert.equal(M.render('![a](img:ab12 click 5%)', new Set(['ab12'])).html, '');
+  assert.equal(M.render('![a](img:ab12 click 150%)', new Set(['ab12'])).html, '');
+});
+test('imageRefs and firstLine read the new syntax', () => {
+  assert.deepEqual(M.imageRefs('![a](img:x1 click 50% center)\n-> ![b](img:y2 none) <-'), ['x1', 'y2']);
+  assert.equal(M.firstLine('-> **Hallo** <-'), 'Hallo');
+});
+test('parseImage and imageCode round trip', () => {
+  assert.deepEqual(M.parseImage('-> ![Boom](img:ab12 hover 40%) <-'), { alt: 'Boom', id: 'ab12', zoom: 'hover', size: 40, center: true });
+  assert.deepEqual(M.parseImage('![Boom](img:ab12 click)'), { alt: 'Boom', id: 'ab12', zoom: 'click', size: 100, center: false });
+  assert.equal(M.parseImage('gewone tekst'), null);
+  assert.equal(M.imageCode({ alt: 'Boom', id: 'ab12', zoom: 'click', size: 100, center: false }), '![Boom](img:ab12 click)');
+  assert.equal(M.imageCode({ alt: 'Boom', id: 'ab12', zoom: 'none', size: 55, center: true }), '![Boom](img:ab12 none 55% center)');
 });
