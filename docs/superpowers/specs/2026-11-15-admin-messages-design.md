@@ -233,3 +233,14 @@ The user did not decide these. Claude proposed them; the user may change any of 
 ## Out of scope
 
 Automatic translation, sending to selected users only, email or push notifications, editing a live message, a draft store, and statistics beyond "seen by N".
+
+## Addendum, 2026-11-15: centring and image size
+
+Decided with the user after the first build:
+
+- **Centring:** a toolbar button (≡) centres the lines the selection touches. In the text a centred line is `-> text <-`. It works for paragraphs, headings and images; on a list item the markers are ignored. The popup title (a `#` heading on the first line) stays in the header, left-aligned, also when centred.
+- **Image size:** a percentage of the message width, 10% to 100% in steps of 5, default 100%, so it scales the same on a phone and a computer. Proportions never change. An image never shows larger than its own pixel width.
+- **Image code:** `![alt](img:ID ZOOM [N%] [center])`, for example `![Boom](img:ab12cd34 click 50% center)`. The size and `center` are optional. A size outside 10–100% drops the line, like a bad zoom value. `-> ![…](…) <-` also centres an image.
+- **Changing an image:** with the cursor on an image line, the image button opens the image form with that image's current description, enlarge setting, size and centring; saving replaces the line.
+- Enlarging (click or hover) still shows the image at its full size.
+- Messages saved before this change render as before: full width up to the image's own size, left-aligned.

@@ -350,3 +350,20 @@ class SharedScripts(unittest.TestCase):
 - [ ] **Step 4: Live check** with `python tools/serve.py --live --port 8000` (real Firebase): as the admin, schedule a test message 3 minutes ahead with "Also show to new accounts" on. As a normal test account, open the app before the start: no popup, and in the console `getDocs(query(collection(fs,'messages')))` without a filter fails with `permission-denied`. After the start, reopen the app: popup shows; close it; reopen: no popup; open on a second browser: no popup. On the admin list: "seen by 1". Withdraw the test message.
 - [ ] **Step 5: If the rules reject the app's query** in Step 4 (popup never shows, console `permission-denied` on the filtered query): stop and ask the user before falling back to `allow read: if request.auth != null` for messages and images (spec, *Access*).
 - [ ] **Step 6: Report** to the user; merging to `main` and the staging copy follow the user's choice (superpowers:finishing-a-development-branch).
+
+---
+
+### Task 9: Centring and image size (spec addendum)
+
+**Files:** `src/messages.js`, `tests/messages.test.mjs`, `src/admin.html`, `src/doelenboek.html`, `src/design/app.css`
+
+**Interfaces (added to `Messages`):**
+- `parseImage(line: string) -> { alt, id, zoom, size: number, center: boolean } | null` — accepts the code with or without `-> <-` around it; `size` defaults to 100.
+- `imageCode({ alt, id, zoom, size, center }) -> string` — omits `100%` and a false `center`.
+- `render()` output: a centred block gets `class="msg-c"`; every image gets `style="width:N%"` (100 by default). Callers set `img.style.maxWidth` to the image's own width in px.
+
+- [ ] **Step 1: Failing tests** for: a centred paragraph; centred and plain lines in one block split into separate paragraphs; a centred heading; centred markers on a list item ignored; a centred first-line heading still becomes the title; image size and `center`; default width 100%; `-> image <-` centred; a size outside 10–100 dropped; `imageRefs`/`firstLine` with the new syntax; `parseImage`/`imageCode` round trip.
+- [ ] **Step 2: Run** `node --test "tests/*.test.mjs"`. Expected: the new tests FAIL.
+- [ ] **Step 3: Implement** in `src/messages.js`. **Step 4: Run** the tests. Expected: all PASS.
+- [ ] **Step 5: Admin:** ≡ toolbar button; size slider (10–100, step 5) and centre checkbox in the image form; the image button edits the image on the cursor's line; preview images get `maxWidth`. **App:** image map keeps each image's width; popup images get `maxWidth`. CSS for `.msg-c`.
+- [ ] **Step 6: Check** in the browser: admin preview and `?messages` show centring and sizes; editing an image's size updates its line; build and both suites pass. **Step 7: Commit.**
