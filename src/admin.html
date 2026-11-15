@@ -7,6 +7,37 @@
 <script>let t = 'light'; try { if (localStorage.getItem('doelenboek.theme') === 'dark') t = 'dark'; } catch (e) {} document.documentElement.dataset.theme = t;</script>
 <style>
 /* admin-only pieces; everything else comes from the app's design files */
+/* Blue instead of the app's brown, so this page never passes for the app. Same roles as design/tokens.css
+   and every text colour still reaches WCAG AA on its surfaces; subject, danger and warning colours stay.
+   :root keeps the app's brown under --app-*, so the message preview below still shows what users see. */
+:root {
+  --app-chrome: var(--chrome); --app-on-chrome: var(--on-chrome); --app-bg: var(--bg); --app-surface: var(--surface);
+  --app-surface-2: var(--surface-2); --app-fg: var(--fg); --app-muted: var(--muted); --app-line: var(--line);
+  --app-accent: var(--accent); --app-accent-fg: var(--accent-fg);
+}
+body {
+  /*                              bright      dark      */
+  --chrome:          light-dark(#2B4C7E, #1C3150);
+  --on-chrome:       light-dark(#EEF3FA, #EEF3FA);
+  --on-chrome-muted: light-dark(#D3DFEE, #B9C9DC);
+  --bg:              light-dark(#D2DEEC, #0B111A);
+  --surface:         light-dark(#F7FAFD, #162130);
+  --surface-2:       light-dark(#E3EBF5, #213042);
+  --fg:              light-dark(#1B2838, #EAF0F7);
+  --muted:           light-dark(#435670, #A8B9CC);
+  --line:            light-dark(#C2D0E1, #314358);
+  --accent:          light-dark(#2B4C7E, #A3BEDF);
+  --accent-fg:       light-dark(#F4F8FC, #162130);
+  --ok:              light-dark(#2B4C7E, #A3BEDF);
+  --shadow: 0 1px 2px light-dark(rgb(43 76 126 / .10), rgb(0 0 0 / .3)), 0 8px 24px light-dark(rgb(43 76 126 / .10), rgb(0 0 0 / .3));
+  background: var(--bg); color: var(--fg);
+}
+.msg-preview {
+  --chrome: var(--app-chrome); --on-chrome: var(--app-on-chrome); --bg: var(--app-bg); --surface: var(--app-surface);
+  --surface-2: var(--app-surface-2); --fg: var(--app-fg); --muted: var(--app-muted); --line: var(--app-line);
+  --accent: var(--app-accent); --accent-fg: var(--app-accent-fg);
+  color: var(--fg);
+}
 .adm-tag { opacity: .75; }
 /* <main> already sets the page width and padding; a section fills it */
 .adm { display: grid; gap: 14px; min-width: 0; }
