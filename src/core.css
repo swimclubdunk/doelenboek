@@ -11,5 +11,5 @@
 /* Read-only data: hide every control that changes something (marked .w in the markup). */
 .readonly .w { display: none !important; }
 
-/* Login screen and start-up: no navigation, data menu or status yet. */
-.chrome-off .tabs, .chrome-off #data-btn, .chrome-off .status { display: none; }
+/* Login screen and start-up: no header at all; the login card has its own language switch. */
+.chrome-off .top { display: none; }

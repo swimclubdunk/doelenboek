@@ -484,15 +484,29 @@ dialog.msgzoom img { display: block; max-width: 92vw; max-height: 88vh; border-r
 .hint { color: var(--muted); font-size: .8rem; }
 .dlg-body.drop { outline: 2px dashed var(--accent); outline-offset: -8px; }
 /* login / sign-up screen */
-.auth { width: min(100%, 440px); margin: 5vh auto 0; padding: 28px; display: grid; gap: 16px; }
+/* a photo behind the login screens (not start-up) under a 50% black layer, in a fixed layer of its own (background-attachment: fixed misbehaves on iOS) */
+body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; background: linear-gradient(rgb(0 0 0 / .5)), url(bg.jpg) center / cover no-repeat; }
+.auth { position: relative; width: min(100%, 440px); margin: 5vh auto 0; padding: 28px 44px; display: grid; gap: 16px; }
+@media (max-width: 480px) { .auth { padding-inline: 24px; } }
+/* what the app is and who it is for: its own, wider card under the login card */
+.auth-about { width: min(100%, 600px); margin: 0 auto; padding: 18px 28px; line-height: 1.55; }
+/* both languages stacked as full-width blocks, so these texts keep the height of the longer one when switching language */
+.auth-about .bi, .auth .privacy .bi { display: grid; justify-items: stretch; }
+/* NL/EN in the card's top-right corner, in card colours instead of header colours */
+/* the seal centred on its own row in the header brown, the welcome left-aligned and a little smaller below it */
+.auth-title { display: grid; justify-items: start; gap: 18px; font-size: 1.5rem; }
+.auth-logo { justify-self: center; width: 112px; height: 112px; background: var(--chrome); -webkit-mask: url(logo.png) center / contain no-repeat; mask: url(logo.png) center / contain no-repeat; }
+.auth-lang { position: absolute; top: 12px; right: 12px; border-color: var(--line); }
+.auth-lang button { color: var(--muted); }
+.auth-lang button[aria-pressed="true"] { background: var(--chrome); color: var(--on-chrome); }
+.auth-screen .auth, .auth-screen .auth-about { box-shadow: 0 20px 60px rgb(30 20 12 / .35); }
 .auth form { display: grid; gap: 14px; }
-/* what the app is and who it is for, above the login form */
-.auth .about { margin: 10px 0 12px; padding: 12px 14px; background: var(--surface-2); border-radius: var(--r-sm); line-height: 1.55; }
 .auth .field input { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; width: 100%; }
 .auth .btn.primary { padding-block: 11px; }
 .auth .form-error:empty { display: none; }
 .auth .info { color: var(--ok); font-size: .9rem; }
 .auth-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
+.auth-links .bi { justify-items: start; }   /* the shorter language starts at the left edge too, not centred in the longer one's width */
 .linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
 .site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; text-align: center; }
@@ -525,8 +539,8 @@ dialog.msgzoom img { display: block; max-width: 92vw; max-height: 88vh; border-r
 /* Read-only data: hide every control that changes something (marked .w in the markup). */
 .readonly .w { display: none !important; }
 
-/* Login screen and start-up: no navigation, data menu or status yet. */
-.chrome-off .tabs, .chrome-off #data-btn, .chrome-off .status { display: none; }
+/* Login screen and start-up: no header at all; the login card has its own language switch. */
+.chrome-off .top { display: none; }
 </style>
 <script>let t = 'light'; try { if (localStorage.getItem('doelenboek.theme') === 'dark') t = 'dark'; } catch (e) {} document.documentElement.dataset.theme = t;</script>
 <style>

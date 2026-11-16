@@ -568,7 +568,7 @@ def site_files(design, doelen_dir, subject_keys):
     return files
 
 
-COPIED = ('favicon.svg', 'apple-touch-icon.png', 'og-image.png')   # from design/ to the site root as they are
+COPIED = ('favicon.svg', 'apple-touch-icon.png', 'og-image.png', 'bg.jpg', 'logo.png')   # from design/ to the site root as they are
 
 
 def write_site(out_dir, design, doelen_dir, subject_keys):
