@@ -499,15 +499,37 @@ dialog.msgzoom img { display: block; max-width: 92vw; max-height: 88vh; border-r
 .hint { color: var(--muted); font-size: .8rem; }
 .dlg-body.drop { outline: 2px dashed var(--accent); outline-offset: -8px; }
 /* login / sign-up screen */
-.auth { width: min(100%, 440px); margin: 5vh auto 0; padding: 28px; display: grid; gap: 16px; }
+/* a photo behind the login screens (not start-up) under a 50% black layer, in a fixed layer of its own (background-attachment: fixed misbehaves on iOS) */
+body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; background: linear-gradient(rgb(0 0 0 / .5)), url(bg.jpg) center / cover no-repeat; }
+.auth { position: relative; width: min(100%, 440px); margin: 5vh auto 0; padding: 28px 44px; display: grid; gap: 16px; }
+@media (max-width: 480px) { .auth { padding-inline: 24px; } }
+/* what the app is and who it is for: its own, wider card under the login card */
+.auth-about { width: min(100%, 600px); margin: 0 auto; padding: 18px 28px; line-height: 1.55; }
+/* both languages stacked as full-width blocks, so these texts keep the height of the longer one when switching language */
+.auth-about .bi, .auth .privacy .bi { display: grid; justify-items: stretch; }
+/* NL/EN in the card's top-right corner, in card colours instead of header colours */
+/* the seal centred on its own row in the header brown, the welcome left-aligned and a little smaller below it */
+.auth-title { display: grid; justify-items: start; gap: 18px; font-size: 1.5rem; }
+.auth-logo { justify-self: center; width: 112px; height: 112px; background: var(--chrome); -webkit-mask: url(logo.png) center / contain no-repeat; mask: url(logo.png) center / contain no-repeat; }
+.auth-lang { position: absolute; top: 12px; right: 12px; border-color: var(--line); }
+.auth-lang button { color: var(--muted); }
+.auth-lang button[aria-pressed="true"] { background: var(--chrome); color: var(--on-chrome); }
+.auth-screen .auth, .auth-screen .auth-about { box-shadow: 0 20px 60px rgb(30 20 12 / .35); }
 .auth form { display: grid; gap: 14px; }
-/* what the app is and who it is for, above the login form */
-.auth .about { margin: 10px 0 12px; padding: 12px 14px; background: var(--surface-2); border-radius: var(--r-sm); line-height: 1.55; }
 .auth .field input { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; width: 100%; }
 .auth .btn.primary { padding-block: 11px; }
+/* password field with an eye button inside its right edge */
+.field > .pw-wrap { position: relative; display: block; font: inherit; }
+.auth .pw-wrap input { padding-right: 44px; }
+.pw-eye { position: absolute; top: 50%; right: 4px; transform: translateY(-50%); display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--muted); cursor: pointer; }
+.pw-eye:hover, .pw-eye[aria-pressed="true"] { color: var(--fg); }
+.pw-eye svg { width: 18px; height: 18px; pointer-events: none; }
+.pw-eye svg + svg, .pw-eye.shown svg:first-child { display: none; }
+.pw-eye.shown svg + svg { display: block; }
 .auth .form-error:empty { display: none; }
 .auth .info { color: var(--ok); font-size: .9rem; }
 .auth-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
+.auth-links .bi { justify-items: start; }   /* the shorter language starts at the left edge too, not centred in the longer one's width */
 .linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
 .site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; text-align: center; }
@@ -540,8 +562,8 @@ dialog.msgzoom img { display: block; max-width: 92vw; max-height: 88vh; border-r
 /* Read-only data: hide every control that changes something (marked .w in the markup). */
 .readonly .w { display: none !important; }
 
-/* Login screen and start-up: no navigation, data menu or status yet. */
-.chrome-off .tabs, .chrome-off #data-btn, .chrome-off .status { display: none; }
+/* Login screen and start-up: no header at all; the login card has its own language switch. */
+.chrome-off .top { display: none; }
 </style>
 <!-- bright unless dark was chosen last time; applied before the page is drawn (see the theme button) -->
 <script>let t = 'light'; try { if (localStorage.getItem('doelenboek.theme') === 'dark') t = 'dark'; } catch (e) {} document.documentElement.dataset.theme = t;</script>
@@ -10998,8 +11020,9 @@ const T = {
     photo_fail: n => `${nlN(n, 'foto kon', "foto's konden")} niet gelezen worden. Gebruik JPG, PNG of WebP.`,
     photo_max: n => `Maximaal ${n} foto's per activiteit.`,
     photo_alt: (title, i) => `Foto ${i} van ${title}`, lb_prev: 'Vorige foto', lb_next: 'Volgende foto',
-    auth_h: 'Welkom bij Doelenboek', auth_p: 'Log in om je gegevens op al je toestellen te gebruiken.',
-    about_p: 'Doelenboek is er voor ouders die in Vlaanderen thuisonderwijs geven. Noteer wat je samen doet, met foto\'s, koppel het aan de minimumdoelen en zie per kind en per vak wat al aan bod kwam en wat nog openstaat.',
+    auth_h: 'Welkom bij Doelenboek', show_pw: 'Wachtwoord tonen', hide_pw: 'Wachtwoord verbergen',
+    about_h: 'Wat is Doelenboek?',
+    about_p: 'Het is een platform voor ouders die in Vlaanderen thuisonderwijs geven. Je noteert de activiteiten die je tijdens de lessen deed, en koppelt ze aan de minimumdoelen voor het leerjaar van je kind. Zo zie je per kind makkelijk welke doelen je thuisonderwijs al behandeld heeft en welke nog moeten. De site maakt het opvolgen van de vooruitgang en het rapporteren eenvoudig. En het is helemaal gratis, gedragen door donaties.',
     signup_h: 'Account aanmaken', signup_p: 'Je e-mailadres is je gebruikersnaam. Er wordt geen code of bevestiging gemaild.',
     reset_h: 'Wachtwoord opnieuw instellen', reset_p: 'Vul je e-mailadres in. Je krijgt een e-mail met een link om een nieuw wachtwoord te kiezen.',
     email: 'E-mailadres', password: 'Wachtwoord', password2: 'Herhaal wachtwoord', pw_hint: 'Minstens 8 tekens.',
@@ -11097,8 +11120,9 @@ const T = {
     photo_fail: n => `${nlN(n, 'photo', 'photos')} could not be read. Use JPG, PNG or WebP.`,
     photo_max: n => `At most ${n} photos per activity.`,
     photo_alt: (title, i) => `Photo ${i} of ${title}`, lb_prev: 'Previous photo', lb_next: 'Next photo',
-    auth_h: 'Welcome to Doelenboek', auth_p: 'Log in to use your data on all your devices.',
-    about_p: 'Doelenboek is for parents who homeschool in Flanders. Note down what you do together, with photos, link it to the minimum goals (minimumdoelen) and see per child and per subject what has been covered and what is still open.',
+    auth_h: 'Welcome to Doelenboek', show_pw: 'Show password', hide_pw: 'Hide password',
+    about_h: 'What is Doelenboek?',
+    about_p: "It's a platform for homeschooling parents in Flanders. It lets you log activities you've done during lessons, which you can then link to the required minimum goals for your child's school year. You can then easily see, per child, which requirements your homeschooling has already covered, and which you still need to do. The site facilitates progress tracking and reporting. And it's completely free, supported by donations.",
     signup_h: 'Create account', signup_p: 'Your email address is your username. No code or confirmation is emailed.',
     reset_h: 'Reset password', reset_p: "Enter your email address. You'll get an email with a link to choose a new password.",
     email: 'Email address', password: 'Password', password2: 'Repeat password', pw_hint: 'At least 8 characters.',
@@ -11384,6 +11408,8 @@ const ICON_MOON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
 const ICON_SUN = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const ICON_EDIT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_TRASH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ICON_EYE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+const ICON_EYE_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 4l16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 function renderTheme() {
   const dark = themeNow() === 'dark', b = $('#theme-btn'), label = t(dark ? 'to_light' : 'to_dark');
   b.innerHTML = dark ? ICON_SUN : ICON_MOON;
@@ -11393,10 +11419,14 @@ function renderTheme() {
 
 function renderChrome() {
   document.documentElement.lang = lang;
+  // the login screen is always bright; the saved choice applies once someone is in
+  let saved = 'light'; try { if (localStorage.getItem(THEME_KEY) === 'dark') saved = 'dark'; } catch (e) {}
+  document.documentElement.dataset.theme = mode === 'auth' ? 'light' : saved;
   renderTheme();
   $('#data-btn').innerHTML = bt('data_btn');
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
+  document.body.classList.toggle('auth-screen', mode === 'auth');   // the photo backdrop: login screens only, not start-up
   $('#foot-cookies').textContent = t('foot_cookies');
   $('#foot-goals').textContent = t('foot_goals');
   $('#contact-text').textContent = t('contact_p');
@@ -12177,12 +12207,31 @@ $('#theme-btn').addEventListener('click', () => {
   try { localStorage.setItem(THEME_KEY, next); } catch (err) {}
   renderTheme();
 });
-$('#lang-switch').addEventListener('click', e => {
+function onLang(e) {
   const b = e.target.closest('[data-lang]'); if (!b || b.dataset.lang === lang) return;
   lang = b.dataset.lang;
   try { localStorage.setItem(LANG_KEY, lang); } catch (err) {}
   closeDialog();
   render();
+}
+$('#lang-switch').addEventListener('click', onLang);
+main.addEventListener('click', e => { if (e.target.closest('.auth-lang')) onLang(e); });   // the copy in the login card
+/* The eye next to a password field: hovering with a mouse shows the password while the pointer is on it;
+   a click or tap (or Enter/Space) keeps it shown until clicked again. */
+function pwShow(btn, on) {
+  btn.previousElementSibling.type = on ? 'text' : 'password';
+  btn.classList.toggle('shown', on);   // swaps the icon in CSS; replacing the svg under the pointer would lose the pointerout
+  const label = t(on ? 'hide_pw' : 'show_pw');
+  btn.setAttribute('aria-label', label); btn.title = label;
+}
+main.addEventListener('pointerover', e => { const b = e.target.closest('.pw-eye'); if (b && e.pointerType === 'mouse') pwShow(b, true); });
+main.addEventListener('pointerout', e => { const b = e.target.closest('.pw-eye'); if (b && !b.contains(e.relatedTarget)) pwShow(b, b.getAttribute('aria-pressed') === 'true'); });
+main.addEventListener('click', e => {
+  const b = e.target.closest('.pw-eye'); if (!b) return;
+  e.preventDefault();   // inside the label: do not move focus to the field
+  const on = b.getAttribute('aria-pressed') !== 'true';
+  b.setAttribute('aria-pressed', String(on));
+  pwShow(b, on || b.matches(':hover'));
 });
 function fromHash() {
   const h = location.hash.replace('#', '');
@@ -12301,15 +12350,18 @@ async function writeProfile(user) {
 /* login / sign-up / reset screen */
 function authView() {
   const v = ui_auth.view;
-  const head = { login: ['auth_h', 'auth_p'], signup: ['signup_h', 'signup_p'], reset: ['reset_h', 'reset_p'] }[v];
-  const pw = v === 'reset' ? '' : `<label class="field"><span>${esc(t('password'))}</span><input id="au-pw" name="password" type="password" autocomplete="${v === 'signup' ? 'new-password' : 'current-password'}" required></label>`;
-  const pw2 = v === 'signup' ? `<label class="field"><span>${esc(t('password2'))}</span><input id="au-pw2" name="password2" type="password" autocomplete="new-password" required><span class="hint">${esc(t('pw_hint'))}</span></label>` : '';
+  const head = { login: ['auth_h'], signup: ['signup_h', 'signup_p'], reset: ['reset_h', 'reset_p'] }[v];
+  const eye = `<button type="button" class="pw-eye" aria-pressed="false" aria-label="${esc(t('show_pw'))}" title="${esc(t('show_pw'))}">${ICON_EYE}${ICON_EYE_OFF}</button>`;
+  const pw = v === 'reset' ? '' : `<label class="field"><span>${esc(t('password'))}</span><span class="pw-wrap"><input id="au-pw" name="password" type="password" autocomplete="${v === 'signup' ? 'new-password' : 'current-password'}" required>${eye}</span></label>`;
+  const pw2 = v === 'signup' ? `<label class="field"><span>${esc(t('password2'))}</span><span class="pw-wrap"><input id="au-pw2" name="password2" type="password" autocomplete="new-password" required>${eye}</span><span class="hint">${esc(t('pw_hint'))}</span></label>` : '';
   const submit = { login: 'login', signup: 'signup', reset: 'reset_btn' }[v];
   const links = v === 'login'
     ? `<button type="button" class="linkish" data-action="auth-view" data-v="signup">${bt('to_signup')}</button><button type="button" class="linkish" data-action="auth-view" data-v="reset">${bt('forgot')}</button>`
     : `<button type="button" class="linkish" data-action="auth-view" data-v="login">${bt(v === 'signup' ? 'to_login' : 'back_login')}</button>`;
+  const langs = ['nl', 'en'].map(l => `<button type="button" data-lang="${l}" aria-pressed="${l === lang}" lang="${l}" title="${l === 'nl' ? 'Nederlands' : 'English'}">${l.toUpperCase()}</button>`).join('');
   return `<section class="card auth">
-    <div><h1>${esc(t(head[0]))}</h1>${v === 'reset' ? '' : `<p class="about">${esc(t('about_p'))}</p>`}<p class="lede">${esc(t(head[1]))}</p></div>
+    <div class="lang-switch auth-lang" role="group" aria-label="Taal / Language">${langs}</div>
+    <div><h1 class="auth-title"><span class="auth-logo" aria-hidden="true"></span><span>${esc(t(head[0]))}</span></h1>${head[1] ? `<p class="lede">${esc(t(head[1]))}</p>` : ''}</div>
     <form id="auth-form" novalidate>
       <label class="field"><span>${esc(t('email'))}</span><input id="au-email" name="email" type="email" autocomplete="email" inputmode="email" required value="${esc(ui_auth.email)}"></label>
       ${pw}${pw2}
@@ -12318,8 +12370,9 @@ function authView() {
       <button class="btn primary" type="submit" ${fb ? '' : 'disabled'}>${bt(submit)}</button>
     </form>
     <div class="auth-links">${links}</div>
-    <p class="privacy">${esc(t('privacy'))}</p>
-  </section>`;
+    <p class="privacy">${bt('privacy')}</p>
+  </section>${v === 'reset' ? '' : `
+  <section class="card auth-about"><p><span class="bi">${['nl', 'en'].map(l => `<span lang="${l}"${l === lang ? '' : ' class="off" aria-hidden="true"'}><strong>${esc(tIn(l, 'about_h'))}</strong><br>${esc(tIn(l, 'about_p'))}</span>`).join('')}</span></p></section>`}`;
 }
 function authErr(e) {
   const c = (e && e.code) || '';
