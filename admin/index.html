@@ -503,6 +503,14 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 .auth form { display: grid; gap: 14px; }
 .auth .field input { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; width: 100%; }
 .auth .btn.primary { padding-block: 11px; }
+/* password field with an eye button inside its right edge */
+.field > .pw-wrap { position: relative; display: block; font: inherit; }
+.auth .pw-wrap input { padding-right: 44px; }
+.pw-eye { position: absolute; top: 50%; right: 4px; transform: translateY(-50%); display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--muted); cursor: pointer; }
+.pw-eye:hover, .pw-eye[aria-pressed="true"] { color: var(--fg); }
+.pw-eye svg { width: 18px; height: 18px; pointer-events: none; }
+.pw-eye svg + svg, .pw-eye.shown svg:first-child { display: none; }
+.pw-eye.shown svg + svg { display: block; }
 .auth .form-error:empty { display: none; }
 .auth .info { color: var(--ok); font-size: .9rem; }
 .auth-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }

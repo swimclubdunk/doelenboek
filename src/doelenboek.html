@@ -180,7 +180,7 @@ const T = {
     photo_fail: n => `${nlN(n, 'foto kon', "foto's konden")} niet gelezen worden. Gebruik JPG, PNG of WebP.`,
     photo_max: n => `Maximaal ${n} foto's per activiteit.`,
     photo_alt: (title, i) => `Foto ${i} van ${title}`, lb_prev: 'Vorige foto', lb_next: 'Volgende foto',
-    auth_h: 'Welkom bij Doelenboek',
+    auth_h: 'Welkom bij Doelenboek', show_pw: 'Wachtwoord tonen', hide_pw: 'Wachtwoord verbergen',
     about_h: 'Wat is Doelenboek?',
     about_p: 'Het is een platform voor ouders die in Vlaanderen thuisonderwijs geven. Je noteert de activiteiten die je tijdens de lessen deed, en koppelt ze aan de minimumdoelen voor het leerjaar van je kind. Zo zie je per kind makkelijk welke doelen je thuisonderwijs al behandeld heeft en welke nog moeten. De site maakt het opvolgen van de vooruitgang en het rapporteren eenvoudig. En het is helemaal gratis, gedragen door donaties.',
     signup_h: 'Account aanmaken', signup_p: 'Je e-mailadres is je gebruikersnaam. Er wordt geen code of bevestiging gemaild.',
@@ -280,7 +280,7 @@ const T = {
     photo_fail: n => `${nlN(n, 'photo', 'photos')} could not be read. Use JPG, PNG or WebP.`,
     photo_max: n => `At most ${n} photos per activity.`,
     photo_alt: (title, i) => `Photo ${i} of ${title}`, lb_prev: 'Previous photo', lb_next: 'Next photo',
-    auth_h: 'Welcome to Doelenboek',
+    auth_h: 'Welcome to Doelenboek', show_pw: 'Show password', hide_pw: 'Hide password',
     about_h: 'What is Doelenboek?',
     about_p: "It's a platform for homeschooling parents in Flanders. It lets you log activities you've done during lessons, which you can then link to the required minimum goals for your child's school year. You can then easily see, per child, which requirements your homeschooling has already covered, and which you still need to do. The site facilitates progress tracking and reporting. And it's completely free, supported by donations.",
     signup_h: 'Create account', signup_p: 'Your email address is your username. No code or confirmation is emailed.',
@@ -568,6 +568,8 @@ const ICON_MOON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
 const ICON_SUN = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const ICON_EDIT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_TRASH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ICON_EYE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+const ICON_EYE_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 4l16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 function renderTheme() {
   const dark = themeNow() === 'dark', b = $('#theme-btn'), label = t(dark ? 'to_light' : 'to_dark');
   b.innerHTML = dark ? ICON_SUN : ICON_MOON;
@@ -1373,6 +1375,23 @@ function onLang(e) {
 }
 $('#lang-switch').addEventListener('click', onLang);
 main.addEventListener('click', e => { if (e.target.closest('.auth-lang')) onLang(e); });   // the copy in the login card
+/* The eye next to a password field: hovering with a mouse shows the password while the pointer is on it;
+   a click or tap (or Enter/Space) keeps it shown until clicked again. */
+function pwShow(btn, on) {
+  btn.previousElementSibling.type = on ? 'text' : 'password';
+  btn.classList.toggle('shown', on);   // swaps the icon in CSS; replacing the svg under the pointer would lose the pointerout
+  const label = t(on ? 'hide_pw' : 'show_pw');
+  btn.setAttribute('aria-label', label); btn.title = label;
+}
+main.addEventListener('pointerover', e => { const b = e.target.closest('.pw-eye'); if (b && e.pointerType === 'mouse') pwShow(b, true); });
+main.addEventListener('pointerout', e => { const b = e.target.closest('.pw-eye'); if (b && !b.contains(e.relatedTarget)) pwShow(b, b.getAttribute('aria-pressed') === 'true'); });
+main.addEventListener('click', e => {
+  const b = e.target.closest('.pw-eye'); if (!b) return;
+  e.preventDefault();   // inside the label: do not move focus to the field
+  const on = b.getAttribute('aria-pressed') !== 'true';
+  b.setAttribute('aria-pressed', String(on));
+  pwShow(b, on || b.matches(':hover'));
+});
 function fromHash() {
   const h = location.hash.replace('#', '');
   if (['overzicht', 'activiteiten', 'doelen'].includes(h)) ui.view = h;
@@ -1491,8 +1510,9 @@ async function writeProfile(user) {
 function authView() {
   const v = ui_auth.view;
   const head = { login: ['auth_h'], signup: ['signup_h', 'signup_p'], reset: ['reset_h', 'reset_p'] }[v];
-  const pw = v === 'reset' ? '' : `<label class="field"><span>${esc(t('password'))}</span><input id="au-pw" name="password" type="password" autocomplete="${v === 'signup' ? 'new-password' : 'current-password'}" required></label>`;
-  const pw2 = v === 'signup' ? `<label class="field"><span>${esc(t('password2'))}</span><input id="au-pw2" name="password2" type="password" autocomplete="new-password" required><span class="hint">${esc(t('pw_hint'))}</span></label>` : '';
+  const eye = `<button type="button" class="pw-eye" aria-pressed="false" aria-label="${esc(t('show_pw'))}" title="${esc(t('show_pw'))}">${ICON_EYE}${ICON_EYE_OFF}</button>`;
+  const pw = v === 'reset' ? '' : `<label class="field"><span>${esc(t('password'))}</span><span class="pw-wrap"><input id="au-pw" name="password" type="password" autocomplete="${v === 'signup' ? 'new-password' : 'current-password'}" required>${eye}</span></label>`;
+  const pw2 = v === 'signup' ? `<label class="field"><span>${esc(t('password2'))}</span><span class="pw-wrap"><input id="au-pw2" name="password2" type="password" autocomplete="new-password" required>${eye}</span><span class="hint">${esc(t('pw_hint'))}</span></label>` : '';
   const submit = { login: 'login', signup: 'signup', reset: 'reset_btn' }[v];
   const links = v === 'login'
     ? `<button type="button" class="linkish" data-action="auth-view" data-v="signup">${bt('to_signup')}</button><button type="button" class="linkish" data-action="auth-view" data-v="reset">${bt('forgot')}</button>`
