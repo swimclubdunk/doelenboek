@@ -180,6 +180,12 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .icon-btn { border: 0; background: transparent; color: var(--muted); padding: 6px 8px; border-radius: var(--r-sm); cursor: pointer; font-size: .82rem; font-weight: 700; }
 .icon-btn:hover { background: var(--surface-2); color: var(--fg); }
 .icon-btn.del:hover { color: var(--danger); }
+/* Edit (pen) and delete (trash) everywhere: a square 32px button whose icon fills most of it;
+   muted, darker on hover, delete red on hover. .btn.btn-icon outranks .btn.small's padding. */
+.btn.btn-icon { width: 32px; height: 32px; padding: 0; display: inline-grid; place-items: center; color: var(--muted); }
+.btn.btn-icon svg { width: 22px; height: 22px; display: block; }
+.btn.btn-icon:hover { color: var(--fg); }
+.btn.btn-icon.del:hover { color: var(--danger); border-color: var(--danger); }
 
 /* page head */
 .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
@@ -210,18 +216,23 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 
 /* child cards */
 .child-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
-.child-card { display: grid; grid-template-rows: auto 1fr auto; gap: 14px; padding: 16px; }   /* footer at the bottom, so cards in a row line up */
+.child-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 16px; }   /* footer at the bottom, so cards in a row line up */
 .cc-head { display: flex; gap: 12px; align-items: flex-start; }
 .cc-id { min-width: 0; flex: 1; }
 .cc-id h2 { overflow-wrap: anywhere; }
 .cc-tier { margin: 4px 0 3px; line-height: 1; }
-.cc-id .meta { min-height: 2lh; }   /* room for both lines (activities, last date), so every head is as tall */
 .meta { color: var(--muted); font-size: .84rem; }
 .cc-pct { text-align: right; display: grid; font-variant-numeric: tabular-nums; }
 .cc-pct strong { font-family: var(--f-display); font-size: 1.7rem; line-height: 1; }
 .cc-pct small { font-size: .9rem; color: var(--muted); }
 .cc-pct span { color: var(--muted); font-size: .76rem; }
-.bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; align-content: start; }
+/* a row of figures between the head and the subject bars: bold number, label, and a small line under it */
+.cc-stats { display: flex; gap: 8px 24px; flex-wrap: wrap; padding: 10px 0; border-block: 1px solid var(--line); }
+.cc-stat { display: grid; grid-template-columns: auto 1fr; column-gap: 4px; align-items: baseline; font-size: .84rem; font-variant-numeric: tabular-nums; }
+.cc-stat strong { font-weight: 700; }   /* the number: same size as the label, only bold */
+.cc-stat span { color: var(--muted); }
+.cc-stat small { grid-column: 1 / -1; color: var(--muted); font-size: .76rem; }
+.bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; align-content: start; }
 .bars li { display: grid; grid-template-columns: minmax(0, 8.5rem) 1fr 3.4rem 2.4rem; gap: 10px; align-items: center; font-size: .84rem; }
 .bars li.none { color: var(--muted); }
 .b-lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -233,11 +244,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .touch.zero { color: var(--muted); opacity: .6; }
 .cc-foot { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 12px; }
 /* edit and delete sit apart, bottom right; delete only turns red on hover */
-.cc-edit, .cc-del { color: var(--muted); padding: 5px 8px; display: inline-grid; place-items: center; }
-.cc-edit svg, .cc-del svg { width: 16px; height: 16px; display: block; }
 .cc-edit { margin-left: auto; }
-.cc-edit:hover { color: var(--fg); }
-.cc-del:hover { color: var(--danger); border-color: var(--danger); }
 
 /* toolbar */
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
@@ -268,16 +275,6 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* at most six animals side by side (6 × 24px + 5 × 3px gap); more wrap onto a new line */
 .kids-row { display: flex; flex-wrap: wrap; gap: 3px; max-width: 159px; }
 .row-actions { display: flex; gap: 6px; }
-/* outlined like the small buttons on the child cards, so they read as buttons */
-.row-actions .icon-btn { border: 1px solid var(--line); padding: 5px 10px; color: var(--fg); }
-.row-actions .icon-btn:hover { background: transparent; border-color: var(--muted); }
-/* edit is a pencil icon, like on the child cards */
-.row-actions .icon-btn.edit { padding: 5px 8px; display: inline-grid; place-items: center; }
-.row-actions .icon-btn.edit svg { width: 16px; height: 16px; display: block; }
-/* delete is the same trash icon everywhere: muted, red on hover (see .cc-del on the child cards) */
-.row-actions .icon-btn.del { color: var(--muted); padding: 5px 8px; display: inline-grid; place-items: center; }
-.row-actions .icon-btn.del svg { width: 16px; height: 16px; display: block; }
-.row-actions .icon-btn.del:hover { color: var(--danger); border-color: var(--danger); }
 @media (max-width: 640px) {
   .goal-list { display: block; }
   .goal-row { grid-template-columns: minmax(0, 1fr); }
@@ -10936,7 +10933,7 @@ const T = {
     n_goals_short: n => nlN(n, 'doel', 'doelen'),
     add_child: 'Kind toevoegen', add_activity: 'Activiteit toevoegen',
     empty_kids_h: 'Nog geen kinderen', empty_kids_p: 'Voeg een kind toe. Daarna registreer je activiteiten en zie je per vak welke minimumdoelen al aan bod kwamen.',
-    last: d => `laatst ${d}`, goals_per_subject: 'Doelen & beheersing bewerken',
+    last: d => `laatst ${d}`, acts_lbl: n => n === 1 ? 'activiteit' : 'activiteiten', no_acts_yet: 'nog geen', goals_per_subject: 'Doelen & beheersing bewerken',
     back: '← Kinderen', reached: (m, t) => `${m} van ${t} minimumdoelen beheerst`, n_touches: n => `${n}× aan bod in activiteiten`,
     mastered_lbl: 'beheerst', touches_title: (l, n) => `${l}: ${n}× aan bod in activiteiten`, bar_aria: (l, n, t) => `${l}: ${n} van ${t} beheerst`,
     tab_all: 'Alle', tab_todo: 'Te doen', tab_mastered: 'Beheerst', search_kid: 'Zoek op code of tekst',
@@ -11035,7 +11032,7 @@ const T = {
     n_goals_short: n => nlN(n, 'goal', 'goals'),
     add_child: 'Add child', add_activity: 'Add activity',
     empty_kids_h: 'No children yet', empty_kids_p: 'Add a child. Then log activities and see, per subject, which minimum goals have been covered.',
-    last: d => `last ${d}`, goals_per_subject: 'Edit goals & mastery',
+    last: d => `last ${d}`, acts_lbl: n => n === 1 ? 'activity' : 'activities', no_acts_yet: 'none yet', goals_per_subject: 'Edit goals & mastery',
     back: '← Children', reached: (m, t) => `${m} of ${t} minimum goals mastered`, n_touches: n => `${n}× touched in activities`,
     mastered_lbl: 'mastered', touches_title: (l, n) => `${l}: ${n}× touched in activities`, bar_aria: (l, n, t) => `${l}: ${n} of ${t} mastered`,
     tab_all: 'All', tab_todo: 'To do', tab_mastered: 'Mastered', search_kid: 'Search by code or text',
@@ -11477,10 +11474,11 @@ function viewOverview(cov) {
     const per = countBySubject(mast), touches = touchesBySubject(inTier(cov.get(c.id) || new Map(), tier));
     return `<article class="card child-card">
       <header class="cc-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
-        <div class="cc-id"><h2>${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p><p class="meta">${esc(t('n_acts', acts.length))}${acts[0] ? '<br>' + esc(t('last', fmtDate(acts[0].date))) : ''}</p></div>
+        <div class="cc-id"><h2>${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p></div>
         <div class="cc-pct"><strong>${mast.size}<small>/${sumValues(totals)}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
+      <div class="cc-stats"><div class="cc-stat"><strong>${acts.length}</strong><span>${esc(t('acts_lbl', acts.length))}</span><small>${esc(acts[0] ? t('last', fmtDate(acts[0].date)) : t('no_acts_yet'))}</small></div></div>
       <ul class="bars">${SUBJECTS.filter(s => totals[s.key]).map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key], touches[s.key] || 0)).join('')}</ul>
-      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w cc-edit" data-action="edit-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_edit_h'))}" title="${esc(t('child_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost w cc-del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></footer>
+      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w btn-icon edit cc-edit" data-action="edit-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_edit_h'))}" title="${esc(t('child_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost w btn-icon del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></footer>
     </article>`;
   }).join('')}</div>`;
   return h;
@@ -11561,7 +11559,7 @@ function activityCard(a) {
       ${a.notes ? `<p class="notes">${esc(a.notes)}</p>` : ''}
     </div>
     ${photoStrip(a)}
-    <div class="row-actions w"><button class="icon-btn edit" data-action="edit-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_edit_h'))}" title="${esc(t('act_edit_h'))}">${ICON_EDIT}</button><button class="icon-btn del" data-action="delete-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_del_h'))}" title="${esc(t('act_del_h'))}">${ICON_TRASH}</button></div>
+    <div class="row-actions w"><button class="btn small ghost btn-icon edit" data-action="edit-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_edit_h'))}" title="${esc(t('act_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost btn-icon del" data-action="delete-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_del_h'))}" title="${esc(t('act_del_h'))}">${ICON_TRASH}</button></div>
   </article>`;
 }
 

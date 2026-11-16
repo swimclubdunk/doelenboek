@@ -300,6 +300,8 @@ const goalText = g => { const b = GOAL.get(g.id); return both(g.description, (b 
 /* ---------- bright or dark: the same choice and button as the app (both read doelenboek.theme) ---------- */
 const THEME_KEY = 'doelenboek.theme';
 const ICON_MOON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+const ICON_EDIT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';   // same as the app
+const ICON_TRASH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_SUN = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 function renderTheme() {
   const dark = document.documentElement.dataset.theme === 'dark', label = t(dark ? 'to_light' : 'to_dark');
@@ -828,10 +830,11 @@ function messageListHtml() {
     const st = M.status(m, now), name = M.firstLine(m.body.nl ?? m.body.en) || '—';
     const seen = st === 'scheduled' ? '' : ` · ${bt('seen_by', n(state.seen.get(m.id) || 0))}`;
     const btn = (action, key, cls = 'ghost') => `<button type="button" class="btn small ${cls}" data-action="${action}" data-v="${esc(m.id)}">${bt(key)}</button>`;
+    const ico = (action, key, icon, cls) => `<button type="button" class="btn small ghost btn-icon ${cls}" data-action="${action}" data-v="${esc(m.id)}" aria-label="${esc(t(key))}" title="${esc(t(key))}">${icon}</button>`;
     const acts = state.removing === m.id
       ? `<span class="msg-sure">${bt(st === 'live' ? 'withdraw_q' : 'delete_q')}</span>${btn('msg-remove-yes', st === 'live' ? 'withdraw' : 'delete', 'danger')}${btn('msg-remove-no', 'cancel')}`
-      : st === 'scheduled' ? btn('msg-edit', 'edit') + btn('msg-remove', 'delete')
-      : btn('msg-remove', st === 'live' ? 'withdraw' : 'delete');
+      : st === 'scheduled' ? ico('msg-edit', 'edit', ICON_EDIT, 'edit') + ico('msg-remove', 'delete', ICON_TRASH, 'del')
+      : st === 'live' ? btn('msg-remove', 'withdraw') : ico('msg-remove', 'delete', ICON_TRASH, 'del');
     return `<div class="msg-item${st === 'ended' ? ' ended' : ''}">
       <div class="msg-item-main"><b>${esc(name)}</b><span class="muted">${m.langs.map(l => l.toUpperCase()).join(' + ')} · ${statusHtml(m, now)}${seen}</span></div>
       <div class="msg-acts">${acts}</div></div>`;
