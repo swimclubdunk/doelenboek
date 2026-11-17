@@ -293,6 +293,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cal-pick { margin: 0; font-size: .84rem; }
 .cal-panel { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 10px; }
 .cal-panel h3 { margin: 0; font-size: .95rem; }
+.cal-ph { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .cal-panel .act { box-shadow: none; }
 .cal-go { margin: 10px 0 0; }
 /* an activity reached from the dashboard calendar lights up for a moment */
@@ -11084,7 +11085,7 @@ const T = {
     mx_h: 'Beheersing per vak', mx_note: 'Per kind en per vak: welk deel van de doelen van hun leerjaar beheerst is. Lichte vakjes zijn de achterstanden.', mx_na: 'Niet in dit leerjaar', mx_tip: (k, s, n, tot) => `${k} · ${s}: ${n} van ${tot}`,
     ng_h: 'Vakken die lang niet aan bod kwamen', ng_note: 'Per kind de vakken waarvan de laatste activiteit het langst geleden is. Rood: meer dan 60 dagen of nog nooit.', ng_never: 'nooit', ng_days: n => `${n} d`, ng_tip: d => `Laatste activiteit: ${d}`, ng_tip_never: 'Nog geen activiteit voor dit vak',
     am_h: 'Bijna beheerst', am_note: 'Doelen die al in minstens 2 activiteiten aan bod kwamen, maar nog niet als beheerst aangevinkt zijn.', am_n: n => `${n}× gebruikt`, am_btn: 'Beheerst', am_more: n => `Toon alle ${n}`, am_less: 'Toon minder', am_none: 'Geen open doelen die al minstens 2 keer aan bod kwamen.',
-    cal_h: 'Activiteitenkalender', cal_note: 'Elke dag van het afgelopen jaar; hoe donkerder, hoe meer activiteiten die dag.', cal_sum: (n, g) => `${nlN(n, 'activiteit', 'activiteiten')} het afgelopen jaar · langste pauze: ${nlN(g, 'dag', 'dagen')}`, cal_less: 'Minder', cal_more: 'Meer', cal_pick: 'Klik op een dag om de activiteiten van die dag te zien.', cal_none: 'Geen activiteiten op deze dag.', cal_go: 'Ga naar activiteit', cal_tip: (d, n) => `${d}: ${nlN(n, 'activiteit', 'activiteiten')}`,
+    cal_h: 'Activiteitenkalender', cal_note: 'Elke dag van het afgelopen jaar; hoe donkerder, hoe meer activiteiten die dag.', cal_sum: (n, g) => `${nlN(n, 'activiteit', 'activiteiten')} het afgelopen jaar · langste pauze: ${nlN(g, 'dag', 'dagen')}`, cal_less: 'Minder', cal_more: 'Meer', cal_pick: 'Klik op een dag om de activiteiten van die dag te zien.', cal_none: 'Geen activiteiten op deze dag.', cal_go: 'Ga naar activiteit', cal_close: 'Inklappen', cal_tip: (d, n) => `${d}: ${nlN(n, 'activiteit', 'activiteiten')}`,
     dash_empty: 'Voeg een kind toe om hier de grafiek te zien.', dash_all_off: 'Zet minstens één kind aan.', dash_aria: (name, n) => `${name}: ${n} beheerst`,
     tab_reporting: 'Rapportering', h_reporting: 'Rapportering',
     reporting_p: 'In dit onderdeel zul je PDF-rapporten van het thuisonderwijstraject van je kinderen kunnen maken en downloaden, met tijdlijnen, activiteiten, grafieken en natuurlijk de behandelde minimumdoelen.', reporting_soon: 'Deze functie komt binnenkort.',
@@ -11192,7 +11193,7 @@ const T = {
     mx_h: 'Mastery by subject', mx_note: 'Per child and subject: the share of the goals of their year group that is mastered. Pale cells are where they lag behind.', mx_na: 'Not in this year group', mx_tip: (k, s, n, tot) => `${k} · ${s}: ${n} of ${tot}`,
     ng_h: 'Subjects not covered for a while', ng_note: 'Per child the subjects whose last activity was longest ago. Red: more than 60 days, or never.', ng_never: 'never', ng_days: n => `${n} d`, ng_tip: d => `Last activity: ${d}`, ng_tip_never: 'No activity for this subject yet',
     am_h: 'Almost mastered', am_note: 'Goals that came up in at least 2 activities but are not ticked as mastered yet.', am_n: n => `used ${n}×`, am_btn: 'Mastered', am_more: n => `Show all ${n}`, am_less: 'Show fewer', am_none: 'No open goals that came up at least twice.',
-    cal_h: 'Activity calendar', cal_note: 'Every day of the past year; the darker, the more activities that day.', cal_sum: (n, g) => `${nlN(n, 'activity', 'activities')} in the past year · longest break: ${nlN(g, 'day', 'days')}`, cal_less: 'Less', cal_more: 'More', cal_pick: 'Click a day to see its activities.', cal_none: 'No activities on this day.', cal_go: 'Go to activity', cal_tip: (d, n) => `${d}: ${nlN(n, 'activity', 'activities')}`,
+    cal_h: 'Activity calendar', cal_note: 'Every day of the past year; the darker, the more activities that day.', cal_sum: (n, g) => `${nlN(n, 'activity', 'activities')} in the past year · longest break: ${nlN(g, 'day', 'days')}`, cal_less: 'Less', cal_more: 'More', cal_pick: 'Click a day to see its activities.', cal_none: 'No activities on this day.', cal_go: 'Go to activity', cal_close: 'Collapse', cal_tip: (d, n) => `${d}: ${nlN(n, 'activity', 'activities')}`,
     dash_empty: 'Add a child to see the graph here.', dash_all_off: 'Turn on at least one child.', dash_aria: (name, n) => `${name}: ${n} mastered`,
     tab_reporting: 'Reporting', h_reporting: 'Reporting',
     reporting_p: "Here you will be able to generate and download PDF reports of your children's homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.", reporting_soon: 'This feature is coming soon.',
@@ -12005,7 +12006,8 @@ function dashCalendar() {
   if (ui.calDay) {
     const day = acts.filter(a => a.date === ui.calDay).sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
     const go = a => `<p class="cal-go"><button class="btn small" type="button" data-action="go-activity" data-id="${esc(a.id)}">${esc(t('cal_go'))} →</button></p>`;
-    panel = `<div class="cal-panel"><h3>${esc(cap1(new Intl.DateTimeFormat(t('locale'), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(dateObj(ui.calDay))))}</h3>
+    panel = `<div class="cal-panel"><div class="cal-ph"><h3>${esc(cap1(new Intl.DateTimeFormat(t('locale'), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(dateObj(ui.calDay))))}</h3>
+      <button class="btn small ghost" type="button" data-action="cal-close" aria-label="${esc(t('cal_close'))}">${esc(t('cal_close'))} ▴</button></div>
       ${day.length ? `<div class="act-list">${day.map(a => activityCard(a, go(a))).join('')}</div>` : `<p class="muted">${esc(t('cal_none'))}</p>`}</div>`;
   }
   return dashCard('cal_h', 'cal_note', `<div class="cal-wrap"><div class="cal-m" aria-hidden="true">${months}</div><div class="cal-days" aria-hidden="true">${days}</div><div class="cal">${cells}</div></div>
@@ -12589,6 +12591,7 @@ main.addEventListener('click', e => {
     case 'dash-lines': ui[b.dataset.key + 'Straight'] = b.dataset.v === 'straight'; saveDash(); return render();
     case 'am-master': return setMastery(id, true, b.dataset.child);
     case 'am-all': ui.amAll = !ui.amAll; return render();
+    case 'cal-close': ui.calDay = null; return render();
     case 'cal-day': ui.calDay = ui.calDay === id ? null : id; return render();
     case 'go-activity': ui.actSearch = ''; ui.actChild = ''; ui.goAct = id; location.hash = 'activiteiten'; return;
     case 'dash-kid': ui.dashOff.has(id) ? ui.dashOff.delete(id) : ui.dashOff.add(id); saveDash(); return render();
