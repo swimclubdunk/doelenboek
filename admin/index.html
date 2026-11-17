@@ -11717,14 +11717,31 @@ function applyTool(kind, l) {
     const undo = lines.filter(x => x.trim()).every(isC);
     const out = lines.map(x => !x.trim() ? x : undo ? x.trim().replace(/^->\s*/, '').replace(/\s*<-$/, '') : isC(x) ? x : `-> ${x.trim()} <-`).join('\n');
     ta.setRangeText(out, a, b, 'end'); ta.setSelectionRange(a, a + out.length);
-  } else if ((kind === 'bold' || kind === 'italic') && (sel.includes('\n') || /^\s*->.*<-\s*$/.test(sel))) {
-    /* over whole lines: each line on its own, inside its centre markers, so centred text stays centred */
+  } else if (kind === 'bold' || kind === 'italic') {
+    /* B and I switch on and off: a second press removes the code instead of doubling it (**** would read
+       as italics). Bold is two stars on each side, italic one, both together three. */
     const mk = kind === 'bold' ? '**' : '*';
-    const out = sel.split('\n').map(x => { if (!x.trim()) return x; const m = /^(\s*->\s*)(.*?)(\s*<-\s*)$/.exec(x); return m ? m[1] + mk + m[2] + mk + m[3] : mk + x + mk; }).join('\n');
-    ta.setRangeText(out, s, e, 'end'); ta.setSelectionRange(s, s + out.length);
-  } else if (kind === 'bold') wrap('**', '**', t('f_bold').toLowerCase());
-  else if (kind === 'italic') wrap('*', '*', t('f_italic').toLowerCase());
-  else if (kind === 'blank') {
+    const toggle = x => {
+      const lead = /^\*+/.exec(x)?.[0].length || 0, trail = /\*+$/.exec(x)?.[0].length || 0;
+      const on = mk === '**' ? lead >= 2 && trail >= 2 : lead % 2 === 1 && trail % 2 === 1;
+      return on ? x.slice(mk.length, x.length - mk.length) : mk + x + mk;
+    };
+    const stars = x => [/^\*+/.exec(x)?.[0].length || 0, /\*+$/.exec(x)?.[0].length || 0];
+    if (sel.includes('\n') || /^\s*->.*<-\s*$/.test(sel)) {
+      /* over whole lines: each line on its own, inside its centre markers, so centred text stays centred */
+      const out = sel.split('\n').map(x => { if (!x.trim()) return x; const m = /^(\s*->\s*)(.*?)(\s*<-\s*)$/.exec(x); return m ? m[1] + toggle(m[2]) + m[3] : toggle(x); }).join('\n');
+      ta.setRangeText(out, s, e, 'end'); ta.setSelectionRange(s, s + out.length);
+    } else if (!sel.trim()) wrap(mk, mk, t(kind === 'bold' ? 'f_bold' : 'f_italic').toLowerCase());
+    else {
+      /* the stars right around (or at the ends of) the selection count as its code */
+      let a = s, b = e;
+      while (a > 0 && v[a - 1] === '*') a--;
+      while (b < v.length && v[b] === '*') b++;
+      const out = toggle(v.slice(a, b)), [lead, trail] = stars(out);
+      ta.setRangeText(out, a, b, 'end');
+      ta.setSelectionRange(a + lead, a + out.length - trail);
+    }
+  } else if (kind === 'blank') {
     /* one empty line of space after the cursor's line: one blank line only ends the paragraph, so each press
        makes sure there is one more blank line than before (and at the end of the text, room to type on) */
     const end = v.indexOf('\n', e), at = end < 0 ? v.length : end, next = v.slice(at);
