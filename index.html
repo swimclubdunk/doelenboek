@@ -135,8 +135,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .brand b { font-family: var(--f-display); font-size: 1.3rem; letter-spacing: -0.02em; }
 /* the app header in two rows: the seal and the name alone on the first row, tabs and buttons below (the admin header stays one row) */
 .brand-row { flex-basis: 100%; margin-right: 0; align-items: center; gap: 10px; position: relative; }
-/* the upper row on its own shade, edge to edge: from the header's top down to halfway into the gap between the rows */
-.brand-row::before { content: ""; position: absolute; z-index: -1; inset: -10px -100vmax -6px; background: var(--chrome-top); }
+/* the upper row on its own shade, edge to edge: from the header's top down to halfway into the gap between the rows;
+   the 20px gap leaves each row 10px above and below, as the header's own padding, so both rows sit centred in their band */
+.top-inner:has(.brand-row) { row-gap: 20px; }
+.brand-row::before { content: ""; position: absolute; z-index: -1; inset: -10px -100vmax -10px; background: var(--chrome-top); }
 .top:has(.brand-row) { overflow-x: clip; }
 .brand-logo { flex: none; width: 34px; height: 34px; background: var(--on-chrome); -webkit-mask: url(logo.png) center / contain no-repeat; mask: url(logo.png) center / contain no-repeat; }
 .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
