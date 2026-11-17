@@ -112,7 +112,12 @@ const T = {
     mx_h: 'Beheersing per vak', mx_note: 'Per kind en per vak: welk deel van de doelen van hun leerjaar beheerst is. Lichte vakjes zijn de achterstanden.', mx_na: 'Niet in dit leerjaar', mx_tip: (k, s, n, tot) => `${k} · ${s}: ${n} van ${tot}`,
     ng_h: 'Vakken die lang niet aan bod kwamen', ng_note: 'Per kind de vakken waarvan de laatste activiteit het langst geleden is. Rood: meer dan 60 dagen of nog nooit.', ng_never: 'nooit', ng_days: n => `${n} d`, ng_tip: d => `Laatste activiteit: ${d}`, ng_tip_never: 'Nog geen activiteit voor dit vak',
     am_h: 'Bijna beheerst', am_note: 'Doelen die al in minstens 2 activiteiten aan bod kwamen, maar nog niet als beheerst aangevinkt zijn.', am_n: n => `${n}× gebruikt`, am_btn: 'Beheerst', am_more: n => `Toon alle ${n}`, am_less: 'Toon minder', am_none: 'Geen open doelen die al minstens 2 keer aan bod kwamen.',
-    cal_h: 'Activiteitenkalender', cal_note: 'Elke dag van het afgelopen jaar; hoe donkerder, hoe meer activiteiten die dag.', cal_sum: (n, g) => `${nlN(n, 'activiteit', 'activiteiten')} het afgelopen jaar · langste pauze: ${nlN(g, 'dag', 'dagen')}`, cal_less: 'Minder', cal_more: 'Meer', cal_pick: 'Klik op een dag om de activiteiten van die dag te zien.', cal_none: 'Geen activiteiten op deze dag.', cal_go: 'Ga naar activiteit', cal_close: 'Inklappen', cal_tip: (d, n) => `${d}: ${nlN(n, 'activiteit', 'activiteiten')}`,
+    cal_h: 'Activiteitenkalender', cal_note: 'Elke dag van het afgelopen jaar; hoe donkerder, hoe meer activiteiten die dag.', cal_sum: (n, g) => `${nlN(n, 'activiteit', 'activiteiten')} het afgelopen jaar · langste pauze: ${nlN(g, 'dag', 'dagen')}`, cal_less: 'Minder', cal_more: 'Meer', cal_pick: 'Klik op een dag om de activiteiten van die dag te zien.', cal_none: 'Geen activiteiten op deze dag.', cal_go: 'Ga naar activiteit',
+    pg_h: 'Voortgang in het leerjaar', pg_note: 'Per kind: het deel van de doelen van hun leerjaar dat beheerst is. De streepjeslijn is het schema om op tijd 100% te halen, de puntjes zetten het huidige tempo verder. Het leerjaar telt vanaf de maand van het eerste beheerste doel (Kleuter 3 jaar, Lager LJ 1-4 4 jaar, Lager LJ 5-6 2 jaar).',
+    pg_mastered: 'Beheerst', pg_target: 'Schema tot einde leerjaar', pg_fc: 'Verwachting aan huidig tempo', pg_today: 'Vandaag',
+    pg_on: 'op schema', pg_ahead: n => `${n} mnd voor`, pg_behind: n => `${n} mnd achter`, pg_none: 'Nog geen beheerste doelen',
+    pg_foot: (n, tot, p, e) => `<b>${n} van ${tot}</b> (${p}%) · schema ${e}%`, pg_when: d => ` · 100% verwacht in <b>${d}</b>`, pg_end: d => `, einde leerjaar ${d}`, pg_done: ' · alles beheerst',
+    pg_aria: (k, p, e) => `${k}: ${p}% beheerst, schema ${e}%`, cal_close: 'Inklappen', cal_tip: (d, n) => `${d}: ${nlN(n, 'activiteit', 'activiteiten')}`,
     dash_empty: 'Voeg een kind toe om hier de grafiek te zien.', dash_all_off: 'Zet minstens één kind aan.', dash_aria: (name, n) => `${name}: ${n} beheerst`,
     tab_reporting: 'Rapportering', h_reporting: 'Rapportering',
     reporting_p: 'In dit onderdeel zul je PDF-rapporten van het thuisonderwijstraject van je kinderen kunnen maken en downloaden, met tijdlijnen, activiteiten, grafieken en natuurlijk de behandelde minimumdoelen.', reporting_soon: 'Deze functie komt binnenkort.',
@@ -220,7 +225,12 @@ const T = {
     mx_h: 'Mastery by subject', mx_note: 'Per child and subject: the share of the goals of their year group that is mastered. Pale cells are where they lag behind.', mx_na: 'Not in this year group', mx_tip: (k, s, n, tot) => `${k} · ${s}: ${n} of ${tot}`,
     ng_h: 'Subjects not covered for a while', ng_note: 'Per child the subjects whose last activity was longest ago. Red: more than 60 days, or never.', ng_never: 'never', ng_days: n => `${n} d`, ng_tip: d => `Last activity: ${d}`, ng_tip_never: 'No activity for this subject yet',
     am_h: 'Almost mastered', am_note: 'Goals that came up in at least 2 activities but are not ticked as mastered yet.', am_n: n => `used ${n}×`, am_btn: 'Mastered', am_more: n => `Show all ${n}`, am_less: 'Show fewer', am_none: 'No open goals that came up at least twice.',
-    cal_h: 'Activity calendar', cal_note: 'Every day of the past year; the darker, the more activities that day.', cal_sum: (n, g) => `${nlN(n, 'activity', 'activities')} in the past year · longest break: ${nlN(g, 'day', 'days')}`, cal_less: 'Less', cal_more: 'More', cal_pick: 'Click a day to see its activities.', cal_none: 'No activities on this day.', cal_go: 'Go to activity', cal_close: 'Collapse', cal_tip: (d, n) => `${d}: ${nlN(n, 'activity', 'activities')}`,
+    cal_h: 'Activity calendar', cal_note: 'Every day of the past year; the darker, the more activities that day.', cal_sum: (n, g) => `${nlN(n, 'activity', 'activities')} in the past year · longest break: ${nlN(g, 'day', 'days')}`, cal_less: 'Less', cal_more: 'More', cal_pick: 'Click a day to see its activities.', cal_none: 'No activities on this day.', cal_go: 'Go to activity',
+    pg_h: 'Progress in the year group', pg_note: 'Per child: the share of the goals of their year group that is mastered. The dashed line is the schedule to reach 100% in time, the dots continue the current pace. The year group counts from the month of the first mastered goal (Preschool 3 years, Primary YR 1-4 4 years, Primary YR 5-6 2 years).',
+    pg_mastered: 'Mastered', pg_target: 'Schedule to the end of the year group', pg_fc: 'Expected at the current pace', pg_today: 'Today',
+    pg_on: 'on track', pg_ahead: n => `${n} mo ahead`, pg_behind: n => `${n} mo behind`, pg_none: 'No goals mastered yet',
+    pg_foot: (n, tot, p, e) => `<b>${n} of ${tot}</b> (${p}%) · schedule ${e}%`, pg_when: d => ` · 100% expected in <b>${d}</b>`, pg_end: d => `, end of year group ${d}`, pg_done: ' · all mastered',
+    pg_aria: (k, p, e) => `${k}: ${p}% mastered, schedule ${e}%`, cal_close: 'Collapse', cal_tip: (d, n) => `${d}: ${nlN(n, 'activity', 'activities')}`,
     dash_empty: 'Add a child to see the graph here.', dash_all_off: 'Turn on at least one child.', dash_aria: (name, n) => `${name}: ${n} mastered`,
     tab_reporting: 'Reporting', h_reporting: 'Reporting',
     reporting_p: "Here you will be able to generate and download PDF reports of your children's homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.", reporting_soon: 'This feature is coming soon.',
@@ -945,19 +955,85 @@ function viewDashboard() {
 
   // the smooth/straight switch, one per graph
   const lineSwitch = key => `<div class="lang-switch card-switch" role="group" aria-label="${esc(t('dash_lines'))}">${['smooth', 'straight'].map(v => `<button type="button" data-action="dash-lines" data-key="${key}" data-v="${v}" aria-pressed="${ui[key + 'Straight'] === (v === 'straight')}" aria-label="${esc(t('dash_' + v))}" title="${esc(t('dash_' + v))}">${v === 'smooth' ? ICON_SMOOTH : ICON_STRAIGHT}</button>`).join('')}</div>`;
-  return head + `<section class="card dash-card">
+  return head + dashProgress(series, chips) + (DASH_LINES ? `<section class="card dash-card">
     <div class="dash-head"><h2>${esc(t('dash_h'))}</h2>${rangeHtml('dash')}</div>
     <div class="dash-row"><div class="chips-filter" role="group" aria-label="${esc(t('dash_kids'))}">${chips}</div>
       <div class="dash-switches"><div class="lang-switch card-switch" role="group" aria-label="${esc(t('dash_scale'))}">${['abs', 'rel'].map(v => `<button type="button" data-action="dash-rel" data-v="${v}" aria-pressed="${ui.dashRel === (v === 'rel')}" title="${esc(t('dash_' + v))}">${v.toUpperCase()}</button>`).join('')}</div>${lineSwitch('dash')}</div></div>
     ${dashPlot(shown, labelsOf(months), shown.map(s => t('dash_aria', s.name, ui.dashRel ? Math.round(s.vals[N - 1]) + '%' : s.vals[N - 1])).join('; '), t('dash_all_off'), ui.dashStraight, ui.dashRel)}
     ${projRows ? `<div class="proj"><h3>${esc(t('proj_h'))}</h3><ul>${projRows}</ul><p class="proj-note">${esc(t('proj_note'))}</p></div>` : ''}
-  </section>
+  </section>` : '') + `
   ${shown.length ? dashMatrix(shown) + dashNeglected(shown) + dashAlmost(shown) : ''}
   ${dashCalendar()}
   <section class="card dash-card">
     <div class="dash-head"><h2>${esc(t('dash_acts_h'))}</h2>${rangeHtml('act')}</div>
     <div class="dash-row">${lineSwitch('act')}</div>
     ${dashPlot([{ name: t('dash_acts'), c: 'var(--accent)', vals: perMonth, fill: true }], labelsOf(aMonths), t('dash_acts_aria', perMonth[perMonth.length - 1]), '', ui.actStraight)}
+  </section>`;
+}
+/* The line graph of mastered goals (with its period, ABS/REL and forecast list) is hidden for now: the
+   progress card below took its place. Set to true to show it again. */
+const DASH_LINES = false;
+/* how long each level usually lasts, in years: the schedule runs from the first mastered goal to its end */
+const TIER_YEARS = { KO: 3, L4: 4, L6: 2 };
+/* Progress in the year group: a small chart per child on the same months and the same 0-100% scale, with the
+   share mastered, the schedule to 100% by the estimated end of the level, and the current pace continued. */
+function dashProgress(series, chips) {
+  const now = monthNo(new Date());
+  const kids = series.filter(s => s.on).map(s => {
+    const tier = tierOf(s.kid), dates = [...inTier(masteredOf(s.kid), tier).values()].sort();
+    if (!dates.length) return { s, none: true };
+    const start = monthNo(dateObj(dates[0])), months = TIER_YEARS[tier] * 12, end = start + months;
+    const hist = dashMonths({ from: start, to: now }).map(m => dates.filter(d => d <= m.iso).length);
+    const pct = 100 * s.now / s.total, exp = Math.min(100, 100 * (now - start + 1) / months);
+    const left = s.total - s.now, done = left <= 0 ? now : s.rate > 0 ? now + Math.ceil(left / s.rate) : null;
+    return { s, start, end, hist, pct, exp, done, diff: Math.round((pct - exp) / (100 / months)) };
+  });
+  const charted = kids.filter(k => !k.none);
+  const X0 = Math.min(now, ...charted.map(k => k.start)), X1 = Math.max(now + 1, ...charted.map(k => k.end));
+  const W = 400, H = 170, L = 34, R = 8, T = 8, B = 22;
+  const x = m => L + (m - X0) / (X1 - X0) * (W - L - R), y = p => T + (1 - p / 100) * (H - T - B);
+  const f = n => n.toFixed(1);
+  const lFmt = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' }), mName = k => cap1(lFmt.format(monthStart(k)));
+  let years = '';
+  for (let m = Math.ceil(X0 / 12) * 12; m <= X1; m += 12) years += `<text class="pg-ax" x="${f(x(m))}" y="${H - 6}" text-anchor="middle">${m / 12}</text><line class="pg-grid" x1="${f(x(m))}" x2="${f(x(m))}" y1="${y(0)}" y2="${y(0) + 4}"/>`;
+  const grid = [0, 50, 100].map(p => `<line class="pg-grid" x1="${L}" x2="${W - R}" y1="${f(y(p))}" y2="${f(y(p))}"/><text class="pg-ax" x="${L - 6}" y="${f(y(p) + 3)}" text-anchor="end">${p}%</text>`).join('');
+  const status = k => k.diff >= 0 ? `<span class="pg-status ahead">${esc(k.diff === 0 ? t('pg_on') : t('pg_ahead', k.diff))} ▲</span>` : `<span class="pg-status behind">${esc(t('pg_behind', -k.diff))} ▼</span>`;
+  const card = k => {
+    const s = k.s, head = `<div class="pg-head"><span class="dot" style="--c:${s.c}"></span><b>${esc(s.name)}</b>${tierBadge(s.kid)}${k.none ? '' : status(k)}</div>`;
+    if (k.none) return `<div class="pg-card">${head}<p class="muted pg-empty">${esc(t('pg_none'))}</p></div>`;
+    const pts = k.hist.map((v, i) => [x(k.start + i), y(100 * v / s.total)]);
+    const line = 'M' + pts.map(p => `${f(p[0])},${f(p[1])}`).join(' L');
+    const area = `${line} L${f(pts[pts.length - 1][0])},${f(y(0))} L${f(pts[0][0])},${f(y(0))} Z`;
+    let fc = '';
+    if (k.done != null && k.done > now) {
+      const e = Math.min(k.done, X1), p = Math.min(100, k.pct + (e - now) * s.rate / s.total * 100);
+      fc = `<path class="pg-fc" stroke="${s.c}" d="M${f(x(now))},${f(y(k.pct))} L${f(x(e))},${f(y(p))}"/>`;
+    }
+    const foot = t('pg_foot', s.now, s.total, Math.round(k.pct), Math.round(k.exp))
+      + (s.now >= s.total ? esc(t('pg_done')) : k.done != null ? t('pg_when', esc(mName(k.done))) : '') + esc(t('pg_end', mName(k.end)));
+    return `<div class="pg-card">${head}
+      <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(t('pg_aria', s.name, Math.round(k.pct), Math.round(k.exp)))}">
+        ${grid}${years}
+        <line class="pg-today" x1="${f(x(now))}" x2="${f(x(now))}" y1="${T}" y2="${f(y(0))}"/>
+        <path d="${area}" style="fill:${s.c}" opacity=".18"/>
+        <path class="pg-target" d="M${f(x(k.start))},${f(y(0))} L${f(x(k.end))},${f(y(100))}"/>
+        <path d="${line}" class="pg-line" style="stroke:${s.c}"/>
+        ${fc}
+        <circle cx="${f(x(now))}" cy="${f(y(k.pct))}" r="4" style="fill:${s.c}" class="pg-dot"/>
+        <circle cx="${f(x(k.end))}" cy="${f(y(100))}" r="3" class="pg-end"/>
+      </svg>
+      <p class="pg-foot">${foot}</p></div>`;
+  };
+  const legend = `<div class="pg-legend" aria-hidden="true">
+      <span><svg viewBox="0 0 26 10"><path d="M1 9 L25 2" class="pg-line" style="stroke:var(--fg)"/></svg>${esc(t('pg_mastered'))}</span>
+      <span><svg viewBox="0 0 26 10"><path d="M1 5 L25 5" class="pg-target"/></svg>${esc(t('pg_target'))}</span>
+      <span><svg viewBox="0 0 26 10"><path d="M1 5 L25 5" class="pg-fc" style="stroke:var(--fg)"/></svg>${esc(t('pg_fc'))}</span>
+      <span><svg viewBox="0 0 26 10"><path d="M13 0 L13 10" class="pg-today"/></svg>${esc(t('pg_today'))}</span></div>`;
+  return `<section class="card dash-card">
+    <div class="dash-head"><h2>${esc(t('pg_h'))}</h2></div>
+    <p class="dash-note">${esc(t('pg_note'))}</p>
+    <div class="chips-filter" role="group" aria-label="${esc(t('dash_kids'))}">${chips}</div>
+    ${kids.length ? legend + `<div class="pg">${kids.map(card).join('')}</div>` : `<p class="muted">${esc(t('dash_all_off'))}</p>`}
   </section>`;
 }
 /* The cards under the graph show the children switched on there. */
