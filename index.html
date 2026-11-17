@@ -11266,8 +11266,8 @@ const ui = {
   goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)), goalTier: null,   // null: follow the children's tier
   childSearch: '', actSearch: '', actChild: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
-  dashFrom: null, dashTo: null, dashOff: new Set(), dashStraight: false,   // dashboard: first and last month (month numbers, null: the last 12 months), the children switched off, straight or smooth lines
-  actFrom: null, actTo: null,   // the activities graph's own first and last month
+  dashFrom: null, dashTo: null, dashOff: new Set(), dashStraight: false,   // dashboard: first and last month (month numbers, null: from the first mastered goal, up to this month), the children switched off, straight or smooth lines
+  actFrom: null, actTo: null,   // the activities graph's own first and last month (null: from the first activity)
 };
 /* The dashboard choices come back on the next visit. A range that ends in the current month is saved
    without its end, so next month it ends in that month instead of staying behind. */
@@ -11282,7 +11282,9 @@ try {
 } catch (e) {}
 function saveDash() {
   const now = new Date().getFullYear() * 12 + new Date().getMonth();
-  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: ui.dashFrom, to: ui.dashTo === now ? null : ui.dashTo, aFrom: ui.actFrom, aTo: ui.actTo === now ? null : ui.actTo, off: [...ui.dashOff], straight: ui.dashStraight })); } catch (e) {}
+  // a start on the default month is saved without it too, so it keeps following the first mastered goal or activity
+  const from = k => ui[k + 'From'] === dashStart(k) ? null : ui[k + 'From'];
+  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: from('dash'), to: ui.dashTo === now ? null : ui.dashTo, aFrom: from('act'), aTo: ui.actTo === now ? null : ui.actTo, off: [...ui.dashOff], straight: ui.dashStraight })); } catch (e) {}
 }
 
 /* ---------- storage ---------- */
@@ -11702,9 +11704,16 @@ const monthStart = k => new Date(Math.floor(k / 12), k % 12, 1);
 /* month names start with a capital, in Dutch too ("Mei 2026", not "mei 2026") */
 const cap1 = s => s.charAt(0).toUpperCase() + s.slice(1);
 /* the months the graph covers: the parent's choice, kept within this month and DASH_MAX months */
+/* Where a graph starts unless the parent chose otherwise: the month of the first mastered goal of any child
+   (mastered goals), or of the first activity (activities); the last 12 months when there is none yet. */
+function dashStart(key) {
+  const dates = key === 'act' ? [...data.activities.values()].map(a => a.date)
+    : [...data.children.values()].flatMap(c => [...inTier(masteredOf(c), tierOf(c)).values()]);
+  return dates.length ? Math.min(...dates.map(d => monthNo(dateObj(d)))) : null;
+}
 function dashRange(key = 'dash') {
   const now = monthNo(new Date());
-  let to = Math.min(ui[key + 'To'] ?? now, now), from = ui[key + 'From'] ?? to - 11;
+  let to = Math.min(ui[key + 'To'] ?? now, now), from = ui[key + 'From'] ?? dashStart(key) ?? to - 11;
   if (from > to) from = to;
   if (to - from >= DASH_MAX) from = to - DASH_MAX + 1;
   return { from, to, now };
