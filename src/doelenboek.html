@@ -107,6 +107,7 @@ const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
     tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard', tab_reporting: 'Reporting', h_reporting: 'Reporting',
+    reporting_p: 'In this section you will be able to generate and download PDF reports of your childrens homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.', reporting_soon: 'This feature is coming soon.',
     st_connecting: 'Verbinden…', st_saved: 'Automatisch opgeslagen', st_readonly: 'Alleen lezen',
     data_btn: 'Instellingen', loading: 'Gegevens laden…', locale: 'nl-BE', theme_h: 'Weergave', theme_light: 'Licht', theme_dark: 'Donker',
     example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
@@ -207,6 +208,7 @@ const T = {
   },
   en: {
     tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard', tab_reporting: 'Reporting', h_reporting: 'Reporting',
+    reporting_p: 'In this section you will be able to generate and download PDF reports of your childrens homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.', reporting_soon: 'This feature is coming soon.',
     st_connecting: 'Connecting…', st_saved: 'Saved automatically', st_readonly: 'Read only',
     data_btn: 'Settings', loading: 'Loading data…', locale: 'en-GB', theme_h: 'Appearance', theme_light: 'Light', theme_dark: 'Dark',
     example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
@@ -788,9 +790,10 @@ function viewDashboard() {
   return `<section class="page-head"><div><h1>${esc(t('h_dashboard'))}</h1></div></section>`;
 }
 
-/* Reporting: an empty page for now, the content comes later */
+/* Reporting: a note on what is coming, until the reports exist */
 function viewReporting() {
-  return `<section class="page-head"><div><h1>${esc(t('h_reporting'))}</h1></div></section>`;
+  return `<section class="page-head"><div><h1>${esc(t('h_reporting'))}</h1></div></section>
+    <section class="card soon-note"><p>${esc(t('reporting_p'))}</p><p><b>${esc(t('reporting_soon'))}</b></p></section>`;
 }
 
 function viewGoals(cov) {
