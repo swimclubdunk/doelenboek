@@ -100,8 +100,8 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .empty pre { text-align: left; background: var(--surface-2); color: var(--fg); padding: 10px 14px; border-radius: var(--r-sm); font-family: var(--f-mono); font-size: .8rem; max-width: 100%; overflow-x: auto; margin: 4px 0; }
 
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); }
-/* a short note on a page whose feature is still to come (Reporting) */
-.soon-note { padding: 18px 20px; max-width: 70ch; display: grid; gap: 10px; }
+/* a short note under the title of a page whose feature is still to come (Reporting): plain text, no card */
+.soon-note { max-width: 70ch; display: grid; gap: 10px; }
 .soon-note p { margin: 0; }
 
 /* avatars */
