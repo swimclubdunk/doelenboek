@@ -3,12 +3,12 @@
 <link rel="stylesheet" href="design/tokens.css">
 <link rel="stylesheet" href="design/app.css">
 <link rel="stylesheet" href="core.css">
-<!-- bright unless dark was chosen last time; applied before the page is drawn (see the theme button) -->
+<!-- bright unless dark was chosen last time; applied before the page is drawn (chosen under Instellingen) -->
 <script>let t = 'light'; try { if (localStorage.getItem('doelenboek.theme') === 'dark') t = 'dark'; } catch (e) {} document.documentElement.dataset.theme = t;</script>
 
 <header class="top">
   <div class="top-inner">
-    <div class="brand"><b>Doelenboek.be</b></div>
+    <div class="brand brand-row"><span class="brand-logo" aria-hidden="true"></span><b>Doelenboek.be</b></div>
     <nav class="tabs" aria-label="Doelenboek">
       <a href="#overzicht" data-tab="overzicht">Kinderen</a>
       <a href="#activiteiten" data-tab="activiteiten">Activiteiten</a>
@@ -20,9 +20,8 @@
         <button type="button" data-lang="nl" aria-pressed="true" lang="nl" title="Nederlands">NL</button>
         <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
       </div>
-      <button type="button" class="theme-btn" id="theme-btn"></button>
       <a class="btn small ghost" id="admin-link" href="admin/" hidden>Admin</a>
-      <button class="btn small ghost" id="data-btn" type="button">Gegevens</button>
+      <button class="btn small ghost" id="data-btn" type="button">Instellingen</button>
     </div>
   </div>
 </header>
@@ -106,8 +105,8 @@ const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
     tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen',
-    st_connecting: 'Verbinden…', st_saved: 'Automatisch opgeslagen', st_readonly: 'Alleen lezen', st_local: 'Alleen in deze browser',
-    data_btn: 'Gegevens', loading: 'Gegevens laden…', locale: 'nl-BE', to_dark: 'Donkere modus', to_light: 'Lichte modus',
+    st_connecting: 'Verbinden…', st_saved: 'Automatisch opgeslagen', st_readonly: 'Alleen lezen',
+    data_btn: 'Instellingen', loading: 'Gegevens laden…', locale: 'nl-BE', theme_h: 'Weergave', theme_light: 'Licht', theme_dark: 'Donker',
     example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
     remove_examples: 'Voorbeelden verwijderen',
     h_overview: 'Kinderen',
@@ -195,7 +194,7 @@ const T = {
     ae_many: 'Te veel pogingen. Wacht even en probeer opnieuw.', ae_net: 'Geen verbinding. Controleer je internet en probeer opnieuw.',
     ae_generic: 'Dat lukte niet. Probeer het opnieuw.',
     sdk_fail: 'De inlogdienst kon niet geladen worden. Controleer je internetverbinding en herlaad de pagina.',
-    privacy: "Je gegevens (kinderen, activiteiten, foto's) worden bewaard in Google Firebase in de EU en zijn alleen bereikbaar met jouw e-mailadres en wachtwoord. De beheerder kan opgeslagen gegevens inzien voor statistieken en ondersteuning. Foto's kan de beheerder niet inzien, en in het beheeroverzicht worden namen van kinderen geanonimiseerd. Je kunt je account en al je gegevens altijd verwijderen via Gegevens.",
+    privacy: "Je gegevens (kinderen, activiteiten, foto's) worden bewaard in Google Firebase in de EU en zijn alleen bereikbaar met jouw e-mailadres en wachtwoord. De beheerder kan opgeslagen gegevens inzien voor statistieken en ondersteuning. Foto's kan de beheerder niet inzien, en in het beheeroverzicht worden namen van kinderen geanonimiseerd. Je kunt je account en al je gegevens altijd verwijderen via Instellingen.",
     account_h: 'Account', signed_in_as: e => `Ingelogd als ${e}.`, logout: 'Uitloggen',
     del_acc: 'Account verwijderen', del_acc_p: "Verwijdert je account en al je gegevens (kinderen, activiteiten, foto's) definitief.",
     del_acc_confirm: 'Vul je wachtwoord in om te bevestigen.', del_acc_btn: 'Account en gegevens verwijderen', del_done: 'Je account is verwijderd.',
@@ -206,8 +205,8 @@ const T = {
   },
   en: {
     tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals',
-    st_connecting: 'Connecting…', st_saved: 'Saved automatically', st_readonly: 'Read only', st_local: 'This browser only',
-    data_btn: 'Data', loading: 'Loading data…', locale: 'en-GB', to_dark: 'Dark mode', to_light: 'Bright mode',
+    st_connecting: 'Connecting…', st_saved: 'Saved automatically', st_readonly: 'Read only',
+    data_btn: 'Settings', loading: 'Loading data…', locale: 'en-GB', theme_h: 'Appearance', theme_light: 'Light', theme_dark: 'Dark',
     example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
     remove_examples: 'Remove examples',
     h_overview: 'Children',
@@ -295,7 +294,7 @@ const T = {
     ae_many: 'Too many attempts. Wait a moment and try again.', ae_net: 'No connection. Check your internet and try again.',
     ae_generic: 'That did not work. Try again.',
     sdk_fail: 'The login service could not be loaded. Check your internet connection and reload the page.',
-    privacy: 'Your data (children, activities, photos) is stored in Google Firebase in the EU and can only be reached with your email address and password. The administrator can view stored data for statistics and support. The administrator cannot view photos, and children\'s names are anonymised in the admin overview. You can delete your account and all your data at any time via Data.',
+    privacy: 'Your data (children, activities, photos) is stored in Google Firebase in the EU and can only be reached with your email address and password. The administrator can view stored data for statistics and support. The administrator cannot view photos, and children\'s names are anonymised in the admin overview. You can delete your account and all your data at any time via Settings.',
     account_h: 'Account', signed_in_as: e => `Logged in as ${e}.`, logout: 'Log out',
     del_acc: 'Delete account', del_acc_p: 'Permanently deletes your account and all your data (children, activities, photos).',
     del_acc_confirm: 'Enter your password to confirm.', del_acc_btn: 'Delete account and data', del_done: 'Your account has been deleted.',
@@ -562,27 +561,18 @@ const exampleItems = () => COLS.flatMap(c => [...data[c].values()].filter(d => d
 let rq = 0;
 function scheduleRender() { if (rq) return; rq = requestAnimationFrame(() => { rq = 0; render(); }); }
 
-/* Bright or dark: bright to start with; the theme button switches and remembers the choice for next time. */
+/* Bright or dark: bright to start with; Weergave under Instellingen switches and remembers the choice for next time. */
 const themeNow = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-const ICON_MOON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
-const ICON_SUN = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const ICON_EDIT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_TRASH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_EYE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
 const ICON_EYE_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 4l16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-function renderTheme() {
-  const dark = themeNow() === 'dark', b = $('#theme-btn'), label = t(dark ? 'to_light' : 'to_dark');
-  b.innerHTML = dark ? ICON_SUN : ICON_MOON;
-  b.setAttribute('aria-label', label);
-  b.title = label;
-}
 
 function renderChrome() {
   document.documentElement.lang = lang;
   // the login screen is always bright; the saved choice applies once someone is in
   let saved = 'light'; try { if (localStorage.getItem(THEME_KEY) === 'dark') saved = 'dark'; } catch (e) {}
   document.documentElement.dataset.theme = mode === 'auth' ? 'light' : saved;
-  renderTheme();
   $('#data-btn').innerHTML = bt('data_btn');
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
@@ -596,11 +586,11 @@ function renderChrome() {
   $('#support-link').textContent = t('support_link');
   $('#site-foot').hidden = mode === 'loading' || mode === 'auth';
   const st = $('#status');
-  st.removeAttribute('title');
+  st.removeAttribute('title'); st.hidden = false;
   if (mode === 'loading') { st.innerHTML = bt('st_connecting'); st.className = 'status'; }
   else if (mode === 'db' && fbUser) { st.innerHTML = `<span class="status-email">${esc(fbUser.email)}</span>`; st.title = t('signed_in_as', fbUser.email); st.className = 'status ok'; }
   else if (mode === 'db') { st.innerHTML = bt(canWrite ? 'st_saved' : 'st_readonly'); st.className = 'status ok'; }
-  else { st.innerHTML = bt('st_local'); st.className = 'status warn'; }
+  else { st.innerHTML = ''; st.className = 'status'; st.hidden = true; }   // browser-only mode: no status at all
   for (const a of document.querySelectorAll('[data-tab]')) {
     a.innerHTML = bt('tab_' + a.dataset.tab);
     const active = a.dataset.tab === ui.view || (ui.view === 'kind' && a.dataset.tab === 'overzicht');
@@ -1202,10 +1192,17 @@ function dataDialog() {
   const ex = exampleItems().length > 0;
   const body = `<p class="muted">${esc(fbUser ? t('where_fb') : mode === 'db' ? t('where_db') : t('where_local'))}</p><div class="data-actions">
     ${fbUser ? `<div><p><b>${esc(t('account_h'))}</b><span>${esc(t('signed_in_as', fbUser.email))}</span></p><button type="button" class="btn small" id="d-logout">${esc(t('logout'))}</button></div>` : ''}
+    <div><p><b>${esc(t('theme_h'))}</b></p><div class="lang-switch card-switch" role="group" id="d-theme" aria-label="${esc(t('theme_h'))}">${['light', 'dark'].map(v => `<button type="button" data-theme-pick="${v}" aria-pressed="${themeNow() === v}">${esc(t('theme_' + v))}</button>`).join('')}</div></div>
     ${ex ? `<div class="w"><p><b>${esc(t('examples_h'))}</b><span>${esc(t('examples_p'))}</span></p><button type="button" class="btn small" id="d-ex">${esc(t('remove_examples'))}</button></div>` : ''}
     ${fbUser ? `<div><p><b>${esc(t('del_acc'))}</b><span>${esc(t('del_acc_p'))}</span></p><button type="button" class="btn small" id="d-delacc">${esc(t('del_acc'))}</button></div>` : ''}
   </div>`;
   openDialog(shell('f-data', t('data_h'), body, ''), d => {
+    d.querySelector('#d-theme').addEventListener('click', e => {
+      const b = e.target.closest('[data-theme-pick]'); if (!b) return;
+      document.documentElement.dataset.theme = b.dataset.themePick;
+      try { localStorage.setItem(THEME_KEY, b.dataset.themePick); } catch (err) {}
+      for (const x of d.querySelectorAll('[data-theme-pick]')) x.setAttribute('aria-pressed', String(x === b));
+    });
     d.querySelector('#d-ex')?.addEventListener('click', () => removeExamples());
     d.querySelector('#d-logout')?.addEventListener('click', logout);
     d.querySelector('#d-delacc')?.addEventListener('click', deleteAccountDialog);
@@ -1361,12 +1358,6 @@ main.addEventListener('toggle', e => {
   el.open ? ui.closed.delete(el.dataset.subj) : ui.closed.add(el.dataset.subj);
 }, true);
 $('#data-btn').addEventListener('click', dataDialog);
-$('#theme-btn').addEventListener('click', () => {
-  const next = themeNow() === 'dark' ? 'light' : 'dark';
-  document.documentElement.dataset.theme = next;
-  try { localStorage.setItem(THEME_KEY, next); } catch (err) {}
-  renderTheme();
-});
 function onLang(e) {
   const b = e.target.closest('[data-lang]'); if (!b || b.dataset.lang === lang) return;
   lang = b.dataset.lang;
@@ -1520,7 +1511,7 @@ function authView() {
     : `<button type="button" class="linkish" data-action="auth-view" data-v="login">${bt(v === 'signup' ? 'to_login' : 'back_login')}</button>`;
   const langs = ['nl', 'en'].map(l => `<button type="button" data-lang="${l}" aria-pressed="${l === lang}" lang="${l}" title="${l === 'nl' ? 'Nederlands' : 'English'}">${l.toUpperCase()}</button>`).join('');
   return `<section class="card auth">
-    <div class="lang-switch auth-lang" role="group" aria-label="Taal / Language">${langs}</div>
+    <div class="lang-switch card-switch auth-lang" role="group" aria-label="Taal / Language">${langs}</div>
     <div><h1 class="auth-title"><span class="auth-logo" aria-hidden="true"></span><span>${esc(t(head[0]))}</span></h1>${head[1] ? `<p class="lede">${esc(t(head[1]))}</p>` : ''}</div>
     <form id="auth-form" novalidate>
       <label class="field"><span>${esc(t('email'))}</span><input id="au-email" name="email" type="email" autocomplete="email" inputmode="email" required value="${esc(ui_auth.email)}"></label>

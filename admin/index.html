@@ -114,10 +114,13 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* the empty space after the name keeps it visually apart from the tabs */
 .brand { display: flex; align-items: baseline; min-width: 0; margin-right: clamp(8px, 9vw, 140px); }
 .brand b { font-family: var(--f-display); font-size: 1.3rem; letter-spacing: -0.02em; }
+/* the app header in two rows: the seal and the name alone on the first row, tabs and buttons below (the admin header stays one row) */
+.brand-row { flex-basis: 100%; margin-right: 0; align-items: center; gap: 10px; }
+.brand-logo { flex: none; width: 34px; height: 34px; background: var(--on-chrome); -webkit-mask: url(logo.png) center / contain no-repeat; mask: url(logo.png) center / contain no-repeat; }
 .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
 .tabs a {
-  text-decoration: none; color: var(--on-chrome-muted); padding: 7px 12px; border-radius: 999px; font-weight: 700; font-size: .92rem;
-}
+  text-decoration: none; color: var(--on-chrome-muted); padding: 3px 12px; border-radius: 999px; font-weight: 700; font-size: .92rem;
+}   /* as tall as the NL/EN capsule */
 .tabs a:hover { color: var(--on-chrome); background: color-mix(in srgb, var(--on-chrome) 12%, transparent); }
 .tabs a[aria-current="page"] { color: var(--chrome); background: var(--on-chrome); }
 .top-right { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
@@ -125,7 +128,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* the dot stays colourless (colour means "subject"): filled when synced, an open ring when only in this browser */
 .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; box-sizing: border-box; border: 1.5px solid var(--on-chrome-muted); }
 .status.ok::before { background: var(--on-chrome); border-color: var(--on-chrome); }
-.status.warn::before { background: transparent; }
 .status .bi { justify-items: start; }   /* keep the text next to the status dot */
 /* a long login email is cut off with … instead of pushing the header onto a second line; the full address is in the tooltip */
 .status { max-width: min(16rem, 45vw); }
@@ -399,6 +401,10 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .data-actions p { flex: 1 1 260px; min-width: 0; }
 .data-actions p b { display: block; }
 .data-actions p span { color: var(--muted); font-size: .86rem; }
+/* a two-way switch on a card (Licht/Donker in Instellingen, NL/EN on the login card): the header's capsule in card colours */
+.card-switch { border-color: var(--line); }
+.card-switch button { color: var(--muted); }
+.card-switch button[aria-pressed="true"] { background: var(--chrome); color: var(--on-chrome); }
 
 /* the one-time donation thank-you */
 dialog.thanks { width: min(440px, calc(100vw - 24px)); text-align: center; }
@@ -493,9 +499,7 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 /* the seal centred on its own row in the header brown, the welcome left-aligned and a little smaller below it */
 .auth-title { display: grid; justify-items: start; gap: 18px; font-size: 1.5rem; }
 .auth-logo { justify-self: center; width: 112px; height: 112px; background: var(--chrome); -webkit-mask: url(logo.png) center / contain no-repeat; mask: url(logo.png) center / contain no-repeat; }
-.auth-lang { position: absolute; top: 12px; right: 12px; border-color: var(--line); }
-.auth-lang button { color: var(--muted); }
-.auth-lang button[aria-pressed="true"] { background: var(--chrome); color: var(--on-chrome); }
+.auth-lang { position: absolute; top: 12px; right: 12px; }
 .auth-screen .auth, .auth-screen .auth-about { box-shadow: 0 20px 60px rgb(30 20 12 / .35); }
 .auth form { display: grid; gap: 14px; }
 .auth .field input { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; width: 100%; }
