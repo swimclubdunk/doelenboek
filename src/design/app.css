@@ -137,6 +137,67 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
   .proj ul { grid-template-columns: auto minmax(0, 1fr) auto; }
   .proj .pj-of, .proj .pj-rate { display: none; }
 }
+/* the dashboard cards under the graph: a short explanation under the title */
+.dash-note { margin: -6px 0 0; color: var(--muted); font-size: .84rem; }
+/* 1. children by subject: the share mastered, one hue from pale to dark */
+.mx-wrap { overflow-x: auto; }
+.mx { display: grid; grid-template-columns: minmax(110px, auto) repeat(var(--cols), minmax(38px, 1fr)); gap: 3px; font-size: .8rem; }
+.mx-h { display: flex; align-items: center; justify-content: center; gap: 4px; font-weight: 700; color: var(--muted); font-size: .72rem; padding-bottom: 2px; }
+.mx-k { display: flex; align-items: center; gap: 6px; padding-right: 8px; white-space: nowrap; }
+.mx-c { display: grid; place-items: center; height: 30px; border-radius: 4px; background: color-mix(in srgb, var(--accent) var(--p), var(--surface-2)); font-variant-numeric: tabular-nums; font-size: .74rem; }
+.mx-c.dark { color: var(--accent-fg); }
+.mx-c.na { background: transparent; color: var(--line); }
+.mx-legend { display: flex; align-items: center; gap: 8px; font-size: .72rem; color: var(--muted); justify-content: flex-end; }
+.mx-legend i { width: 120px; height: 8px; border-radius: 4px; background: linear-gradient(90deg, var(--surface-2), var(--accent)); }
+/* 2. subjects not covered for a while */
+.ng { list-style: none; margin: 0; padding: 0; }
+.ng li { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: .86rem; }
+.ng li:last-child { border-bottom: 0; }
+.ng-k, .am-k { display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; }
+.ng-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.ng-chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 8px; border: 1px solid var(--line); border-radius: 999px; font-size: .8rem; }
+.ng-chip b { font-variant-numeric: tabular-nums; color: var(--muted); }
+.ng-chip.late { border-color: color-mix(in srgb, var(--danger) 45%, var(--line)); background: color-mix(in srgb, var(--danger) 8%, transparent); }
+.ng-chip.late b { color: var(--danger); }
+/* 3. almost mastered */
+.am { list-style: none; margin: 0; padding: 0; }
+.am li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto auto; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: .84rem; }
+.am li:last-child { border-bottom: 0; }
+.am .code { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.am-d { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.am-n { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.readonly .am li { grid-template-columns: auto minmax(0, 1fr) auto auto; }
+.am-more { justify-self: start; }
+/* 4. the activity calendar */
+.cal-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 6px; overflow-x: auto; }
+.cal-m { grid-column: 2; display: grid; grid-template-columns: repeat(53, 1fr); font-size: .7rem; color: var(--muted); min-width: 580px; }
+.cal-m span { white-space: nowrap; }
+.cal-days { display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px; font-size: .66rem; color: var(--muted); align-items: center; }
+.cal { display: grid; grid-template-columns: repeat(53, minmax(8px, 1fr)); grid-template-rows: repeat(7, auto); gap: 3px; min-width: 580px; }
+.cal-d { aspect-ratio: 1; border: 0; padding: 0; border-radius: 2px; background: var(--surface-2); cursor: pointer; }
+.cal-d:hover, .cal-d:focus-visible, .cal-d.on { outline: 2px solid var(--fg); outline-offset: 1px; }
+.cal-d.today { box-shadow: inset 0 0 0 1.5px var(--fg); }
+.cal .l1, .cal-leg .l1 { background: color-mix(in srgb, var(--accent) 35%, var(--surface-2)); }
+.cal .l2, .cal-leg .l2 { background: color-mix(in srgb, var(--accent) 60%, var(--surface-2)); }
+.cal .l3, .cal-leg .l3 { background: color-mix(in srgb, var(--accent) 80%, var(--surface-2)); }
+.cal .l4, .cal-leg .l4 { background: var(--accent); }
+.cal-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: .78rem; color: var(--muted); }
+.cal-leg { display: inline-flex; align-items: center; gap: 3px; }
+.cal-leg i { width: 11px; height: 11px; border-radius: 2px; background: var(--surface-2); display: inline-block; }
+.cal-pick { margin: 0; font-size: .84rem; }
+.cal-panel { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 10px; }
+.cal-panel h3 { margin: 0; font-size: .95rem; }
+.cal-panel .act { box-shadow: none; }
+.cal-go { margin: 10px 0 0; }
+/* an activity reached from the dashboard calendar lights up for a moment */
+.act.flash { animation: act-flash 2.4s ease-out; }
+@keyframes act-flash { 0%, 35% { box-shadow: 0 0 0 3px var(--accent); } 100% { box-shadow: var(--shadow); } }
+@media (max-width: 640px) {
+  .ng li { grid-template-columns: 1fr; gap: 6px; }
+  .am li, .readonly .am li { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .am-k, .am-n { display: none; }
+}
+
 /* the shaded area under a single line (Activiteiten) */
 .dc-area { opacity: .5; stroke: none; }
 .dc-line { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
