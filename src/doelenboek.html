@@ -83,6 +83,7 @@ const COLS = ['children', 'activities'];
 const LS_KEY = 'doelenboek.v1';
 const LANG_KEY = 'doelenboek.lang';
 const THEME_KEY = 'doelenboek.theme';   // also read by the small script in the page head
+const DASH_KEY = 'doelenboek.dashboard';   // the dashboard's months and the children switched off, kept in this browser
 /* Firebase accounts (email + password). The standalone build fills this in; left null, the page
    uses the Claude-hosted store or, outside Claude, this browser only. */
 const FIREBASE_CONFIG = null;
@@ -385,6 +386,18 @@ const ui = {
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
   dashFrom: null, dashTo: null, dashOff: new Set(),   // dashboard: first and last month (month numbers, null: the last 12 months), and the children switched off
 };
+/* The dashboard choices come back on the next visit. A range that ends in the current month is saved
+   without its end, so next month it ends in that month instead of staying behind. */
+try {
+  const d = JSON.parse(localStorage.getItem(DASH_KEY) || '{}');
+  if (Number.isInteger(d.from)) ui.dashFrom = d.from;
+  if (Number.isInteger(d.to)) ui.dashTo = d.to;
+  if (Array.isArray(d.off)) ui.dashOff = new Set(d.off.filter(x => typeof x === 'string'));
+} catch (e) {}
+function saveDash() {
+  const now = new Date().getFullYear() * 12 + new Date().getMonth();
+  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: ui.dashFrom, to: ui.dashTo === now ? null : ui.dashTo, off: [...ui.dashOff] })); } catch (e) {}
+}
 
 /* ---------- storage ---------- */
 function loadLocal() {
@@ -1436,7 +1449,7 @@ main.addEventListener('click', e => {
     case 'auth-view': ui_auth.view = b.dataset.v; ui_auth.err = ''; ui_auth.msg = ''; render(); $('#au-email')?.focus(); return;
     case 'migrate': return migrateLocal(b);
     case 'migrate-skip': return markMigrated();
-    case 'dash-kid': ui.dashOff.has(id) ? ui.dashOff.delete(id) : ui.dashOff.add(id); return render();
+    case 'dash-kid': ui.dashOff.has(id) ? ui.dashOff.delete(id) : ui.dashOff.add(id); saveDash(); return render();
     case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
     case 'goal-filter-all': ui.goalSubj = goalTabSubjects().every(k => ui.goalSubj.has(k)) ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
   }
@@ -1489,7 +1502,7 @@ main.addEventListener('change', e => {
     const k = Math.min(e.target.dataset.part === 'y' ? v * 12 + old % 12 : Math.floor(old / 12) * 12 + v, r.now);   // a year change keeps the month
     if (end === 'from') { ui.dashFrom = k; ui.dashTo = Math.min(Math.max(r.to, k), k + DASH_MAX - 1, r.now); }
     else { ui.dashTo = k; ui.dashFrom = Math.max(Math.min(r.from, k), k - DASH_MAX + 1); }
-    render();
+    saveDash(); render();
   }
   if (e.target.dataset.mastery) setMastery(e.target.dataset.mastery, e.target.checked);
 });
