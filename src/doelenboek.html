@@ -107,7 +107,7 @@ const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
     tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
-    dash_h: 'Beheerste minimumdoelen', dash_period: 'Periode', dash_months: n => `${n} maanden`, dash_kids: 'Kinderen in de grafiek',
+    dash_h: 'Beheerste minimumdoelen', dash_period: 'Periode', dash_from: 'Van', dash_to: 'Tot', dash_kids: 'Kinderen in de grafiek',
     dash_empty: 'Voeg een kind toe om hier de grafiek te zien.', dash_all_off: 'Zet minstens één kind aan.', dash_aria: (name, n) => `${name}: ${n} beheerst`,
     tab_reporting: 'Rapportering', h_reporting: 'Rapportering',
     reporting_p: 'In dit onderdeel zul je PDF-rapporten van het thuisonderwijstraject van je kinderen kunnen maken en downloaden, met tijdlijnen, activiteiten, grafieken en natuurlijk de behandelde minimumdoelen.', reporting_soon: 'Deze functie komt binnenkort.',
@@ -211,7 +211,7 @@ const T = {
   },
   en: {
     tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
-    dash_h: 'Minimum goals mastered', dash_period: 'Period', dash_months: n => `${n} months`, dash_kids: 'Children in the graph',
+    dash_h: 'Minimum goals mastered', dash_period: 'Period', dash_from: 'From', dash_to: 'To', dash_kids: 'Children in the graph',
     dash_empty: 'Add a child to see the graph here.', dash_all_off: 'Turn on at least one child.', dash_aria: (name, n) => `${name}: ${n} mastered`,
     tab_reporting: 'Reporting', h_reporting: 'Reporting',
     reporting_p: "Here you will be able to generate and download PDF reports of your children's homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.", reporting_soon: 'This feature is coming soon.',
@@ -383,7 +383,7 @@ const ui = {
   goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)), goalTier: null,   // null: follow the children's tier
   childSearch: '', actSearch: '', actChild: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
-  dashMonths: 12, dashOff: new Set(),   // dashboard: months on the x axis, and the children switched off
+  dashFrom: null, dashTo: null, dashOff: new Set(),   // dashboard: first and last month (month numbers, null: the last 12 months), and the children switched off
 };
 
 /* ---------- storage ---------- */
@@ -793,7 +793,18 @@ function goalTabSubjects() {
   return SUBJECTS.filter(s => [...data.goals.values()].some(g => g.subject === s.key && (tier === 'all' || g.tier === tier))).map(s => s.key);
 }
 /* ---------- dashboard ---------- */
-const DASH_MONTHS = [6, 12, 24, 36, 48];
+const DASH_MAX = 48;   // the most months the graph shows at once
+/* months as one number (year * 12 + month) so a range is simple arithmetic */
+const monthNo = d => d.getFullYear() * 12 + d.getMonth();
+const monthStart = k => new Date(Math.floor(k / 12), k % 12, 1);
+/* the months the graph covers: the parent's choice, kept within this month and DASH_MAX months */
+function dashRange() {
+  const now = monthNo(new Date());
+  let to = Math.min(ui.dashTo ?? now, now), from = ui.dashFrom ?? to - 11;
+  if (from > to) from = to;
+  if (to - from >= DASH_MAX) from = to - DASH_MAX + 1;
+  return { from, to, now };
+}
 /* Each child keeps one colour, in a fixed order by when it was added (so switching one off never repaints
    the others). The colours are the subject colours: the dashboard shows no subjects. */
 const DASH_COLORS = ['wk', 'ge', 'nl', 'mv', 'wt', 'lo', 'at', 'ak'];
@@ -823,9 +834,9 @@ function viewDashboard() {
   const kids = dashKids();
   if (!kids.length) return head + `<p class="muted">${esc(t('dash_empty'))}</p>`;
   // one point per month: the number of mastered goals at the end of that month (this month: today)
-  const N = ui.dashMonths, now = new Date(), today = todayIso();
+  const { from, to, now } = dashRange(), N = to - from + 1, today = todayIso();
   const months = Array.from({ length: N }, (_, i) => {
-    const start = new Date(now.getFullYear(), now.getMonth() - (N - 1 - i), 1);
+    const start = monthStart(from + i);
     const end = new Date(start.getFullYear(), start.getMonth() + 1, 0);
     const iso = `${end.getFullYear()}-${String(end.getMonth() + 1).padStart(2, '0')}-${String(end.getDate()).padStart(2, '0')}`;
     return { start, iso: iso < today ? iso : today };
@@ -836,19 +847,24 @@ function viewDashboard() {
   });
   const shown = series.filter(s => s.on);
   const top = niceTop(Math.max(0, ...shown.flatMap(s => s.vals)));
-  const xs = months.map((_, i) => 100 * i / (N - 1));
+  const xs = months.map((_, i) => N > 1 ? 100 * i / (N - 1) : 50);
   const yOf = v => 100 - 100 * v / top;
   const mFmt = new Intl.DateTimeFormat(t('locale'), { month: 'short', year: '2-digit' });
   const labels = months.map(m => mFmt.format(m.start));
   const step = Math.ceil(N / 6);   // at most about seven month names under the axis
   const chips = series.map(s => `<button class="fchip" style="--c:${s.c}" data-action="dash-kid" data-id="${esc(s.id)}" aria-pressed="${s.on}"><span class="dot"></span>${esc(s.name)}</button>`).join('');
-  const seg = DASH_MONTHS.map(n => `<button type="button" data-action="dash-months" data-n="${n}" aria-pressed="${n === N}">${bt('dash_months', n)}</button>`).join('');
+  // the month lists reach back to the first mastered goal, or DASH_MAX months, whichever is earlier
+  const first = Math.min(now - DASH_MAX + 1, ...kids.flatMap(c => Object.values(c.mastered || {})).map(d => monthNo(dateObj(d))));
+  const lFmt = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' });
+  const opts = (lo, hi, sel) => Array.from({ length: hi - lo + 1 }, (_, i) => hi - i).map(k => `<option value="${k}"${k === sel ? ' selected' : ''}>${esc(lFmt.format(monthStart(k)))}</option>`).join('');
+  const seg = `<label>${esc(t('dash_from'))} <select class="select" id="dash-from">${opts(first, now, from)}</select></label>
+      <label>${esc(t('dash_to'))} <select class="select" id="dash-to">${opts(first, now, to)}</select></label>`;
   const lines = shown.map(s => { const d = smoothPath(xs, s.vals.map(yOf)); return `<path class="dc-halo" d="${d}"/><path class="dc-line" style="stroke:${s.c}" d="${d}"/>`; }).join('');
   const ends = shown.map(s => `<span class="dc-dot" style="left:100%;top:${yOf(s.vals[N - 1]).toFixed(2)}%;background:${s.c}"></span>`).join('');
   const pts = esc(JSON.stringify({ xs, labels, series: shown.map(s => ({ name: s.name, c: s.c, vals: s.vals, ys: s.vals.map(yOf) })) }));
   const aria = shown.map(s => t('dash_aria', s.name, s.vals[N - 1])).join('; ');
   return head + `<section class="card dash-card">
-    <div class="dash-head"><h2>${esc(t('dash_h'))}</h2><div class="dash-seg" role="group" aria-label="${esc(t('dash_period'))}">${seg}</div></div>
+    <div class="dash-head"><h2>${esc(t('dash_h'))}</h2><div class="dash-range" role="group" aria-label="${esc(t('dash_period'))}">${seg}</div></div>
     <div class="chips-filter" role="group" aria-label="${esc(t('dash_kids'))}">${chips}</div>
     <div class="dc-plot" role="img" aria-label="${esc(aria || t('dash_all_off'))}" data-points="${pts}">
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
@@ -1412,7 +1428,6 @@ main.addEventListener('click', e => {
     case 'auth-view': ui_auth.view = b.dataset.v; ui_auth.err = ''; ui_auth.msg = ''; render(); $('#au-email')?.focus(); return;
     case 'migrate': return migrateLocal(b);
     case 'migrate-skip': return markMigrated();
-    case 'dash-months': ui.dashMonths = Number(b.dataset.n); return render();
     case 'dash-kid': ui.dashOff.has(id) ? ui.dashOff.delete(id) : ui.dashOff.add(id); return render();
     case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
     case 'goal-filter-all': ui.goalSubj = goalTabSubjects().every(k => ui.goalSubj.has(k)) ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
@@ -1460,6 +1475,13 @@ main.addEventListener('input', e => {
 main.addEventListener('change', e => {
   if (e.target.id === 'act-child') { ui.actChild = e.target.value; render(); }
   if (e.target.id === 'goal-tier') { ui.goalTier = e.target.value; render(); }
+  // dashboard months: the other end follows when the range would turn round or pass DASH_MAX months
+  if (e.target.id === 'dash-from' || e.target.id === 'dash-to') {
+    const r = dashRange(), k = Number(e.target.value);
+    if (e.target.id === 'dash-from') { ui.dashFrom = k; ui.dashTo = Math.min(Math.max(r.to, k), k + DASH_MAX - 1, r.now); }
+    else { ui.dashTo = k; ui.dashFrom = Math.max(Math.min(r.from, k), k - DASH_MAX + 1); }
+    render();
+  }
   if (e.target.dataset.mastery) setMastery(e.target.dataset.mastery, e.target.checked);
 });
 main.addEventListener('toggle', e => {
