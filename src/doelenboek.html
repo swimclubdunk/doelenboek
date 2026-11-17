@@ -108,7 +108,7 @@ const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
     tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
-    dash_h: 'Beheerste minimumdoelen', dash_period: 'Periode', dash_from: 'Van', dash_to: 'Tot', dash_kids: 'Kinderen in de grafiek', dash_lines: 'Lijnen', dash_acts_h: 'Activiteiten per maand', dash_acts: 'Activiteiten', dash_acts_aria: n => `${n} activiteiten deze maand`, dash_smooth: 'Vloeiend', dash_straight: 'Recht',
+    dash_h: 'Beheerste minimumdoelen', dash_period: 'Periode', dash_from: 'Van', dash_to: 'Tot', dash_kids: 'Kinderen in de grafiek', dash_lines: 'Lijnen', dash_acts_h: 'Activiteiten', dash_acts: 'Activiteiten', dash_acts_aria: n => `${n} activiteiten deze maand`, dash_smooth: 'Vloeiend', dash_straight: 'Recht',
     dash_empty: 'Voeg een kind toe om hier de grafiek te zien.', dash_all_off: 'Zet minstens één kind aan.', dash_aria: (name, n) => `${name}: ${n} beheerst`,
     tab_reporting: 'Rapportering', h_reporting: 'Rapportering',
     reporting_p: 'In dit onderdeel zul je PDF-rapporten van het thuisonderwijstraject van je kinderen kunnen maken en downloaden, met tijdlijnen, activiteiten, grafieken en natuurlijk de behandelde minimumdoelen.', reporting_soon: 'Deze functie komt binnenkort.',
@@ -212,7 +212,7 @@ const T = {
   },
   en: {
     tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
-    dash_h: 'Minimum goals mastered', dash_period: 'Period', dash_from: 'From', dash_to: 'To', dash_kids: 'Children in the graph', dash_lines: 'Lines', dash_acts_h: 'Activities per month', dash_acts: 'Activities', dash_acts_aria: n => `${n} activities this month`, dash_smooth: 'Smooth', dash_straight: 'Straight',
+    dash_h: 'Minimum goals mastered', dash_period: 'Period', dash_from: 'From', dash_to: 'To', dash_kids: 'Children in the graph', dash_lines: 'Lines', dash_acts_h: 'Activities', dash_acts: 'Activities', dash_acts_aria: n => `${n} activities this month`, dash_smooth: 'Smooth', dash_straight: 'Straight',
     dash_empty: 'Add a child to see the graph here.', dash_all_off: 'Turn on at least one child.', dash_aria: (name, n) => `${name}: ${n} mastered`,
     tab_reporting: 'Reporting', h_reporting: 'Reporting',
     reporting_p: "Here you will be able to generate and download PDF reports of your children's homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.", reporting_soon: 'This feature is coming soon.',
@@ -385,6 +385,7 @@ const ui = {
   childSearch: '', actSearch: '', actChild: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
   dashFrom: null, dashTo: null, dashOff: new Set(), dashStraight: false,   // dashboard: first and last month (month numbers, null: the last 12 months), the children switched off, straight or smooth lines
+  actFrom: null, actTo: null,   // the activities graph's own first and last month
 };
 /* The dashboard choices come back on the next visit. A range that ends in the current month is saved
    without its end, so next month it ends in that month instead of staying behind. */
@@ -392,12 +393,14 @@ try {
   const d = JSON.parse(localStorage.getItem(DASH_KEY) || '{}');
   if (Number.isInteger(d.from)) ui.dashFrom = d.from;
   if (Number.isInteger(d.to)) ui.dashTo = d.to;
+  if (Number.isInteger(d.aFrom)) ui.actFrom = d.aFrom;
+  if (Number.isInteger(d.aTo)) ui.actTo = d.aTo;
   if (Array.isArray(d.off)) ui.dashOff = new Set(d.off.filter(x => typeof x === 'string'));
   ui.dashStraight = d.straight === true;
 } catch (e) {}
 function saveDash() {
   const now = new Date().getFullYear() * 12 + new Date().getMonth();
-  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: ui.dashFrom, to: ui.dashTo === now ? null : ui.dashTo, off: [...ui.dashOff], straight: ui.dashStraight })); } catch (e) {}
+  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: ui.dashFrom, to: ui.dashTo === now ? null : ui.dashTo, aFrom: ui.actFrom, aTo: ui.actTo === now ? null : ui.actTo, off: [...ui.dashOff], straight: ui.dashStraight })); } catch (e) {}
 }
 
 /* ---------- storage ---------- */
@@ -817,9 +820,9 @@ const monthStart = k => new Date(Math.floor(k / 12), k % 12, 1);
 /* month names start with a capital, in Dutch too ("Mei 2026", not "mei 2026") */
 const cap1 = s => s.charAt(0).toUpperCase() + s.slice(1);
 /* the months the graph covers: the parent's choice, kept within this month and DASH_MAX months */
-function dashRange() {
+function dashRange(key = 'dash') {
   const now = monthNo(new Date());
-  let to = Math.min(ui.dashTo ?? now, now), from = ui.dashFrom ?? to - 11;
+  let to = Math.min(ui[key + 'To'] ?? now, now), from = ui[key + 'From'] ?? to - 11;
   if (from > to) from = to;
   if (to - from >= DASH_MAX) from = to - DASH_MAX + 1;
   return { from, to, now };
@@ -848,60 +851,70 @@ function smoothPath(xs, ys) {
   }
   return d;
 }
+/* the months of a range: each with its first day, and the last day that counts (today for this month) */
+function dashMonths({ from, to }) {
+  const today = todayIso();
+  return Array.from({ length: to - from + 1 }, (_, i) => {
+    const start = monthStart(from + i);
+    const end = new Date(start.getFullYear(), start.getMonth() + 1, 0);
+    const iso = `${end.getFullYear()}-${String(end.getMonth() + 1).padStart(2, '0')}-${String(end.getDate()).padStart(2, '0')}`;
+    return { start, iso: iso < today ? iso : today, pre: iso.slice(0, 8) };
+  });
+}
 function viewDashboard() {
   const head = `<section class="page-head"><div><h1>${esc(t('h_dashboard'))}</h1></div></section>`;
   const kids = dashKids();
   if (!kids.length) return head + `<p class="muted">${esc(t('dash_empty'))}</p>`;
-  // one point per month: the number of mastered goals at the end of that month (this month: today)
-  const { from, to, now } = dashRange(), N = to - from + 1, today = todayIso();
-  const months = Array.from({ length: N }, (_, i) => {
-    const start = monthStart(from + i);
-    const end = new Date(start.getFullYear(), start.getMonth() + 1, 0);
-    const iso = `${end.getFullYear()}-${String(end.getMonth() + 1).padStart(2, '0')}-${String(end.getDate()).padStart(2, '0')}`;
-    return { start, iso: iso < today ? iso : today };
-  });
+  const mFmt = new Intl.DateTimeFormat(t('locale'), { month: 'short', year: '2-digit' });
+  const labelsOf = months => months.map(m => cap1(mFmt.format(m.start)));
+  const actDates = [...data.activities.values()].map(a => a.date);
+  // the month lists reach back to the first mastered goal or activity, or DASH_MAX months, whichever is earlier
+  const now = monthNo(new Date());
+  const first = Math.min(now - DASH_MAX + 1, ...kids.flatMap(c => Object.values(c.mastered || {})).map(d => monthNo(dateObj(d))), ...actDates.map(d => monthNo(dateObj(d))));
+  // each end as a month list and a year list; months after this month are greyed out
+  const lFmt = new Intl.DateTimeFormat(t('locale'), { month: 'long' });
+  const pick = (key, end, k) => {
+    const y = Math.floor(k / 12), m = k % 12, a = `data-key="${key}" data-dash="${end}"`;
+    const ms = Array.from({ length: 12 }, (_, i) => `<option value="${i}"${i === m ? ' selected' : ''}${y * 12 + i > now ? ' disabled' : ''}>${esc(cap1(lFmt.format(new Date(2000, i, 1))))}</option>`).join('');
+    const ys = Array.from({ length: Math.floor(now / 12) - Math.floor(first / 12) + 1 }, (_, i) => Math.floor(now / 12) - i)
+      .map(v => `<option value="${v}"${v === y ? ' selected' : ''}>${v}</option>`).join('');
+    return `<label>${esc(t('dash_' + end))} <select class="select" ${a} data-part="m" aria-label="${esc(t('dash_' + end))}">${ms}</select></label><select class="select" ${a} data-part="y" aria-label="${esc(t('dash_' + end))}">${ys}</select>`;
+  };
+  const rangeHtml = key => { const r = dashRange(key); return `<div class="dash-range" role="group" aria-label="${esc(t('dash_period'))}"><span class="dash-end">${pick(key, 'from', r.from)}</span><span class="dash-end">${pick(key, 'to', r.to)}</span></div>`; };
+
+  // mastered goals: one line per child, the count at the end of each month (this month: today)
+  const months = dashMonths(dashRange('dash')), N = months.length;
   const series = kids.map((c, i) => {
     const dates = [...inTier(masteredOf(c), tierOf(c)).values()];
     return { id: c.id, name: c.name, c: sv(DASH_COLORS[i % DASH_COLORS.length]), on: !ui.dashOff.has(c.id), vals: months.map(m => dates.filter(d => d <= m.iso).length) };
   });
   const shown = series.filter(s => s.on);
-  const mFmt = new Intl.DateTimeFormat(t('locale'), { month: 'short', year: '2-digit' });
-  const labels = months.map(m => cap1(mFmt.format(m.start)));
-  // activities per month: every activity dated in that month, whichever children took part
-  const actDates = [...data.activities.values()].map(a => a.date);
-  const perMonth = months.map(m => { const pre = `${m.start.getFullYear()}-${String(m.start.getMonth() + 1).padStart(2, '0')}-`; return actDates.filter(d => d.startsWith(pre)).length; });
   const chips = series.map(s => `<button class="fchip" style="--c:${s.c}" data-action="dash-kid" data-id="${esc(s.id)}" aria-pressed="${s.on}"><span class="dot"></span>${esc(s.name)}</button>`).join('');
-  // the month lists reach back to the first mastered goal, or DASH_MAX months, whichever is earlier
-  const first = Math.min(now - DASH_MAX + 1, ...kids.flatMap(c => Object.values(c.mastered || {})).map(d => monthNo(dateObj(d))), ...actDates.map(d => monthNo(dateObj(d))));
-  // each end as a month list and a year list; months after this month are greyed out
-  const lFmt = new Intl.DateTimeFormat(t('locale'), { month: 'long' });
-  const pick = (end, k) => {
-    const y = Math.floor(k / 12), m = k % 12;
-    const ms = Array.from({ length: 12 }, (_, i) => `<option value="${i}"${i === m ? ' selected' : ''}${y * 12 + i > now ? ' disabled' : ''}>${esc(cap1(lFmt.format(new Date(2000, i, 1))))}</option>`).join('');
-    const ys = Array.from({ length: Math.floor(now / 12) - Math.floor(first / 12) + 1 }, (_, i) => Math.floor(now / 12) - i)
-      .map(v => `<option value="${v}"${v === y ? ' selected' : ''}>${v}</option>`).join('');
-    return `<label>${esc(t('dash_' + end))} <select class="select" data-dash="${end}" data-part="m" aria-label="${esc(t('dash_' + end))}">${ms}</select></label><select class="select" data-dash="${end}" data-part="y" aria-label="${esc(t('dash_' + end))}">${ys}</select>`;
-  };
-  const seg = `<span class="dash-end">${pick('from', from)}</span><span class="dash-end">${pick('to', to)}</span>`;
+
+  // activities: one line, every activity dated in each month whichever children took part, with its own months
+  const aMonths = dashMonths(dashRange('act'));
+  const perMonth = aMonths.map(m => actDates.filter(d => d.startsWith(m.pre)).length);
+
   return head + `<section class="card dash-card">
-    <div class="dash-head"><h2>${esc(t('dash_h'))}</h2><div class="dash-range" role="group" aria-label="${esc(t('dash_period'))}">${seg}</div></div>
+    <div class="dash-head"><h2>${esc(t('dash_h'))}</h2>${rangeHtml('dash')}</div>
     <div class="dash-row"><div class="chips-filter" role="group" aria-label="${esc(t('dash_kids'))}">${chips}</div>
       <div class="lang-switch card-switch" role="group" aria-label="${esc(t('dash_lines'))}">${['smooth', 'straight'].map(v => `<button type="button" data-action="dash-lines" data-v="${v}" aria-pressed="${ui.dashStraight === (v === 'straight')}" aria-label="${esc(t('dash_' + v))}" title="${esc(t('dash_' + v))}">${v === 'smooth' ? ICON_SMOOTH : ICON_STRAIGHT}</button>`).join('')}</div></div>
-    ${dashPlot(shown, labels, shown.map(s => t('dash_aria', s.name, s.vals[N - 1])).join('; '), t('dash_all_off'))}
+    ${dashPlot(shown, labelsOf(months), shown.map(s => t('dash_aria', s.name, s.vals[N - 1])).join('; '), t('dash_all_off'))}
   </section>
   <section class="card dash-card">
-    <div class="dash-head"><h2>${esc(t('dash_acts_h'))}</h2></div>
-    ${dashPlot([{ name: t('dash_acts'), c: 'var(--accent)', vals: perMonth }], labels, t('dash_acts_aria', perMonth[N - 1]), '')}
+    <div class="dash-head"><h2>${esc(t('dash_acts_h'))}</h2>${rangeHtml('act')}</div>
+    ${dashPlot([{ name: t('dash_acts'), c: 'var(--accent)', vals: perMonth, fill: true }], labelsOf(aMonths), t('dash_acts_aria', perMonth[perMonth.length - 1]), '')}
   </section>`;
 }
 /* One graph: a line per series through one point per month, the months named under it, and the crosshair's data.
-   Both dashboard graphs use it, so they share the months, the axis and the smooth/straight choice. */
+   Both dashboard graphs use it, so they share the axis and the smooth/straight choice; a series with fill
+   gets the area under its line shaded. */
 function dashPlot(shown, labels, aria, emptyMsg) {
   const N = labels.length, top = niceTop(Math.max(0, ...shown.flatMap(s => s.vals)));
   const xs = labels.map((_, i) => N > 1 ? 100 * i / (N - 1) : 50);
   const yOf = v => 100 - 100 * v / top;
   const step = Math.ceil(N / 6);   // at most about seven month names under the axis
-  const lines = shown.map(s => { const ys = s.vals.map(yOf), d = ui.dashStraight ? 'M' + xs.map((x, i) => `${x.toFixed(2)},${ys[i].toFixed(2)}`).join(' L') : smoothPath(xs, ys); return `<path class="dc-halo" d="${d}"/><path class="dc-line" style="stroke:${s.c}" d="${d}"/>`; }).join('');
+  const lines = shown.map(s => { const ys = s.vals.map(yOf), d = ui.dashStraight ? 'M' + xs.map((x, i) => `${x.toFixed(2)},${ys[i].toFixed(2)}`).join(' L') : smoothPath(xs, ys); return `${s.fill ? `<path class="dc-area" style="fill:${s.c}" d="${d} L${xs[N - 1].toFixed(2)},100 L${xs[0].toFixed(2)},100 Z"/>` : ''}<path class="dc-halo" d="${d}"/><path class="dc-line" style="stroke:${s.c}" d="${d}"/>`; }).join('');
   const ends = shown.map(s => `<span class="dc-dot" style="left:100%;top:${yOf(s.vals[N - 1]).toFixed(2)}%;background:${s.c}"></span>`).join('');
   const pts = esc(JSON.stringify({ xs, labels, series: shown.map(s => ({ name: s.name, c: s.c, vals: s.vals, ys: s.vals.map(yOf) })) }));
   return `<div class="dc-plot" role="img" aria-label="${esc(aria || emptyMsg)}" data-points="${pts}">
@@ -1515,10 +1528,10 @@ main.addEventListener('change', e => {
   if (e.target.id === 'goal-tier') { ui.goalTier = e.target.value; render(); }
   // dashboard months: the other end follows when the range would turn round or pass DASH_MAX months
   if (e.target.dataset.dash) {
-    const r = dashRange(), end = e.target.dataset.dash, v = Number(e.target.value), old = end === 'from' ? r.from : r.to;
+    const key = e.target.dataset.key, r = dashRange(key), end = e.target.dataset.dash, v = Number(e.target.value), old = end === 'from' ? r.from : r.to;
     const k = Math.min(e.target.dataset.part === 'y' ? v * 12 + old % 12 : Math.floor(old / 12) * 12 + v, r.now);   // a year change keeps the month
-    if (end === 'from') { ui.dashFrom = k; ui.dashTo = Math.min(Math.max(r.to, k), k + DASH_MAX - 1, r.now); }
-    else { ui.dashTo = k; ui.dashFrom = Math.max(Math.min(r.from, k), k - DASH_MAX + 1); }
+    if (end === 'from') { ui[key + 'From'] = k; ui[key + 'To'] = Math.min(Math.max(r.to, k), k + DASH_MAX - 1, r.now); }
+    else { ui[key + 'To'] = k; ui[key + 'From'] = Math.max(Math.min(r.from, k), k - DASH_MAX + 1); }
     saveDash(); render();
   }
   if (e.target.dataset.mastery) setMastery(e.target.dataset.mastery, e.target.checked);

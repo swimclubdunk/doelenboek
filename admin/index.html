@@ -208,6 +208,8 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .dc-grid.base { stroke: color-mix(in srgb, var(--muted) 45%, var(--line)); }
 /* a ring in the card colour under every line, so a line crossing another stays readable */
 .dc-halo { fill: none; stroke: var(--surface); stroke-width: 6; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+/* the shaded area under a single line (Activiteiten) */
+.dc-area { opacity: .5; stroke: none; }
 .dc-line { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .dc-y { position: absolute; left: -34px; width: 26px; text-align: right; transform: translateY(-50%); color: var(--muted); font: .72rem var(--f-mono); }
 .dc-dot { position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; box-shadow: 0 0 0 2px var(--surface); pointer-events: none; }
