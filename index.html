@@ -11267,7 +11267,7 @@ const ui = {
   childSearch: '', actSearch: '', actChild: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
   dashFrom: null, dashTo: null, dashOff: new Set(), dashStraight: false,   // dashboard: first and last month (month numbers, null: from the first mastered goal, up to this month), the children switched off, straight or smooth lines
-  actFrom: null, actTo: null,   // the activities graph's own first and last month (null: from the first activity)
+  actFrom: null, actTo: null, actStraight: false,   // the activities graph's own first and last month (null: from the first activity), and its own line choice
 };
 /* The dashboard choices come back on the next visit. A range that ends in the current month is saved
    without its end, so next month it ends in that month instead of staying behind. */
@@ -11279,12 +11279,13 @@ try {
   if (Number.isInteger(d.aTo)) ui.actTo = d.aTo;
   if (Array.isArray(d.off)) ui.dashOff = new Set(d.off.filter(x => typeof x === 'string'));
   ui.dashStraight = d.straight === true;
+  ui.actStraight = d.aStraight === true;
 } catch (e) {}
 function saveDash() {
   const now = new Date().getFullYear() * 12 + new Date().getMonth();
   // a start on the default month is saved without it too, so it keeps following the first mastered goal or activity
   const from = k => ui[k + 'From'] === dashStart(k) ? null : ui[k + 'From'];
-  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: from('dash'), to: ui.dashTo === now ? null : ui.dashTo, aFrom: from('act'), aTo: ui.actTo === now ? null : ui.actTo, off: [...ui.dashOff], straight: ui.dashStraight })); } catch (e) {}
+  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: from('dash'), to: ui.dashTo === now ? null : ui.dashTo, aFrom: from('act'), aTo: ui.actTo === now ? null : ui.actTo, off: [...ui.dashOff], straight: ui.dashStraight, aStraight: ui.actStraight })); } catch (e) {}
 }
 
 /* ---------- storage ---------- */
@@ -11786,26 +11787,29 @@ function viewDashboard() {
   const aMonths = dashMonths(dashRange('act'));
   const perMonth = aMonths.map(m => actDates.filter(d => d.startsWith(m.pre)).length);
 
+  // the smooth/straight switch, one per graph
+  const lineSwitch = key => `<div class="lang-switch card-switch" role="group" aria-label="${esc(t('dash_lines'))}">${['smooth', 'straight'].map(v => `<button type="button" data-action="dash-lines" data-key="${key}" data-v="${v}" aria-pressed="${ui[key + 'Straight'] === (v === 'straight')}" aria-label="${esc(t('dash_' + v))}" title="${esc(t('dash_' + v))}">${v === 'smooth' ? ICON_SMOOTH : ICON_STRAIGHT}</button>`).join('')}</div>`;
   return head + `<section class="card dash-card">
     <div class="dash-head"><h2>${esc(t('dash_h'))}</h2>${rangeHtml('dash')}</div>
     <div class="dash-row"><div class="chips-filter" role="group" aria-label="${esc(t('dash_kids'))}">${chips}</div>
-      <div class="lang-switch card-switch" role="group" aria-label="${esc(t('dash_lines'))}">${['smooth', 'straight'].map(v => `<button type="button" data-action="dash-lines" data-v="${v}" aria-pressed="${ui.dashStraight === (v === 'straight')}" aria-label="${esc(t('dash_' + v))}" title="${esc(t('dash_' + v))}">${v === 'smooth' ? ICON_SMOOTH : ICON_STRAIGHT}</button>`).join('')}</div></div>
-    ${dashPlot(shown, labelsOf(months), shown.map(s => t('dash_aria', s.name, s.vals[N - 1])).join('; '), t('dash_all_off'))}
+      ${lineSwitch('dash')}</div>
+    ${dashPlot(shown, labelsOf(months), shown.map(s => t('dash_aria', s.name, s.vals[N - 1])).join('; '), t('dash_all_off'), ui.dashStraight)}
   </section>
   <section class="card dash-card">
     <div class="dash-head"><h2>${esc(t('dash_acts_h'))}</h2>${rangeHtml('act')}</div>
-    ${dashPlot([{ name: t('dash_acts'), c: 'var(--accent)', vals: perMonth, fill: true }], labelsOf(aMonths), t('dash_acts_aria', perMonth[perMonth.length - 1]), '')}
+    <div class="dash-row">${lineSwitch('act')}</div>
+    ${dashPlot([{ name: t('dash_acts'), c: 'var(--accent)', vals: perMonth, fill: true }], labelsOf(aMonths), t('dash_acts_aria', perMonth[perMonth.length - 1]), '', ui.actStraight)}
   </section>`;
 }
 /* One graph: a line per series through one point per month, the months named under it, and the crosshair's data.
-   Both dashboard graphs use it, so they share the axis and the smooth/straight choice; a series with fill
+   Both dashboard graphs use it, each with its own months and smooth/straight choice; a series with fill
    gets the area under its line shaded. */
-function dashPlot(shown, labels, aria, emptyMsg) {
+function dashPlot(shown, labels, aria, emptyMsg, straight) {
   const N = labels.length, top = niceTop(Math.max(0, ...shown.flatMap(s => s.vals)));
   const xs = labels.map((_, i) => N > 1 ? 100 * i / (N - 1) : 50);
   const yOf = v => 100 - 100 * v / top;
   const step = Math.ceil(N / 6);   // at most about seven month names under the axis
-  const lines = shown.map(s => { const ys = s.vals.map(yOf), d = ui.dashStraight ? 'M' + xs.map((x, i) => `${x.toFixed(2)},${ys[i].toFixed(2)}`).join(' L') : smoothPath(xs, ys); return `${s.fill ? `<path class="dc-area" style="fill:${s.c}" d="${d} L${xs[N - 1].toFixed(2)},100 L${xs[0].toFixed(2)},100 Z"/>` : ''}<path class="dc-halo" d="${d}"/><path class="dc-line" style="stroke:${s.c}" d="${d}"/>`; }).join('');
+  const lines = shown.map(s => { const ys = s.vals.map(yOf), d = straight ? 'M' + xs.map((x, i) => `${x.toFixed(2)},${ys[i].toFixed(2)}`).join(' L') : smoothPath(xs, ys); return `${s.fill ? `<path class="dc-area" style="fill:${s.c}" d="${d} L${xs[N - 1].toFixed(2)},100 L${xs[0].toFixed(2)},100 Z"/>` : ''}<path class="dc-halo" d="${d}"/><path class="dc-line" style="stroke:${s.c}" d="${d}"/>`; }).join('');
   const ends = shown.map(s => `<span class="dc-dot" style="left:100%;top:${yOf(s.vals[N - 1]).toFixed(2)}%;background:${s.c}"></span>`).join('');
   const pts = esc(JSON.stringify({ xs, labels, series: shown.map(s => ({ name: s.name, c: s.c, vals: s.vals, ys: s.vals.map(yOf) })) }));
   return `<div class="dc-plot" role="img" aria-label="${esc(aria || emptyMsg)}" data-points="${pts}">
@@ -12369,7 +12373,7 @@ main.addEventListener('click', e => {
     case 'auth-view': ui_auth.view = b.dataset.v; ui_auth.err = ''; ui_auth.msg = ''; render(); $('#au-email')?.focus(); return;
     case 'migrate': return migrateLocal(b);
     case 'migrate-skip': return markMigrated();
-    case 'dash-lines': ui.dashStraight = b.dataset.v === 'straight'; saveDash(); return render();
+    case 'dash-lines': ui[b.dataset.key + 'Straight'] = b.dataset.v === 'straight'; saveDash(); return render();
     case 'dash-kid': ui.dashOff.has(id) ? ui.dashOff.delete(id) : ui.dashOff.add(id); saveDash(); return render();
     case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
     case 'goal-filter-all': ui.goalSubj = goalTabSubjects().every(k => ui.goalSubj.has(k)) ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
