@@ -797,6 +797,8 @@ const DASH_MAX = 48;   // the most months the graph shows at once
 /* months as one number (year * 12 + month) so a range is simple arithmetic */
 const monthNo = d => d.getFullYear() * 12 + d.getMonth();
 const monthStart = k => new Date(Math.floor(k / 12), k % 12, 1);
+/* month names start with a capital, in Dutch too ("Mei 2026", not "mei 2026") */
+const cap1 = s => s.charAt(0).toUpperCase() + s.slice(1);
 /* the months the graph covers: the parent's choice, kept within this month and DASH_MAX months */
 function dashRange() {
   const now = monthNo(new Date());
@@ -850,13 +852,13 @@ function viewDashboard() {
   const xs = months.map((_, i) => N > 1 ? 100 * i / (N - 1) : 50);
   const yOf = v => 100 - 100 * v / top;
   const mFmt = new Intl.DateTimeFormat(t('locale'), { month: 'short', year: '2-digit' });
-  const labels = months.map(m => mFmt.format(m.start));
+  const labels = months.map(m => cap1(mFmt.format(m.start)));
   const step = Math.ceil(N / 6);   // at most about seven month names under the axis
   const chips = series.map(s => `<button class="fchip" style="--c:${s.c}" data-action="dash-kid" data-id="${esc(s.id)}" aria-pressed="${s.on}"><span class="dot"></span>${esc(s.name)}</button>`).join('');
   // the month lists reach back to the first mastered goal, or DASH_MAX months, whichever is earlier
   const first = Math.min(now - DASH_MAX + 1, ...kids.flatMap(c => Object.values(c.mastered || {})).map(d => monthNo(dateObj(d))));
   const lFmt = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' });
-  const opts = (lo, hi, sel) => Array.from({ length: hi - lo + 1 }, (_, i) => hi - i).map(k => `<option value="${k}"${k === sel ? ' selected' : ''}>${esc(lFmt.format(monthStart(k)))}</option>`).join('');
+  const opts = (lo, hi, sel) => Array.from({ length: hi - lo + 1 }, (_, i) => hi - i).map(k => `<option value="${k}"${k === sel ? ' selected' : ''}>${esc(cap1(lFmt.format(monthStart(k))))}</option>`).join('');
   const seg = `<label>${esc(t('dash_from'))} <select class="select" id="dash-from">${opts(first, now, from)}</select></label>
       <label>${esc(t('dash_to'))} <select class="select" id="dash-to">${opts(first, now, to)}</select></label>`;
   const lines = shown.map(s => { const d = smoothPath(xs, s.vals.map(yOf)); return `<path class="dc-halo" d="${d}"/><path class="dc-line" style="stroke:${s.c}" d="${d}"/>`; }).join('');
