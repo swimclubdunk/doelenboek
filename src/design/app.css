@@ -100,6 +100,33 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .empty pre { text-align: left; background: var(--surface-2); color: var(--fg); padding: 10px 14px; border-radius: var(--r-sm); font-family: var(--f-mono); font-size: .8rem; max-width: 100%; overflow-x: auto; margin: 4px 0; }
 
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); }
+/* dashboard: one card with the graph of mastered goals per child over the months */
+.dash-card { padding: 18px 20px 14px; display: grid; gap: 14px; }
+.dash-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; }
+.dash-head h2 { margin: 0; font-size: 1.05rem; }
+.dash-seg { display: inline-flex; flex-wrap: wrap; padding: 3px; gap: 3px; border: 1px solid var(--line); border-radius: 999px; }
+.dash-seg button { border: 0; background: none; color: var(--muted); font-weight: 700; font-size: .82rem; padding: 4px 12px; border-radius: 999px; cursor: pointer; }
+.dash-seg button[aria-pressed="true"] { background: var(--chrome); color: var(--on-chrome); }
+.dc-plot { position: relative; height: 280px; margin: 8px 18px 0 34px; touch-action: pan-y; }
+.dc-plot svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.dc-grid { stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.dc-grid.base { stroke: color-mix(in srgb, var(--muted) 45%, var(--line)); }
+/* a ring in the card colour under every line, so a line crossing another stays readable */
+.dc-halo { fill: none; stroke: var(--surface); stroke-width: 6; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.dc-line { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.dc-y { position: absolute; left: -34px; width: 26px; text-align: right; transform: translateY(-50%); color: var(--muted); font: .72rem var(--f-mono); }
+.dc-dot { position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; box-shadow: 0 0 0 2px var(--surface); pointer-events: none; }
+.dc-off { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; }
+.dc-cross { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--muted); pointer-events: none; }
+.dc-tip { position: absolute; top: 0; margin-left: 12px; display: grid; gap: 3px; min-width: 9rem; background: var(--fg); color: var(--surface); padding: 8px 10px; border-radius: var(--r-sm); font-size: .78rem; white-space: nowrap; pointer-events: none; z-index: 2; }
+.dc-tip.left { transform: translateX(-100%); margin-left: -12px; }
+.dc-tip > span { display: flex; align-items: center; gap: 6px; }
+.dc-tip .dot { box-shadow: 0 0 0 1.5px var(--surface); }
+.dc-n { margin-left: auto; padding-left: 12px; font-family: var(--f-mono); }
+.dc-plot:not(.hover) .dc-cross, .dc-plot:not(.hover) .dc-tip, .dc-plot:not(.hover) .dc-hdots { display: none; }
+.dc-axis { position: relative; height: 1.2em; margin: 0 18px 0 34px; color: var(--muted); font-size: .74rem; }
+.dc-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+
 /* a short note under the title of a page whose feature is still to come (Reporting): plain text, no card */
 .soon-note { max-width: 70ch; display: grid; gap: 10px; }
 .soon-note p { margin: 0; }
