@@ -229,6 +229,20 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .dc-grid.base { stroke: color-mix(in srgb, var(--muted) 45%, var(--line)); }
 /* a ring in the card colour under every line, so a line crossing another stays readable */
 .dc-halo { fill: none; stroke: var(--surface); stroke-width: 6; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+/* under the mastered-goals graph: per child, when every goal of their level would be mastered at their rate */
+.proj { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 4px; }
+.proj h3 { margin: 0 0 10px; font-size: .95rem; }
+.proj ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto auto; column-gap: 14px; }
+.proj li { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: .88rem; }
+.proj li:last-child { border-bottom: 0; }
+.proj .pj-name { font-weight: 700; min-width: 0; }
+.proj .pj-of, .proj .pj-rate { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.proj .pj-when { text-align: right; white-space: nowrap; }
+.proj-note { margin: 10px 0 0; color: var(--muted); font-size: .78rem; }
+@media (max-width: 640px) {
+  .proj ul { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .proj .pj-of, .proj .pj-rate { display: none; }
+}
 /* the shaded area under a single line (Activiteiten) */
 .dc-area { opacity: .5; stroke: none; }
 .dc-line { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
@@ -10993,7 +11007,7 @@ const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
     tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
-    dash_h: 'Beheerste minimumdoelen', dash_period: 'Periode', dash_from: 'Van', dash_to: 'Tot', dash_kids: 'Kinderen in de grafiek', dash_lines: 'Lijnen', dash_scale: 'Schaal', dash_abs: 'Aantal beheerste doelen', dash_rel: 'Percentage van alle doelen van het leerjaar', dash_acts_h: 'Activiteiten', dash_acts: 'Activiteiten', dash_acts_aria: n => `${n} activiteiten deze maand`, dash_smooth: 'Vloeiend', dash_straight: 'Recht',
+    dash_h: 'Beheerste minimumdoelen', dash_period: 'Periode', dash_from: 'Van', dash_to: 'Tot', dash_kids: 'Kinderen in de grafiek', dash_lines: 'Lijnen', proj_h: 'Verwachte 100% beheersing van de leerstof van het leerjaar op basis van het huidige tempo', proj_note: 'Tempo: het gemiddelde aantal doelen dat per maand beheerst werd in de gekozen periode. De verwachting rekent vanaf vandaag met de doelen die nog open staan.', proj_rate: n => `${n} per maand`, proj_done: 'Alles beheerst', proj_none: 'Nog geen tempo in deze periode', proj_in: n => n === 1 ? 'over 1 maand' : `over ${n} maanden`, proj_of: (m, t) => `${m} van ${t}`, dash_scale: 'Schaal', dash_abs: 'Aantal beheerste doelen', dash_rel: 'Percentage van alle doelen van het leerjaar', dash_acts_h: 'Activiteiten', dash_acts: 'Activiteiten', dash_acts_aria: n => `${n} activiteiten deze maand`, dash_smooth: 'Vloeiend', dash_straight: 'Recht',
     dash_empty: 'Voeg een kind toe om hier de grafiek te zien.', dash_all_off: 'Zet minstens één kind aan.', dash_aria: (name, n) => `${name}: ${n} beheerst`,
     tab_reporting: 'Rapportering', h_reporting: 'Rapportering',
     reporting_p: 'In dit onderdeel zul je PDF-rapporten van het thuisonderwijstraject van je kinderen kunnen maken en downloaden, met tijdlijnen, activiteiten, grafieken en natuurlijk de behandelde minimumdoelen.', reporting_soon: 'Deze functie komt binnenkort.',
@@ -11097,7 +11111,7 @@ const T = {
   },
   en: {
     tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
-    dash_h: 'Minimum goals mastered', dash_period: 'Period', dash_from: 'From', dash_to: 'To', dash_kids: 'Children in the graph', dash_lines: 'Lines', dash_scale: 'Scale', dash_abs: 'Number of goals mastered', dash_rel: 'Percentage of all goals of the year group', dash_acts_h: 'Activities', dash_acts: 'Activities', dash_acts_aria: n => `${n} activities this month`, dash_smooth: 'Smooth', dash_straight: 'Straight',
+    dash_h: 'Minimum goals mastered', dash_period: 'Period', dash_from: 'From', dash_to: 'To', dash_kids: 'Children in the graph', dash_lines: 'Lines', proj_h: 'Expected 100% mastery of the leerjaar material based on current rate', proj_note: 'Rate: the average number of goals mastered per month in the chosen period. The expectation counts from today with the goals still open.', proj_rate: n => `${n} per month`, proj_done: 'All mastered', proj_none: 'No rate in this period yet', proj_in: n => n === 1 ? 'in 1 month' : `in ${n} months`, proj_of: (m, t) => `${m} of ${t}`, dash_scale: 'Scale', dash_abs: 'Number of goals mastered', dash_rel: 'Percentage of all goals of the year group', dash_acts_h: 'Activities', dash_acts: 'Activities', dash_acts_aria: n => `${n} activities this month`, dash_smooth: 'Smooth', dash_straight: 'Straight',
     dash_empty: 'Add a child to see the graph here.', dash_all_off: 'Turn on at least one child.', dash_aria: (name, n) => `${name}: ${n} mastered`,
     tab_reporting: 'Reporting', h_reporting: 'Reporting',
     reporting_p: "Here you will be able to generate and download PDF reports of your children's homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.", reporting_soon: 'This feature is coming soon.',
@@ -11785,8 +11799,24 @@ function viewDashboard() {
     const dates = [...inTier(masteredOf(c), tierOf(c)).values()];
     // REL: the share of all the goals of the child's own level, so children on different levels compare fairly
     const total = sumValues(subjectTotals(tierOf(c))) || 1;
-    return { id: c.id, name: c.name, c: sv(DASH_COLORS[i % DASH_COLORS.length]), on: !ui.dashOff.has(c.id), vals: months.map(m => { const n = dates.filter(d => d <= m.iso).length; return ui.dashRel ? 100 * n / total : n; }) };
+    // the rate: goals mastered per month within the chosen months (from before the first month to the end of the last)
+    const before = `${months[0].start.getFullYear()}-${String(months[0].start.getMonth() + 1).padStart(2, '0')}-01`;
+    const gained = dates.filter(d => d >= before && d <= months[N - 1].iso).length;
+    return { id: c.id, name: c.name, c: sv(DASH_COLORS[i % DASH_COLORS.length]), on: !ui.dashOff.has(c.id), vals: months.map(m => { const n = dates.filter(d => d <= m.iso).length; return ui.dashRel ? 100 * n / total : n; }),
+      kid: c, total, now: dates.length, rate: gained / N };
   });
+  // when each child shown would have every goal of their level, at their rate, counted from today
+  const nFmt = new Intl.NumberFormat(t('locale'), { maximumFractionDigits: 1 });
+  const lFmt2 = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' });
+  const projRows = series.filter(s => s.on).map(s => {
+    const left = s.total - s.now;
+    let when;
+    if (left <= 0) when = `<b>${esc(t('proj_done'))}</b>`;
+    else if (s.rate <= 0) when = `<span class="muted">${esc(t('proj_none'))}</span>`;
+    else { const k = Math.ceil(left / s.rate), d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + k); when = `<b>${esc(cap1(lFmt2.format(d)))}</b> <span class="muted">${esc(t('proj_in', k))}</span>`; }
+    return `<li><span class="dot" style="--c:${s.c}"></span><span class="pj-name">${esc(s.name)} ${tierBadge(s.kid)}</span>
+      <span class="pj-of">${esc(t('proj_of', s.now, s.total))}</span><span class="pj-rate">${s.rate > 0 ? esc(t('proj_rate', nFmt.format(s.rate))) : ''}</span><span class="pj-when">${when}</span></li>`;
+  }).join('');
   const shown = series.filter(s => s.on);
   const chips = series.map(s => `<button class="fchip" style="--c:${s.c}" data-action="dash-kid" data-id="${esc(s.id)}" aria-pressed="${s.on}"><span class="dot"></span>${esc(s.name)}</button>`).join('');
 
@@ -11801,6 +11831,7 @@ function viewDashboard() {
     <div class="dash-row"><div class="chips-filter" role="group" aria-label="${esc(t('dash_kids'))}">${chips}</div>
       <div class="dash-switches"><div class="lang-switch card-switch" role="group" aria-label="${esc(t('dash_scale'))}">${['abs', 'rel'].map(v => `<button type="button" data-action="dash-rel" data-v="${v}" aria-pressed="${ui.dashRel === (v === 'rel')}" title="${esc(t('dash_' + v))}">${v.toUpperCase()}</button>`).join('')}</div>${lineSwitch('dash')}</div></div>
     ${dashPlot(shown, labelsOf(months), shown.map(s => t('dash_aria', s.name, ui.dashRel ? Math.round(s.vals[N - 1]) + '%' : s.vals[N - 1])).join('; '), t('dash_all_off'), ui.dashStraight, ui.dashRel)}
+    ${projRows ? `<div class="proj"><h3>${esc(t('proj_h'))}</h3><ul>${projRows}</ul><p class="proj-note">${esc(t('proj_note'))}</p></div>` : ''}
   </section>
   <section class="card dash-card">
     <div class="dash-head"><h2>${esc(t('dash_acts_h'))}</h2>${rangeHtml('act')}</div>
