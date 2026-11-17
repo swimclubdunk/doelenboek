@@ -199,7 +199,7 @@ const T = {
     sdk_fail: 'De Firebase-bibliotheek kon niet laden. Controleer je verbinding.',
     berichten: 'Berichten', new_message: 'Nieuw bericht', edit_message: 'Bericht bewerken', language: 'Taal',
     m_both: 'NL + EN', m_nl: 'Alleen NL', m_en: 'Alleen EN',
-    f_bold: 'Vet', f_italic: 'Cursief', f_heading: 'Kop (# of ##)', f_bullet: 'Opsomming', f_number: 'Genummerde lijst', f_link: 'Link', f_image: 'Afbeelding (nieuw, of de afbeelding op deze regel aanpassen)', f_center: 'Centreren', size: 'Grootte', center_image: 'Centreren', save_image: 'Afbeelding aanpassen',
+    f_bold: 'Vet', f_italic: 'Cursief', f_heading: 'Kop (# of ##)', f_bullet: 'Opsomming', f_number: 'Genummerde lijst', f_link: 'Link', f_image: 'Afbeelding (nieuw, of de afbeelding op deze regel aanpassen)', f_center: 'Centreren', f_blank: 'Lege regel', size: 'Grootte', center_image: 'Centreren', save_image: 'Afbeelding aanpassen',
     preview: 'Voorbeeld', preview_empty: 'Het voorbeeld verschijnt hier.',
     alt: 'Omschrijving', zoom: 'Vergroten', zoom_click: 'Vergroten bij klikken', zoom_hover: 'Vergroten bij aanwijzen', zoom_none: 'Nooit vergroten',
     insert: 'Invoegen', cancel: 'Annuleren',
@@ -250,7 +250,7 @@ const T = {
     sdk_fail: 'The Firebase library could not load. Check your connection.',
     berichten: 'Messages', new_message: 'New message', edit_message: 'Edit message', language: 'Language',
     m_both: 'NL + EN', m_nl: 'NL only', m_en: 'EN only',
-    f_bold: 'Bold', f_italic: 'Italic', f_heading: 'Heading (# or ##)', f_bullet: 'Bulleted list', f_number: 'Numbered list', f_link: 'Link', f_image: 'Image (new, or change the image on this line)', f_center: 'Centre', size: 'Size', center_image: 'Centre', save_image: 'Update image',
+    f_bold: 'Bold', f_italic: 'Italic', f_heading: 'Heading (# or ##)', f_bullet: 'Bulleted list', f_number: 'Numbered list', f_link: 'Link', f_image: 'Image (new, or change the image on this line)', f_center: 'Centre', f_blank: 'Empty line', size: 'Size', center_image: 'Centre', save_image: 'Update image',
     preview: 'Preview', preview_empty: 'The preview appears here.',
     alt: 'Description', zoom: 'Enlarge', zoom_click: 'Enlarge on click', zoom_hover: 'Enlarge on hover', zoom_none: 'Never enlarge',
     insert: 'Insert', cancel: 'Cancel',
@@ -537,7 +537,7 @@ function previewHtml(l) {
   });
   return `<div class="msg-head"><h2 lang="${l}">${r.title}</h2></div><div class="msg-body" lang="${l}">${html || `<p class="muted">${bt('preview_empty')}</p>`}</div>`;
 }
-const TOOLS = [['bold', 'B'], ['italic', 'I'], ['heading', 'H'], ['center', '≡'], ['bullet', '•'], ['number', '1.'], ['link', '🔗'], ['image', '🖼']];
+const TOOLS = [['bold', 'B'], ['italic', 'I'], ['heading', 'H'], ['center', '≡'], ['bullet', '•'], ['number', '1.'], ['blank', '↵'], ['link', '🔗'], ['image', '🖼']];
 function pickHtml(l) {
   const p = state.draft.pick;
   if (!p || p.lang !== l) return '';
@@ -627,8 +627,20 @@ function applyTool(kind, l) {
     const undo = lines.filter(x => x.trim()).every(isC);
     const out = lines.map(x => !x.trim() ? x : undo ? x.trim().replace(/^->\s*/, '').replace(/\s*<-$/, '') : isC(x) ? x : `-> ${x.trim()} <-`).join('\n');
     ta.setRangeText(out, a, b, 'end'); ta.setSelectionRange(a, a + out.length);
+  } else if ((kind === 'bold' || kind === 'italic') && (sel.includes('\n') || /^\s*->.*<-\s*$/.test(sel))) {
+    /* over whole lines: each line on its own, inside its centre markers, so centred text stays centred */
+    const mk = kind === 'bold' ? '**' : '*';
+    const out = sel.split('\n').map(x => { if (!x.trim()) return x; const m = /^(\s*->\s*)(.*?)(\s*<-\s*)$/.exec(x); return m ? m[1] + mk + m[2] + mk + m[3] : mk + x + mk; }).join('\n');
+    ta.setRangeText(out, s, e, 'end'); ta.setSelectionRange(s, s + out.length);
   } else if (kind === 'bold') wrap('**', '**', t('f_bold').toLowerCase());
   else if (kind === 'italic') wrap('*', '*', t('f_italic').toLowerCase());
+  else if (kind === 'blank') {
+    /* one empty line of space after the cursor's line: one blank line only ends the paragraph, so each press
+       makes sure there is one more blank line than before (and at the end of the text, room to type on) */
+    const end = v.indexOf('\n', e), at = end < 0 ? v.length : end, next = v.slice(at);
+    const add = next === '' ? '\n\n\n' : next.startsWith('\n\n') ? '\n' : '\n\n';
+    ta.setRangeText(add, at, at, 'end'); ta.setSelectionRange(at + add.length, at + add.length);
+  }
   else if (kind === 'link') {
     const text = sel || 'link';
     ta.setRangeText(`[${text}](https://)`, s, e, 'end');

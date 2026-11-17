@@ -145,3 +145,16 @@ test('parseImage and imageCode round trip', () => {
   assert.equal(M.imageCode({ alt: 'Boom', id: 'ab12', zoom: 'click', size: 100, center: false }), '![Boom](img:ab12 click)');
   assert.equal(M.imageCode({ alt: 'Boom', id: 'ab12', zoom: 'none', size: 55, center: true }), '![Boom](img:ab12 none 55% center)');
 });
+
+/* ---------- empty lines and bold centred text ---------- */
+test('one empty line only starts a new paragraph', () => assert.equal(M.render('a\n\nb', new Set()).html, '<p>a</p><p>b</p>'));
+test('each further empty line adds an empty line of space', () => {
+  assert.equal(M.render('a\n\n\nb', new Set()).html, '<p>a</p><p class="msg-gap"></p><p>b</p>');
+  assert.equal(M.render('a\n\n\n\nb', new Set()).html, '<p>a</p><p class="msg-gap"></p><p class="msg-gap"></p><p>b</p>');
+});
+test('empty lines at the start or end add nothing', () => assert.equal(M.render('\n\n\na\n\n\n', new Set()).html, '<p>a</p>'));
+test('bold inside the centre markers', () => assert.equal(M.render('-> **vet** <-', new Set()).html, '<p class="msg-c"><strong>vet</strong></p>'));
+test('bold around the centre markers stays centred', () => {
+  assert.equal(M.render('**-> vet <-**', new Set()).html, '<p class="msg-c"><strong>vet</strong></p>');
+  assert.equal(M.render('*-> schuin <-*', new Set()).html, '<p class="msg-c"><em>schuin</em></p>');
+});

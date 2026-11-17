@@ -512,6 +512,7 @@ dialog.msg { width: min(560px, calc(100vw - 24px)); }
 .msg-body a { color: var(--accent); }
 .msg-fig { margin: .6em 0; }
 .msg-body .msg-c { text-align: center; }
+.msg-body .msg-gap { height: 1.55em; margin: 0; }   /* an extra empty line typed in the message */
 .msg-fig.msg-c .msg-img { margin-inline: auto; }
 .msg-img { display: block; max-width: 100%; height: auto; border-radius: var(--r-sm); }
 .msg-img[data-zoom="click"] { cursor: zoom-in; }
@@ -1005,8 +1006,15 @@ function inline(raw) {
   }
   return out + emph(esc(raw.slice(last)));
 }
-/* a line without its centre markers: { center, body } */
-const centred = line => { const t = line.trim(), m = CENTER.exec(t); return m ? { center: true, body: m[1] } : { center: false, body: t }; };
+/* a line without its centre markers: { center, body }. Bold or italic codes around the markers
+   (**-> text <-**) are moved inside them, so a centred line made bold stays centred. */
+const OUTER = /^(\*{1,2})(->\s*.*?\s*<-)\1$/;
+const centred = line => {
+  let t = line.trim(), w = '';
+  const o = OUTER.exec(t); if (o) { w = o[1]; t = o[2]; }
+  const m = CENTER.exec(t);
+  return m ? { center: true, body: w + m[1] + w } : { center: false, body: w + t + w };
+};
 /* plain text of one line: centre and block markers, links, images and bold/italic codes removed */
 const plain = line => centred(line).body
   .replace(/^(#{1,2}\s+|-\s+|\d+\.\s+)/, '')
@@ -1036,14 +1044,15 @@ const imageCode = ({ alt, id, zoom, size, center }) => `![${alt}](img:${id} ${zo
 
 /* Message text in formatting codes -> { title, html }. A '# ' heading on the first non-empty line is the
    title (plain, escaped) and is left out of html. imageIds: the ids of the images this message holds.
-   A centred block gets class="msg-c"; an image gets its width as a percentage of the message width. */
+   A centred block gets class="msg-c"; an image gets its width as a percentage of the message width.
+   One empty line starts a new paragraph; every further empty line in a row adds one empty line of space. */
 function render(text, imageIds) {
   const lines = linesOf(text);
   let title = '';
   const first = lines.findIndex(l => l.trim() !== '');
   if (first >= 0 && /^#\s+\S/.test(centred(lines[first]).body)) { title = esc(plain(lines[first])); lines.splice(first, 1); }
   const out = [], cls = c => c ? ' class="msg-c"' : '';
-  let para = [], paraCenter = false, list = null;   // list: { tag, items }
+  let para = [], paraCenter = false, list = null, blanks = 0;   // list: { tag, items }; blanks: empty lines in a row
   const flush = () => {
     if (para.length) { out.push(`<p${cls(paraCenter)}>${para.join('<br>')}</p>`); para = []; }
     if (list) { out.push(`<${list.tag}>${list.items.map(i => `<li>${i}</li>`).join('')}</${list.tag}>`); list = null; }
@@ -1055,7 +1064,9 @@ function render(text, imageIds) {
   };
   for (const line of lines) {
     let m;
-    if (line.trim() === '') { flush(); continue; }
+    if (line.trim() === '') { flush(); blanks++; continue; }
+    if (out.length) for (let i = 1; i < blanks; i++) out.push('<p class="msg-gap"></p>');
+    blanks = 0;
     const { center, body } = centred(line);
     if (IMG_START.test(body)) {
       flush();
@@ -11278,7 +11289,7 @@ const T = {
     sdk_fail: 'De Firebase-bibliotheek kon niet laden. Controleer je verbinding.',
     berichten: 'Berichten', new_message: 'Nieuw bericht', edit_message: 'Bericht bewerken', language: 'Taal',
     m_both: 'NL + EN', m_nl: 'Alleen NL', m_en: 'Alleen EN',
-    f_bold: 'Vet', f_italic: 'Cursief', f_heading: 'Kop (# of ##)', f_bullet: 'Opsomming', f_number: 'Genummerde lijst', f_link: 'Link', f_image: 'Afbeelding (nieuw, of de afbeelding op deze regel aanpassen)', f_center: 'Centreren', size: 'Grootte', center_image: 'Centreren', save_image: 'Afbeelding aanpassen',
+    f_bold: 'Vet', f_italic: 'Cursief', f_heading: 'Kop (# of ##)', f_bullet: 'Opsomming', f_number: 'Genummerde lijst', f_link: 'Link', f_image: 'Afbeelding (nieuw, of de afbeelding op deze regel aanpassen)', f_center: 'Centreren', f_blank: 'Lege regel', size: 'Grootte', center_image: 'Centreren', save_image: 'Afbeelding aanpassen',
     preview: 'Voorbeeld', preview_empty: 'Het voorbeeld verschijnt hier.',
     alt: 'Omschrijving', zoom: 'Vergroten', zoom_click: 'Vergroten bij klikken', zoom_hover: 'Vergroten bij aanwijzen', zoom_none: 'Nooit vergroten',
     insert: 'Invoegen', cancel: 'Annuleren',
@@ -11329,7 +11340,7 @@ const T = {
     sdk_fail: 'The Firebase library could not load. Check your connection.',
     berichten: 'Messages', new_message: 'New message', edit_message: 'Edit message', language: 'Language',
     m_both: 'NL + EN', m_nl: 'NL only', m_en: 'EN only',
-    f_bold: 'Bold', f_italic: 'Italic', f_heading: 'Heading (# or ##)', f_bullet: 'Bulleted list', f_number: 'Numbered list', f_link: 'Link', f_image: 'Image (new, or change the image on this line)', f_center: 'Centre', size: 'Size', center_image: 'Centre', save_image: 'Update image',
+    f_bold: 'Bold', f_italic: 'Italic', f_heading: 'Heading (# or ##)', f_bullet: 'Bulleted list', f_number: 'Numbered list', f_link: 'Link', f_image: 'Image (new, or change the image on this line)', f_center: 'Centre', f_blank: 'Empty line', size: 'Size', center_image: 'Centre', save_image: 'Update image',
     preview: 'Preview', preview_empty: 'The preview appears here.',
     alt: 'Description', zoom: 'Enlarge', zoom_click: 'Enlarge on click', zoom_hover: 'Enlarge on hover', zoom_none: 'Never enlarge',
     insert: 'Insert', cancel: 'Cancel',
@@ -11616,7 +11627,7 @@ function previewHtml(l) {
   });
   return `<div class="msg-head"><h2 lang="${l}">${r.title}</h2></div><div class="msg-body" lang="${l}">${html || `<p class="muted">${bt('preview_empty')}</p>`}</div>`;
 }
-const TOOLS = [['bold', 'B'], ['italic', 'I'], ['heading', 'H'], ['center', '≡'], ['bullet', '•'], ['number', '1.'], ['link', '🔗'], ['image', '🖼']];
+const TOOLS = [['bold', 'B'], ['italic', 'I'], ['heading', 'H'], ['center', '≡'], ['bullet', '•'], ['number', '1.'], ['blank', '↵'], ['link', '🔗'], ['image', '🖼']];
 function pickHtml(l) {
   const p = state.draft.pick;
   if (!p || p.lang !== l) return '';
@@ -11706,8 +11717,20 @@ function applyTool(kind, l) {
     const undo = lines.filter(x => x.trim()).every(isC);
     const out = lines.map(x => !x.trim() ? x : undo ? x.trim().replace(/^->\s*/, '').replace(/\s*<-$/, '') : isC(x) ? x : `-> ${x.trim()} <-`).join('\n');
     ta.setRangeText(out, a, b, 'end'); ta.setSelectionRange(a, a + out.length);
+  } else if ((kind === 'bold' || kind === 'italic') && (sel.includes('\n') || /^\s*->.*<-\s*$/.test(sel))) {
+    /* over whole lines: each line on its own, inside its centre markers, so centred text stays centred */
+    const mk = kind === 'bold' ? '**' : '*';
+    const out = sel.split('\n').map(x => { if (!x.trim()) return x; const m = /^(\s*->\s*)(.*?)(\s*<-\s*)$/.exec(x); return m ? m[1] + mk + m[2] + mk + m[3] : mk + x + mk; }).join('\n');
+    ta.setRangeText(out, s, e, 'end'); ta.setSelectionRange(s, s + out.length);
   } else if (kind === 'bold') wrap('**', '**', t('f_bold').toLowerCase());
   else if (kind === 'italic') wrap('*', '*', t('f_italic').toLowerCase());
+  else if (kind === 'blank') {
+    /* one empty line of space after the cursor's line: one blank line only ends the paragraph, so each press
+       makes sure there is one more blank line than before (and at the end of the text, room to type on) */
+    const end = v.indexOf('\n', e), at = end < 0 ? v.length : end, next = v.slice(at);
+    const add = next === '' ? '\n\n\n' : next.startsWith('\n\n') ? '\n' : '\n\n';
+    ta.setRangeText(add, at, at, 'end'); ta.setSelectionRange(at + add.length, at + add.length);
+  }
   else if (kind === 'link') {
     const text = sel || 'link';
     ta.setRangeText(`[${text}](https://)`, s, e, 'end');
