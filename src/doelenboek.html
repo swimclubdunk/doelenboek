@@ -152,7 +152,7 @@ const T = {
     act_updated: 'Activiteit bijgewerkt.', act_saved: 'Activiteit opgeslagen.', add_child_first: 'Voeg eerst een kind toe.',
     act_del_h: 'Activiteit verwijderen', act_del_q: (t, d) => `Weet je zeker dat je <b>${t}</b> (${d}) wilt verwijderen?`,
     act_del_note: 'Doelen die alleen via deze activiteit behaald waren, staan daarna weer open.', act_deleted: 'Activiteit verwijderd.',
-    data_h: 'Gegevens', where_db: 'Je gegevens worden automatisch bewaard bij deze pagina en zijn zichtbaar voor wie je de pagina deelt.',
+    data_h: 'Instellingen', where_db: 'Je gegevens worden automatisch bewaard bij deze pagina en zijn zichtbaar voor wie je de pagina deelt.',
     where_local: 'Je gegevens staan alleen in deze browser.',
     examples_h: 'Voorbeeldgegevens', examples_p: 'Verwijdert het voorbeeldkind en de voorbeeldactiviteit.',
     r_partial: (f, t, m) => `${f} van ${t} items konden niet hersteld worden. ${m}`,
@@ -252,7 +252,7 @@ const T = {
     act_updated: 'Activity updated.', act_saved: 'Activity saved.', add_child_first: 'Add a child first.',
     act_del_h: 'Delete activity', act_del_q: (t, d) => `Are you sure you want to delete <b>${t}</b> (${d})?`,
     act_del_note: 'Goals that were only covered by this activity will be open again.', act_deleted: 'Activity deleted.',
-    data_h: 'Data', where_db: 'Your data is saved automatically with this page and is visible to anyone you share the page with.',
+    data_h: 'Settings', where_db: 'Your data is saved automatically with this page and is visible to anyone you share the page with.',
     where_local: 'Your data is stored in this browser only.',
     examples_h: 'Example data', examples_p: 'Removes the example child and the example activity.',
     r_partial: (f, t, m) => `${f} of ${t} items could not be restored. ${m}`,
@@ -588,7 +588,7 @@ function renderChrome() {
   const st = $('#status');
   st.removeAttribute('title'); st.hidden = false;
   if (mode === 'loading') { st.innerHTML = bt('st_connecting'); st.className = 'status'; }
-  else if (mode === 'db' && fbUser) { st.innerHTML = `<span class="status-email">${esc(fbUser.email)}</span>`; st.title = t('signed_in_as', fbUser.email); st.className = 'status ok'; }
+  else if (mode === 'db' && fbUser) { st.innerHTML = ''; st.className = 'status'; st.hidden = true; }   // the login email is under Account in Instellingen
   else if (mode === 'db') { st.innerHTML = bt(canWrite ? 'st_saved' : 'st_readonly'); st.className = 'status ok'; }
   else { st.innerHTML = ''; st.className = 'status'; st.hidden = true; }   // browser-only mode: no status at all
   for (const a of document.querySelectorAll('[data-tab]')) {
@@ -641,7 +641,7 @@ function barRow(label, key, n, tot, touches) {
 function viewOverview(cov) {
   const kids = sortedChildren();
   let h = exampleBanner();
-  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))} · ${esc(t('n_acts', data.activities.size))}</p></div>
+  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))}</p></div>
     <div class="head-actions w"><button class="btn" data-action="add-child">${addBt('add_child')}</button></div></section>`;
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
