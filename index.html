@@ -579,6 +579,7 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
       <a href="#overzicht" data-tab="overzicht">Kinderen</a>
       <a href="#activiteiten" data-tab="activiteiten">Activiteiten</a>
       <a href="#doelen" data-tab="doelen">Minimumdoelen</a>
+      <a href="#dashboard" data-tab="dashboard">Dashboard</a>
     </nav>
     <div class="top-right">
       <span class="status" id="status">Verbinden…</span>
@@ -10947,7 +10948,7 @@ const BUILTIN_GOALS = [
 const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
-    tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen',
+    tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
     st_connecting: 'Verbinden…', st_saved: 'Automatisch opgeslagen', st_readonly: 'Alleen lezen',
     data_btn: 'Instellingen', loading: 'Gegevens laden…', locale: 'nl-BE', theme_h: 'Weergave', theme_light: 'Licht', theme_dark: 'Donker',
     example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
@@ -11047,7 +11048,7 @@ const T = {
     late_write_fail: 'Een wijziging kon niet in je account opgeslagen worden. Herlaad de pagina en controleer je gegevens.',
   },
   en: {
-    tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals',
+    tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
     st_connecting: 'Connecting…', st_saved: 'Saved automatically', st_readonly: 'Read only',
     data_btn: 'Settings', loading: 'Loading data…', locale: 'en-GB', theme_h: 'Appearance', theme_light: 'Light', theme_dark: 'Dark',
     example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
@@ -11460,6 +11461,7 @@ function render() {
   if (ui.view === 'kind') html = viewChild(cov);
   else if (ui.view === 'activiteiten') html = viewActivities();
   else if (ui.view === 'doelen') html = viewGoals(cov);
+  else if (ui.view === 'dashboard') html = viewDashboard();
   else html = viewOverview(cov);
   hidePeek();
   main.innerHTML = html;
@@ -11622,6 +11624,11 @@ function goalTabSubjects() {
   const tier = ui.goalTier || defaultGoalTier();
   return SUBJECTS.filter(s => [...data.goals.values()].some(g => g.subject === s.key && (tier === 'all' || g.tier === tier))).map(s => s.key);
 }
+/* Dashboard: an empty page for now, the content comes later */
+function viewDashboard() {
+  return `<section class="page-head"><div><h1>${esc(t('h_dashboard'))}</h1></div></section>`;
+}
+
 function viewGoals(cov) {
   const tier = ui.goalTier || defaultGoalTier(), mixed = tier === 'all', shownSubj = goalTabSubjects();
   const all = sortedGoals().filter(g => mixed || g.tier === tier), q = norm(ui.goalSearch), kids = sortedChildren();
@@ -12229,7 +12236,7 @@ main.addEventListener('click', e => {
 });
 function fromHash() {
   const h = location.hash.replace('#', '');
-  if (['overzicht', 'activiteiten', 'doelen'].includes(h)) ui.view = h;
+  if (['overzicht', 'activiteiten', 'doelen', 'dashboard'].includes(h)) ui.view = h;
   else if (!h) ui.view = 'overzicht';
   render();
 }
