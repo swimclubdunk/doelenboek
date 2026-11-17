@@ -588,6 +588,9 @@ function scheduleRender() { if (rq) return; rq = requestAnimationFrame(() => { r
 
 /* Bright or dark: bright to start with; Weergave under Instellingen switches and remembers the choice for next time. */
 const themeNow = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+/* the dashboard's line switch: a curve and a zigzag through the same three points */
+const ICON_SMOOTH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 18C7 18 8 9 12 9s5 4 9-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const ICON_STRAIGHT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 18L9 9l6 4 6-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_EDIT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_TRASH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_EYE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
@@ -888,7 +891,7 @@ function viewDashboard() {
   return head + `<section class="card dash-card">
     <div class="dash-head"><h2>${esc(t('dash_h'))}</h2><div class="dash-range" role="group" aria-label="${esc(t('dash_period'))}">${seg}</div></div>
     <div class="dash-row"><div class="chips-filter" role="group" aria-label="${esc(t('dash_kids'))}">${chips}</div>
-      <div class="lang-switch card-switch" role="group" aria-label="${esc(t('dash_lines'))}">${['smooth', 'straight'].map(v => `<button type="button" data-action="dash-lines" data-v="${v}" aria-pressed="${ui.dashStraight === (v === 'straight')}">${bt('dash_' + v)}</button>`).join('')}</div></div>
+      <div class="lang-switch card-switch" role="group" aria-label="${esc(t('dash_lines'))}">${['smooth', 'straight'].map(v => `<button type="button" data-action="dash-lines" data-v="${v}" aria-pressed="${ui.dashStraight === (v === 'straight')}" aria-label="${esc(t('dash_' + v))}" title="${esc(t('dash_' + v))}">${v === 'smooth' ? ICON_SMOOTH : ICON_STRAIGHT}</button>`).join('')}</div></div>
     <div class="dc-plot" role="img" aria-label="${esc(aria || t('dash_all_off'))}" data-points="${pts}">
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         <line class="dc-grid" x1="0" x2="100" y1="0" y2="0"/><line class="dc-grid" x1="0" x2="100" y1="50" y2="50"/><line class="dc-grid base" x1="0" x2="100" y1="100" y2="100"/>
