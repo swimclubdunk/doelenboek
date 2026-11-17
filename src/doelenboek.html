@@ -108,7 +108,7 @@ const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
     tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
-    dash_h: 'Beheerste minimumdoelen', dash_period: 'Periode', dash_from: 'Van', dash_to: 'Tot', dash_kids: 'Kinderen in de grafiek', dash_lines: 'Lijnen', dash_acts_h: 'Activiteiten', dash_acts: 'Activiteiten', dash_acts_aria: n => `${n} activiteiten deze maand`, dash_smooth: 'Vloeiend', dash_straight: 'Recht',
+    dash_h: 'Beheerste minimumdoelen', dash_period: 'Periode', dash_from: 'Van', dash_to: 'Tot', dash_kids: 'Kinderen in de grafiek', dash_lines: 'Lijnen', dash_scale: 'Schaal', dash_abs: 'Aantal beheerste doelen', dash_rel: 'Percentage van alle doelen van het leerjaar', dash_acts_h: 'Activiteiten', dash_acts: 'Activiteiten', dash_acts_aria: n => `${n} activiteiten deze maand`, dash_smooth: 'Vloeiend', dash_straight: 'Recht',
     dash_empty: 'Voeg een kind toe om hier de grafiek te zien.', dash_all_off: 'Zet minstens één kind aan.', dash_aria: (name, n) => `${name}: ${n} beheerst`,
     tab_reporting: 'Rapportering', h_reporting: 'Rapportering',
     reporting_p: 'In dit onderdeel zul je PDF-rapporten van het thuisonderwijstraject van je kinderen kunnen maken en downloaden, met tijdlijnen, activiteiten, grafieken en natuurlijk de behandelde minimumdoelen.', reporting_soon: 'Deze functie komt binnenkort.',
@@ -212,7 +212,7 @@ const T = {
   },
   en: {
     tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
-    dash_h: 'Minimum goals mastered', dash_period: 'Period', dash_from: 'From', dash_to: 'To', dash_kids: 'Children in the graph', dash_lines: 'Lines', dash_acts_h: 'Activities', dash_acts: 'Activities', dash_acts_aria: n => `${n} activities this month`, dash_smooth: 'Smooth', dash_straight: 'Straight',
+    dash_h: 'Minimum goals mastered', dash_period: 'Period', dash_from: 'From', dash_to: 'To', dash_kids: 'Children in the graph', dash_lines: 'Lines', dash_scale: 'Scale', dash_abs: 'Number of goals mastered', dash_rel: 'Percentage of all goals of the year group', dash_acts_h: 'Activities', dash_acts: 'Activities', dash_acts_aria: n => `${n} activities this month`, dash_smooth: 'Smooth', dash_straight: 'Straight',
     dash_empty: 'Add a child to see the graph here.', dash_all_off: 'Turn on at least one child.', dash_aria: (name, n) => `${name}: ${n} mastered`,
     tab_reporting: 'Reporting', h_reporting: 'Reporting',
     reporting_p: "Here you will be able to generate and download PDF reports of your children's homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.", reporting_soon: 'This feature is coming soon.',
@@ -385,6 +385,7 @@ const ui = {
   childSearch: '', actSearch: '', actChild: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
   dashFrom: null, dashTo: null, dashOff: new Set(), dashStraight: false,   // dashboard: first and last month (month numbers, null: from the first mastered goal, up to this month), the children switched off, straight or smooth lines
+  dashRel: false,   // mastered goals: false ABS (the number of goals), true REL (percent of the child's level)
   actFrom: null, actTo: null, actStraight: false,   // the activities graph's own first and last month (null: from the first activity), and its own line choice
 };
 /* The dashboard choices come back on the next visit. A range that ends in the current month is saved
@@ -398,12 +399,13 @@ try {
   if (Array.isArray(d.off)) ui.dashOff = new Set(d.off.filter(x => typeof x === 'string'));
   ui.dashStraight = d.straight === true;
   ui.actStraight = d.aStraight === true;
+  ui.dashRel = d.rel === true;
 } catch (e) {}
 function saveDash() {
   const now = new Date().getFullYear() * 12 + new Date().getMonth();
   // a start on the default month is saved without it too, so it keeps following the first mastered goal or activity
   const from = k => ui[k + 'From'] === dashStart(k) ? null : ui[k + 'From'];
-  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: from('dash'), to: ui.dashTo === now ? null : ui.dashTo, aFrom: from('act'), aTo: ui.actTo === now ? null : ui.actTo, off: [...ui.dashOff], straight: ui.dashStraight, aStraight: ui.actStraight })); } catch (e) {}
+  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: from('dash'), to: ui.dashTo === now ? null : ui.dashTo, aFrom: from('act'), aTo: ui.actTo === now ? null : ui.actTo, off: [...ui.dashOff], straight: ui.dashStraight, aStraight: ui.actStraight, rel: ui.dashRel })); } catch (e) {}
 }
 
 /* ---------- storage ---------- */
@@ -896,7 +898,9 @@ function viewDashboard() {
   const months = dashMonths(dashRange('dash')), N = months.length;
   const series = kids.map((c, i) => {
     const dates = [...inTier(masteredOf(c), tierOf(c)).values()];
-    return { id: c.id, name: c.name, c: sv(DASH_COLORS[i % DASH_COLORS.length]), on: !ui.dashOff.has(c.id), vals: months.map(m => dates.filter(d => d <= m.iso).length) };
+    // REL: the share of all the goals of the child's own level, so children on different levels compare fairly
+    const total = sumValues(subjectTotals(tierOf(c))) || 1;
+    return { id: c.id, name: c.name, c: sv(DASH_COLORS[i % DASH_COLORS.length]), on: !ui.dashOff.has(c.id), vals: months.map(m => { const n = dates.filter(d => d <= m.iso).length; return ui.dashRel ? 100 * n / total : n; }) };
   });
   const shown = series.filter(s => s.on);
   const chips = series.map(s => `<button class="fchip" style="--c:${s.c}" data-action="dash-kid" data-id="${esc(s.id)}" aria-pressed="${s.on}"><span class="dot"></span>${esc(s.name)}</button>`).join('');
@@ -910,8 +914,8 @@ function viewDashboard() {
   return head + `<section class="card dash-card">
     <div class="dash-head"><h2>${esc(t('dash_h'))}</h2>${rangeHtml('dash')}</div>
     <div class="dash-row"><div class="chips-filter" role="group" aria-label="${esc(t('dash_kids'))}">${chips}</div>
-      ${lineSwitch('dash')}</div>
-    ${dashPlot(shown, labelsOf(months), shown.map(s => t('dash_aria', s.name, s.vals[N - 1])).join('; '), t('dash_all_off'), ui.dashStraight)}
+      <div class="dash-switches"><div class="lang-switch card-switch" role="group" aria-label="${esc(t('dash_scale'))}">${['abs', 'rel'].map(v => `<button type="button" data-action="dash-rel" data-v="${v}" aria-pressed="${ui.dashRel === (v === 'rel')}" title="${esc(t('dash_' + v))}">${v.toUpperCase()}</button>`).join('')}</div>${lineSwitch('dash')}</div></div>
+    ${dashPlot(shown, labelsOf(months), shown.map(s => t('dash_aria', s.name, ui.dashRel ? Math.round(s.vals[N - 1]) + '%' : s.vals[N - 1])).join('; '), t('dash_all_off'), ui.dashStraight, ui.dashRel)}
   </section>
   <section class="card dash-card">
     <div class="dash-head"><h2>${esc(t('dash_acts_h'))}</h2>${rangeHtml('act')}</div>
@@ -922,20 +926,21 @@ function viewDashboard() {
 /* One graph: a line per series through one point per month, the months named under it, and the crosshair's data.
    Both dashboard graphs use it, each with its own months and smooth/straight choice; a series with fill
    gets the area under its line shaded. */
-function dashPlot(shown, labels, aria, emptyMsg, straight) {
-  const N = labels.length, top = niceTop(Math.max(0, ...shown.flatMap(s => s.vals)));
+function dashPlot(shown, labels, aria, emptyMsg, straight, rel) {
+  // rel: values are percentages on a fixed 0-100% scale
+  const N = labels.length, top = rel ? 100 : niceTop(Math.max(0, ...shown.flatMap(s => s.vals))), unit = rel ? '%' : '';
   const xs = labels.map((_, i) => N > 1 ? 100 * i / (N - 1) : 50);
   const yOf = v => 100 - 100 * v / top;
   const step = Math.ceil(N / 6);   // at most about seven month names under the axis
   const lines = shown.map(s => { const ys = s.vals.map(yOf), d = straight ? 'M' + xs.map((x, i) => `${x.toFixed(2)},${ys[i].toFixed(2)}`).join(' L') : smoothPath(xs, ys); return `${s.fill ? `<path class="dc-area" style="fill:${s.c}" d="${d} L${xs[N - 1].toFixed(2)},100 L${xs[0].toFixed(2)},100 Z"/>` : ''}<path class="dc-halo" d="${d}"/><path class="dc-line" style="stroke:${s.c}" d="${d}"/>`; }).join('');
   const ends = shown.map(s => `<span class="dc-dot" style="left:100%;top:${yOf(s.vals[N - 1]).toFixed(2)}%;background:${s.c}"></span>`).join('');
-  const pts = esc(JSON.stringify({ xs, labels, series: shown.map(s => ({ name: s.name, c: s.c, vals: s.vals, ys: s.vals.map(yOf) })) }));
+  const pts = esc(JSON.stringify({ xs, labels, series: shown.map(s => ({ name: s.name, c: s.c, vals: s.vals, txt: s.vals.map(v => (rel ? Math.round(v) : v) + unit), ys: s.vals.map(yOf) })) }));
   return `<div class="dc-plot" role="img" aria-label="${esc(aria || emptyMsg)}" data-points="${pts}">
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         <line class="dc-grid" x1="0" x2="100" y1="0" y2="0"/><line class="dc-grid" x1="0" x2="100" y1="50" y2="50"/><line class="dc-grid base" x1="0" x2="100" y1="100" y2="100"/>
         ${lines}
       </svg>
-      <span class="dc-y" style="top:0">${top}</span>${top % 2 ? '' : `<span class="dc-y" style="top:50%">${top / 2}</span>`}<span class="dc-y" style="top:100%">0</span>
+      <span class="dc-y" style="top:0">${top}${unit}</span>${top % 2 ? '' : `<span class="dc-y" style="top:50%">${top / 2}${unit}</span>`}<span class="dc-y" style="top:100%">0${unit}</span>
       ${ends}
       ${shown.length ? '' : `<p class="dc-off muted">${esc(emptyMsg)}</p>`}
       <span class="dc-cross"></span><span class="dc-hdots"></span><div class="dc-tip"></div>
@@ -1491,6 +1496,7 @@ main.addEventListener('click', e => {
     case 'auth-view': ui_auth.view = b.dataset.v; ui_auth.err = ''; ui_auth.msg = ''; render(); $('#au-email')?.focus(); return;
     case 'migrate': return migrateLocal(b);
     case 'migrate-skip': return markMigrated();
+    case 'dash-rel': ui.dashRel = b.dataset.v === 'rel'; saveDash(); return render();
     case 'dash-lines': ui[b.dataset.key + 'Straight'] = b.dataset.v === 'straight'; saveDash(); return render();
     case 'dash-kid': ui.dashOff.has(id) ? ui.dashOff.delete(id) : ui.dashOff.add(id); saveDash(); return render();
     case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
@@ -1508,7 +1514,7 @@ main.addEventListener('pointermove', e => {
   plot.querySelector('.dc-hdots').innerHTML = P.series.map(s => `<span class="dc-dot" style="left:${x}%;top:${s.ys[i]}%;background:${s.c}"></span>`).join('');
   const tip = plot.querySelector('.dc-tip');
   tip.innerHTML = `<b>${esc(P.labels[i])}</b>` + [...P.series].sort((a, b) => b.vals[i] - a.vals[i])
-    .map(s => `<span><span class="dot" style="--c:${s.c}"></span>${esc(s.name)}<span class="dc-n">${s.vals[i]}</span></span>`).join('');
+    .map(s => `<span><span class="dot" style="--c:${s.c}"></span>${esc(s.name)}<span class="dc-n">${s.txt[i]}</span></span>`).join('');
   tip.style.left = x + '%';
   tip.classList.toggle('left', box.width * x / 100 + tip.offsetWidth + 16 > box.width);   // flip to the left of the line when it would stick out
 });

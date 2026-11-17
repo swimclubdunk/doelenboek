@@ -112,6 +112,9 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* the children's chips on the left, the smooth/straight switch on the right under the months */
 .dash-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 16px; }
 .dash-row .card-switch { flex: none; margin-left: auto; }
+.dash-switches { display: flex; gap: 8px; margin-left: auto; }
+.dash-switches .card-switch { margin-left: 0; }
+.dash-row .card-switch button[data-action="dash-rel"] { padding: 3px 10px; font-size: .74rem; letter-spacing: .04em; }
 .dash-row .card-switch button { display: inline-grid; place-items: center; padding: 3px 10px; }
 .dash-row .card-switch svg { width: 20px; height: 20px; }
 .dc-plot { position: relative; height: 280px; margin: 8px 18px 0 34px; touch-action: pan-y; }
