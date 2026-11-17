@@ -36,6 +36,7 @@
 :root {
   /*                              bright      dark      */
   --chrome:          light-dark(#725C4E, #3E3229);   /* header band */
+  --chrome-top:      light-dark(#5A483D, #4F4036);   /* the header's upper row (seal and name): darker when bright, lighter when dark */
   --on-chrome:       light-dark(#F4F0E4, #F4F0E4);
   --on-chrome-muted: light-dark(#EBE1D6, #CDBFB2);
   --bg:              light-dark(#E4DACB, #14100D);   /* page */
@@ -115,7 +116,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .brand { display: flex; align-items: baseline; min-width: 0; margin-right: clamp(8px, 9vw, 140px); }
 .brand b { font-family: var(--f-display); font-size: 1.3rem; letter-spacing: -0.02em; }
 /* the app header in two rows: the seal and the name alone on the first row, tabs and buttons below (the admin header stays one row) */
-.brand-row { flex-basis: 100%; margin-right: 0; align-items: center; gap: 10px; }
+.brand-row { flex-basis: 100%; margin-right: 0; align-items: center; gap: 10px; position: relative; }
+/* the upper row on its own shade, edge to edge: from the header's top down to halfway into the gap between the rows */
+.brand-row::before { content: ""; position: absolute; z-index: -1; inset: -10px -100vmax -6px; background: var(--chrome-top); }
+.top:has(.brand-row) { overflow-x: clip; }
 .brand-logo { flex: none; width: 34px; height: 34px; background: var(--on-chrome); -webkit-mask: url(logo.png) center / contain no-repeat; mask: url(logo.png) center / contain no-repeat; }
 .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
 .tabs a {
