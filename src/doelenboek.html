@@ -857,10 +857,16 @@ function viewDashboard() {
   const chips = series.map(s => `<button class="fchip" style="--c:${s.c}" data-action="dash-kid" data-id="${esc(s.id)}" aria-pressed="${s.on}"><span class="dot"></span>${esc(s.name)}</button>`).join('');
   // the month lists reach back to the first mastered goal, or DASH_MAX months, whichever is earlier
   const first = Math.min(now - DASH_MAX + 1, ...kids.flatMap(c => Object.values(c.mastered || {})).map(d => monthNo(dateObj(d))));
-  const lFmt = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' });
-  const opts = (lo, hi, sel) => Array.from({ length: hi - lo + 1 }, (_, i) => hi - i).map(k => `<option value="${k}"${k === sel ? ' selected' : ''}>${esc(cap1(lFmt.format(monthStart(k))))}</option>`).join('');
-  const seg = `<label>${esc(t('dash_from'))} <select class="select" id="dash-from">${opts(first, now, from)}</select></label>
-      <label>${esc(t('dash_to'))} <select class="select" id="dash-to">${opts(first, now, to)}</select></label>`;
+  // each end as a month list and a year list; months after this month are greyed out
+  const lFmt = new Intl.DateTimeFormat(t('locale'), { month: 'long' });
+  const pick = (end, k) => {
+    const y = Math.floor(k / 12), m = k % 12;
+    const ms = Array.from({ length: 12 }, (_, i) => `<option value="${i}"${i === m ? ' selected' : ''}${y * 12 + i > now ? ' disabled' : ''}>${esc(cap1(lFmt.format(new Date(2000, i, 1))))}</option>`).join('');
+    const ys = Array.from({ length: Math.floor(now / 12) - Math.floor(first / 12) + 1 }, (_, i) => Math.floor(now / 12) - i)
+      .map(v => `<option value="${v}"${v === y ? ' selected' : ''}>${v}</option>`).join('');
+    return `<label>${esc(t('dash_' + end))} <select class="select" data-dash="${end}" data-part="m" aria-label="${esc(t('dash_' + end))}">${ms}</select></label><select class="select" data-dash="${end}" data-part="y" aria-label="${esc(t('dash_' + end))}">${ys}</select>`;
+  };
+  const seg = `<span class="dash-end">${pick('from', from)}</span><span class="dash-end">${pick('to', to)}</span>`;
   const lines = shown.map(s => { const d = smoothPath(xs, s.vals.map(yOf)); return `<path class="dc-halo" d="${d}"/><path class="dc-line" style="stroke:${s.c}" d="${d}"/>`; }).join('');
   const ends = shown.map(s => `<span class="dc-dot" style="left:100%;top:${yOf(s.vals[N - 1]).toFixed(2)}%;background:${s.c}"></span>`).join('');
   const pts = esc(JSON.stringify({ xs, labels, series: shown.map(s => ({ name: s.name, c: s.c, vals: s.vals, ys: s.vals.map(yOf) })) }));
@@ -1478,9 +1484,10 @@ main.addEventListener('change', e => {
   if (e.target.id === 'act-child') { ui.actChild = e.target.value; render(); }
   if (e.target.id === 'goal-tier') { ui.goalTier = e.target.value; render(); }
   // dashboard months: the other end follows when the range would turn round or pass DASH_MAX months
-  if (e.target.id === 'dash-from' || e.target.id === 'dash-to') {
-    const r = dashRange(), k = Number(e.target.value);
-    if (e.target.id === 'dash-from') { ui.dashFrom = k; ui.dashTo = Math.min(Math.max(r.to, k), k + DASH_MAX - 1, r.now); }
+  if (e.target.dataset.dash) {
+    const r = dashRange(), end = e.target.dataset.dash, v = Number(e.target.value), old = end === 'from' ? r.from : r.to;
+    const k = Math.min(e.target.dataset.part === 'y' ? v * 12 + old % 12 : Math.floor(old / 12) * 12 + v, r.now);   // a year change keeps the month
+    if (end === 'from') { ui.dashFrom = k; ui.dashTo = Math.min(Math.max(r.to, k), k + DASH_MAX - 1, r.now); }
     else { ui.dashTo = k; ui.dashFrom = Math.max(Math.min(r.from, k), k - DASH_MAX + 1); }
     render();
   }
