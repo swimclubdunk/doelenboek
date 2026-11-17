@@ -354,6 +354,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 
 /* activities */
 .month { font-family: var(--f-display); font-size: 1rem; color: var(--muted); text-transform: capitalize; margin-top: 8px; }
+.month-n { text-transform: none; font-weight: 500; }   /* the activity count after the month */
 .act-list { display: grid; gap: 10px; }
 .act { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) auto auto; grid-template-areas: "date body photos actions"; gap: 14px; padding: 14px; align-items: start; }
 .act-date { grid-area: date; } .act-body { grid-area: body; } .act .row-actions { grid-area: actions; }
@@ -11714,9 +11715,12 @@ function viewActivities() {
   if (!acts.length) return h + `<p class="muted">${esc(t('no_acts_found'))}</p>`;
   let month = '';
   const parts = [];
+  // each month heading says how many of the activities shown fall in that month
+  const perMonth = {};
+  for (const a of acts) perMonth[a.date.slice(0, 7)] = (perMonth[a.date.slice(0, 7)] || 0) + 1;
   for (const a of acts) {
     const mLabel = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' }).format(dateObj(a.date));
-    if (mLabel !== month) { if (month) parts.push('</div>'); parts.push(`<h2 class="month">${esc(mLabel)}</h2><div class="act-list">`); month = mLabel; }
+    if (mLabel !== month) { if (month) parts.push('</div>'); parts.push(`<h2 class="month">${esc(mLabel)} <span class="month-n">(${esc(t('n_acts', perMonth[a.date.slice(0, 7)]))})</span></h2><div class="act-list">`); month = mLabel; }
     parts.push(activityCard(a));
   }
   parts.push('</div>');

@@ -248,6 +248,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 
 /* activities */
 .month { font-family: var(--f-display); font-size: 1rem; color: var(--muted); text-transform: capitalize; margin-top: 8px; }
+.month-n { text-transform: none; font-weight: 500; }   /* the activity count after the month */
 .act-list { display: grid; gap: 10px; }
 .act { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) auto auto; grid-template-areas: "date body photos actions"; gap: 14px; padding: 14px; align-items: start; }
 .act-date { grid-area: date; } .act-body { grid-area: body; } .act .row-actions { grid-area: actions; }

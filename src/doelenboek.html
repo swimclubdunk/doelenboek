@@ -801,9 +801,12 @@ function viewActivities() {
   if (!acts.length) return h + `<p class="muted">${esc(t('no_acts_found'))}</p>`;
   let month = '';
   const parts = [];
+  // each month heading says how many of the activities shown fall in that month
+  const perMonth = {};
+  for (const a of acts) perMonth[a.date.slice(0, 7)] = (perMonth[a.date.slice(0, 7)] || 0) + 1;
   for (const a of acts) {
     const mLabel = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' }).format(dateObj(a.date));
-    if (mLabel !== month) { if (month) parts.push('</div>'); parts.push(`<h2 class="month">${esc(mLabel)}</h2><div class="act-list">`); month = mLabel; }
+    if (mLabel !== month) { if (month) parts.push('</div>'); parts.push(`<h2 class="month">${esc(mLabel)} <span class="month-n">(${esc(t('n_acts', perMonth[a.date.slice(0, 7)]))})</span></h2><div class="act-list">`); month = mLabel; }
     parts.push(activityCard(a));
   }
   parts.push('</div>');
