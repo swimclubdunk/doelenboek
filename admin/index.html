@@ -667,6 +667,20 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 .site-foot .support > span { font-weight: 700; }
 .site-foot .support a, .site-foot .contact a { color: inherit; text-underline-offset: 2px; }
 .site-foot .support a:hover, .site-foot .contact a:hover { color: var(--fg); }
+.site-foot .link-btn { border: 0; background: none; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.site-foot .link-btn:hover { color: var(--fg); }
+/* the privacy statement: title and X on top, the text scrolls, Sluiten centred at the bottom */
+dialog.privacy { width: min(680px, calc(100vw - 24px)); }
+dialog.privacy[open] { display: flex; flex-direction: column; }
+dialog.privacy > header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 14px 14px 20px; border-bottom: 1px solid var(--line); }
+dialog.privacy h2 { margin: 0; font-size: 1.1rem; }
+.privacy-x { border: 0; background: transparent; color: var(--muted); width: 34px; height: 34px; border-radius: 50%; font-size: 1.5rem; line-height: 1; cursor: pointer; display: grid; place-items: center; }
+.privacy-x:hover, .privacy-x:focus-visible { background: var(--surface-2); color: var(--fg); }
+.privacy-body { padding: 16px 20px; overflow-y: auto; min-height: 0; line-height: 1.6; }
+.privacy-body > :first-child { margin-top: 0; }
+.privacy-body > :last-child { margin-bottom: 0; }
+dialog.privacy > footer { display: flex; justify-content: center; padding: 12px 20px; border-top: 1px solid var(--line); }
+body:has(dialog.privacy[open]) { overflow: hidden; }   /* the page behind does not scroll either */
 
 /* shown instead of the app when JavaScript is off */
 .noscript { max-width: 640px; margin: 5vh auto 0; padding: 28px; display: grid; gap: 24px; }

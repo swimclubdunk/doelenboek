@@ -33,11 +33,13 @@
   <p id="foot-goals"></p>
   <p class="contact"><span id="contact-text"></span> <a id="contact-link"></a></p>
   <p class="support"><span id="support-text"></span> <a id="support-link" href="https://ko-fi.com/mat644" target="_blank" rel="noopener"></a></p>
+  <p class="privacy-foot"><button type="button" class="link-btn" id="privacy-link"></button></p>
 </footer>
 <dialog id="dlg"></dialog>
 <dialog id="dlg2"></dialog>
 <dialog id="thanks" class="thanks" aria-labelledby="thanks-h"></dialog>
 <dialog id="msgdlg" class="msg" aria-labelledby="msg-h"></dialog>
+<dialog id="privacy" class="privacy" aria-labelledby="privacy-h"></dialog>
 <dialog id="lightbox" class="lightbox">
   <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
   <button type="button" class="lb-btn lb-prev" data-lb="prev">‹</button>
@@ -181,7 +183,7 @@ const T = {
     err_no_shared: 'Gedeelde opslag is niet beschikbaar. Gegevens worden in deze browser bewaard.',
     err_conn: 'De verbinding met de opslag is verbroken. Herlaad de pagina.',
     pick_btn: 'Doelen kiezen…', pick_h: 'Minimumdoelen kiezen', done: 'Klaar', none_chosen: 'Nog geen doelen gekozen.', n_selected: n => `${n} gekozen`,
-    foot_cookies: 'Deze website slaat geen cookies op je toestel op.',
+    foot_cookies: 'Deze website slaat geen cookies op je toestel op.', privacy_link: 'Privacybeleid', privacy_h: 'Privacybeleid', privacy_soon: 'De privacyverklaring volgt binnenkort.',
     foot_goals: 'Wij zijn niet verantwoordelijk voor de volledigheid van de minimumdoelen.',
     contact_p: 'Feedback of een idee voor een nieuwe functie? Mail naar',
     support_p: 'Overweeg een donatie om dit project te steunen.', support_link: 'Doneren via Ko-fi',
@@ -294,7 +296,7 @@ const T = {
     err_no_shared: 'Shared storage is not available. Data is kept in this browser.',
     err_conn: 'The connection to storage was lost. Reload the page.',
     pick_btn: 'Choose goals…', pick_h: 'Choose minimum goals', done: 'Done', none_chosen: 'No goals selected yet.', n_selected: n => `${n} selected`,
-    foot_cookies: 'This website does not store cookies on your machine.',
+    foot_cookies: 'This website does not store cookies on your machine.', privacy_link: 'Privacy policy', privacy_h: 'Privacy policy', privacy_soon: 'The privacy statement will follow soon.',
     foot_goals: 'We do not take responsibility for the completeness of the minimum goals.',
     contact_p: 'Feedback or a feature request? Email',
     support_p: 'Consider donating to support this project.', support_link: 'Donate on Ko-fi',
@@ -639,6 +641,7 @@ function renderChrome() {
   contact.textContent = mail; contact.href = 'mailto:' + mail;
   $('#support-text').textContent = t('support_p');
   $('#support-link').textContent = t('support_link');
+  $('#privacy-link').textContent = t('privacy_link');
   $('#site-foot').hidden = mode === 'loading' || mode === 'auth';
   const st = $('#status');
   st.removeAttribute('title'); st.hidden = false;
@@ -1390,6 +1393,20 @@ function showThanks() {
 }
 thanksDlg.addEventListener('click', e => { if (e.target === thanksDlg || e.target.closest('[data-close]')) thanksDlg.close(); });
 thanksDlg.addEventListener('close', () => { thanksDlg.innerHTML = ''; });
+
+/* The privacy statement: a modal on top of everything (the page behind can't be used), closed with the X,
+   the Sluiten button or Escape. PRIVACY holds the text per language as HTML; empty: a "follows soon" line. */
+const PRIVACY = { nl: '', en: '' };
+const privacyDlg = $('#privacy');
+function showPrivacy() {
+  privacyDlg.innerHTML = `<header><h2 id="privacy-h">${esc(t('privacy_h'))}</h2><button type="button" class="privacy-x" data-close aria-label="${esc(t('close'))}" title="${esc(t('close'))}">×</button></header>
+    <div class="privacy-body">${PRIVACY[lang] || `<p>${esc(t('privacy_soon'))}</p>`}</div>
+    <footer><button type="button" class="btn" data-close autofocus>${esc(t('close'))}</button></footer>`;
+  if (typeof privacyDlg.showModal === 'function') privacyDlg.showModal(); else privacyDlg.setAttribute('open', '');
+}
+$('#privacy-link').addEventListener('click', showPrivacy);
+privacyDlg.addEventListener('click', e => { if (e.target.closest('[data-close]')) privacyDlg.close(); });
+privacyDlg.addEventListener('close', () => { if (!privacyDlg.open) privacyDlg.innerHTML = ''; });   // the close event comes late: not when it was opened again meanwhile
 if (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('thanks')) showThanks();
 
 /* ---------- admin messages ----------
