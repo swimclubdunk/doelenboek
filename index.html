@@ -651,10 +651,10 @@ dialog.msgzoom img { display: block; max-width: 92vw; max-height: 88vh; border-r
 /* login / sign-up screen */
 /* a photo behind the login screens (not start-up) under a 50% black layer, in a fixed layer of its own (background-attachment: fixed misbehaves on iOS) */
 body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; background: linear-gradient(rgb(0 0 0 / .5)), url(bg.jpg) center / cover no-repeat; }
-.auth { position: relative; width: min(100%, 440px); margin: 5vh auto 0; padding: 28px 44px; display: grid; gap: 16px; }
+.auth { position: relative; width: min(100%, 600px); margin: 5vh auto 0; padding: 28px 44px; display: grid; gap: 16px; }
 @media (max-width: 480px) { .auth { padding-inline: 24px; } }
-/* what the app is and who it is for: its own, wider card under the login card */
-.auth-about { width: min(100%, 600px); margin: 0 auto; padding: 18px 28px; line-height: 1.55; }
+/* what the app is and who it is for: between the welcome and the e-mail field */
+.auth-about { margin: 0; line-height: 1.55; }
 /* both languages stacked as full-width blocks, so these texts keep the height of the longer one when switching language */
 .auth-about .bi { display: grid; justify-items: stretch; }
 /* NL/EN in the card's top-right corner, in card colours instead of header colours */
@@ -662,7 +662,7 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 .auth-title { display: grid; justify-items: start; gap: 18px; font-size: 1.5rem; }
 .auth-logo { justify-self: center; width: 112px; height: 112px; background: var(--chrome); -webkit-mask: url(logo.png) center / contain no-repeat; mask: url(logo.png) center / contain no-repeat; }
 .auth-lang { position: absolute; top: 12px; right: 12px; }
-.auth-screen .auth, .auth-screen .auth-about { box-shadow: 0 20px 60px rgb(30 20 12 / .35); }
+.auth-screen .auth { box-shadow: 0 20px 60px rgb(30 20 12 / .35); }
 .auth form { display: grid; gap: 14px; }
 .auth .field input { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; width: 100%; }
 .auth .btn.primary { padding-block: 11px; }
@@ -13022,6 +13022,7 @@ function authView() {
   return `<section class="card auth">
     <div class="lang-switch card-switch auth-lang" role="group" aria-label="Taal / Language">${langs}</div>
     <div><h1 class="auth-title"><span class="auth-logo" aria-hidden="true"></span><span>${esc(t(head[0]))}</span></h1>${head[1] ? `<p class="lede">${esc(t(head[1]))}</p>` : ''}</div>
+    ${v === 'reset' ? '' : `<p class="auth-about"><span class="bi">${['nl', 'en'].map(l => `<span lang="${l}"${l === lang ? '' : ' class="off" aria-hidden="true"'}><strong>${esc(tIn(l, 'about_h'))}</strong><br>${esc(tIn(l, 'about_p'))}</span>`).join('')}</span></p>`}
     <form id="auth-form" novalidate>
       <label class="field"><span>${esc(t('email'))}</span><input id="au-email" name="email" type="email" autocomplete="email" inputmode="email" required value="${esc(ui_auth.email)}"></label>
       ${pw}${pw2}
@@ -13031,8 +13032,7 @@ function authView() {
     </form>
     <div class="auth-links">${links}</div>
     <p class="privacy"><button type="button" class="linkish auth-privacy">${bt('privacy_link')}</button></p>
-  </section>${v === 'reset' ? '' : `
-  <section class="card auth-about"><p><span class="bi">${['nl', 'en'].map(l => `<span lang="${l}"${l === lang ? '' : ' class="off" aria-hidden="true"'}><strong>${esc(tIn(l, 'about_h'))}</strong><br>${esc(tIn(l, 'about_p'))}</span>`).join('')}</span></p></section>`}`;
+  </section>`;
 }
 function authErr(e) {
   const c = (e && e.code) || '';
