@@ -557,7 +557,7 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 .auth-logo { justify-self: center; width: 112px; height: 112px; background: var(--chrome); -webkit-mask: url(logo.png) center / contain no-repeat; mask: url(logo.png) center / contain no-repeat; }
 .auth-lang { position: absolute; top: 12px; right: 12px; }
 .auth-screen .auth { box-shadow: 0 20px 60px rgb(30 20 12 / .35); }
-.auth form { display: grid; gap: 14px; }
+.auth form { display: grid; gap: 14px; width: min(100%, 340px); justify-self: center; }   /* fields and button about two thirds of the card, centred */
 .auth .field input { border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; width: 100%; }
 .auth .btn.primary { padding-block: 11px; }
 /* password field with an eye button inside its right edge */
