@@ -1426,14 +1426,26 @@ const PRIVACY = {
   en: '',   // no English text yet: the Dutch one is shown
 };
 const privacyDlg = $('#privacy');
-function showPrivacy() {
-  privacyDlg.innerHTML = `<header><h2 id="privacy-h">${esc(t('privacy_h'))}</h2><button type="button" class="privacy-x" data-close aria-label="${esc(t('close'))}" title="${esc(t('close'))}">×</button></header>
+function fillPrivacy() {
+  const langs = ['nl', 'en'].map(l => `<button type="button" data-lang="${l}" aria-pressed="${l === lang}" lang="${l}" title="${l === 'nl' ? 'Nederlands' : 'English'}">${l.toUpperCase()}</button>`).join('');
+  privacyDlg.innerHTML = `<header><h2 id="privacy-h">${esc(t('privacy_h'))}</h2><div class="privacy-tools"><div class="lang-switch card-switch" role="group" aria-label="Taal / Language">${langs}</div><button type="button" class="privacy-x" data-close aria-label="${esc(t('close'))}" title="${esc(t('close'))}">×</button></div></header>
     <div class="privacy-body">${PRIVACY[lang] || PRIVACY.nl || `<p>${esc(t('privacy_soon'))}</p>`}</div>
     <footer><button type="button" class="btn" data-close autofocus>${esc(t('close'))}</button></footer>`;
+}
+function showPrivacy() {
+  fillPrivacy();
   if (typeof privacyDlg.showModal === 'function') privacyDlg.showModal(); else privacyDlg.setAttribute('open', '');
 }
 $('#privacy-link').addEventListener('click', showPrivacy);
-privacyDlg.addEventListener('click', e => { if (e.target.closest('[data-close]')) privacyDlg.close(); });
+privacyDlg.addEventListener('click', e => {
+  if (e.target.closest('[data-close]')) { privacyDlg.close(); return; }
+  if (!e.target.closest('[data-lang]')) return;
+  // the NL/EN switch in the statement: the same global language as the header, the statement stays open
+  const top = privacyDlg.querySelector('.privacy-body').scrollTop;
+  onLang(e); fillPrivacy();
+  privacyDlg.querySelector('.privacy-body').scrollTop = top;
+  privacyDlg.querySelector('[data-lang][aria-pressed="true"]').focus();
+});
 privacyDlg.addEventListener('close', () => { if (!privacyDlg.open) privacyDlg.innerHTML = ''; });   // the close event comes late: not when it was opened again meanwhile
 if (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('thanks')) showThanks();
 

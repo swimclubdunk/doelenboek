@@ -692,6 +692,7 @@ dialog.privacy { width: min(680px, calc(100vw - 24px)); }
 dialog.privacy[open] { display: flex; flex-direction: column; }
 dialog.privacy > header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 14px 14px 20px; border-bottom: 1px solid var(--line); }
 dialog.privacy h2 { margin: 0; font-size: 1.1rem; }
+.privacy-tools { display: flex; align-items: center; gap: 8px; flex: none; }
 .privacy-x { border: 0; background: transparent; color: var(--muted); width: 34px; height: 34px; border-radius: 50%; font-size: 1.5rem; line-height: 1; cursor: pointer; display: grid; place-items: center; }
 .privacy-x:hover, .privacy-x:focus-visible { background: var(--surface-2); color: var(--fg); }
 .privacy-body { padding: 16px 20px; overflow-y: auto; min-height: 0; line-height: 1.6; }
@@ -12443,14 +12444,26 @@ const PRIVACY = {
   en: '',   // no English text yet: the Dutch one is shown
 };
 const privacyDlg = $('#privacy');
-function showPrivacy() {
-  privacyDlg.innerHTML = `<header><h2 id="privacy-h">${esc(t('privacy_h'))}</h2><button type="button" class="privacy-x" data-close aria-label="${esc(t('close'))}" title="${esc(t('close'))}">×</button></header>
+function fillPrivacy() {
+  const langs = ['nl', 'en'].map(l => `<button type="button" data-lang="${l}" aria-pressed="${l === lang}" lang="${l}" title="${l === 'nl' ? 'Nederlands' : 'English'}">${l.toUpperCase()}</button>`).join('');
+  privacyDlg.innerHTML = `<header><h2 id="privacy-h">${esc(t('privacy_h'))}</h2><div class="privacy-tools"><div class="lang-switch card-switch" role="group" aria-label="Taal / Language">${langs}</div><button type="button" class="privacy-x" data-close aria-label="${esc(t('close'))}" title="${esc(t('close'))}">×</button></div></header>
     <div class="privacy-body">${PRIVACY[lang] || PRIVACY.nl || `<p>${esc(t('privacy_soon'))}</p>`}</div>
     <footer><button type="button" class="btn" data-close autofocus>${esc(t('close'))}</button></footer>`;
+}
+function showPrivacy() {
+  fillPrivacy();
   if (typeof privacyDlg.showModal === 'function') privacyDlg.showModal(); else privacyDlg.setAttribute('open', '');
 }
 $('#privacy-link').addEventListener('click', showPrivacy);
-privacyDlg.addEventListener('click', e => { if (e.target.closest('[data-close]')) privacyDlg.close(); });
+privacyDlg.addEventListener('click', e => {
+  if (e.target.closest('[data-close]')) { privacyDlg.close(); return; }
+  if (!e.target.closest('[data-lang]')) return;
+  // the NL/EN switch in the statement: the same global language as the header, the statement stays open
+  const top = privacyDlg.querySelector('.privacy-body').scrollTop;
+  onLang(e); fillPrivacy();
+  privacyDlg.querySelector('.privacy-body').scrollTop = top;
+  privacyDlg.querySelector('[data-lang][aria-pressed="true"]').focus();
+});
 privacyDlg.addEventListener('close', () => { if (!privacyDlg.open) privacyDlg.innerHTML = ''; });   // the close event comes late: not when it was opened again meanwhile
 if (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('thanks')) showThanks();
 
