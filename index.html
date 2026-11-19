@@ -697,6 +697,11 @@ dialog.privacy h2 { margin: 0; font-size: 1.1rem; }
 .privacy-body { padding: 16px 20px; overflow-y: auto; min-height: 0; line-height: 1.6; }
 .privacy-body > :first-child { margin-top: 0; }
 .privacy-body > :last-child { margin-bottom: 0; }
+.privacy-body h3 { font-size: .98rem; margin: 1.3em 0 .4em; }
+.privacy-body p { margin: 0 0 .7em; }
+.privacy-body ul { margin: 0 0 .7em; padding-left: 1.2em; display: grid; gap: .3em; }
+.privacy-body a { color: inherit; text-underline-offset: 2px; overflow-wrap: anywhere; }
+.privacy-date { color: var(--muted); font-size: .84rem; font-style: italic; }
 dialog.privacy > footer { display: flex; justify-content: center; padding: 12px 20px; border-top: 1px solid var(--line); }
 body:has(dialog.privacy[open]) { overflow: hidden; }   /* the page behind does not scroll either */
 
@@ -12408,11 +12413,39 @@ thanksDlg.addEventListener('close', () => { thanksDlg.innerHTML = ''; });
 
 /* The privacy statement: a modal on top of everything (the page behind can't be used), closed with the X,
    the Sluiten button or Escape. PRIVACY holds the text per language as HTML; empty: a "follows soon" line. */
-const PRIVACY = { nl: '', en: '' };
+const PRIVACY = {
+  nl: `<p class="privacy-date">Laatst bijgewerkt: 18 november 2026</p>
+<h3>1. Verantwoordelijke</h3>
+<p>Doelenboek (<a href="https://doelenboek.be" target="_blank" rel="noopener">https://doelenboek.be</a>) is een onafhankelijk, particulier project dat angeboden en beheerd wordt door Mathias Hackenberg, als natuurlijke persoon en verwerkingsverantwoordelijke volgens de AVG (GDPR).</p>
+<p>Contact: <a href="mailto:hello@doelenboek.be">hello@doelenboek.be</a> &amp; <a href="mailto:hello.doelenboek@gmail.com">hello.doelenboek@gmail.com</a></p>
+<h3>2. Verzamelde gegevens</h3>
+<p>Doelenboek verwerkt de volgende gegevens:</p>
+<ul>
+<li><b>Ouderaccounts:</b> e-mailadres, authenticatiegegevens en accountvoorkeuren.</li>
+<li><b>Kindprofielen:</b> Kindprofielen: naam of zelfgekozen naam, toegewezen leerjaargroep (Kleuter, Lager Leerjaar 1–4 of Lager Leerjaar 5–6), avatar, leerdoelen, voortgang en notities.</li>
+<li><b>Technische gegevens:</b> noodzakelijke loggegevens en informatie voor de beveiliging en werking van het platform.</li>
+</ul>
+<h3>3. Gebruik van gegevens</h3>
+<p>Gegevens worden uitsluitend gebruikt om accounts te beheren, onderwijsdoelen en voortgang bij te houden, het platform te onderhouden en gebruikersvragen te beantwoorden.</p>
+<p>Gegevens worden niet verkocht of gebruikt voor gepersonaliseerde reclame.</p>
+<h3>4. Kinderen</h3>
+<p>Doelenboek is bedoeld voor ouders en gezinnen. Ouders of wettelijke voogden beheren hun account en de gegevens van hun kinderen. Kindgegevens worden uitsluitend verwerkt om het organiseren en opvolgen van thuisonderwijs mogelijk te maken.</p>
+<h3>5. Externe diensten en cookies</h3>
+<p>Voor de werking van Doelenboek maken we gebruik van externe dienstverleners, waaronder Firebase (Google), Github, Zoho.</p>
+<p>Doelenboek maakt geen gebruik van cookies of trackingtechnologieën.</p>
+<h3>6. Bewaring en jouw rechten</h3>
+<p>Gegevens worden bewaard zolang een account actief is en ze noodzakelijk zijn voor de dienstverlening. Bij verwijdering van een account worden de bijbehorende gegevens verwijderd of geanonimiseerd, behoudens wettelijke verplichtingen.</p>
+<p>Je hebt volgens de AVG recht op inzage, verbetering, verwijdering en, waar van toepassing, overdraagbaarheid van je gegevens. Je kan ook bezwaar maken tegen bepaalde verwerkingen.</p>
+<p>Voor vragen of verzoeken kan je contact opnemen via <a href="mailto:hello@doelenboek.be">hello@doelenboek.be</a>. Verzoeken worden behandeld binnen de wettelijke termijn van één maand.</p>
+<h3>7. Klachten en wijzigingen</h3>
+<p>Je hebt het recht om een klacht in te dienen bij de Belgische Gegevensbeschermingsautoriteit (GBA): <a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank" rel="noopener">https://www.gegevensbeschermingsautoriteit.be</a></p>
+<p>Dit privacybeleid kan worden aangepast wanneer Doelenboek of de toepasselijke regelgeving verandert.</p>`,
+  en: '',   // no English text yet: the Dutch one is shown
+};
 const privacyDlg = $('#privacy');
 function showPrivacy() {
   privacyDlg.innerHTML = `<header><h2 id="privacy-h">${esc(t('privacy_h'))}</h2><button type="button" class="privacy-x" data-close aria-label="${esc(t('close'))}" title="${esc(t('close'))}">×</button></header>
-    <div class="privacy-body">${PRIVACY[lang] || `<p>${esc(t('privacy_soon'))}</p>`}</div>
+    <div class="privacy-body">${PRIVACY[lang] || PRIVACY.nl || `<p>${esc(t('privacy_soon'))}</p>`}</div>
     <footer><button type="button" class="btn" data-close autofocus>${esc(t('close'))}</button></footer>`;
   if (typeof privacyDlg.showModal === 'function') privacyDlg.showModal(); else privacyDlg.setAttribute('open', '');
 }
