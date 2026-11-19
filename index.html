@@ -680,6 +680,10 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 .auth-links .bi { justify-items: start; }   /* the shorter language starts at the left edge too, not centred in the longer one's width */
 .linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
+/* the privacy statement link in the card's bottom-left corner, quiet like the note above it */
+.auth-privacy { justify-self: start; color: var(--muted); font-weight: 400; font-size: .8rem; margin-top: -6px; }
+.auth-privacy .bi { justify-items: start; }
+.auth-privacy:hover { color: var(--fg); }
 .site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; text-align: center; }
 /* the donation line: quiet, like the rest of the footer */
 .site-foot .support > span { font-weight: 700; }
@@ -12869,6 +12873,7 @@ function onLang(e) {
 }
 $('#lang-switch').addEventListener('click', onLang);
 main.addEventListener('click', e => { if (e.target.closest('.auth-lang')) onLang(e); });   // the copy in the login card
+main.addEventListener('click', e => { if (e.target.closest('.auth-privacy')) showPrivacy(); });   // the privacy statement from the login card
 /* The eye next to a password field: hovering with a mouse shows the password while the pointer is on it;
    a click or tap (or Enter/Space) keeps it shown until clicked again. */
 function pwShow(btn, on) {
@@ -13024,6 +13029,7 @@ function authView() {
     </form>
     <div class="auth-links">${links}</div>
     <p class="privacy">${bt('privacy')}</p>
+    <button type="button" class="linkish auth-privacy">${bt('privacy_link')}</button>
   </section>${v === 'reset' ? '' : `
   <section class="card auth-about"><p><span class="bi">${['nl', 'en'].map(l => `<span lang="${l}"${l === lang ? '' : ' class="off" aria-hidden="true"'}><strong>${esc(tIn(l, 'about_h'))}</strong><br>${esc(tIn(l, 'about_p'))}</span>`).join('')}</span></p></section>`}`;
 }
