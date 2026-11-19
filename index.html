@@ -656,7 +656,7 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 /* what the app is and who it is for: its own, wider card under the login card */
 .auth-about { width: min(100%, 600px); margin: 0 auto; padding: 18px 28px; line-height: 1.55; }
 /* both languages stacked as full-width blocks, so these texts keep the height of the longer one when switching language */
-.auth-about .bi, .auth .privacy .bi { display: grid; justify-items: stretch; }
+.auth-about .bi { display: grid; justify-items: stretch; }
 /* NL/EN in the card's top-right corner, in card colours instead of header colours */
 /* the seal centred on its own row in the header brown, the welcome left-aligned and a little smaller below it */
 .auth-title { display: grid; justify-items: start; gap: 18px; font-size: 1.5rem; }
@@ -680,8 +680,8 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 .auth-links .bi { justify-items: start; }   /* the shorter language starts at the left edge too, not centred in the longer one's width */
 .linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
-/* the privacy statement link in the card's bottom-left corner, quiet like the note above it */
-.auth-privacy { justify-self: start; color: var(--muted); font-weight: 400; font-size: .8rem; margin-top: -6px; }
+/* the privacy statement link in the card's bottom-left corner, under a thin line */
+.auth-privacy { color: var(--muted); font-weight: 400; font-size: inherit; }
 .auth-privacy .bi { justify-items: start; }
 .auth-privacy:hover { color: var(--fg); }
 .site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; text-align: center; }
@@ -11234,7 +11234,6 @@ const T = {
     ae_many: 'Te veel pogingen. Wacht even en probeer opnieuw.', ae_net: 'Geen verbinding. Controleer je internet en probeer opnieuw.',
     ae_generic: 'Dat lukte niet. Probeer het opnieuw.',
     sdk_fail: 'De inlogdienst kon niet geladen worden. Controleer je internetverbinding en herlaad de pagina.',
-    privacy: "Je gegevens (kinderen, activiteiten, foto's) worden bewaard in Google Firebase in de EU en zijn alleen bereikbaar met jouw e-mailadres en wachtwoord. De beheerder kan opgeslagen gegevens inzien voor statistieken en ondersteuning. Foto's kan de beheerder niet inzien, en in het beheeroverzicht worden namen van kinderen geanonimiseerd. Je kunt je account en al je gegevens altijd verwijderen via Instellingen.",
     account_h: 'Account', signed_in_as: e => `Ingelogd als ${e}.`, logout: 'Uitloggen',
     del_acc: 'Account verwijderen', del_acc_p: "Verwijdert je account en al je gegevens (kinderen, activiteiten, foto's) definitief.",
     del_acc_confirm: 'Vul je wachtwoord in om te bevestigen.', del_acc_btn: 'Account en gegevens verwijderen', del_done: 'Je account is verwijderd.',
@@ -11347,7 +11346,6 @@ const T = {
     ae_many: 'Too many attempts. Wait a moment and try again.', ae_net: 'No connection. Check your internet and try again.',
     ae_generic: 'That did not work. Try again.',
     sdk_fail: 'The login service could not be loaded. Check your internet connection and reload the page.',
-    privacy: 'Your data (children, activities, photos) is stored in Google Firebase in the EU and can only be reached with your email address and password. The administrator can view stored data for statistics and support. The administrator cannot view photos, and children\'s names are anonymised in the admin overview. You can delete your account and all your data at any time via Settings.',
     account_h: 'Account', signed_in_as: e => `Logged in as ${e}.`, logout: 'Log out',
     del_acc: 'Delete account', del_acc_p: 'Permanently deletes your account and all your data (children, activities, photos).',
     del_acc_confirm: 'Enter your password to confirm.', del_acc_btn: 'Delete account and data', del_done: 'Your account has been deleted.',
@@ -13032,8 +13030,7 @@ function authView() {
       <button class="btn primary" type="submit" ${fb ? '' : 'disabled'}>${bt(submit)}</button>
     </form>
     <div class="auth-links">${links}</div>
-    <p class="privacy">${bt('privacy')}</p>
-    <button type="button" class="linkish auth-privacy">${bt('privacy_link')}</button>
+    <p class="privacy"><button type="button" class="linkish auth-privacy">${bt('privacy_link')}</button></p>
   </section>${v === 'reset' ? '' : `
   <section class="card auth-about"><p><span class="bi">${['nl', 'en'].map(l => `<span lang="${l}"${l === lang ? '' : ' class="off" aria-hidden="true"'}><strong>${esc(tIn(l, 'about_h'))}</strong><br>${esc(tIn(l, 'about_p'))}</span>`).join('')}</span></p></section>`}`;
 }

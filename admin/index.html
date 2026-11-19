@@ -638,7 +638,7 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 /* what the app is and who it is for: its own, wider card under the login card */
 .auth-about { width: min(100%, 600px); margin: 0 auto; padding: 18px 28px; line-height: 1.55; }
 /* both languages stacked as full-width blocks, so these texts keep the height of the longer one when switching language */
-.auth-about .bi, .auth .privacy .bi { display: grid; justify-items: stretch; }
+.auth-about .bi { display: grid; justify-items: stretch; }
 /* NL/EN in the card's top-right corner, in card colours instead of header colours */
 /* the seal centred on its own row in the header brown, the welcome left-aligned and a little smaller below it */
 .auth-title { display: grid; justify-items: start; gap: 18px; font-size: 1.5rem; }
@@ -662,8 +662,8 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 .auth-links .bi { justify-items: start; }   /* the shorter language starts at the left edge too, not centred in the longer one's width */
 .linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
-/* the privacy statement link in the card's bottom-left corner, quiet like the note above it */
-.auth-privacy { justify-self: start; color: var(--muted); font-weight: 400; font-size: .8rem; margin-top: -6px; }
+/* the privacy statement link in the card's bottom-left corner, under a thin line */
+.auth-privacy { color: var(--muted); font-weight: 400; font-size: inherit; }
 .auth-privacy .bi { justify-items: start; }
 .auth-privacy:hover { color: var(--fg); }
 .site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; text-align: center; }
