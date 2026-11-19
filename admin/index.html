@@ -658,7 +658,7 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 .pw-eye.shown svg + svg { display: block; }
 .auth .form-error:empty { display: none; }
 .auth .info { color: var(--ok); font-size: .9rem; }
-.auth-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
+.auth-links { display: grid; justify-items: start; gap: 8px; width: min(100%, 340px); justify-self: center; }   /* stacked, starting at the left edge of the fields above */
 .auth-links .bi { justify-items: start; }   /* the shorter language starts at the left edge too, not centred in the longer one's width */
 .linkish { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 700; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .auth .privacy { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 12px; }
