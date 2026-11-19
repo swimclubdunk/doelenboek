@@ -548,7 +548,7 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 .auth { position: relative; width: min(100%, 600px); margin: 5vh auto 0; padding: 28px 44px; display: grid; gap: 16px; }
 @media (max-width: 480px) { .auth { padding-inline: 24px; } }
 /* what the app is and who it is for: between the welcome and the e-mail field */
-.auth-about { margin: 0; line-height: 1.55; }
+.auth-about { margin: 0 0 1.55em; line-height: 1.55; }   /* one empty line before the e-mail field */
 /* both languages stacked as full-width blocks, so these texts keep the height of the longer one when switching language */
 .auth-about .bi { display: grid; justify-items: stretch; }
 /* NL/EN in the card's top-right corner, in card colours instead of header colours */
