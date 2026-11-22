@@ -753,10 +753,6 @@ body:has(dialog.privacy[open]) { overflow: hidden; }   /* the page behind does n
     </nav>
     <div class="top-right">
       <span class="status" id="status">Verbinden…</span>
-      <div class="lang-switch" role="group" id="lang-switch" aria-label="Taal / Language">
-        <button type="button" data-lang="nl" aria-pressed="true" lang="nl" title="Nederlands">NL</button>
-        <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
-      </div>
       <a class="btn small ghost" id="admin-link" href="admin/" hidden>Admin</a>
       <button class="btn small ghost" id="data-btn" type="button">Instellingen</button>
     </div>
@@ -12668,6 +12664,7 @@ function dataDialog() {
   const ex = exampleItems().length > 0;
   const body = `<p class="muted">${esc(fbUser ? t('where_fb') : mode === 'db' ? t('where_db') : t('where_local'))}</p><div class="data-actions">
     ${fbUser ? `<div><p><b>${esc(t('account_h'))}</b><span>${esc(t('signed_in_as', fbUser.email))}</span></p><button type="button" class="btn small" id="d-logout">${esc(t('logout'))}</button></div>` : ''}
+    <div><p><b>Taal / Language</b></p><div class="lang-switch card-switch" role="group" id="d-lang" aria-label="Taal / Language">${['nl', 'en'].map(l => `<button type="button" data-lang="${l}" aria-pressed="${l === lang}" lang="${l}">${l === 'nl' ? 'Nederlands' : 'English'}</button>`).join('')}</div></div>
     <div><p><b>${esc(t('theme_h'))}</b></p><div class="lang-switch card-switch" role="group" id="d-theme" aria-label="${esc(t('theme_h'))}">${['light', 'dark'].map(v => `<button type="button" data-theme-pick="${v}" aria-pressed="${themeNow() === v}">${esc(t('theme_' + v))}</button>`).join('')}</div></div>
     ${ex ? `<div class="w"><p><b>${esc(t('examples_h'))}</b><span>${esc(t('examples_p'))}</span></p><button type="button" class="btn small" id="d-ex">${esc(t('remove_examples'))}</button></div>` : ''}
     ${fbUser ? `<div><p><b>${esc(t('del_acc'))}</b><span>${esc(t('del_acc_p'))}</span></p><button type="button" class="btn small" id="d-delacc">${esc(t('del_acc'))}</button></div>` : ''}
@@ -12678,6 +12675,12 @@ function dataDialog() {
       document.documentElement.dataset.theme = b.dataset.themePick;
       try { localStorage.setItem(THEME_KEY, b.dataset.themePick); } catch (err) {}
       for (const x of d.querySelectorAll('[data-theme-pick]')) x.setAttribute('aria-pressed', String(x === b));
+    });
+    d.querySelector('#d-lang').addEventListener('click', e => {
+      // the whole page switches; Instellingen stays open, redrawn in the new language
+      const b = e.target.closest('[data-lang]'); if (!b || b.dataset.lang === lang) return;
+      setLang(b.dataset.lang); render(); dataDialog();
+      dlg.querySelector('#d-lang [aria-pressed="true"]').focus();
     });
     d.querySelector('#d-ex')?.addEventListener('click', () => removeExamples());
     d.querySelector('#d-logout')?.addEventListener('click', logout);
@@ -12866,14 +12869,17 @@ main.addEventListener('toggle', e => {
   el.open ? ui.closed.delete(el.dataset.subj) : ui.closed.add(el.dataset.subj);
 }, true);
 $('#data-btn').addEventListener('click', dataDialog);
+/* The language is chosen under Instellingen, on the login card and in the privacy statement. */
+function setLang(l) {
+  lang = l;
+  try { localStorage.setItem(LANG_KEY, lang); } catch (err) {}
+}
 function onLang(e) {
   const b = e.target.closest('[data-lang]'); if (!b || b.dataset.lang === lang) return;
-  lang = b.dataset.lang;
-  try { localStorage.setItem(LANG_KEY, lang); } catch (err) {}
+  setLang(b.dataset.lang);
   closeDialog();
   render();
 }
-$('#lang-switch').addEventListener('click', onLang);
 main.addEventListener('click', e => { if (e.target.closest('.auth-lang')) onLang(e); });   // the copy in the login card
 main.addEventListener('click', e => { if (e.target.closest('.auth-privacy')) showPrivacy(); });   // the privacy statement from the login card
 /* The eye next to a password field: hovering with a mouse shows the password while the pointer is on it;
