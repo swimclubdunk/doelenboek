@@ -1190,10 +1190,11 @@ function openDialog(html, mount) {
 }
 function closeDialog() { if (dlg2.open) dlg2.close(); if (dlg.open) dlg.close(); }
 dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[data-close]')) closeDialog(); });
-dlg.addEventListener('close', () => { dlg.innerHTML = ''; });
+/* The close event comes late: when the dialog was opened again meanwhile, keep its new content. */
+dlg.addEventListener('close', () => { if (!dlg.open) dlg.innerHTML = ''; });
 const dlg2 = $('#dlg2');
 dlg2.addEventListener('click', e => { if (e.target === dlg2 || e.target.closest('[data-close]')) dlg2.close(); });
-dlg2.addEventListener('close', () => { dlg2.innerHTML = ''; });
+dlg2.addEventListener('close', () => { if (!dlg2.open) dlg2.innerHTML = ''; });
 
 /* No submitLabel: nothing to save or cancel (Instellingen applies every choice at once), so no footer;
    Sluiten at the top closes it. */
@@ -1388,7 +1389,7 @@ function showThanks() {
   if (typeof thanksDlg.showModal === 'function') thanksDlg.showModal(); else thanksDlg.setAttribute('open', '');
 }
 thanksDlg.addEventListener('click', e => { if (e.target === thanksDlg || e.target.closest('[data-close]')) thanksDlg.close(); });
-thanksDlg.addEventListener('close', () => { thanksDlg.innerHTML = ''; });
+thanksDlg.addEventListener('close', () => { if (!thanksDlg.open) thanksDlg.innerHTML = ''; });
 
 /* The privacy statement: a modal on top of everything (the page behind can't be used), closed with the X,
    the Sluiten button or Escape. PRIVACY holds the text per language as HTML; empty: a "follows soon" line. */
@@ -1751,7 +1752,7 @@ lb.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') { lbState.i++; drawLightbox(); }
   if (e.key === 'ArrowLeft') { lbState.i--; drawLightbox(); }
 });
-lb.addEventListener('close', () => { lbState = null; lbImg.removeAttribute('src'); });
+lb.addEventListener('close', () => { if (lb.open) return; lbState = null; lbImg.removeAttribute('src'); });
 
 /* ---------- toast ---------- */
 let toastT;
