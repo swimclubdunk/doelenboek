@@ -8,7 +8,6 @@ Doelenboek is for parents who homeschool in Flanders. Log what you do with your 
 
 - `site/` — everything that is published, and nothing else: the built app, `admin/`, the public pages, fonts and images, plus `CNAME` and `.nojekyll`. `.github/workflows/pages.yml` uploads this folder to GitHub Pages on every push to `main`.
 - `src/`, `doelen/`, `doelen-lager/`, `tools/`, `tests/` — the sources, build scripts and tests.
-- `docs/` — specs, plans, the roadmap and other notes. Not published.
 
 ## Development
 
