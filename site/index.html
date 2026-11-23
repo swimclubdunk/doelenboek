@@ -396,6 +396,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .search { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 12px; }
 .select { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 10px; max-width: 100%; }
+.filter-hint { color: var(--muted); font-size: .84rem; }   /* the line above the subject buttons of the goals tab */
 .chips-filter { display: flex; flex-wrap: wrap; gap: 6px; }
 .fchip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 10px 4px 8px; cursor: pointer; font-size: .82rem; font-weight: 700; color: var(--muted); }
 .fchip .dot { opacity: .35; }
@@ -13805,7 +13806,7 @@ const T = {
     close: 'Sluiten', cancel: 'Annuleren', save: 'Opslaan', busy: 'Bezig…', progress: (a, b) => `Bezig… ${a}/${b}`,
     child_edit_h: 'Kind wijzigen', child_add_h: 'Kind toevoegen', name: 'Naam', animal: 'Diertje', animal_taken: 'Al gekozen voor een ander kind',
     tier: 'Onderwijsniveau', tier_all: 'Alle niveaus', tier_aria: 'Onderwijsniveau van de doelen',
-    tier_soon: 'De doelen voor dit niveau volgen binnenkort.',
+    tier_soon: 'De doelen voor dit niveau volgen binnenkort.', filter_hint: 'Klik op een vak om zijn doelen te tonen of te verbergen.',
     ext: 'Uitbreidingsdoel', ext_tip: 'Een optioneel extra doel bovenop de minimumdoelen. Telt in Doelenboek mee zoals de andere doelen.',
     err_name: 'Vul een naam in.', err_dup_name: n => `Er is al een kind met de naam ${n}.`, saved_changes: 'Wijzigingen opgeslagen.', child_added: n => `${n} is toegevoegd.`,
     child_del_h: 'Kind verwijderen', child_del_q: n => `Weet je zeker dat je <b>${n}</b> wilt verwijderen?`,
@@ -13919,7 +13920,7 @@ const T = {
     close: 'Close', cancel: 'Cancel', save: 'Save', busy: 'Working…', progress: (a, b) => `Working… ${a}/${b}`,
     child_edit_h: 'Edit child', child_add_h: 'Add child', name: 'Name', animal: 'Animal', animal_taken: 'Already used for another child',
     tier: 'School level', tier_all: 'All levels', tier_aria: 'School level of the goals',
-    tier_soon: 'The goals for this level are coming soon.',
+    tier_soon: 'The goals for this level are coming soon.', filter_hint: 'Click a subject to show or hide its goals.',
     ext: 'Extension goal', ext_tip: 'An optional extra goal on top of the minimum goals. In Doelenboek it counts like the other goals.',
     err_name: 'Enter a name.', err_dup_name: n => `There is already a child called ${n}.`, saved_changes: 'Changes saved.', child_added: n => `${n} has been added.`,
     child_del_h: 'Delete child', child_del_q: n => `Are you sure you want to delete <b>${n}</b>?`,
@@ -14829,6 +14830,7 @@ function viewGoals(cov) {
   h += `<div class="toolbar">
       <select class="select" id="goal-tier" aria-label="${esc(t('tier_aria'))}">${tierOptions(tier)}</select>
       <input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
+    <p class="filter-hint">${esc(t('filter_hint'))}</p>
     <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
       <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${bt('all_subjects')}</button>
       ${SUBJECTS.filter(s => shownSubj.includes(s.key)).map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${bName(s.key, mixed ? null : tier)}</button>`).join('')}
