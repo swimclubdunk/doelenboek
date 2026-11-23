@@ -345,10 +345,13 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* child cards */
 .child-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
 .child-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 16px; }   /* footer at the bottom, so cards in a row line up */
-.cc-head { display: flex; gap: 12px; align-items: flex-start; }
+.cc-head { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
 .cc-id { min-width: 0; flex: 1; }
 .cc-id h2 { overflow-wrap: anywhere; }
 .cc-tier { margin: 4px 0 3px; line-height: 1; }
+/* a long level name (Secundair 1. graad A-stroom) wraps instead of pushing the score out of the card; each line keeps its own pill */
+.cc-tier:has(.tier-badge) { line-height: 1.75; }
+.cc-tier .tier-badge { display: inline; white-space: normal; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .meta { color: var(--muted); font-size: .84rem; }
 .cc-pct { text-align: right; display: grid; font-variant-numeric: tabular-nums; }
 .cc-pct strong { font-family: var(--f-display); font-size: 1.7rem; line-height: 1; }
@@ -521,7 +524,7 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .tier-grid label { display: block; padding: 10px 12px; border-radius: var(--r-sm); border: 1px solid var(--line); cursor: pointer; position: relative; }
 .tier-grid b { display: block; line-height: 1.25; font-size: .92rem; }
-.tier-grid .tier-nw { white-space: nowrap; }   /* "A-stroom", "1-4": never broken at the hyphen */
+.tier-nw { white-space: nowrap; }   /* "A-stroom", "1-4": never broken at the hyphen */
 .tier-grid small { display: block; margin-top: 4px; color: var(--muted); font-size: .8rem; }
 .tier-grid input { position: absolute; opacity: 0; pointer-events: none; }
 .tier-grid label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: 0 0 0 1px var(--accent); }
@@ -1365,8 +1368,8 @@ const TIERS = [
   { key: 'KO', group: 'basis', prefix: 'Kl', name: { nl: 'Kleuter', en: 'Preschool' }, short: { nl: 'Kleuter', en: 'Preschool' }, badge: { nl: 'Kleuter', en: 'Preschool' }, ages: { nl: '2-6 jaar', en: '2-6 years' } },
   { key: 'L4', group: 'basis', prefix: 'LJ1-4', name: { nl: 'Lager Leerjaar 1-4', en: 'Primary Year 1-4' }, short: { nl: 'Lj. 1–4', en: 'Years 1–4' }, badge: { nl: 'Lager LJ 1-4', en: 'Primary YR 1-4' }, ages: { nl: '6-10 jaar', en: '6-10 years' } },
   { key: 'L6', group: 'basis', prefix: 'LJ5-6', name: { nl: 'Lager Leerjaar 5-6', en: 'Primary Year 5-6' }, short: { nl: 'Lj. 5–6', en: 'Years 5–6' }, badge: { nl: 'Lager LJ 5-6', en: 'Primary YR 5-6' }, ages: { nl: '10-12 jaar', en: '10-12 years' } },
-  { key: 'S1A', group: 'sec', subj: SEC_SUBJ, prefix: 'Sec1A', name: { nl: 'Secundair 1. graad A-stroom', en: 'Secondary 1st stage A-stream' }, short: { nl: 'Sec. 1A', en: 'Sec. 1A' }, badge: { nl: 'Secundair 1. graad A', en: 'Secondary 1st stage A' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
-  { key: 'S1B', group: 'sec', subj: SEC_SUBJ, prefix: 'Sec1B', name: { nl: 'Secundair 1. graad B-stroom', en: 'Secondary 1st stage B-stream' }, short: { nl: 'Sec. 1B', en: 'Sec. 1B' }, badge: { nl: 'Secundair 1. graad B', en: 'Secondary 1st stage B' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
+  { key: 'S1A', group: 'sec', subj: SEC_SUBJ, prefix: 'Sec1A', name: { nl: 'Secundair 1. graad A-stroom', en: 'Secondary 1st stage A-stream' }, short: { nl: 'Sec. 1A', en: 'Sec. 1A' }, badge: { nl: 'Secundair 1.\u00a0graad\u00a0A-stroom', en: 'Secondary 1st\u00a0stage\u00a0A-stream' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
+  { key: 'S1B', group: 'sec', subj: SEC_SUBJ, prefix: 'Sec1B', name: { nl: 'Secundair 1. graad B-stroom', en: 'Secondary 1st stage B-stream' }, short: { nl: 'Sec. 1B', en: 'Sec. 1B' }, badge: { nl: 'Secundair 1.\u00a0graad\u00a0B-stroom', en: 'Secondary 1st\u00a0stage\u00a0B-stream' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
 ];
 const BUILTIN_GOALS = [
  {

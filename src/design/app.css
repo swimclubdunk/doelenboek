@@ -255,10 +255,13 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* child cards */
 .child-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
 .child-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 16px; }   /* footer at the bottom, so cards in a row line up */
-.cc-head { display: flex; gap: 12px; align-items: flex-start; }
+.cc-head { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
 .cc-id { min-width: 0; flex: 1; }
 .cc-id h2 { overflow-wrap: anywhere; }
 .cc-tier { margin: 4px 0 3px; line-height: 1; }
+/* a long level name (Secundair 1. graad A-stroom) wraps instead of pushing the score out of the card; each line keeps its own pill */
+.cc-tier:has(.tier-badge) { line-height: 1.75; }
+.cc-tier .tier-badge { display: inline; white-space: normal; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .meta { color: var(--muted); font-size: .84rem; }
 .cc-pct { text-align: right; display: grid; font-variant-numeric: tabular-nums; }
 .cc-pct strong { font-family: var(--f-display); font-size: 1.7rem; line-height: 1; }
@@ -431,7 +434,7 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .tier-grid label { display: block; padding: 10px 12px; border-radius: var(--r-sm); border: 1px solid var(--line); cursor: pointer; position: relative; }
 .tier-grid b { display: block; line-height: 1.25; font-size: .92rem; }
-.tier-grid .tier-nw { white-space: nowrap; }   /* "A-stroom", "1-4": never broken at the hyphen */
+.tier-nw { white-space: nowrap; }   /* "A-stroom", "1-4": never broken at the hyphen */
 .tier-grid small { display: block; margin-top: 4px; color: var(--muted); font-size: .8rem; }
 .tier-grid input { position: absolute; opacity: 0; pointer-events: none; }
 .tier-grid label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: 0 0 0 1px var(--accent); }
