@@ -417,7 +417,7 @@ function contentView() {
   const more = c.bySubject.length > 5
     ? `<button type="button" class="linkish" data-action="subj-more">${state.subjOpen ? bt('less') : bt('more', c.bySubject.length - 5)}</button>` : '';
   const goalTable = (rows, extra) => `<div class="tbl-wrap"><table class="t"><tr><th>${bt('code')}</th><th>${bt('level')}</th><th>${bt('goal')}</th>${extra ? `<th class="r">${bt('k_activities')}</th><th class="r">${bt('kids_mastered')}</th>` : ''}</tr>${rows.map(g =>
-    `<tr><td class="mono nw">${esc(g.subject)} ${esc(g.code)}</td><td class="nw">${tierName(g.tier)}</td><td>${goalText(g)}</td>${extra ? `<td class="r">${n(g.activities)}</td><td class="r">${n(g.mastered)}</td>` : ''}</tr>`).join('')}</table></div>`;
+    `<tr><td class="mono nw">${esc(g.subject)} ${esc(g.code.replace(/^([A-Z]+)(?=\d)/, '$1 '))}</td><td class="nw">${tierName(g.tier)}</td><td>${goalText(g)}</td>${extra ? `<td class="r">${n(g.activities)}</td><td class="r">${n(g.mastered)}</td>` : ''}</tr>`).join('')}</table></div>`;
   return section(bt('inhoud'), `
     <div class="two">
       <div class="card panel"><h3>${bt('by_subject')}</h3>

@@ -14254,7 +14254,9 @@ const goalsOfTier = tier => [...data.goals.values()].filter(g => inT(g, tier));
 const inTier = (m, tier) => new Map([...m].filter(([gid]) => { const g = data.goals.get(gid); return g && inT(g, tier); }));
 const tierBadge = c => `<span class="tier-badge">${esc(TIER[tierOf(c)].badge[lang])}</span>`;
 /* A goal's code as shown: tier prefix, a space, the official number (the numbers repeat between tiers). */
-const gCode = (g, tier = null) => { const c = gNum(g, tier); return c ? `${TIER[shownTier(g, tier)].prefix} ${c}` : ''; };
+/* A letter prefix of an official number (BG basisgeletterdheid, UD uitbreidingsdoel) always gets a space: BG 06.04. */
+const spacedNum = c => c.replace(/^([A-Z]+)(?=\d)/, '$1 ');
+const gCode = (g, tier = null) => { const c = gNum(g, tier); return c ? `${TIER[shownTier(g, tier)].prefix} ${spacedNum(c)}` : ''; };
 /* Tier choice as a dropdown (goals tab and goal picker): every tier with its number of goals, then all. */
 const tierOptions = cur => TIER_GROUPS.map(gr => `<optgroup label="${esc(gr.name[lang])}">${TIERS.filter(x => x.group === gr.key).map(x => `<option value="${x.key}" ${cur === x.key ? 'selected' : ''}>${esc(x.name[lang])} (${goalsOfTier(x.key).length})</option>`).join('')}</optgroup>`).join('')
   + `<option value="all" ${cur === 'all' ? 'selected' : ''}>${esc(t('tier_all'))} (${data.goals.size})</option>`;
