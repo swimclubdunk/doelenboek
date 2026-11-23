@@ -752,7 +752,7 @@ body:has(dialog.privacy[open]) { overflow: hidden; }   /* the page behind does n
     <nav class="tabs" aria-label="Doelenboek">
       <a href="#overzicht" data-tab="overzicht">Kinderen</a>
       <a href="#activiteiten" data-tab="activiteiten">Activiteiten</a>
-      <a href="#doelen" data-tab="doelen">Minimumdoelen</a>
+      <a href="#doelen" data-tab="doelen">Doelen</a>
       <a href="#dashboard" data-tab="dashboard">Dashboard</a>
       <a href="#reporting" data-tab="reporting">Rapportering</a>
     </nav>
@@ -11142,7 +11142,7 @@ const BUILTIN_GOALS = [
 const nlN = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
-    tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Minimumdoelen', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
+    tab_overzicht: 'Kinderen', tab_activiteiten: 'Activiteiten', tab_doelen: 'Doelen', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
     dash_h: 'Beheerste minimumdoelen', dash_period: 'Periode', dash_from: 'Van', dash_to: 'Tot', dash_kids: 'Kinderen in de grafiek', dash_lines: 'Lijnen', proj_h: 'Verwachte 100% beheersing van de leerstof van het leerjaar op basis van het huidige tempo', proj_note: 'Tempo: het gemiddelde aantal doelen dat het kind per maand beheerste, van de maand van het eerste beheerste doel tot deze maand. De verwachting rekent vanaf vandaag met de doelen die nog open staan.', proj_rate: n => `${n} per maand`, proj_done: 'Alles beheerst', proj_none: 'Nog geen beheerste doelen', proj_in: n => n === 1 ? 'over 1 maand' : `over ${n} maanden`, proj_of: (m, t) => `${m} van ${t}`, dash_scale: 'Schaal', dash_abs: 'Aantal beheerste doelen', dash_rel: 'Percentage van alle doelen van het leerjaar', dash_acts_h: 'Activiteiten', dash_acts: 'Activiteiten', dash_acts_aria: n => `${n} activiteiten deze maand`, dash_smooth: 'Vloeiend', dash_straight: 'Recht',
     mx_h: 'Beheersing per vak', mx_note: 'Per kind en per vak: welk deel van de doelen van hun leerjaar beheerst is. Lichte vakjes zijn de achterstanden.', mx_na: 'Niet in dit leerjaar', mx_tip: (k, s, n, tot) => `${k} · ${s}: ${n} van ${tot}`,
     ng_h: 'Vakken die lang niet aan bod kwamen', ng_note: 'Per kind de vakken waarvan de laatste activiteit het langst geleden is. Rood: meer dan 60 dagen of nog nooit.', ng_never: 'nooit', ng_days: n => `${n} d`, ng_tip: d => `Laatste activiteit: ${d}`, ng_tip_never: 'Nog geen activiteit voor dit vak',
@@ -11180,7 +11180,7 @@ const T = {
     search_kids: 'Zoek een kind op naam', no_kids_found: 'Geen kinderen gevonden.',
     search_acts: 'Zoek op titel, notitie of doelcode', all_children: 'Alle kinderen', filter_child: 'Filter op kind',
     no_acts_found: 'Geen activiteiten gevonden met deze filters.', no_goals_linked: 'Geen minimumdoelen gekoppeld.', goals_aria: 'Minimumdoelen',
-    h_goals: 'Minimumdoelen', goals_lede: 'De doelen waartegen je de voortgang meet. Officiële lijsten vind je op',
+    h_goals: 'Doelen', goals_lede: 'De doelen waartegen je de voortgang meet. Officiële lijsten vind je op',
     search_goals: 'Zoek op code, categorie of tekst', all_subjects: 'Alle vakken', filter_subject: 'Filter op vak',
     count_line: (n, t, kids) => `${n} van ${t} doelen${kids ? ' · de diertjes tonen welke kinderen het doel beheersen' : ''}`,
     first_n: n => `De eerste ${n} worden getoond. Verfijn je zoekopdracht om de rest te zien.`,
@@ -11255,7 +11255,7 @@ const T = {
     late_write_fail: 'Een wijziging kon niet in je account opgeslagen worden. Herlaad de pagina en controleer je gegevens.',
   },
   en: {
-    tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Minimum goals', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
+    tab_overzicht: 'Children', tab_activiteiten: 'Activities', tab_doelen: 'Goals', tab_dashboard: 'Dashboard', h_dashboard: 'Dashboard',
     dash_h: 'Minimum goals mastered', dash_period: 'Period', dash_from: 'From', dash_to: 'To', dash_kids: 'Children in the graph', dash_lines: 'Lines', proj_h: 'Expected 100% mastery of the leerjaar material based on current rate', proj_note: 'Rate: the average number of goals the child mastered per month, from the month of their first mastered goal to this month. The expectation counts from today with the goals still open.', proj_rate: n => `${n} per month`, proj_done: 'All mastered', proj_none: 'No goals mastered yet', proj_in: n => n === 1 ? 'in 1 month' : `in ${n} months`, proj_of: (m, t) => `${m} of ${t}`, dash_scale: 'Scale', dash_abs: 'Number of goals mastered', dash_rel: 'Percentage of all goals of the year group', dash_acts_h: 'Activities', dash_acts: 'Activities', dash_acts_aria: n => `${n} activities this month`, dash_smooth: 'Smooth', dash_straight: 'Straight',
     mx_h: 'Mastery by subject', mx_note: 'Per child and subject: the share of the goals of their year group that is mastered. Pale cells are where they lag behind.', mx_na: 'Not in this year group', mx_tip: (k, s, n, tot) => `${k} · ${s}: ${n} of ${tot}`,
     ng_h: 'Subjects not covered for a while', ng_note: 'Per child the subjects whose last activity was longest ago. Red: more than 60 days, or never.', ng_never: 'never', ng_days: n => `${n} d`, ng_tip: d => `Last activity: ${d}`, ng_tip_never: 'No activity for this subject yet',
@@ -11293,7 +11293,7 @@ const T = {
     search_kids: 'Search children by name', no_kids_found: 'No children found.',
     search_acts: 'Search by title, notes or goal code', all_children: 'All children', filter_child: 'Filter by child',
     no_acts_found: 'No activities match these filters.', no_goals_linked: 'No minimum goals linked.', goals_aria: 'Minimum goals',
-    h_goals: 'Minimum goals', goals_lede: 'The goals to track progress against, translated from the official lists on',
+    h_goals: 'Goals', goals_lede: 'The goals to track progress against, translated from the official lists on',
     search_goals: 'Search by code, category or text', all_subjects: 'All subjects', filter_subject: 'Filter by subject',
     count_line: (n, t, kids) => `${n} of ${t} goals${kids ? ' · the animals show which children have mastered each goal' : ''}`,
     first_n: n => `Showing the first ${n}. Narrow your search to see the rest.`,
