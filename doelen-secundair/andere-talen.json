@@ -1,0 +1,96 @@
+{
+  "subject": "FR",
+  "name": "Andere talen",
+  "nameEn": "Other languages",
+  "doelen": [
+    {
+      "codes": {
+        "S1A": "03.01"
+      },
+      "description": "De leerlingen bepalen het onderwerp, de hoofdgedachte en de hoofdpunten bij het doelgericht lezen en beluisteren van teksten.",
+      "descriptionEn": "Pupils determine the topic, the main idea and the main points when reading and listening to texts purposefully."
+    },
+    {
+      "codes": {
+        "S1A": "03.02",
+        "S1B": "03.02"
+      },
+      "description": "De leerlingen selecteren relevante informatie bij het lezen en beluisteren van teksten.",
+      "descriptionEn": "Pupils select relevant information when reading and listening to texts."
+    },
+    {
+      "codes": {
+        "S1A": "03.03"
+      },
+      "description": "De leerlingen spreken en schrijven doelgericht.",
+      "descriptionEn": "Pupils speak and write purposefully."
+    },
+    {
+      "codes": {
+        "S1A": "03.04"
+      },
+      "description": "De leerlingen nemen doelgericht deel aan mondelinge en schriftelijke interactie.",
+      "descriptionEn": "Pupils take part purposefully in oral and written interaction."
+    },
+    {
+      "codes": {
+        "S1A": "03.05",
+        "S1B": "03.05"
+      },
+      "description": "De leerlingen zetten doelgericht strategieën in ter ondersteuning van informatieverwerking en communicatieve handelingen.",
+      "descriptionEn": "Pupils purposefully use strategies to support information processing and communicative actions."
+    },
+    {
+      "codes": {
+        "S1A": "03.06",
+        "S1B": "03.06"
+      },
+      "description": "De leerlingen zetten eerder en nieuwverworven woordenschat in ter ondersteuning van hun communicatieve handelingen.",
+      "descriptionEn": "Pupils use previously and newly acquired vocabulary to support their communicative actions."
+    },
+    {
+      "codes": {
+        "S1A": "03.07"
+      },
+      "description": "De leerlingen passen inzicht in het taalsysteem toe ter ondersteuning van hun communicatieve handelingen.",
+      "descriptionEn": "Pupils apply insight into the language system to support their communicative actions."
+    },
+    {
+      "codes": {
+        "S1A": "03.08",
+        "S1B": "03.07"
+      },
+      "description": "De leerlingen identificeren bij het lezen en beluisteren van teksten kenmerkende aspecten van maatschappijen en culturen waarin de doeltaal wordt gesproken.",
+      "descriptionEn": "Pupils identify, when reading and listening to texts, characteristic aspects of societies and cultures in which the target language is spoken."
+    },
+    {
+      "codes": {
+        "S1A": "03.09",
+        "S1B": "03.08"
+      },
+      "description": "De leerlingen drukken de eigen beleving en interpretatie van literaire teksten uit.",
+      "descriptionEn": "Pupils express their own experience and interpretation of literary texts."
+    },
+    {
+      "codes": {
+        "S1B": "03.01"
+      },
+      "description": "De leerlingen bepalen het onderwerp en de hoofdgedachte bij het doelgericht lezen en beluisteren van teksten.",
+      "descriptionEn": "Pupils determine the topic and the main idea when reading and listening to texts purposefully."
+    },
+    {
+      "codes": {
+        "S1B": "03.03"
+      },
+      "description": "De leerlingen spreken en schrijven doelgericht met behulp van aangereikte zinnen, sleutelwoorden of een voorbeeld.",
+      "descriptionEn": "Pupils speak and write purposefully with the help of sentences, key words or an example provided."
+    },
+    {
+      "codes": {
+        "S1B": "03.04"
+      },
+      "description": "De leerlingen nemen doelgericht deel aan mondelinge interactie.",
+      "descriptionEn": "Pupils take part purposefully in oral interaction."
+    }
+  ]
+}

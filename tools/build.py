@@ -5,7 +5,8 @@ Usage: build.py SRC.html OUT.html [FIREBASE_CONFIG.json]
 - the shared scripts messages.js, message-zoom.js and images.js are inlined (in the app and the admin page)
 - the animal drawings in design/animals/ become <symbol>s in the page
 - the favicon comes from design/favicon.svg
-- the built-in goals come from doelen/*.json (kleuter) and doelen-lager/*.json (lager onderwijs)
+- the built-in goals come from doelen/*.json (kleuter), doelen-lager/*.json (lager onderwijs) and
+  doelen-secundair/*.json (secundair, 1ste graad A- and B-stroom)
 - the font files in design/fonts/ are copied to fonts/ next to OUT.html
 - the public pages, robots.txt, sitemap.xml and llms.txt are written next to OUT.html (see public.py)
 - the admin page src/admin.html is built to admin/index.html next to OUT.html (see build_admin)"""
@@ -19,10 +20,15 @@ import public  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 DOELEN_DIR = ROOT / 'doelen'
 LAGER_DIR = ROOT / 'doelen-lager'
+SEC_DIR = ROOT / 'doelen-secundair'
 # Each goal belongs to one tier: KO for kleuter, L4/L6 for the goals at the end of the 4th/6th leerjaar.
 # The lager codes carry their tier as a prefix (L4-2.1.1); the app shows the code without it.
 LAGER_TIERS = ('L4', 'L6')
 GOAL_FIELDS = {'code', 'category', 'categoryEn', 'description', 'descriptionEn'}
+# A secundair goal can belong to both streams: codes holds its official number per stream (S1A, S1B), and
+# extension the streams in which it is an uitbreidingsdoel. See doelen-secundair/README.md.
+SEC_TIERS = ('S1A', 'S1B')
+SEC_FIELDS = {'codes', 'extension', 'category', 'categoryEn', 'description', 'descriptionEn'}
 ADMIN_SRC = ROOT / 'src' / 'admin.html'
 RULES = ROOT / 'firestore.rules'
 
@@ -38,11 +44,13 @@ def fail(where, msg):
 def load_goals(subject_keys):
     """Read every doelen/*.json and doelen-lager/*.json file and return the goals in the shape the app expects.
     Stops with a readable message on the first mistake, so a hand edit can't break the app."""
-    return load_goal_dir(DOELEN_DIR, subject_keys, lager=False) + load_goal_dir(LAGER_DIR, subject_keys, lager=True)
+    return (load_goal_dir(DOELEN_DIR, subject_keys, lager=False) + load_goal_dir(LAGER_DIR, subject_keys, lager=True)
+            + load_secundair_dir(SEC_DIR, subject_keys))
 
 
-def load_goal_dir(doelen_dir, subject_keys, lager):
-    goals, seen_subjects = [], {}
+def goal_files(doelen_dir, subject_keys):
+    """(where, subject, doelen) for every *.json in doelen_dir, after the checks every goal file shares."""
+    seen_subjects = {}
     for path in sorted(doelen_dir.glob('*.json')):
         where = path.relative_to(ROOT)
         try:
@@ -57,8 +65,14 @@ def load_goal_dir(doelen_dir, subject_keys, lager):
         seen_subjects[subject] = path.name
         if not isinstance(doc.get('doelen'), list):
             fail(where, '"doelen" must be a list')
+        yield where, subject, doc['doelen']
+
+
+def load_goal_dir(doelen_dir, subject_keys, lager):
+    goals = []
+    for where, subject, doelen in goal_files(doelen_dir, subject_keys):
         codes = set()
-        for n, g in enumerate(doc['doelen'], 1):
+        for n, g in enumerate(doelen, 1):
             goal = f'goal {n}' + (f' ({g.get("code")})' if isinstance(g, dict) and g.get('code') else '')
             if not isinstance(g, dict):
                 fail(where, f'{goal} must be an object {{ ... }}')
@@ -82,6 +96,47 @@ def load_goal_dir(doelen_dir, subject_keys, lager):
                 if tier not in LAGER_TIERS or not shown:
                     fail(where, f'{goal}: a lager code must start with {" or ".join(t + "-" for t in LAGER_TIERS)}')
             goals.append({'id': f'b-{subject}-{code}', 'subject': subject, 'tier': tier, **g, 'code': shown})
+    return goals
+
+
+def load_secundair_dir(doelen_dir, subject_keys):
+    """The secundair goals. A goal worded the same in both streams is one goal with a code per stream, so a
+    tick carries over when a child changes stream. tier is its first stream, tiers all of them."""
+    goals = []
+    for where, subject, doelen in goal_files(doelen_dir, subject_keys):
+        codes = {t: set() for t in SEC_TIERS}
+        for n, g in enumerate(doelen, 1):
+            if not isinstance(g, dict):
+                fail(where, f'goal {n} must be an object {{ ... }}')
+            cs = g.get('codes')
+            goal = f'goal {n}' + (f' ({", ".join(f"{k} {v}" for k, v in cs.items())})' if isinstance(cs, dict) else '')
+            unknown = set(g) - SEC_FIELDS
+            if unknown:
+                fail(where, f'{goal} has unknown field(s) {", ".join(sorted(unknown))}; allowed: {", ".join(sorted(SEC_FIELDS))}')
+            if not isinstance(cs, dict) or not cs or set(cs) - set(SEC_TIERS) or not all(isinstance(v, str) and v.strip() for v in cs.values()):
+                fail(where, f'{goal}: "codes" must map {" and/or ".join(SEC_TIERS)} to the official number, e.g. {{"S1A": "02.03"}}')
+            ext = g.get('extension', [])
+            if not isinstance(ext, list) or set(ext) - set(cs):
+                fail(where, f'{goal}: "extension" must list streams of its own "codes"')
+            for k in ('category', 'categoryEn', 'description', 'descriptionEn'):
+                if k in g and not isinstance(g[k], str):
+                    fail(where, f'{goal}: "{k}" must be text in quotes')
+            if not g.get('description', '').strip():
+                fail(where, f'{goal} has no "description"')
+            for t, c in cs.items():
+                if c in codes[t]:
+                    fail(where, f'code {t} {c} appears twice')
+                codes[t].add(c)
+            tiers = [t for t in SEC_TIERS if t in cs]
+            x = {'id': f'b-{subject}-{tiers[0]}-{cs[tiers[0]]}', 'subject': subject, 'tier': tiers[0], 'tiers': tiers,
+                 'code': cs[tiers[0]], 'codes': {t: cs[t] for t in tiers}}
+            if ext:
+                x['ext'] = [t for t in tiers if t in ext]
+            x['category'] = g.get('category', '')
+            for k in ('categoryEn', 'description', 'descriptionEn'):
+                if g.get(k):
+                    x[k] = g[k]
+            goals.append(x)
     return goals
 
 

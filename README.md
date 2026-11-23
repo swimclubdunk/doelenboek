@@ -7,7 +7,7 @@ Doelenboek is for parents who homeschool in Flanders. Log what you do with your 
 ## Folders
 
 - `site/` — everything that is published, and nothing else: the built app, `admin/`, the public pages, fonts and images, plus `CNAME` and `.nojekyll`. `.github/workflows/pages.yml` uploads this folder to GitHub Pages on every push to `main`.
-- `src/`, `doelen/`, `doelen-lager/`, `tools/`, `tests/` — the sources, build scripts and tests.
+- `src/`, `doelen/`, `doelen-lager/`, `doelen-secundair/`, `tools/`, `tests/` — the sources, build scripts and tests.
 
 ## Development
 
@@ -23,4 +23,4 @@ Messages to users are written on the admin page, under `/admin/#berichten`. Each
 
 `firestore.rules` doesn't publish itself: after every change, paste it into the Firebase console (Firestore Database → Rules) and publish it, before deploying the pages that need it.
 
-Preview locally with `python tools/serve.py`. The built-in goals are in `doelen/`, and the design files are in `src/design/` (see its [README](src/design/README.md)).
+Preview locally with `python tools/serve.py`. The built-in goals are in `doelen/` (kleuter), `doelen-lager/` and `doelen-secundair/` (see its [README](doelen-secundair/README.md)), and the design files are in `src/design/` (see its [README](src/design/README.md)).

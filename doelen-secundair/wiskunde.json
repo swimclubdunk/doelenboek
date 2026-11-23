@@ -1,0 +1,277 @@
+{
+  "subject": "WK",
+  "name": "Wiskunde",
+  "nameEn": "Mathematics",
+  "doelen": [
+    {
+      "codes": {
+        "S1A": "06.01"
+      },
+      "description": "De leerlingen rekenen met natuurlijke, gehele en rationale getallen.",
+      "descriptionEn": "Pupils calculate with natural numbers, integers and rational numbers."
+    },
+    {
+      "codes": {
+        "S1A": "06.02"
+      },
+      "description": "De leerlingen zetten rationale getallen om van de ene naar de andere voorstellingswijze: decimale vorm, breuk en procent.",
+      "descriptionEn": "Pupils convert rational numbers from one form of representation to another: decimal form, fraction and percentage."
+    },
+    {
+      "codes": {
+        "S1A": "06.03"
+      },
+      "description": "De leerlingen ordenen rationale getallen.",
+      "descriptionEn": "Pupils order rational numbers."
+    },
+    {
+      "codes": {
+        "S1A": "06.04"
+      },
+      "description": "De leerlingen analyseren meetkundige objecten met behulp van eigenschappen en meetkundige relaties in het vlak.",
+      "descriptionEn": "Pupils analyse geometric objects using properties and geometric relationships in the plane."
+    },
+    {
+      "codes": {
+        "S1A": "06.05"
+      },
+      "description": "De leerlingen construeren meetkundige objecten met gegeven eigenschappen in het vlak.",
+      "descriptionEn": "Pupils construct geometric objects with given properties in the plane."
+    },
+    {
+      "codes": {
+        "S1A": "06.06"
+      },
+      "description": "De leerlingen passen congruentiekenmerken van driehoeken toe.",
+      "descriptionEn": "Pupils apply congruence criteria for triangles."
+    },
+    {
+      "codes": {
+        "S1A": "06.07"
+      },
+      "description": "De leerlingen leggen het verband tussen een vlakke figuur en haar beeld onder een transformatie van het vlak.",
+      "descriptionEn": "Pupils make the link between a plane figure and its image under a transformation of the plane."
+    },
+    {
+      "codes": {
+        "S1A": "06.08"
+      },
+      "description": "De leerlingen berekenen omtrek en oppervlakte van vlakke figuren: driehoek, trapezium, parallellogram, ruit, rechthoek, vierkant en cirkel.",
+      "descriptionEn": "Pupils calculate the perimeter and area of plane figures: triangle, trapezium, parallelogram, rhombus, rectangle, square and circle."
+    },
+    {
+      "codes": {
+        "S1A": "06.09"
+      },
+      "description": "De leerlingen analyseren aan de hand van 2D- en 3D-voorstellingen meetkundige objecten in de ruimte: kubus, balk, piramide, bol, kegel en cilinder.",
+      "descriptionEn": "Pupils analyse geometric objects in space using 2D and 3D representations: cube, cuboid, pyramid, sphere, cone and cylinder."
+    },
+    {
+      "codes": {
+        "S1A": "06.10"
+      },
+      "description": "De leerlingen berekenen oppervlakte en volume van ruimtefiguren: kubus, balk en cilinder.",
+      "descriptionEn": "Pupils calculate the surface area and volume of solids: cube, cuboid and cylinder."
+    },
+    {
+      "codes": {
+        "S1A": "06.11"
+      },
+      "description": "De leerlingen gebruiken letters als onbekenden, als variabelen en voor veralgemeningen.",
+      "descriptionEn": "Pupils use letters as unknowns, as variables and for generalisations."
+    },
+    {
+      "codes": {
+        "S1A": "06.12"
+      },
+      "description": "De leerlingen rekenen met algebraïsche uitdrukkingen.",
+      "descriptionEn": "Pupils calculate with algebraic expressions."
+    },
+    {
+      "codes": {
+        "S1A": "06.13"
+      },
+      "description": "De leerlingen bepalen de getalwaarde van een algebraïsche uitdrukking.",
+      "descriptionEn": "Pupils determine the numerical value of an algebraic expression."
+    },
+    {
+      "codes": {
+        "S1A": "06.14"
+      },
+      "description": "De leerlingen hanteren coördinaten in het vlak.",
+      "descriptionEn": "Pupils use coordinates in the plane."
+    },
+    {
+      "codes": {
+        "S1A": "06.15"
+      },
+      "description": "De leerlingen analyseren recht en omgekeerd evenredige verbanden tussen grootheden.",
+      "descriptionEn": "Pupils analyse directly and inversely proportional relationships between quantities."
+    },
+    {
+      "codes": {
+        "S1A": "06.16"
+      },
+      "description": "De leerlingen stellen formules op die regelmaat in eenvoudige patronen en schema's beschrijven.",
+      "descriptionEn": "Pupils write formulae that describe regularity in simple patterns and diagrams."
+    },
+    {
+      "codes": {
+        "S1A": "06.17"
+      },
+      "description": "De leerlingen lossen vergelijkingen van de eerste graad op in één onbekende in de verzameling van de rationale getallen.",
+      "descriptionEn": "Pupils solve first-degree equations in one unknown in the set of rational numbers."
+    },
+    {
+      "codes": {
+        "S1A": "06.18"
+      },
+      "description": "De leerlingen voeren een beschrijvend statistisch onderzoek uit met niet-gegroepeerde gegevens van één grootheid.",
+      "descriptionEn": "Pupils carry out a descriptive statistical investigation with ungrouped data for one quantity."
+    },
+    {
+      "codes": {
+        "S1A": "06.19"
+      },
+      "description": "De leerlingen beargumenteren wiskundige redeneringen.",
+      "descriptionEn": "Pupils give reasons for mathematical reasoning."
+    },
+    {
+      "codes": {
+        "S1A": "06.20"
+      },
+      "description": "De leerlingen voeren bewerkingen met twee verzamelingen uit: doorsnede, unie en verschil.",
+      "descriptionEn": "Pupils carry out operations on two sets: intersection, union and difference."
+    },
+    {
+      "codes": {
+        "S1A": "06.21"
+      },
+      "description": "De leerlingen lossen vraagstukken en problemen op door te mathematiseren en demathematiseren en door gebruik te maken van heuristieken.",
+      "descriptionEn": "Pupils solve word problems and problems by mathematising and demathematising and by using heuristics."
+    },
+    {
+      "codes": {
+        "S1A": "06.22"
+      },
+      "description": "De leerlingen gebruiken ICT om berekeningen uit te voeren en grafische voorstellingen te maken.",
+      "descriptionEn": "Pupils use ICT to carry out calculations and make graphical representations."
+    },
+    {
+      "codes": {
+        "S1A": "06.23"
+      },
+      "description": "De leerlingen beschrijven fenomenen uit de realiteit aan de hand van wiskundige concepten uit de eerste graad.",
+      "descriptionEn": "Pupils describe real-world phenomena using mathematical concepts from the first stage."
+    },
+    {
+      "codes": {
+        "S1A": "BG06.01",
+        "S1B": "BG06.01"
+      },
+      "description": "De leerling voert met functioneel gebruik van ICT eenvoudige berekeningen uit met natuurlijke, positieve decimale getallen met maximaal 2 cijfers na de komma, procenten en verhoudingen in betekenisvolle contexten.",
+      "descriptionEn": "The pupil, making functional use of ICT, carries out simple calculations with natural numbers, positive decimal numbers with at most 2 digits after the decimal point, percentages and ratios in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1A": "BG06.02",
+        "S1B": "BG06.02"
+      },
+      "description": "De leerling gebruikt maatgetallen en eenheden van grootheden in betekenisvolle contexten.",
+      "descriptionEn": "The pupil uses numerical values and units of quantities in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1A": "BG06.03",
+        "S1B": "BG06.03"
+      },
+      "description": "De leerling gebruikt informatie uit eenvoudige tabellen en diagrammen in betekenisvolle contexten.",
+      "descriptionEn": "The pupil uses information from simple tables and charts in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1A": "BG06.04",
+        "S1B": "BG06.04"
+      },
+      "description": "De leerling berekent de omtrek van een vierhoek en de oppervlakte van een rechthoek in betekenisvolle contexten.",
+      "descriptionEn": "The pupil calculates the perimeter of a quadrilateral and the area of a rectangle in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.01"
+      },
+      "description": "De leerlingen ordenen gehele getallen, decimale getallen en eenvoudige breuken in betekenisvolle contexten.",
+      "descriptionEn": "Pupils order integers, decimal numbers and simple fractions in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.02"
+      },
+      "description": "De leerlingen voeren met functioneel gebruik van ICT eenvoudige berekeningen uit met gehele getallen, decimale getallen, breuken, procenten en verhoudingen in betekenisvolle contexten.",
+      "descriptionEn": "Pupils, making functional use of ICT, carry out simple calculations with integers, decimal numbers, fractions, percentages and ratios in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.03"
+      },
+      "description": "De leerlingen ronden zinvol af en schatten resultaten van bewerkingen in betekenisvolle contexten.",
+      "descriptionEn": "Pupils round sensibly and estimate the results of operations in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.04"
+      },
+      "description": "De leerlingen identificeren meetkundige objecten en relaties in het vlak in betekenisvolle contexten.",
+      "descriptionEn": "Pupils identify geometric objects and relationships in the plane in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.05"
+      },
+      "description": "De leerlingen stellen vlakke meetkundige objecten grafisch voor in betekenisvolle contexten.",
+      "descriptionEn": "Pupils represent plane geometric objects graphically in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.06"
+      },
+      "description": "De leerlingen berekenen omtrek en oppervlakte van vlakke figuren in betekenisvolle contexten.",
+      "descriptionEn": "Pupils calculate the perimeter and area of plane figures in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.07"
+      },
+      "description": "De leerlingen benoemen aan de hand van 2D- en 3D-voorstellingen meetkundige objecten in de ruimte in betekenisvolle contexten: kubus, balk, piramide, bol, kegel, cilinder.",
+      "descriptionEn": "Pupils name geometric objects in space using 2D and 3D representations in meaningful contexts: cube, cuboid, pyramid, sphere, cone, cylinder."
+    },
+    {
+      "codes": {
+        "S1B": "06.08"
+      },
+      "description": "De leerlingen berekenen met gegeven formule het volume van ruimtefiguren in betekenisvolle contexten: kubus en balk.",
+      "descriptionEn": "Pupils use a given formula to calculate the volume of solids in meaningful contexts: cube and cuboid."
+    },
+    {
+      "codes": {
+        "S1B": "06.09"
+      },
+      "description": "De leerlingen hanteren coördinaten in het vlak in betekenisvolle contexten.",
+      "descriptionEn": "Pupils use coordinates in the plane in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.10"
+      },
+      "description": "De leerlingen voeren een beschrijvend statistisch onderzoek uit met niet-gegroepeerde gegevens van één grootheid in betekenisvolle contexten.",
+      "descriptionEn": "Pupils carry out a descriptive statistical investigation with ungrouped data for one quantity in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.11"
+      },
+      "description": "De leerlingen lossen vanuit betekenisvolle contexten problemen op door wiskundige concepten en vaardigheden in te zetten.",
+      "descriptionEn": "Pupils solve problems arising from meaningful contexts by applying mathematical concepts and skills."
+    }
+  ]
+}

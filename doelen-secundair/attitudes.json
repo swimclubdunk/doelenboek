@@ -1,0 +1,77 @@
+{
+  "subject": "AT",
+  "name": "Attitudes",
+  "nameEn": "Attitudes",
+  "doelen": [
+    {
+      "codes": {
+        "S1A": "13.01",
+        "S1B": "13.01"
+      },
+      "category": "Leercompetenties",
+      "categoryEn": "Learning skills",
+      "description": "De leerlingen reflecteren over het eigen leerproces en sturen het doelgericht bij.",
+      "descriptionEn": "Pupils reflect on their own learning process and adjust it purposefully."
+    },
+    {
+      "codes": {
+        "S1A": "13.02",
+        "S1B": "13.02"
+      },
+      "category": "Leercompetenties",
+      "categoryEn": "Learning skills",
+      "description": "De leerlingen zetten (meta)cognitieve leer- en regulatiestrategieën in om zich leerinhouden eigen te maken.",
+      "descriptionEn": "Pupils use (meta)cognitive learning and regulation strategies to master learning content."
+    },
+    {
+      "codes": {
+        "S1A": "13.03",
+        "S1B": "13.03"
+      },
+      "category": "Leercompetenties",
+      "categoryEn": "Learning skills",
+      "description": "De leerlingen gebruiken school- en vaktaal.",
+      "descriptionEn": "Pupils use school and subject-specific language."
+    },
+    {
+      "codes": {
+        "S1A": "13.04",
+        "S1B": "13.04"
+      },
+      "category": "Leercompetenties",
+      "categoryEn": "Learning skills",
+      "description": "De leerlingen zoeken doelgericht informatie in diverse bronnen en verwerken die op een kritische en systematische manier.",
+      "descriptionEn": "Pupils search purposefully for information in various sources and process it in a critical and systematic way."
+    },
+    {
+      "codes": {
+        "S1A": "15.01",
+        "S1B": "15.01"
+      },
+      "category": "Initiatief en ondernemingszin",
+      "categoryEn": "Initiative and entrepreneurship",
+      "description": "De leerlingen doorlopen bewust hun studie- of beroepskeuzeproces.",
+      "descriptionEn": "Pupils consciously go through their process of choosing a course of study or a career."
+    },
+    {
+      "codes": {
+        "S1A": "15.02",
+        "S1B": "15.02"
+      },
+      "category": "Initiatief en ondernemingszin",
+      "categoryEn": "Initiative and entrepreneurship",
+      "description": "De leerlingen genereren creatieve ideeën om een probleem op te lossen en bespreken de uitvoerbaarheid ervan aan de hand van criteria.",
+      "descriptionEn": "Pupils generate creative ideas to solve a problem and discuss their feasibility on the basis of criteria."
+    },
+    {
+      "codes": {
+        "S1A": "05.01",
+        "S1B": "05.01"
+      },
+      "category": "Sociaal-relationele competenties",
+      "categoryEn": "Social and relational skills",
+      "description": "De leerlingen gaan respectvol en constructief met anderen in interactie rekening houdend met elkaars grenzen.",
+      "descriptionEn": "Pupils interact with others respectfully and constructively, taking each other's boundaries into account."
+    }
+  ]
+}

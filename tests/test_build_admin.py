@@ -87,3 +87,32 @@ class BuiltPagesParse(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class SecundairGoals(unittest.TestCase):
+    """doelen-secundair/: a goal worded the same in both streams is one goal in both (its tick carries over)."""
+
+    def goals(self):
+        keys = build.subject_keys_of(APP.read_text(encoding='utf-8'))
+        return [g for g in build.load_goals(keys) if g['tier'] in build.SEC_TIERS]
+
+    def test_counts_per_stream(self):
+        goals = self.goals()
+        self.assertEqual(sum('S1A' in g['tiers'] for g in goals), 126)
+        self.assertEqual(sum('S1B' in g['tiers'] for g in goals), 103)
+        self.assertEqual(sum(len(g['tiers']) == 2 for g in goals), 66)
+        self.assertTrue(all(g.get('descriptionEn') for g in goals))
+
+    def test_shared_goal_has_a_code_per_stream(self):
+        g = next(g for g in self.goals() if g['codes'] == {'S1A': '03.08', 'S1B': '03.07'})
+        self.assertEqual((g['id'], g['tier'], g['tiers']), ('b-FR-S1A-03.08', 'S1A', ['S1A', 'S1B']))
+
+    def test_extension_only_in_its_own_stream(self):
+        g = next(g for g in self.goals() if g['codes'].get('S1B') == 'UD02.05')
+        self.assertEqual((g['codes']['S1A'], g['ext']), ('02.05', ['S1B']))
+
+    def test_rejects_extension_outside_its_codes(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as d:
+            Path(d, 'x.json').write_text('{"subject": "NL", "doelen": [{"codes": {"S1A": "01"}, "extension": ["S1B"], "description": "x"}]}', encoding='utf-8')
+            with self.assertRaisesRegex(build.BuildError, 'extension'):
+                build.load_secundair_dir(Path(d), ['NL'])

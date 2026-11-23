@@ -1,0 +1,98 @@
+{
+  "subject": "GE",
+  "name": "Geschiedenis",
+  "nameEn": "History",
+  "doelen": [
+    {
+      "codes": {
+        "S1A": "08.01"
+      },
+      "description": "De leerlingen bouwen een historisch referentiekader op met structuurbegrippen, scharnierpunten en kenmerken eigen aan de prehistorie, het oude nabije oosten en de klassieke oudheid.",
+      "descriptionEn": "Pupils build a historical frame of reference with structural concepts, turning points and characteristics specific to prehistory, the ancient Near East and classical antiquity."
+    },
+    {
+      "codes": {
+        "S1A": "08.02"
+      },
+      "description": "De leerlingen lichten verbanden toe tussen de maatschappelijke domeinen voor samenlevingen uit de prehistorie, het oude nabije oosten en de klassieke oudheid.",
+      "descriptionEn": "Pupils explain links between the societal domains for societies from prehistory, the ancient Near East and classical antiquity."
+    },
+    {
+      "codes": {
+        "S1A": "08.03"
+      },
+      "description": "De leerlingen vergelijken kenmerken van bestudeerde samenlevingen in eenzelfde periode en tussen periodes.",
+      "descriptionEn": "Pupils compare characteristics of the societies studied within the same period and between periods."
+    },
+    {
+      "codes": {
+        "S1A": "08.04"
+      },
+      "description": "De leerlingen illustreren beperkingen van de westerse periodisering voor de bestudeerde periodes.",
+      "descriptionEn": "Pupils illustrate limitations of Western periodisation for the periods studied."
+    },
+    {
+      "codes": {
+        "S1A": "08.05"
+      },
+      "description": "De leerlingen analyseren kritisch verschillende soorten historische bronnen met betrekking tot de bestudeerde periodes in functie van een historische vraag.",
+      "descriptionEn": "Pupils critically analyse different types of historical sources relating to the periods studied in the light of a historical question."
+    },
+    {
+      "codes": {
+        "S1A": "08.06"
+      },
+      "description": "De leerlingen vergelijken historische bronnen met betrekking tot de bestudeerde periodes in functie van een historische vraag.",
+      "descriptionEn": "Pupils compare historical sources relating to the periods studied in the light of a historical question."
+    },
+    {
+      "codes": {
+        "S1A": "08.07"
+      },
+      "description": "De leerlingen beantwoorden een historische vraag aan de hand van historische bronnen met betrekking tot de bestudeerde periodes en historische redeneerwijzen.",
+      "descriptionEn": "Pupils answer a historical question using historical sources relating to the periods studied and historical ways of reasoning."
+    },
+    {
+      "codes": {
+        "S1A": "08.08"
+      },
+      "description": "De leerlingen lichten de invloed toe van de eigen standplaatsgebondenheid op historische beeldvorming met betrekking tot de bestudeerde periodes.",
+      "descriptionEn": "Pupils explain the influence of their own positionality on historical representation relating to the periods studied."
+    },
+    {
+      "codes": {
+        "S1A": "08.09"
+      },
+      "description": "De leerlingen illustreren hoe mythevorming rond historische fenomenen historische beeldvorming vervormt.",
+      "descriptionEn": "Pupils illustrate how myth-making around historical phenomena distorts historical representation."
+    },
+    {
+      "codes": {
+        "S1B": "08.01"
+      },
+      "description": "De leerlingen situeren historische elementen uit hun leefwereld en historische fenomenen in tijd en ruimte op een gegeven tijdlijn met de courante historische periodes en op een kaart.",
+      "descriptionEn": "Pupils situate historical elements from their own world and historical phenomena in time and space on a given timeline with the common historical periods and on a map."
+    },
+    {
+      "codes": {
+        "S1B": "08.02"
+      },
+      "description": "De leerlingen vergelijken aangereikte bronnen over eenzelfde historisch fenomeen met aandacht voor de maker(s) van de bronnen.",
+      "descriptionEn": "Pupils compare sources provided about the same historical phenomenon, paying attention to the creator(s) of the sources."
+    },
+    {
+      "codes": {
+        "S1B": "08.03"
+      },
+      "description": "De leerlingen leggen aan de hand van voorbeelden gelijkenissen en verschillen uit tussen heden en verleden.",
+      "descriptionEn": "Pupils use examples to explain similarities and differences between present and past."
+    },
+    {
+      "codes": {
+        "S1B": "08.04"
+      },
+      "description": "De leerlingen lichten betekenissen toe van historische fenomenen.",
+      "descriptionEn": "Pupils explain meanings of historical phenomena."
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "subject": "AK",
+  "name": "Aardrijkskunde",
+  "nameEn": "Geography",
+  "doelen": [
+    {
+      "codes": {
+        "S1A": "09.01"
+      },
+      "description": "De leerlingen situeren absoluut en relatief personen, plaatsen en patronen op relevante ruimtelijke schaalniveaus.",
+      "descriptionEn": "Pupils situate people, places and patterns in absolute and relative terms at relevant spatial scales."
+    },
+    {
+      "codes": {
+        "S1A": "09.02"
+      },
+      "description": "De leerlingen beschrijven kenmerken van fysischgeografische en sociaalgeografische landschapsvormende lagen.",
+      "descriptionEn": "Pupils describe characteristics of physical-geographical and socio-geographical landscape-forming layers."
+    },
+    {
+      "codes": {
+        "S1A": "09.03"
+      },
+      "description": "De leerlingen analyseren relaties tussen landschapsvormende lagen van plaatsen om verschillen tussen landschappen te verklaren.",
+      "descriptionEn": "Pupils analyse relationships between landscape-forming layers of places to explain differences between landscapes."
+    },
+    {
+      "codes": {
+        "S1A": "09.04"
+      },
+      "description": "De leerlingen illustreren ruimtelijke patronen op verschillende schaalniveaus.",
+      "descriptionEn": "Pupils illustrate spatial patterns at different scales."
+    },
+    {
+      "codes": {
+        "S1A": "09.05"
+      },
+      "description": "De leerlingen illustreren dat landschappen evolueren op korte en lange termijn onder invloed van fysischgeografische en sociaalgeografische veranderingen.",
+      "descriptionEn": "Pupils illustrate that landscapes evolve in the short and long term under the influence of physical-geographical and socio-geographical changes."
+    },
+    {
+      "codes": {
+        "S1A": "09.06"
+      },
+      "description": "De leerlingen analyseren gevolgen van veranderingen in landschappen voor de mens en voor zijn leefomgeving.",
+      "descriptionEn": "Pupils analyse consequences of changes in landscapes for people and for their living environment."
+    },
+    {
+      "codes": {
+        "S1A": "09.07"
+      },
+      "description": "De leerlingen lokaliseren zichzelf en plaatsen aan de hand van lokalisatie- en oriëntatietechnieken.",
+      "descriptionEn": "Pupils locate themselves and places using localisation and orientation techniques."
+    },
+    {
+      "codes": {
+        "S1A": "09.08"
+      },
+      "description": "De leerlingen zetten terreintechnieken en geografische hulpbronnen met inbegrip van GIS-viewers functioneel in.",
+      "descriptionEn": "Pupils make functional use of fieldwork techniques and geographical resources, including GIS viewers."
+    },
+    {
+      "codes": {
+        "S1B": "09.01"
+      },
+      "description": "De leerlingen lokaliseren zichzelf en plaatsen met behulp van lokalisatie- en oriëntatietechnieken.",
+      "descriptionEn": "Pupils locate themselves and places with the help of localisation and orientation techniques."
+    },
+    {
+      "codes": {
+        "S1B": "09.02"
+      },
+      "description": "De leerlingen illustreren natuurlijke en menselijke landschapselementen in een landschap.",
+      "descriptionEn": "Pupils illustrate natural and human landscape elements in a landscape."
+    },
+    {
+      "codes": {
+        "S1B": "09.03"
+      },
+      "description": "De leerlingen illustreren eenvoudige ruimtelijke relaties in een landschap.",
+      "descriptionEn": "Pupils illustrate simple spatial relationships in a landscape."
+    },
+    {
+      "codes": {
+        "S1B": "09.04"
+      },
+      "description": "De leerlingen illustreren dat landschappen veranderen onder invloed van natuurlijke oorzaken en menselijke ingrepen.",
+      "descriptionEn": "Pupils illustrate that landscapes change under the influence of natural causes and human interventions."
+    },
+    {
+      "codes": {
+        "S1B": "09.05"
+      },
+      "description": "De leerlingen zetten geografische hulpbronnen met inbegrip van GIS-viewers functioneel in.",
+      "descriptionEn": "Pupils make functional use of geographical resources, including GIS viewers."
+    }
+  ]
+}

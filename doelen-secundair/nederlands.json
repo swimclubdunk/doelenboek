@@ -1,0 +1,198 @@
+{
+  "subject": "NL",
+  "name": "Nederlands",
+  "nameEn": "Dutch",
+  "doelen": [
+    {
+      "codes": {
+        "S1A": "02.01",
+        "S1B": "02.01"
+      },
+      "description": "De leerlingen bepalen het onderwerp, de hoofdgedachte en de hoofdpunten bij het doelgericht lezen en beluisteren van teksten.",
+      "descriptionEn": "Pupils determine the topic, the main idea and the main points when reading and listening to texts purposefully."
+    },
+    {
+      "codes": {
+        "S1A": "02.02",
+        "S1B": "UD02.02"
+      },
+      "extension": [
+        "S1B"
+      ],
+      "description": "De leerlingen beoordelen doelgericht informatie op betrouwbaarheid, correctheid en bruikbaarheid bij het lezen en luisteren.",
+      "descriptionEn": "Pupils purposefully assess information for reliability, correctness and usefulness when reading and listening."
+    },
+    {
+      "codes": {
+        "S1A": "02.03",
+        "S1B": "02.03"
+      },
+      "description": "De leerlingen selecteren relevante informatie bij het lezen en beluisteren van teksten.",
+      "descriptionEn": "Pupils select relevant information when reading and listening to texts."
+    },
+    {
+      "codes": {
+        "S1A": "02.04",
+        "S1B": "UD02.04"
+      },
+      "extension": [
+        "S1B"
+      ],
+      "description": "De leerlingen nemen notities bij het lezen en beluisteren van teksten.",
+      "descriptionEn": "Pupils take notes when reading and listening to texts."
+    },
+    {
+      "codes": {
+        "S1A": "02.05",
+        "S1B": "UD02.05"
+      },
+      "extension": [
+        "S1B"
+      ],
+      "description": "De leerlingen spreken en schrijven doelgericht.",
+      "descriptionEn": "Pupils speak and write purposefully."
+    },
+    {
+      "codes": {
+        "S1A": "02.06",
+        "S1B": "02.05"
+      },
+      "description": "De leerlingen drukken zich creatief uit met taal.",
+      "descriptionEn": "Pupils express themselves creatively through language."
+    },
+    {
+      "codes": {
+        "S1A": "02.07",
+        "S1B": "UD02.06"
+      },
+      "extension": [
+        "S1B"
+      ],
+      "description": "De leerlingen nemen doelgericht deel aan mondelinge en schriftelijke interactie.",
+      "descriptionEn": "Pupils take part purposefully in oral and written interaction."
+    },
+    {
+      "codes": {
+        "S1A": "02.08",
+        "S1B": "02.07"
+      },
+      "description": "De leerlingen zetten doelgericht strategieën in ter ondersteuning van informatieverwerking en communicatieve handelingen.",
+      "descriptionEn": "Pupils purposefully use strategies to support information processing and communicative actions."
+    },
+    {
+      "codes": {
+        "S1A": "02.09",
+        "S1B": "02.08"
+      },
+      "description": "De leerlingen zetten eerder en nieuwverworven woordenschat in ter ondersteuning van hun communicatieve handelingen.",
+      "descriptionEn": "Pupils use previously and newly acquired vocabulary to support their communicative actions."
+    },
+    {
+      "codes": {
+        "S1A": "02.10",
+        "S1B": "02.09"
+      },
+      "description": "De leerlingen passen inzicht in het taalsysteem toe ter ondersteuning van hun communicatieve handelingen.",
+      "descriptionEn": "Pupils apply insight into the language system to support their communicative actions."
+    },
+    {
+      "codes": {
+        "S1A": "02.11",
+        "S1B": "02.10"
+      },
+      "description": "De leerlingen passen inzicht in taalgebruik toe ter ondersteuning van hun communicatieve handelingen.",
+      "descriptionEn": "Pupils apply insight into language use to support their communicative actions."
+    },
+    {
+      "codes": {
+        "S1A": "02.12",
+        "S1B": "UD02.11"
+      },
+      "extension": [
+        "S1B"
+      ],
+      "description": "De leerlingen geven overeenkomsten en verschillen aan in taaluitingen, tussen standaardtaal, regionale, sociale en situationele taalvariëteiten en tussen talen.",
+      "descriptionEn": "Pupils indicate similarities and differences in utterances, between standard language and regional, social and situational language varieties, and between languages."
+    },
+    {
+      "codes": {
+        "S1A": "02.13",
+        "S1B": "02.12"
+      },
+      "description": "De leerlingen verwoorden de eigen beleving en interpretatie van literaire teksten.",
+      "descriptionEn": "Pupils put into words their own experience and interpretation of literary texts."
+    },
+    {
+      "codes": {
+        "S1A": "BG02.01",
+        "S1B": "BG02.01"
+      },
+      "description": "De leerling haalt bij het lezen en luisteren doelgericht het onderwerp en relevante informatie uit niet-fictionele teksten.",
+      "descriptionEn": "The pupil purposefully extracts the topic and relevant information from non-fiction texts when reading and listening."
+    },
+    {
+      "codes": {
+        "S1A": "BG02.02",
+        "S1B": "BG02.02"
+      },
+      "description": "De leerling spreekt en schrijft doelgericht in eenvoudige communicatieve situaties.",
+      "descriptionEn": "The pupil speaks and writes purposefully in simple communicative situations."
+    },
+    {
+      "codes": {
+        "S1A": "BG02.03",
+        "S1B": "BG02.03"
+      },
+      "description": "De leerling neemt doelgericht deel aan eenvoudige mondelinge en schriftelijke interactie.",
+      "descriptionEn": "The pupil takes part purposefully in simple oral and written interaction."
+    },
+    {
+      "codes": {
+        "S1A": "UD02.09"
+      },
+      "extension": [
+        "S1A"
+      ],
+      "description": "De leerlingen analyseren het Standaardnederlands als taalsysteem.",
+      "descriptionEn": "Pupils analyse Standard Dutch as a language system."
+    },
+    {
+      "codes": {
+        "S1A": "UD02.11"
+      },
+      "extension": [
+        "S1A"
+      ],
+      "description": "De leerlingen geven overeenkomsten en verschillen aan in taaluitingen, taalvariëteiten en talen.",
+      "descriptionEn": "Pupils indicate similarities and differences in utterances, language varieties and languages."
+    },
+    {
+      "codes": {
+        "S1B": "02.02"
+      },
+      "description": "De leerlingen beoordelen doelgericht aangereikte informatie op betrouwbaarheid en bruikbaarheid bij het lezen en luisteren.",
+      "descriptionEn": "Pupils purposefully assess the information provided for reliability and usefulness when reading and listening."
+    },
+    {
+      "codes": {
+        "S1B": "02.04"
+      },
+      "description": "De leerlingen spreken en schrijven doelgericht in eenvoudige communicatieve situaties.",
+      "descriptionEn": "Pupils speak and write purposefully in simple communicative situations."
+    },
+    {
+      "codes": {
+        "S1B": "02.06"
+      },
+      "description": "De leerlingen nemen doelgericht deel aan eenvoudige mondelinge en schriftelijke interactie.",
+      "descriptionEn": "Pupils take part purposefully in simple oral and written interaction."
+    },
+    {
+      "codes": {
+        "S1B": "02.11"
+      },
+      "description": "De leerlingen geven overeenkomsten en verschillen aan in taaluitingen, tussen standaardtaal en regionale taalvariëteiten en tussen talen.",
+      "descriptionEn": "Pupils indicate similarities and differences in utterances, between standard language and regional language varieties, and between languages."
+    }
+  ]
+}

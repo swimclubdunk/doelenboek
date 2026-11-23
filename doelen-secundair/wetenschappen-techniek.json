@@ -1,0 +1,231 @@
+{
+  "subject": "WT",
+  "name": "Wetenschappen & techniek",
+  "nameEn": "Science & technology",
+  "doelen": [
+    {
+      "codes": {
+        "S1A": "06.24"
+      },
+      "description": "De leerlingen leggen de samenhang tussen de verschillende organisatieniveaus in een plantaardig en dierlijk organisme uit met de cel als basiseenheid.",
+      "descriptionEn": "Pupils explain the connection between the different levels of organisation in a plant and animal organism, with the cell as the basic unit."
+    },
+    {
+      "codes": {
+        "S1A": "06.25"
+      },
+      "description": "De leerlingen leggen het belang van fotosynthese uit.",
+      "descriptionEn": "Pupils explain the importance of photosynthesis."
+    },
+    {
+      "codes": {
+        "S1A": "06.26"
+      },
+      "description": "De leerlingen leggen uit hoe stofomzettingen, stofuitwisselingen en energieomzettingen het functioneren van de mens en dieren mogelijk maken.",
+      "descriptionEn": "Pupils explain how conversions of matter, exchanges of matter and energy conversions enable humans and animals to function."
+    },
+    {
+      "codes": {
+        "S1A": "06.27",
+        "S1B": "06.14"
+      },
+      "description": "De leerlingen illustreren voortplantingswijzen van planten en dieren.",
+      "descriptionEn": "Pupils illustrate ways in which plants and animals reproduce."
+    },
+    {
+      "codes": {
+        "S1A": "06.28",
+        "S1B": "06.15"
+      },
+      "description": "De leerlingen leggen het verloop van de voortplanting bij de mens uit.",
+      "descriptionEn": "Pupils explain the course of human reproduction."
+    },
+    {
+      "codes": {
+        "S1A": "06.29"
+      },
+      "description": "De leerlingen analyseren voor een biotoop de onderlinge relaties tussen verschillende organismen en de rol van biotische en abiotische factoren.",
+      "descriptionEn": "Pupils analyse, for a biotope, the relationships between different organisms and the role of biotic and abiotic factors."
+    },
+    {
+      "codes": {
+        "S1A": "06.30"
+      },
+      "description": "De leerlingen leggen het verschil uit tussen een chemisch en een fysisch verschijnsel aan de hand van het deeltjesmodel.",
+      "descriptionEn": "Pupils explain the difference between a chemical and a physical phenomenon using the particle model."
+    },
+    {
+      "codes": {
+        "S1A": "06.31"
+      },
+      "description": "De leerlingen leggen het verschil uit tussen mengsels en zuivere stoffen aan de hand van het deeltjesmodel in betekenisvolle contexten.",
+      "descriptionEn": "Pupils explain the difference between mixtures and pure substances using the particle model in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1A": "06.32"
+      },
+      "description": "De leerlingen beschrijven energieomzettingen in systemen.",
+      "descriptionEn": "Pupils describe energy conversions in systems."
+    },
+    {
+      "codes": {
+        "S1A": "06.33"
+      },
+      "description": "De leerlingen leggen het verband tussen krachten en hun uitwerking in betekenisvolle contexten.",
+      "descriptionEn": "Pupils make the connection between forces and their effects in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1A": "06.34"
+      },
+      "description": "De leerlingen leggen het verband tussen massadichtheid, volume en massa.",
+      "descriptionEn": "Pupils make the connection between density, volume and mass."
+    },
+    {
+      "codes": {
+        "S1A": "06.35"
+      },
+      "description": "De leerlingen leggen het verband tussen constante snelheid, verplaatsing en tijdsduur.",
+      "descriptionEn": "Pupils make the connection between constant speed, displacement and duration."
+    },
+    {
+      "codes": {
+        "S1A": "06.36"
+      },
+      "description": "De leerlingen analyseren eigenschappen van materialen en grondstoffen in functie van een probleemstelling.",
+      "descriptionEn": "Pupils analyse properties of materials and raw materials in relation to a problem."
+    },
+    {
+      "codes": {
+        "S1A": "06.37",
+        "S1B": "06.22"
+      },
+      "description": "De leerlingen analyseren principes van de bouw en werking van technische systemen, hun deelsystemen, onderdelen en hun onderlinge samenhang in een energiesysteem en een informatieverwerkend systeem en in minstens 1 van de volgende systemen: een constructiesysteem, een transportsysteem en een biotechnische systeem.",
+      "descriptionEn": "Pupils analyse principles of the structure and operation of technical systems, their subsystems, components and how they relate to each other in an energy system and an information-processing system and in at least 1 of the following systems: a construction system, a transport system and a biotechnical system."
+    },
+    {
+      "codes": {
+        "S1A": "06.38",
+        "S1B": "06.23"
+      },
+      "description": "De leerlingen doorlopen een technisch proces om een technisch systeem te realiseren vanuit behoefte(n) en criteria.",
+      "descriptionEn": "Pupils go through a technical process to create a technical system based on need(s) and criteria."
+    },
+    {
+      "codes": {
+        "S1A": "06.39"
+      },
+      "description": "De leerlingen werken op een veilige en duurzame manier met materialen, stoffen, organismen en technische systemen.",
+      "descriptionEn": "Pupils work safely and sustainably with materials, substances, organisms and technical systems."
+    },
+    {
+      "codes": {
+        "S1A": "06.40",
+        "S1B": "06.25"
+      },
+      "description": "De leerlingen gebruiken met de nodige nauwkeurigheid meetinstrumenten en hulpmiddelen.",
+      "descriptionEn": "Pupils use measuring instruments and tools with the necessary accuracy."
+    },
+    {
+      "codes": {
+        "S1A": "06.41",
+        "S1B": "06.26"
+      },
+      "description": "De leerlingen gebruiken gepaste grootheden en eenheden in een correcte weergave.",
+      "descriptionEn": "Pupils use appropriate quantities and units, notated correctly."
+    },
+    {
+      "codes": {
+        "S1A": "06.42"
+      },
+      "description": "De leerlingen voeren onderzoek aan de hand van een wetenschappelijke methode om kennis te ontwikkelen en om vragen te beantwoorden.",
+      "descriptionEn": "Pupils carry out investigations using a scientific method to develop knowledge and to answer questions."
+    },
+    {
+      "codes": {
+        "S1A": "06.43",
+        "S1B": "06.28"
+      },
+      "description": "De leerlingen ontwerpen een oplossing voor een probleem door wetenschappen, technologie of wiskunde geïntegreerd aan te wenden.",
+      "descriptionEn": "Pupils design a solution to a problem by using science, technology or mathematics in an integrated way."
+    },
+    {
+      "codes": {
+        "S1A": "06.44"
+      },
+      "description": "De leerlingen illustreren de wisselwerking tussen wetenschappen, technologie, wiskunde en de maatschappij aan de hand van maatschappelijke uitdagingen.",
+      "descriptionEn": "Pupils illustrate the interaction between science, technology, mathematics and society using societal challenges."
+    },
+    {
+      "codes": {
+        "S1B": "06.12"
+      },
+      "description": "De leerlingen illustreren het belang van fotosynthese.",
+      "descriptionEn": "Pupils illustrate the importance of photosynthesis."
+    },
+    {
+      "codes": {
+        "S1B": "06.13"
+      },
+      "description": "De leerlingen leggen het belang van voeding uit voor het functioneren van de mens.",
+      "descriptionEn": "Pupils explain the importance of nutrition for the functioning of the human body."
+    },
+    {
+      "codes": {
+        "S1B": "06.16"
+      },
+      "description": "De leerlingen illustreren voor een biotoop de onderlinge relaties tussen verschillende organismen en de rol van biotische en abiotische factoren.",
+      "descriptionEn": "Pupils illustrate, for a biotope, the relationships between different organisms and the role of biotic and abiotic factors."
+    },
+    {
+      "codes": {
+        "S1B": "06.17"
+      },
+      "description": "De leerlingen leggen het verschil uit tussen een chemisch en een fysisch verschijnsel aan de hand van het deeltjesmodel in betekenisvolle contexten.",
+      "descriptionEn": "Pupils explain the difference between a chemical and a physical phenomenon using the particle model in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.18"
+      },
+      "description": "De leerlingen illustreren het verschil tussen zuivere stoffen en mengsels aan de hand van het deeltjesmodel in betekenisvolle contexten.",
+      "descriptionEn": "Pupils illustrate the difference between pure substances and mixtures using the particle model in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.19"
+      },
+      "description": "De leerlingen beschrijven energieomzettingen aan de hand van voorbeelden uit het dagelijkse leven.",
+      "descriptionEn": "Pupils describe energy conversions using examples from everyday life."
+    },
+    {
+      "codes": {
+        "S1B": "06.20"
+      },
+      "description": "De leerlingen illustreren krachten en hun uitwerking in betekenisvolle contexten.",
+      "descriptionEn": "Pupils illustrate forces and their effects in meaningful contexts."
+    },
+    {
+      "codes": {
+        "S1B": "06.21"
+      },
+      "description": "De leerlingen passen methodes toe om eigenschappen van materialen en grondstoffen vast te stellen in functie van een probleemstelling.",
+      "descriptionEn": "Pupils apply methods to determine properties of materials and raw materials in relation to a problem."
+    },
+    {
+      "codes": {
+        "S1B": "06.24"
+      },
+      "description": "De leerlingen werken op een veilige en duurzame manier met materialen, organismen, stoffen en technische systemen.",
+      "descriptionEn": "Pupils work safely and sustainably with materials, organisms, substances and technical systems."
+    },
+    {
+      "codes": {
+        "S1B": "06.27"
+      },
+      "description": "De leerlingen passen een wetenschappelijke methode toe om vragen te beantwoorden.",
+      "descriptionEn": "Pupils apply a scientific method to answer questions."
+    }
+  ]
+}

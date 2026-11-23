@@ -1,0 +1,47 @@
+{
+  "subject": "MV",
+  "name": "Muzische vorming",
+  "nameEn": "Arts education",
+  "doelen": [
+    {
+      "codes": {
+        "S1A": "16.01",
+        "S1B": "16.01"
+      },
+      "description": "De leerlingen beschrijven kunst- en cultuuruitingen vanuit eigen waarneming.",
+      "descriptionEn": "Pupils describe art and cultural expressions based on their own observation."
+    },
+    {
+      "codes": {
+        "S1A": "16.02",
+        "S1B": "16.02"
+      },
+      "description": "De leerlingen brengen kunst- en cultuuruitingen in verband met de context waarin ze voorkomen.",
+      "descriptionEn": "Pupils relate art and cultural expressions to the context in which they occur."
+    },
+    {
+      "codes": {
+        "S1A": "16.03",
+        "S1B": "16.03"
+      },
+      "description": "De leerlingen reflecteren over eigen beleving bij uiteenlopende kunst- en cultuuruitingen.",
+      "descriptionEn": "Pupils reflect on their own experience of diverse art and cultural expressions."
+    },
+    {
+      "codes": {
+        "S1A": "16.04",
+        "S1B": "16.04"
+      },
+      "description": "De leerlingen lichten toe hoe een kunstwerk vanuit vorm en inhoud betekenis geeft.",
+      "descriptionEn": "Pupils explain how a work of art conveys meaning through form and content."
+    },
+    {
+      "codes": {
+        "S1A": "16.05",
+        "S1B": "16.05"
+      },
+      "description": "De leerlingen doorlopen een artistiek-creatief proces vanuit verbeelding.",
+      "descriptionEn": "Pupils go through an artistic-creative process starting from imagination."
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "subject": "MA",
+  "name": "Maatschappij",
+  "nameEn": "Society",
+  "doelen": [
+    {
+      "codes": {
+        "S1A": "07.01",
+        "S1B": "07.01"
+      },
+      "category": "Burgerschap",
+      "categoryEn": "Citizenship",
+      "description": "De leerlingen lichten de betekenis, de principes en de werking van de democratische rechtsstaat en hun verantwoordelijkheid daarin toe.",
+      "descriptionEn": "Pupils explain the meaning, the principles and the workings of the democratic constitutional state and their responsibility within it."
+    },
+    {
+      "codes": {
+        "S1A": "07.02",
+        "S1B": "07.02"
+      },
+      "category": "Burgerschap",
+      "categoryEn": "Citizenship",
+      "description": "De leerlingen reflecteren over het relationele, gelaagde en dynamische karakter van identiteit.",
+      "descriptionEn": "Pupils reflect on the relational, layered and dynamic nature of identity."
+    },
+    {
+      "codes": {
+        "S1A": "07.03",
+        "S1B": "07.03"
+      },
+      "category": "Burgerschap",
+      "categoryEn": "Citizenship",
+      "description": "De leerlingen lichten toe hoe verschillende vormen van diversiteit verrijkend en uitdagend zijn voor het samenleven.",
+      "descriptionEn": "Pupils explain how different forms of diversity are enriching and challenging for living together."
+    },
+    {
+      "codes": {
+        "S1A": "07.04",
+        "S1B": "07.04"
+      },
+      "category": "Burgerschap",
+      "categoryEn": "Citizenship",
+      "description": "De leerlingen gaan geïnformeerd, beargumenteerd en constructief in dialoog over maatschappelijke thema's.",
+      "descriptionEn": "Pupils engage in informed, reasoned and constructive dialogue about social issues."
+    },
+    {
+      "codes": {
+        "S1A": "11.01",
+        "S1B": "11.01"
+      },
+      "category": "Economische en financiële competenties",
+      "categoryEn": "Economic and financial skills",
+      "description": "De leerlingen beargumenteren hun keuzegedrag bij aankopen rekening houdend met hun behoeften, met een persoonlijk budget en een beschikbaar gezinsbudget en met factoren die hun koopgedrag beïnvloeden.",
+      "descriptionEn": "Pupils justify their choices when making purchases, taking into account their needs, a personal budget and an available household budget, and factors that influence their buying behaviour."
+    },
+    {
+      "codes": {
+        "S1A": "11.02",
+        "S1B": "11.02"
+      },
+      "category": "Economische en financiële competenties",
+      "categoryEn": "Economic and financial skills",
+      "description": "De leerlingen beoordelen courante betaalmiddelen en courante verkoopkanalen op het vlak van veiligheid, risico's en kosten.",
+      "descriptionEn": "Pupils assess common means of payment and common sales channels in terms of security, risks and costs."
+    },
+    {
+      "codes": {
+        "S1A": "11.03",
+        "S1B": "11.03"
+      },
+      "category": "Economische en financiële competenties",
+      "categoryEn": "Economic and financial skills",
+      "description": "De leerlingen lichten de rol van gezinnen, bedrijven en overheid in de economie toe.",
+      "descriptionEn": "Pupils explain the role of households, businesses and government in the economy."
+    }
+  ]
+}

@@ -526,6 +526,10 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .tier-grid label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: 0 0 0 1px var(--accent); }
 .tier-grid label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 @media (max-width: 520px) { .tier-grid { grid-template-columns: 1fr; } }
+/* "Uitbreidingsdoel": a quiet label after a secundair goal's category; a tap or hover explains it */
+.ext-tag { display: inline-block; margin-left: 6px; padding: 0 7px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2);
+  color: var(--muted); font: inherit; font-size: .7rem; font-weight: 700; letter-spacing: 0; text-transform: none; line-height: 1.5; vertical-align: 1px; cursor: help; }
+button.ext-tag:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .tier-badge { display: inline-block; vertical-align: middle; font-size: .72rem; font-weight: 800; letter-spacing: .02em; padding: 2px 9px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 14%, transparent); white-space: nowrap; }
 /* goal picker: a second dialog stacked on top of the activity form */
 #dlg2 { width: min(880px, calc(100vw - 24px)); }
@@ -3073,6 +3077,389 @@ const BUILTIN_GOALS = [
   "categoryEn": "Literature",
   "description": "De leerling kan een eigen talige creatie mondeling of schriftelijk presenteren. (bv. een verhaal, een gedicht, een toneeldialoog)",
   "descriptionEn": "The pupil can present his/her own language creation orally or in writing. (e.g. a story, a poem, a dialogue for a play)"
+ },
+ {
+  "id": "b-NL-S1A-02.01",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.01",
+  "codes": {
+   "S1A": "02.01",
+   "S1B": "02.01"
+  },
+  "category": "",
+  "description": "De leerlingen bepalen het onderwerp, de hoofdgedachte en de hoofdpunten bij het doelgericht lezen en beluisteren van teksten.",
+  "descriptionEn": "Pupils determine the topic, the main idea and the main points when reading and listening to texts purposefully."
+ },
+ {
+  "id": "b-NL-S1A-02.02",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.02",
+  "codes": {
+   "S1A": "02.02",
+   "S1B": "UD02.02"
+  },
+  "ext": [
+   "S1B"
+  ],
+  "category": "",
+  "description": "De leerlingen beoordelen doelgericht informatie op betrouwbaarheid, correctheid en bruikbaarheid bij het lezen en luisteren.",
+  "descriptionEn": "Pupils purposefully assess information for reliability, correctness and usefulness when reading and listening."
+ },
+ {
+  "id": "b-NL-S1A-02.03",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.03",
+  "codes": {
+   "S1A": "02.03",
+   "S1B": "02.03"
+  },
+  "category": "",
+  "description": "De leerlingen selecteren relevante informatie bij het lezen en beluisteren van teksten.",
+  "descriptionEn": "Pupils select relevant information when reading and listening to texts."
+ },
+ {
+  "id": "b-NL-S1A-02.04",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.04",
+  "codes": {
+   "S1A": "02.04",
+   "S1B": "UD02.04"
+  },
+  "ext": [
+   "S1B"
+  ],
+  "category": "",
+  "description": "De leerlingen nemen notities bij het lezen en beluisteren van teksten.",
+  "descriptionEn": "Pupils take notes when reading and listening to texts."
+ },
+ {
+  "id": "b-NL-S1A-02.05",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.05",
+  "codes": {
+   "S1A": "02.05",
+   "S1B": "UD02.05"
+  },
+  "ext": [
+   "S1B"
+  ],
+  "category": "",
+  "description": "De leerlingen spreken en schrijven doelgericht.",
+  "descriptionEn": "Pupils speak and write purposefully."
+ },
+ {
+  "id": "b-NL-S1A-02.06",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.06",
+  "codes": {
+   "S1A": "02.06",
+   "S1B": "02.05"
+  },
+  "category": "",
+  "description": "De leerlingen drukken zich creatief uit met taal.",
+  "descriptionEn": "Pupils express themselves creatively through language."
+ },
+ {
+  "id": "b-NL-S1A-02.07",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.07",
+  "codes": {
+   "S1A": "02.07",
+   "S1B": "UD02.06"
+  },
+  "ext": [
+   "S1B"
+  ],
+  "category": "",
+  "description": "De leerlingen nemen doelgericht deel aan mondelinge en schriftelijke interactie.",
+  "descriptionEn": "Pupils take part purposefully in oral and written interaction."
+ },
+ {
+  "id": "b-NL-S1A-02.08",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.08",
+  "codes": {
+   "S1A": "02.08",
+   "S1B": "02.07"
+  },
+  "category": "",
+  "description": "De leerlingen zetten doelgericht strategieën in ter ondersteuning van informatieverwerking en communicatieve handelingen.",
+  "descriptionEn": "Pupils purposefully use strategies to support information processing and communicative actions."
+ },
+ {
+  "id": "b-NL-S1A-02.09",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.09",
+  "codes": {
+   "S1A": "02.09",
+   "S1B": "02.08"
+  },
+  "category": "",
+  "description": "De leerlingen zetten eerder en nieuwverworven woordenschat in ter ondersteuning van hun communicatieve handelingen.",
+  "descriptionEn": "Pupils use previously and newly acquired vocabulary to support their communicative actions."
+ },
+ {
+  "id": "b-NL-S1A-02.10",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.10",
+  "codes": {
+   "S1A": "02.10",
+   "S1B": "02.09"
+  },
+  "category": "",
+  "description": "De leerlingen passen inzicht in het taalsysteem toe ter ondersteuning van hun communicatieve handelingen.",
+  "descriptionEn": "Pupils apply insight into the language system to support their communicative actions."
+ },
+ {
+  "id": "b-NL-S1A-02.11",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.11",
+  "codes": {
+   "S1A": "02.11",
+   "S1B": "02.10"
+  },
+  "category": "",
+  "description": "De leerlingen passen inzicht in taalgebruik toe ter ondersteuning van hun communicatieve handelingen.",
+  "descriptionEn": "Pupils apply insight into language use to support their communicative actions."
+ },
+ {
+  "id": "b-NL-S1A-02.12",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.12",
+  "codes": {
+   "S1A": "02.12",
+   "S1B": "UD02.11"
+  },
+  "ext": [
+   "S1B"
+  ],
+  "category": "",
+  "description": "De leerlingen geven overeenkomsten en verschillen aan in taaluitingen, tussen standaardtaal, regionale, sociale en situationele taalvariëteiten en tussen talen.",
+  "descriptionEn": "Pupils indicate similarities and differences in utterances, between standard language and regional, social and situational language varieties, and between languages."
+ },
+ {
+  "id": "b-NL-S1A-02.13",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "02.13",
+  "codes": {
+   "S1A": "02.13",
+   "S1B": "02.12"
+  },
+  "category": "",
+  "description": "De leerlingen verwoorden de eigen beleving en interpretatie van literaire teksten.",
+  "descriptionEn": "Pupils put into words their own experience and interpretation of literary texts."
+ },
+ {
+  "id": "b-NL-S1A-BG02.01",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "BG02.01",
+  "codes": {
+   "S1A": "BG02.01",
+   "S1B": "BG02.01"
+  },
+  "category": "",
+  "description": "De leerling haalt bij het lezen en luisteren doelgericht het onderwerp en relevante informatie uit niet-fictionele teksten.",
+  "descriptionEn": "The pupil purposefully extracts the topic and relevant information from non-fiction texts when reading and listening."
+ },
+ {
+  "id": "b-NL-S1A-BG02.02",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "BG02.02",
+  "codes": {
+   "S1A": "BG02.02",
+   "S1B": "BG02.02"
+  },
+  "category": "",
+  "description": "De leerling spreekt en schrijft doelgericht in eenvoudige communicatieve situaties.",
+  "descriptionEn": "The pupil speaks and writes purposefully in simple communicative situations."
+ },
+ {
+  "id": "b-NL-S1A-BG02.03",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "BG02.03",
+  "codes": {
+   "S1A": "BG02.03",
+   "S1B": "BG02.03"
+  },
+  "category": "",
+  "description": "De leerling neemt doelgericht deel aan eenvoudige mondelinge en schriftelijke interactie.",
+  "descriptionEn": "The pupil takes part purposefully in simple oral and written interaction."
+ },
+ {
+  "id": "b-NL-S1A-UD02.09",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "UD02.09",
+  "codes": {
+   "S1A": "UD02.09"
+  },
+  "ext": [
+   "S1A"
+  ],
+  "category": "",
+  "description": "De leerlingen analyseren het Standaardnederlands als taalsysteem.",
+  "descriptionEn": "Pupils analyse Standard Dutch as a language system."
+ },
+ {
+  "id": "b-NL-S1A-UD02.11",
+  "subject": "NL",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "UD02.11",
+  "codes": {
+   "S1A": "UD02.11"
+  },
+  "ext": [
+   "S1A"
+  ],
+  "category": "",
+  "description": "De leerlingen geven overeenkomsten en verschillen aan in taaluitingen, taalvariëteiten en talen.",
+  "descriptionEn": "Pupils indicate similarities and differences in utterances, language varieties and languages."
+ },
+ {
+  "id": "b-NL-S1B-02.02",
+  "subject": "NL",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "02.02",
+  "codes": {
+   "S1B": "02.02"
+  },
+  "category": "",
+  "description": "De leerlingen beoordelen doelgericht aangereikte informatie op betrouwbaarheid en bruikbaarheid bij het lezen en luisteren.",
+  "descriptionEn": "Pupils purposefully assess the information provided for reliability and usefulness when reading and listening."
+ },
+ {
+  "id": "b-NL-S1B-02.04",
+  "subject": "NL",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "02.04",
+  "codes": {
+   "S1B": "02.04"
+  },
+  "category": "",
+  "description": "De leerlingen spreken en schrijven doelgericht in eenvoudige communicatieve situaties.",
+  "descriptionEn": "Pupils speak and write purposefully in simple communicative situations."
+ },
+ {
+  "id": "b-NL-S1B-02.06",
+  "subject": "NL",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "02.06",
+  "codes": {
+   "S1B": "02.06"
+  },
+  "category": "",
+  "description": "De leerlingen nemen doelgericht deel aan eenvoudige mondelinge en schriftelijke interactie.",
+  "descriptionEn": "Pupils take part purposefully in simple oral and written interaction."
+ },
+ {
+  "id": "b-NL-S1B-02.11",
+  "subject": "NL",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "02.11",
+  "codes": {
+   "S1B": "02.11"
+  },
+  "category": "",
+  "description": "De leerlingen geven overeenkomsten en verschillen aan in taaluitingen, tussen standaardtaal en regionale taalvariëteiten en tussen talen.",
+  "descriptionEn": "Pupils indicate similarities and differences in utterances, between standard language and regional language varieties, and between languages."
  },
  {
   "id": "b-WK-2.1.1",
@@ -6085,6 +6472,584 @@ const BUILTIN_GOALS = [
   "descriptionEn": "The pupil can, with natural numbers up to and including 10 000 (or larger numbers ending in zeros), decimal numbers (to one thousandth) and fractions (denominators up to and including 100), solve (multi-step) word problems about: fractions and percentages with: a fraction as an operator or as part/whole; growth percentages (e.g. a population increase); absolute and relative comparisons (with a ratio table, a fraction or a percentage) (e.g. at the Vlinderschool (100 pupils) 48% cycle, at the Parkschool (2000 pupils) one fifth do. Relatively more cyclists at the Vlinderschool, in absolute terms more at the Parkschool.). divisors, multiples and finding the remainder; the operations (+, -, x, :) with (multi-step word problems): natural numbers; decimal numbers, fractions, percentages. unequal sharing where: the sum and the difference are given; the sum and the ratio of the parts are given. mixtures; ratios using a ratio table (including the rule of three) where: equivalent ratios are found; the missing term of a ratio is calculated; directly proportional, inversely proportional and non-proportional quantities play a part (e.g. number-price, distance-price, distance-time, mass-price, number of animals-amount of food, flow rate-time, time-speed). a single quantity: length, area, capacity, volume, mass, time, money, temperature, angle size; relationships between quantities (with and without percentages): price calculations: profit/loss, discount, price increase, simple interest; gross/tare/net; distance, speed and time; scale, length on the scale drawing and real length. geometric shapes where their properties are used; statistics with tables, graphs, charts, mean and median."
  },
  {
+  "id": "b-WK-S1A-06.01",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.01",
+  "codes": {
+   "S1A": "06.01"
+  },
+  "category": "",
+  "description": "De leerlingen rekenen met natuurlijke, gehele en rationale getallen.",
+  "descriptionEn": "Pupils calculate with natural numbers, integers and rational numbers."
+ },
+ {
+  "id": "b-WK-S1A-06.02",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.02",
+  "codes": {
+   "S1A": "06.02"
+  },
+  "category": "",
+  "description": "De leerlingen zetten rationale getallen om van de ene naar de andere voorstellingswijze: decimale vorm, breuk en procent.",
+  "descriptionEn": "Pupils convert rational numbers from one form of representation to another: decimal form, fraction and percentage."
+ },
+ {
+  "id": "b-WK-S1A-06.03",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.03",
+  "codes": {
+   "S1A": "06.03"
+  },
+  "category": "",
+  "description": "De leerlingen ordenen rationale getallen.",
+  "descriptionEn": "Pupils order rational numbers."
+ },
+ {
+  "id": "b-WK-S1A-06.04",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.04",
+  "codes": {
+   "S1A": "06.04"
+  },
+  "category": "",
+  "description": "De leerlingen analyseren meetkundige objecten met behulp van eigenschappen en meetkundige relaties in het vlak.",
+  "descriptionEn": "Pupils analyse geometric objects using properties and geometric relationships in the plane."
+ },
+ {
+  "id": "b-WK-S1A-06.05",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.05",
+  "codes": {
+   "S1A": "06.05"
+  },
+  "category": "",
+  "description": "De leerlingen construeren meetkundige objecten met gegeven eigenschappen in het vlak.",
+  "descriptionEn": "Pupils construct geometric objects with given properties in the plane."
+ },
+ {
+  "id": "b-WK-S1A-06.06",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.06",
+  "codes": {
+   "S1A": "06.06"
+  },
+  "category": "",
+  "description": "De leerlingen passen congruentiekenmerken van driehoeken toe.",
+  "descriptionEn": "Pupils apply congruence criteria for triangles."
+ },
+ {
+  "id": "b-WK-S1A-06.07",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.07",
+  "codes": {
+   "S1A": "06.07"
+  },
+  "category": "",
+  "description": "De leerlingen leggen het verband tussen een vlakke figuur en haar beeld onder een transformatie van het vlak.",
+  "descriptionEn": "Pupils make the link between a plane figure and its image under a transformation of the plane."
+ },
+ {
+  "id": "b-WK-S1A-06.08",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.08",
+  "codes": {
+   "S1A": "06.08"
+  },
+  "category": "",
+  "description": "De leerlingen berekenen omtrek en oppervlakte van vlakke figuren: driehoek, trapezium, parallellogram, ruit, rechthoek, vierkant en cirkel.",
+  "descriptionEn": "Pupils calculate the perimeter and area of plane figures: triangle, trapezium, parallelogram, rhombus, rectangle, square and circle."
+ },
+ {
+  "id": "b-WK-S1A-06.09",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.09",
+  "codes": {
+   "S1A": "06.09"
+  },
+  "category": "",
+  "description": "De leerlingen analyseren aan de hand van 2D- en 3D-voorstellingen meetkundige objecten in de ruimte: kubus, balk, piramide, bol, kegel en cilinder.",
+  "descriptionEn": "Pupils analyse geometric objects in space using 2D and 3D representations: cube, cuboid, pyramid, sphere, cone and cylinder."
+ },
+ {
+  "id": "b-WK-S1A-06.10",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.10",
+  "codes": {
+   "S1A": "06.10"
+  },
+  "category": "",
+  "description": "De leerlingen berekenen oppervlakte en volume van ruimtefiguren: kubus, balk en cilinder.",
+  "descriptionEn": "Pupils calculate the surface area and volume of solids: cube, cuboid and cylinder."
+ },
+ {
+  "id": "b-WK-S1A-06.11",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.11",
+  "codes": {
+   "S1A": "06.11"
+  },
+  "category": "",
+  "description": "De leerlingen gebruiken letters als onbekenden, als variabelen en voor veralgemeningen.",
+  "descriptionEn": "Pupils use letters as unknowns, as variables and for generalisations."
+ },
+ {
+  "id": "b-WK-S1A-06.12",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.12",
+  "codes": {
+   "S1A": "06.12"
+  },
+  "category": "",
+  "description": "De leerlingen rekenen met algebraïsche uitdrukkingen.",
+  "descriptionEn": "Pupils calculate with algebraic expressions."
+ },
+ {
+  "id": "b-WK-S1A-06.13",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.13",
+  "codes": {
+   "S1A": "06.13"
+  },
+  "category": "",
+  "description": "De leerlingen bepalen de getalwaarde van een algebraïsche uitdrukking.",
+  "descriptionEn": "Pupils determine the numerical value of an algebraic expression."
+ },
+ {
+  "id": "b-WK-S1A-06.14",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.14",
+  "codes": {
+   "S1A": "06.14"
+  },
+  "category": "",
+  "description": "De leerlingen hanteren coördinaten in het vlak.",
+  "descriptionEn": "Pupils use coordinates in the plane."
+ },
+ {
+  "id": "b-WK-S1A-06.15",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.15",
+  "codes": {
+   "S1A": "06.15"
+  },
+  "category": "",
+  "description": "De leerlingen analyseren recht en omgekeerd evenredige verbanden tussen grootheden.",
+  "descriptionEn": "Pupils analyse directly and inversely proportional relationships between quantities."
+ },
+ {
+  "id": "b-WK-S1A-06.16",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.16",
+  "codes": {
+   "S1A": "06.16"
+  },
+  "category": "",
+  "description": "De leerlingen stellen formules op die regelmaat in eenvoudige patronen en schema's beschrijven.",
+  "descriptionEn": "Pupils write formulae that describe regularity in simple patterns and diagrams."
+ },
+ {
+  "id": "b-WK-S1A-06.17",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.17",
+  "codes": {
+   "S1A": "06.17"
+  },
+  "category": "",
+  "description": "De leerlingen lossen vergelijkingen van de eerste graad op in één onbekende in de verzameling van de rationale getallen.",
+  "descriptionEn": "Pupils solve first-degree equations in one unknown in the set of rational numbers."
+ },
+ {
+  "id": "b-WK-S1A-06.18",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.18",
+  "codes": {
+   "S1A": "06.18"
+  },
+  "category": "",
+  "description": "De leerlingen voeren een beschrijvend statistisch onderzoek uit met niet-gegroepeerde gegevens van één grootheid.",
+  "descriptionEn": "Pupils carry out a descriptive statistical investigation with ungrouped data for one quantity."
+ },
+ {
+  "id": "b-WK-S1A-06.19",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.19",
+  "codes": {
+   "S1A": "06.19"
+  },
+  "category": "",
+  "description": "De leerlingen beargumenteren wiskundige redeneringen.",
+  "descriptionEn": "Pupils give reasons for mathematical reasoning."
+ },
+ {
+  "id": "b-WK-S1A-06.20",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.20",
+  "codes": {
+   "S1A": "06.20"
+  },
+  "category": "",
+  "description": "De leerlingen voeren bewerkingen met twee verzamelingen uit: doorsnede, unie en verschil.",
+  "descriptionEn": "Pupils carry out operations on two sets: intersection, union and difference."
+ },
+ {
+  "id": "b-WK-S1A-06.21",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.21",
+  "codes": {
+   "S1A": "06.21"
+  },
+  "category": "",
+  "description": "De leerlingen lossen vraagstukken en problemen op door te mathematiseren en demathematiseren en door gebruik te maken van heuristieken.",
+  "descriptionEn": "Pupils solve word problems and problems by mathematising and demathematising and by using heuristics."
+ },
+ {
+  "id": "b-WK-S1A-06.22",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.22",
+  "codes": {
+   "S1A": "06.22"
+  },
+  "category": "",
+  "description": "De leerlingen gebruiken ICT om berekeningen uit te voeren en grafische voorstellingen te maken.",
+  "descriptionEn": "Pupils use ICT to carry out calculations and make graphical representations."
+ },
+ {
+  "id": "b-WK-S1A-06.23",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.23",
+  "codes": {
+   "S1A": "06.23"
+  },
+  "category": "",
+  "description": "De leerlingen beschrijven fenomenen uit de realiteit aan de hand van wiskundige concepten uit de eerste graad.",
+  "descriptionEn": "Pupils describe real-world phenomena using mathematical concepts from the first stage."
+ },
+ {
+  "id": "b-WK-S1A-BG06.01",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "BG06.01",
+  "codes": {
+   "S1A": "BG06.01",
+   "S1B": "BG06.01"
+  },
+  "category": "",
+  "description": "De leerling voert met functioneel gebruik van ICT eenvoudige berekeningen uit met natuurlijke, positieve decimale getallen met maximaal 2 cijfers na de komma, procenten en verhoudingen in betekenisvolle contexten.",
+  "descriptionEn": "The pupil, making functional use of ICT, carries out simple calculations with natural numbers, positive decimal numbers with at most 2 digits after the decimal point, percentages and ratios in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1A-BG06.02",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "BG06.02",
+  "codes": {
+   "S1A": "BG06.02",
+   "S1B": "BG06.02"
+  },
+  "category": "",
+  "description": "De leerling gebruikt maatgetallen en eenheden van grootheden in betekenisvolle contexten.",
+  "descriptionEn": "The pupil uses numerical values and units of quantities in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1A-BG06.03",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "BG06.03",
+  "codes": {
+   "S1A": "BG06.03",
+   "S1B": "BG06.03"
+  },
+  "category": "",
+  "description": "De leerling gebruikt informatie uit eenvoudige tabellen en diagrammen in betekenisvolle contexten.",
+  "descriptionEn": "The pupil uses information from simple tables and charts in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1A-BG06.04",
+  "subject": "WK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "BG06.04",
+  "codes": {
+   "S1A": "BG06.04",
+   "S1B": "BG06.04"
+  },
+  "category": "",
+  "description": "De leerling berekent de omtrek van een vierhoek en de oppervlakte van een rechthoek in betekenisvolle contexten.",
+  "descriptionEn": "The pupil calculates the perimeter of a quadrilateral and the area of a rectangle in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1B-06.01",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.01",
+  "codes": {
+   "S1B": "06.01"
+  },
+  "category": "",
+  "description": "De leerlingen ordenen gehele getallen, decimale getallen en eenvoudige breuken in betekenisvolle contexten.",
+  "descriptionEn": "Pupils order integers, decimal numbers and simple fractions in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1B-06.02",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.02",
+  "codes": {
+   "S1B": "06.02"
+  },
+  "category": "",
+  "description": "De leerlingen voeren met functioneel gebruik van ICT eenvoudige berekeningen uit met gehele getallen, decimale getallen, breuken, procenten en verhoudingen in betekenisvolle contexten.",
+  "descriptionEn": "Pupils, making functional use of ICT, carry out simple calculations with integers, decimal numbers, fractions, percentages and ratios in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1B-06.03",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.03",
+  "codes": {
+   "S1B": "06.03"
+  },
+  "category": "",
+  "description": "De leerlingen ronden zinvol af en schatten resultaten van bewerkingen in betekenisvolle contexten.",
+  "descriptionEn": "Pupils round sensibly and estimate the results of operations in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1B-06.04",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.04",
+  "codes": {
+   "S1B": "06.04"
+  },
+  "category": "",
+  "description": "De leerlingen identificeren meetkundige objecten en relaties in het vlak in betekenisvolle contexten.",
+  "descriptionEn": "Pupils identify geometric objects and relationships in the plane in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1B-06.05",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.05",
+  "codes": {
+   "S1B": "06.05"
+  },
+  "category": "",
+  "description": "De leerlingen stellen vlakke meetkundige objecten grafisch voor in betekenisvolle contexten.",
+  "descriptionEn": "Pupils represent plane geometric objects graphically in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1B-06.06",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.06",
+  "codes": {
+   "S1B": "06.06"
+  },
+  "category": "",
+  "description": "De leerlingen berekenen omtrek en oppervlakte van vlakke figuren in betekenisvolle contexten.",
+  "descriptionEn": "Pupils calculate the perimeter and area of plane figures in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1B-06.07",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.07",
+  "codes": {
+   "S1B": "06.07"
+  },
+  "category": "",
+  "description": "De leerlingen benoemen aan de hand van 2D- en 3D-voorstellingen meetkundige objecten in de ruimte in betekenisvolle contexten: kubus, balk, piramide, bol, kegel, cilinder.",
+  "descriptionEn": "Pupils name geometric objects in space using 2D and 3D representations in meaningful contexts: cube, cuboid, pyramid, sphere, cone, cylinder."
+ },
+ {
+  "id": "b-WK-S1B-06.08",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.08",
+  "codes": {
+   "S1B": "06.08"
+  },
+  "category": "",
+  "description": "De leerlingen berekenen met gegeven formule het volume van ruimtefiguren in betekenisvolle contexten: kubus en balk.",
+  "descriptionEn": "Pupils use a given formula to calculate the volume of solids in meaningful contexts: cube and cuboid."
+ },
+ {
+  "id": "b-WK-S1B-06.09",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.09",
+  "codes": {
+   "S1B": "06.09"
+  },
+  "category": "",
+  "description": "De leerlingen hanteren coördinaten in het vlak in betekenisvolle contexten.",
+  "descriptionEn": "Pupils use coordinates in the plane in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1B-06.10",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.10",
+  "codes": {
+   "S1B": "06.10"
+  },
+  "category": "",
+  "description": "De leerlingen voeren een beschrijvend statistisch onderzoek uit met niet-gegroepeerde gegevens van één grootheid in betekenisvolle contexten.",
+  "descriptionEn": "Pupils carry out a descriptive statistical investigation with ungrouped data for one quantity in meaningful contexts."
+ },
+ {
+  "id": "b-WK-S1B-06.11",
+  "subject": "WK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.11",
+  "codes": {
+   "S1B": "06.11"
+  },
+  "category": "",
+  "description": "De leerlingen lossen vanuit betekenisvolle contexten problemen op door wiskundige concepten en vaardigheden in te zetten.",
+  "descriptionEn": "Pupils solve problems arising from meaningful contexts by applying mathematical concepts and skills."
+ },
+ {
   "id": "b-WT-3.1.1",
   "subject": "WT",
   "tier": "KO",
@@ -7345,6 +8310,485 @@ const BUILTIN_GOALS = [
   "descriptionEn": "Pupils can analyse and describe how technical systems work, how they are built and the choice of materials."
  },
  {
+  "id": "b-WT-S1A-06.24",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.24",
+  "codes": {
+   "S1A": "06.24"
+  },
+  "category": "",
+  "description": "De leerlingen leggen de samenhang tussen de verschillende organisatieniveaus in een plantaardig en dierlijk organisme uit met de cel als basiseenheid.",
+  "descriptionEn": "Pupils explain the connection between the different levels of organisation in a plant and animal organism, with the cell as the basic unit."
+ },
+ {
+  "id": "b-WT-S1A-06.25",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.25",
+  "codes": {
+   "S1A": "06.25"
+  },
+  "category": "",
+  "description": "De leerlingen leggen het belang van fotosynthese uit.",
+  "descriptionEn": "Pupils explain the importance of photosynthesis."
+ },
+ {
+  "id": "b-WT-S1A-06.26",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.26",
+  "codes": {
+   "S1A": "06.26"
+  },
+  "category": "",
+  "description": "De leerlingen leggen uit hoe stofomzettingen, stofuitwisselingen en energieomzettingen het functioneren van de mens en dieren mogelijk maken.",
+  "descriptionEn": "Pupils explain how conversions of matter, exchanges of matter and energy conversions enable humans and animals to function."
+ },
+ {
+  "id": "b-WT-S1A-06.27",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "06.27",
+  "codes": {
+   "S1A": "06.27",
+   "S1B": "06.14"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren voortplantingswijzen van planten en dieren.",
+  "descriptionEn": "Pupils illustrate ways in which plants and animals reproduce."
+ },
+ {
+  "id": "b-WT-S1A-06.28",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "06.28",
+  "codes": {
+   "S1A": "06.28",
+   "S1B": "06.15"
+  },
+  "category": "",
+  "description": "De leerlingen leggen het verloop van de voortplanting bij de mens uit.",
+  "descriptionEn": "Pupils explain the course of human reproduction."
+ },
+ {
+  "id": "b-WT-S1A-06.29",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.29",
+  "codes": {
+   "S1A": "06.29"
+  },
+  "category": "",
+  "description": "De leerlingen analyseren voor een biotoop de onderlinge relaties tussen verschillende organismen en de rol van biotische en abiotische factoren.",
+  "descriptionEn": "Pupils analyse, for a biotope, the relationships between different organisms and the role of biotic and abiotic factors."
+ },
+ {
+  "id": "b-WT-S1A-06.30",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.30",
+  "codes": {
+   "S1A": "06.30"
+  },
+  "category": "",
+  "description": "De leerlingen leggen het verschil uit tussen een chemisch en een fysisch verschijnsel aan de hand van het deeltjesmodel.",
+  "descriptionEn": "Pupils explain the difference between a chemical and a physical phenomenon using the particle model."
+ },
+ {
+  "id": "b-WT-S1A-06.31",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.31",
+  "codes": {
+   "S1A": "06.31"
+  },
+  "category": "",
+  "description": "De leerlingen leggen het verschil uit tussen mengsels en zuivere stoffen aan de hand van het deeltjesmodel in betekenisvolle contexten.",
+  "descriptionEn": "Pupils explain the difference between mixtures and pure substances using the particle model in meaningful contexts."
+ },
+ {
+  "id": "b-WT-S1A-06.32",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.32",
+  "codes": {
+   "S1A": "06.32"
+  },
+  "category": "",
+  "description": "De leerlingen beschrijven energieomzettingen in systemen.",
+  "descriptionEn": "Pupils describe energy conversions in systems."
+ },
+ {
+  "id": "b-WT-S1A-06.33",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.33",
+  "codes": {
+   "S1A": "06.33"
+  },
+  "category": "",
+  "description": "De leerlingen leggen het verband tussen krachten en hun uitwerking in betekenisvolle contexten.",
+  "descriptionEn": "Pupils make the connection between forces and their effects in meaningful contexts."
+ },
+ {
+  "id": "b-WT-S1A-06.34",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.34",
+  "codes": {
+   "S1A": "06.34"
+  },
+  "category": "",
+  "description": "De leerlingen leggen het verband tussen massadichtheid, volume en massa.",
+  "descriptionEn": "Pupils make the connection between density, volume and mass."
+ },
+ {
+  "id": "b-WT-S1A-06.35",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.35",
+  "codes": {
+   "S1A": "06.35"
+  },
+  "category": "",
+  "description": "De leerlingen leggen het verband tussen constante snelheid, verplaatsing en tijdsduur.",
+  "descriptionEn": "Pupils make the connection between constant speed, displacement and duration."
+ },
+ {
+  "id": "b-WT-S1A-06.36",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.36",
+  "codes": {
+   "S1A": "06.36"
+  },
+  "category": "",
+  "description": "De leerlingen analyseren eigenschappen van materialen en grondstoffen in functie van een probleemstelling.",
+  "descriptionEn": "Pupils analyse properties of materials and raw materials in relation to a problem."
+ },
+ {
+  "id": "b-WT-S1A-06.37",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "06.37",
+  "codes": {
+   "S1A": "06.37",
+   "S1B": "06.22"
+  },
+  "category": "",
+  "description": "De leerlingen analyseren principes van de bouw en werking van technische systemen, hun deelsystemen, onderdelen en hun onderlinge samenhang in een energiesysteem en een informatieverwerkend systeem en in minstens 1 van de volgende systemen: een constructiesysteem, een transportsysteem en een biotechnische systeem.",
+  "descriptionEn": "Pupils analyse principles of the structure and operation of technical systems, their subsystems, components and how they relate to each other in an energy system and an information-processing system and in at least 1 of the following systems: a construction system, a transport system and a biotechnical system."
+ },
+ {
+  "id": "b-WT-S1A-06.38",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "06.38",
+  "codes": {
+   "S1A": "06.38",
+   "S1B": "06.23"
+  },
+  "category": "",
+  "description": "De leerlingen doorlopen een technisch proces om een technisch systeem te realiseren vanuit behoefte(n) en criteria.",
+  "descriptionEn": "Pupils go through a technical process to create a technical system based on need(s) and criteria."
+ },
+ {
+  "id": "b-WT-S1A-06.39",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.39",
+  "codes": {
+   "S1A": "06.39"
+  },
+  "category": "",
+  "description": "De leerlingen werken op een veilige en duurzame manier met materialen, stoffen, organismen en technische systemen.",
+  "descriptionEn": "Pupils work safely and sustainably with materials, substances, organisms and technical systems."
+ },
+ {
+  "id": "b-WT-S1A-06.40",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "06.40",
+  "codes": {
+   "S1A": "06.40",
+   "S1B": "06.25"
+  },
+  "category": "",
+  "description": "De leerlingen gebruiken met de nodige nauwkeurigheid meetinstrumenten en hulpmiddelen.",
+  "descriptionEn": "Pupils use measuring instruments and tools with the necessary accuracy."
+ },
+ {
+  "id": "b-WT-S1A-06.41",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "06.41",
+  "codes": {
+   "S1A": "06.41",
+   "S1B": "06.26"
+  },
+  "category": "",
+  "description": "De leerlingen gebruiken gepaste grootheden en eenheden in een correcte weergave.",
+  "descriptionEn": "Pupils use appropriate quantities and units, notated correctly."
+ },
+ {
+  "id": "b-WT-S1A-06.42",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.42",
+  "codes": {
+   "S1A": "06.42"
+  },
+  "category": "",
+  "description": "De leerlingen voeren onderzoek aan de hand van een wetenschappelijke methode om kennis te ontwikkelen en om vragen te beantwoorden.",
+  "descriptionEn": "Pupils carry out investigations using a scientific method to develop knowledge and to answer questions."
+ },
+ {
+  "id": "b-WT-S1A-06.43",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "06.43",
+  "codes": {
+   "S1A": "06.43",
+   "S1B": "06.28"
+  },
+  "category": "",
+  "description": "De leerlingen ontwerpen een oplossing voor een probleem door wetenschappen, technologie of wiskunde geïntegreerd aan te wenden.",
+  "descriptionEn": "Pupils design a solution to a problem by using science, technology or mathematics in an integrated way."
+ },
+ {
+  "id": "b-WT-S1A-06.44",
+  "subject": "WT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "06.44",
+  "codes": {
+   "S1A": "06.44"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren de wisselwerking tussen wetenschappen, technologie, wiskunde en de maatschappij aan de hand van maatschappelijke uitdagingen.",
+  "descriptionEn": "Pupils illustrate the interaction between science, technology, mathematics and society using societal challenges."
+ },
+ {
+  "id": "b-WT-S1B-06.12",
+  "subject": "WT",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.12",
+  "codes": {
+   "S1B": "06.12"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren het belang van fotosynthese.",
+  "descriptionEn": "Pupils illustrate the importance of photosynthesis."
+ },
+ {
+  "id": "b-WT-S1B-06.13",
+  "subject": "WT",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.13",
+  "codes": {
+   "S1B": "06.13"
+  },
+  "category": "",
+  "description": "De leerlingen leggen het belang van voeding uit voor het functioneren van de mens.",
+  "descriptionEn": "Pupils explain the importance of nutrition for the functioning of the human body."
+ },
+ {
+  "id": "b-WT-S1B-06.16",
+  "subject": "WT",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.16",
+  "codes": {
+   "S1B": "06.16"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren voor een biotoop de onderlinge relaties tussen verschillende organismen en de rol van biotische en abiotische factoren.",
+  "descriptionEn": "Pupils illustrate, for a biotope, the relationships between different organisms and the role of biotic and abiotic factors."
+ },
+ {
+  "id": "b-WT-S1B-06.17",
+  "subject": "WT",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.17",
+  "codes": {
+   "S1B": "06.17"
+  },
+  "category": "",
+  "description": "De leerlingen leggen het verschil uit tussen een chemisch en een fysisch verschijnsel aan de hand van het deeltjesmodel in betekenisvolle contexten.",
+  "descriptionEn": "Pupils explain the difference between a chemical and a physical phenomenon using the particle model in meaningful contexts."
+ },
+ {
+  "id": "b-WT-S1B-06.18",
+  "subject": "WT",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.18",
+  "codes": {
+   "S1B": "06.18"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren het verschil tussen zuivere stoffen en mengsels aan de hand van het deeltjesmodel in betekenisvolle contexten.",
+  "descriptionEn": "Pupils illustrate the difference between pure substances and mixtures using the particle model in meaningful contexts."
+ },
+ {
+  "id": "b-WT-S1B-06.19",
+  "subject": "WT",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.19",
+  "codes": {
+   "S1B": "06.19"
+  },
+  "category": "",
+  "description": "De leerlingen beschrijven energieomzettingen aan de hand van voorbeelden uit het dagelijkse leven.",
+  "descriptionEn": "Pupils describe energy conversions using examples from everyday life."
+ },
+ {
+  "id": "b-WT-S1B-06.20",
+  "subject": "WT",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.20",
+  "codes": {
+   "S1B": "06.20"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren krachten en hun uitwerking in betekenisvolle contexten.",
+  "descriptionEn": "Pupils illustrate forces and their effects in meaningful contexts."
+ },
+ {
+  "id": "b-WT-S1B-06.21",
+  "subject": "WT",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.21",
+  "codes": {
+   "S1B": "06.21"
+  },
+  "category": "",
+  "description": "De leerlingen passen methodes toe om eigenschappen van materialen en grondstoffen vast te stellen in functie van een probleemstelling.",
+  "descriptionEn": "Pupils apply methods to determine properties of materials and raw materials in relation to a problem."
+ },
+ {
+  "id": "b-WT-S1B-06.24",
+  "subject": "WT",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.24",
+  "codes": {
+   "S1B": "06.24"
+  },
+  "category": "",
+  "description": "De leerlingen werken op een veilige en duurzame manier met materialen, organismen, stoffen en technische systemen.",
+  "descriptionEn": "Pupils work safely and sustainably with materials, organisms, substances and technical systems."
+ },
+ {
+  "id": "b-WT-S1B-06.27",
+  "subject": "WT",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "06.27",
+  "codes": {
+   "S1B": "06.27"
+  },
+  "category": "",
+  "description": "De leerlingen passen een wetenschappelijke methode toe om vragen te beantwoorden.",
+  "descriptionEn": "Pupils apply a scientific method to answer questions."
+ },
+ {
   "id": "b-GE-5.1.1",
   "subject": "GE",
   "tier": "KO",
@@ -7773,6 +9217,201 @@ const BUILTIN_GOALS = [
   "categoryEn": "Reflection and dialogue about the past and history",
   "description": "De leerlingen kunnen uitleggen wat historische gebeurtenissen, ontwikkelingen, plaatsen, en/of personen voor de samenleving kunnen betekenen: erfgoed: standbeelden, straatnamen, verhalen, feestdagen.",
   "descriptionEn": "Pupils can explain what historical events, developments, places and/or people can mean for society: heritage: statues, street names, stories, public holidays."
+ },
+ {
+  "id": "b-GE-S1A-08.01",
+  "subject": "GE",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "08.01",
+  "codes": {
+   "S1A": "08.01"
+  },
+  "category": "",
+  "description": "De leerlingen bouwen een historisch referentiekader op met structuurbegrippen, scharnierpunten en kenmerken eigen aan de prehistorie, het oude nabije oosten en de klassieke oudheid.",
+  "descriptionEn": "Pupils build a historical frame of reference with structural concepts, turning points and characteristics specific to prehistory, the ancient Near East and classical antiquity."
+ },
+ {
+  "id": "b-GE-S1A-08.02",
+  "subject": "GE",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "08.02",
+  "codes": {
+   "S1A": "08.02"
+  },
+  "category": "",
+  "description": "De leerlingen lichten verbanden toe tussen de maatschappelijke domeinen voor samenlevingen uit de prehistorie, het oude nabije oosten en de klassieke oudheid.",
+  "descriptionEn": "Pupils explain links between the societal domains for societies from prehistory, the ancient Near East and classical antiquity."
+ },
+ {
+  "id": "b-GE-S1A-08.03",
+  "subject": "GE",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "08.03",
+  "codes": {
+   "S1A": "08.03"
+  },
+  "category": "",
+  "description": "De leerlingen vergelijken kenmerken van bestudeerde samenlevingen in eenzelfde periode en tussen periodes.",
+  "descriptionEn": "Pupils compare characteristics of the societies studied within the same period and between periods."
+ },
+ {
+  "id": "b-GE-S1A-08.04",
+  "subject": "GE",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "08.04",
+  "codes": {
+   "S1A": "08.04"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren beperkingen van de westerse periodisering voor de bestudeerde periodes.",
+  "descriptionEn": "Pupils illustrate limitations of Western periodisation for the periods studied."
+ },
+ {
+  "id": "b-GE-S1A-08.05",
+  "subject": "GE",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "08.05",
+  "codes": {
+   "S1A": "08.05"
+  },
+  "category": "",
+  "description": "De leerlingen analyseren kritisch verschillende soorten historische bronnen met betrekking tot de bestudeerde periodes in functie van een historische vraag.",
+  "descriptionEn": "Pupils critically analyse different types of historical sources relating to the periods studied in the light of a historical question."
+ },
+ {
+  "id": "b-GE-S1A-08.06",
+  "subject": "GE",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "08.06",
+  "codes": {
+   "S1A": "08.06"
+  },
+  "category": "",
+  "description": "De leerlingen vergelijken historische bronnen met betrekking tot de bestudeerde periodes in functie van een historische vraag.",
+  "descriptionEn": "Pupils compare historical sources relating to the periods studied in the light of a historical question."
+ },
+ {
+  "id": "b-GE-S1A-08.07",
+  "subject": "GE",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "08.07",
+  "codes": {
+   "S1A": "08.07"
+  },
+  "category": "",
+  "description": "De leerlingen beantwoorden een historische vraag aan de hand van historische bronnen met betrekking tot de bestudeerde periodes en historische redeneerwijzen.",
+  "descriptionEn": "Pupils answer a historical question using historical sources relating to the periods studied and historical ways of reasoning."
+ },
+ {
+  "id": "b-GE-S1A-08.08",
+  "subject": "GE",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "08.08",
+  "codes": {
+   "S1A": "08.08"
+  },
+  "category": "",
+  "description": "De leerlingen lichten de invloed toe van de eigen standplaatsgebondenheid op historische beeldvorming met betrekking tot de bestudeerde periodes.",
+  "descriptionEn": "Pupils explain the influence of their own positionality on historical representation relating to the periods studied."
+ },
+ {
+  "id": "b-GE-S1A-08.09",
+  "subject": "GE",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "08.09",
+  "codes": {
+   "S1A": "08.09"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren hoe mythevorming rond historische fenomenen historische beeldvorming vervormt.",
+  "descriptionEn": "Pupils illustrate how myth-making around historical phenomena distorts historical representation."
+ },
+ {
+  "id": "b-GE-S1B-08.01",
+  "subject": "GE",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "08.01",
+  "codes": {
+   "S1B": "08.01"
+  },
+  "category": "",
+  "description": "De leerlingen situeren historische elementen uit hun leefwereld en historische fenomenen in tijd en ruimte op een gegeven tijdlijn met de courante historische periodes en op een kaart.",
+  "descriptionEn": "Pupils situate historical elements from their own world and historical phenomena in time and space on a given timeline with the common historical periods and on a map."
+ },
+ {
+  "id": "b-GE-S1B-08.02",
+  "subject": "GE",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "08.02",
+  "codes": {
+   "S1B": "08.02"
+  },
+  "category": "",
+  "description": "De leerlingen vergelijken aangereikte bronnen over eenzelfde historisch fenomeen met aandacht voor de maker(s) van de bronnen.",
+  "descriptionEn": "Pupils compare sources provided about the same historical phenomenon, paying attention to the creator(s) of the sources."
+ },
+ {
+  "id": "b-GE-S1B-08.03",
+  "subject": "GE",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "08.03",
+  "codes": {
+   "S1B": "08.03"
+  },
+  "category": "",
+  "description": "De leerlingen leggen aan de hand van voorbeelden gelijkenissen en verschillen uit tussen heden en verleden.",
+  "descriptionEn": "Pupils use examples to explain similarities and differences between present and past."
+ },
+ {
+  "id": "b-GE-S1B-08.04",
+  "subject": "GE",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "08.04",
+  "codes": {
+   "S1B": "08.04"
+  },
+  "category": "",
+  "description": "De leerlingen lichten betekenissen toe van historische fenomenen.",
+  "descriptionEn": "Pupils explain meanings of historical phenomena."
  },
  {
   "id": "b-AK-4.1.1",
@@ -8383,6 +10022,327 @@ const BUILTIN_GOALS = [
   "categoryEn": "Geographical skills, inquiry and thinking",
   "description": "De leerlingen kunnen aardrijkskundige kennis en vaardigheden op niveau 6de jaar gebruiken om zelf aardrijkskundige vragen te beantwoorden over: ruimtelijke posities, relaties en contrasten; interactie op verschillende schalen; verandering in de tijd, inclusief de toekomst (bv. de relatie tussen helling, landbouwkeuze en infrastructuurplanning, de relatie tussen bevolkingsdichtheid en de ligging van industriezones, het vervoer van grondstoffen, materialen en goederen, waarom is er woestijnvorming op plaats X, gelijkenissen en verschillen tussen de Rijn en de Amazone, uitzoeken wie (leeftijd, type werknemer) behoefte heeft aan veilige fietsroutes in de stad, bij gunning van een nieuw treinstation, winkelcentrum, vrijetijdscentrum in plaats X onderzoeken wie erbij zou winnen en wie erbij zou verliezen inclusief toekomstige mensen en het milieu).",
   "descriptionEn": "Pupils can use geographical knowledge and skills at year 6 level to answer geographical questions themselves about: spatial positions, relationships and contrasts; interaction at different scales; change over time, including the future (e.g. the relationship between slope, choice of farming and infrastructure planning; the relationship between population density and the location of industrial zones; the transport of raw materials, materials and goods; why desertification is happening in place X; similarities and differences between the Rhine and the Amazon; finding out who (age, type of worker) needs safe cycle routes in the city; when a new railway station, shopping centre or leisure centre is planned in place X, investigating who would gain and who would lose, including future generations and the environment)."
+ },
+ {
+  "id": "b-AK-S1A-09.01",
+  "subject": "AK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "09.01",
+  "codes": {
+   "S1A": "09.01"
+  },
+  "category": "",
+  "description": "De leerlingen situeren absoluut en relatief personen, plaatsen en patronen op relevante ruimtelijke schaalniveaus.",
+  "descriptionEn": "Pupils situate people, places and patterns in absolute and relative terms at relevant spatial scales."
+ },
+ {
+  "id": "b-AK-S1A-09.02",
+  "subject": "AK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "09.02",
+  "codes": {
+   "S1A": "09.02"
+  },
+  "category": "",
+  "description": "De leerlingen beschrijven kenmerken van fysischgeografische en sociaalgeografische landschapsvormende lagen.",
+  "descriptionEn": "Pupils describe characteristics of physical-geographical and socio-geographical landscape-forming layers."
+ },
+ {
+  "id": "b-AK-S1A-09.03",
+  "subject": "AK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "09.03",
+  "codes": {
+   "S1A": "09.03"
+  },
+  "category": "",
+  "description": "De leerlingen analyseren relaties tussen landschapsvormende lagen van plaatsen om verschillen tussen landschappen te verklaren.",
+  "descriptionEn": "Pupils analyse relationships between landscape-forming layers of places to explain differences between landscapes."
+ },
+ {
+  "id": "b-AK-S1A-09.04",
+  "subject": "AK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "09.04",
+  "codes": {
+   "S1A": "09.04"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren ruimtelijke patronen op verschillende schaalniveaus.",
+  "descriptionEn": "Pupils illustrate spatial patterns at different scales."
+ },
+ {
+  "id": "b-AK-S1A-09.05",
+  "subject": "AK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "09.05",
+  "codes": {
+   "S1A": "09.05"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren dat landschappen evolueren op korte en lange termijn onder invloed van fysischgeografische en sociaalgeografische veranderingen.",
+  "descriptionEn": "Pupils illustrate that landscapes evolve in the short and long term under the influence of physical-geographical and socio-geographical changes."
+ },
+ {
+  "id": "b-AK-S1A-09.06",
+  "subject": "AK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "09.06",
+  "codes": {
+   "S1A": "09.06"
+  },
+  "category": "",
+  "description": "De leerlingen analyseren gevolgen van veranderingen in landschappen voor de mens en voor zijn leefomgeving.",
+  "descriptionEn": "Pupils analyse consequences of changes in landscapes for people and for their living environment."
+ },
+ {
+  "id": "b-AK-S1A-09.07",
+  "subject": "AK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "09.07",
+  "codes": {
+   "S1A": "09.07"
+  },
+  "category": "",
+  "description": "De leerlingen lokaliseren zichzelf en plaatsen aan de hand van lokalisatie- en oriëntatietechnieken.",
+  "descriptionEn": "Pupils locate themselves and places using localisation and orientation techniques."
+ },
+ {
+  "id": "b-AK-S1A-09.08",
+  "subject": "AK",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "09.08",
+  "codes": {
+   "S1A": "09.08"
+  },
+  "category": "",
+  "description": "De leerlingen zetten terreintechnieken en geografische hulpbronnen met inbegrip van GIS-viewers functioneel in.",
+  "descriptionEn": "Pupils make functional use of fieldwork techniques and geographical resources, including GIS viewers."
+ },
+ {
+  "id": "b-AK-S1B-09.01",
+  "subject": "AK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "09.01",
+  "codes": {
+   "S1B": "09.01"
+  },
+  "category": "",
+  "description": "De leerlingen lokaliseren zichzelf en plaatsen met behulp van lokalisatie- en oriëntatietechnieken.",
+  "descriptionEn": "Pupils locate themselves and places with the help of localisation and orientation techniques."
+ },
+ {
+  "id": "b-AK-S1B-09.02",
+  "subject": "AK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "09.02",
+  "codes": {
+   "S1B": "09.02"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren natuurlijke en menselijke landschapselementen in een landschap.",
+  "descriptionEn": "Pupils illustrate natural and human landscape elements in a landscape."
+ },
+ {
+  "id": "b-AK-S1B-09.03",
+  "subject": "AK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "09.03",
+  "codes": {
+   "S1B": "09.03"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren eenvoudige ruimtelijke relaties in een landschap.",
+  "descriptionEn": "Pupils illustrate simple spatial relationships in a landscape."
+ },
+ {
+  "id": "b-AK-S1B-09.04",
+  "subject": "AK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "09.04",
+  "codes": {
+   "S1B": "09.04"
+  },
+  "category": "",
+  "description": "De leerlingen illustreren dat landschappen veranderen onder invloed van natuurlijke oorzaken en menselijke ingrepen.",
+  "descriptionEn": "Pupils illustrate that landscapes change under the influence of natural causes and human interventions."
+ },
+ {
+  "id": "b-AK-S1B-09.05",
+  "subject": "AK",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "09.05",
+  "codes": {
+   "S1B": "09.05"
+  },
+  "category": "",
+  "description": "De leerlingen zetten geografische hulpbronnen met inbegrip van GIS-viewers functioneel in.",
+  "descriptionEn": "Pupils make functional use of geographical resources, including GIS viewers."
+ },
+ {
+  "id": "b-MA-S1A-07.01",
+  "subject": "MA",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "07.01",
+  "codes": {
+   "S1A": "07.01",
+   "S1B": "07.01"
+  },
+  "category": "Burgerschap",
+  "categoryEn": "Citizenship",
+  "description": "De leerlingen lichten de betekenis, de principes en de werking van de democratische rechtsstaat en hun verantwoordelijkheid daarin toe.",
+  "descriptionEn": "Pupils explain the meaning, the principles and the workings of the democratic constitutional state and their responsibility within it."
+ },
+ {
+  "id": "b-MA-S1A-07.02",
+  "subject": "MA",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "07.02",
+  "codes": {
+   "S1A": "07.02",
+   "S1B": "07.02"
+  },
+  "category": "Burgerschap",
+  "categoryEn": "Citizenship",
+  "description": "De leerlingen reflecteren over het relationele, gelaagde en dynamische karakter van identiteit.",
+  "descriptionEn": "Pupils reflect on the relational, layered and dynamic nature of identity."
+ },
+ {
+  "id": "b-MA-S1A-07.03",
+  "subject": "MA",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "07.03",
+  "codes": {
+   "S1A": "07.03",
+   "S1B": "07.03"
+  },
+  "category": "Burgerschap",
+  "categoryEn": "Citizenship",
+  "description": "De leerlingen lichten toe hoe verschillende vormen van diversiteit verrijkend en uitdagend zijn voor het samenleven.",
+  "descriptionEn": "Pupils explain how different forms of diversity are enriching and challenging for living together."
+ },
+ {
+  "id": "b-MA-S1A-07.04",
+  "subject": "MA",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "07.04",
+  "codes": {
+   "S1A": "07.04",
+   "S1B": "07.04"
+  },
+  "category": "Burgerschap",
+  "categoryEn": "Citizenship",
+  "description": "De leerlingen gaan geïnformeerd, beargumenteerd en constructief in dialoog over maatschappelijke thema's.",
+  "descriptionEn": "Pupils engage in informed, reasoned and constructive dialogue about social issues."
+ },
+ {
+  "id": "b-MA-S1A-11.01",
+  "subject": "MA",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "11.01",
+  "codes": {
+   "S1A": "11.01",
+   "S1B": "11.01"
+  },
+  "category": "Economische en financiële competenties",
+  "categoryEn": "Economic and financial skills",
+  "description": "De leerlingen beargumenteren hun keuzegedrag bij aankopen rekening houdend met hun behoeften, met een persoonlijk budget en een beschikbaar gezinsbudget en met factoren die hun koopgedrag beïnvloeden.",
+  "descriptionEn": "Pupils justify their choices when making purchases, taking into account their needs, a personal budget and an available household budget, and factors that influence their buying behaviour."
+ },
+ {
+  "id": "b-MA-S1A-11.02",
+  "subject": "MA",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "11.02",
+  "codes": {
+   "S1A": "11.02",
+   "S1B": "11.02"
+  },
+  "category": "Economische en financiële competenties",
+  "categoryEn": "Economic and financial skills",
+  "description": "De leerlingen beoordelen courante betaalmiddelen en courante verkoopkanalen op het vlak van veiligheid, risico's en kosten.",
+  "descriptionEn": "Pupils assess common means of payment and common sales channels in terms of security, risks and costs."
+ },
+ {
+  "id": "b-MA-S1A-11.03",
+  "subject": "MA",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "11.03",
+  "codes": {
+   "S1A": "11.03",
+   "S1B": "11.03"
+  },
+  "category": "Economische en financiële competenties",
+  "categoryEn": "Economic and financial skills",
+  "description": "De leerlingen lichten de rol van gezinnen, bedrijven en overheid in de economie toe.",
+  "descriptionEn": "Pupils explain the role of households, businesses and government in the economy."
  },
  {
   "id": "b-MV-6.1.1",
@@ -9445,6 +11405,91 @@ const BUILTIN_GOALS = [
   "descriptionEn": "Pupils know these concepts: audio software, image editing software."
  },
  {
+  "id": "b-MV-S1A-16.01",
+  "subject": "MV",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "16.01",
+  "codes": {
+   "S1A": "16.01",
+   "S1B": "16.01"
+  },
+  "category": "",
+  "description": "De leerlingen beschrijven kunst- en cultuuruitingen vanuit eigen waarneming.",
+  "descriptionEn": "Pupils describe art and cultural expressions based on their own observation."
+ },
+ {
+  "id": "b-MV-S1A-16.02",
+  "subject": "MV",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "16.02",
+  "codes": {
+   "S1A": "16.02",
+   "S1B": "16.02"
+  },
+  "category": "",
+  "description": "De leerlingen brengen kunst- en cultuuruitingen in verband met de context waarin ze voorkomen.",
+  "descriptionEn": "Pupils relate art and cultural expressions to the context in which they occur."
+ },
+ {
+  "id": "b-MV-S1A-16.03",
+  "subject": "MV",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "16.03",
+  "codes": {
+   "S1A": "16.03",
+   "S1B": "16.03"
+  },
+  "category": "",
+  "description": "De leerlingen reflecteren over eigen beleving bij uiteenlopende kunst- en cultuuruitingen.",
+  "descriptionEn": "Pupils reflect on their own experience of diverse art and cultural expressions."
+ },
+ {
+  "id": "b-MV-S1A-16.04",
+  "subject": "MV",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "16.04",
+  "codes": {
+   "S1A": "16.04",
+   "S1B": "16.04"
+  },
+  "category": "",
+  "description": "De leerlingen lichten toe hoe een kunstwerk vanuit vorm en inhoud betekenis geeft.",
+  "descriptionEn": "Pupils explain how a work of art conveys meaning through form and content."
+ },
+ {
+  "id": "b-MV-S1A-16.05",
+  "subject": "MV",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "16.05",
+  "codes": {
+   "S1A": "16.05",
+   "S1B": "16.05"
+  },
+  "category": "",
+  "description": "De leerlingen doorlopen een artistiek-creatief proces vanuit verbeelding.",
+  "descriptionEn": "Pupils go through an artistic-creative process starting from imagination."
+ },
+ {
   "id": "b-LO-7.1.1",
   "subject": "LO",
   "tier": "KO",
@@ -9843,6 +11888,125 @@ const BUILTIN_GOALS = [
   "categoryEn": "Self-concept and group interaction",
   "description": "De leerlingen kunnen de functie van scheidsrechter in vereenvoudigde spelvormen opnemen.",
   "descriptionEn": "Pupils can take on the role of referee in simplified games."
+ },
+ {
+  "id": "b-LO-S1A-01.01",
+  "subject": "LO",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "01.01",
+  "codes": {
+   "S1A": "01.01",
+   "S1B": "01.01"
+  },
+  "category": "",
+  "description": "De leerlingen passen technieken voor eerste hulp bij ongevallen toe in een gesimuleerde leeromgeving.",
+  "descriptionEn": "Pupils apply first aid techniques for accidents in a simulated learning environment."
+ },
+ {
+  "id": "b-LO-S1A-01.02",
+  "subject": "LO",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "01.02",
+  "codes": {
+   "S1A": "01.02",
+   "S1B": "01.02"
+  },
+  "category": "",
+  "description": "De leerlingen ontwikkelen gezondheidsvaardigheden in functie van hun fysiek en mentaal welzijn binnen verschillende thema's.",
+  "descriptionEn": "Pupils develop health skills for their physical and mental well-being across various themes."
+ },
+ {
+  "id": "b-LO-S1A-01.03",
+  "subject": "LO",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "01.03",
+  "codes": {
+   "S1A": "01.03",
+   "S1B": "01.03"
+  },
+  "category": "",
+  "description": "De leerlingen voeren conform de beweegrichtlijnen in verschillende bewegingsomgevingen activiteiten uit in verschillende individuele, interactieve en ritmisch expressieve bewegingsdomeinen.",
+  "descriptionEn": "Pupils carry out activities, in line with the physical activity guidelines, in various movement settings and in various individual, interactive and rhythmic-expressive movement domains."
+ },
+ {
+  "id": "b-LO-S1A-01.04",
+  "subject": "LO",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "01.04",
+  "codes": {
+   "S1A": "01.04",
+   "S1B": "01.04"
+  },
+  "category": "",
+  "description": "De leerlingen ontwikkelen lenigheid, uithouding, snelheid, coördinatie en evenwicht, rekening houdend met de evolutie van hun fysieke capaciteiten.",
+  "descriptionEn": "Pupils develop flexibility, endurance, speed, coordination and balance, taking into account the development of their physical capacities."
+ },
+ {
+  "id": "b-LO-S1A-01.05",
+  "subject": "LO",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "01.05",
+  "codes": {
+   "S1A": "01.05",
+   "S1B": "01.05"
+  },
+  "category": "",
+  "description": "De leerlingen voeren motorische basisvaardigheden uit, rekening houdend met ergonomische principes en de evolutie van hun fysieke capaciteiten.",
+  "descriptionEn": "Pupils perform basic motor skills, taking into account ergonomic principles and the development of their physical capacities."
+ },
+ {
+  "id": "b-LO-S1A-01.06",
+  "subject": "LO",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "01.06",
+  "codes": {
+   "S1A": "01.06",
+   "S1B": "01.06"
+  },
+  "category": "",
+  "description": "De leerlingen passen tactieken en principes toe met respect voor de afgesproken regels en rollen in sport en spel.",
+  "descriptionEn": "Pupils apply tactics and principles while respecting the agreed rules and roles in sport and games."
+ },
+ {
+  "id": "b-LO-S1A-01.07",
+  "subject": "LO",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "01.07",
+  "codes": {
+   "S1A": "01.07",
+   "S1B": "01.07"
+  },
+  "category": "",
+  "description": "De leerlingen hanteren in verschillende rollen in sport en spel principes van verantwoord en veilig gedrag.",
+  "descriptionEn": "Pupils apply principles of responsible and safe behaviour in various roles in sport and games."
  },
  {
   "id": "b-AT-9.1.1",
@@ -10595,6 +12759,132 @@ const BUILTIN_GOALS = [
   "descriptionEn": "Pupils can carry out an assigned role in group work in a purposeful way."
  },
  {
+  "id": "b-AT-S1A-13.01",
+  "subject": "AT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "13.01",
+  "codes": {
+   "S1A": "13.01",
+   "S1B": "13.01"
+  },
+  "category": "Leercompetenties",
+  "categoryEn": "Learning skills",
+  "description": "De leerlingen reflecteren over het eigen leerproces en sturen het doelgericht bij.",
+  "descriptionEn": "Pupils reflect on their own learning process and adjust it purposefully."
+ },
+ {
+  "id": "b-AT-S1A-13.02",
+  "subject": "AT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "13.02",
+  "codes": {
+   "S1A": "13.02",
+   "S1B": "13.02"
+  },
+  "category": "Leercompetenties",
+  "categoryEn": "Learning skills",
+  "description": "De leerlingen zetten (meta)cognitieve leer- en regulatiestrategieën in om zich leerinhouden eigen te maken.",
+  "descriptionEn": "Pupils use (meta)cognitive learning and regulation strategies to master learning content."
+ },
+ {
+  "id": "b-AT-S1A-13.03",
+  "subject": "AT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "13.03",
+  "codes": {
+   "S1A": "13.03",
+   "S1B": "13.03"
+  },
+  "category": "Leercompetenties",
+  "categoryEn": "Learning skills",
+  "description": "De leerlingen gebruiken school- en vaktaal.",
+  "descriptionEn": "Pupils use school and subject-specific language."
+ },
+ {
+  "id": "b-AT-S1A-13.04",
+  "subject": "AT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "13.04",
+  "codes": {
+   "S1A": "13.04",
+   "S1B": "13.04"
+  },
+  "category": "Leercompetenties",
+  "categoryEn": "Learning skills",
+  "description": "De leerlingen zoeken doelgericht informatie in diverse bronnen en verwerken die op een kritische en systematische manier.",
+  "descriptionEn": "Pupils search purposefully for information in various sources and process it in a critical and systematic way."
+ },
+ {
+  "id": "b-AT-S1A-15.01",
+  "subject": "AT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "15.01",
+  "codes": {
+   "S1A": "15.01",
+   "S1B": "15.01"
+  },
+  "category": "Initiatief en ondernemingszin",
+  "categoryEn": "Initiative and entrepreneurship",
+  "description": "De leerlingen doorlopen bewust hun studie- of beroepskeuzeproces.",
+  "descriptionEn": "Pupils consciously go through their process of choosing a course of study or a career."
+ },
+ {
+  "id": "b-AT-S1A-15.02",
+  "subject": "AT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "15.02",
+  "codes": {
+   "S1A": "15.02",
+   "S1B": "15.02"
+  },
+  "category": "Initiatief en ondernemingszin",
+  "categoryEn": "Initiative and entrepreneurship",
+  "description": "De leerlingen genereren creatieve ideeën om een probleem op te lossen en bespreken de uitvoerbaarheid ervan aan de hand van criteria.",
+  "descriptionEn": "Pupils generate creative ideas to solve a problem and discuss their feasibility on the basis of criteria."
+ },
+ {
+  "id": "b-AT-S1A-05.01",
+  "subject": "AT",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "05.01",
+  "codes": {
+   "S1A": "05.01",
+   "S1B": "05.01"
+  },
+  "category": "Sociaal-relationele competenties",
+  "categoryEn": "Social and relational skills",
+  "description": "De leerlingen gaan respectvol en constructief met anderen in interactie rekening houdend met elkaars grenzen.",
+  "descriptionEn": "Pupils interact with others respectfully and constructively, taking each other's boundaries into account."
+ },
+ {
   "id": "b-FR-L6-10.1.1",
   "subject": "FR",
   "tier": "L6",
@@ -11095,6 +13385,196 @@ const BUILTIN_GOALS = [
   "descriptionEn": "For texts with words they have not yet been taught, pupils can use additional strategies where needed: consulting a word list or dictionary; working out the probable meaning of transparent words from the context; in a fluent listening or reading text intended for their level, working out the probable meaning of non-transparent words not yet taught from the context, provided that the proportion of such words is no higher than 2%."
  },
  {
+  "id": "b-FR-S1A-03.01",
+  "subject": "FR",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "03.01",
+  "codes": {
+   "S1A": "03.01"
+  },
+  "category": "",
+  "description": "De leerlingen bepalen het onderwerp, de hoofdgedachte en de hoofdpunten bij het doelgericht lezen en beluisteren van teksten.",
+  "descriptionEn": "Pupils determine the topic, the main idea and the main points when reading and listening to texts purposefully."
+ },
+ {
+  "id": "b-FR-S1A-03.02",
+  "subject": "FR",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "03.02",
+  "codes": {
+   "S1A": "03.02",
+   "S1B": "03.02"
+  },
+  "category": "",
+  "description": "De leerlingen selecteren relevante informatie bij het lezen en beluisteren van teksten.",
+  "descriptionEn": "Pupils select relevant information when reading and listening to texts."
+ },
+ {
+  "id": "b-FR-S1A-03.03",
+  "subject": "FR",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "03.03",
+  "codes": {
+   "S1A": "03.03"
+  },
+  "category": "",
+  "description": "De leerlingen spreken en schrijven doelgericht.",
+  "descriptionEn": "Pupils speak and write purposefully."
+ },
+ {
+  "id": "b-FR-S1A-03.04",
+  "subject": "FR",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "03.04",
+  "codes": {
+   "S1A": "03.04"
+  },
+  "category": "",
+  "description": "De leerlingen nemen doelgericht deel aan mondelinge en schriftelijke interactie.",
+  "descriptionEn": "Pupils take part purposefully in oral and written interaction."
+ },
+ {
+  "id": "b-FR-S1A-03.05",
+  "subject": "FR",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "03.05",
+  "codes": {
+   "S1A": "03.05",
+   "S1B": "03.05"
+  },
+  "category": "",
+  "description": "De leerlingen zetten doelgericht strategieën in ter ondersteuning van informatieverwerking en communicatieve handelingen.",
+  "descriptionEn": "Pupils purposefully use strategies to support information processing and communicative actions."
+ },
+ {
+  "id": "b-FR-S1A-03.06",
+  "subject": "FR",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "03.06",
+  "codes": {
+   "S1A": "03.06",
+   "S1B": "03.06"
+  },
+  "category": "",
+  "description": "De leerlingen zetten eerder en nieuwverworven woordenschat in ter ondersteuning van hun communicatieve handelingen.",
+  "descriptionEn": "Pupils use previously and newly acquired vocabulary to support their communicative actions."
+ },
+ {
+  "id": "b-FR-S1A-03.07",
+  "subject": "FR",
+  "tier": "S1A",
+  "tiers": [
+   "S1A"
+  ],
+  "code": "03.07",
+  "codes": {
+   "S1A": "03.07"
+  },
+  "category": "",
+  "description": "De leerlingen passen inzicht in het taalsysteem toe ter ondersteuning van hun communicatieve handelingen.",
+  "descriptionEn": "Pupils apply insight into the language system to support their communicative actions."
+ },
+ {
+  "id": "b-FR-S1A-03.08",
+  "subject": "FR",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "03.08",
+  "codes": {
+   "S1A": "03.08",
+   "S1B": "03.07"
+  },
+  "category": "",
+  "description": "De leerlingen identificeren bij het lezen en beluisteren van teksten kenmerkende aspecten van maatschappijen en culturen waarin de doeltaal wordt gesproken.",
+  "descriptionEn": "Pupils identify, when reading and listening to texts, characteristic aspects of societies and cultures in which the target language is spoken."
+ },
+ {
+  "id": "b-FR-S1A-03.09",
+  "subject": "FR",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "03.09",
+  "codes": {
+   "S1A": "03.09",
+   "S1B": "03.08"
+  },
+  "category": "",
+  "description": "De leerlingen drukken de eigen beleving en interpretatie van literaire teksten uit.",
+  "descriptionEn": "Pupils express their own experience and interpretation of literary texts."
+ },
+ {
+  "id": "b-FR-S1B-03.01",
+  "subject": "FR",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "03.01",
+  "codes": {
+   "S1B": "03.01"
+  },
+  "category": "",
+  "description": "De leerlingen bepalen het onderwerp en de hoofdgedachte bij het doelgericht lezen en beluisteren van teksten.",
+  "descriptionEn": "Pupils determine the topic and the main idea when reading and listening to texts purposefully."
+ },
+ {
+  "id": "b-FR-S1B-03.03",
+  "subject": "FR",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "03.03",
+  "codes": {
+   "S1B": "03.03"
+  },
+  "category": "",
+  "description": "De leerlingen spreken en schrijven doelgericht met behulp van aangereikte zinnen, sleutelwoorden of een voorbeeld.",
+  "descriptionEn": "Pupils speak and write purposefully with the help of sentences, key words or an example provided."
+ },
+ {
+  "id": "b-FR-S1B-03.04",
+  "subject": "FR",
+  "tier": "S1B",
+  "tiers": [
+   "S1B"
+  ],
+  "code": "03.04",
+  "codes": {
+   "S1B": "03.04"
+  },
+  "category": "",
+  "description": "De leerlingen nemen doelgericht deel aan mondelinge interactie.",
+  "descriptionEn": "Pupils take part purposefully in oral interaction."
+ },
+ {
   "id": "b-IC-L4-8.1.1",
   "subject": "IC",
   "tier": "L4",
@@ -11343,6 +13823,142 @@ const BUILTIN_GOALS = [
   "categoryEn": "Digital creation",
   "description": "De leerlingen kennen mogelijkheden van digitale tools om te communiceren. (bv. berichten, e-mail, chat, reacties of videogesprekken)",
   "descriptionEn": "Pupils know ways in which digital tools can be used to communicate. (e.g. messages, email, chat, comments or video calls)"
+ },
+ {
+  "id": "b-IC-S1A-04.01",
+  "subject": "IC",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "04.01",
+  "codes": {
+   "S1A": "04.01",
+   "S1B": "04.01"
+  },
+  "category": "",
+  "description": "De leerlingen gebruiken doelgericht basisfunctionaliteiten van toepassingen om digitaal te communiceren.",
+  "descriptionEn": "Pupils purposefully use basic functions of applications to communicate digitally."
+ },
+ {
+  "id": "b-IC-S1A-04.02",
+  "subject": "IC",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "04.02",
+  "codes": {
+   "S1A": "04.02",
+   "S1B": "04.02"
+  },
+  "category": "",
+  "description": "De leerlingen gebruiken doelgericht basisfunctionaliteiten van toepassingen om digitale inhouden te creëren.",
+  "descriptionEn": "Pupils purposefully use basic functions of applications to create digital content."
+ },
+ {
+  "id": "b-IC-S1A-04.03",
+  "subject": "IC",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "04.03",
+  "codes": {
+   "S1A": "04.03",
+   "S1B": "04.03"
+  },
+  "category": "",
+  "description": "De leerlingen gebruiken doelgericht basisfunctionaliteiten van toepassingen om digitale inhouden te beheren aan de hand van een aangereikte structuur.",
+  "descriptionEn": "Pupils purposefully use basic functions of applications to manage digital content using a structure provided."
+ },
+ {
+  "id": "b-IC-S1A-04.04",
+  "subject": "IC",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "04.04",
+  "codes": {
+   "S1A": "04.04",
+   "S1B": "04.04"
+  },
+  "category": "",
+  "description": "De leerlingen passen ethische, sociale en legale regels toe bij het gebruiken van digitale technologie.",
+  "descriptionEn": "Pupils apply ethical, social and legal rules when using digital technology."
+ },
+ {
+  "id": "b-IC-S1A-04.05",
+  "subject": "IC",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "04.05",
+  "codes": {
+   "S1A": "04.05",
+   "S1B": "04.05"
+  },
+  "category": "",
+  "description": "De leerlingen ontwerpen doelgericht een digitaal en niet-digitaal algoritme volgens de principes van computationeel denken en debuggen het.",
+  "descriptionEn": "Pupils purposefully design a digital and non-digital algorithm according to the principles of computational thinking and debug it."
+ },
+ {
+  "id": "b-IC-S1A-BG04.01",
+  "subject": "IC",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "BG04.01",
+  "codes": {
+   "S1A": "BG04.01",
+   "S1B": "BG04.01"
+  },
+  "category": "",
+  "description": "De leerling gebruikt doelgericht basisfunctionaliteiten van toepassingen om digitaal te communiceren.",
+  "descriptionEn": "The pupil purposefully uses basic functions of applications to communicate digitally."
+ },
+ {
+  "id": "b-IC-S1A-BG04.02",
+  "subject": "IC",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "BG04.02",
+  "codes": {
+   "S1A": "BG04.02",
+   "S1B": "BG04.02"
+  },
+  "category": "",
+  "description": "De leerling gebruikt doelgericht basisfunctionaliteiten van toepassingen om digitale inhouden te creëren.",
+  "descriptionEn": "The pupil purposefully uses basic functions of applications to create digital content."
+ },
+ {
+  "id": "b-IC-S1A-BG04.03",
+  "subject": "IC",
+  "tier": "S1A",
+  "tiers": [
+   "S1A",
+   "S1B"
+  ],
+  "code": "BG04.03",
+  "codes": {
+   "S1A": "BG04.03",
+   "S1B": "BG04.03"
+  },
+  "category": "",
+  "description": "De leerling gebruikt doelgericht basisfunctionaliteiten van toepassingen om digitale inhouden te beheren aan de hand van een aangereikte structuur.",
+  "descriptionEn": "The pupil purposefully uses basic functions of applications to manage digital content using a structure provided."
  }
 ];
 const FIREBASE_CONFIG = {"apiKey": "AIzaSyBBxji4-yKxG1ZZHvdxNV1vtG9JAD46gMA", "authDomain": "doelenboek-e78ca.firebaseapp.com", "projectId": "doelenboek-e78ca", "storageBucket": "doelenboek-e78ca.firebasestorage.app", "messagingSenderId": "224430377433", "appId": "1:224430377433:web:c2eedf518737fab6ce31c8"};

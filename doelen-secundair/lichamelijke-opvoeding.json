@@ -1,0 +1,63 @@
+{
+  "subject": "LO",
+  "name": "Lichamelijke opvoeding",
+  "nameEn": "Physical education",
+  "doelen": [
+    {
+      "codes": {
+        "S1A": "01.01",
+        "S1B": "01.01"
+      },
+      "description": "De leerlingen passen technieken voor eerste hulp bij ongevallen toe in een gesimuleerde leeromgeving.",
+      "descriptionEn": "Pupils apply first aid techniques for accidents in a simulated learning environment."
+    },
+    {
+      "codes": {
+        "S1A": "01.02",
+        "S1B": "01.02"
+      },
+      "description": "De leerlingen ontwikkelen gezondheidsvaardigheden in functie van hun fysiek en mentaal welzijn binnen verschillende thema's.",
+      "descriptionEn": "Pupils develop health skills for their physical and mental well-being across various themes."
+    },
+    {
+      "codes": {
+        "S1A": "01.03",
+        "S1B": "01.03"
+      },
+      "description": "De leerlingen voeren conform de beweegrichtlijnen in verschillende bewegingsomgevingen activiteiten uit in verschillende individuele, interactieve en ritmisch expressieve bewegingsdomeinen.",
+      "descriptionEn": "Pupils carry out activities, in line with the physical activity guidelines, in various movement settings and in various individual, interactive and rhythmic-expressive movement domains."
+    },
+    {
+      "codes": {
+        "S1A": "01.04",
+        "S1B": "01.04"
+      },
+      "description": "De leerlingen ontwikkelen lenigheid, uithouding, snelheid, coördinatie en evenwicht, rekening houdend met de evolutie van hun fysieke capaciteiten.",
+      "descriptionEn": "Pupils develop flexibility, endurance, speed, coordination and balance, taking into account the development of their physical capacities."
+    },
+    {
+      "codes": {
+        "S1A": "01.05",
+        "S1B": "01.05"
+      },
+      "description": "De leerlingen voeren motorische basisvaardigheden uit, rekening houdend met ergonomische principes en de evolutie van hun fysieke capaciteiten.",
+      "descriptionEn": "Pupils perform basic motor skills, taking into account ergonomic principles and the development of their physical capacities."
+    },
+    {
+      "codes": {
+        "S1A": "01.06",
+        "S1B": "01.06"
+      },
+      "description": "De leerlingen passen tactieken en principes toe met respect voor de afgesproken regels en rollen in sport en spel.",
+      "descriptionEn": "Pupils apply tactics and principles while respecting the agreed rules and roles in sport and games."
+    },
+    {
+      "codes": {
+        "S1A": "01.07",
+        "S1B": "01.07"
+      },
+      "description": "De leerlingen hanteren in verschillende rollen in sport en spel principes van verantwoord en veilig gedrag.",
+      "descriptionEn": "Pupils apply principles of responsible and safe behaviour in various roles in sport and games."
+    }
+  ]
+}
