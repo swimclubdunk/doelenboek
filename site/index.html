@@ -366,10 +366,9 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cc-head { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
 .cc-id { min-width: 0; flex: 1; }
 .cc-id h2 { overflow-wrap: anywhere; }
-.cc-tier { margin: 4px 0 3px; line-height: 1; }
+.cc-tier { --pill-pitch: 23px; margin: 2px 0 -2px; line-height: 1; }   /* pitch: a 19px pill plus the same 4px gap as between name and badge */
 /* a long level name (Secundair 1. graad A-stroom) wraps instead of pushing the score out of the card; each line keeps its own pill */
-.cc-tier:has(.tier-badge) { line-height: 1.75; }
-.cc-tier .tier-badge { display: inline; white-space: normal; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.cc-tier .tier-badge { display: inline; white-space: normal; -webkit-box-decoration-break: clone; box-decoration-break: clone; line-height: var(--pill-pitch); }
 .meta { color: var(--muted); font-size: .84rem; }
 .cc-pct { text-align: right; display: grid; font-variant-numeric: tabular-nums; }
 .cc-pct strong { font-family: var(--f-display); font-size: 1.7rem; line-height: 1; }
