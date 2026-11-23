@@ -69,6 +69,8 @@
   /* the two lager-only subjects: FR brick red, IC slate (low chroma, so it never reads as another subject) */
   --s-fr: light-dark(#C4512F, #CC6243);
   --s-ic: light-dark(#5E6E80, #8394A6);
+  /* the secundair-only subject: MA indigo, the one free spot that keeps 16 / 15 Delta E from every other subject */
+  --s-ma: light-dark(#4028B0, #6048D0);
 
   --f-display: "Clarity City", "Segoe UI", system-ui, sans-serif;
   --f-body: "Clarity City", "Segoe UI", system-ui, sans-serif;
@@ -513,9 +515,12 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .animal-grid label:has(input:disabled) { opacity: .25; cursor: not-allowed; }
 .animal-grid label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* tier choice in the child dialog, and the badge that names a child's tier */
+.tier-row { margin: 10px 0 6px; font-size: .78rem; font-weight: 600; color: var(--muted); }
+.tier-row:first-of-type { margin-top: 2px; }
 .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .tier-grid label { display: block; padding: 10px 12px; border-radius: var(--r-sm); border: 1px solid var(--line); cursor: pointer; position: relative; }
 .tier-grid b { display: block; line-height: 1.25; font-size: .92rem; }
+.tier-grid .tier-nw { white-space: nowrap; }   /* "A-stroom", "1-4": never broken at the hyphen */
 .tier-grid small { display: block; margin-top: 4px; color: var(--muted); font-size: .8rem; }
 .tier-grid input { position: absolute; opacity: 0; pointer-events: none; }
 .tier-grid label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: 0 0 0 1px var(--accent); }
@@ -890,7 +895,7 @@ function cleanProfile(b) {
 const stamps = a => [...a.children, ...a.activities].flatMap(r => [r.createdAt, r.updatedAt]);
 
 /* raw: { profiles, children, activities }, each a list of { uid, id, data } */
-function buildDataset(raw, tierKeys = ['KO', 'L4', 'L6']) {
+function buildDataset(raw, tierKeys = ['KO', 'L4', 'L6', 'S1A', 'S1B']) {
   const map = new Map();
   const acc = uid => {
     if (!map.has(uid)) map.set(uid, { uid, email: '', hasProfile: false, signupAt: 0, signupApprox: false, lastSeen: 0, lastActive: 0, children: [], activities: [] });
@@ -1344,6 +1349,7 @@ const SUBJECTS = [
   { key: 'WT', name: { nl: 'Wetenschappen & techniek', en: 'Science & technology' } },
   { key: 'GE', name: { nl: 'Geschiedenis', en: 'History' } },
   { key: 'AK', name: { nl: 'Aardrijkskunde', en: 'Geography' } },
+  { key: 'MA', name: { nl: 'Maatschappij', en: 'Society' } },
   { key: 'MV', name: { nl: 'Muzische vorming', en: 'Arts education' } },
   { key: 'LO', name: { nl: 'Lichamelijke opvoeding', en: 'Physical education' } },
   { key: 'AT', name: { nl: 'Attitudes', en: 'Attitudes' } },
@@ -1351,9 +1357,11 @@ const SUBJECTS = [
   { key: 'IC', name: { nl: 'ICT', en: 'ICT' } },
 ];
 const TIERS = [
-  { key: 'KO', prefix: 'Kl', name: { nl: 'Kleuter', en: 'Preschool' }, short: { nl: 'Kleuter', en: 'Preschool' }, badge: { nl: 'Kleuter', en: 'Preschool' }, ages: { nl: '2-6 jaar', en: '2-6 years' } },
-  { key: 'L4', prefix: 'LJ1-4', name: { nl: 'Lager Leerjaar 1-4', en: 'Primary Year 1-4' }, short: { nl: 'Lj. 1–4', en: 'Years 1–4' }, badge: { nl: 'Lager LJ 1-4', en: 'Primary YR 1-4' }, ages: { nl: '6-10 jaar', en: '6-10 years' } },
-  { key: 'L6', prefix: 'LJ5-6', name: { nl: 'Lager Leerjaar 5-6', en: 'Primary Year 5-6' }, short: { nl: 'Lj. 5–6', en: 'Years 5–6' }, badge: { nl: 'Lager LJ 5-6', en: 'Primary YR 5-6' }, ages: { nl: '10-12 jaar', en: '10-12 years' } },
+  { key: 'KO', group: 'basis', prefix: 'Kl', name: { nl: 'Kleuter', en: 'Preschool' }, short: { nl: 'Kleuter', en: 'Preschool' }, badge: { nl: 'Kleuter', en: 'Preschool' }, ages: { nl: '2-6 jaar', en: '2-6 years' } },
+  { key: 'L4', group: 'basis', prefix: 'LJ1-4', name: { nl: 'Lager Leerjaar 1-4', en: 'Primary Year 1-4' }, short: { nl: 'Lj. 1–4', en: 'Years 1–4' }, badge: { nl: 'Lager LJ 1-4', en: 'Primary YR 1-4' }, ages: { nl: '6-10 jaar', en: '6-10 years' } },
+  { key: 'L6', group: 'basis', prefix: 'LJ5-6', name: { nl: 'Lager Leerjaar 5-6', en: 'Primary Year 5-6' }, short: { nl: 'Lj. 5–6', en: 'Years 5–6' }, badge: { nl: 'Lager LJ 5-6', en: 'Primary YR 5-6' }, ages: { nl: '10-12 jaar', en: '10-12 years' } },
+  { key: 'S1A', group: 'sec', subj: SEC_SUBJ, prefix: 'S1A', name: { nl: 'Secundair 1ste graad A-stroom', en: 'Secondary 1st stage A-stream' }, short: { nl: 'Sec. 1A', en: 'Sec. 1A' }, badge: { nl: 'Secundair 1ste graad A', en: 'Secondary 1st stage A' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
+  { key: 'S1B', group: 'sec', subj: SEC_SUBJ, prefix: 'S1B', name: { nl: 'Secundair 1ste graad B-stroom', en: 'Secondary 1st stage B-stream' }, short: { nl: 'Sec. 1B', en: 'Sec. 1B' }, badge: { nl: 'Secundair 1ste graad B', en: 'Secondary 1st stage B' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
 ];
 const BUILTIN_GOALS = [
  {

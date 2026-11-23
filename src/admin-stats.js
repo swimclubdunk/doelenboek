@@ -31,7 +31,7 @@ function cleanProfile(b) {
 const stamps = a => [...a.children, ...a.activities].flatMap(r => [r.createdAt, r.updatedAt]);
 
 /* raw: { profiles, children, activities }, each a list of { uid, id, data } */
-function buildDataset(raw, tierKeys = ['KO', 'L4', 'L6']) {
+function buildDataset(raw, tierKeys = ['KO', 'L4', 'L6', 'S1A', 'S1B']) {
   const map = new Map();
   const acc = uid => {
     if (!map.has(uid)) map.set(uid, { uid, email: '', hasProfile: false, signupAt: 0, signupApprox: false, lastSeen: 0, lastActive: 0, children: [], activities: [] });

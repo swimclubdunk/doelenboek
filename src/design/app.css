@@ -425,9 +425,12 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .animal-grid label:has(input:disabled) { opacity: .25; cursor: not-allowed; }
 .animal-grid label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* tier choice in the child dialog, and the badge that names a child's tier */
+.tier-row { margin: 10px 0 6px; font-size: .78rem; font-weight: 600; color: var(--muted); }
+.tier-row:first-of-type { margin-top: 2px; }
 .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .tier-grid label { display: block; padding: 10px 12px; border-radius: var(--r-sm); border: 1px solid var(--line); cursor: pointer; position: relative; }
 .tier-grid b { display: block; line-height: 1.25; font-size: .92rem; }
+.tier-grid .tier-nw { white-space: nowrap; }   /* "A-stroom", "1-4": never broken at the hyphen */
 .tier-grid small { display: block; margin-top: 4px; color: var(--muted); font-size: .8rem; }
 .tier-grid input { position: absolute; opacity: 0; pointer-events: none; }
 .tier-grid label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: 0 0 0 1px var(--accent); }

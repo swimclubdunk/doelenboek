@@ -87,6 +87,8 @@
   /* the two lager-only subjects: FR brick red, IC slate (low chroma, so it never reads as another subject) */
   --s-fr: light-dark(#C4512F, #CC6243);
   --s-ic: light-dark(#5E6E80, #8394A6);
+  /* the secundair-only subject: MA indigo, the one free spot that keeps 16 / 15 Delta E from every other subject */
+  --s-ma: light-dark(#4028B0, #6048D0);
 
   --f-display: "Clarity City", "Segoe UI", system-ui, sans-serif;
   --f-body: "Clarity City", "Segoe UI", system-ui, sans-serif;
@@ -531,9 +533,12 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .animal-grid label:has(input:disabled) { opacity: .25; cursor: not-allowed; }
 .animal-grid label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* tier choice in the child dialog, and the badge that names a child's tier */
+.tier-row { margin: 10px 0 6px; font-size: .78rem; font-weight: 600; color: var(--muted); }
+.tier-row:first-of-type { margin-top: 2px; }
 .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .tier-grid label { display: block; padding: 10px 12px; border-radius: var(--r-sm); border: 1px solid var(--line); cursor: pointer; position: relative; }
 .tier-grid b { display: block; line-height: 1.25; font-size: .92rem; }
+.tier-grid .tier-nw { white-space: nowrap; }   /* "A-stroom", "1-4": never broken at the hyphen */
 .tier-grid small { display: block; margin-top: 4px; color: var(--muted); font-size: .8rem; }
 .tier-grid input { position: absolute; opacity: 0; pointer-events: none; }
 .tier-grid label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: 0 0 0 1px var(--accent); }
@@ -1102,6 +1107,7 @@ const SUBJECTS = [
   { key: 'WT', name: { nl: 'Wetenschappen & techniek', en: 'Science & technology' } },
   { key: 'GE', name: { nl: 'Geschiedenis', en: 'History' } },
   { key: 'AK', name: { nl: 'Aardrijkskunde', en: 'Geography' } },
+  { key: 'MA', name: { nl: 'Maatschappij', en: 'Society' } },
   { key: 'MV', name: { nl: 'Muzische vorming', en: 'Arts education' } },
   { key: 'LO', name: { nl: 'Lichamelijke opvoeding', en: 'Physical education' } },
   { key: 'AT', name: { nl: 'Attitudes', en: 'Attitudes' } },
@@ -1110,11 +1116,20 @@ const SUBJECTS = [
 ];
 const SUBJ = Object.fromEntries(SUBJECTS.map((s, i) => [s.key, { ...s, i }]));
 /* Every child is in one tier, and every built-in goal belongs to one (goal.tier, set by tools/build.py):
-   the kleuter goals, and the lager goals for the end of the 4th and of the 6th leerjaar. */
+   the kleuter goals, the lager goals for the end of the 4th and of the 6th leerjaar, and the secundair
+   1ste graad A- and B-stroom. group puts the tiers in rows (basisonderwijs, secundair); subj renames a
+   subject within a tier (Frans covers French and English in the secundair). */
+const TIER_GROUPS = [
+  { key: 'basis', name: { nl: 'Basisonderwijs', en: 'Nursery and primary' } },
+  { key: 'sec', name: { nl: 'Secundair', en: 'Secondary' } },
+];
+const SEC_SUBJ = { FR: { nl: 'Andere talen', en: 'Other languages' } };
 const TIERS = [
-  { key: 'KO', prefix: 'Kl', name: { nl: 'Kleuter', en: 'Preschool' }, short: { nl: 'Kleuter', en: 'Preschool' }, badge: { nl: 'Kleuter', en: 'Preschool' }, ages: { nl: '2-6 jaar', en: '2-6 years' } },
-  { key: 'L4', prefix: 'LJ1-4', name: { nl: 'Lager Leerjaar 1-4', en: 'Primary Year 1-4' }, short: { nl: 'Lj. 1–4', en: 'Years 1–4' }, badge: { nl: 'Lager LJ 1-4', en: 'Primary YR 1-4' }, ages: { nl: '6-10 jaar', en: '6-10 years' } },
-  { key: 'L6', prefix: 'LJ5-6', name: { nl: 'Lager Leerjaar 5-6', en: 'Primary Year 5-6' }, short: { nl: 'Lj. 5–6', en: 'Years 5–6' }, badge: { nl: 'Lager LJ 5-6', en: 'Primary YR 5-6' }, ages: { nl: '10-12 jaar', en: '10-12 years' } },
+  { key: 'KO', group: 'basis', prefix: 'Kl', name: { nl: 'Kleuter', en: 'Preschool' }, short: { nl: 'Kleuter', en: 'Preschool' }, badge: { nl: 'Kleuter', en: 'Preschool' }, ages: { nl: '2-6 jaar', en: '2-6 years' } },
+  { key: 'L4', group: 'basis', prefix: 'LJ1-4', name: { nl: 'Lager Leerjaar 1-4', en: 'Primary Year 1-4' }, short: { nl: 'Lj. 1–4', en: 'Years 1–4' }, badge: { nl: 'Lager LJ 1-4', en: 'Primary YR 1-4' }, ages: { nl: '6-10 jaar', en: '6-10 years' } },
+  { key: 'L6', group: 'basis', prefix: 'LJ5-6', name: { nl: 'Lager Leerjaar 5-6', en: 'Primary Year 5-6' }, short: { nl: 'Lj. 5–6', en: 'Years 5–6' }, badge: { nl: 'Lager LJ 5-6', en: 'Primary YR 5-6' }, ages: { nl: '10-12 jaar', en: '10-12 years' } },
+  { key: 'S1A', group: 'sec', subj: SEC_SUBJ, prefix: 'S1A', name: { nl: 'Secundair 1ste graad A-stroom', en: 'Secondary 1st stage A-stream' }, short: { nl: 'Sec. 1A', en: 'Sec. 1A' }, badge: { nl: 'Secundair 1ste graad A', en: 'Secondary 1st stage A' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
+  { key: 'S1B', group: 'sec', subj: SEC_SUBJ, prefix: 'S1B', name: { nl: 'Secundair 1ste graad B-stroom', en: 'Secondary 1st stage B-stream' }, short: { nl: 'Sec. 1B', en: 'Sec. 1B' }, badge: { nl: 'Secundair 1ste graad B', en: 'Secondary 1st stage B' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
 ];
 const TIER = Object.fromEntries(TIERS.map((x, i) => [x.key, { ...x, i }]));
 const DEFAULT_TIER = 'KO';
@@ -11133,7 +11148,7 @@ const T = {
     ng_h: 'Vakken die lang niet aan bod kwamen', ng_note: 'Per kind de vakken waarvan de laatste activiteit het langst geleden is. Rood: meer dan 60 dagen of nog nooit.', ng_never: 'nooit', ng_days: n => `${n} d`, ng_tip: d => `Laatste activiteit: ${d}`, ng_tip_never: 'Nog geen activiteit voor dit vak',
     am_h: 'Bijna beheerst', am_note: 'Doelen die al in minstens 2 activiteiten aan bod kwamen, maar nog niet als beheerst aangevinkt zijn.', am_n: n => `${n}× gebruikt`, am_btn: 'Beheerst', am_more: n => `Toon alle ${n}`, am_less: 'Toon minder', am_none: 'Geen open doelen die al minstens 2 keer aan bod kwamen.',
     cal_h: 'Activiteitenkalender', cal_note: 'Elke dag van het afgelopen jaar; hoe donkerder, hoe meer activiteiten die dag.', cal_sum: (n, g) => `${nlN(n, 'activiteit', 'activiteiten')} het afgelopen jaar · langste pauze: ${nlN(g, 'dag', 'dagen')}`, cal_less: 'Minder', cal_more: 'Meer', cal_pick: 'Klik op een dag om de activiteiten van die dag te zien.', cal_none: 'Geen activiteiten op deze dag.', cal_go: 'Ga naar activiteit',
-    pg_h: 'Voortgang in het leerjaar', pg_note: 'Per kind: het deel van de doelen van hun leerjaar dat beheerst is. De streepjeslijn is het schema om op tijd 100% te halen, de puntjes zetten het huidige tempo verder. Het leerjaar telt vanaf de maand van het eerste beheerste doel (Kleuter 3 jaar, Lager LJ 1-4 4 jaar, Lager LJ 5-6 2 jaar).',
+    pg_h: 'Voortgang in het leerjaar', pg_note: 'Per kind: het deel van de doelen van hun leerjaar dat beheerst is. De streepjeslijn is het schema om op tijd 100% te halen, de puntjes zetten het huidige tempo verder. Het leerjaar telt vanaf de maand van het eerste beheerste doel (Kleuter 3 jaar, Lager LJ 1-4 4 jaar, Lager LJ 5-6 2 jaar, Secundair 1ste graad 2 jaar).',
     pg_mastered: 'Beheerst', pg_target: 'Schema tot einde leerjaar', pg_fc: 'Verwachting aan huidig tempo', pg_today: 'Vandaag',
     pg_on: 'op schema', pg_ahead: n => `${n} mnd voor`, pg_behind: n => `${n} mnd achter`, pg_none: 'Nog geen beheerste doelen',
     pg_foot: (n, tot, p, e) => `<b>${n} van ${tot}</b> (${p}%) · schema ${e}%`, pg_when: d => ` · 100% verwacht in <b>${d}</b>`, pg_end: d => `, einde leerjaar ${d}`, pg_done: ' · alles beheerst',
@@ -11174,6 +11189,7 @@ const T = {
     close: 'Sluiten', cancel: 'Annuleren', save: 'Opslaan', busy: 'Bezig…', progress: (a, b) => `Bezig… ${a}/${b}`,
     child_edit_h: 'Kind wijzigen', child_add_h: 'Kind toevoegen', name: 'Naam', animal: 'Diertje', animal_taken: 'Al gekozen voor een ander kind',
     tier: 'Onderwijsniveau', tier_all: 'Alle niveaus', tier_aria: 'Onderwijsniveau van de doelen',
+    tier_soon: 'De doelen voor dit niveau volgen binnenkort.',
     err_name: 'Vul een naam in.', err_dup_name: n => `Er is al een kind met de naam ${n}.`, saved_changes: 'Wijzigingen opgeslagen.', child_added: n => `${n} is toegevoegd.`,
     child_del_h: 'Kind verwijderen', child_del_q: n => `Weet je zeker dat je <b>${n}</b> wilt verwijderen?`,
     child_del_acts: (n, c) => `${n} wordt uit ${nlN(c, 'activiteit', 'activiteiten')} gehaald. De activiteiten zelf blijven bewaard.`,
@@ -11245,7 +11261,7 @@ const T = {
     ng_h: 'Subjects not covered for a while', ng_note: 'Per child the subjects whose last activity was longest ago. Red: more than 60 days, or never.', ng_never: 'never', ng_days: n => `${n} d`, ng_tip: d => `Last activity: ${d}`, ng_tip_never: 'No activity for this subject yet',
     am_h: 'Almost mastered', am_note: 'Goals that came up in at least 2 activities but are not ticked as mastered yet.', am_n: n => `used ${n}×`, am_btn: 'Mastered', am_more: n => `Show all ${n}`, am_less: 'Show fewer', am_none: 'No open goals that came up at least twice.',
     cal_h: 'Activity calendar', cal_note: 'Every day of the past year; the darker, the more activities that day.', cal_sum: (n, g) => `${nlN(n, 'activity', 'activities')} in the past year · longest break: ${nlN(g, 'day', 'days')}`, cal_less: 'Less', cal_more: 'More', cal_pick: 'Click a day to see its activities.', cal_none: 'No activities on this day.', cal_go: 'Go to activity',
-    pg_h: 'Progress in the year group', pg_note: 'Per child: the share of the goals of their year group that is mastered. The dashed line is the schedule to reach 100% in time, the dots continue the current pace. The year group counts from the month of the first mastered goal (Preschool 3 years, Primary YR 1-4 4 years, Primary YR 5-6 2 years).',
+    pg_h: 'Progress in the year group', pg_note: 'Per child: the share of the goals of their year group that is mastered. The dashed line is the schedule to reach 100% in time, the dots continue the current pace. The year group counts from the month of the first mastered goal (Preschool 3 years, Primary YR 1-4 4 years, Primary YR 5-6 2 years, Secondary 1st stage 2 years).',
     pg_mastered: 'Mastered', pg_target: 'Schedule to the end of the year group', pg_fc: 'Expected at the current pace', pg_today: 'Today',
     pg_on: 'on track', pg_ahead: n => `${n} mo ahead`, pg_behind: n => `${n} mo behind`, pg_none: 'No goals mastered yet',
     pg_foot: (n, tot, p, e) => `<b>${n} of ${tot}</b> (${p}%) · schedule ${e}%`, pg_when: d => ` · 100% expected in <b>${d}</b>`, pg_end: d => `, end of year group ${d}`, pg_done: ' · all mastered',
@@ -11286,6 +11302,7 @@ const T = {
     close: 'Close', cancel: 'Cancel', save: 'Save', busy: 'Working…', progress: (a, b) => `Working… ${a}/${b}`,
     child_edit_h: 'Edit child', child_add_h: 'Add child', name: 'Name', animal: 'Animal', animal_taken: 'Already used for another child',
     tier: 'School level', tier_all: 'All levels', tier_aria: 'School level of the goals',
+    tier_soon: 'The goals for this level are coming soon.',
     err_name: 'Enter a name.', err_dup_name: n => `There is already a child called ${n}.`, saved_changes: 'Changes saved.', child_added: n => `${n} has been added.`,
     child_del_h: 'Delete child', child_del_q: n => `Are you sure you want to delete <b>${n}</b>?`,
     child_del_acts: (n, c) => `${n} will be removed from ${nlN(c, 'activity', 'activities')}. The activities themselves are kept.`,
@@ -11366,8 +11383,10 @@ const bt = (k, ...a) => both(tIn('nl', k, ...a), tIn('en', k, ...a));
 const ADD_KEYS = ['add_child', 'add_activity'];
 const addBt = k => `<span class="bi">${ADD_KEYS.flatMap(key => ['nl', 'en'].map(l =>
   `<span lang="${l}"${key === k && l === lang ? '' : ' class="off" aria-hidden="true"'}>${esc(tIn(l, key))}</span>`)).join('')}</span>`;
-const sName = k => SUBJ[k] ? SUBJ[k].name[lang] : k;
-const bName = k => SUBJ[k] ? both(SUBJ[k].name.nl, SUBJ[k].name.en) : esc(k);
+/* A subject's name, within a tier when given (some subjects are named differently there). */
+const subjNames = (k, tier) => TIER[tier]?.subj?.[k] || SUBJ[k]?.name;
+const sName = (k, tier) => subjNames(k, tier)?.[lang] ?? k;
+const bName = (k, tier) => { const n = subjNames(k, tier); return n ? both(n.nl, n.en) : esc(k); };
 const gDesc = g => (lang === 'en' && g.descriptionEn) || g.description;
 const gCat = g => (lang === 'en' && g.categoryEn) || g.category;
 
@@ -11606,7 +11625,7 @@ const tierBadge = c => `<span class="tier-badge">${esc(TIER[tierOf(c)].badge[lan
 /* A goal's code as shown: tier prefix, a space, the official number (the numbers repeat between tiers). */
 const gCode = g => g.code ? `${TIER[g.tier].prefix} ${g.code}` : '';
 /* Tier choice as a dropdown (goals tab and goal picker): every tier with its number of goals, then all. */
-const tierOptions = cur => TIERS.map(x => `<option value="${x.key}" ${cur === x.key ? 'selected' : ''}>${esc(x.name[lang])} (${goalsOfTier(x.key).length})</option>`).join('')
+const tierOptions = cur => TIER_GROUPS.map(gr => `<optgroup label="${esc(gr.name[lang])}">${TIERS.filter(x => x.group === gr.key).map(x => `<option value="${x.key}" ${cur === x.key ? 'selected' : ''}>${esc(x.name[lang])} (${goalsOfTier(x.key).length})</option>`).join('')}</optgroup>`).join('')
   + `<option value="all" ${cur === 'all' ? 'selected' : ''}>${esc(t('tier_all'))} (${data.goals.size})</option>`;
 /* childId -> Map(goalId -> [activities, oldest first]) */
 function buildCoverage() {
@@ -11738,7 +11757,7 @@ function viewOverview(cov) {
         <div class="cc-id"><h2>${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p></div>
         <div class="cc-pct"><strong>${mast.size}<small>/${sumValues(totals)}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
       <div class="cc-stats"><div class="cc-stat"><strong>${acts.length}</strong><span>${esc(t('acts_lbl', acts.length))}</span><small>${esc(acts[0] ? t('last', fmtDate(acts[0].date)) : t('no_acts_yet'))}</small></div></div>
-      <ul class="bars">${SUBJECTS.filter(s => totals[s.key]).map(s => barRow(sName(s.key), s.key, per[s.key] || 0, totals[s.key], touches[s.key] || 0)).join('')}</ul>
+      ${sumValues(totals) ? `<ul class="bars">${SUBJECTS.filter(s => totals[s.key]).map(s => barRow(sName(s.key, tier), s.key, per[s.key] || 0, totals[s.key], touches[s.key] || 0)).join('')}</ul>` : `<p class="muted">${esc(t('tier_soon'))}</p>`}
       <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w btn-icon edit cc-edit" data-action="edit-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_edit_h'))}" title="${esc(t('child_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost w btn-icon del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></footer>
     </article>`;
   }).join('')}</div>`;
@@ -11756,7 +11775,7 @@ function viewChild(cov) {
     <section class="kid-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
       <div class="kid-name"><h1>${esc(c.name)} ${tierBadge(c)}</h1><p class="lede">${esc(t('reached', mast.size, total))} · ${esc(t('n_touches', sumValues(touches)))} · ${esc(t('n_acts', acts.length))}</p></div>
     </section>`;
-  if (!total) return h;
+  if (!total) return h + `<p class="muted">${esc(t('tier_soon'))}</p>`;
   const segBtn = (key, n) => `<button role="tab" data-action="kid-tab" data-tab="${key}" aria-selected="${tab === key}">${bt('tab_' + key)} <span class="seg-n">${n}</span></button>`;
   h += `<div class="toolbar kid-tools">
       <div class="seg" role="tablist" aria-label="${esc(t('goals_aria'))}">${segBtn('all', total)}${segBtn('todo', total - mast.size)}${segBtn('mastered', mast.size)}</div>
@@ -11771,12 +11790,12 @@ function viewChild(cov) {
     if (!shown.length && (tab === 'mastered' || q)) continue;   // hide empty subjects on the mastered tab and while searching
     shownAny = true;
     h += `<details class="card subj" data-subj="${s.key}" ${ui.closed.has(s.key) && !q ? '' : 'open'}>
-      <summary><span class="dot" style="--c:${sv(s.key)}"></span><h2>${esc(sName(s.key))}</h2><span class="bar" role="img" aria-label="${esc(t('bar_aria', sName(s.key), n, tot))}"><i style="width:${tot ? Math.round(100 * n / tot) : 0}%;background:${sv(s.key)}"></i></span><span class="b-num">${n}/${tot}</span>${touchNum(sName(s.key), touches[s.key] || 0)}</summary>
+      <summary><span class="dot" style="--c:${sv(s.key)}"></span><h2>${esc(sName(s.key, tier))}</h2><span class="bar" role="img" aria-label="${esc(t('bar_aria', sName(s.key, tier), n, tot))}"><i style="width:${tot ? Math.round(100 * n / tot) : 0}%;background:${sv(s.key)}"></i></span><span class="b-num">${n}/${tot}</span>${touchNum(sName(s.key), touches[s.key] || 0)}</summary>
       <ul class="status-list">${shown.length ? shown.map(g => {
         const via = m.get(g.id), since = mast.get(g.id);
         return `<li class="${since ? 'done' : ''}${via ? '' : ' untouched'}"><span class="code" style="--c:${sv(g.subject)}">${esc(gCode(g) || '—')}</span>
           <div class="g-body">${gCat(g) ? `<p class="g-meta">${esc(gCat(g))}</p>` : ''}<p class="g-desc">${esc(gDesc(g))}</p>${since && tab === 'mastered' ? `<p class="since">${esc(t('mastered_since', fmtDate(since)))}</p>` : ''}${via ? `<p class="via">${esc(t('via'))} ${via.map(a => `${esc(a.title)} (${esc(fmtDate(a.date))})`).join(', ')}</p>` : ''}</div>
-          ${touchNum(gCode(g) || sName(g.subject), via ? via.length : 0)}
+          ${touchNum(gCode(g) || sName(g.subject, g.tier), via ? via.length : 0)}
           <label class="mastery"${since ? ` title="${esc(t('mastered_since', fmtDate(since)))}"` : ''}><input type="checkbox" id="m-${esc(g.id)}" data-mastery="${esc(g.id)}" ${since ? 'checked' : ''} ${canWrite ? '' : 'disabled'} aria-label="${esc(t('mastery_aria', gCode(g) || gDesc(g).slice(0, 40)))}"><span aria-hidden="true">${bt('mastered_lbl')}</span></label></li>`;
       }).join('') : `<li><span></span><p class="muted">${esc(t('all_mastered'))}</p></li>`}</ul>
     </details>`;
@@ -11797,7 +11816,7 @@ async function setMastery(gid, on, cid = ui.childId) {
   scheduleRender();
 }
 
-function goalChip(g) { return `<li class="code goal-chip" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" tabindex="0" aria-label="${esc(`${gCode(g)} ${sName(g.subject)}: ${gDesc(g)}`)}"><span class="dot"></span>${esc(gCode(g) || sName(g.subject))}</li>`; }
+function goalChip(g) { return `<li class="code goal-chip" style="--c:${sv(g.subject)}" data-gid="${esc(g.id)}" tabindex="0" aria-label="${esc(`${gCode(g)} ${sName(g.subject, g.tier)}: ${gDesc(g)}`)}"><span class="dot"></span>${esc(gCode(g) || sName(g.subject))}</li>`; }
 
 /* Up to ten thumbnails (two rows of five) to hover and open, with the number of photos below.
    The viewer and the activity's edit form show all of them. */
@@ -11993,7 +12012,7 @@ function viewDashboard() {
    progress card below took its place. Set to true to show it again. */
 const DASH_LINES = false;
 /* how long each level usually lasts, in years: the schedule runs from the first mastered goal to its end */
-const TIER_YEARS = { KO: 3, L4: 4, L6: 2 };
+const TIER_YEARS = { KO: 3, L4: 4, L6: 2, S1A: 2, S1B: 2 };
 /* Progress in the year group: a small chart per child on the same months and the same 0-100% scale, with the
    share mastered, the schedule to 100% by the estimated end of the level, and the current pace continued. */
 function dashProgress(series, chips) {
@@ -12067,7 +12086,7 @@ function dashMatrix(shown) {
     const tot = r.tot[x.key], n = r.n[x.key] || 0;
     if (!tot) return `<span class="mx-c na" title="${esc(t('mx_na'))}">—</span>`;
     const p = Math.round(100 * n / tot);
-    return `<span class="mx-c${p > 55 ? ' dark' : ''}" style="--p:${p}%" title="${esc(t('mx_tip', r.s.name, sName(x.key), n, tot))}">${p}%</span>`;
+    return `<span class="mx-c${p > 55 ? ' dark' : ''}" style="--p:${p}%" title="${esc(t('mx_tip', r.s.name, sName(x.key, tierOf(r.s.kid)), n, tot))}">${p}%</span>`;
   }).join('')).join('');
   return dashCard('mx_h', 'mx_note', `<div class="mx-wrap"><div class="mx" style="--cols:${cols.length}"><span></span>${cols.map(x => `<span class="mx-h" title="${esc(sName(x.key))}"><span class="dot" style="--c:${sv(x.key)}"></span>${esc(x.key === 'IC' ? 'ICT' : x.key)}</span>`).join('')}${cells}</div></div>
     <div class="mx-legend" aria-hidden="true"><span>0%</span><i></i><span>100%</span></div>`);
@@ -12083,7 +12102,7 @@ function dashNeglected(shown) {
     }
     const subs = Object.keys(subjectTotals(tier)).map(k => ({ k, d: last[k] || null, n: last[k] ? daysAgo(last[k]) : Infinity }))
       .sort((a, b) => b.n - a.n || SUBJ[a.k].i - SUBJ[b.k].i).slice(0, 4);
-    return `<li><span class="ng-k">${dashKidLbl(s)}</span><span class="ng-list">${subs.map(x => `<span class="ng-chip${x.n > 60 ? ' late' : ''}" title="${esc(x.d ? t('ng_tip', fmtDate(x.d)) : t('ng_tip_never'))}"><span class="dot" style="--c:${sv(x.k)}"></span>${esc(sName(x.k))}<b>${esc(x.d ? t('ng_days', x.n) : t('ng_never'))}</b></span>`).join('')}</span></li>`;
+    return `<li><span class="ng-k">${dashKidLbl(s)}</span><span class="ng-list">${subs.map(x => `<span class="ng-chip${x.n > 60 ? ' late' : ''}" title="${esc(x.d ? t('ng_tip', fmtDate(x.d)) : t('ng_tip_never'))}"><span class="dot" style="--c:${sv(x.k)}"></span>${esc(sName(x.k, tier))}<b>${esc(x.d ? t('ng_days', x.n) : t('ng_never'))}</b></span>`).join('')}</span></li>`;
   }).join('');
   return dashCard('ng_h', 'ng_note', `<ul class="ng">${rows}</ul>`);
 }
@@ -12098,7 +12117,7 @@ function dashAlmost(shown) {
   }
   rows.sort((a, b) => b.n - a.n || b.last.localeCompare(a.last));
   const list = ui.amAll ? rows : rows.slice(0, AM_SHOW);
-  const body = rows.length ? `<ul class="am">${list.map(r => `<li><span class="code" style="--c:${sv(r.g.subject)}"><span class="dot"></span>${esc(gCode(r.g) || sName(r.g.subject))}</span>
+  const body = rows.length ? `<ul class="am">${list.map(r => `<li><span class="code" style="--c:${sv(r.g.subject)}"><span class="dot"></span>${esc(gCode(r.g) || sName(r.g.subject, r.g.tier))}</span>
       <span class="am-d" title="${esc(gDesc(r.g))}">${esc(gDesc(r.g))}</span><span class="am-k">${dashKidLbl(r.s)}</span><span class="am-n">${esc(t('am_n', r.n))}</span>
       <button class="btn small ghost w" type="button" data-action="am-master" data-id="${esc(r.g.id)}" data-child="${esc(r.s.kid.id)}">${esc(t('am_btn'))}</button></li>`).join('')}</ul>
     ${rows.length > AM_SHOW ? `<button class="btn small ghost am-more" type="button" data-action="am-all">${esc(ui.amAll ? t('am_less') : t('am_more', rows.length))}</button>` : ''}`
@@ -12179,15 +12198,15 @@ function viewGoals(cov) {
       <input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
     <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
       <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${bt('all_subjects')}</button>
-      ${SUBJECTS.filter(s => shownSubj.includes(s.key)).map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${bName(s.key)}</button>`).join('')}
+      ${SUBJECTS.filter(s => shownSubj.includes(s.key)).map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${bName(s.key, mixed ? null : tier)}</button>`).join('')}
     </div>
     <p class="count-line">${esc(t('count_line', list.length, all.length, kids.length))}</p>`;
   const MAX = 400;
   h += `<ul class="card goal-list">${list.slice(0, MAX).map(g => `<li class="goal-row">
       <span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(gCode(g) || '—')}</span>
-      <div class="g-body"><p class="g-meta">${esc(sName(g.subject))}${gCat(g) ? ' · ' + esc(gCat(g)) : ''}</p><p class="g-desc">${esc(gDesc(g))}</p></div>
+      <div class="g-body"><p class="g-meta">${esc(sName(g.subject, g.tier))}${gCat(g) ? ' · ' + esc(gCat(g)) : ''}</p><p class="g-desc">${esc(gDesc(g))}</p></div>
       <div class="g-side">${kids.length ? `<span class="kids-row">${kids.filter(k => tierOf(k) === g.tier).map(k => { const done = !!k.mastered[g.id]; return `<span class="avatar sm ${done ? '' : 'off'}" title="${esc(done ? t('kid_done', k.name) : t('kid_open', k.name))}">${animalArt(k.animal)}</span>`; }).join('')}</span>` : ''}</div>
-    </li>`).join('') || `<li class="goal-row"><p class="muted">${esc(t('no_goals_found'))}</p></li>`}</ul>`;
+    </li>`).join('') || `<li class="goal-row"><p class="muted">${esc(t(all.length ? 'no_goals_found' : 'tier_soon'))}</p></li>`}</ul>`;
   if (list.length > MAX) h += `<p class="count-line">${esc(t('first_n', MAX))}</p>`;
   return h;
 }
@@ -12253,9 +12272,11 @@ function childDialog(child) {
   const current = child ? child.animal : (free.length ? free[Math.floor(Math.random() * free.length)] : ANIMALS[0]);
   const curTier = child ? tierOf(child) : DEFAULT_TIER;
   const body = `<label class="field"><span>${esc(t('name'))}</span><input id="c-name" name="name" maxlength="80" autocomplete="off" required autofocus value="${esc(child?.name || '')}"></label>
-    <div class="field"><span class="field-label">${esc(t('tier'))}</span><div class="tier-grid" role="radiogroup" aria-label="${esc(t('tier'))}">
-      ${TIERS.map(x => `<label><input type="radio" name="tier" id="c-tier-${x.key}" value="${x.key}" ${x.key === curTier ? 'checked' : ''}><b>${esc(x.name[lang])}</b><small>${esc(x.ages[lang])} · ${esc(t('n_goals_short', goalsOfTier(x.key).length))}</small></label>`).join('')}
-    </div></div>
+    <div class="field" role="radiogroup" aria-label="${esc(t('tier'))}"><span class="field-label">${esc(t('tier'))}</span>
+      ${TIER_GROUPS.map(gr => `<p class="tier-row">${esc(gr.name[lang])}</p><div class="tier-grid">
+      ${TIERS.filter(x => x.group === gr.key).map(x => `<label><input type="radio" name="tier" id="c-tier-${x.key}" value="${x.key}" ${x.key === curTier ? 'checked' : ''}><b>${esc(x.name[lang]).replace(/\S+-\S+/g, w => `<span class="tier-nw">${w}</span>`)}</b><small>${esc(x.ages[lang])} · ${esc(t('n_goals_short', goalsOfTier(x.key).length))}</small></label>`).join('')}
+      </div>`).join('')}
+    </div>
     <div class="field"><span class="field-label">${esc(t('animal'))}</span><div class="animal-grid" role="radiogroup" aria-label="${esc(t('animal'))}">
       ${ANIMALS.map((a, i) => `<label title="${used.has(a) ? esc(t('animal_taken')) : ''}"><input type="radio" name="animal" id="c-an-${i}" value="${esc(a)}" ${a === current ? 'checked' : ''} ${used.has(a) && free.length ? 'disabled' : ''}><span class="avatar" aria-hidden="true">${animalArt(a)}</span></label>`).join('')}
     </div></div>`;
@@ -12623,7 +12644,7 @@ function goalPicker(initial, kidIds, onDone) {
   /* The subject list follows the tier: only subjects with goals there (Frans only exists in leerjaar 5-6). */
   function drawSubjects() {
     const keep = subj.value, ks = SUBJECTS.filter(s => goals.some(g => g.subject === s.key && inTierSel(g)));
-    subj.innerHTML = `<option value="">${esc(t('all_subjects'))}</option>` + ks.map(s => `<option value="${s.key}">${esc(sName(s.key))}</option>`).join('');
+    subj.innerHTML = `<option value="">${esc(t('all_subjects'))}</option>` + ks.map(s => `<option value="${s.key}">${esc(sName(s.key, tierSel.value))}</option>`).join('');
     subj.value = ks.some(s => s.key === keep) ? keep : '';
   }
   const list = dlg2.querySelector('#p-list'), q = dlg2.querySelector('#p-q'), subj = dlg2.querySelector('#p-subj'), show = dlg2.querySelector('#p-show'), count = dlg2.querySelector('#p-count');
@@ -12639,7 +12660,7 @@ function goalPicker(initial, kidIds, onDone) {
     const MAX = 300;
     let html = '', group = '';
     for (const g of items.slice(0, MAX)) {
-      if (g.subject !== group) { group = g.subject; html += `<div class="pick-group"><span class="dot" style="--c:${sv(g.subject)}"></span>${esc(sName(g.subject))}</div>`; }
+      if (g.subject !== group) { group = g.subject; html += `<div class="pick-group"><span class="dot" style="--c:${sv(g.subject)}"></span>${esc(sName(g.subject, g.tier))}</div>`; }
       html += `<label class="pick"><input type="checkbox" value="${esc(g.id)}" ${sel.has(g.id) ? 'checked' : ''}><span class="code" style="--c:${sv(g.subject)}">${esc(gCode(g) || '—')}</span><span class="g-desc">${gCat(g) ? `<span class="g-meta">${esc(gCat(g))}</span>\n` : ''}${esc(gDesc(g))}</span></label>`;
     }
     if (items.length > MAX) html += `<p class="pick-more">${esc(t('n_more', items.length - MAX))}</p>`;
@@ -12727,7 +12748,7 @@ function showGoalPeek(chip) {
   const g = data.goals.get(chip.dataset.gid);
   if (!g) return;
   gpeekFor = chip;
-  gpeek.innerHTML = `<div class="gpeek-head"><span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(gCode(g) || '—')}</span><span>${esc(sName(g.subject))}</span></div>
+  gpeek.innerHTML = `<div class="gpeek-head"><span class="code" style="--c:${sv(g.subject)}"><span class="dot"></span>${esc(gCode(g) || '—')}</span><span>${esc(sName(g.subject, g.tier))}</span></div>
     ${gCat(g) ? `<p class="g-meta">${esc(gCat(g))}</p>` : ''}<p class="g-desc">${esc(gDesc(g))}</p>`;
   gpeek.classList.remove('show');
   gpeek.hidden = false;
