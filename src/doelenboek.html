@@ -757,7 +757,7 @@ function viewOverview(cov) {
     const per = countBySubject(mast), touches = touchesBySubject(inTier(cov.get(c.id) || new Map(), tier));
     return `<article class="card child-card">
       <header class="cc-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
-        <div class="cc-id"><h2>${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p></div>
+        <div class="cc-id"><h2 title="${esc(c.name)}">${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p></div>
         <div class="cc-pct"><strong>${mast.size}<small>/${sumValues(totals)}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
       <div class="cc-stats"><div class="cc-stat"><strong>${acts.length}</strong><span>${esc(t('acts_lbl', acts.length))}</span><small>${esc(acts[0] ? t('last', fmtDate(acts[0].date)) : t('no_acts_yet'))}</small></div><span class="cc-sex">${esc(t(c.sex === 'f' ? 'sex_f' : 'sex_m'))}</span></div>
       ${sumValues(totals) ? `<ul class="bars">${SUBJECTS.filter(s => totals[s.key]).map(s => barRow(sName(s.key, tier), s.key, per[s.key] || 0, totals[s.key], touches[s.key] || 0)).join('')}</ul>` : `<p class="muted">${esc(t('tier_soon'))}</p>`}

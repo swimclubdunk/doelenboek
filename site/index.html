@@ -366,7 +366,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .child-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 16px; }   /* footer at the bottom, so cards in a row line up */
 .cc-head { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
 .cc-id { min-width: 0; flex: 1; }
-.cc-id h2 { overflow-wrap: anywhere; }
+.cc-id h2 { white-space: nowrap; overflow: hidden; }   /* a long name stays on one line and is cut off at the edge (full name on hover) */
 .cc-tier { margin: 4px 0 3px; line-height: 1; }
 .meta { color: var(--muted); font-size: .84rem; }
 .cc-pct { text-align: right; display: grid; font-variant-numeric: tabular-nums; }
@@ -14417,7 +14417,7 @@ function viewOverview(cov) {
     const per = countBySubject(mast), touches = touchesBySubject(inTier(cov.get(c.id) || new Map(), tier));
     return `<article class="card child-card">
       <header class="cc-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
-        <div class="cc-id"><h2>${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p></div>
+        <div class="cc-id"><h2 title="${esc(c.name)}">${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p></div>
         <div class="cc-pct"><strong>${mast.size}<small>/${sumValues(totals)}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
       <div class="cc-stats"><div class="cc-stat"><strong>${acts.length}</strong><span>${esc(t('acts_lbl', acts.length))}</span><small>${esc(acts[0] ? t('last', fmtDate(acts[0].date)) : t('no_acts_yet'))}</small></div><span class="cc-sex">${esc(t(c.sex === 'f' ? 'sex_f' : 'sex_m'))}</span></div>
       ${sumValues(totals) ? `<ul class="bars">${SUBJECTS.filter(s => totals[s.key]).map(s => barRow(sName(s.key, tier), s.key, per[s.key] || 0, totals[s.key], touches[s.key] || 0)).join('')}</ul>` : `<p class="muted">${esc(t('tier_soon'))}</p>`}

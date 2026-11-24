@@ -258,7 +258,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .child-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 16px; }   /* footer at the bottom, so cards in a row line up */
 .cc-head { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
 .cc-id { min-width: 0; flex: 1; }
-.cc-id h2 { overflow-wrap: anywhere; }
+.cc-id h2 { white-space: nowrap; overflow: hidden; }   /* a long name stays on one line and is cut off at the edge (full name on hover) */
 .cc-tier { margin: 4px 0 3px; line-height: 1; }
 .meta { color: var(--muted); font-size: .84rem; }
 .cc-pct { text-align: right; display: grid; font-variant-numeric: tabular-nums; }
