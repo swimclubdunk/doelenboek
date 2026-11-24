@@ -28,6 +28,13 @@ class BuildAdmin(unittest.TestCase):
         for left in ('const SUBJECTS = [];', 'const TIERS = [];', 'const BUILTIN_GOALS = [];', '<script src="admin-stats.js">', '<link rel="stylesheet"'):
             self.assertNotIn(left, page)
 
+    def test_tiers_find_every_name_they_use(self):
+        # TIERS refers to other constants (subj: SEC_SUBJ); the admin page must define them too, or it stops loading
+        page = build.build_admin(build.ADMIN_SRC, APP, None, rules_with('OWNER_UID'))
+        tiers = build.js_block(page, 'TIERS')
+        for name in set(re.findall(r'subj: ([A-Z_]+)', tiers)):
+            self.assertIn(f'const {name} = ', page)
+
     def test_fonts_point_one_folder_up(self):
         page = build.build_admin(build.ADMIN_SRC, APP, None, rules_with('OWNER_UID'))
         self.assertIn('url("../fonts/', page)

@@ -259,6 +259,12 @@ def js_block(text, name):
     return text[start:text.index('\n];', start) + 3]
 
 
+def js_line(text, name):
+    """The one-line `const NAME = ...;` from the app source, word for word."""
+    start = text.index(f'const {name} = ')
+    return text[start:text.index('\n', start)]
+
+
 def inline_script(text, src_dir, name):
     """Replace <script src="NAME"></script> with the contents of src_dir/NAME in a <script> block."""
     path = Path(src_dir) / name
@@ -283,7 +289,8 @@ def build_admin(src, app_src, firebase_config=None, rules=RULES):
     text = src.read_text(encoding='utf-8')
 
     text = fill(text, 'const SUBJECTS = [];', js_block(app_text, 'SUBJECTS'), 'subjects')
-    text = fill(text, 'const TIERS = [];', js_block(app_text, 'TIERS'), 'tiers')
+    # TIERS refers to SEC_SUBJ (the secundair subject names), so that line comes along
+    text = fill(text, 'const TIERS = [];', js_line(app_text, 'SEC_SUBJ') + '\n' + js_block(app_text, 'TIERS'), 'tiers')
     text = fill(text, 'const BUILTIN_GOALS = [];', 'const BUILTIN_GOALS = ' + goals_js(subject_keys_of(app_text)) + ';', 'goals')
     uid = admin_uid(rules)
     if uid:
