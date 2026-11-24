@@ -396,6 +396,10 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 
 /* toolbar */
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+/* Kinderen: the search field and Kind toevoegen always share one row, also on a phone */
+.kid-search { flex-wrap: nowrap; align-items: stretch; min-width: 0; }
+.kid-search .search { flex-basis: 0; width: 0; }   /* no built-in input width, so it can shrink on a phone */
+.kid-search .btn { flex: none; }
 .search { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 12px; }
 .select { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 10px; max-width: 100%; }
 .filter-hint { color: var(--muted); font-size: .84rem; }   /* the line above the subject buttons of the goals tab */
@@ -14404,13 +14408,15 @@ function barRow(label, key, n, tot, touches) {
 function viewOverview(cov) {
   const kids = sortedChildren();
   let h = exampleBanner();
+  /* Kind toevoegen sits right of the search field; with no children yet (no search field) it stays in the heading */
+  const addBtn = `<button class="btn" data-action="add-child">${addBt('add_child')}</button>`;
   h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))}</p></div>
-    <div class="head-actions w"><button class="btn" data-action="add-child">${addBt('add_child')}</button></div></section>`;
+    ${kids.length ? '' : `<div class="head-actions w">${addBtn}</div>`}</section>`;
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
   }
   const q = norm(ui.childSearch), shown = q ? kids.filter(c => norm(c.name).includes(q)) : kids;
-  h += `<div class="toolbar"><input class="search" id="child-search" type="search" placeholder="${esc(t('search_kids'))}" value="${esc(ui.childSearch)}" aria-label="${esc(t('search_kids'))}"></div>`;
+  h += `<div class="toolbar kid-search"><input class="search" id="child-search" type="search" placeholder="${esc(t('search_kids'))}" value="${esc(ui.childSearch)}" aria-label="${esc(t('search_kids'))}">${addBtn}</div>`;
   if (!shown.length) return h + `<p class="muted">${esc(t('no_kids_found'))}</p>`;
   h += `<div class="child-grid">${shown.map(c => {
     const acts = activitiesFor(c.id), tier = tierOf(c), totals = subjectTotals(tier), mast = inTier(masteredOf(c), tier);

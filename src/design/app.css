@@ -288,6 +288,10 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 
 /* toolbar */
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+/* Kinderen: the search field and Kind toevoegen always share one row, also on a phone */
+.kid-search { flex-wrap: nowrap; align-items: stretch; min-width: 0; }
+.kid-search .search { flex-basis: 0; width: 0; }   /* no built-in input width, so it can shrink on a phone */
+.kid-search .btn { flex: none; }
 .search { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 12px; }
 .select { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 10px; max-width: 100%; }
 .filter-hint { color: var(--muted); font-size: .84rem; }   /* the line above the subject buttons of the goals tab */
