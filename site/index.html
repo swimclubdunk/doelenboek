@@ -419,8 +419,6 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .sex-filter button:hover { color: var(--fg); }
 .sex-filter button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
 .sex-filter svg { width: 20px; height: 20px; display: block; }
-/* Kinderen: Kind toevoegen on a row of its own, on the right */
-.kid-add { justify-content: flex-end; }
 .search { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 12px; }
 .select { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 10px; max-width: 100%; }
 .filter-hint { color: var(--muted); font-size: .84rem; }   /* the line above the subject buttons of the goals tab */
@@ -14448,15 +14446,13 @@ function barRow(label, key, n, tot, touches) {
 function viewOverview(cov) {
   const kids = sortedChildren();
   let h = exampleBanner();
-  /* Kind toevoegen has a row of its own above the sorting, filters and search; with no children yet it stays in the heading */
   const addBtn = `<button class="btn" data-action="add-child">${addBt('add_child')}</button>`;
   h += `<section class="page-head"><div><h1>${esc(t('h_overview'))} <span class="h-count" aria-label="${esc(t('n_children', kids.length))}">(${kids.length})</span></h1></div>
-    ${kids.length ? '' : `<div class="head-actions w">${addBtn}</div>`}</section>`;
+    <div class="head-actions w">${addBtn}</div></section>`;
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
   }
   const q = norm(ui.childSearch), shown = kids.filter(c => (!q || norm(c.name).includes(q)) && ui.childSex.has(c.sex === 'f' ? 'f' : 'm') && ui.childTiers.has(tierOf(c)));
-  h += `<div class="toolbar kid-add">${addBtn}</div>`;
   const sexToggle = (v, icon) => `<button type="button" data-action="kid-sex" data-sex="${v}" aria-pressed="${ui.childSex.has(v)}" title="${esc(t('filter_' + v))}" aria-label="${esc(t('filter_' + v))}">${icon}</button>`;
   h += `<div class="toolbar kid-order"><label class="sort-by"><span>${esc(t('sort_by'))}</span><select class="select" id="child-sort">${KID_SORTS.map(k => `<option value="${k}" ${k === ui.childSort ? 'selected' : ''}>${esc(t('sort_' + k))}</option>`).join('')}</select></label><div class="sort-by"><span>${esc(t('filter'))}</span><div class="sex-pick sex-filter" role="group" aria-label="${esc(t('filter'))}">${sexToggle('m', ICON_MALE)}${sexToggle('f', ICON_FEMALE)}</div><div class="sex-pick tier-filter" role="group" aria-label="${esc(t('filter_tiers'))}">${TIERS.map(x => `<button type="button" data-action="kid-tier" data-tier="${x.key}" aria-pressed="${ui.childTiers.has(x.key)}" title="${esc(t('filter_tier', x.name[lang]))}">${esc(x.short[lang])}</button>`).join('')}</div></div><input class="search" id="child-search" type="search" placeholder="${esc(t('search_kids'))}" value="${esc(ui.childSearch)}" aria-label="${esc(t('search_kids'))}"></div>`;
   if (!shown.length) return h + `<p class="muted">${esc(t('no_kids_found'))}</p>`;

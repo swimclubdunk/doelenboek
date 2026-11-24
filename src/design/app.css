@@ -311,8 +311,6 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .sex-filter button:hover { color: var(--fg); }
 .sex-filter button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
 .sex-filter svg { width: 20px; height: 20px; display: block; }
-/* Kinderen: Kind toevoegen on a row of its own, on the right */
-.kid-add { justify-content: flex-end; }
 .search { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 12px; }
 .select { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 10px; max-width: 100%; }
 .filter-hint { color: var(--muted); font-size: .84rem; }   /* the line above the subject buttons of the goals tab */
