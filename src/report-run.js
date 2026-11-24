@@ -20,10 +20,13 @@ function loadPdfMake() {
     .catch(e => { loading = null; throw e; });
   return loading;
 }
+/* true when base64 data starts like the JPEG or PNG its mime type claims; anything else is decoded first (and a broken
+   photo then fails on its own instead of breaking the whole PDF) */
+const looksLike = (mime, b64) => (mime === 'image/jpeg' && b64.startsWith('/9j/')) || (mime === 'image/png' && b64.startsWith('iVBORw0KGgo'));
 /* A stored photo ({mime, w, h, data}) as a data URL pdfmake can use: JPEG or PNG of at most MAX_SIDE pixels are used as
    they are; larger ones and WebP (which pdfmake cannot read) are drawn again as JPEG. */
 async function shrink(rec) {
-  if ((rec.mime === 'image/jpeg' || rec.mime === 'image/png') && rec.w && rec.h && Math.max(rec.w, rec.h) <= MAX_SIDE) return `data:${rec.mime};base64,${rec.data}`;
+  if (looksLike(rec.mime, rec.data) && rec.w && rec.h && Math.max(rec.w, rec.h) <= MAX_SIDE) return `data:${rec.mime};base64,${rec.data}`;
   const bin = atob(rec.data), arr = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
   const bmp = await createImageBitmap(new Blob([arr], { type: rec.mime }));
@@ -31,7 +34,9 @@ async function shrink(rec) {
     const s = Math.min(1, MAX_SIDE / Math.max(bmp.width, bmp.height));
     const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(bmp.width * s)); c.height = Math.max(1, Math.round(bmp.height * s));
     const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(bmp, 0, 0, c.width, c.height);
-    return c.toDataURL('image/jpeg', QUALITY);
+    const url = c.toDataURL('image/jpeg', QUALITY);
+    c.width = c.height = 0;   // iOS Safari counts canvas memory until it is collected; free it now
+    return url;
   } finally { bmp.close?.(); }
 }
 async function pool(items, fn, onDone) {
@@ -66,5 +71,6 @@ async function run({ photoIds, getPhoto, build, fileName, onProgress }) {
   save(await window.pdfMake.createPdf(doc).getBlob(), fileName);
 }
 
-return { run };
+return { run, looksLike };
 })();
+if (typeof module !== 'undefined') module.exports = ReportRun;
