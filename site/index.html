@@ -400,10 +400,19 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .sort-by { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: .84rem; font-weight: 700; }
 .sort-by .select { color: var(--fg); font-weight: 500; }
 .kid-order { gap: 10px 28px; align-items: stretch; }
-.kid-order .sort-by { align-items: stretch; }   /* the dropdown and the toggles share one height */
+.kid-order .sort-by { align-items: center; flex-wrap: wrap; row-gap: 8px; min-width: 0; }   /* on a phone the levels go to a new line */
+.kid-order .sex-pick { height: 37px; }   /* the toggles: the dropdown's height */
+@media (max-width: 480px) {   /* a phone: the levels fill their own line with tighter buttons */
+  .kid-order .tier-filter { flex: 1 1 100%; margin-left: 0 !important; }
+  .kid-order .tier-filter button { flex: 1; padding: 0 4px; font-size: .74rem; }
+}
 .kid-order .sort-by > span { align-self: center; }
 .kid-order .select { width: 220px; }   /* 25% wider than its content needed in Dutch */
 /* the boy / girl filter: the same look as the boy / girl choice, as buttons that switch on and off */
+.kid-order .sort-by > .sex-pick + .sex-pick { margin-left: 2px; }   /* the levels right after boy / girl */
+.tier-filter button { border: 0; border-radius: calc(var(--r-sm) - 2px); background: none; cursor: pointer; color: var(--muted); padding: 0 10px; font: inherit; font-size: .82rem; font-weight: 700; white-space: nowrap; }
+.tier-filter button:hover { color: var(--fg); }
+.tier-filter button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
 .sex-filter button { display: grid; place-items: center; width: 38px; border: 0; border-radius: calc(var(--r-sm) - 2px); background: none; cursor: pointer; color: var(--muted); padding: 0; }
 .sex-filter button:hover { color: var(--fg); }
 .sex-filter button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
@@ -13827,7 +13836,7 @@ const T = {
     empty_acts_h: 'Nog geen activiteiten', empty_acts_p: 'Registreer wat je samen deed en vink aan welke minimumdoelen erbij horen.',
     empty_acts_nokids: 'Voeg eerst een kind toe bij Kinderen.', to_overview: 'Naar Kinderen',
     search_kids: 'Zoek een kind op naam', no_kids_found: 'Geen kinderen gevonden.',
-    filter: 'Filter', filter_m: 'Jongens tonen of verbergen', filter_f: 'Meisjes tonen of verbergen',
+    filter: 'Filter', filter_m: 'Jongens tonen of verbergen', filter_f: 'Meisjes tonen of verbergen', filter_tier: n => `${n} tonen of verbergen`, filter_tiers: 'Onderwijsniveaus',
     sort_by: 'Sorteer op', sort_name_asc: 'Naam oplopend', sort_name_desc: 'Naam aflopend', sort_done_desc: 'Voltooiing aflopend',
     sort_done_asc: 'Voltooiing oplopend', sort_tier_asc: 'Onderwijs oplopend', sort_tier_desc: 'Onderwijs aflopend',
     search_acts: 'Zoek op titel, notitie of doelcode', all_children: 'Alle kinderen', filter_child: 'Filter op kind',
@@ -13946,7 +13955,7 @@ const T = {
     empty_acts_h: 'No activities yet', empty_acts_p: 'Log what you did together and tick the minimum goals it covered.',
     empty_acts_nokids: 'Add a child under Children first.', to_overview: 'Go to Children',
     search_kids: 'Search children by name', no_kids_found: 'No children found.',
-    filter: 'Filter', filter_m: 'Show or hide boys', filter_f: 'Show or hide girls',
+    filter: 'Filter', filter_m: 'Show or hide boys', filter_f: 'Show or hide girls', filter_tier: n => `Show or hide ${n}`, filter_tiers: 'School levels',
     sort_by: 'Sort by', sort_name_asc: 'Name Ascending', sort_name_desc: 'Name Descending', sort_done_desc: 'Completion Descending',
     sort_done_asc: 'Completion Ascending', sort_tier_asc: 'Onderwijs Ascending', sort_tier_desc: 'Onderwijs Descending',
     search_acts: 'Search by title, notes or goal code', all_children: 'All children', filter_child: 'Filter by child',
@@ -14102,7 +14111,7 @@ const loaded = { children: false, activities: false };
 const ui = {
   view: 'overzicht', childId: null,
   goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)), goalTier: null,   // null: follow the children's tier
-  childSearch: '', childSort: 'name_asc', childSex: new Set(['m', 'f']),   // Kinderen: order, and boys / girls shown
+  childSearch: '', childSort: 'name_asc', childSex: new Set(['m', 'f']), childTiers: new Set(TIERS.map(x => x.key)),   // Kinderen: order, and the boys / girls and levels shown
   actSearch: '', actChild: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
   dashFrom: null, dashTo: null, dashOff: new Set(), dashStraight: false,   // dashboard: first and last month (month numbers, null: from the first mastered goal, up to this month), the children switched off, straight or smooth lines
@@ -14446,10 +14455,10 @@ function viewOverview(cov) {
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
   }
-  const q = norm(ui.childSearch), shown = kids.filter(c => (!q || norm(c.name).includes(q)) && ui.childSex.has(c.sex === 'f' ? 'f' : 'm'));
+  const q = norm(ui.childSearch), shown = kids.filter(c => (!q || norm(c.name).includes(q)) && ui.childSex.has(c.sex === 'f' ? 'f' : 'm') && ui.childTiers.has(tierOf(c)));
   h += `<div class="toolbar kid-search"><input class="search" id="child-search" type="search" placeholder="${esc(t('search_kids'))}" value="${esc(ui.childSearch)}" aria-label="${esc(t('search_kids'))}">${addBtn}</div>`;
   const sexToggle = (v, icon) => `<button type="button" data-action="kid-sex" data-sex="${v}" aria-pressed="${ui.childSex.has(v)}" title="${esc(t('filter_' + v))}" aria-label="${esc(t('filter_' + v))}">${icon}</button>`;
-  h += `<div class="toolbar kid-order"><label class="sort-by"><span>${esc(t('sort_by'))}</span><select class="select" id="child-sort">${KID_SORTS.map(k => `<option value="${k}" ${k === ui.childSort ? 'selected' : ''}>${esc(t('sort_' + k))}</option>`).join('')}</select></label><div class="sort-by"><span>${esc(t('filter'))}</span><div class="sex-pick sex-filter" role="group" aria-label="${esc(t('filter'))}">${sexToggle('m', ICON_MALE)}${sexToggle('f', ICON_FEMALE)}</div></div></div>`;
+  h += `<div class="toolbar kid-order"><label class="sort-by"><span>${esc(t('sort_by'))}</span><select class="select" id="child-sort">${KID_SORTS.map(k => `<option value="${k}" ${k === ui.childSort ? 'selected' : ''}>${esc(t('sort_' + k))}</option>`).join('')}</select></label><div class="sort-by"><span>${esc(t('filter'))}</span><div class="sex-pick sex-filter" role="group" aria-label="${esc(t('filter'))}">${sexToggle('m', ICON_MALE)}${sexToggle('f', ICON_FEMALE)}</div><div class="sex-pick tier-filter" role="group" aria-label="${esc(t('filter_tiers'))}">${TIERS.map(x => `<button type="button" data-action="kid-tier" data-tier="${x.key}" aria-pressed="${ui.childTiers.has(x.key)}" title="${esc(t('filter_tier', x.name[lang]))}">${esc(x.short[lang])}</button>`).join('')}</div></div></div>`;
   if (!shown.length) return h + `<p class="muted">${esc(t('no_kids_found'))}</p>`;
   h += `<div class="child-grid">${sortKids(shown).map(c => {
     const acts = activitiesFor(c.id), tier = tierOf(c), totals = subjectTotals(tier), mast = inTier(masteredOf(c), tier);
@@ -15544,6 +15553,7 @@ main.addEventListener('click', e => {
     case 'go-activity': ui.actSearch = ''; ui.actChild = ''; ui.goAct = id; location.hash = 'activiteiten'; return;
     case 'dash-kid': ui.dashOff.has(id) ? ui.dashOff.delete(id) : ui.dashOff.add(id); saveDash(); return render();
     case 'ext-tip': return toast(t('ext_tip'));
+    case 'kid-tier': { const v = b.dataset.tier; ui.childTiers.has(v) ? ui.childTiers.delete(v) : ui.childTiers.add(v); return render(); }
     case 'kid-sex': { const v = b.dataset.sex; ui.childSex.has(v) ? ui.childSex.delete(v) : ui.childSex.add(v); return render(); }
     case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
     case 'goal-filter-all': ui.goalSubj = goalTabSubjects().every(k => ui.goalSubj.has(k)) ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
