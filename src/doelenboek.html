@@ -750,8 +750,8 @@ function render() {
   hidePeek();
   main.innerHTML = html;
   hydratePhotos(main);
-  fitNames();
   fitPage();
+  fitNames();   // after the zoom: it changes the width each card has
   if (ui.goAct && ui.view === 'activiteiten') {
     const el = main.querySelector(`[data-act="${CSS.escape(ui.goAct)}"]`);
     if (el) el.scrollIntoView({ block: 'center' });
@@ -786,6 +786,7 @@ function fitNames() {
 }
 /* Safety net for phones: when something is wider than the screen, the whole page is zoomed out just enough to fit,
    instead of scrolling sideways. Nothing too wide, no zoom. Measured afresh after every render and resize. */
+const pageZoom = () => parseFloat(document.body.style.zoom) || 1;
 function fitPage() {
   const root = document.documentElement, body = document.body;
   body.style.zoom = '';
@@ -794,8 +795,8 @@ function fitPage() {
   }
 }
 let fitTimer = 0;
-addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(() => { fitNames(); fitPage(); }, 100); });
-document.fonts?.ready.then(() => { fitNames(); fitPage(); });
+addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(() => { fitPage(); fitNames(); }, 100); });
+document.fonts?.ready.then(() => { fitPage(); fitNames(); });
 function viewOverview(cov) {
   const kids = sortedChildren();
   let h = exampleBanner();
@@ -1900,7 +1901,8 @@ function showPeek(th) {
   if (left < 16) left = Math.max(16, (vw - w) / 2);
   const top = Math.min(Math.max(16, r.top + r.height / 2 - h / 2), vh - 16 - h);
   peekImg.src = img.src;
-  Object.assign(peek.style, { left: left + 'px', top: top + 'px', width: w + 'px', height: h + 'px' });
+  const z = pageZoom();   // the preview sits in the zoomed page: screen pixels divided by the zoom
+  Object.assign(peek.style, { left: left / z + 'px', top: top / z + 'px', width: w / z + 'px', height: h / z + 'px' });
   peek.hidden = false;
   requestAnimationFrame(() => { if (peekFor === th) peek.classList.add('show'); });
 }
@@ -1921,7 +1923,8 @@ function showGoalPeek(chip) {
   let top = r.bottom + 8;
   if (top + b.height > vh - 16) top = Math.max(16, r.top - 8 - b.height);
   const left = Math.min(Math.max(16, r.left), vw - 16 - b.width);
-  Object.assign(gpeek.style, { left: left + 'px', top: top + 'px' });
+  const z = pageZoom();
+  Object.assign(gpeek.style, { left: left / z + 'px', top: top / z + 'px' });
   requestAnimationFrame(() => { if (gpeekFor === chip) gpeek.classList.add('show'); });
 }
 function hideGoalPeek() { gpeekFor = null; gpeek.classList.remove('show'); gpeek.hidden = true; }
