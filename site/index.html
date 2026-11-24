@@ -13804,7 +13804,7 @@ const T = {
     ng_h: 'Vakken die lang niet aan bod kwamen', ng_note: 'Per kind de vakken waarvan de laatste activiteit het langst geleden is. Rood: meer dan 60 dagen of nog nooit.', ng_never: 'nooit', ng_days: n => `${n} d`, ng_tip: d => `Laatste activiteit: ${d}`, ng_tip_never: 'Nog geen activiteit voor dit vak',
     am_h: 'Bijna beheerst', am_note: 'Doelen die al in minstens 2 activiteiten aan bod kwamen, maar nog niet als beheerst aangevinkt zijn.', am_n: n => `${n}× gebruikt`, am_btn: 'Beheerst', am_more: n => `Toon alle ${n}`, am_less: 'Toon minder', am_none: 'Geen open doelen die al minstens 2 keer aan bod kwamen.',
     cal_h: 'Activiteitenkalender', cal_note: 'Elke dag van het afgelopen jaar; hoe donkerder, hoe meer activiteiten die dag.', cal_sum: (n, g) => `${nlN(n, 'activiteit', 'activiteiten')} het afgelopen jaar · langste pauze: ${nlN(g, 'dag', 'dagen')}`, cal_less: 'Minder', cal_more: 'Meer', cal_pick: 'Klik op een dag om de activiteiten van die dag te zien.', cal_none: 'Geen activiteiten op deze dag.', cal_go: 'Ga naar activiteit',
-    pg_h: 'Voortgang in het leerjaar', pg_note: 'Per kind: het deel van de doelen van hun leerjaar dat beheerst is. De streepjeslijn is het schema om op tijd 100% te halen, de puntjes zetten het huidige tempo verder. Het leerjaar telt vanaf de maand van het eerste beheerste doel (Kleuter 3 jaar, Lager LJ 1-4 4 jaar, Lager LJ 5-6 2 jaar, Secundair 1. graad 2 jaar).',
+    pg_h: 'Voortgang in het leerjaar', pg_note: 'Per kind: het deel van de doelen van hun leerjaar dat beheerst is. De streepjeslijn is het schema om op tijd 100% te halen, de puntjes zetten het huidige tempo verder. Elke grafiek loopt van de begindatum tot de streefdatum van het kind. Zonder die data telt ze vanaf de maand van het eerste beheerste doel (Kleuter 3 jaar, Lager LJ 1-4 4 jaar, Lager LJ 5-6 2 jaar, Secundair 1. graad 2 jaar).',
     pg_mastered: 'Beheerst', pg_target: 'Schema tot einde leerjaar', pg_fc: 'Verwachting aan huidig tempo', pg_today: 'Vandaag',
     pg_on: 'op schema', pg_ahead: n => `${n} mnd voor`, pg_behind: n => `${n} mnd achter`, pg_none: 'Nog geen beheerste doelen',
     pg_foot: (n, tot, p, e) => `<b>${n} van ${tot}</b> (${p}%) · schema ${e}%`, pg_when: d => ` · 100% verwacht in <b>${d}</b>`, pg_end: d => `, einde leerjaar ${d}`, pg_done: ' · alles beheerst',
@@ -13923,7 +13923,7 @@ const T = {
     ng_h: 'Subjects not covered for a while', ng_note: 'Per child the subjects whose last activity was longest ago. Red: more than 60 days, or never.', ng_never: 'never', ng_days: n => `${n} d`, ng_tip: d => `Last activity: ${d}`, ng_tip_never: 'No activity for this subject yet',
     am_h: 'Almost mastered', am_note: 'Goals that came up in at least 2 activities but are not ticked as mastered yet.', am_n: n => `used ${n}×`, am_btn: 'Mastered', am_more: n => `Show all ${n}`, am_less: 'Show fewer', am_none: 'No open goals that came up at least twice.',
     cal_h: 'Activity calendar', cal_note: 'Every day of the past year; the darker, the more activities that day.', cal_sum: (n, g) => `${nlN(n, 'activity', 'activities')} in the past year · longest break: ${nlN(g, 'day', 'days')}`, cal_less: 'Less', cal_more: 'More', cal_pick: 'Click a day to see its activities.', cal_none: 'No activities on this day.', cal_go: 'Go to activity',
-    pg_h: 'Progress in the year group', pg_note: 'Per child: the share of the goals of their year group that is mastered. The dashed line is the schedule to reach 100% in time, the dots continue the current pace. The year group counts from the month of the first mastered goal (Preschool 3 years, Primary YR 1-4 4 years, Primary YR 5-6 2 years, Secondary 1st stage 2 years).',
+    pg_h: 'Progress in the year group', pg_note: 'Per child: the share of the goals of their year group that is mastered. The dashed line is the schedule to reach 100% in time, the dots continue the current pace. Each chart runs from the begin date to the target completion date set for the child. Without those dates it counts from the month of the first mastered goal (Preschool 3 years, Primary YR 1-4 4 years, Primary YR 5-6 2 years, Secondary 1st stage 2 years).',
     pg_mastered: 'Mastered', pg_target: 'Schedule to the end of the year group', pg_fc: 'Expected at the current pace', pg_today: 'Today',
     pg_on: 'on track', pg_ahead: n => `${n} mo ahead`, pg_behind: n => `${n} mo behind`, pg_none: 'No goals mastered yet',
     pg_foot: (n, tot, p, e) => `<b>${n} of ${tot}</b> (${p}%) · schedule ${e}%`, pg_when: d => ` · 100% expected in <b>${d}</b>`, pg_end: d => `, end of year group ${d}`, pg_done: ' · all mastered',
@@ -14720,35 +14720,39 @@ function viewDashboard() {
 const DASH_LINES = false;
 /* how long each level usually lasts, in years: the schedule runs from the first mastered goal to its end */
 const TIER_YEARS = { KO: 3, L4: 4, L6: 2, S1A: 2, S1B: 2 };
-/* Progress in the year group: a small chart per child on the same months and the same 0-100% scale, with the
-   share mastered, the schedule to 100% by the estimated end of the level, and the current pace continued. */
+/* Progress in the level: a small chart per child on the same 0-100% scale, with the share mastered, the schedule to
+   100% and the current pace continued. Each chart runs over the child's own window: from its begin date to its target
+   date when those are set in the child window, otherwise from the first mastered goal over the usual length of the
+   level (TIER_YEARS); the axis stretches to show this month when it falls outside the window. */
 function dashProgress(series, chips) {
   const now = monthNo(new Date());
   const kids = series.filter(s => s.on).map(s => {
     const tier = tierOf(s.kid), dates = [...inTier(masteredOf(s.kid), tier).values()].sort();
-    if (!dates.length) return { s, none: true };
-    const start = monthNo(dateObj(dates[0])), months = TIER_YEARS[tier] * 12, end = start + months;
-    const hist = dashMonths({ from: start, to: now }).map(m => dates.filter(d => d <= m.iso).length);
-    const pct = 100 * s.now / s.total, exp = Math.min(100, 100 * (now - start + 1) / months);
+    const set = s.kid.startDate || s.kid.targetDate;
+    if (!dates.length && !set) return { s, none: true };
+    const usual = TIER_YEARS[tier] * 12;
+    const start = s.kid.startDate ? monthNo(dateObj(s.kid.startDate)) : s.kid.targetDate && !dates.length ? monthNo(dateObj(s.kid.targetDate)) - usual : monthNo(dateObj(dates[0]));
+    const end = s.kid.targetDate ? Math.max(start + 1, monthNo(dateObj(s.kid.targetDate))) : start + usual, months = end - start;
+    const hist = now >= start ? dashMonths({ from: start, to: now }).map(m => dates.filter(d => d <= m.iso).length) : [];
+    const pct = 100 * s.now / s.total, exp = Math.max(0, Math.min(100, 100 * (now - start + 1) / months));
     const left = s.total - s.now, done = left <= 0 ? now : s.rate > 0 ? now + Math.ceil(left / s.rate) : null;
-    return { s, start, end, hist, pct, exp, done, diff: Math.round((pct - exp) / (100 / months)) };
+    return { s, start, end, hist, pct, exp, done, diff: Math.round((pct - exp) / (100 / months)), X0: Math.min(start, now), X1: Math.max(end, now + 1) };
   });
-  const charted = kids.filter(k => !k.none);
-  const X0 = Math.min(now, ...charted.map(k => k.start)), X1 = Math.max(now + 1, ...charted.map(k => k.end));
   const W = 400, H = 170, L = 34, R = 8, T = 8, B = 22;
-  const x = m => L + (m - X0) / (X1 - X0) * (W - L - R), y = p => T + (1 - p / 100) * (H - T - B);
+  const y = p => T + (1 - p / 100) * (H - T - B);
   const f = n => n.toFixed(1);
   const lFmt = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' }), mName = k => cap1(lFmt.format(monthStart(k)));
-  let years = '';
-  for (let m = Math.ceil(X0 / 12) * 12; m <= X1; m += 12) years += `<text class="pg-ax" x="${f(x(m))}" y="${H - 6}" text-anchor="middle">${m / 12}</text><line class="pg-grid" x1="${f(x(m))}" x2="${f(x(m))}" y1="${y(0)}" y2="${y(0) + 4}"/>`;
   const grid = [0, 50, 100].map(p => `<line class="pg-grid" x1="${L}" x2="${W - R}" y1="${f(y(p))}" y2="${f(y(p))}"/><text class="pg-ax" x="${L - 6}" y="${f(y(p) + 3)}" text-anchor="end">${p}%</text>`).join('');
   const status = k => k.diff >= 0 ? `<span class="pg-status ahead">${esc(k.diff === 0 ? t('pg_on') : t('pg_ahead', k.diff))} ▲</span>` : `<span class="pg-status behind">${esc(t('pg_behind', -k.diff))} ▼</span>`;
   const card = k => {
     const s = k.s, head = `<div class="pg-head"><span class="dot" style="--c:${s.c}"></span><b>${esc(s.name)}</b>${tierBadge(s.kid)}${k.none ? '' : status(k)}</div>`;
     if (k.none) return `<div class="pg-card">${head}<p class="muted pg-empty">${esc(t('pg_none'))}</p></div>`;
+    const { X0, X1 } = k, x = m => L + (m - X0) / (X1 - X0) * (W - L - R);   // this child's own months
+    let years = '';
+    for (let m = Math.ceil(X0 / 12) * 12; m <= X1; m += 12) years += `<text class="pg-ax" x="${f(x(m))}" y="${H - 6}" text-anchor="middle">${m / 12}</text><line class="pg-grid" x1="${f(x(m))}" x2="${f(x(m))}" y1="${y(0)}" y2="${y(0) + 4}"/>`;
     const pts = k.hist.map((v, i) => [x(k.start + i), y(100 * v / s.total)]);
-    const line = 'M' + pts.map(p => `${f(p[0])},${f(p[1])}`).join(' L');
-    const area = `${line} L${f(pts[pts.length - 1][0])},${f(y(0))} L${f(pts[0][0])},${f(y(0))} Z`;
+    const line = pts.length ? 'M' + pts.map(p => `${f(p[0])},${f(p[1])}`).join(' L') : '';
+    const area = pts.length ? `${line} L${f(pts[pts.length - 1][0])},${f(y(0))} L${f(pts[0][0])},${f(y(0))} Z` : '';
     let fc = '';
     if (k.done != null && k.done > now) {
       const e = Math.min(k.done, X1), p = Math.min(100, k.pct + (e - now) * s.rate / s.total * 100);
@@ -14760,9 +14764,9 @@ function dashProgress(series, chips) {
       <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(t('pg_aria', s.name, Math.round(k.pct), Math.round(k.exp)))}">
         ${grid}${years}
         <line class="pg-today" x1="${f(x(now))}" x2="${f(x(now))}" y1="${T}" y2="${f(y(0))}"/>
-        <path d="${area}" style="fill:${s.c}" opacity=".18"/>
+        ${area ? `<path d="${area}" style="fill:${s.c}" opacity=".18"/>` : ''}
         <path class="pg-target" d="M${f(x(k.start))},${f(y(0))} L${f(x(k.end))},${f(y(100))}"/>
-        <path d="${line}" class="pg-line" style="stroke:${s.c}"/>
+        ${line ? `<path d="${line}" class="pg-line" style="stroke:${s.c}"/>` : ''}
         ${fc}
         <circle cx="${f(x(now))}" cy="${f(y(k.pct))}" r="4" style="fill:${s.c}" class="pg-dot"/>
         <circle cx="${f(x(k.end))}" cy="${f(y(100))}" r="3" class="pg-end"/>

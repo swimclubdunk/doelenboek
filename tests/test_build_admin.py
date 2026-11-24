@@ -1,5 +1,5 @@
 """Tests for the /admin/ build. Run: python -m unittest discover -s tests"""
-import re, subprocess, sys, tempfile, unittest
+import re, shutil, subprocess, sys, tempfile, unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -116,3 +116,16 @@ class SecundairGoals(unittest.TestCase):
             Path(d, 'x.json').write_text('{"subject": "NL", "doelen": [{"codes": {"S1A": "01"}, "extension": ["S1B"], "description": "x"}]}', encoding='utf-8')
             with self.assertRaisesRegex(build.BuildError, 'extension'):
                 build.load_secundair_dir(Path(d), ['NL'])
+
+
+class PageScripts(unittest.TestCase):
+    """Every inline script of the built app and admin page must parse (a stray quote in a text breaks the whole app)."""
+
+    def test_inline_scripts_parse(self):
+        node = shutil.which('node')
+        if not node:
+            self.skipTest('node is not installed')
+        for name, page in (('app', build.build(APP)), ('admin', build.build_admin(build.ADMIN_SRC, APP, None))):
+            for n, code in enumerate(re.findall(r'<script>([\s\S]*?)</script>', page)):
+                r = subprocess.run([node, '-e', 'new Function(require("fs").readFileSync(0, "utf8"))'], input=code, capture_output=True, text=True, encoding='utf-8')
+                self.assertEqual(r.returncode, 0, f'{name} script {n}: {r.stderr.strip().splitlines()[-1] if r.stderr.strip() else "?"}')
