@@ -324,6 +324,17 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cal-card .cal { gap: 2px; }
 .cal-card .cal-days { gap: 2px; grid-template-rows: repeat(7, 11px); line-height: 11px; }   /* all seven days named, each on its 11px row */
 .cal-card .cal-d { aspect-ratio: auto; height: 11px; }   /* a fixed height: the weeks since the first activity share the width */
+/* Rapportering form: label left, choices right; the rows wrap on a phone */
+.rep-form { padding: 18px 20px; }
+.rep-form fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 16px; }
+.rep-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; min-width: 0; }
+.rep-lbl { font-weight: 700; min-width: 96px; }
+.rep-seg { flex-wrap: wrap; }
+.rep-seg button { min-height: 29px; }
+.rep-kids { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.rep-kids label, .rep-check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.rep-dates { padding-left: 108px; }
+@media (max-width: 560px) { .rep-dates { padding-left: 0; } }
 /* an activity reached from the dashboard calendar lights up for a moment */
 .act.flash { animation: act-flash 2.4s ease-out; }
 @keyframes act-flash { 0%, 35% { box-shadow: 0 0 0 3px var(--accent); } 100% { box-shadow: var(--shadow); } }
@@ -350,8 +361,6 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .dc-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
 
 /* a short note under the title of a page whose feature is still to come (Reporting): plain text, no card */
-.soon-note { max-width: 70ch; display: grid; gap: 10px; }
-.soon-note p { margin: 0; }
 
 /* avatars */
 .avatar { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; overflow: hidden; background: var(--surface-2); font-size: 17px; line-height: 1; flex: none; }

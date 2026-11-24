@@ -342,6 +342,17 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cal-card .cal { gap: 2px; }
 .cal-card .cal-days { gap: 2px; grid-template-rows: repeat(7, 11px); line-height: 11px; }   /* all seven days named, each on its 11px row */
 .cal-card .cal-d { aspect-ratio: auto; height: 11px; }   /* a fixed height: the weeks since the first activity share the width */
+/* Rapportering form: label left, choices right; the rows wrap on a phone */
+.rep-form { padding: 18px 20px; }
+.rep-form fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 16px; }
+.rep-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; min-width: 0; }
+.rep-lbl { font-weight: 700; min-width: 96px; }
+.rep-seg { flex-wrap: wrap; }
+.rep-seg button { min-height: 29px; }
+.rep-kids { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.rep-kids label, .rep-check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.rep-dates { padding-left: 108px; }
+@media (max-width: 560px) { .rep-dates { padding-left: 0; } }
 /* an activity reached from the dashboard calendar lights up for a moment */
 .act.flash { animation: act-flash 2.4s ease-out; }
 @keyframes act-flash { 0%, 35% { box-shadow: 0 0 0 3px var(--accent); } 100% { box-shadow: var(--shadow); } }
@@ -368,8 +379,6 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .dc-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
 
 /* a short note under the title of a page whose feature is still to come (Reporting): plain text, no card */
-.soon-note { max-width: 70ch; display: grid; gap: 10px; }
-.soon-note p { margin: 0; }
 
 /* avatars */
 .avatar { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; overflow: hidden; background: var(--surface-2); font-size: 17px; line-height: 1; flex: none; }
@@ -14188,7 +14197,7 @@ const T = {
     pg_aria: (k, p, e) => `${k}: ${p}% beheerst, schema ${e}%`, cal_close: 'Inklappen', cal_open: 'Uitklappen', cal_span: (n, d) => `${nlN(n, 'activiteit', 'activiteiten')} van ${d} tot vandaag`, cal_note_all: 'Elke dag van de gekozen periode; hoe donkerder, hoe meer activiteiten die dag.', cal_r_all: 'Alles', cal_r_2y: 'Afgelopen 2 jaar', cal_r_year: 'Afgelopen jaar', cal_r_6m: 'Afgelopen 6 maanden', cal_rs_all: 'Alles', cal_rs_2y: '2 jaar', cal_rs_year: '1 jaar', cal_rs_6m: '6 mnd', cal_ranges: 'Periode van de kalender', cal_tip: (d, n) => `${d}: ${nlN(n, 'activiteit', 'activiteiten')}`,
     dash_empty: 'Voeg een kind toe om hier de grafiek te zien.', dash_all_off: 'Zet minstens één kind aan.', dash_aria: (name, n) => `${name}: ${n} beheerst`,
     tab_reporting: 'Rapportering', h_reporting: 'Rapportering',
-    reporting_p: 'In dit onderdeel zul je PDF-rapporten van het thuisonderwijstraject van je kinderen kunnen maken en downloaden, met tijdlijnen, activiteiten, grafieken en natuurlijk de behandelde minimumdoelen.', reporting_soon: 'Deze functie komt binnenkort.',
+   
     st_connecting: 'Verbinden…', st_saved: 'Automatisch opgeslagen', st_readonly: 'Alleen lezen',
     data_btn: 'Instellingen', loading: 'Gegevens laden…', locale: 'nl-BE', theme_h: 'Weergave', theme_light: 'Licht', theme_dark: 'Donker',
     example_banner: 'Je ziet <b>voorbeeldgegevens</b> zodat je kunt zien hoe het werkt. Verwijder ze wanneer je je eigen kinderen toevoegt.',
@@ -14308,7 +14317,7 @@ const T = {
     pg_aria: (k, p, e) => `${k}: ${p}% mastered, schedule ${e}%`, cal_close: 'Collapse', cal_open: 'Expand', cal_span: (n, d) => `${nlN(n, 'activity', 'activities')} from ${d} to today`, cal_note_all: 'Every day of the chosen period; the darker, the more activities that day.', cal_r_all: 'All time', cal_r_2y: 'Past 2 years', cal_r_year: 'Past year', cal_r_6m: 'Past 6 months', cal_rs_all: 'All', cal_rs_2y: '2 yrs', cal_rs_year: '1 yr', cal_rs_6m: '6 mo', cal_ranges: 'Calendar period', cal_tip: (d, n) => `${d}: ${nlN(n, 'activity', 'activities')}`,
     dash_empty: 'Add a child to see the graph here.', dash_all_off: 'Turn on at least one child.', dash_aria: (name, n) => `${name}: ${n} mastered`,
     tab_reporting: 'Reporting', h_reporting: 'Reporting',
-    reporting_p: "Here you will be able to generate and download PDF reports of your children's homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.", reporting_soon: 'This feature is coming soon.',
+   
     st_connecting: 'Connecting…', st_saved: 'Saved automatically', st_readonly: 'Read only',
     data_btn: 'Settings', loading: 'Loading data…', locale: 'en-GB', theme_h: 'Appearance', theme_light: 'Light', theme_dark: 'Dark',
     example_banner: 'You are looking at <b>example data</b> so you can see how it works. Remove it when you add your own children.',
@@ -14415,6 +14424,7 @@ const T = {
     late_write_fail: 'A change could not be saved to your account. Reload the page and check your data.',
   },
 };
+for (const l of ['nl', 'en']) Object.assign(T[l], Report.TEXTS[l]);   // the report texts live in src/report.js, where its tests check them
 let lang = 'nl';
 try { const saved = localStorage.getItem(LANG_KEY); if (saved === 'en' || saved === 'nl') lang = saved; } catch (e) {}
 const tIn = (l, k, ...a) => { const v = T[l][k] ?? T.nl[k]; return typeof v === 'function' ? v(...a) : (v ?? k); };
@@ -14497,6 +14507,7 @@ const ui = {
   dashRel: false,   // mastered goals: false ABS (the number of goals), true REL (percent of the child's level)
   calDay: null, amAll: false, goAct: null,   // dashboard: the calendar day opened, the whole almost-mastered list; an activity to scroll to
   actFrom: null, actTo: null,   // the activities graph's own first and last month (null: from the first activity); its lines are always straight
+  rep: { kind: 'global', off: new Set(), child: '', period: 'school', from: '', until: '', photos: false, busy: '' },   // Rapportering: the form; off = children unticked; busy = progress text while a report is made
 };
 /* The dashboard choices come back on the next visit. A range that ends in the current month is saved
    without its end, so next month it ends in that month instead of staying behind. */
@@ -15342,10 +15353,73 @@ function dashPlot(shown, labels, aria, emptyMsg, straight, rel) {
     <div class="dc-axis" aria-hidden="true">${labels.map((l, i) => (N - 1 - i) % step ? '' : `<span style="left:${xs[i].toFixed(2)}%">${esc(l)}</span>`).join('')}</div>`;
 }
 
-/* Reporting: a note on what is coming, until the reports exist */
+/* Rapportering: the form for a PDF report. Globaal = a family overview and a part per ticked child; per kind = one child.
+   The report is made in this browser (src/report.js, src/report-run.js); nothing is stored. */
 function viewReporting() {
-  return `<section class="page-head"><div><h1>${esc(t('h_reporting'))}</h1></div></section>
-    <section class="soon-note"><p>${esc(t('reporting_p'))}</p><p><b>${esc(t('reporting_soon'))}</b></p></section>`;
+  const r = ui.rep, kids = sortedChildren();
+  let h = `<section class="page-head"><div><h1>${esc(t('h_reporting'))}</h1></div></section>`;
+  if (!kids.length) return h + `<p class="muted">${esc(t('rep_no_kids'))}</p>`;
+  const seg = (action, cur, keys, label) => `<div class="sex-pick tier-filter rep-seg" role="group" aria-label="${esc(label)}">${keys.map(([k, lbl]) =>
+    `<button type="button" data-action="${action}" data-id="${k}" aria-pressed="${cur === k}">${esc(t(lbl))}</button>`).join('')}</div>`;
+  const who = r.kind === 'global'
+    ? `<div class="rep-kids">${kids.map(c => `<label><input type="checkbox" data-rep-kid="${esc(c.id)}" ${r.off.has(c.id) ? '' : 'checked'}> ${esc(c.name)}</label>`).join('')}</div>`
+    : `<select class="select" id="rep-child" aria-label="${esc(t('rep_pick_child'))}">${kids.map(c => `<option value="${esc(c.id)}" ${c.id === r.child ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select>`;
+  const own = r.period === 'custom' ? `<div class="rep-row rep-dates">
+      <label class="date-in"><span>${esc(t('rep_from'))}</span><input class="select" id="rep-from" type="date" value="${esc(r.from)}"></label>
+      <label class="date-in"><span>${esc(t('rep_until'))}</span><input class="select" id="rep-until" type="date" value="${esc(r.until)}"></label></div>` : '';
+  return h + `<section class="card rep-form"><fieldset ${r.busy ? 'disabled' : ''}>
+    <div class="rep-row"><span class="rep-lbl">${esc(t('rep_type'))}</span>${seg('rep-kind', r.kind, [['global', 'rep_global'], ['child', 'rep_child']], t('rep_type'))}</div>
+    <div class="rep-row"><span class="rep-lbl">${esc(t(r.kind === 'global' ? 'rep_children' : 'rep_pick_child'))}</span>${who}</div>
+    <div class="rep-row"><span class="rep-lbl">${esc(t('rep_period'))}</span>${seg('rep-period', r.period, Report.PERIODS.map(p => [p, 'rep_p_' + p]), t('rep_period'))}</div>
+    ${own}
+    <label class="rep-check"><input type="checkbox" id="rep-photos" ${r.photos ? 'checked' : ''}> ${esc(t('rep_photos'))}</label>
+    <div><button class="btn primary" type="button" id="rep-run" data-action="rep-run">${esc(r.busy || t('rep_download'))}</button></div>
+  </fieldset></section>`;
+}
+/* The builder's input: per chosen child its level's goals in display order and language, its ticks on them, its colour
+   (the dashboard's, by the order the children were added); all activities (the builder picks per child and period). */
+function reportInput(kind, kids, range, today, { images, failed, logo }) {
+  const acts = [...data.activities.values()], order = new Map(dashKids().map((c, i) => [c.id, i]));
+  return {
+    kind, range, today, withPhotos: ui.rep.photos, images, logo, t, activities: acts,
+    fmt: { date: fmtDate, month: ym => cap1(new Intl.DateTimeFormat(t('locale'), { month: 'short', year: '2-digit' }).format(dateObj(ym + '-15'))) },
+    missing: failed.map(id => { const a = acts.find(x => x.photoIds.includes(id)); return { date: a?.date || '', title: a?.title || '' }; }),
+    children: kids.map(c => {
+      const tier = tierOf(c);
+      return { id: c.id, name: c.name, level: TIER[tier].name[lang], startDate: c.startDate || null, endDate: c.targetDate || null,
+        color: Report.COLORS[DASH_COLORS[(order.get(c.id) || 0) % DASH_COLORS.length]],
+        mastered: Object.fromEntries(inTier(masteredOf(c), tier)),
+        goals: sortedGoals(tier).filter(g => inT(g, tier)).map(g => ({ id: g.id, code: gCode(g, tier), text: gDesc(g), subject: sName(g.subject, tier) })) };
+    }),
+  };
+}
+/* Download: check the form, warn about very many photos, then make the report. */
+function runReport() {
+  const r = ui.rep, today = todayIso(), all = sortedChildren();
+  const kids = r.kind === 'global' ? all.filter(c => !r.off.has(c.id)) : [data.children.get(r.child) || all[0]].filter(Boolean);
+  if (!kids.length) { toast(t('rep_need_child'), true); return; }
+  const range = Report.periodRange(r.period, today, r.from, r.until);
+  if (!range) { toast(t('rep_need_dates'), true); return; }
+  const shown = new Map();
+  for (const c of kids) for (const a of Report.selectActivities([...data.activities.values()], c.id, range)) shown.set(a.id, a);
+  const photoIds = r.photos ? Report.photoIdsFor([...shown.values()]) : [];
+  const go = () => { makeReport(r.kind, kids, range, today, photoIds); };   // not awaited: the warning closes at once
+  if (photoIds.length > Report.PHOTO_WARN) confirmDialog(t('rep_warn_h'), `<p>${esc(t('rep_warn_p', photoIds.length))}</p>`, t('rep_warn_go'), go);
+  else go();
+}
+async function makeReport(kind, kids, range, today, photoIds) {
+  const show = s => { ui.rep.busy = s; const b = document.getElementById('rep-run'); if (b) b.textContent = s; };   // the button shows progress without a full render
+  ui.rep.busy = t('rep_prog_pdf'); render();
+  try {
+    await ReportRun.run({
+      photoIds, getPhoto: id => photoStore.get(id),
+      onProgress: (step, n, total) => show(step === 'photos' ? t('rep_prog_photos', n, total) : t('rep_prog_pdf')),
+      build: parts => Report.buildReport(reportInput(kind, kids, range, today, parts)),
+      fileName: Report.fileName(kind, kids[0].name, today, t),
+    });
+  } catch (e) {
+    toast(e && e.message === 'offline' ? t('rep_err_offline') : t('rep_err', errMsg(e)), true);
+  } finally { ui.rep.busy = ''; render(); }
 }
 
 function viewGoals(cov) {
@@ -16040,6 +16114,9 @@ main.addEventListener('click', e => {
   const b = e.target.closest('[data-action]'); if (!b || b.disabled) return;
   const id = b.dataset.id, act = b.dataset.action;
   switch (act) {
+    case 'rep-kind': ui.rep.kind = id; render(); return;
+    case 'rep-period': ui.rep.period = id; render(); return;
+    case 'rep-run': return runReport();
     case 'add-child': return childDialog(null);
     case 'edit-child': return childDialog(data.children.get(id));
     case 'delete-child': return deleteChild(id);
@@ -16113,6 +16190,11 @@ main.addEventListener('input', e => {
   if (e.target.id === 'kid-search') { ui.kidSearch = e.target.value; scheduleRender(); }
 });
 main.addEventListener('change', e => {
+  if (e.target.id === 'rep-child') ui.rep.child = e.target.value;
+  if (e.target.id === 'rep-from') ui.rep.from = e.target.value;
+  if (e.target.id === 'rep-until') ui.rep.until = e.target.value;
+  if (e.target.id === 'rep-photos') ui.rep.photos = e.target.checked;
+  if (e.target.dataset.repKid) { const id = e.target.dataset.repKid; if (e.target.checked) ui.rep.off.delete(id); else ui.rep.off.add(id); }
   if (e.target.id === 'act-child') { ui.actChild = e.target.value; render(); }
   if (e.target.id === 'act-from') { ui.actDayFrom = e.target.value; render(); }
   if (e.target.id === 'act-until') { ui.actDayUntil = e.target.value; render(); }
