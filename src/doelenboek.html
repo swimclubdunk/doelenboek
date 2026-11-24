@@ -1265,11 +1265,9 @@ function childDialog(child) {
   const current = child ? child.animal : (free.length ? free[Math.floor(Math.random() * free.length)] : ANIMALS[0]);
   const curTier = child ? tierOf(child) : DEFAULT_TIER;
   const body = `<label class="field"><span>${esc(t('name'))}</span><input id="c-name" name="name" maxlength="80" autocomplete="off" required autofocus value="${esc(child?.name || '')}"></label>
-    <div class="field" role="radiogroup" aria-label="${esc(t('tier'))}"><span class="field-label">${esc(t('tier'))}</span>
-      ${TIER_GROUPS.map(gr => `<p class="tier-row">${esc(gr.name[lang])}</p><div class="tier-grid">
-      ${TIERS.filter(x => x.group === gr.key).map(x => `<label><input type="radio" name="tier" id="c-tier-${x.key}" value="${x.key}" ${x.key === curTier ? 'checked' : ''}><b>${noHyphenBreak(x.name[lang])}</b><small>${esc(x.ages[lang])} · ${esc(t('n_goals_short', goalsOfTier(x.key).length))}</small></label>`).join('')}
-      </div>`).join('')}
-    </div>
+    <label class="field"><span>${esc(t('tier'))}</span><select id="c-tier" name="tier">
+      ${TIER_GROUPS.map(gr => `<optgroup label="${esc(gr.name[lang])}">${TIERS.filter(x => x.group === gr.key).map(x => `<option value="${x.key}" ${x.key === curTier ? 'selected' : ''}>${esc(x.name[lang])} · ${esc(x.ages[lang])} · ${esc(t('n_goals_short', goalsOfTier(x.key).length))}</option>`).join('')}</optgroup>`).join('')}
+    </select></label>
     <div class="field"><span class="field-label">${esc(t('animal'))}</span><div class="animal-grid" role="radiogroup" aria-label="${esc(t('animal'))}">
       ${ANIMALS.map((a, i) => `<label title="${used.has(a) ? esc(t('animal_taken')) : ''}"><input type="radio" name="animal" id="c-an-${i}" value="${esc(a)}" ${a === current ? 'checked' : ''} ${used.has(a) && free.length ? 'disabled' : ''}><span class="avatar" aria-hidden="true">${animalArt(a)}</span></label>`).join('')}
     </div></div>`;
@@ -1280,7 +1278,7 @@ function childDialog(child) {
       const dup = [...data.children.values()].some(c => (!child || c.id !== child.id) && c.name.localeCompare(name, 'nl', { sensitivity: 'accent' }) === 0);
       if (dup) return t('err_dup_name', name);
       const animal = form.querySelector('input[name=animal]:checked')?.value || current;
-      const tier = form.querySelector('input[name=tier]:checked')?.value || curTier;
+      const tier = TIER[form.tier.value] ? form.tier.value : curTier;
       const now = Date.now();
       await put('children', child?.id || newId(), { ...(child ? bodyOf(child) : { createdAt: now }), name, animal, tier, updatedAt: now, example: false });
       toast(child ? t('saved_changes') : t('child_added', name));
