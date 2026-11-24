@@ -366,9 +366,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cc-head { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
 .cc-id { min-width: 0; flex: 1; }
 .cc-id h2 { overflow-wrap: anywhere; }
-.cc-tier { --pill-pitch: 23px; margin: 2px 0 -2px; line-height: 1; }   /* pitch: a 19px pill plus the same 4px gap as between name and badge */
-/* a long level name (Secundair 1. graad A-stroom) wraps instead of pushing the score out of the card; each line keeps its own pill */
-.cc-tier .tier-badge { display: inline; white-space: normal; -webkit-box-decoration-break: clone; box-decoration-break: clone; line-height: var(--pill-pitch); }
+.cc-tier { margin: 4px 0 3px; line-height: 1; }
 .meta { color: var(--muted); font-size: .84rem; }
 .cc-pct { text-align: right; display: grid; font-variant-numeric: tabular-nums; }
 .cc-pct strong { font-family: var(--f-display); font-size: 1.7rem; line-height: 1; }
@@ -1135,8 +1133,8 @@ const TIERS = [
   { key: 'KO', group: 'basis', prefix: 'Kl', name: { nl: 'Kleuter', en: 'Preschool' }, short: { nl: 'Kleuter', en: 'Preschool' }, badge: { nl: 'Kleuter', en: 'Preschool' }, ages: { nl: '2-6 jaar', en: '2-6 years' } },
   { key: 'L4', group: 'basis', prefix: 'LJ1-4', name: { nl: 'Lager Leerjaar 1-4', en: 'Primary Year 1-4' }, short: { nl: 'Lj. 1–4', en: 'Years 1–4' }, badge: { nl: 'Lager LJ 1-4', en: 'Primary YR 1-4' }, ages: { nl: '6-10 jaar', en: '6-10 years' } },
   { key: 'L6', group: 'basis', prefix: 'LJ5-6', name: { nl: 'Lager Leerjaar 5-6', en: 'Primary Year 5-6' }, short: { nl: 'Lj. 5–6', en: 'Years 5–6' }, badge: { nl: 'Lager LJ 5-6', en: 'Primary YR 5-6' }, ages: { nl: '10-12 jaar', en: '10-12 years' } },
-  { key: 'S1A', group: 'sec', subj: SEC_SUBJ, prefix: 'Sec1A', name: { nl: 'Secundair 1. graad A-stroom', en: 'Secondary 1st stage A-stream' }, short: { nl: 'Sec. 1A', en: 'Sec. 1A' }, badge: { nl: 'Secundair 1.\u00a0graad\u00a0A-stroom', en: 'Secondary 1st\u00a0stage\u00a0A-stream' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
-  { key: 'S1B', group: 'sec', subj: SEC_SUBJ, prefix: 'Sec1B', name: { nl: 'Secundair 1. graad B-stroom', en: 'Secondary 1st stage B-stream' }, short: { nl: 'Sec. 1B', en: 'Sec. 1B' }, badge: { nl: 'Secundair 1.\u00a0graad\u00a0B-stroom', en: 'Secondary 1st\u00a0stage\u00a0B-stream' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
+  { key: 'S1A', group: 'sec', subj: SEC_SUBJ, prefix: 'Sec1A', name: { nl: 'Secundair 1. graad A-stroom', en: 'Secondary 1st stage A-stream' }, short: { nl: 'Sec. 1A', en: 'Sec. 1A' }, badge: { nl: 'Sec 1.Graad A-Stroom', en: 'Sec 1st Stage A-Stream' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
+  { key: 'S1B', group: 'sec', subj: SEC_SUBJ, prefix: 'Sec1B', name: { nl: 'Secundair 1. graad B-stroom', en: 'Secondary 1st stage B-stream' }, short: { nl: 'Sec. 1B', en: 'Sec. 1B' }, badge: { nl: 'Sec 1.Graad B-Stroom', en: 'Sec 1st Stage B-Stream' }, ages: { nl: '12-14 jaar', en: '12-14 years' } },
 ];
 const TIER = Object.fromEntries(TIERS.map((x, i) => [x.key, { ...x, i }]));
 const DEFAULT_TIER = 'KO';
@@ -14255,7 +14253,7 @@ const goalsOfTier = tier => [...data.goals.values()].filter(g => inT(g, tier));
 /* Only the part of a goalId -> x map that belongs to one tier. Ticks and tags for another tier stay in the
    data (they come back when the child switches back) but are not shown or counted. */
 const inTier = (m, tier) => new Map([...m].filter(([gid]) => { const g = data.goals.get(gid); return g && inT(g, tier); }));
-/* never broken at a hyphen (A-stroom, LJ 1-4); the secundair badges only break after "Secundair" (non-breaking spaces) */
+/* never broken at a hyphen (A-stroom, LJ 1-4) */
 const noHyphenBreak = s => esc(s).replace(/\S+-\S+/g, w => `<span class="tier-nw">${w}</span>`);
 const tierBadge = c => `<span class="tier-badge">${noHyphenBreak(TIER[tierOf(c)].badge[lang])}</span>`;
 /* A goal's code as shown: tier prefix, a space, the official number (the numbers repeat between tiers). */
