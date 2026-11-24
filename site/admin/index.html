@@ -348,9 +348,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cc-head { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
 .cc-id { min-width: 0; flex: 1; }
 .cc-id h2 { overflow-wrap: anywhere; }
-.cc-tier { --pill-pitch: 23px; margin: 2px 0 -2px; line-height: 1; min-height: calc(2 * var(--pill-pitch)); }
-/* pitch: a 19px pill plus the same 4px gap as between name and badge; every card keeps room for two pill lines,
-   so a one-line badge (Kleuter) leaves the second line empty and all cards' contents line up */
+.cc-tier { --pill-pitch: 23px; margin: 2px 0 -2px; line-height: 1; }   /* pitch: a 19px pill plus the same 4px gap as between name and badge */
 /* a long level name (Secundair 1. graad A-stroom) wraps instead of pushing the score out of the card; each line keeps its own pill */
 .cc-tier .tier-badge { display: inline; white-space: normal; -webkit-box-decoration-break: clone; box-decoration-break: clone; line-height: var(--pill-pitch); }
 .meta { color: var(--muted); font-size: .84rem; }
