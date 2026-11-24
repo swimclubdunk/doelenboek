@@ -14476,10 +14476,11 @@ function render() {
 
   if (mode === 'auth') {
     main.innerHTML = authView();
+    fitPage();
     const el = fid && document.getElementById(fid); if (el) el.focus({ preventScroll: true });
     return;
   }
-  if (mode === 'loading' || (mode === 'db' && !COLS.every(c => loaded[c]))) { main.innerHTML = `<p class="loading">${esc(t('loading'))}</p>`; return; }
+  if (mode === 'loading' || (mode === 'db' && !COLS.every(c => loaded[c]))) { main.innerHTML = `<p class="loading">${esc(t('loading'))}</p>`; fitPage(); return; }
   const cov = buildCoverage();
   let html;
   if (ui.view === 'kind') html = viewChild(cov);
@@ -14492,6 +14493,7 @@ function render() {
   main.innerHTML = html;
   hydratePhotos(main);
   fitNames();
+  fitPage();
   if (ui.goAct && ui.view === 'activiteiten') {
     const el = main.querySelector(`[data-act="${CSS.escape(ui.goAct)}"]`);
     if (el) el.scrollIntoView({ block: 'center' });
@@ -14524,9 +14526,18 @@ function fitNames() {
     while (h.scrollWidth > h.clientWidth && size > NAME_MIN) { size = Math.max(NAME_MIN, size - 0.5); h.style.fontSize = size + 'px'; }
   }
 }
+/* Safety net for phones: when something is wider than the screen, the whole page is zoomed out just enough to fit,
+   instead of scrolling sideways. Nothing too wide, no zoom. Measured afresh after every render and resize. */
+function fitPage() {
+  const root = document.documentElement, body = document.body;
+  body.style.zoom = '';
+  for (let i = 0; i < 3 && root.scrollWidth > root.clientWidth; i++) {
+    body.style.zoom = String(Math.floor((parseFloat(body.style.zoom) || 1) * root.clientWidth / root.scrollWidth * 1000) / 1000);   // rounded down: never a pixel too wide
+  }
+}
 let fitTimer = 0;
-addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(fitNames, 100); });
-document.fonts?.ready.then(fitNames);
+addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(() => { fitNames(); fitPage(); }, 100); });
+document.fonts?.ready.then(() => { fitNames(); fitPage(); });
 function viewOverview(cov) {
   const kids = sortedChildren();
   let h = exampleBanner();
