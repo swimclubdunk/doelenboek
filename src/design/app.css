@@ -243,6 +243,9 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .rep-seg button { min-height: 29px; }
 .rep-kids { display: flex; flex-wrap: wrap; gap: 6px 18px; }
 .rep-kids label, .rep-check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.rep-form input[type="checkbox"] { accent-color: var(--accent); }
+.rep-form .date-in { display: inline-flex; align-items: center; gap: 6px; }
+.rep-form .date-in > span { min-width: 34px; }   /* Van / Tot line up */
 .rep-dates { padding-left: 108px; }
 @media (max-width: 560px) { .rep-dates { padding-left: 0; } }
 /* an activity reached from the dashboard calendar lights up for a moment */
