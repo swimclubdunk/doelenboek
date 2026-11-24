@@ -657,6 +657,9 @@ const ICON_SMOOTH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="fals
 const ICON_STRAIGHT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 18L9 9l6 4 6-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_EDIT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_TRASH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+/* boy and girl, drawn like the pencil and bin icons (24 grid, 2 wide, round ends) */
+const ICON_MALE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="14" r="5.5"/><path d="M14 10l6-6M15 4h5v5"/></g></svg>';
+const ICON_FEMALE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M12 14.5V21M9 18h6"/></g></svg>';
 const ICON_EYE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
 const ICON_EYE_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 4l16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
@@ -1273,8 +1276,8 @@ function childDialog(child) {
   const current = child ? child.animal : (free.length ? free[Math.floor(Math.random() * free.length)] : ANIMALS[0]);
   const curTier = child ? tierOf(child) : DEFAULT_TIER;
   const curSex = child?.sex === 'f' ? 'f' : 'm';
-  const sexBtn = (v, sym) => `<label title="${esc(t('sex_' + v))}"><input type="radio" name="sex" value="${v}" ${v === curSex ? 'checked' : ''} aria-label="${esc(t('sex_' + v))}"><span aria-hidden="true">${sym}&#xFE0E;</span></label>`;
-  const body = `<div class="field"><label class="field-label" for="c-name">${esc(t('name'))}</label><div class="name-row"><input id="c-name" name="name" maxlength="80" autocomplete="off" required autofocus value="${esc(child?.name || '')}"><div class="sex-pick" role="radiogroup" aria-label="${esc(t('sex'))}">${sexBtn('m', '&#x2642;')}${sexBtn('f', '&#x2640;')}</div></div></div>
+  const sexBtn = (v, sym) => `<label title="${esc(t('sex_' + v))}"><input type="radio" name="sex" value="${v}" ${v === curSex ? 'checked' : ''} aria-label="${esc(t('sex_' + v))}">${sym}</label>`;
+  const body = `<div class="field"><label class="field-label" for="c-name">${esc(t('name'))}</label><div class="name-row"><input id="c-name" name="name" maxlength="80" autocomplete="off" required autofocus value="${esc(child?.name || '')}"><div class="sex-pick" role="radiogroup" aria-label="${esc(t('sex'))}">${sexBtn('m', ICON_MALE)}${sexBtn('f', ICON_FEMALE)}</div></div></div>
     <label class="field"><span>${esc(t('tier'))}</span><select id="c-tier" name="tier">
       ${TIER_GROUPS.map(gr => `<optgroup label="${esc(gr.name[lang])}">${TIERS.filter(x => x.group === gr.key).map(x => `<option value="${x.key}" ${x.key === curTier ? 'selected' : ''}>${esc(x.name[lang])} · ${esc(x.ages[lang])} · ${esc(t('n_goals_short', goalsOfTier(x.key).length))}</option>`).join('')}</optgroup>`).join('')}
     </select></label>

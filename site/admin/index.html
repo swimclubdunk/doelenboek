@@ -509,7 +509,8 @@ dialog::backdrop { background: rgb(40 30 22 / .45); }
 .name-row input { flex: 1; min-width: 0; }
 .sex-pick { display: flex; gap: 6px; }
 .sex-pick label { position: relative; display: grid; place-items: center; width: 42px; border: 1px solid var(--line); border-radius: var(--r-sm);
-  background: var(--surface-2); cursor: pointer; font-size: 1.15rem; line-height: 1; color: var(--muted); }
+  background: var(--surface-2); cursor: pointer; color: var(--muted); }
+.sex-pick svg { width: 22px; height: 22px; display: block; }   /* the size of the pencil and bin icons */
 .sex-pick input { position: absolute; opacity: 0; pointer-events: none; }
 .sex-pick label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: 0 0 0 1px var(--accent); color: var(--fg); }
 .sex-pick label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
