@@ -193,6 +193,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* page head */
 .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
 .page-head > div:first-child { min-width: 0; }
+.h-count { font-size: .66em; }   /* the number after a page title: Kinderen (10) */
 .lede { color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; max-width: 70ch; }
 .head-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 /* the actions next to a page title belong together, so they share one look (no highlighted one) */
@@ -14449,7 +14450,7 @@ function viewOverview(cov) {
   let h = exampleBanner();
   /* Kind toevoegen has a row of its own above the sorting, filters and search; with no children yet it stays in the heading */
   const addBtn = `<button class="btn" data-action="add-child">${addBt('add_child')}</button>`;
-  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))}</p></div>
+  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))} <span class="h-count" aria-label="${esc(t('n_children', kids.length))}">(${kids.length})</span></h1></div>
     ${kids.length ? '' : `<div class="head-actions w">${addBtn}</div>`}</section>`;
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;

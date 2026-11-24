@@ -765,7 +765,7 @@ function viewOverview(cov) {
   let h = exampleBanner();
   /* Kind toevoegen has a row of its own above the sorting, filters and search; with no children yet it stays in the heading */
   const addBtn = `<button class="btn" data-action="add-child">${addBt('add_child')}</button>`;
-  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('n_children', kids.length))}</p></div>
+  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))} <span class="h-count" aria-label="${esc(t('n_children', kids.length))}">(${kids.length})</span></h1></div>
     ${kids.length ? '' : `<div class="head-actions w">${addBtn}</div>`}</section>`;
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
