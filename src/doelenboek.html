@@ -880,7 +880,7 @@ function activityCard(a, extra) {
   const kids = a.childIds.map(id => data.children.get(id)).filter(Boolean);
   const goals = a.goalIds.map(id => data.goals.get(id)).filter(Boolean).sort(byGoalOrder);
   const maxChips = 14;
-  return `<article class="card act${ui.goAct === a.id ? ' flash' : ''}" data-act="${esc(a.id)}">
+  return `<article class="card act${a.seriesId ? ' rec' : ''}${ui.goAct === a.id ? ' flash' : ''}" data-act="${esc(a.id)}">
     <div class="act-date"><span class="d">${d.getDate()}</span><span class="m">${esc(new Intl.DateTimeFormat(t('locale'), { month: 'short' }).format(d).replace('.', ''))}</span></div>
     <div class="act-body"><h3>${esc(a.title)}</h3>
       ${kids.length ? `<p class="act-kids">${kids.map(k => `<span><span class="avatar sm" aria-hidden="true">${animalArt(k.animal)}</span>${esc(k.name)}</span>`).join('')}</p>` : ''}

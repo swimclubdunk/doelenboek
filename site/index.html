@@ -512,6 +512,9 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .act-side { display: grid; justify-items: end; gap: 6px; }
 .act-tag { display: grid; place-items: center; width: 32px; height: 32px; border: 1px dashed var(--line); border-radius: var(--r-sm); color: var(--muted); }
 .act-tag svg { width: 18px; height: 18px; }
+/* a recurring activity: a second card edge peeks out behind it, like a small stack (only the line colour) */
+.act.rec { box-shadow: 4px 4px 0 -1px var(--surface), 4px 4px 0 0 var(--line), var(--shadow); margin: 0 4px 4px 0; }
+.cal-panel .act.rec { box-shadow: 4px 4px 0 -1px var(--surface), 4px 4px 0 0 var(--line); }
 /* the photo column: rows of at most five thumbnails, with the number of photos below */
 .act-photos { grid-area: photos; align-self: center; display: grid; gap: 6px; }
 .act-photos .thumbs { max-width: calc(5 * 48px + 4 * 6px); }
@@ -14616,7 +14619,7 @@ function activityCard(a, extra) {
   const kids = a.childIds.map(id => data.children.get(id)).filter(Boolean);
   const goals = a.goalIds.map(id => data.goals.get(id)).filter(Boolean).sort(byGoalOrder);
   const maxChips = 14;
-  return `<article class="card act${ui.goAct === a.id ? ' flash' : ''}" data-act="${esc(a.id)}">
+  return `<article class="card act${a.seriesId ? ' rec' : ''}${ui.goAct === a.id ? ' flash' : ''}" data-act="${esc(a.id)}">
     <div class="act-date"><span class="d">${d.getDate()}</span><span class="m">${esc(new Intl.DateTimeFormat(t('locale'), { month: 'short' }).format(d).replace('.', ''))}</span></div>
     <div class="act-body"><h3>${esc(a.title)}</h3>
       ${kids.length ? `<p class="act-kids">${kids.map(k => `<span><span class="avatar sm" aria-hidden="true">${animalArt(k.animal)}</span>${esc(k.name)}</span>`).join('')}</p>` : ''}
