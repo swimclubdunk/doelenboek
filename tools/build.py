@@ -2,7 +2,8 @@
 Usage: build.py SRC.html OUT.html [FIREBASE_CONFIG.json]
 
 - the stylesheets SRC links to (design/*.css, core.css) are inlined
-- the shared scripts messages.js, message-zoom.js and images.js are inlined (in the app and the admin page)
+- the shared scripts messages.js, message-zoom.js and images.js are inlined (in the app and the admin page);
+  report.js and report-run.js only in the app
 - the animal drawings in design/animals/ become <symbol>s in the page
 - the favicon comes from design/favicon.svg
 - the built-in goals come from doelen/*.json (kleuter), doelen-lager/*.json (lager onderwijs) and
@@ -355,6 +356,8 @@ def build(src, firebase_config=None, rules=RULES):
         text = fill(text, 'const ADMIN_UID = null;', 'const ADMIN_UID = ' + json.dumps(uid) + ';', 'admin uid')
 
     for name in ('messages.js', 'message-zoom.js', 'images.js'):   # shared with the admin page
+        text = inline_script(text, src.parent, name)
+    for name in ('report.js', 'report-run.js'):   # the app only
         text = inline_script(text, src.parent, name)
     text = inline_styles(text, src.parent)
     text = fill(text, '<main id="main">', public.app_noscript() + '\n<main id="main">', 'main')

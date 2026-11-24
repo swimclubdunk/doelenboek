@@ -69,6 +69,14 @@ class SharedScripts(unittest.TestCase):
             self.assertNotIn('<script src="messages.js">', page)
             self.assertNotIn('<script src="images.js">', page)
 
+    def test_app_inlines_the_report_scripts(self):
+        app = build.build(APP, None, rules_with('OWNER_UID'))
+        self.assertIn('const Report = ', app)
+        self.assertIn('const ReportRun = ', app)
+        self.assertIn("'vendor/pdfmake/pdfmake.min.js'", app)
+        self.assertNotIn('<script src="report.js">', app)
+        self.assertNotIn('<script src="report-run.js">', app)
+
     def test_script_with_closing_tag_is_refused(self):
         d = Path(tempfile.mkdtemp())
         (d / 'x.js').write_text('const a = "</script>";', encoding='utf-8')
