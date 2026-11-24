@@ -23,7 +23,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   box-shadow: 0 2px 12px rgb(60 45 35 / .18);
 }
 .top :focus-visible { outline-color: var(--on-chrome); }
-.top-inner { max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; }
+.top-inner { max-width: 1440px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; }
 /* the empty space after the name keeps it visually apart from the tabs */
 .brand { display: flex; align-items: baseline; min-width: 0; margin-right: clamp(8px, 9vw, 140px); }
 .brand b { font-family: var(--f-display); font-size: 1.3rem; letter-spacing: -0.02em; }
@@ -57,7 +57,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .top .btn { background: transparent; color: var(--on-chrome); border-color: color-mix(in srgb, var(--on-chrome) 35%, transparent); }
 .top .btn:hover { border-color: var(--on-chrome); }
 
-main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; display: grid; gap: 20px; }
+main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; display: grid; gap: 20px; }
 
 /* buttons */
 .btn {
@@ -138,7 +138,7 @@ main { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 2
   .proj .pj-of, .proj .pj-rate { display: none; }
 }
 /* progress in the year group: a small chart per child */
-/* as many charts per row as fit at 360px or more (2 at the 1120px page width, 1 on a phone), so a chart keeps its size
+/* as many charts per row as fit at 360px or more (3 at the 1440px page width, 1 on a phone), so a chart keeps its size
    on a wider page instead of scaling up; empty tracks stay empty, so a lone chart does not stretch either */
 .pg { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 14px; }
 .pg-card { border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px 10px; display: grid; gap: 6px; align-content: start; }
@@ -587,7 +587,7 @@ body.auth-screen::before { content: ""; position: fixed; inset: 0; z-index: -1; 
 .auth-privacy { color: var(--muted); font-weight: 400; font-size: inherit; }
 .auth-privacy .bi { justify-items: start; }
 .auth-privacy:hover { color: var(--fg); }
-.site-foot { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; text-align: center; }
+.site-foot { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 0 32px; color: var(--muted); font-size: .82rem; display: grid; gap: 4px; text-align: center; }
 /* the donation line: quiet, like the rest of the footer */
 .site-foot .support > span { font-weight: 700; }
 .site-foot .support a, .site-foot .contact a { color: inherit; text-underline-offset: 2px; }
