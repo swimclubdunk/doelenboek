@@ -151,6 +151,8 @@ const T = {
     empty_acts_h: 'Nog geen activiteiten', empty_acts_p: 'Registreer wat je samen deed en vink aan welke minimumdoelen erbij horen.',
     empty_acts_nokids: 'Voeg eerst een kind toe bij Kinderen.', to_overview: 'Naar Kinderen',
     search_kids: 'Zoek een kind op naam', no_kids_found: 'Geen kinderen gevonden.',
+    sort_by: 'Sorteer op', sort_name_asc: 'Naam oplopend', sort_name_desc: 'Naam aflopend', sort_done_desc: 'Voltooiing aflopend',
+    sort_done_asc: 'Voltooiing oplopend', sort_tier_asc: 'Onderwijs oplopend', sort_tier_desc: 'Onderwijs aflopend',
     search_acts: 'Zoek op titel, notitie of doelcode', all_children: 'Alle kinderen', filter_child: 'Filter op kind',
     no_acts_found: 'Geen activiteiten gevonden met deze filters.', no_goals_linked: 'Geen minimumdoelen gekoppeld.', goals_aria: 'Minimumdoelen',
     h_goals: 'Doelen', goals_lede: 'De doelen waartegen je de voortgang meet. Officiële lijsten vind je op',
@@ -267,6 +269,8 @@ const T = {
     empty_acts_h: 'No activities yet', empty_acts_p: 'Log what you did together and tick the minimum goals it covered.',
     empty_acts_nokids: 'Add a child under Children first.', to_overview: 'Go to Children',
     search_kids: 'Search children by name', no_kids_found: 'No children found.',
+    sort_by: 'Sort by', sort_name_asc: 'Name Ascending', sort_name_desc: 'Name Descending', sort_done_desc: 'Completion Descending',
+    sort_done_asc: 'Completion Ascending', sort_tier_asc: 'Onderwijs Ascending', sort_tier_desc: 'Onderwijs Descending',
     search_acts: 'Search by title, notes or goal code', all_children: 'All children', filter_child: 'Filter by child',
     no_acts_found: 'No activities match these filters.', no_goals_linked: 'No minimum goals linked.', goals_aria: 'Minimum goals',
     h_goals: 'Goals', goals_lede: 'The goals to track progress against, translated from the official lists on',
@@ -420,7 +424,7 @@ const loaded = { children: false, activities: false };
 const ui = {
   view: 'overzicht', childId: null,
   goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)), goalTier: null,   // null: follow the children's tier
-  childSearch: '', actSearch: '', actChild: '', closed: new Set(),
+  childSearch: '', childSort: 'name_asc', actSearch: '', actChild: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
   dashFrom: null, dashTo: null, dashOff: new Set(), dashStraight: false,   // dashboard: first and last month (month numbers, null: from the first mastered goal, up to this month), the children switched off, straight or smooth lines
   dashRel: false,   // mastered goals: false ABS (the number of goals), true REL (percent of the child's level)
@@ -640,6 +644,18 @@ function buildCoverage() {
 }
 /* Mastered goals of a child that still exist: goalId -> date. */
 const masteredOf = c => new Map(Object.entries(c.mastered || {}).filter(([gid]) => data.goals.has(gid)));
+/* Kinderen: the order of the cards. Completion is the share of the child's own level that is mastered, so levels compare
+   fairly; Onderwijs follows the level order (Kleuter first). Ties go by name, A to Z. The choice is kept in this browser. */
+const KID_SORTS = ['name_asc', 'name_desc', 'done_desc', 'done_asc', 'tier_asc', 'tier_desc'];
+const KID_SORT_KEY = 'doelenboek.kidSort';
+try { const s = localStorage.getItem(KID_SORT_KEY); if (KID_SORTS.includes(s)) ui.childSort = s; } catch (e) {}
+function sortKids(kids) {
+  const byName = (a, b) => a.name.localeCompare(b.name, 'nl', { sensitivity: 'base' });
+  const done = new Map(kids.map(c => { const tier = tierOf(c), total = goalsOfTier(tier).length; return [c.id, total ? inTier(masteredOf(c), tier).size / total : 0]; }));
+  const [key, dir] = ui.childSort.split('_'), sign = dir === 'desc' ? -1 : 1;
+  const first = key === 'done' ? (a, b) => done.get(a.id) - done.get(b.id) : key === 'tier' ? (a, b) => TIER[tierOf(a)].i - TIER[tierOf(b)].i : byName;
+  return [...kids].sort((a, b) => sign * first(a, b) || byName(a, b));
+}
 function countBySubject(m) { const c = {}; if (m) for (const gid of m.keys()) { const g = data.goals.get(gid); if (g) c[g.subject] = (c[g.subject] || 0) + 1; } return c; }
 /* Activity tags per subject: every activity that tagged a goal counts, so one goal can count more than once. */
 function touchesBySubject(m) { const c = {}; if (m) for (const [gid, acts] of m) { const g = data.goals.get(gid); if (g) c[g.subject] = (c[g.subject] || 0) + acts.length; } return c; }
@@ -753,8 +769,9 @@ function viewOverview(cov) {
   }
   const q = norm(ui.childSearch), shown = q ? kids.filter(c => norm(c.name).includes(q)) : kids;
   h += `<div class="toolbar kid-search"><input class="search" id="child-search" type="search" placeholder="${esc(t('search_kids'))}" value="${esc(ui.childSearch)}" aria-label="${esc(t('search_kids'))}">${addBtn}</div>`;
+  h += `<div class="toolbar"><label class="sort-by"><span>${esc(t('sort_by'))}</span><select class="select" id="child-sort">${KID_SORTS.map(k => `<option value="${k}" ${k === ui.childSort ? 'selected' : ''}>${esc(t('sort_' + k))}</option>`).join('')}</select></label></div>`;
   if (!shown.length) return h + `<p class="muted">${esc(t('no_kids_found'))}</p>`;
-  h += `<div class="child-grid">${shown.map(c => {
+  h += `<div class="child-grid">${sortKids(shown).map(c => {
     const acts = activitiesFor(c.id), tier = tierOf(c), totals = subjectTotals(tier), mast = inTier(masteredOf(c), tier);
     const per = countBySubject(mast), touches = touchesBySubject(inTier(cov.get(c.id) || new Map(), tier));
     return `<article class="card child-card">
@@ -1893,6 +1910,7 @@ main.addEventListener('input', e => {
 main.addEventListener('change', e => {
   if (e.target.id === 'act-child') { ui.actChild = e.target.value; render(); }
   if (e.target.id === 'goal-tier') { ui.goalTier = e.target.value; render(); }
+  if (e.target.id === 'child-sort' && KID_SORTS.includes(e.target.value)) { ui.childSort = e.target.value; try { localStorage.setItem(KID_SORT_KEY, ui.childSort); } catch (err) {} render(); }
   // dashboard months: the other end follows when the range would turn round or pass DASH_MAX months
   if (e.target.dataset.dash) {
     const key = e.target.dataset.key, r = dashRange(key), end = e.target.dataset.dash, v = Number(e.target.value), old = end === 'from' ? r.from : r.to;
