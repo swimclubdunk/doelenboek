@@ -337,6 +337,8 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cal-top { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
 .cal-top h2 { margin: 0 auto 0 0; font-size: 1.05rem; }   /* as the dashboard card titles; the buttons go right */
 .cal-ranges { height: 32px; gap: 6px; }
+.cal-r-short { display: none; }
+@media (max-width: 560px) { .cal-r-long { display: none; } .cal-r-short { display: inline; } }   /* a phone: the long period names do not fit beside each other */
 .cal-card .cal { gap: 2px; }
 .cal-card .cal-days { gap: 2px; grid-template-rows: repeat(7, 11px); line-height: 11px; }   /* all seven days named, each on its 11px row */
 .cal-card .cal-d { aspect-ratio: auto; height: 11px; }   /* a fixed height: the weeks since the first activity share the width */
@@ -13863,7 +13865,7 @@ const T = {
     pg_mastered: 'Beheerst', pg_target: 'Schema tot einde leerjaar', pg_fc: 'Verwachting aan huidig tempo', pg_today: 'Vandaag',
     pg_on: 'op schema', pg_ahead: n => `${n} mnd voor`, pg_behind: n => `${n} mnd achter`, pg_none: 'Nog geen beheerste doelen',
     pg_foot: (n, tot, p, e) => `<b>${n} van ${tot}</b> (${p}%) · schema ${e}%`, pg_when: d => ` · 100% verwacht in <b>${d}</b>`, pg_end: d => `, einde leerjaar ${d}`, pg_done: ' · alles beheerst',
-    pg_aria: (k, p, e) => `${k}: ${p}% beheerst, schema ${e}%`, cal_close: 'Inklappen', cal_open: 'Uitklappen', cal_span: (n, d) => `${nlN(n, 'activiteit', 'activiteiten')} van ${d} tot vandaag`, cal_note_all: 'Elke dag van de gekozen periode; hoe donkerder, hoe meer activiteiten die dag.', cal_r_all: 'Alles', cal_r_2y: 'Afgelopen 2 jaar', cal_r_year: 'Afgelopen jaar', cal_r_6m: 'Afgelopen 6 maanden', cal_ranges: 'Periode van de kalender', cal_tip: (d, n) => `${d}: ${nlN(n, 'activiteit', 'activiteiten')}`,
+    pg_aria: (k, p, e) => `${k}: ${p}% beheerst, schema ${e}%`, cal_close: 'Inklappen', cal_open: 'Uitklappen', cal_span: (n, d) => `${nlN(n, 'activiteit', 'activiteiten')} van ${d} tot vandaag`, cal_note_all: 'Elke dag van de gekozen periode; hoe donkerder, hoe meer activiteiten die dag.', cal_r_all: 'Alles', cal_r_2y: 'Afgelopen 2 jaar', cal_r_year: 'Afgelopen jaar', cal_r_6m: 'Afgelopen 6 maanden', cal_rs_all: 'Alles', cal_rs_2y: '2 jaar', cal_rs_year: '1 jaar', cal_rs_6m: '6 mnd', cal_ranges: 'Periode van de kalender', cal_tip: (d, n) => `${d}: ${nlN(n, 'activiteit', 'activiteiten')}`,
     dash_empty: 'Voeg een kind toe om hier de grafiek te zien.', dash_all_off: 'Zet minstens één kind aan.', dash_aria: (name, n) => `${name}: ${n} beheerst`,
     tab_reporting: 'Rapportering', h_reporting: 'Rapportering',
     reporting_p: 'In dit onderdeel zul je PDF-rapporten van het thuisonderwijstraject van je kinderen kunnen maken en downloaden, met tijdlijnen, activiteiten, grafieken en natuurlijk de behandelde minimumdoelen.', reporting_soon: 'Deze functie komt binnenkort.',
@@ -13983,7 +13985,7 @@ const T = {
     pg_mastered: 'Mastered', pg_target: 'Schedule to the end of the year group', pg_fc: 'Expected at the current pace', pg_today: 'Today',
     pg_on: 'on track', pg_ahead: n => `${n} mo ahead`, pg_behind: n => `${n} mo behind`, pg_none: 'No goals mastered yet',
     pg_foot: (n, tot, p, e) => `<b>${n} of ${tot}</b> (${p}%) · schedule ${e}%`, pg_when: d => ` · 100% expected in <b>${d}</b>`, pg_end: d => `, end of year group ${d}`, pg_done: ' · all mastered',
-    pg_aria: (k, p, e) => `${k}: ${p}% mastered, schedule ${e}%`, cal_close: 'Collapse', cal_open: 'Expand', cal_span: (n, d) => `${nlN(n, 'activity', 'activities')} from ${d} to today`, cal_note_all: 'Every day of the chosen period; the darker, the more activities that day.', cal_r_all: 'All time', cal_r_2y: 'Past 2 years', cal_r_year: 'Past year', cal_r_6m: 'Past 6 months', cal_ranges: 'Calendar period', cal_tip: (d, n) => `${d}: ${nlN(n, 'activity', 'activities')}`,
+    pg_aria: (k, p, e) => `${k}: ${p}% mastered, schedule ${e}%`, cal_close: 'Collapse', cal_open: 'Expand', cal_span: (n, d) => `${nlN(n, 'activity', 'activities')} from ${d} to today`, cal_note_all: 'Every day of the chosen period; the darker, the more activities that day.', cal_r_all: 'All time', cal_r_2y: 'Past 2 years', cal_r_year: 'Past year', cal_r_6m: 'Past 6 months', cal_rs_all: 'All', cal_rs_2y: '2 yrs', cal_rs_year: '1 yr', cal_rs_6m: '6 mo', cal_ranges: 'Calendar period', cal_tip: (d, n) => `${d}: ${nlN(n, 'activity', 'activities')}`,
     dash_empty: 'Add a child to see the graph here.', dash_all_off: 'Turn on at least one child.', dash_aria: (name, n) => `${name}: ${n} mastered`,
     tab_reporting: 'Reporting', h_reporting: 'Reporting',
     reporting_p: "Here you will be able to generate and download PDF reports of your children's homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.", reporting_soon: 'This feature is coming soon.',
@@ -14979,7 +14981,7 @@ function calendarBody(range) {
 /* the card: title, the period buttons (All time, Past 2 years, Past year, Past 6 months) and, on Activiteiten, Inklappen; page is 'act' or 'dash' */
 function calendarCard(page) {
   const foldable = page === 'act', open = !foldable || ui.calOpen[page], range = ui.calRange[page];
-  const ranges = `<div class="sex-pick tier-filter cal-ranges" role="group" aria-label="${esc(t('cal_ranges'))}">${CAL_RANGES.map(r => `<button type="button" data-action="cal-range" data-page="${page}" data-id="${r}" aria-pressed="${range === r}">${esc(t('cal_r_' + r))}</button>`).join('')}</div>`;
+  const ranges = `<div class="sex-pick tier-filter cal-ranges" role="group" aria-label="${esc(t('cal_ranges'))}">${CAL_RANGES.map(r => `<button type="button" data-action="cal-range" data-page="${page}" data-id="${r}" aria-pressed="${range === r}"><span class="cal-r-long">${esc(t('cal_r_' + r))}</span><span class="cal-r-short">${esc(t('cal_rs_' + r))}</span></button>`).join('')}</div>`;
   return `<section class="card dash-card cal-card${open ? '' : ' shut'}"><div class="cal-top"><h2>${esc(t('cal_h'))}</h2>${open ? ranges : ''}${foldable ? `<button type="button" class="btn small ghost cal-fold" data-action="cal-fold" data-page="${page}" aria-expanded="${open}">${esc(t(open ? 'cal_close' : 'cal_open'))} ${open ? '▴' : '▾'}</button>` : ''}</div>
     ${open ? `<p class="dash-note">${esc(t('cal_note_all'))}</p>${calendarBody(range)}` : ''}</section>`;
 }

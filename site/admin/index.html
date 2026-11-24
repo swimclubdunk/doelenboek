@@ -319,6 +319,8 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cal-top { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
 .cal-top h2 { margin: 0 auto 0 0; font-size: 1.05rem; }   /* as the dashboard card titles; the buttons go right */
 .cal-ranges { height: 32px; gap: 6px; }
+.cal-r-short { display: none; }
+@media (max-width: 560px) { .cal-r-long { display: none; } .cal-r-short { display: inline; } }   /* a phone: the long period names do not fit beside each other */
 .cal-card .cal { gap: 2px; }
 .cal-card .cal-days { gap: 2px; grid-template-rows: repeat(7, 11px); line-height: 11px; }   /* all seven days named, each on its 11px row */
 .cal-card .cal-d { aspect-ratio: auto; height: 11px; }   /* a fixed height: the weeks since the first activity share the width */
