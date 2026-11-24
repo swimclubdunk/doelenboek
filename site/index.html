@@ -264,6 +264,8 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .pg-fc { stroke-width: 2; stroke-dasharray: 1.5 4; stroke-linecap: round; fill: none; }
 .pg-today { stroke: var(--fg); stroke-width: 1; opacity: .35; }
 .pg-dot { stroke: var(--surface); stroke-width: 2; }
+/* mastered / total beside today's dot: bold, about the size of the text under the chart, with a halo in the card colour over the lines */
+.pg-now { fill: var(--fg); font-family: var(--f-body); font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; paint-order: stroke; }
 .pg-end { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
 .pg-foot { margin: 0; font-size: .8rem; color: var(--muted); }
 .pg-foot b { color: var(--fg); }
@@ -14744,6 +14746,8 @@ function dashProgress(series, chips) {
   const lFmt = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' }), mName = k => cap1(lFmt.format(monthStart(k)));
   const grid = [0, 50, 100].map(p => `<line class="pg-grid" x1="${L}" x2="${W - R}" y1="${f(y(p))}" y2="${f(y(p))}"/><text class="pg-ax" x="${L - 6}" y="${f(y(p) + 3)}" text-anchor="end">${p}%</text>`).join('');
   const status = k => k.diff >= 0 ? `<span class="pg-status ahead">${esc(k.diff === 0 ? t('pg_on') : t('pg_ahead', k.diff))} ▲</span>` : `<span class="pg-status behind">${esc(t('pg_behind', -k.diff))} ▼</span>`;
+  /* mastered / total beside today's dot: on its left, or on its right when the dot is near the left edge */
+  const nowLabel = (cx, cy, txt) => { const left = cx - L > txt.length * 7.5 + 10; return `<text class="pg-now" x="${f(left ? cx - 8 : cx + 8)}" y="${f(cy)}" text-anchor="${left ? 'end' : 'start'}" dominant-baseline="middle">${esc(txt)}</text>`; };
   const card = k => {
     const s = k.s, head = `<div class="pg-head"><span class="dot" style="--c:${s.c}"></span><b>${esc(s.name)}</b>${tierBadge(s.kid)}${k.none ? '' : status(k)}</div>`;
     if (k.none) return `<div class="pg-card">${head}<p class="muted pg-empty">${esc(t('pg_none'))}</p></div>`;
@@ -14769,6 +14773,7 @@ function dashProgress(series, chips) {
         ${line ? `<path d="${line}" class="pg-line" style="stroke:${s.c}"/>` : ''}
         ${fc}
         <circle cx="${f(x(now))}" cy="${f(y(k.pct))}" r="4" style="fill:${s.c}" class="pg-dot"/>
+        ${nowLabel(x(now), y(k.pct), `${s.now}/${s.total}`)}
         <circle cx="${f(x(k.end))}" cy="${f(y(100))}" r="3" class="pg-end"/>
       </svg>
       <p class="pg-foot">${foot}</p></div>`;
