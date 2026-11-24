@@ -1064,7 +1064,8 @@ function dashProgress(series, chips) {
   /* mastered / total beside today's dot: on its left, or on its right when the dot is near the left edge */
   const nowLabel = (cx, cy, txt) => { const left = cx - L > txt.length * 7.5 + 10; return `<text class="pg-now" x="${f(left ? cx - 8 : cx + 8)}" y="${f(cy)}" text-anchor="${left ? 'end' : 'start'}" dominant-baseline="middle">${esc(txt)}</text>`; };
   const card = k => {
-    const s = k.s, head = `<div class="pg-head"><span class="dot" style="--c:${s.c}"></span><b>${esc(s.name)}</b>${tierBadge(s.kid)}${k.none ? '' : status(k)}</div>`;
+    const s = k.s, head = `<div class="pg-head"><div class="pg-name"><span class="dot" style="--c:${s.c}"></span><b title="${esc(s.name)}">${esc(s.name)}</b></div>
+      <div class="pg-sub">${tierBadge(s.kid)}${k.none ? '' : status(k)}</div></div>`;
     if (k.none) return `<div class="pg-card">${head}<p class="muted pg-empty">${esc(t('pg_none'))}</p></div>`;
     const { X0, X1 } = k, x = m => L + (m - X0) / (X1 - X0) * (W - L - R);   // this child's own months
     let years = '';
