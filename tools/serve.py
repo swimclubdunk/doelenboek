@@ -22,6 +22,7 @@ SRC = ROOT / 'src' / 'doelenboek.html'
 CONFIG = ROOT / 'firebase-config.json'
 DESIGN = ROOT / 'src' / 'design'
 FONTS = DESIGN / 'fonts'
+VENDOR = ROOT / 'vendor'
 TYPES = {'.html': 'text/html; charset=utf-8', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml; charset=utf-8'}
 
 
@@ -101,6 +102,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_text(*page)
             elif path.startswith('/fonts/') and (FONTS / path[7:]).is_file() and '/' not in path[7:]:
                 return self.send_file(FONTS / path[7:])
+            elif path.startswith('/vendor/') and '..' not in path and (VENDOR / path[8:]).is_file():
+                return self.send_file(VENDOR / path[8:])
             else:
                 body, status = '<!doctype html><title>Not found</title>Not found. Try / or /animals.', 404
         except BuildError as e:
@@ -134,7 +137,7 @@ class Handler(BaseHTTPRequestHandler):
     def send_file(self, f):
         data = f.read_bytes()
         self.send_response(200)
-        self.send_header('Content-Type', {'.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.png': 'image/png'}.get(f.suffix, 'text/plain; charset=utf-8'))
+        self.send_header('Content-Type', {'.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.png': 'image/png', '.js': 'text/javascript; charset=utf-8'}.get(f.suffix, 'text/plain; charset=utf-8'))
         self.send_header('Content-Length', str(len(data)))
         self.end_headers()
         self.wfile.write(data)

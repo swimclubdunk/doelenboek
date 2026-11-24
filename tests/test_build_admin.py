@@ -92,6 +92,21 @@ class BuiltPagesParse(unittest.TestCase):
         self.check(build.build_admin(build.ADMIN_SRC, APP, ROOT / 'firebase-config.json'))
 
 
+class Vendor(unittest.TestCase):
+    """vendor/ (pdfmake for the reports) is copied as-is next to the built page."""
+    def test_copies_pdfmake(self):
+        out = Path(tempfile.mkdtemp())
+        build.copy_vendor(out)
+        for name in ('pdfmake.min.js', 'vfs_fonts.js', 'LICENSE'):
+            self.assertEqual((out / 'vendor' / 'pdfmake' / name).read_bytes(),
+                             (ROOT / 'vendor' / 'pdfmake' / name).read_bytes())
+
+    def test_copy_replaces_old_files(self):
+        out = Path(tempfile.mkdtemp())
+        (out / 'vendor' / 'old').mkdir(parents=True)
+        build.copy_vendor(out)
+        self.assertFalse((out / 'vendor' / 'old').exists())
+
 if __name__ == '__main__':
     unittest.main()
 

@@ -8,6 +8,7 @@ Usage: build.py SRC.html OUT.html [FIREBASE_CONFIG.json]
 - the built-in goals come from doelen/*.json (kleuter), doelen-lager/*.json (lager onderwijs) and
   doelen-secundair/*.json (secundair, 1ste graad A- and B-stroom)
 - the font files in design/fonts/ are copied to fonts/ next to OUT.html
+- vendor/ (pdfmake, used by the reports) is copied to vendor/ next to OUT.html
 - the public pages, robots.txt, sitemap.xml and llms.txt are written next to OUT.html (see public.py)
 - the admin page src/admin.html is built to admin/index.html next to OUT.html (see build_admin)"""
 import sys, json, re, shutil
@@ -19,6 +20,7 @@ import public  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DOELEN_DIR = ROOT / 'doelen'
+VENDOR_DIR = ROOT / 'vendor'   # third-party files served as they are (pdfmake for the reports)
 LAGER_DIR = ROOT / 'doelen-lager'
 SEC_DIR = ROOT / 'doelen-secundair'
 # Each goal belongs to one tier: KO for kleuter, L4/L6 for the goals at the end of the 4th/6th leerjaar.
@@ -230,6 +232,15 @@ def copy_fonts(src, out_dir):
             shutil.copyfile(f, dest / f.name)
 
 
+def copy_vendor(out_dir):
+    """Copy vendor/ to OUT_DIR/vendor/, replacing what was there. The app loads pdfmake from it only when a
+    report is made, from our own domain, so making a report needs no outside service."""
+    dest = Path(out_dir) / 'vendor'
+    if dest.exists():
+        shutil.rmtree(dest)
+    shutil.copytree(VENDOR_DIR, dest)
+
+
 def favicon_uri(path):
     svg = re.sub(r'\s*\n\s*', '', path.read_text(encoding='utf-8')).replace('"', "'")
     return 'data:image/svg+xml,' + quote(svg, safe=" '=/:;,.-()")
@@ -381,6 +392,7 @@ if __name__ == '__main__':
     open(out, 'w', encoding='utf-8', newline='\n').write(page)
     out_dir = Path(out).resolve().parent
     copy_fonts(sys.argv[1], out_dir)
+    copy_vendor(out_dir)
     print(f'wrote {out} ({len(page.encode("utf-8")):,} bytes)')
     (out_dir / 'admin').mkdir(exist_ok=True)
     (out_dir / 'admin' / 'index.html').write_text(admin, encoding='utf-8', newline='\n')
