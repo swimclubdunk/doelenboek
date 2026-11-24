@@ -379,6 +379,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cc-stat strong { font-weight: 700; }   /* the number: same size as the label, only bold */
 .cc-stat span { color: var(--muted); }
 .cc-stat small { grid-column: 1 / -1; color: var(--muted); font-size: .76rem; }
+.cc-sex { margin-left: auto; color: var(--muted); font-size: .84rem; }   /* Jongen / Meisje, top right, level with the activity count */
 .bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; align-content: start; }
 .bars li { display: grid; grid-template-columns: minmax(0, 8.5rem) 1fr 3.4rem 2.4rem; gap: 10px; align-items: center; font-size: .84rem; }
 .bars li.none { color: var(--muted); }
@@ -14418,7 +14419,7 @@ function viewOverview(cov) {
       <header class="cc-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
         <div class="cc-id"><h2>${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p></div>
         <div class="cc-pct"><strong>${mast.size}<small>/${sumValues(totals)}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
-      <div class="cc-stats"><div class="cc-stat"><strong>${acts.length}</strong><span>${esc(t('acts_lbl', acts.length))}</span><small>${esc(acts[0] ? t('last', fmtDate(acts[0].date)) : t('no_acts_yet'))}</small></div></div>
+      <div class="cc-stats"><div class="cc-stat"><strong>${acts.length}</strong><span>${esc(t('acts_lbl', acts.length))}</span><small>${esc(acts[0] ? t('last', fmtDate(acts[0].date)) : t('no_acts_yet'))}</small></div><span class="cc-sex">${esc(t(c.sex === 'f' ? 'sex_f' : 'sex_m'))}</span></div>
       ${sumValues(totals) ? `<ul class="bars">${SUBJECTS.filter(s => totals[s.key]).map(s => barRow(sName(s.key, tier), s.key, per[s.key] || 0, totals[s.key], touches[s.key] || 0)).join('')}</ul>` : `<p class="muted">${esc(t('tier_soon'))}</p>`}
       <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w btn-icon edit cc-edit" data-action="edit-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_edit_h'))}" title="${esc(t('child_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost w btn-icon del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></footer>
     </article>`;
