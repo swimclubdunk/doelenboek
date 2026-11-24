@@ -429,10 +429,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .recur-toggle:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--fg); }
 .recur-toggle:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 .recur-field .hint { margin: 6px 0 0; }
-/* Activiteiten: the search sits in the title row, left of Activiteit toevoegen */
-.head-right { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; flex: 1 1 auto; min-width: 0; }   /* the search stays visible in read-only mode; only the button goes */
-.head-right .search { flex: 0 1 300px; width: 300px; min-width: 0; height: 40px; }
-@media (max-width: 600px) { .head-right .search { flex: 1 1 100%; width: auto; } }   /* a phone: the search gets its own full row */
+
 
 /* toolbar */
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
@@ -455,7 +452,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* Activiteiten: the same row, with Vanaf / Tot en met dates and the child dropdown as the filters */
 .act-order .date-in { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; }
 .act-order .date-in input { width: auto; height: 37px; color: var(--fg); }
-.act-order .act-child { width: auto; }
+.act-order .act-child { width: auto; max-width: 180px; }   /* a long child name must not squeeze the search */
 /* a page title with its line beside it instead of under it (Kinderen, Activiteiten) */
 .head-inline { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; }
 .head-inline .lede { margin-top: 0; }
@@ -14644,12 +14641,12 @@ function viewActivities() {
   const lede = dates.length ? t('acts_range', dates.length, fmtDate(dates[0]), fmtDate(dates[dates.length - 1])) : t('acts_lede');
   let h = exampleBanner();
   h += `<section class="page-head"><div class="head-inline"><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(lede)}</p></div>
-    <div class="head-right">${data.activities.size ? `<input class="search" id="act-search" type="search" placeholder="${esc(t('search_acts'))}" value="${esc(ui.actSearch)}" aria-label="${esc(t('search_acts'))}">` : ''}<div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${addBt('add_activity')}</button></div></div></section>`;
+    <div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${addBt('add_activity')}</button></div></section>`;
   if (!data.activities.size) {
     return h + `<div class="empty"><h2>${esc(t('empty_acts_h'))}</h2><p>${esc(kids.length ? t('empty_acts_p') : t('empty_acts_nokids'))}</p>${kids.length ? `<button class="btn primary w" data-action="new-activity">${bt('add_activity')}</button>` : `<a class="btn" href="#overzicht">${bt('to_overview')}</a>`}</div>`;
   }
   const dateIn = (id, v, lbl, title) => `<label class="date-in" title="${esc(t(title))}"><span>${esc(t(lbl))}</span><input class="select" id="${id}" type="date" value="${esc(v)}" min="${esc(dates[0])}" max="${esc(dates[dates.length - 1])}"></label>`;
-  h += `<div class="toolbar kid-order act-order"><label class="sort-by"><span>${esc(t('sort_by'))}</span><select class="select" id="act-sort">${ACT_SORTS.map(k => `<option value="${k}" ${k === ui.actSort ? 'selected' : ''}>${esc(t('sort_' + k))}</option>`).join('')}</select></label><div class="sort-by"><span>${esc(t('filter'))}</span>${dateIn('act-from', ui.actDayFrom, 'act_from', 'act_from_title')}${dateIn('act-until', ui.actDayUntil, 'act_until', 'act_until_title')}<select class="select act-child" id="act-child" aria-label="${esc(t('filter_child'))}"><option value="">${esc(t('all_children'))}</option><option hidden disabled>${esc(tIn(lang === 'nl' ? 'en' : 'nl', 'all_children'))}</option>${kids.map(k => `<option value="${esc(k.id)}" ${ui.actChild === k.id ? 'selected' : ''}>${esc(k.name)}</option>`).join('')}</select><div class="sex-pick sex-filter fav-filter" role="group"><button type="button" data-action="act-fav" aria-pressed="${ui.actFav}" title="${esc(t('fav_only'))}" aria-label="${esc(t('fav_only'))}">${ICON_STAR}</button></div></div></div>`;
+  h += `<div class="toolbar kid-order act-order"><label class="sort-by"><span>${esc(t('sort_by'))}</span><select class="select" id="act-sort">${ACT_SORTS.map(k => `<option value="${k}" ${k === ui.actSort ? 'selected' : ''}>${esc(t('sort_' + k))}</option>`).join('')}</select></label><div class="sort-by"><span>${esc(t('filter'))}</span>${dateIn('act-from', ui.actDayFrom, 'act_from', 'act_from_title')}${dateIn('act-until', ui.actDayUntil, 'act_until', 'act_until_title')}<select class="select act-child" id="act-child" aria-label="${esc(t('filter_child'))}"><option value="">${esc(t('all_children'))}</option><option hidden disabled>${esc(tIn(lang === 'nl' ? 'en' : 'nl', 'all_children'))}</option>${kids.map(k => `<option value="${esc(k.id)}" ${ui.actChild === k.id ? 'selected' : ''}>${esc(k.name)}</option>`).join('')}</select><div class="sex-pick sex-filter fav-filter" role="group"><button type="button" data-action="act-fav" aria-pressed="${ui.actFav}" title="${esc(t('fav_only'))}" aria-label="${esc(t('fav_only'))}">${ICON_STAR}</button></div></div><input class="search" id="act-search" type="search" placeholder="${esc(t('search_acts'))}" value="${esc(ui.actSearch)}" aria-label="${esc(t('search_acts'))}"></div>`;
   h += calendarCard('act');
   if (!acts.length) return h + `<p class="muted">${esc(t('no_acts_found'))}</p>`;
   if (!ui.actSort.startsWith('date')) return h + `<div class="act-list act-flat">${sortActs(acts).map(activityCard).join('')}</div>`;
