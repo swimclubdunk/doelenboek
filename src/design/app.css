@@ -202,7 +202,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .readonly .am li { grid-template-columns: auto minmax(0, 1fr) auto auto; }
 .am-more { justify-self: start; }
 /* 4. the activity calendar */
-.cal-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 6px; overflow-x: auto; }
+.cal-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 6px; overflow-x: auto; overflow-y: hidden; }   /* sideways only: a rounding pixel must not bring a vertical scrollbar */
 .cal-m { grid-column: 2; display: grid; grid-template-columns: repeat(53, 1fr); font-size: .7rem; color: var(--muted); min-width: 580px; }
 .cal-m span { white-space: nowrap; }
 .cal-days { display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px; font-size: .66rem; color: var(--muted); align-items: center; }
@@ -274,7 +274,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .child-card { display: grid; grid-template-rows: auto auto auto 1fr; gap: 12px; padding: 16px; }   /* head, buttons, figures, bars */
 .cc-head { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
 .cc-id { min-width: 0; flex: 1; }
-.cc-id h2 { white-space: nowrap; overflow: hidden; }   /* a long name stays on one line and is cut off at the edge (full name on hover) */
+.cc-id h2 { white-space: nowrap; overflow: hidden; line-height: 23px; }   /* one line; a long name shrinks to 13px (fitNames), then is cut off at the edge (full name on hover); the line keeps its 20px-name height so badges line up across cards */
 .cc-tier { margin: 4px 0 3px; line-height: 1; }
 .meta { color: var(--muted); font-size: .84rem; }
 .cc-pct { text-align: right; display: grid; font-variant-numeric: tabular-nums; }
@@ -302,6 +302,29 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cc-actions { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 12px; }
 /* edit and delete sit apart, on the right; delete only turns red on hover */
 .cc-edit { margin-left: auto; }
+/* activity cards: the favourite star, filled when on */
+.btn-icon.fav[aria-pressed="true"] { color: var(--fg); }
+.btn-icon.fav[aria-pressed="true"] svg path, .fav-filter button[aria-pressed="true"] svg path { fill: currentColor; }
+.fav-filter { height: 37px; }
+/* Activiteit toevoegen: the two tabs, the library list, and the Terugkerend maken toggle */
+.act-tabs { justify-self: start; }
+.act-new { display: grid; gap: 14px; }   /* the form fields keep the window's spacing */
+.act-new[hidden], .act-lib[hidden] { display: none; }
+.recur-toggle { justify-self: start; }
+.act-lib .lib-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.act-lib li { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 10px 12px; }
+.lib-main { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.lib-main .muted { font-size: .82rem; }
+.recur-toggle { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 6px 12px; cursor: pointer; font-weight: 700; font-size: .88rem; color: var(--muted); position: relative; }
+.recur-toggle input { position: absolute; opacity: 0; pointer-events: none; }
+.recur-toggle svg { width: 18px; height: 18px; }
+.recur-toggle:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--fg); }
+.recur-toggle:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.recur-field .hint { margin: 6px 0 0; }
+/* Activiteiten: the search sits in the title row, left of Activiteit toevoegen */
+.head-right { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; flex: 1 1 auto; min-width: 0; }   /* the search stays visible in read-only mode; only the button goes */
+.head-right .search { flex: 0 1 300px; width: 300px; min-width: 0; height: 40px; }
+@media (max-width: 600px) { .head-right .search { flex: 1 1 100%; width: auto; } }   /* a phone: the search gets its own full row */
 
 /* toolbar */
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
@@ -309,7 +332,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .sort-by { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: .84rem; font-weight: 700; }
 .sort-by .select { color: var(--fg); font-weight: 500; }
 .kid-order { gap: 10px 28px; align-items: stretch; }
-.kid-order .sort-by { align-items: center; flex-wrap: wrap; row-gap: 8px; min-width: 0; }   /* on a phone the levels go to a new line */
+.kid-order .sort-by { align-items: center; flex-wrap: wrap; row-gap: 8px; min-width: 0; max-width: 100%; }   /* never wider than the page: its parts wrap instead */   /* on a phone the levels go to a new line */
 .kid-order .sex-pick { height: 37px; }   /* the toggles: the dropdown's height */
 @media (max-width: 480px) {   /* a phone: the levels fill their own line with tighter buttons */
   .kid-order .tier-filter { flex: 1 1 100%; margin-left: 0 !important; }
@@ -379,7 +402,11 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .month-n { text-transform: none; font-weight: 500; }   /* the activity count after the month */
 .act-list { display: grid; gap: 10px; }
 .act { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) auto auto; grid-template-areas: "date body photos actions"; gap: 14px; padding: 14px; align-items: start; }
-.act-date { grid-area: date; } .act-body { grid-area: body; } .act .row-actions { grid-area: actions; }
+.act-date { grid-area: date; } .act-body { grid-area: body; } .act .act-side { grid-area: actions; }
+/* the buttons, and under them, anchored right, the recurring tag (a label, not a button) */
+.act-side { display: grid; justify-items: end; gap: 6px; }
+.act-tag { display: grid; place-items: center; width: 32px; height: 32px; border: 1px dashed var(--line); border-radius: var(--r-sm); color: var(--muted); }
+.act-tag svg { width: 18px; height: 18px; }
 /* the photo column: rows of at most five thumbnails, with the number of photos below */
 .act-photos { grid-area: photos; align-self: center; display: grid; gap: 6px; }
 .act-photos .thumbs { max-width: calc(5 * 48px + 4 * 6px); }

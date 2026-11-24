@@ -104,7 +104,6 @@ TEXT = {
         'other_subjects': 'Andere vakken',
         'source': 'Bron: de officiële minimumdoelen op',
         'disclaimer': 'Wij zijn niet verantwoordelijk voor de volledigheid van de minimumdoelen.',
-        'foot_cookies': 'Deze website slaat geen cookies op je toestel op.',
         'support': 'Doneren via Ko-fi',
         'subject_word': 'Vak', 'category_word': 'Categorie',
         'app_title': 'Doelenboek: huisonderwijs bijhouden met de Vlaamse minimumdoelen',
@@ -186,7 +185,6 @@ TEXT = {
         'other_subjects': 'Other subjects',
         'source': 'Source: the official minimum goals (in Dutch) on',
         'disclaimer': 'We do not take responsibility for the completeness of the minimum goals.',
-        'foot_cookies': 'This website does not store cookies on your device.',
         'support': 'Donate on Ko-fi',
         'subject_word': 'Subject', 'category_word': 'Category',
         'app_title': 'Doelenboek: homeschool tracker for the Flemish minimum goals',
@@ -333,8 +331,6 @@ def page(lang, title, description, path, alternates, extra_ld, css, current, bod
 {body}
 </main>
 <footer class="site-foot">
-  <p>{escape(T['foot_cookies'])}</p>
-  <p>{escape(T['disclaimer'])}</p>
   <p><a href="/{ABOUT[lang]}/">{escape(T['nav_about'])}</a> · <a href="/{GOALS[lang]}/">{escape(T['nav_goals'])}</a> · <a href="{KOFI}" rel="noopener">{escape(T['support'])}</a></p>
 </footer>
 </body>

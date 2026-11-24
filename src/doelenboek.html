@@ -25,8 +25,6 @@
 </header>
 <main id="main"><p class="loading">Gegevens laden…</p></main>
 <footer class="site-foot" id="site-foot">
-  <p id="foot-cookies"></p>
-  <p id="foot-goals"></p>
   <p class="contact"><span id="contact-text"></span> <a id="contact-link"></a></p>
   <p class="support"><span id="support-text"></span> <a id="support-link" href="https://ko-fi.com/mat644" target="_blank" rel="noopener"></a></p>
   <p class="privacy-foot"><button type="button" class="link-btn" id="privacy-link"></button></p>
@@ -121,7 +119,7 @@ const T = {
     ng_h: 'Vakken die lang niet aan bod kwamen', ng_note: 'Per kind de vakken waarvan de laatste activiteit het langst geleden is. Rood: meer dan 60 dagen of nog nooit.', ng_never: 'nooit', ng_days: n => `${n} d`, ng_tip: d => `Laatste activiteit: ${d}`, ng_tip_never: 'Nog geen activiteit voor dit vak',
     am_h: 'Bijna beheerst', am_note: 'Doelen die al in minstens 2 activiteiten aan bod kwamen, maar nog niet als beheerst aangevinkt zijn.', am_n: n => `${n}× gebruikt`, am_btn: 'Beheerst', am_more: n => `Toon alle ${n}`, am_less: 'Toon minder', am_none: 'Geen open doelen die al minstens 2 keer aan bod kwamen.',
     cal_h: 'Activiteitenkalender', cal_less: 'Minder', cal_more: 'Meer', cal_none: 'Geen activiteiten op deze dag.', cal_go: 'Ga naar activiteit',
-    pg_h: 'Voortgang in het leerjaar', pg_note: 'Per kind: het deel van de doelen van hun leerjaar dat beheerst is. De streepjeslijn is het schema om op tijd 100% te halen, de puntjes zetten het huidige tempo verder. Elke grafiek loopt van de begindatum tot de streefdatum van het kind. Zonder die data telt ze vanaf de maand van het eerste beheerste doel (Kleuter 3 jaar, Lager LJ 1-4 4 jaar, Lager LJ 5-6 2 jaar, Secundair 1. graad 2 jaar).',
+    pg_h: 'Voortgang in het leerjaar', pg_note: 'Per kind: het deel van de doelen van hun leerjaar dat beheerst is. De streepjeslijn is het schema om op tijd 100% te halen, de puntjes zetten het huidige tempo verder. Elke grafiek loopt van de begindatum tot de einddatum van het kind. Zonder die data telt ze vanaf de maand van het eerste beheerste doel (Kleuter 3 jaar, Lager LJ 1-4 4 jaar, Lager LJ 5-6 2 jaar, Secundair 1. graad 2 jaar).',
     pg_mastered: 'Beheerst', pg_target: 'Schema tot einde leerjaar', pg_fc: 'Verwachting aan huidig tempo', pg_today: 'Vandaag',
     pg_on: 'op schema', pg_ahead: n => `${n} mnd voor`, pg_behind: n => `${n} mnd achter`, pg_none: 'Nog geen beheerste doelen',
     pg_foot: (n, tot, p, e) => `<b>${n} van ${tot}</b> (${p}%) · schema ${e}%`, pg_when: d => ` · 100% verwacht in <b>${d}</b>`, pg_end: d => `, einde leerjaar ${d}`, pg_done: ' · alles beheerst',
@@ -154,7 +152,7 @@ const T = {
     filter: 'Filter', filter_m: 'Jongens tonen of verbergen', filter_f: 'Meisjes tonen of verbergen', filter_tier: n => `${n} tonen of verbergen`, filter_tiers: 'Onderwijsniveaus',
     sort_by: 'Sorteer op', sort_name_asc: 'Naam oplopend', sort_name_desc: 'Naam aflopend', sort_done_desc: 'Voltooiing aflopend',
     sort_done_asc: 'Voltooiing oplopend', sort_tier_asc: 'Onderwijs oplopend', sort_tier_desc: 'Onderwijs aflopend',
-    search_acts: 'Zoek op titel, notitie of doelcode', act_from: 'Vanaf', act_until: 'Tot en met', act_from_title: 'Activiteiten vanaf deze datum (de dag zelf telt mee)', act_until_title: 'Activiteiten tot en met deze datum (de dag zelf telt mee)',
+    search_acts: 'Zoek op titel, notitie of doelcode', recur_tag: 'Terugkerende activiteit', recur_make: 'Terugkerend maken', recur_note: n => n ? `Wijzigingen gelden ook voor de ${n === 1 ? 'andere keer' : `${n} andere keren`} van deze activiteit, behalve de datum en de notities.` : 'Wijzigingen gelden later ook voor de volgende keren, behalve de datum en de notities.', act_tab_new: 'Nieuwe activiteit', act_tab_lib: 'Terugkerende activiteiten', lib_empty: 'Nog geen terugkerende activiteiten. Zet Terugkerend maken aan bij een activiteit om ze hier te bewaren.', lib_pick: 'Kiezen', lib_meta: (n, d) => `${n} keer · laatst op ${d}`, lib_aria: 'Soort activiteit toevoegen', fav: 'Favoriet', fav_only: 'Alleen favorieten tonen', act_from: 'Vanaf', act_until: 'Tot en met', act_from_title: 'Activiteiten vanaf deze datum (de dag zelf telt mee)', act_until_title: 'Activiteiten tot en met deze datum (de dag zelf telt mee)',
     sort_date_desc: 'Datum aflopend', sort_date_asc: 'Datum oplopend', sort_goals_desc: 'Aantal doelen aflopend', sort_goals_asc: 'Aantal doelen oplopend', sort_kids_desc: 'Aantal kinderen aflopend', sort_kids_asc: 'Aantal kinderen oplopend',
     kids_line: (n, m, f) => `${nlN(n, 'kind', 'kinderen')}, ${nlN(m, 'jongen', 'jongens')} en ${nlN(f, 'meisje', 'meisjes')}`, all_children: 'Alle kinderen', filter_child: 'Filter op kind',
     no_acts_found: 'Geen activiteiten gevonden met deze filters.', no_goals_linked: 'Geen minimumdoelen gekoppeld.', goals_aria: 'Minimumdoelen',
@@ -169,8 +167,8 @@ const T = {
     tier: 'Onderwijsniveau', tier_all: 'Alle niveaus', tier_aria: 'Onderwijsniveau van de doelen',
     tier_soon: 'De doelen voor dit niveau volgen binnenkort.', filter_hint: 'Klik op een vak om zijn doelen te tonen of te verbergen.',
     ext: 'Uitbreidingsdoel', ext_tip: 'Een optioneel extra doel bovenop de minimumdoelen. Telt in Doelenboek mee zoals de andere doelen.',
-    dates_hint: 'De begin- en streefdatum dienen om de prestaties en vorderingen goed op te volgen.',
-    begin_date: 'Begindatum', target_date: 'Streefdatum', err_dates: 'De streefdatum moet na de begindatum liggen.',
+    dates_hint: 'De begin- en einddatum dienen om de prestaties en vorderingen goed op te volgen.',
+    begin_date: 'Begindatum', target_date: 'Einddatum', err_dates: 'De einddatum moet na de begindatum liggen.',
     err_name: 'Vul een naam in.', err_dup_name: n => `Er is al een kind met de naam ${n}.`, saved_changes: 'Wijzigingen opgeslagen.', child_added: n => `${n} is toegevoegd.`,
     child_del_h: 'Kind verwijderen', child_del_q: n => `Weet je zeker dat je <b>${n}</b> wilt verwijderen?`,
     child_del_acts: (n, c) => `${n} wordt uit ${nlN(c, 'activiteit', 'activiteiten')} gehaald. De activiteiten zelf blijven bewaard.`,
@@ -184,7 +182,7 @@ const T = {
     err_title: 'Geef de activiteit een titel.', err_date: 'Kies een geldige datum.', err_kids: 'Kies minstens één kind dat meedeed.',
     act_updated: 'Activiteit bijgewerkt.', act_saved: 'Activiteit opgeslagen.', add_child_first: 'Voeg eerst een kind toe.',
     act_del_h: 'Activiteit verwijderen', act_del_q: (t, d) => `Weet je zeker dat je <b>${t}</b> (${d}) wilt verwijderen?`,
-    act_del_note: 'Doelen die alleen via deze activiteit behaald waren, staan daarna weer open.', act_deleted: 'Activiteit verwijderd.',
+    act_del_note: 'Doelen die alleen via deze activiteit behaald waren, staan daarna weer open.', act_del_series: n => `Alleen deze keer wordt verwijderd; ${n === 1 ? 'de andere keer blijft' : `de ${n} andere keren blijven`} bewaard.`, act_deleted: 'Activiteit verwijderd.',
     data_h: 'Instellingen', where_db: 'Je gegevens worden automatisch bewaard bij deze pagina en zijn zichtbaar voor wie je de pagina deelt.',
     where_local: 'Je gegevens staan alleen in deze browser.',
     examples_h: 'Voorbeeldgegevens', examples_p: 'Verwijdert het voorbeeldkind en de voorbeeldactiviteit.',
@@ -198,8 +196,7 @@ const T = {
     err_no_shared: 'Gedeelde opslag is niet beschikbaar. Gegevens worden in deze browser bewaard.',
     err_conn: 'De verbinding met de opslag is verbroken. Herlaad de pagina.',
     pick_btn: 'Doelen kiezen…', pick_h: 'Doelen kiezen', done: 'Klaar', none_chosen: 'Nog geen doelen gekozen.', n_selected: n => `${n} gekozen`,
-    foot_cookies: 'Deze website slaat geen cookies op je toestel op.', privacy_link: 'Privacybeleid', privacy_h: 'Privacybeleid', privacy_soon: 'De privacyverklaring volgt binnenkort.',
-    foot_goals: 'Wij zijn niet verantwoordelijk voor de volledigheid van de minimumdoelen.',
+    privacy_link: 'Privacybeleid', privacy_h: 'Privacybeleid', privacy_soon: 'De privacyverklaring volgt binnenkort.',
     contact_p: 'Feedback of een idee voor een nieuwe functie? Mail naar',
     support_p: 'Overweeg een donatie om dit project te steunen.', support_link: 'Doneren via Ko-fi',
     thanks_h: 'Fijn dat je Doelenboek gebruikt!',
@@ -242,7 +239,7 @@ const T = {
     ng_h: 'Subjects not covered for a while', ng_note: 'Per child the subjects whose last activity was longest ago. Red: more than 60 days, or never.', ng_never: 'never', ng_days: n => `${n} d`, ng_tip: d => `Last activity: ${d}`, ng_tip_never: 'No activity for this subject yet',
     am_h: 'Almost mastered', am_note: 'Goals that came up in at least 2 activities but are not ticked as mastered yet.', am_n: n => `used ${n}×`, am_btn: 'Mastered', am_more: n => `Show all ${n}`, am_less: 'Show fewer', am_none: 'No open goals that came up at least twice.',
     cal_h: 'Activity calendar', cal_less: 'Less', cal_more: 'More', cal_none: 'No activities on this day.', cal_go: 'Go to activity',
-    pg_h: 'Progress in the year group', pg_note: 'Per child: the share of the goals of their year group that is mastered. The dashed line is the schedule to reach 100% in time, the dots continue the current pace. Each chart runs from the begin date to the target completion date set for the child. Without those dates it counts from the month of the first mastered goal (Preschool 3 years, Primary YR 1-4 4 years, Primary YR 5-6 2 years, Secondary 1st stage 2 years).',
+    pg_h: 'Progress in the year group', pg_note: 'Per child: the share of the goals of their year group that is mastered. The dashed line is the schedule to reach 100% in time, the dots continue the current pace. Each chart runs from the begin date to the end date set for the child. Without those dates it counts from the month of the first mastered goal (Preschool 3 years, Primary YR 1-4 4 years, Primary YR 5-6 2 years, Secondary 1st stage 2 years).',
     pg_mastered: 'Mastered', pg_target: 'Schedule to the end of the year group', pg_fc: 'Expected at the current pace', pg_today: 'Today',
     pg_on: 'on track', pg_ahead: n => `${n} mo ahead`, pg_behind: n => `${n} mo behind`, pg_none: 'No goals mastered yet',
     pg_foot: (n, tot, p, e) => `<b>${n} of ${tot}</b> (${p}%) · schedule ${e}%`, pg_when: d => ` · 100% expected in <b>${d}</b>`, pg_end: d => `, end of year group ${d}`, pg_done: ' · all mastered',
@@ -274,8 +271,8 @@ const T = {
     search_kids: 'Search children by name', no_kids_found: 'No children found.',
     filter: 'Filter', filter_m: 'Show or hide boys', filter_f: 'Show or hide girls', filter_tier: n => `Show or hide ${n}`, filter_tiers: 'School levels',
     sort_by: 'Sort by', sort_name_asc: 'Name Ascending', sort_name_desc: 'Name Descending', sort_done_desc: 'Completion Descending',
-    sort_done_asc: 'Completion Ascending', sort_tier_asc: 'Onderwijs Ascending', sort_tier_desc: 'Onderwijs Descending',
-    search_acts: 'Search by title, notes or goal code', act_from: 'From', act_until: 'Until', act_from_title: 'Activities from this date (the day itself included)', act_until_title: 'Activities up to and including this date',
+    sort_done_asc: 'Completion Ascending', sort_tier_asc: 'School Level Ascending', sort_tier_desc: 'School Level Descending',
+    search_acts: 'Search by title, notes or goal code', recur_tag: 'Recurring activity', recur_make: 'Make recurring', recur_note: n => n ? `Changes also apply to the ${n === 1 ? 'other occurrence' : `${n} other occurrences`} of this activity, except the date and the notes.` : 'Changes will also apply to later occurrences, except the date and the notes.', act_tab_new: 'New activity', act_tab_lib: 'Recurring activities', lib_empty: 'No recurring activities yet. Switch on Make recurring for an activity to keep it here.', lib_pick: 'Choose', lib_meta: (n, d) => `${n === 1 ? 'once' : `${n} times`} · last on ${d}`, lib_aria: 'Kind of activity to add', fav: 'Favourite', fav_only: 'Show favourites only', act_from: 'From', act_until: 'Until', act_from_title: 'Activities from this date (the day itself included)', act_until_title: 'Activities up to and including this date',
     sort_date_desc: 'Date Descending', sort_date_asc: 'Date Ascending', sort_goals_desc: 'Number of Goals Descending', sort_goals_asc: 'Number of Goals Ascending', sort_kids_desc: 'Number of Children Descending', sort_kids_asc: 'Number of Children Ascending',
     kids_line: (n, m, f) => `${nlN(n, 'child', 'children')}, ${nlN(m, 'boy', 'boys')} and ${nlN(f, 'girl', 'girls')}`, all_children: 'All children', filter_child: 'Filter by child',
     no_acts_found: 'No activities match these filters.', no_goals_linked: 'No minimum goals linked.', goals_aria: 'Minimum goals',
@@ -290,8 +287,8 @@ const T = {
     tier: 'School level', tier_all: 'All levels', tier_aria: 'School level of the goals',
     tier_soon: 'The goals for this level are coming soon.', filter_hint: 'Click a subject to show or hide its goals.',
     ext: 'Extension goal', ext_tip: 'An optional extra goal on top of the minimum goals. In Doelenboek it counts like the other goals.',
-    dates_hint: 'The start and target end dates are in order to properly track performance and progression.',
-    begin_date: 'Begin date', target_date: 'Target completion date', err_dates: 'The target completion date must be after the begin date.',
+    dates_hint: 'The begin date and end date are used to follow performance and progress properly.',
+    begin_date: 'Begin date', target_date: 'End date', err_dates: 'The end date must be after the begin date.',
     err_name: 'Enter a name.', err_dup_name: n => `There is already a child called ${n}.`, saved_changes: 'Changes saved.', child_added: n => `${n} has been added.`,
     child_del_h: 'Delete child', child_del_q: n => `Are you sure you want to delete <b>${n}</b>?`,
     child_del_acts: (n, c) => `${n} will be removed from ${nlN(c, 'activity', 'activities')}. The activities themselves are kept.`,
@@ -305,7 +302,7 @@ const T = {
     err_title: 'Give the activity a title.', err_date: 'Choose a valid date.', err_kids: 'Choose at least one child who took part.',
     act_updated: 'Activity updated.', act_saved: 'Activity saved.', add_child_first: 'Add a child first.',
     act_del_h: 'Delete activity', act_del_q: (t, d) => `Are you sure you want to delete <b>${t}</b> (${d})?`,
-    act_del_note: 'Goals that were only covered by this activity will be open again.', act_deleted: 'Activity deleted.',
+    act_del_note: 'Goals that were only covered by this activity will be open again.', act_del_series: n => `Only this occurrence is deleted; the ${n === 1 ? 'other occurrence stays' : `${n} other occurrences stay`}.`, act_deleted: 'Activity deleted.',
     data_h: 'Settings', where_db: 'Your data is saved automatically with this page and is visible to anyone you share the page with.',
     where_local: 'Your data is stored in this browser only.',
     examples_h: 'Example data', examples_p: 'Removes the example child and the example activity.',
@@ -319,8 +316,7 @@ const T = {
     err_no_shared: 'Shared storage is not available. Data is kept in this browser.',
     err_conn: 'The connection to storage was lost. Reload the page.',
     pick_btn: 'Choose goals…', pick_h: 'Choose goals', done: 'Done', none_chosen: 'No goals selected yet.', n_selected: n => `${n} selected`,
-    foot_cookies: 'This website does not store cookies on your machine.', privacy_link: 'Privacy policy', privacy_h: 'Privacy policy', privacy_soon: 'The privacy statement will follow soon.',
-    foot_goals: 'We do not take responsibility for the completeness of the minimum goals.',
+    privacy_link: 'Privacy policy', privacy_h: 'Privacy policy', privacy_soon: 'The privacy statement will follow soon.',
     contact_p: 'Feedback or a feature request? Email',
     support_p: 'Consider donating to support this project.', support_link: 'Donate on Ko-fi',
     thanks_h: 'Glad you are using Doelenboek!',
@@ -415,6 +411,8 @@ function clean(col, b) {
   if (col === 'activities') {
     const title = str(b.title, 200).trim();
     if (!title) return null;
+    if (b.fav === true) base.fav = true;   // marked as favourite (the star)
+    if (typeof b.seriesId === 'string' && ID_RE.test(b.seriesId)) base.seriesId = b.seriesId;   // a recurring activity: all occurrences share this id
     return { ...base, title, date: validDate(b.date) ? b.date : todayIso(), notes: str(b.notes, 4000), childIds: [...new Set(strArr(b.childIds))], goalIds: [...new Set(strArr(b.goalIds))], photoIds: [...new Set(strArr(b.photoIds))].slice(0, MAX_PHOTOS) };
   }
   return null;
@@ -431,7 +429,7 @@ const ui = {
   view: 'overzicht', childId: null,
   goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)), goalTier: null,   // null: follow the children's tier
   childSearch: '', childSort: 'name_asc', childSex: new Set(['m', 'f']), childTiers: new Set(TIERS.map(x => x.key)),   // Kinderen: order, and the boys / girls and levels shown
-  actSearch: '', actChild: '', actSort: 'date_desc', actDayFrom: '', actDayUntil: '', closed: new Set(),
+  actSearch: '', actChild: '', actSort: 'date_desc', actDayFrom: '', actDayUntil: '', actFav: false, closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
   dashFrom: null, dashTo: null, dashOff: new Set(), dashStraight: false,   // dashboard: first and last month (month numbers, null: from the first mastered goal, up to this month), the children switched off, straight or smooth lines
   dashRel: false,   // mastered goals: false ABS (the number of goals), true REL (percent of the child's level)
@@ -688,6 +686,8 @@ const themeNow = () => document.documentElement.dataset.theme === 'dark' ? 'dark
 const ICON_SMOOTH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 18C7 18 8 9 12 9s5 4 9-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const ICON_STRAIGHT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 18L9 9l6 4 6-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_EDIT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ICON_STAR = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.8L12 16.9l-5.25 2.7 1-5.8L3.5 9.7l5.9-.9Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+const ICON_RECUR = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6M3.5 3.8v4.5H8M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICON_TRASH = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 /* boy and girl, drawn like the pencil and bin icons (24 grid, 2 wide, round ends) */
 const ICON_MALE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="14" r="5.5"/><path d="M14 10l6-6M15 4h5v5"/></g></svg>';
@@ -704,8 +704,6 @@ function renderChrome() {
   for (const b of document.querySelectorAll('[data-lang]')) b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   document.body.classList.toggle('chrome-off', mode === 'auth' || (mode === 'loading' && !!FIREBASE_CONFIG));
   document.body.classList.toggle('auth-screen', mode === 'auth');   // the photo backdrop: login screens only, not start-up
-  $('#foot-cookies').textContent = t('foot_cookies');
-  $('#foot-goals').textContent = t('foot_goals');
   $('#contact-text').textContent = t('contact_p');
   const contact = $('#contact-link'), mail = CONTACT.join('@');
   contact.textContent = mail; contact.href = 'mailto:' + mail;
@@ -751,6 +749,7 @@ function render() {
   hidePeek();
   main.innerHTML = html;
   hydratePhotos(main);
+  fitNames();
   if (ui.goAct && ui.view === 'activiteiten') {
     const el = main.querySelector(`[data-act="${CSS.escape(ui.goAct)}"]`);
     if (el) el.scrollIntoView({ block: 'center' });
@@ -773,6 +772,19 @@ function barRow(label, key, n, tot, touches) {
   return `<li class="${tot ? '' : 'none'}"><span class="b-lbl">${esc(label)}</span><span class="bar" role="img" aria-label="${esc(t('bar_aria', label, n, tot))}"><i style="width:${p}%;background:${sv(key)}"></i></span><span class="b-num">${tot ? `${n}/${tot}` : '—'}</span>${touchNum(label, touches)}</li>`;
 }
 
+/* Child cards: a name too long for its card shrinks in 0.5px steps, down to NAME_MIN; only below that is it cut off
+   (full name on hover). Again when the window changes size and once the fonts have loaded. */
+const NAME_MIN = 13;
+function fitNames() {
+  for (const h of main.querySelectorAll('.cc-id h2')) {
+    h.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(h).fontSize);
+    while (h.scrollWidth > h.clientWidth && size > NAME_MIN) { size = Math.max(NAME_MIN, size - 0.5); h.style.fontSize = size + 'px'; }
+  }
+}
+let fitTimer = 0;
+addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(fitNames, 100); });
+document.fonts?.ready.then(fitNames);
 function viewOverview(cov) {
   const kids = sortedChildren();
   let h = exampleBanner();
@@ -877,7 +889,7 @@ function activityCard(a, extra) {
       ${typeof extra === 'string' ? extra : ''}
     </div>
     ${photoStrip(a)}
-    <div class="row-actions w"><button class="btn small ghost btn-icon edit" data-action="edit-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_edit_h'))}" title="${esc(t('act_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost btn-icon del" data-action="delete-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_del_h'))}" title="${esc(t('act_del_h'))}">${ICON_TRASH}</button></div>
+    <div class="act-side"><div class="row-actions w"><button class="btn small ghost btn-icon fav" type="button" data-action="fav-activity" data-id="${esc(a.id)}" aria-pressed="${!!a.fav}" aria-label="${esc(t('fav'))}" title="${esc(t('fav'))}">${ICON_STAR}</button><button class="btn small ghost btn-icon edit" data-action="edit-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_edit_h'))}" title="${esc(t('act_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost btn-icon del" data-action="delete-activity" data-id="${esc(a.id)}" aria-label="${esc(t('act_del_h'))}" title="${esc(t('act_del_h'))}">${ICON_TRASH}</button></div>${a.seriesId ? `<span class="act-tag" role="img" aria-label="${esc(t('recur_tag'))}" title="${esc(t('recur_tag'))}">${ICON_RECUR}</span>` : ''}</div>
   </article>`;
 }
 
@@ -886,19 +898,19 @@ function viewActivities() {
   if (ui.actChild && !data.children.has(ui.actChild)) ui.actChild = '';
   const acts = [...data.activities.values()].filter(a =>
     (!ui.actChild || a.childIds.includes(ui.actChild)) &&
-    (!ui.actDayFrom || a.date >= ui.actDayFrom) && (!ui.actDayUntil || a.date <= ui.actDayUntil) &&
+    (!ui.actDayFrom || a.date >= ui.actDayFrom) && (!ui.actDayUntil || a.date <= ui.actDayUntil) && (!ui.actFav || a.fav) &&
     (!q || norm(a.title + ' ' + a.notes + ' ' + a.goalIds.map(id => { const g = data.goals.get(id); return g ? gCode(g) : ''; }).join(' ')).includes(q))
   );
   const dates = [...data.activities.values()].map(a => a.date).sort();
   const lede = dates.length ? t('acts_range', dates.length, fmtDate(dates[0]), fmtDate(dates[dates.length - 1])) : t('acts_lede');
   let h = exampleBanner();
   h += `<section class="page-head"><div class="head-inline"><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(lede)}</p></div>
-    <div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${addBt('add_activity')}</button></div></section>`;
+    <div class="head-right">${data.activities.size ? `<input class="search" id="act-search" type="search" placeholder="${esc(t('search_acts'))}" value="${esc(ui.actSearch)}" aria-label="${esc(t('search_acts'))}">` : ''}<div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${addBt('add_activity')}</button></div></div></section>`;
   if (!data.activities.size) {
     return h + `<div class="empty"><h2>${esc(t('empty_acts_h'))}</h2><p>${esc(kids.length ? t('empty_acts_p') : t('empty_acts_nokids'))}</p>${kids.length ? `<button class="btn primary w" data-action="new-activity">${bt('add_activity')}</button>` : `<a class="btn" href="#overzicht">${bt('to_overview')}</a>`}</div>`;
   }
   const dateIn = (id, v, lbl, title) => `<label class="date-in" title="${esc(t(title))}"><span>${esc(t(lbl))}</span><input class="select" id="${id}" type="date" value="${esc(v)}" min="${esc(dates[0])}" max="${esc(dates[dates.length - 1])}"></label>`;
-  h += `<div class="toolbar kid-order act-order"><label class="sort-by"><span>${esc(t('sort_by'))}</span><select class="select" id="act-sort">${ACT_SORTS.map(k => `<option value="${k}" ${k === ui.actSort ? 'selected' : ''}>${esc(t('sort_' + k))}</option>`).join('')}</select></label><div class="sort-by"><span>${esc(t('filter'))}</span>${dateIn('act-from', ui.actDayFrom, 'act_from', 'act_from_title')}${dateIn('act-until', ui.actDayUntil, 'act_until', 'act_until_title')}<select class="select act-child" id="act-child" aria-label="${esc(t('filter_child'))}"><option value="">${esc(t('all_children'))}</option><option hidden disabled>${esc(tIn(lang === 'nl' ? 'en' : 'nl', 'all_children'))}</option>${kids.map(k => `<option value="${esc(k.id)}" ${ui.actChild === k.id ? 'selected' : ''}>${esc(k.name)}</option>`).join('')}</select></div><input class="search" id="act-search" type="search" placeholder="${esc(t('search_acts'))}" value="${esc(ui.actSearch)}" aria-label="${esc(t('search_acts'))}"></div>`;
+  h += `<div class="toolbar kid-order act-order"><label class="sort-by"><span>${esc(t('sort_by'))}</span><select class="select" id="act-sort">${ACT_SORTS.map(k => `<option value="${k}" ${k === ui.actSort ? 'selected' : ''}>${esc(t('sort_' + k))}</option>`).join('')}</select></label><div class="sort-by"><span>${esc(t('filter'))}</span>${dateIn('act-from', ui.actDayFrom, 'act_from', 'act_from_title')}${dateIn('act-until', ui.actDayUntil, 'act_until', 'act_until_title')}<select class="select act-child" id="act-child" aria-label="${esc(t('filter_child'))}"><option value="">${esc(t('all_children'))}</option><option hidden disabled>${esc(tIn(lang === 'nl' ? 'en' : 'nl', 'all_children'))}</option>${kids.map(k => `<option value="${esc(k.id)}" ${ui.actChild === k.id ? 'selected' : ''}>${esc(k.name)}</option>`).join('')}</select><div class="sex-pick sex-filter fav-filter" role="group"><button type="button" data-action="act-fav" aria-pressed="${ui.actFav}" title="${esc(t('fav_only'))}" aria-label="${esc(t('fav_only'))}">${ICON_STAR}</button></div></div></div>`;
   h += calendarCard('act');
   if (!acts.length) return h + `<p class="muted">${esc(t('no_acts_found'))}</p>`;
   if (!ui.actSort.startsWith('date')) return h + `<div class="act-list act-flat">${sortActs(acts).map(activityCard).join('')}</div>`;
@@ -1199,7 +1211,7 @@ function calendarBody(range) {
   for (let w = 0; w < WEEKS; w++) for (let i = 0; i < 7; i++) {
     const d = new Date(start); d.setDate(d.getDate() + w * 7 + i);
     if (i === 0 && d.getMonth() !== lastM) {
-      if (w < WEEKS - 2) mLabels.push({ w, name: cap1(mFmt.format(d).replace('.', '')), year: d.getFullYear(), yr: lastM < 0 || d.getMonth() === 0 });
+      if (w < WEEKS - 2) mLabels.push({ w, name: cap1(mFmt.format(d).replace('.', '').replace('Sept', 'Sep')), year: d.getFullYear(), yr: lastM < 0 || d.getMonth() === 0 });
       lastM = d.getMonth();
     }
     if (d > today || d < firstDay) continue;
@@ -1391,12 +1403,32 @@ function deleteChild(id) {
 
 
 /* activity */
+/* Recurring activities: every occurrence carries the same seriesId and shares everything except its date and notes
+   (title, children, goals, photos, favourite). An edit to one is copied to the others. */
+const seriesOf = sid => sid ? [...data.activities.values()].filter(a => a.seriesId === sid) : [];
+function syncSeries(src, now) {
+  const others = seriesOf(src.seriesId).filter(a => a.id !== src.id);
+  return runPool(others, a => put('activities', a.id, { ...bodyOf(a), title: src.title, childIds: src.childIds, goalIds: src.goalIds, photoIds: src.photoIds, fav: !!src.fav, updatedAt: now }), 3);
+}
+/* a photo may only be deleted when no other activity (apart from those about to share this one's photos) still shows it */
+const photoUsedElsewhere = (pid, id, sid) => [...data.activities.values()].some(a => a.id !== id && !(sid && a.seriesId === sid) && a.photoIds.includes(pid));
+/* the library: one entry per series, shown with its latest occurrence */
+function recurLibrary() {
+  const by = new Map();
+  for (const a of data.activities.values()) if (a.seriesId) (by.get(a.seriesId) || by.set(a.seriesId, []).get(a.seriesId)).push(a);
+  return [...by.values()].map(list => { list.sort(byDateDesc); return { latest: list[0], n: list.length }; })
+    .sort((x, y) => x.latest.title.localeCompare(y.latest.title, 'nl', { sensitivity: 'base' }));
+}
 function activityDialog(act, presetChild) {
   const kids = sortedChildren();
   if (!kids.length) { toast(t('add_child_first'), true); return; }
   const selGoals = new Set(act ? act.goalIds.filter(id => data.goals.has(id)) : []);
   const preKids = new Set(act ? act.childIds : (presetChild ? [presetChild] : (kids.length === 1 ? [kids[0].id] : [])));
-  const body = `<label class="field"><span>${esc(t('title'))}</span><input id="a-title" name="title" maxlength="200" autocomplete="off" placeholder="${esc(t('title_ph'))}" autofocus value="${esc(act?.title || '')}"></label>
+  const lib = act ? [] : recurLibrary(), others = act?.seriesId ? seriesOf(act.seriesId).length - 1 : 0;   // a normal activity switched on starts a series of one
+  let pickedSeries = null, carryFav = false, pickedPhotos = [];   // set by Kiezen in the library
+  const tabs = act ? '' : `<div class="seg act-tabs" role="tablist" aria-label="${esc(t('lib_aria'))}"><button type="button" role="tab" data-tab="new" aria-selected="true">${esc(t('act_tab_new'))}</button><button type="button" role="tab" data-tab="lib" aria-selected="false">${esc(t('act_tab_lib'))} <span class="seg-n">${lib.length}</span></button></div>`;
+  const libPane = act ? '' : `<div class="act-lib" data-pane="lib" hidden>${lib.length ? `<ul class="lib-list">${lib.map(({ latest: a, n }) => `<li><div class="lib-main"><b>${esc(a.title)}</b><span class="act-kids">${a.childIds.map(id => data.children.get(id)).filter(Boolean).map(k => `<span><span class="avatar sm" aria-hidden="true">${animalArt(k.animal)}</span>${esc(k.name)}</span>`).join('')}</span><span class="muted">${esc(t('lib_meta', n, fmtDate(a.date)))}${a.goalIds.length ? ` · ${esc(t('n_goals_short', a.goalIds.length))}` : ''}</span></div><button type="button" class="btn small" data-lib="${esc(a.id)}">${esc(t('lib_pick'))}</button></li>`).join('')}</ul>` : `<p class="muted">${esc(t('lib_empty'))}</p>`}</div>`;
+  const body = `${tabs}<div class="act-new" data-pane="new"><label class="field"><span>${esc(t('title'))}</span><input id="a-title" name="title" maxlength="200" autocomplete="off" placeholder="${esc(t('title_ph'))}" autofocus value="${esc(act?.title || '')}"></label>
     <label class="field"><span>${esc(t('date'))}</span><input id="a-date" name="date" type="date" value="${esc(act?.date || todayIso())}"></label>
     <div class="field"><span class="field-label">${esc(t('who'))}</span><div class="kid-picks">${kids.map(k => `<label class="kid-pick"><input type="checkbox" name="kids" value="${esc(k.id)}" ${preKids.has(k.id) ? 'checked' : ''}><span class="avatar sm" aria-hidden="true">${animalArt(k.animal)}</span>${esc(k.name)}</label>`).join('')}</div></div>
     <div class="field"><span class="field-label">${esc(t('goals_field'))} <span class="muted" id="a-count"></span></span>
@@ -1406,7 +1438,9 @@ function activityDialog(act, presetChild) {
       <div class="photo-edit" id="a-photos"></div>
       <p class="hint" id="a-phint">${esc(t('photo_hint'))}</p>
     </div>
-    <label class="field"><span>${esc(t('notes'))}</span><textarea id="a-notes" name="notes" rows="3" maxlength="4000" placeholder="${esc(t('notes_ph'))}">${esc(act?.notes || '')}</textarea></label>`;
+    <label class="field"><span>${esc(t('notes'))}</span><textarea id="a-notes" name="notes" rows="3" maxlength="4000" placeholder="${esc(t('notes_ph'))}">${esc(act?.notes || '')}</textarea></label>
+    <div class="field recur-field"><label class="recur-toggle"><input type="checkbox" name="recur" ${act?.seriesId ? 'checked' : ''}>${ICON_RECUR}<span>${esc(t('recur_make'))}</span></label>
+      <p class="hint" id="a-rnote" ${act?.seriesId ? '' : 'hidden'}>${esc(t('recur_note', others))}</p></div></div>${libPane}`;
   openDialog(shell('f-act', act ? t('act_edit_h') : t('act_add_h'), body), d => {
     const selBox = d.querySelector('#a-sel'), count = d.querySelector('#a-count');
     const chosenKids = () => [...d.querySelectorAll('input[name=kids]:checked')].map(i => i.value);
@@ -1460,6 +1494,30 @@ function activityDialog(act, presetChild) {
     d.querySelector('form').addEventListener('paste', e => { const fs = [...(e.clipboardData?.files || [])].filter(f => f.type.startsWith('image/')); if (fs.length) { e.preventDefault(); addFiles(fs); } });
     drawPhotos();
 
+    /* the toggle's hint, the two tabs, and picking from the library (fills in everything; date today) */
+    const rnote = d.querySelector('#a-rnote');
+    d.querySelector('input[name=recur]').addEventListener('change', e => { rnote.hidden = !e.target.checked; });
+    const submitBtn = d.querySelector('[type=submit]');
+    const showTab = tab => {
+      for (const b of d.querySelectorAll('.act-tabs [data-tab]')) b.setAttribute('aria-selected', String(b.dataset.tab === tab));
+      for (const p of d.querySelectorAll('[data-pane]')) p.hidden = p.dataset.pane !== tab;
+      submitBtn.hidden = tab !== 'new';
+    };
+    d.querySelector('.act-tabs')?.addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) showTab(b.dataset.tab); });
+    d.querySelector('.act-lib')?.addEventListener('click', e => {
+      const b = e.target.closest('[data-lib]'); if (!b) return;
+      const src = data.activities.get(b.dataset.lib); if (!src) return;
+      const form = d.querySelector('form');
+      form.title.value = src.title; form.date.value = todayIso(); form.notes.value = src.notes || '';
+      for (const i of d.querySelectorAll('input[name=kids]')) i.checked = src.childIds.includes(i.value);
+      selGoals.clear(); for (const id of src.goalIds) if (data.goals.has(id)) selGoals.add(id); drawSel();
+      for (const p of photos.splice(0)) if (!p.existing && p.url) URL.revokeObjectURL(p.url);
+      for (const id of src.photoIds) photos.push({ id, existing: true }); drawPhotos();
+      form.recur.checked = true; pickedSeries = src.seriesId; carryFav = !!src.fav; pickedPhotos = [...src.photoIds];
+      rnote.textContent = t('recur_note', seriesOf(src.seriesId).length); rnote.hidden = false;
+      showTab('new'); form.title.focus();
+    });
+
     bindSubmit(d, async form => {
       const title = form.title.value.trim(), date = form.date.value, childIds = chosenKids();
       if (!title) return t('err_title');
@@ -1472,8 +1530,14 @@ function activityDialog(act, presetChild) {
       const errors = await runPool(fresh, p => photoStore.put(p.id, { ...p.rec, createdAt: now }), 3);
       if (errors.length) throw errors[0];
       for (const p of fresh) { photoUrl.set(p.id, p.url); p.existing = true; }
-      await put('activities', act?.id || newId(), { ...(act ? bodyOf(act) : { createdAt: now }), title, date, notes: form.notes.value, childIds, goalIds: [...selGoals], photoIds: photos.map(p => p.id), updatedAt: now, example: false });
-      const removed = (act ? act.photoIds : []).filter(id => !photos.some(p => p.id === id));
+      const id = act?.id || newId();
+      const seriesId = form.recur.checked ? (act?.seriesId || pickedSeries || newId()) : null;   // switched off: only this occurrence leaves the series
+      const base = act ? bodyOf(act) : { createdAt: now, ...(carryFav && seriesId ? { fav: true } : {}) };   // a copy made with the toggle off is not starred
+      delete base.seriesId;
+      const saved = { ...base, title, date, notes: form.notes.value, childIds, goalIds: [...selGoals], photoIds: photos.map(p => p.id), updatedAt: now, example: false, ...(seriesId ? { seriesId } : {}) };
+      await put('activities', id, saved);
+      if (seriesId) { const errs = await syncSeries({ ...saved, id }, now); if (errs.length) throw errs[0]; }
+      const removed = (act ? act.photoIds : seriesId ? pickedPhotos : []).filter(pid => !photos.some(p => p.id === pid) && !photoUsedElsewhere(pid, id, seriesId));
       await runPool(removed, deletePhoto, 3);
       if (fresh.length && mode === 'local') navigator.storage?.persist?.().catch(() => {});
       toast(act ? t('act_updated') : t('act_saved'));
@@ -1528,7 +1592,7 @@ const PRIVACY = {
 <p>Doelenboek verwerkt de volgende gegevens:</p>
 <ul>
 <li><b>Ouderaccounts:</b> e-mailadres, authenticatiegegevens en accountvoorkeuren.</li>
-<li><b>Kindprofielen:</b> naam of zelfgekozen naam, geslacht (jongen of meisje), toegewezen onderwijsniveau (Kleuter, Lager Leerjaar 1–4, Lager Leerjaar 5–6 of Secundair 1. graad A- of B-stroom) met een optionele begin- en streefdatum, avatar, leerdoelen, voortgang, notities, activiteiten en foto's.</li>
+<li><b>Kindprofielen:</b> naam of zelfgekozen naam, geslacht (jongen of meisje), toegewezen onderwijsniveau (Kleuter, Lager Leerjaar 1–4, Lager Leerjaar 5–6 of Secundair 1. graad A- of B-stroom) met een optionele begin- en einddatum, avatar, leerdoelen, voortgang, notities, activiteiten en foto's.</li>
 <li><b>Technische gegevens:</b> noodzakelijke loggegevens en informatie voor de beveiliging en werking van het platform.</li>
 </ul>
 <h3>3. Gebruik van gegevens</h3>
@@ -1547,7 +1611,9 @@ const PRIVACY = {
 <p>Voor vragen of verzoeken kan je contact opnemen via <a href="mailto:hello@doelenboek.be">hello@doelenboek.be</a>. Verzoeken worden behandeld binnen de wettelijke termijn van één maand.</p>
 <h3>7. Klachten en wijzigingen</h3>
 <p>Je hebt het recht om een klacht in te dienen bij de Belgische Gegevensbeschermingsautoriteit (GBA): <a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank" rel="noopener">https://www.gegevensbeschermingsautoriteit.be</a></p>
-<p>Dit privacybeleid kan worden aangepast wanneer Doelenboek of de toepasselijke regelgeving verandert.</p>`,
+<p>Dit privacybeleid kan worden aangepast wanneer Doelenboek of de toepasselijke regelgeving verandert.</p>
+<h3>8. Volledigheid van de doelen</h3>
+<p>Wij zijn niet verantwoordelijk voor de volledigheid van de minimumdoelen.</p>`,
   en: `<p class="privacy-date">Last updated: 24 November 2026</p>
 <p class="privacy-date">This is a translation of the Dutch privacy statement. In case of doubt, the Dutch version takes precedence.</p>
 <h3>1. Controller</h3>
@@ -1557,7 +1623,7 @@ const PRIVACY = {
 <p>Doelenboek processes the following data:</p>
 <ul>
 <li><b>Parent accounts:</b> email address, authentication data and account preferences.</li>
-<li><b>Child profiles:</b> name or chosen name, sex (boy or girl), assigned school level (Preschool, Primary Year 1–4, Primary Year 5–6 or Secondary 1st stage A- or B-stream) with an optional begin and target completion date, avatar, learning goals, progress, notes, activities and photos.</li>
+<li><b>Child profiles:</b> name or chosen name, sex (boy or girl), assigned school level (Preschool, Primary Year 1–4, Primary Year 5–6 or Secondary 1st stage A- or B-stream) with an optional begin and end date, avatar, learning goals, progress, notes, activities and photos.</li>
 <li><b>Technical data:</b> necessary log data and information for the security and operation of the platform.</li>
 </ul>
 <h3>3. Use of data</h3>
@@ -1576,7 +1642,9 @@ const PRIVACY = {
 <p>For questions or requests, you can contact us at <a href="mailto:hello@doelenboek.be">hello@doelenboek.be</a>. Requests are handled within the legal period of one month.</p>
 <h3>7. Complaints and changes</h3>
 <p>You have the right to lodge a complaint with the Belgian Data Protection Authority (GBA): <a href="https://www.dataprotectionauthority.be" target="_blank" rel="noopener">https://www.dataprotectionauthority.be</a></p>
-<p>This privacy policy may be updated when Doelenboek or the applicable regulations change.</p>`,
+<p>This privacy policy may be updated when Doelenboek or the applicable regulations change.</p>
+<h3>8. Completeness of the goals</h3>
+<p>We are not responsible for the completeness of the minimum goals.</p>`,
 };
 const privacyDlg = $('#privacy');
 function fillPrivacy() {
@@ -1760,9 +1828,10 @@ function goalPicker(initial, kidIds, onDone) {
 }
 function deleteActivity(id) {
   const a = data.activities.get(id); if (!a) return;
-  confirmDialog(t('act_del_h'), `<p>${t('act_del_q', esc(a.title), esc(fmtDate(a.date)))}</p><p class="muted">${esc(t('act_del_note'))}</p>`, t('delete'), async () => {
+  const others = seriesOf(a.seriesId).length - 1;
+  confirmDialog(t('act_del_h'), `<p>${t('act_del_q', esc(a.title), esc(fmtDate(a.date)))}</p>${others > 0 ? `<p>${esc(t('act_del_series', others))}</p>` : ''}<p class="muted">${esc(t('act_del_note'))}</p>`, t('delete'), async () => {
     await remove('activities', id);
-    await runPool(a.photoIds, deletePhoto, 3);
+    await runPool(a.photoIds.filter(pid => !photoUsedElsewhere(pid, id, null)), deletePhoto, 3);
     toast(t('act_deleted'));
   });
 }
@@ -1914,12 +1983,14 @@ main.addEventListener('click', e => {
     case 'am-all': ui.amAll = !ui.amAll; return render();
     case 'cal-close': ui.calDay = null; return render();
     case 'cal-day': ui.calDay = ui.calDay === id ? null : id; return render();
-    case 'go-activity': ui.actSearch = ''; ui.actChild = ''; ui.actDayFrom = ''; ui.actDayUntil = ''; ui.goAct = id; if (ui.view === 'activiteiten') { ui.calDay = null; return render(); }   // the day panel shut, so the list holds the only copy location.hash = 'activiteiten'; return;
+    case 'go-activity': ui.actSearch = ''; ui.actChild = ''; ui.actDayFrom = ''; ui.actDayUntil = ''; ui.actFav = false; ui.goAct = id; if (ui.view === 'activiteiten') { ui.calDay = null; return render(); }   // the day panel shut, so the list holds the only copy location.hash = 'activiteiten'; return;
     case 'cal-range': { const p = b.dataset.page === 'dash' ? 'dash' : 'act'; if (CAL_RANGES.includes(id)) { ui.calRange[p] = id; try { localStorage.setItem(CAL_KEYS[p][1], id); } catch (err) {} } return render(); }
     case 'cal-fold': { const p = b.dataset.page === 'dash' ? 'dash' : 'act'; ui.calOpen[p] = !ui.calOpen[p]; try { localStorage.setItem(CAL_KEYS[p][0], ui.calOpen[p] ? 'open' : 'closed'); } catch (err) {} return render(); }
     case 'dash-kid': ui.dashOff.has(id) ? ui.dashOff.delete(id) : ui.dashOff.add(id); saveDash(); return render();
     case 'ext-tip': return toast(t('ext_tip'));
     case 'kid-tier': { const v = b.dataset.tier; ui.childTiers.has(v) ? ui.childTiers.delete(v) : ui.childTiers.add(v); return render(); }
+    case 'act-fav': ui.actFav = !ui.actFav; return render();
+    case 'fav-activity': { const a = data.activities.get(id); if (!a) return; b.setAttribute('aria-pressed', String(!a.fav)); Promise.all([a, ...seriesOf(a.seriesId).filter(x => x.id !== a.id)].map(x => put('activities', x.id, { ...bodyOf(x), fav: !a.fav }))).catch(err => { toast(errMsg(err), true); render(); }); return; }
     case 'kid-sex': { const v = b.dataset.sex; ui.childSex.has(v) ? ui.childSex.delete(v) : ui.childSex.add(v); return render(); }
     case 'goal-filter': { const k = b.dataset.key; ui.goalSubj.has(k) ? ui.goalSubj.delete(k) : ui.goalSubj.add(k); return render(); }
     case 'goal-filter-all': ui.goalSubj = goalTabSubjects().every(k => ui.goalSubj.has(k)) ? new Set() : new Set(SUBJECTS.map(s => s.key)); return render();
