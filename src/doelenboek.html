@@ -160,7 +160,7 @@ const T = {
     no_goals_found: 'Geen doelen gevonden met deze filters.',
     kid_done: n => `${n}: beheerst`, kid_open: n => `${n}: nog niet beheerst`,
     close: 'Sluiten', cancel: 'Annuleren', save: 'Opslaan', busy: 'Bezig…', progress: (a, b) => `Bezig… ${a}/${b}`,
-    child_edit_h: 'Kind wijzigen', child_add_h: 'Kind toevoegen', name: 'Naam', animal: 'Diertje', animal_taken: 'Al gekozen voor een ander kind',
+    child_edit_h: 'Kind wijzigen', child_add_h: 'Kind toevoegen', name: 'Naam', sex: 'Geslacht', sex_m: 'Jongen', sex_f: 'Meisje', animal: 'Diertje', animal_taken: 'Al gekozen voor een ander kind',
     tier: 'Onderwijsniveau', tier_all: 'Alle niveaus', tier_aria: 'Onderwijsniveau van de doelen',
     tier_soon: 'De doelen voor dit niveau volgen binnenkort.', filter_hint: 'Klik op een vak om zijn doelen te tonen of te verbergen.',
     ext: 'Uitbreidingsdoel', ext_tip: 'Een optioneel extra doel bovenop de minimumdoelen. Telt in Doelenboek mee zoals de andere doelen.',
@@ -276,7 +276,7 @@ const T = {
     no_goals_found: 'No goals match these filters.',
     kid_done: n => `${n}: mastered`, kid_open: n => `${n}: not mastered yet`,
     close: 'Close', cancel: 'Cancel', save: 'Save', busy: 'Working…', progress: (a, b) => `Working… ${a}/${b}`,
-    child_edit_h: 'Edit child', child_add_h: 'Add child', name: 'Name', animal: 'Animal', animal_taken: 'Already used for another child',
+    child_edit_h: 'Edit child', child_add_h: 'Add child', name: 'Name', sex: 'Sex', sex_m: 'Boy', sex_f: 'Girl', animal: 'Animal', animal_taken: 'Already used for another child',
     tier: 'School level', tier_all: 'All levels', tier_aria: 'School level of the goals',
     tier_soon: 'The goals for this level are coming soon.', filter_hint: 'Click a subject to show or hide its goals.',
     ext: 'Extension goal', ext_tip: 'An optional extra goal on top of the minimum goals. In Doelenboek it counts like the other goals.',
@@ -400,7 +400,7 @@ function clean(col, b) {
     const dates = {};
     if (validDate(b.startDate)) dates.startDate = b.startDate;
     if (validDate(b.targetDate)) dates.targetDate = b.targetDate;
-    return { ...base, name, animal: str(b.animal, 16) || ANIMALS[0], tier: TIER[b.tier] ? b.tier : DEFAULT_TIER, ...dates, mastered };
+    return { ...base, name, sex: b.sex === 'f' ? 'f' : 'm', animal: str(b.animal, 16) || ANIMALS[0], tier: TIER[b.tier] ? b.tier : DEFAULT_TIER, ...dates, mastered };
   }
   if (col === 'activities') {
     const title = str(b.title, 200).trim();
@@ -1272,7 +1272,9 @@ function childDialog(child) {
   const free = ANIMALS.filter(a => !used.has(a));
   const current = child ? child.animal : (free.length ? free[Math.floor(Math.random() * free.length)] : ANIMALS[0]);
   const curTier = child ? tierOf(child) : DEFAULT_TIER;
-  const body = `<label class="field"><span>${esc(t('name'))}</span><input id="c-name" name="name" maxlength="80" autocomplete="off" required autofocus value="${esc(child?.name || '')}"></label>
+  const curSex = child?.sex === 'f' ? 'f' : 'm';
+  const sexBtn = (v, sym) => `<label title="${esc(t('sex_' + v))}"><input type="radio" name="sex" value="${v}" ${v === curSex ? 'checked' : ''} aria-label="${esc(t('sex_' + v))}"><span aria-hidden="true">${sym}&#xFE0E;</span></label>`;
+  const body = `<div class="field"><label class="field-label" for="c-name">${esc(t('name'))}</label><div class="name-row"><input id="c-name" name="name" maxlength="80" autocomplete="off" required autofocus value="${esc(child?.name || '')}"><div class="sex-pick" role="radiogroup" aria-label="${esc(t('sex'))}">${sexBtn('m', '&#x2642;')}${sexBtn('f', '&#x2640;')}</div></div></div>
     <label class="field"><span>${esc(t('tier'))}</span><select id="c-tier" name="tier">
       ${TIER_GROUPS.map(gr => `<optgroup label="${esc(gr.name[lang])}">${TIERS.filter(x => x.group === gr.key).map(x => `<option value="${x.key}" ${x.key === curTier ? 'selected' : ''}>${esc(x.name[lang])} · ${esc(x.ages[lang])} · ${esc(t('n_goals_short', goalsOfTier(x.key).length))}</option>`).join('')}</optgroup>`).join('')}
     </select></label>
@@ -1291,11 +1293,11 @@ function childDialog(child) {
       const dup = [...data.children.values()].some(c => (!child || c.id !== child.id) && c.name.localeCompare(name, 'nl', { sensitivity: 'accent' }) === 0);
       if (dup) return t('err_dup_name', name);
       const animal = form.querySelector('input[name=animal]:checked')?.value || current;
-      const tier = TIER[form.tier.value] ? form.tier.value : curTier;
+      const tier = TIER[form.tier.value] ? form.tier.value : curTier, sex = form.querySelector('input[name=sex]:checked')?.value === 'f' ? 'f' : 'm';
       const startDate = validDate(form.startDate.value) ? form.startDate.value : '', targetDate = validDate(form.targetDate.value) ? form.targetDate.value : '';
       if (startDate && targetDate && targetDate <= startDate) return t('err_dates');
       const now = Date.now(), { startDate: _s, targetDate: _t, ...rest } = child ? bodyOf(child) : { createdAt: now };
-      await put('children', child?.id || newId(), { ...rest, name, animal, tier, ...(startDate && { startDate }), ...(targetDate && { targetDate }), updatedAt: now, example: false });
+      await put('children', child?.id || newId(), { ...rest, name, sex, animal, tier, ...(startDate && { startDate }), ...(targetDate && { targetDate }), updatedAt: now, example: false });
       toast(child ? t('saved_changes') : t('child_added', name));
     });
   });
