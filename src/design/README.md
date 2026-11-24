@@ -73,7 +73,7 @@ puts in the page, so they are the hooks you style. Adding a new class means chan
   `loading`, `count-line`, `muted`, `meta`
 - **Buttons:** `btn` (+ `primary`, `ghost`, `small`, `danger`), `icon-btn` (+ `del`), `linkish`, `back`,
   `fchip` (filter chips, `aria-pressed`)
-- **Children:** `child-grid`, `child-card`, `cc-head`, `cc-id`, `cc-pct`, `cc-foot`, `bars` (rows with
+- **Children:** `child-grid`, `child-card`, `cc-head`, `cc-id`, `cc-pct`, `cc-actions`, `bars` (rows with
   `b-lbl`, `bar`, `b-num`; `none` when a subject has no goals), `kid-head`, `kid-name`
 - **Avatars:** `avatar` (+ `lg`, `sm`; `off` = goal not mastered yet). Animal drawings fill the box;
   the grey circle only shows for an animal without a drawing.

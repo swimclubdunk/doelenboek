@@ -191,9 +191,8 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .btn.btn-icon.del:hover { color: var(--danger); border-color: var(--danger); }
 
 /* page head */
-.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; min-height: 40px; }   /* the height of the add buttons, so the title sits at the same place on every page, with or without a button */
 .page-head > div:first-child { min-width: 0; }
-.h-count { font-size: .66em; }   /* the number after a page title: Kinderen (10) */
 .lede { color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; max-width: 70ch; }
 .head-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 /* the actions next to a page title belong together, so they share one look (no highlighted one) */
@@ -318,6 +317,8 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cal { display: grid; grid-template-columns: repeat(53, minmax(8px, 1fr)); grid-template-rows: repeat(7, auto); gap: 3px; min-width: 580px; }
 .cal-d { aspect-ratio: 1; border: 0; padding: 0; border-radius: 2px; background: var(--surface-2); cursor: pointer; }
 .cal-d:hover, .cal-d:focus-visible, .cal-d.on { outline: 2px solid var(--fg); outline-offset: 1px; }
+/* Saturday and Sunday: a thin, gentle brown edge inside the block (at 66%), so the weekend reads as its own strip */
+.cal-d.we { box-shadow: inset 0 0 0 1px color-mix(in srgb, light-dark(#B4936F, #8C6B4E) 66%, transparent); }
 .cal-d.today { box-shadow: inset 0 0 0 1.5px var(--fg); }
 .cal .l1, .cal-leg .l1 { background: color-mix(in srgb, var(--accent) 35%, var(--surface-2)); }
 .cal .l2, .cal-leg .l2 { background: color-mix(in srgb, var(--accent) 60%, var(--surface-2)); }
@@ -326,12 +327,19 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cal-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: .78rem; color: var(--muted); }
 .cal-leg { display: inline-flex; align-items: center; gap: 3px; }
 .cal-leg i { width: 11px; height: 11px; border-radius: 2px; background: var(--surface-2); display: inline-block; }
-.cal-pick { margin: 0; font-size: .84rem; }
 .cal-panel { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 10px; }
 .cal-panel h3 { margin: 0; font-size: .95rem; }
 .cal-ph { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .cal-panel .act { box-shadow: none; }
 .cal-go { margin: 10px 0 0; }
+/* Activiteiten: the same calendar under the filters, from the first activity on, lower and foldable by its head */
+.cal-card { margin: 16px 0 4px; padding: 12px 20px 12px; gap: 10px; }
+.cal-top { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+.cal-top h2 { margin: 0 auto 0 0; font-size: 1.05rem; }   /* as the dashboard card titles; the buttons go right */
+.cal-ranges { height: 32px; gap: 6px; }
+.cal-card .cal { gap: 2px; }
+.cal-card .cal-days { gap: 2px; grid-template-rows: repeat(7, 11px); line-height: 11px; }   /* all seven days named, each on its 11px row */
+.cal-card .cal-d { aspect-ratio: auto; height: 11px; }   /* a fixed height: the weeks since the first activity share the width */
 /* an activity reached from the dashboard calendar lights up for a moment */
 .act.flash { animation: act-flash 2.4s ease-out; }
 @keyframes act-flash { 0%, 35% { box-shadow: 0 0 0 3px var(--accent); } 100% { box-shadow: var(--shadow); } }
@@ -371,7 +379,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 
 /* child cards */
 .child-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
-.child-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 16px; }   /* footer at the bottom, so cards in a row line up */
+.child-card { display: grid; grid-template-rows: auto auto auto 1fr; gap: 12px; padding: 16px; }   /* head, buttons, figures, bars */
 .cc-head { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
 .cc-id { min-width: 0; flex: 1; }
 .cc-id h2 { white-space: nowrap; overflow: hidden; }   /* a long name stays on one line and is cut off at the edge (full name on hover) */
@@ -398,8 +406,9 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* activity tags: how often a subject or goal came up, counted apart from the mastered total */
 .touch { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: .76rem; font-weight: 500; color: var(--fg); white-space: nowrap; }
 .touch.zero { color: var(--muted); opacity: .6; }
-.cc-foot { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 12px; }
-/* edit and delete sit apart, bottom right; delete only turns red on hover */
+/* the buttons sit between the head and the figures row (whose top line closes them off) */
+.cc-actions { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 12px; }
+/* edit and delete sit apart, on the right; delete only turns red on hover */
 .cc-edit { margin-left: auto; }
 
 /* toolbar */
@@ -416,9 +425,17 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 }
 .kid-order .sort-by > span { align-self: center; }
 .kid-order .select { width: 220px; }   /* 25% wider than its content needed in Dutch */
-.kid-order .search { flex: 1 1 220px; height: 37px; }   /* the search takes the rest of the row (its own line on a phone) */
+.kid-order .search { flex: 1 1 220px; height: 37px; }
+.goal-tools .select, .goal-tools .search { height: 37px; }   /* Doelen: the same field height as on Kinderen and Activiteiten */   /* the search takes the rest of the row (its own line on a phone) */
 /* the boy / girl filter: the same look as the boy / girl choice, as buttons that switch on and off */
 .kid-order .sort-by > .sex-pick + .sex-pick { margin-left: 2px; }   /* the levels right after boy / girl */
+/* Activiteiten: the same row, with Vanaf / Tot en met dates and the child dropdown as the filters */
+.act-order .date-in { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; }
+.act-order .date-in input { width: auto; height: 37px; color: var(--fg); }
+.act-order .act-child { width: auto; }
+/* a page title with its line beside it instead of under it (Kinderen, Activiteiten) */
+.head-inline { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; }
+.head-inline .lede { margin-top: 0; }
 .tier-filter button { border: 0; border-radius: calc(var(--r-sm) - 2px); background: none; cursor: pointer; color: var(--muted); padding: 0 10px; font: inherit; font-size: .82rem; font-weight: 700; white-space: nowrap; }
 .tier-filter button:hover { color: var(--fg); }
 .tier-filter button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
@@ -428,13 +445,18 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .sex-filter svg { width: 20px; height: 20px; display: block; }
 .search { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 12px; }
 .select { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 10px; max-width: 100%; }
-.filter-hint { color: var(--muted); font-size: .84rem; }   /* the line above the subject buttons of the goals tab */
+/* Doelen: the label 'Filter' in its own column, the subject buttons wrap to its right, never under it */
+.subject-filter { display: flex; align-items: flex-start; gap: 10px; }
+.subject-filter-lbl { flex: none; line-height: 29px; color: var(--muted); font-size: .84rem; font-weight: 700; }   /* as Sorteer op / Filter on Kinderen, level with the first row of buttons */
+.subject-filter .chips-filter { flex: 1; min-width: 0; }
 .chips-filter { display: flex; flex-wrap: wrap; gap: 6px; }
 .fchip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 10px 4px 8px; cursor: pointer; font-size: .82rem; font-weight: 700; color: var(--muted); }
 .fchip .dot { opacity: .35; }
 .fchip .bi { justify-items: start; }   /* keep the subject name next to its dot */
 .fchip[aria-pressed="true"] { color: var(--fg); border-color: color-mix(in srgb, var(--c, var(--fg)) 55%, var(--line)); background: color-mix(in srgb, var(--c, var(--fg)) 12%, var(--surface)); }
 .fchip[aria-pressed="true"] .dot { opacity: 1; }
+/* Doelen: the subject buttons as boxes the size of the Kinderen filter buttons (29px high, same corners and padding) */
+.subject-chips .fchip { height: 29px; border-radius: calc(var(--r-sm) - 2px); padding: 0 10px; }
 .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--muted)); flex: none; display: inline-block; }
 .count-line { color: var(--muted); font-size: .84rem; font-variant-numeric: tabular-nums; }
 
@@ -13810,12 +13832,12 @@ const T = {
     mx_h: 'Beheersing per vak', mx_note: 'Per kind en per vak: welk deel van de doelen van hun leerjaar beheerst is. Lichte vakjes zijn de achterstanden.', mx_na: 'Niet in dit leerjaar', mx_tip: (k, s, n, tot) => `${k} · ${s}: ${n} van ${tot}`,
     ng_h: 'Vakken die lang niet aan bod kwamen', ng_note: 'Per kind de vakken waarvan de laatste activiteit het langst geleden is. Rood: meer dan 60 dagen of nog nooit.', ng_never: 'nooit', ng_days: n => `${n} d`, ng_tip: d => `Laatste activiteit: ${d}`, ng_tip_never: 'Nog geen activiteit voor dit vak',
     am_h: 'Bijna beheerst', am_note: 'Doelen die al in minstens 2 activiteiten aan bod kwamen, maar nog niet als beheerst aangevinkt zijn.', am_n: n => `${n}× gebruikt`, am_btn: 'Beheerst', am_more: n => `Toon alle ${n}`, am_less: 'Toon minder', am_none: 'Geen open doelen die al minstens 2 keer aan bod kwamen.',
-    cal_h: 'Activiteitenkalender', cal_note: 'Elke dag van het afgelopen jaar; hoe donkerder, hoe meer activiteiten die dag.', cal_sum: (n, g) => `${nlN(n, 'activiteit', 'activiteiten')} het afgelopen jaar · langste pauze: ${nlN(g, 'dag', 'dagen')}`, cal_less: 'Minder', cal_more: 'Meer', cal_pick: 'Klik op een dag om de activiteiten van die dag te zien.', cal_none: 'Geen activiteiten op deze dag.', cal_go: 'Ga naar activiteit',
+    cal_h: 'Activiteitenkalender', cal_less: 'Minder', cal_more: 'Meer', cal_none: 'Geen activiteiten op deze dag.', cal_go: 'Ga naar activiteit',
     pg_h: 'Voortgang in het leerjaar', pg_note: 'Per kind: het deel van de doelen van hun leerjaar dat beheerst is. De streepjeslijn is het schema om op tijd 100% te halen, de puntjes zetten het huidige tempo verder. Elke grafiek loopt van de begindatum tot de streefdatum van het kind. Zonder die data telt ze vanaf de maand van het eerste beheerste doel (Kleuter 3 jaar, Lager LJ 1-4 4 jaar, Lager LJ 5-6 2 jaar, Secundair 1. graad 2 jaar).',
     pg_mastered: 'Beheerst', pg_target: 'Schema tot einde leerjaar', pg_fc: 'Verwachting aan huidig tempo', pg_today: 'Vandaag',
     pg_on: 'op schema', pg_ahead: n => `${n} mnd voor`, pg_behind: n => `${n} mnd achter`, pg_none: 'Nog geen beheerste doelen',
     pg_foot: (n, tot, p, e) => `<b>${n} van ${tot}</b> (${p}%) · schema ${e}%`, pg_when: d => ` · 100% verwacht in <b>${d}</b>`, pg_end: d => `, einde leerjaar ${d}`, pg_done: ' · alles beheerst',
-    pg_aria: (k, p, e) => `${k}: ${p}% beheerst, schema ${e}%`, cal_close: 'Inklappen', cal_tip: (d, n) => `${d}: ${nlN(n, 'activiteit', 'activiteiten')}`,
+    pg_aria: (k, p, e) => `${k}: ${p}% beheerst, schema ${e}%`, cal_close: 'Inklappen', cal_open: 'Uitklappen', cal_span: (n, d) => `${nlN(n, 'activiteit', 'activiteiten')} van ${d} tot vandaag`, cal_note_all: 'Elke dag van de gekozen periode; hoe donkerder, hoe meer activiteiten die dag.', cal_r_all: 'Alles', cal_r_2y: 'Afgelopen 2 jaar', cal_r_year: 'Afgelopen jaar', cal_r_6m: 'Afgelopen 6 maanden', cal_ranges: 'Periode van de kalender', cal_tip: (d, n) => `${d}: ${nlN(n, 'activiteit', 'activiteiten')}`,
     dash_empty: 'Voeg een kind toe om hier de grafiek te zien.', dash_all_off: 'Zet minstens één kind aan.', dash_aria: (name, n) => `${name}: ${n} beheerst`,
     tab_reporting: 'Rapportering', h_reporting: 'Rapportering',
     reporting_p: 'In dit onderdeel zul je PDF-rapporten van het thuisonderwijstraject van je kinderen kunnen maken en downloaden, met tijdlijnen, activiteiten, grafieken en natuurlijk de behandelde minimumdoelen.', reporting_soon: 'Deze functie komt binnenkort.',
@@ -13844,9 +13866,11 @@ const T = {
     filter: 'Filter', filter_m: 'Jongens tonen of verbergen', filter_f: 'Meisjes tonen of verbergen', filter_tier: n => `${n} tonen of verbergen`, filter_tiers: 'Onderwijsniveaus',
     sort_by: 'Sorteer op', sort_name_asc: 'Naam oplopend', sort_name_desc: 'Naam aflopend', sort_done_desc: 'Voltooiing aflopend',
     sort_done_asc: 'Voltooiing oplopend', sort_tier_asc: 'Onderwijs oplopend', sort_tier_desc: 'Onderwijs aflopend',
-    search_acts: 'Zoek op titel, notitie of doelcode', all_children: 'Alle kinderen', filter_child: 'Filter op kind',
+    search_acts: 'Zoek op titel, notitie of doelcode', act_from: 'Vanaf', act_until: 'Tot en met', act_from_title: 'Activiteiten vanaf deze datum (de dag zelf telt mee)', act_until_title: 'Activiteiten tot en met deze datum (de dag zelf telt mee)',
+    sort_date_desc: 'Datum aflopend', sort_date_asc: 'Datum oplopend', sort_goals_desc: 'Aantal doelen aflopend', sort_goals_asc: 'Aantal doelen oplopend', sort_kids_desc: 'Aantal kinderen aflopend', sort_kids_asc: 'Aantal kinderen oplopend',
+    kids_line: (n, m, f) => `${nlN(n, 'kind', 'kinderen')}, ${nlN(m, 'jongen', 'jongens')} en ${nlN(f, 'meisje', 'meisjes')}`, all_children: 'Alle kinderen', filter_child: 'Filter op kind',
     no_acts_found: 'Geen activiteiten gevonden met deze filters.', no_goals_linked: 'Geen minimumdoelen gekoppeld.', goals_aria: 'Minimumdoelen',
-    h_goals: 'Doelen', goals_lede: 'De doelen waartegen je de voortgang meet. Officiële lijsten vind je op',
+    h_goals: 'Doelen', goals_lede: 'Officiële lijsten vind je op',
     search_goals: 'Zoek op code, categorie of tekst', all_subjects: 'Alle vakken', filter_subject: 'Filter op vak',
     count_line: (n, t, kids) => `${n} van ${t} doelen${kids ? ' · de diertjes tonen welke kinderen het doel beheersen' : ''}`,
     first_n: n => `De eerste ${n} worden getoond. Verfijn je zoekopdracht om de rest te zien.`,
@@ -13929,12 +13953,12 @@ const T = {
     mx_h: 'Mastery by subject', mx_note: 'Per child and subject: the share of the goals of their year group that is mastered. Pale cells are where they lag behind.', mx_na: 'Not in this year group', mx_tip: (k, s, n, tot) => `${k} · ${s}: ${n} of ${tot}`,
     ng_h: 'Subjects not covered for a while', ng_note: 'Per child the subjects whose last activity was longest ago. Red: more than 60 days, or never.', ng_never: 'never', ng_days: n => `${n} d`, ng_tip: d => `Last activity: ${d}`, ng_tip_never: 'No activity for this subject yet',
     am_h: 'Almost mastered', am_note: 'Goals that came up in at least 2 activities but are not ticked as mastered yet.', am_n: n => `used ${n}×`, am_btn: 'Mastered', am_more: n => `Show all ${n}`, am_less: 'Show fewer', am_none: 'No open goals that came up at least twice.',
-    cal_h: 'Activity calendar', cal_note: 'Every day of the past year; the darker, the more activities that day.', cal_sum: (n, g) => `${nlN(n, 'activity', 'activities')} in the past year · longest break: ${nlN(g, 'day', 'days')}`, cal_less: 'Less', cal_more: 'More', cal_pick: 'Click a day to see its activities.', cal_none: 'No activities on this day.', cal_go: 'Go to activity',
+    cal_h: 'Activity calendar', cal_less: 'Less', cal_more: 'More', cal_none: 'No activities on this day.', cal_go: 'Go to activity',
     pg_h: 'Progress in the year group', pg_note: 'Per child: the share of the goals of their year group that is mastered. The dashed line is the schedule to reach 100% in time, the dots continue the current pace. Each chart runs from the begin date to the target completion date set for the child. Without those dates it counts from the month of the first mastered goal (Preschool 3 years, Primary YR 1-4 4 years, Primary YR 5-6 2 years, Secondary 1st stage 2 years).',
     pg_mastered: 'Mastered', pg_target: 'Schedule to the end of the year group', pg_fc: 'Expected at the current pace', pg_today: 'Today',
     pg_on: 'on track', pg_ahead: n => `${n} mo ahead`, pg_behind: n => `${n} mo behind`, pg_none: 'No goals mastered yet',
     pg_foot: (n, tot, p, e) => `<b>${n} of ${tot}</b> (${p}%) · schedule ${e}%`, pg_when: d => ` · 100% expected in <b>${d}</b>`, pg_end: d => `, end of year group ${d}`, pg_done: ' · all mastered',
-    pg_aria: (k, p, e) => `${k}: ${p}% mastered, schedule ${e}%`, cal_close: 'Collapse', cal_tip: (d, n) => `${d}: ${nlN(n, 'activity', 'activities')}`,
+    pg_aria: (k, p, e) => `${k}: ${p}% mastered, schedule ${e}%`, cal_close: 'Collapse', cal_open: 'Expand', cal_span: (n, d) => `${nlN(n, 'activity', 'activities')} from ${d} to today`, cal_note_all: 'Every day of the chosen period; the darker, the more activities that day.', cal_r_all: 'All time', cal_r_2y: 'Past 2 years', cal_r_year: 'Past year', cal_r_6m: 'Past 6 months', cal_ranges: 'Calendar period', cal_tip: (d, n) => `${d}: ${nlN(n, 'activity', 'activities')}`,
     dash_empty: 'Add a child to see the graph here.', dash_all_off: 'Turn on at least one child.', dash_aria: (name, n) => `${name}: ${n} mastered`,
     tab_reporting: 'Reporting', h_reporting: 'Reporting',
     reporting_p: "Here you will be able to generate and download PDF reports of your children's homeschooling journey, including timelines, activities, graphs, and of course the minimumdoelen covered.", reporting_soon: 'This feature is coming soon.',
@@ -13963,9 +13987,11 @@ const T = {
     filter: 'Filter', filter_m: 'Show or hide boys', filter_f: 'Show or hide girls', filter_tier: n => `Show or hide ${n}`, filter_tiers: 'School levels',
     sort_by: 'Sort by', sort_name_asc: 'Name Ascending', sort_name_desc: 'Name Descending', sort_done_desc: 'Completion Descending',
     sort_done_asc: 'Completion Ascending', sort_tier_asc: 'Onderwijs Ascending', sort_tier_desc: 'Onderwijs Descending',
-    search_acts: 'Search by title, notes or goal code', all_children: 'All children', filter_child: 'Filter by child',
+    search_acts: 'Search by title, notes or goal code', act_from: 'From', act_until: 'Until', act_from_title: 'Activities from this date (the day itself included)', act_until_title: 'Activities up to and including this date',
+    sort_date_desc: 'Date Descending', sort_date_asc: 'Date Ascending', sort_goals_desc: 'Number of Goals Descending', sort_goals_asc: 'Number of Goals Ascending', sort_kids_desc: 'Number of Children Descending', sort_kids_asc: 'Number of Children Ascending',
+    kids_line: (n, m, f) => `${nlN(n, 'child', 'children')}, ${nlN(m, 'boy', 'boys')} and ${nlN(f, 'girl', 'girls')}`, all_children: 'All children', filter_child: 'Filter by child',
     no_acts_found: 'No activities match these filters.', no_goals_linked: 'No minimum goals linked.', goals_aria: 'Minimum goals',
-    h_goals: 'Goals', goals_lede: 'The goals to track progress against, translated from the official lists on',
+    h_goals: 'Goals', goals_lede: 'Official lists are on',
     search_goals: 'Search by code, category or text', all_subjects: 'All subjects', filter_subject: 'Filter by subject',
     count_line: (n, t, kids) => `${n} of ${t} goals${kids ? ' · the animals show which children have mastered each goal' : ''}`,
     first_n: n => `Showing the first ${n}. Narrow your search to see the rest.`,
@@ -14117,12 +14143,12 @@ const ui = {
   view: 'overzicht', childId: null,
   goalSearch: '', goalSubj: new Set(SUBJECTS.map(s => s.key)), goalTier: null,   // null: follow the children's tier
   childSearch: '', childSort: 'name_asc', childSex: new Set(['m', 'f']), childTiers: new Set(TIERS.map(x => x.key)),   // Kinderen: order, and the boys / girls and levels shown
-  actSearch: '', actChild: '', closed: new Set(),
+  actSearch: '', actChild: '', actSort: 'date_desc', actDayFrom: '', actDayUntil: '', closed: new Set(),
   kidTab: 'all', kidSearch: '',   // child page: all | todo | mastered, and its search
   dashFrom: null, dashTo: null, dashOff: new Set(), dashStraight: false,   // dashboard: first and last month (month numbers, null: from the first mastered goal, up to this month), the children switched off, straight or smooth lines
   dashRel: false,   // mastered goals: false ABS (the number of goals), true REL (percent of the child's level)
   calDay: null, amAll: false, goAct: null,   // dashboard: the calendar day opened, the whole almost-mastered list; an activity to scroll to
-  actFrom: null, actTo: null, actStraight: false,   // the activities graph's own first and last month (null: from the first activity), and its own line choice
+  actFrom: null, actTo: null,   // the activities graph's own first and last month (null: from the first activity); its lines are always straight
 };
 /* The dashboard choices come back on the next visit. A range that ends in the current month is saved
    without its end, so next month it ends in that month instead of staying behind. */
@@ -14134,14 +14160,13 @@ try {
   if (Number.isInteger(d.aTo)) ui.actTo = d.aTo;
   if (Array.isArray(d.off)) ui.dashOff = new Set(d.off.filter(x => typeof x === 'string'));
   ui.dashStraight = d.straight === true;
-  ui.actStraight = d.aStraight === true;
   ui.dashRel = d.rel === true;
 } catch (e) {}
 function saveDash() {
   const now = new Date().getFullYear() * 12 + new Date().getMonth();
   // a start on the default month is saved without it too, so it keeps following the first mastered goal or activity
   const from = k => ui[k + 'From'] === dashStart(k) ? null : ui[k + 'From'];
-  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: from('dash'), to: ui.dashTo === now ? null : ui.dashTo, aFrom: from('act'), aTo: ui.actTo === now ? null : ui.actTo, off: [...ui.dashOff], straight: ui.dashStraight, aStraight: ui.actStraight, rel: ui.dashRel })); } catch (e) {}
+  try { localStorage.setItem(DASH_KEY, JSON.stringify({ from: from('dash'), to: ui.dashTo === now ? null : ui.dashTo, aFrom: from('act'), aTo: ui.actTo === now ? null : ui.actTo, off: [...ui.dashOff], straight: ui.dashStraight, rel: ui.dashRel })); } catch (e) {}
 }
 
 /* ---------- storage ---------- */
@@ -14322,8 +14347,8 @@ const tierBadge = c => `<span class="tier-badge">${noHyphenBreak(TIER[tierOf(c)]
 const spacedNum = c => c.replace(/^([A-Z]+)(?=\d)/, '$1 ');
 const gCode = (g, tier = null) => { const c = gNum(g, tier); return c ? `${TIER[shownTier(g, tier)].prefix} ${spacedNum(c)}` : ''; };
 /* Tier choice as a dropdown (goals tab and goal picker): every tier with its number of goals, then all. */
-const tierOptions = cur => TIER_GROUPS.map(gr => `<optgroup label="${esc(gr.name[lang])}">${TIERS.filter(x => x.group === gr.key).map(x => `<option value="${x.key}" ${cur === x.key ? 'selected' : ''}>${esc(x.name[lang])} (${goalsOfTier(x.key).length})</option>`).join('')}</optgroup>`).join('')
-  + `<option value="all" ${cur === 'all' ? 'selected' : ''}>${esc(t('tier_all'))} (${data.goals.size})</option>`;
+const tierOptions = cur => `<option value="all" ${cur === 'all' ? 'selected' : ''}>${esc(t('tier_all'))} (${data.goals.size})</option>`   // Alle niveaus on top
+  + TIER_GROUPS.map(gr => `<optgroup label="${esc(gr.name[lang])}">${TIERS.filter(x => x.group === gr.key).map(x => `<option value="${x.key}" ${cur === x.key ? 'selected' : ''}>${esc(x.name[lang])} (${goalsOfTier(x.key).length})</option>`).join('')}</optgroup>`).join('');
 /* childId -> Map(goalId -> [activities, oldest first]) */
 function buildCoverage() {
   const cov = new Map();
@@ -14348,6 +14373,16 @@ function sortKids(kids) {
   const [key, dir] = ui.childSort.split('_'), sign = dir === 'desc' ? -1 : 1;
   const first = key === 'done' ? (a, b) => done.get(a.id) - done.get(b.id) : key === 'tier' ? (a, b) => TIER[tierOf(a)].i - TIER[tierOf(b)].i : byName;
   return [...kids].sort((a, b) => sign * first(a, b) || byName(a, b));
+}
+/* Activiteiten: the order of the list (newest first by default; month headings only for the date orders), kept in this browser. */
+const ACT_SORTS = ['date_desc', 'date_asc', 'goals_desc', 'goals_asc', 'kids_desc', 'kids_asc'];
+const ACT_SORT_KEY = 'doelenboek.actSort';
+try { const s = localStorage.getItem(ACT_SORT_KEY); if (ACT_SORTS.includes(s)) ui.actSort = s; } catch (e) {}
+function sortActs(acts) {
+  const [key, dir] = ui.actSort.split('_'), sign = dir === 'desc' ? -1 : 1;
+  if (key === 'date') return [...acts].sort((a, b) => dir === 'desc' ? byDateDesc(a, b) : byDateDesc(b, a));
+  const n = a => (key === 'goals' ? a.goalIds : a.childIds).length;   // ties: newest first
+  return [...acts].sort((a, b) => sign * (n(a) - n(b)) || byDateDesc(a, b));
 }
 function countBySubject(m) { const c = {}; if (m) for (const gid of m.keys()) { const g = data.goals.get(gid); if (g) c[g.subject] = (c[g.subject] || 0) + 1; } return c; }
 /* Activity tags per subject: every activity that tagged a goal counts, so one goal can count more than once. */
@@ -14454,7 +14489,7 @@ function viewOverview(cov) {
   const kids = sortedChildren();
   let h = exampleBanner();
   const addBtn = `<button class="btn" data-action="add-child">${addBt('add_child')}</button>`;
-  h += `<section class="page-head"><div><h1>${esc(t('h_overview'))} <span class="h-count" aria-label="${esc(t('n_children', kids.length))}">(${kids.length})</span></h1></div>
+  h += `<section class="page-head"><div class="head-inline"><h1>${esc(t('h_overview'))}</h1><p class="lede">${esc(t('kids_line', kids.length, kids.filter(c => c.sex !== 'f').length, kids.filter(c => c.sex === 'f').length))}</p></div>
     <div class="head-actions w">${addBtn}</div></section>`;
   if (!kids.length) {
     return h + `<div class="empty"><h2>${esc(t('empty_kids_h'))}</h2><p>${esc(t('empty_kids_p'))}</p><button class="btn primary w" data-action="add-child">${bt('add_child')}</button></div>`;
@@ -14470,9 +14505,9 @@ function viewOverview(cov) {
       <header class="cc-head"><span class="avatar lg" aria-hidden="true">${animalArt(c.animal)}</span>
         <div class="cc-id"><h2 title="${esc(c.name)}">${esc(c.name)}</h2><p class="cc-tier">${tierBadge(c)}</p></div>
         <div class="cc-pct"><strong>${mast.size}<small>/${sumValues(totals)}</small></strong><span>${esc(t('mastered_lbl'))}</span></div></header>
+      <div class="cc-actions"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w btn-icon edit cc-edit" data-action="edit-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_edit_h'))}" title="${esc(t('child_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost w btn-icon del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></div>
       <div class="cc-stats"><div class="cc-stat"><strong>${acts.length}</strong><span>${esc(t('acts_lbl', acts.length))}</span><small>${esc(acts[0] ? t('last', fmtDate(acts[0].date)) : t('no_acts_yet'))}</small></div><span class="cc-sex">${esc(t(c.sex === 'f' ? 'sex_f' : 'sex_m'))}</span></div>
       ${sumValues(totals) ? `<ul class="bars">${SUBJECTS.filter(s => totals[s.key]).map(s => barRow(sName(s.key, tier), s.key, per[s.key] || 0, totals[s.key], touches[s.key] || 0)).join('')}</ul>` : `<p class="muted">${esc(t('tier_soon'))}</p>`}
-      <footer class="cc-foot"><button class="btn small ghost" data-action="open-child" data-id="${esc(c.id)}">${bt('goals_per_subject')}</button><button class="btn small ghost w btn-icon edit cc-edit" data-action="edit-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_edit_h'))}" title="${esc(t('child_edit_h'))}">${ICON_EDIT}</button><button class="btn small ghost w btn-icon del" data-action="delete-child" data-id="${esc(c.id)}" aria-label="${esc(t('child_del_h'))}" title="${esc(t('child_del_h'))}">${ICON_TRASH}</button></footer>
     </article>`;
   }).join('')}</div>`;
   return h;
@@ -14563,25 +14598,28 @@ function viewActivities() {
   if (ui.actChild && !data.children.has(ui.actChild)) ui.actChild = '';
   const acts = [...data.activities.values()].filter(a =>
     (!ui.actChild || a.childIds.includes(ui.actChild)) &&
+    (!ui.actDayFrom || a.date >= ui.actDayFrom) && (!ui.actDayUntil || a.date <= ui.actDayUntil) &&
     (!q || norm(a.title + ' ' + a.notes + ' ' + a.goalIds.map(id => { const g = data.goals.get(id); return g ? gCode(g) : ''; }).join(' ')).includes(q))
-  ).sort(byDateDesc);
+  );
   const dates = [...data.activities.values()].map(a => a.date).sort();
   const lede = dates.length ? t('acts_range', dates.length, fmtDate(dates[0]), fmtDate(dates[dates.length - 1])) : t('acts_lede');
   let h = exampleBanner();
-  h += `<section class="page-head"><div><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(lede)}</p></div>
+  h += `<section class="page-head"><div class="head-inline"><h1>${esc(t('h_acts'))}</h1><p class="lede">${esc(lede)}</p></div>
     <div class="head-actions w"><button class="btn primary" data-action="new-activity" ${kids.length ? '' : 'disabled'}>${addBt('add_activity')}</button></div></section>`;
   if (!data.activities.size) {
     return h + `<div class="empty"><h2>${esc(t('empty_acts_h'))}</h2><p>${esc(kids.length ? t('empty_acts_p') : t('empty_acts_nokids'))}</p>${kids.length ? `<button class="btn primary w" data-action="new-activity">${bt('add_activity')}</button>` : `<a class="btn" href="#overzicht">${bt('to_overview')}</a>`}</div>`;
   }
-  h += `<div class="toolbar"><input class="search" id="act-search" type="search" placeholder="${esc(t('search_acts'))}" value="${esc(ui.actSearch)}" aria-label="${esc(t('search_acts'))}">
-    <select class="select" id="act-child" aria-label="${esc(t('filter_child'))}"><option value="">${esc(t('all_children'))}</option><option hidden disabled>${esc(tIn(lang === 'nl' ? 'en' : 'nl', 'all_children'))}</option>${kids.map(k => `<option value="${esc(k.id)}" ${ui.actChild === k.id ? 'selected' : ''}>${esc(k.name)}</option>`).join('')}</select></div>`;
+  const dateIn = (id, v, lbl, title) => `<label class="date-in" title="${esc(t(title))}"><span>${esc(t(lbl))}</span><input class="select" id="${id}" type="date" value="${esc(v)}" min="${esc(dates[0])}" max="${esc(dates[dates.length - 1])}"></label>`;
+  h += `<div class="toolbar kid-order act-order"><label class="sort-by"><span>${esc(t('sort_by'))}</span><select class="select" id="act-sort">${ACT_SORTS.map(k => `<option value="${k}" ${k === ui.actSort ? 'selected' : ''}>${esc(t('sort_' + k))}</option>`).join('')}</select></label><div class="sort-by"><span>${esc(t('filter'))}</span>${dateIn('act-from', ui.actDayFrom, 'act_from', 'act_from_title')}${dateIn('act-until', ui.actDayUntil, 'act_until', 'act_until_title')}<select class="select act-child" id="act-child" aria-label="${esc(t('filter_child'))}"><option value="">${esc(t('all_children'))}</option><option hidden disabled>${esc(tIn(lang === 'nl' ? 'en' : 'nl', 'all_children'))}</option>${kids.map(k => `<option value="${esc(k.id)}" ${ui.actChild === k.id ? 'selected' : ''}>${esc(k.name)}</option>`).join('')}</select></div><input class="search" id="act-search" type="search" placeholder="${esc(t('search_acts'))}" value="${esc(ui.actSearch)}" aria-label="${esc(t('search_acts'))}"></div>`;
+  h += calendarCard('act');
   if (!acts.length) return h + `<p class="muted">${esc(t('no_acts_found'))}</p>`;
+  if (!ui.actSort.startsWith('date')) return h + `<div class="act-list act-flat">${sortActs(acts).map(activityCard).join('')}</div>`;
   let month = '';
   const parts = [];
   // each month heading says how many of the activities shown fall in that month
   const perMonth = {};
   for (const a of acts) perMonth[a.date.slice(0, 7)] = (perMonth[a.date.slice(0, 7)] || 0) + 1;
-  for (const a of acts) {
+  for (const a of sortActs(acts)) {
     const mLabel = new Intl.DateTimeFormat(t('locale'), { month: 'long', year: 'numeric' }).format(dateObj(a.date));
     if (mLabel !== month) { if (month) parts.push('</div>'); parts.push(`<h2 class="month">${esc(mLabel)} <span class="month-n">(${esc(t('n_acts', perMonth[a.date.slice(0, 7)]))})</span></h2><div class="act-list">`); month = mLabel; }
     parts.push(activityCard(a));
@@ -14705,7 +14743,7 @@ function viewDashboard() {
   const aMonths = dashMonths(dashRange('act'));
   const perMonth = aMonths.map(m => actDates.filter(d => d.startsWith(m.pre)).length);
 
-  // the smooth/straight switch, one per graph
+  // the smooth/straight switch of the mastered-goals graph
   const lineSwitch = key => `<div class="lang-switch card-switch" role="group" aria-label="${esc(t('dash_lines'))}">${['smooth', 'straight'].map(v => `<button type="button" data-action="dash-lines" data-key="${key}" data-v="${v}" aria-pressed="${ui[key + 'Straight'] === (v === 'straight')}" aria-label="${esc(t('dash_' + v))}" title="${esc(t('dash_' + v))}">${v === 'smooth' ? ICON_SMOOTH : ICON_STRAIGHT}</button>`).join('')}</div>`;
   return head + dashProgress(series, chips) + (DASH_LINES ? `<section class="card dash-card">
     <div class="dash-head"><h2>${esc(t('dash_h'))}</h2>${rangeHtml('dash')}</div>
@@ -14715,11 +14753,10 @@ function viewDashboard() {
     ${projRows ? `<div class="proj"><h3>${esc(t('proj_h'))}</h3><ul>${projRows}</ul><p class="proj-note">${esc(t('proj_note'))}</p></div>` : ''}
   </section>` : '') + `
   ${shown.length ? dashMatrix(shown) + dashNeglected(shown) + dashAlmost(shown) : ''}
-  ${dashCalendar()}
+  ${calendarCard('dash')}
   <section class="card dash-card">
     <div class="dash-head"><h2>${esc(t('dash_acts_h'))}</h2>${rangeHtml('act')}</div>
-    <div class="dash-row">${lineSwitch('act')}</div>
-    ${dashPlot([{ name: t('dash_acts'), c: 'var(--accent)', vals: perMonth, fill: true }], labelsOf(aMonths), t('dash_acts_aria', perMonth[perMonth.length - 1]), '', ui.actStraight)}
+    ${dashPlot([{ name: t('dash_acts'), c: 'var(--accent)', vals: perMonth, fill: true }], labelsOf(aMonths), t('dash_acts_aria', perMonth[perMonth.length - 1]), '', true)}
   </section>`;
 }
 /* The line graph of mastered goals (with its period, ABS/REL and forecast list) is hidden for now: the
@@ -14846,26 +14883,47 @@ function dashAlmost(shown) {
     : `<p class="muted">${esc(t('am_none'))}</p>`;
   return dashCard('am_h', 'am_note', body);
 }
-/* 4. every day of the last 53 weeks (Monday on top), darker with more activities; a day clicked shows its
-   activities underneath, the first added on top, each with a button to it on the activities tab */
-function dashCalendar() {
+/* 4. the activity calendar, on the Dashboard and on Activiteiten: every day of the chosen period (Monday on top), darker
+   with more activities; a day clicked shows its activities underneath, the first added on top, each with a button to it
+   in the list. Each page keeps its own period ('all' from the first activity on, '2y', 'year' or '6m' back from today)
+   in this browser, and Activiteiten also whether it is folded (the Dashboard's always stays open); the filters on
+   Activiteiten never change it. */
+const CAL_RANGES = ['all', '2y', 'year', '6m'];
+const CAL_KEYS = { act: ['doelenboek.actCal', 'doelenboek.actCalRange'], dash: ['doelenboek.dashCal', 'doelenboek.dashCalRange'] };
+ui.calOpen = { act: true, dash: true }; ui.calRange = { act: 'year', dash: 'year' };   // both start on the past year
+for (const [p, [kOpen, kRange]] of Object.entries(CAL_KEYS)) try {
+  if (localStorage.getItem(kOpen) === 'closed') ui.calOpen[p] = false;
+  const r = localStorage.getItem(kRange); if (CAL_RANGES.includes(r)) ui.calRange[p] = r;
+} catch (e) {}
+function calendarBody(range) {
   const acts = [...data.activities.values()], per = {};
   for (const a of acts) per[a.date] = (per[a.date] || 0) + 1;
-  const today = dateObj(todayIso()), WEEKS = 53;
-  const start = new Date(today); start.setDate(start.getDate() - (today.getDay() + 6) % 7 - (WEEKS - 1) * 7);
+  const today = dateObj(todayIso()), first = range === 'all' && acts.length ? acts.map(a => a.date).sort()[0] : null;
+  const thisMonday = new Date(today); thisMonday.setDate(thisMonday.getDate() - (today.getDay() + 6) % 7);
+  let firstDay = first && first < todayIso() ? dateObj(first) : today;
+  if (range !== 'all') { firstDay = new Date(today); range === '6m' ? firstDay.setMonth(firstDay.getMonth() - 6) : firstDay.setFullYear(firstDay.getFullYear() - (range === '2y' ? 2 : 1)); firstDay.setDate(firstDay.getDate() + 1); }
+  const WEEKS = Math.round((thisMonday - firstDay) / 6048e5 + ((firstDay.getDay() + 6) % 7) / 7) + 1;
+  const start = new Date(thisMonday); start.setDate(start.getDate() - (WEEKS - 1) * 7);
   const isoOf = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   const mFmt = new Intl.DateTimeFormat(t('locale'), { month: 'short' }), wFmt = new Intl.DateTimeFormat(t('locale'), { weekday: 'short' });
-  let cells = '', months = '', lastM = -1, total = 0, gap = 0, run = 0;
+  let cells = '', lastM = -1, total = 0;
+  const mLabels = [];
   for (let w = 0; w < WEEKS; w++) for (let i = 0; i < 7; i++) {
     const d = new Date(start); d.setDate(d.getDate() + w * 7 + i);
-    if (i === 0 && d.getMonth() !== lastM) { if (w < WEEKS - 2) months += `<span style="grid-column:${w + 1}">${esc(cap1(mFmt.format(d).replace('.', '')))}</span>`; lastM = d.getMonth(); }
-    if (d > today) continue;
+    if (i === 0 && d.getMonth() !== lastM) {
+      if (w < WEEKS - 2) mLabels.push({ w, name: cap1(mFmt.format(d).replace('.', '')), year: d.getFullYear(), yr: lastM < 0 || d.getMonth() === 0 });
+      lastM = d.getMonth();
+    }
+    if (d > today || d < firstDay) continue;
     const iso = isoOf(d), n = per[iso] || 0;
-    total += n; run = n ? 0 : run + 1; gap = Math.max(gap, run);
-    cells += `<button type="button" class="cal-d l${Math.min(n, 4)}${iso === ui.calDay ? ' on' : ''}${iso === todayIso() ? ' today' : ''}" style="grid-column:${w + 1};grid-row:${i + 1}" data-action="cal-day" data-id="${iso}" title="${esc(t('cal_tip', fmtDate(iso), n))}" aria-label="${esc(t('cal_tip', fmtDate(iso), n))}"></button>`;
+    total += n;
+    cells += `<button type="button" class="cal-d l${Math.min(n, 4)}${i >= 5 ? ' we' : ''}${iso === ui.calDay ? ' on' : ''}${iso === todayIso() ? ' today' : ''}" style="grid-column:${w + 1};grid-row:${i + 1}" data-action="cal-day" data-id="${iso}" title="${esc(t('cal_tip', fmtDate(iso), n))}" aria-label="${esc(t('cal_tip', fmtDate(iso), n))}"></button>`;
   }
-  const days = Array.from({ length: 7 }, (_, i) => { const d = new Date(start); d.setDate(d.getDate() + i); return i % 2 ? '<span></span>' : `<span>${esc(wFmt.format(d).replace('.', ''))}</span>`; }).join('');
-  let panel = `<p class="cal-pick muted">${esc(t('cal_pick'))}</p>`;
+  // January and the first month carry the year; a first month with too few weeks to hold its name gives way (and its year) to the next one
+  if (mLabels.length > 1 && mLabels[1].w - mLabels[0].w < 4) { mLabels[1].yr = true; mLabels.shift(); }
+  const months = mLabels.map(l => `<span style="grid-column:${l.w + 1}">${esc(l.name + (l.yr ? ` ${l.year}` : ''))}</span>`).join('');
+  const days = Array.from({ length: 7 }, (_, i) => { const d = new Date(start); d.setDate(d.getDate() + i); return `<span>${esc(wFmt.format(d).replace('.', ''))}</span>`; }).join('');   // every day named: ma di wo do vr za zo
+  let panel = '';
   if (ui.calDay) {
     const day = acts.filter(a => a.date === ui.calDay).sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
     const go = a => `<p class="cal-go"><button class="btn small" type="button" data-action="go-activity" data-id="${esc(a.id)}">${esc(t('cal_go'))} →</button></p>`;
@@ -14873,12 +14931,20 @@ function dashCalendar() {
       <button class="btn small ghost" type="button" data-action="cal-close" aria-label="${esc(t('cal_close'))}">${esc(t('cal_close'))} ▴</button></div>
       ${day.length ? `<div class="act-list">${day.map(a => activityCard(a, go(a))).join('')}</div>` : `<p class="muted">${esc(t('cal_none'))}</p>`}</div>`;
   }
-  return dashCard('cal_h', 'cal_note', `<div class="cal-wrap"><div class="cal-m" aria-hidden="true">${months}</div><div class="cal-days" aria-hidden="true">${days}</div><div class="cal">${cells}</div></div>
-    <div class="cal-foot"><span>${esc(t('cal_sum', total, gap))}</span><span class="cal-leg" aria-hidden="true">${esc(t('cal_less'))} <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> ${esc(t('cal_more'))}</span></div>
-    ${panel}`);
+  const cols = ` style="grid-template-columns:repeat(${WEEKS}, minmax(6px, 1fr));min-width:${WEEKS * 8}px"`;   // the weeks share the width
+  return `<div class="cal-wrap"><div class="cal-m" aria-hidden="true"${cols}>${months}</div><div class="cal-days" aria-hidden="true">${days}</div><div class="cal"${cols}>${cells}</div></div>
+    <div class="cal-foot"><span>${esc(t('cal_span', total, fmtDate(isoOf(firstDay))))}</span><span class="cal-leg" aria-hidden="true">${esc(t('cal_less'))} <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> ${esc(t('cal_more'))}</span></div>
+    ${panel}`;
+}
+/* the card: title, the period buttons (All time, Past 2 years, Past year, Past 6 months) and, on Activiteiten, Inklappen; page is 'act' or 'dash' */
+function calendarCard(page) {
+  const foldable = page === 'act', open = !foldable || ui.calOpen[page], range = ui.calRange[page];
+  const ranges = `<div class="sex-pick tier-filter cal-ranges" role="group" aria-label="${esc(t('cal_ranges'))}">${CAL_RANGES.map(r => `<button type="button" data-action="cal-range" data-page="${page}" data-id="${r}" aria-pressed="${range === r}">${esc(t('cal_r_' + r))}</button>`).join('')}</div>`;
+  return `<section class="card dash-card cal-card${open ? '' : ' shut'}"><div class="cal-top"><h2>${esc(t('cal_h'))}</h2>${open ? ranges : ''}${foldable ? `<button type="button" class="btn small ghost cal-fold" data-action="cal-fold" data-page="${page}" aria-expanded="${open}">${esc(t(open ? 'cal_close' : 'cal_open'))} ${open ? '▴' : '▾'}</button>` : ''}</div>
+    ${open ? `<p class="dash-note">${esc(t('cal_note_all'))}</p>${calendarBody(range)}` : ''}</section>`;
 }
 /* One graph: a line per series through one point per month, the months named under it, and the crosshair's data.
-   Both dashboard graphs use it, each with its own months and smooth/straight choice; a series with fill
+   Both dashboard graphs use it, each with its own months; the mastered-goals graph has a smooth/straight choice; a series with fill
    gets the area under its line shaded. */
 function dashPlot(shown, labels, aria, emptyMsg, straight, rel) {
   // rel: values are percentages on a fixed 0-100% scale
@@ -14914,15 +14980,14 @@ function viewGoals(cov) {
   const list = all.filter(g => ui.goalSubj.has(g.subject) && (!q || norm(searchText(g)).includes(q)));
   const allOn = shownSubj.every(k => ui.goalSubj.has(k));
   let h = exampleBanner();
-  h += `<section class="page-head"><div><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a>.</p></div></section>`;
-  h += `<div class="toolbar">
+  h += `<section class="page-head"><div class="head-inline"><h1>${esc(t('h_goals'))}</h1><p class="lede">${esc(t('goals_lede'))} <a href="https://onderwijsdoelen.be" target="_blank" rel="noopener">onderwijsdoelen.be</a></p></div></section>`;
+  h += `<div class="toolbar goal-tools">
       <select class="select" id="goal-tier" aria-label="${esc(t('tier_aria'))}">${tierOptions(tier)}</select>
       <input class="search" id="goal-search" type="search" placeholder="${esc(t('search_goals'))}" value="${esc(ui.goalSearch)}" aria-label="${esc(t('search_goals'))}"></div>
-    <p class="filter-hint">${esc(t('filter_hint'))}</p>
-    <div class="chips-filter" role="group" aria-label="${esc(t('filter_subject'))}">
+    <div class="subject-filter" title="${esc(t('filter_hint'))}"><span class="subject-filter-lbl">${esc(t('filter'))}</span><div class="chips-filter subject-chips" role="group" aria-label="${esc(t('filter_subject'))}">
       <button class="fchip" data-action="goal-filter-all" aria-pressed="${allOn}">${bt('all_subjects')}</button>
       ${SUBJECTS.filter(s => shownSubj.includes(s.key)).map(s => `<button class="fchip" style="--c:${sv(s.key)}" data-action="goal-filter" data-key="${s.key}" aria-pressed="${ui.goalSubj.has(s.key)}"><span class="dot"></span>${bName(s.key, mixed ? null : tier)}</button>`).join('')}
-    </div>
+    </div></div>
     <p class="count-line">${esc(t('count_line', list.length, all.length, kids.length))}</p>`;
   const MAX = 400;
   h += `<ul class="card goal-list">${list.slice(0, MAX).map(g => `<li class="goal-row">
@@ -15561,7 +15626,9 @@ main.addEventListener('click', e => {
     case 'am-all': ui.amAll = !ui.amAll; return render();
     case 'cal-close': ui.calDay = null; return render();
     case 'cal-day': ui.calDay = ui.calDay === id ? null : id; return render();
-    case 'go-activity': ui.actSearch = ''; ui.actChild = ''; ui.goAct = id; location.hash = 'activiteiten'; return;
+    case 'go-activity': ui.actSearch = ''; ui.actChild = ''; ui.actDayFrom = ''; ui.actDayUntil = ''; ui.goAct = id; if (ui.view === 'activiteiten') { ui.calDay = null; return render(); }   // the day panel shut, so the list holds the only copy location.hash = 'activiteiten'; return;
+    case 'cal-range': { const p = b.dataset.page === 'dash' ? 'dash' : 'act'; if (CAL_RANGES.includes(id)) { ui.calRange[p] = id; try { localStorage.setItem(CAL_KEYS[p][1], id); } catch (err) {} } return render(); }
+    case 'cal-fold': { const p = b.dataset.page === 'dash' ? 'dash' : 'act'; ui.calOpen[p] = !ui.calOpen[p]; try { localStorage.setItem(CAL_KEYS[p][0], ui.calOpen[p] ? 'open' : 'closed'); } catch (err) {} return render(); }
     case 'dash-kid': ui.dashOff.has(id) ? ui.dashOff.delete(id) : ui.dashOff.add(id); saveDash(); return render();
     case 'ext-tip': return toast(t('ext_tip'));
     case 'kid-tier': { const v = b.dataset.tier; ui.childTiers.has(v) ? ui.childTiers.delete(v) : ui.childTiers.add(v); return render(); }
@@ -15611,6 +15678,9 @@ main.addEventListener('input', e => {
 });
 main.addEventListener('change', e => {
   if (e.target.id === 'act-child') { ui.actChild = e.target.value; render(); }
+  if (e.target.id === 'act-from') { ui.actDayFrom = e.target.value; render(); }
+  if (e.target.id === 'act-until') { ui.actDayUntil = e.target.value; render(); }
+  if (e.target.id === 'act-sort' && ACT_SORTS.includes(e.target.value)) { ui.actSort = e.target.value; try { localStorage.setItem(ACT_SORT_KEY, ui.actSort); } catch (err) {} render(); }
   if (e.target.id === 'goal-tier') { ui.goalTier = e.target.value; render(); }
   if (e.target.id === 'child-sort' && KID_SORTS.includes(e.target.value)) { ui.childSort = e.target.value; try { localStorage.setItem(KID_SORT_KEY, ui.childSort); } catch (err) {} render(); }
   // dashboard months: the other end follows when the range would turn round or pass DASH_MAX months

@@ -173,9 +173,8 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .btn.btn-icon.del:hover { color: var(--danger); border-color: var(--danger); }
 
 /* page head */
-.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; min-height: 40px; }   /* the height of the add buttons, so the title sits at the same place on every page, with or without a button */
 .page-head > div:first-child { min-width: 0; }
-.h-count { font-size: .66em; }   /* the number after a page title: Kinderen (10) */
 .lede { color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; max-width: 70ch; }
 .head-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 /* the actions next to a page title belong together, so they share one look (no highlighted one) */
@@ -300,6 +299,8 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cal { display: grid; grid-template-columns: repeat(53, minmax(8px, 1fr)); grid-template-rows: repeat(7, auto); gap: 3px; min-width: 580px; }
 .cal-d { aspect-ratio: 1; border: 0; padding: 0; border-radius: 2px; background: var(--surface-2); cursor: pointer; }
 .cal-d:hover, .cal-d:focus-visible, .cal-d.on { outline: 2px solid var(--fg); outline-offset: 1px; }
+/* Saturday and Sunday: a thin, gentle brown edge inside the block (at 66%), so the weekend reads as its own strip */
+.cal-d.we { box-shadow: inset 0 0 0 1px color-mix(in srgb, light-dark(#B4936F, #8C6B4E) 66%, transparent); }
 .cal-d.today { box-shadow: inset 0 0 0 1.5px var(--fg); }
 .cal .l1, .cal-leg .l1 { background: color-mix(in srgb, var(--accent) 35%, var(--surface-2)); }
 .cal .l2, .cal-leg .l2 { background: color-mix(in srgb, var(--accent) 60%, var(--surface-2)); }
@@ -308,12 +309,19 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cal-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: .78rem; color: var(--muted); }
 .cal-leg { display: inline-flex; align-items: center; gap: 3px; }
 .cal-leg i { width: 11px; height: 11px; border-radius: 2px; background: var(--surface-2); display: inline-block; }
-.cal-pick { margin: 0; font-size: .84rem; }
 .cal-panel { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 10px; }
 .cal-panel h3 { margin: 0; font-size: .95rem; }
 .cal-ph { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .cal-panel .act { box-shadow: none; }
 .cal-go { margin: 10px 0 0; }
+/* Activiteiten: the same calendar under the filters, from the first activity on, lower and foldable by its head */
+.cal-card { margin: 16px 0 4px; padding: 12px 20px 12px; gap: 10px; }
+.cal-top { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+.cal-top h2 { margin: 0 auto 0 0; font-size: 1.05rem; }   /* as the dashboard card titles; the buttons go right */
+.cal-ranges { height: 32px; gap: 6px; }
+.cal-card .cal { gap: 2px; }
+.cal-card .cal-days { gap: 2px; grid-template-rows: repeat(7, 11px); line-height: 11px; }   /* all seven days named, each on its 11px row */
+.cal-card .cal-d { aspect-ratio: auto; height: 11px; }   /* a fixed height: the weeks since the first activity share the width */
 /* an activity reached from the dashboard calendar lights up for a moment */
 .act.flash { animation: act-flash 2.4s ease-out; }
 @keyframes act-flash { 0%, 35% { box-shadow: 0 0 0 3px var(--accent); } 100% { box-shadow: var(--shadow); } }
@@ -353,7 +361,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 
 /* child cards */
 .child-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
-.child-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 16px; }   /* footer at the bottom, so cards in a row line up */
+.child-card { display: grid; grid-template-rows: auto auto auto 1fr; gap: 12px; padding: 16px; }   /* head, buttons, figures, bars */
 .cc-head { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
 .cc-id { min-width: 0; flex: 1; }
 .cc-id h2 { white-space: nowrap; overflow: hidden; }   /* a long name stays on one line and is cut off at the edge (full name on hover) */
@@ -380,8 +388,9 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 /* activity tags: how often a subject or goal came up, counted apart from the mastered total */
 .touch { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: .76rem; font-weight: 500; color: var(--fg); white-space: nowrap; }
 .touch.zero { color: var(--muted); opacity: .6; }
-.cc-foot { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 12px; }
-/* edit and delete sit apart, bottom right; delete only turns red on hover */
+/* the buttons sit between the head and the figures row (whose top line closes them off) */
+.cc-actions { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 12px; }
+/* edit and delete sit apart, on the right; delete only turns red on hover */
 .cc-edit { margin-left: auto; }
 
 /* toolbar */
@@ -398,9 +407,17 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 }
 .kid-order .sort-by > span { align-self: center; }
 .kid-order .select { width: 220px; }   /* 25% wider than its content needed in Dutch */
-.kid-order .search { flex: 1 1 220px; height: 37px; }   /* the search takes the rest of the row (its own line on a phone) */
+.kid-order .search { flex: 1 1 220px; height: 37px; }
+.goal-tools .select, .goal-tools .search { height: 37px; }   /* Doelen: the same field height as on Kinderen and Activiteiten */   /* the search takes the rest of the row (its own line on a phone) */
 /* the boy / girl filter: the same look as the boy / girl choice, as buttons that switch on and off */
 .kid-order .sort-by > .sex-pick + .sex-pick { margin-left: 2px; }   /* the levels right after boy / girl */
+/* Activiteiten: the same row, with Vanaf / Tot en met dates and the child dropdown as the filters */
+.act-order .date-in { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; }
+.act-order .date-in input { width: auto; height: 37px; color: var(--fg); }
+.act-order .act-child { width: auto; }
+/* a page title with its line beside it instead of under it (Kinderen, Activiteiten) */
+.head-inline { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; }
+.head-inline .lede { margin-top: 0; }
 .tier-filter button { border: 0; border-radius: calc(var(--r-sm) - 2px); background: none; cursor: pointer; color: var(--muted); padding: 0 10px; font: inherit; font-size: .82rem; font-weight: 700; white-space: nowrap; }
 .tier-filter button:hover { color: var(--fg); }
 .tier-filter button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
@@ -410,13 +427,18 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .sex-filter svg { width: 20px; height: 20px; display: block; }
 .search { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 12px; }
 .select { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 8px 10px; max-width: 100%; }
-.filter-hint { color: var(--muted); font-size: .84rem; }   /* the line above the subject buttons of the goals tab */
+/* Doelen: the label 'Filter' in its own column, the subject buttons wrap to its right, never under it */
+.subject-filter { display: flex; align-items: flex-start; gap: 10px; }
+.subject-filter-lbl { flex: none; line-height: 29px; color: var(--muted); font-size: .84rem; font-weight: 700; }   /* as Sorteer op / Filter on Kinderen, level with the first row of buttons */
+.subject-filter .chips-filter { flex: 1; min-width: 0; }
 .chips-filter { display: flex; flex-wrap: wrap; gap: 6px; }
 .fchip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 10px 4px 8px; cursor: pointer; font-size: .82rem; font-weight: 700; color: var(--muted); }
 .fchip .dot { opacity: .35; }
 .fchip .bi { justify-items: start; }   /* keep the subject name next to its dot */
 .fchip[aria-pressed="true"] { color: var(--fg); border-color: color-mix(in srgb, var(--c, var(--fg)) 55%, var(--line)); background: color-mix(in srgb, var(--c, var(--fg)) 12%, var(--surface)); }
 .fchip[aria-pressed="true"] .dot { opacity: 1; }
+/* Doelen: the subject buttons as boxes the size of the Kinderen filter buttons (29px high, same corners and padding) */
+.subject-chips .fchip { height: 29px; border-radius: calc(var(--r-sm) - 2px); padding: 0 10px; }
 .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--muted)); flex: none; display: inline-block; }
 .count-line { color: var(--muted); font-size: .84rem; font-variant-numeric: tabular-nums; }
 
