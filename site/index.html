@@ -350,6 +350,7 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .rep-seg { flex-wrap: wrap; }
 .rep-seg button { min-height: 29px; }
 .rep-kids { display: flex; flex-wrap: wrap; gap: 6px 18px; flex: 1; min-width: 0; }   /* many children wrap in their own column */
+.rep-who { align-items: flex-start; }   /* Kinderen / Kind stays on the first line, also when the children wrap */
 #rep-child { height: 22.5px; padding-block: 0; }   /* as tall as the checkbox line, so switching Globaal / Per kind does not move the rows below */
 .rep-kids label, .rep-check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
 .rep-form input[type="checkbox"] { accent-color: var(--accent); }
@@ -15383,7 +15384,7 @@ function viewReporting() {
       <label class="date-in"><span>${esc(t('rep_until'))}</span><input class="select" id="rep-until" type="date" value="${esc(r.until)}"></label></div>` : '';
   return h + `<section class="card rep-form"><fieldset ${r.busy ? 'disabled' : ''}>
     <div class="rep-row"><span class="rep-lbl">${esc(t('rep_type'))}</span>${seg('rep-kind', r.kind, [['global', 'rep_global'], ['child', 'rep_child']], t('rep_type'))}</div>
-    <div class="rep-row"><span class="rep-lbl">${esc(t(r.kind === 'global' ? 'rep_children' : 'rep_pick_child'))}</span>${who}</div>
+    <div class="rep-row rep-who"><span class="rep-lbl">${esc(t(r.kind === 'global' ? 'rep_children' : 'rep_pick_child'))}</span>${who}</div>
     <div class="rep-row"><span class="rep-lbl">${esc(t('rep_period'))}</span>${seg('rep-period', r.period, Report.PERIODS.map(p => [p, 'rep_p_' + p]), t('rep_period'))}</div>
     ${own}
     <div class="rep-indent"><label class="rep-check"><input type="checkbox" id="rep-photos" ${r.photos ? 'checked' : ''}> ${esc(t('rep_photos'))}</label></div>

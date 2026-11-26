@@ -1300,7 +1300,7 @@ function viewReporting() {
       <label class="date-in"><span>${esc(t('rep_until'))}</span><input class="select" id="rep-until" type="date" value="${esc(r.until)}"></label></div>` : '';
   return h + `<section class="card rep-form"><fieldset ${r.busy ? 'disabled' : ''}>
     <div class="rep-row"><span class="rep-lbl">${esc(t('rep_type'))}</span>${seg('rep-kind', r.kind, [['global', 'rep_global'], ['child', 'rep_child']], t('rep_type'))}</div>
-    <div class="rep-row"><span class="rep-lbl">${esc(t(r.kind === 'global' ? 'rep_children' : 'rep_pick_child'))}</span>${who}</div>
+    <div class="rep-row rep-who"><span class="rep-lbl">${esc(t(r.kind === 'global' ? 'rep_children' : 'rep_pick_child'))}</span>${who}</div>
     <div class="rep-row"><span class="rep-lbl">${esc(t('rep_period'))}</span>${seg('rep-period', r.period, Report.PERIODS.map(p => [p, 'rep_p_' + p]), t('rep_period'))}</div>
     ${own}
     <div class="rep-indent"><label class="rep-check"><input type="checkbox" id="rep-photos" ${r.photos ? 'checked' : ''}> ${esc(t('rep_photos'))}</label></div>
