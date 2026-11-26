@@ -325,20 +325,24 @@ main { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 2
 .cal-card .cal-days { gap: 2px; grid-template-rows: repeat(7, 11px); line-height: 11px; }   /* all seven days named, each on its 11px row */
 .cal-card .cal-d { aspect-ratio: auto; height: 11px; }   /* a fixed height: the weeks since the first activity share the width */
 /* Rapportering form: label left, choices right; the rows wrap on a phone */
-.rep-form { padding: 18px 20px; }
+.rep-form { padding: 18px 20px; --rep-col: 132px; }   /* label column (120px, fits 'Kind of report') + the 12px gap: every control starts here */
 .rep-form fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 16px; }
-.rep-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; min-width: 0; }
-.rep-lbl { font-weight: 700; min-width: 96px; }
+.rep-row { display: flex; align-items: center; gap: 8px 12px; min-width: 0; }
+.rep-lbl { font-weight: 700; flex: 0 0 calc(var(--rep-col) - 12px); }
 .rep-seg { flex-wrap: wrap; }
 .rep-seg button { min-height: 29px; }
-.rep-kids { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.rep-kids { display: flex; flex-wrap: wrap; gap: 6px 18px; flex: 1; min-width: 0; }   /* many children wrap in their own column */
 #rep-child { height: 22.5px; padding-block: 0; }   /* as tall as the checkbox line, so switching Globaal / Per kind does not move the rows below */
 .rep-kids label, .rep-check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
 .rep-form input[type="checkbox"] { accent-color: var(--accent); }
 .rep-form .date-in { display: inline-flex; align-items: center; gap: 6px; }
 .rep-form .date-in > span { min-width: 34px; }   /* Van / Tot line up */
-.rep-dates { padding-left: 108px; }
-@media (max-width: 560px) { .rep-dates { padding-left: 0; } }
+.rep-indent { padding-left: var(--rep-col); }
+@media (max-width: 560px) {   /* phone: label above its control, everything from the left edge */
+  .rep-row { flex-wrap: wrap; }
+  .rep-lbl { flex-basis: 100%; }
+  .rep-indent { padding-left: 0; }
+}
 /* an activity reached from the dashboard calendar lights up for a moment */
 .act.flash { animation: act-flash 2.4s ease-out; }
 @keyframes act-flash { 0%, 35% { box-shadow: 0 0 0 3px var(--accent); } 100% { box-shadow: var(--shadow); } }

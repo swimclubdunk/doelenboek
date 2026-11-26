@@ -1295,7 +1295,7 @@ function viewReporting() {
   const who = r.kind === 'global'
     ? `<div class="rep-kids">${kids.map(c => `<label><input type="checkbox" data-rep-kid="${esc(c.id)}" ${r.off.has(c.id) ? '' : 'checked'}> ${esc(c.name)}</label>`).join('')}</div>`
     : `<select class="select" id="rep-child" aria-label="${esc(t('rep_pick_child'))}">${kids.map(c => `<option value="${esc(c.id)}" ${c.id === r.child ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select>`;
-  const own = r.period === 'custom' ? `<div class="rep-row rep-dates">
+  const own = r.period === 'custom' ? `<div class="rep-row rep-indent">
       <label class="date-in"><span>${esc(t('rep_from'))}</span><input class="select" id="rep-from" type="date" value="${esc(r.from)}"></label>
       <label class="date-in"><span>${esc(t('rep_until'))}</span><input class="select" id="rep-until" type="date" value="${esc(r.until)}"></label></div>` : '';
   return h + `<section class="card rep-form"><fieldset ${r.busy ? 'disabled' : ''}>
@@ -1303,8 +1303,8 @@ function viewReporting() {
     <div class="rep-row"><span class="rep-lbl">${esc(t(r.kind === 'global' ? 'rep_children' : 'rep_pick_child'))}</span>${who}</div>
     <div class="rep-row"><span class="rep-lbl">${esc(t('rep_period'))}</span>${seg('rep-period', r.period, Report.PERIODS.map(p => [p, 'rep_p_' + p]), t('rep_period'))}</div>
     ${own}
-    <label class="rep-check"><input type="checkbox" id="rep-photos" ${r.photos ? 'checked' : ''}> ${esc(t('rep_photos'))}</label>
-    <div><button class="btn primary" type="button" id="rep-run" data-action="rep-run">${esc(r.busy || t('rep_download'))}</button></div>
+    <div class="rep-indent"><label class="rep-check"><input type="checkbox" id="rep-photos" ${r.photos ? 'checked' : ''}> ${esc(t('rep_photos'))}</label></div>
+    <div class="rep-indent"><button class="btn primary" type="button" id="rep-run" data-action="rep-run">${esc(r.busy || t('rep_download'))}</button></div>
   </fieldset></section>`;
 }
 /* The builder's input: per chosen child its level's goals in display order and language, its ticks on them, its colour
